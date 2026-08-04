@@ -747,4 +747,103 @@ td strong {
   .price-comparison {
     text-align: left;
   }
+}.invoice-stats {
+  margin-bottom: 17px;
+}
+
+.invoices-page-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.invoice-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.invoice-search {
+  flex: 1;
+  max-width: 420px;
+}
+
+.invoice-filter {
+  width: 180px;
+}
+
+.invoice-search label,
+.invoice-filter label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--text-soft);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.invoice-search input,
+.invoice-filter select {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  outline: none;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.invoice-search input:focus,
+.invoice-filter select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+
+.invoices-page-panel table {
+  min-width: 900px;
+}
+
+.invoices-page-panel th,
+.invoices-page-panel td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.invoices-page-panel th:first-child,
+.invoices-page-panel td:first-child {
+  padding-left: 22px;
+}
+
+.invoices-page-panel th:last-child,
+.invoices-page-panel td:last-child {
+  padding-right: 22px;
+}
+
+.row-action {
+  padding: 6px 10px;
+  border-radius: 7px;
+  background: var(--surface-soft);
+  color: var(--green);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.row-action:hover {
+  background: var(--green-soft);
+}
+
+@media (max-width: 700px) {
+  .invoice-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .invoice-search,
+  .invoice-filter {
+    width: 100%;
+    max-width: none;
+  }
 }
