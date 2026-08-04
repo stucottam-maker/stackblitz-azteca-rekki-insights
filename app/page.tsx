@@ -1,113 +1,361 @@
-import Image from 'next/image';
+import Link from "next/link";
 
-export default function Home() {
+const stats = [
+  {
+    label: "Spend this month",
+    value: "£18,420",
+    change: "+4.2% vs last month",
+    tone: "negative",
+  },
+  {
+    label: "Average food cost",
+    value: "28.6%",
+    change: "Target: 27%",
+    tone: "warning",
+  },
+  {
+    label: "Invoices processed",
+    value: "47",
+    change: "3 awaiting review",
+    tone: "neutral",
+  },
+  {
+    label: "Price increases",
+    value: "14",
+    change: "In the last 30 days",
+    tone: "negative",
+  },
+];
+
+const suppliers = [
+  {
+    name: "Smithfield Butchers",
+    category: "Meat",
+    spend: "£6,840",
+    percentage: 37,
+  },
+  {
+    name: "Direct Seafoods",
+    category: "Fish",
+    spend: "£3,260",
+    percentage: 18,
+  },
+  {
+    name: "Fresh Direct",
+    category: "Fruit & vegetables",
+    spend: "£2,970",
+    percentage: 16,
+  },
+  {
+    name: "Mexgrocer",
+    category: "Dry goods",
+    spend: "£2,140",
+    percentage: 12,
+  },
+];
+
+const priceAlerts = [
+  {
+    ingredient: "Ribeye",
+    supplier: "Smithfield Butchers",
+    previousPrice: "£16.20/kg",
+    currentPrice: "£17.50/kg",
+    change: "+8.0%",
+  },
+  {
+    ingredient: "Short rib",
+    supplier: "Smithfield Butchers",
+    previousPrice: "£9.10/kg",
+    currentPrice: "£9.85/kg",
+    change: "+8.2%",
+  },
+  {
+    ingredient: "Tuna loin",
+    supplier: "Direct Seafoods",
+    previousPrice: "£18.90/kg",
+    currentPrice: "£20.10/kg",
+    change: "+6.3%",
+  },
+];
+
+const recentInvoices = [
+  {
+    supplier: "Smithfield Butchers",
+    invoiceNumber: "INV-10482",
+    date: "3 Aug 2026",
+    total: "£1,284.60",
+    status: "Approved",
+  },
+  {
+    supplier: "Direct Seafoods",
+    invoiceNumber: "DS-88341",
+    date: "2 Aug 2026",
+    total: "£746.20",
+    status: "Review",
+  },
+  {
+    supplier: "Fresh Direct",
+    invoiceNumber: "FD-62017",
+    date: "2 Aug 2026",
+    total: "£438.75",
+    status: "Approved",
+  },
+  {
+    supplier: "Mexgrocer",
+    invoiceNumber: "MX-21983",
+    date: "1 Aug 2026",
+    total: "£392.40",
+    status: "Approved",
+  },
+];
+
+const foodCostAlerts = [
+  {
+    dish: "Ribeye",
+    foodCost: "34.2%",
+    target: "30%",
+  },
+  {
+    dish: "Tuna tostada",
+    foodCost: "31.8%",
+    target: "29%",
+  },
+  {
+    dish: "Birria tacos",
+    foodCost: "29.4%",
+    target: "28%",
+  },
+];
+
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="app-shell">
+      <aside className="sidebar">
+        <div className="brand">
+          <div className="brand-mark">A</div>
+
+          <div>
+            <p className="brand-name">Azteca Insights</p>
+            <p className="brand-subtitle">Kitchen cost control</p>
+          </div>
         </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <nav className="sidebar-nav" aria-label="Main navigation">
+          <Link className="nav-link nav-link-active" href="/">
+            <span className="nav-icon">⌂</span>
+            Dashboard
+          </Link>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          <Link className="nav-link" href="/invoices">
+            <span className="nav-icon">▤</span>
+            Invoices
+          </Link>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          <Link className="nav-link" href="/ingredients">
+            <span className="nav-icon">◫</span>
+            Ingredients
+          </Link>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+          <Link className="nav-link" href="/recipes">
+            <span className="nav-icon">◇</span>
+            Recipes
+          </Link>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+          <Link className="nav-link" href="/stock">
+            <span className="nav-icon">□</span>
+            Stock counts
+          </Link>
+        </nav>
+
+        <div className="sidebar-footer">
+          <div className="restaurant-card">
+            <div className="restaurant-avatar">AZ</div>
+
+            <div>
+              <p className="restaurant-name">Azteca</p>
+              <p className="restaurant-location">Battersea, London</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section className="main-content">
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">Overview</p>
+            <h1>Good morning, Stu</h1>
+            <p className="page-description">
+              Here is what is happening with your kitchen costs.
+            </p>
+          </div>
+
+          <Link className="primary-button" href="/invoices/upload">
+            <span aria-hidden="true">＋</span>
+            Upload invoice
+          </Link>
+        </header>
+
+        <section className="stats-grid" aria-label="Summary">
+          {stats.map((stat) => (
+            <article className="stat-card" key={stat.label}>
+              <p className="stat-label">{stat.label}</p>
+              <p className="stat-value">{stat.value}</p>
+              <p className={`stat-change ${stat.tone}`}>{stat.change}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="dashboard-grid">
+          <article className="panel supplier-panel">
+            <div className="panel-header">
+              <div>
+                <p className="panel-kicker">Purchasing</p>
+                <h2>Supplier spend</h2>
+              </div>
+
+              <button className="text-button" type="button">
+                View report
+              </button>
+            </div>
+
+            <div className="supplier-list">
+              {suppliers.map((supplier) => (
+                <div className="supplier-row" key={supplier.name}>
+                  <div className="supplier-details">
+                    <div>
+                      <p className="supplier-name">{supplier.name}</p>
+                      <p className="muted-text">{supplier.category}</p>
+                    </div>
+
+                    <p className="supplier-spend">{supplier.spend}</p>
+                  </div>
+
+                  <div
+                    className="progress-track"
+                    aria-label={`${supplier.name}: ${supplier.percentage}% of supplier spend`}
+                  >
+                    <div
+                      className="progress-value"
+                      style={{ width: `${supplier.percentage}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel alerts-panel">
+            <div className="panel-header">
+              <div>
+                <p className="panel-kicker">Attention needed</p>
+                <h2>Price increases</h2>
+              </div>
+
+              <span className="alert-count">{priceAlerts.length}</span>
+            </div>
+
+            <div className="alert-list">
+              {priceAlerts.map((alert) => (
+                <div className="price-alert" key={alert.ingredient}>
+                  <div>
+                    <p className="alert-ingredient">{alert.ingredient}</p>
+                    <p className="muted-text">{alert.supplier}</p>
+                  </div>
+
+                  <div className="price-comparison">
+                    <p>
+                      <span>{alert.previousPrice}</span>
+                      <span aria-hidden="true"> → </span>
+                      <strong>{alert.currentPrice}</strong>
+                    </p>
+
+                    <span className="increase-badge">{alert.change}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+
+        <section className="dashboard-grid lower-grid">
+          <article className="panel invoices-panel">
+            <div className="panel-header">
+              <div>
+                <p className="panel-kicker">Latest activity</p>
+                <h2>Recent invoices</h2>
+              </div>
+
+              <Link className="text-button" href="/invoices">
+                View all
+              </Link>
+            </div>
+
+            <div className="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Supplier</th>
+                    <th>Invoice</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {recentInvoices.map((invoice) => (
+                    <tr key={invoice.invoiceNumber}>
+                      <td>
+                        <strong>{invoice.supplier}</strong>
+                      </td>
+                      <td>{invoice.invoiceNumber}</td>
+                      <td>{invoice.date}</td>
+                      <td>{invoice.total}</td>
+                      <td>
+                        <span
+                          className={`status-badge ${
+                            invoice.status === "Approved"
+                              ? "status-approved"
+                              : "status-review"
+                          }`}
+                        >
+                          {invoice.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article className="panel food-cost-panel">
+            <div className="panel-header">
+              <div>
+                <p className="panel-kicker">Menu costing</p>
+                <h2>Above target</h2>
+              </div>
+            </div>
+
+            <div className="food-cost-list">
+              {foodCostAlerts.map((item) => (
+                <div className="food-cost-row" key={item.dish}>
+                  <div>
+                    <p className="food-cost-dish">{item.dish}</p>
+                    <p className="muted-text">Target {item.target}</p>
+                  </div>
+
+                  <p className="food-cost-value">{item.foodCost}</p>
+                </div>
+              ))}
+            </div>
+
+            <Link className="secondary-button" href="/recipes">
+              Review recipe costs
+            </Link>
+          </article>
+        </section>
+      </section>
     </main>
   );
 }
