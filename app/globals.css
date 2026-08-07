@@ -1260,4 +1260,22 @@ td strong {
 
 .review-lines-panel {
   margin-top: 18px;
+}.empty-extraction {
+  padding: 36px 20px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  text-align: center;
+}
+
+.empty-extraction p {
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.empty-extraction span {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 11px;
 }
