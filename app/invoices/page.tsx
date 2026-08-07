@@ -1,90 +1,124 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-const invoices = [
-  {
-    supplier: "Albion Fine Foods",
-    invoiceNumber: "INV-10482",
-    date: "3 Aug 2026",
-    subtotal: "£1,284.60",
-    vat: "£0.00",
-    total: "£1,284.60",
-    status: "Approved",
-  },
-  {
-    supplier: "Crazy Dan's House of Meat",
-    invoiceNumber: "DS-88341",
-    date: "2 Aug 2026",
-    subtotal: "£746.20",
-    vat: "£0.00",
-    total: "£746.20",
-    status: "Review",
-  },
-  {
-    supplier: "Fin and Flounder",
-    invoiceNumber: "FD-62017",
-    date: "2 Aug 2026",
-    subtotal: "£365.63",
-    vat: "£73.12",
-    total: "£438.75",
-    status: "Approved",
-  },
-  {
-    supplier: "Mexgrocer",
-    invoiceNumber: "MX-21983",
-    date: "1 Aug 2026",
-    subtotal: "£327.00",
-    vat: "£65.40",
-    total: "£392.40",
-    status: "Approved",
-  },
-  {
-    supplier: "James Knight of Mayfair",
-    invoiceNumber: "INV-10421",
-    date: "29 Jul 2026",
-    subtotal: "£968.40",
-    vat: "£0.00",
-    total: "£968.40",
-    status: "Approved",
-  },
-  {
-    supplier: "Woods Foodservice",
-    invoiceNumber: "DS-88176",
-    date: "28 Jul 2026",
-    subtotal: "£514.80",
-    vat: "£0.00",
-    total: "£514.80",
-    status: "Approved",
-  },
-  {
-    supplier: "Raynor Hygiene",
-    invoiceNumber: "DS-88176",
-    date: "28 Jul 2026",
-    subtotal: "£514.80",
-    vat: "£0.00",
-    total: "£514.80",
-    status: "Approved",
-  },
-  {
-    supplier: "Big K Charcoal",
-    invoiceNumber: "DS-88176",
-    date: "28 Jul 2026",
-    subtotal: "£514.80",
-    vat: "£0.00",
-    total: "£514.80",
-    status: "Approved",
-  },
-  {
-    supplier: "Ascot Wholesale",
-    invoiceNumber: "DS-88176",
-    date: "28 Jul 2026",
-    subtotal: "£514.80",
-    vat: "£0.00",
-    total: "£514.80",
-    status: "Approved",
-  },
-];
+export default function UploadInvoicePage() {
+  const router = useRouter();
 
-export default function InvoicesPage() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] ?? null;
+
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setSelectedFile(file);
+
+    if (file && file.type.startsWith("image/")) {
+      setPreviewUrl(URL.createObjectURL(file));
+    } else {
+      setPreviewUrl(null);
+    }
+  }
+
+  function removeFile() {
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setSelectedFile(null);
+    setPreviewUrl(null);
+
+    const input = document.getElementById(
+      "invoice-file"
+    ) as HTMLInputElement | null;
+
+    if (input) {
+      input.value = "";
+    }
+
+    sessionStorage.removeItem("invoiceFileName");
+    sessionStorage.removeItem("invoiceFileType");
+    sessionStorage.removeItem("invoiceFileSize");
+    sessionStorage.removeItem("invoicePreviewUrl");
+    sessionStorage.removeItem("invoiceExtraction");
+  }
+
+  async function continueToReview() {
+    if (!selectedFile || isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      const response = await fetch("/api/invoices/extract", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+
+        throw new Error(
+          errorData?.error || "Invoice processing failed."
+        );
+      }
+
+      const data = await response.json();
+
+      console.log("Invoice API response:", data);
+
+      sessionStorage.setItem(
+        "invoiceFileName",
+        selectedFile.name
+      );
+
+      sessionStorage.setItem(
+        "invoiceFileType",
+        selectedFile.type
+      );
+
+      sessionStorage.setItem(
+        "invoiceFileSize",
+        String(selectedFile.size)
+      );
+
+      if (previewUrl) {
+        sessionStorage.setItem(
+          "invoicePreviewUrl",
+          previewUrl
+        );
+      } else {
+        sessionStorage.removeItem("invoicePreviewUrl");
+      }
+
+      sessionStorage.setItem(
+        "invoiceExtraction",
+        JSON.stringify(data.invoice)
+      );
+
+      router.push("/invoices/review");
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        error instanceof Error
+          ? error.message
+          : "There was a problem processing the invoice."
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  }
+
   return (
     <main className="app-shell">
       <aside className="sidebar">
@@ -93,22 +127,33 @@ export default function InvoicesPage() {
 
           <div>
             <p className="brand-name">Azteca Insights</p>
-            <p className="brand-subtitle">Kitchen cost control</p>
+            <p className="brand-subtitle">
+              Kitchen cost control
+            </p>
           </div>
         </div>
 
-        <nav className="sidebar-nav" aria-label="Main navigation">
+        <nav
+          className="sidebar-nav"
+          aria-label="Main navigation"
+        >
           <Link className="nav-link" href="/">
             <span className="nav-icon">⌂</span>
             Dashboard
           </Link>
 
-          <Link className="nav-link nav-link-active" href="/invoices">
+          <Link
+            className="nav-link nav-link-active"
+            href="/invoices"
+          >
             <span className="nav-icon">▤</span>
             Invoices
           </Link>
 
-          <Link className="nav-link" href="/ingredients">
+          <Link
+            className="nav-link"
+            href="/ingredients"
+          >
             <span className="nav-icon">◫</span>
             Ingredients
           </Link>
@@ -130,126 +175,339 @@ export default function InvoicesPage() {
 
             <div>
               <p className="restaurant-name">Azteca</p>
-              <p className="restaurant-location">Battersea, London</p>
+              <p className="restaurant-location">
+                Battersea, London
+              </p>
             </div>
           </div>
         </div>
       </aside>
 
       <section className="main-content">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">Purchasing</p>
-            <h1>Invoices</h1>
-            <p className="page-description">
-              Upload, review and track supplier invoices.
+        <div className="upload-page">
+          <header className="upload-header">
+            <Link
+              className="back-link"
+              href="/invoices"
+            >
+              ← Back to invoices
+            </Link>
+
+            <p className="eyebrow">
+              Invoice processing
             </p>
-          </div>
 
-          <Link className="primary-button" href="/invoices/upload">
-            <span aria-hidden="true">＋</span>
-            Upload invoice
-          </Link>
-        </header>
+            <h1>Upload invoice</h1>
 
-        <section className="stats-grid invoice-stats">
-          <article className="stat-card">
-            <p className="stat-label">Spend this month</p>
-            <p className="stat-value">£18,420</p>
-            <p className="stat-change negative">+4.2% vs last month</p>
-          </article>
+            <p className="page-description">
+              Upload a supplier invoice and we’ll extract
+              the key details for review.
+            </p>
+          </header>
 
-          <article className="stat-card">
-            <p className="stat-label">Invoices this month</p>
-            <p className="stat-value">47</p>
-            <p className="stat-change neutral">Across 8 suppliers</p>
-          </article>
+          <section className="upload-layout">
+            <article className="panel upload-panel">
+              <div className="upload-panel-heading">
+                <p className="panel-kicker">Step 1</p>
 
-          <article className="stat-card">
-            <p className="stat-label">Awaiting review</p>
-            <p className="stat-value">3</p>
-            <p className="stat-change warning">Action required</p>
-          </article>
+                <h2>Select invoice</h2>
 
-          <article className="stat-card">
-            <p className="stat-label">Average invoice</p>
-            <p className="stat-value">£391.91</p>
-            <p className="stat-change neutral">Current month</p>
-          </article>
-        </section>
+                <p className="upload-help">
+                  Upload a PDF, JPG or PNG. Clear photos
+                  work best.
+                </p>
+              </div>
 
-        <section className="panel invoices-page-panel">
-          <div className="invoice-toolbar">
-            <div className="invoice-search">
-              <label htmlFor="invoice-search">Search invoices</label>
-              <input
-                id="invoice-search"
-                name="invoice-search"
-                placeholder="Supplier or invoice number"
-                type="search"
-              />
-            </div>
+              <label
+                className="dropzone"
+                htmlFor="invoice-file"
+              >
+                <input
+                  id="invoice-file"
+                  name="invoice-file"
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  onChange={handleFileChange}
+                  disabled={isProcessing}
+                />
 
-            <div className="invoice-filter">
-              <label htmlFor="invoice-status">Status</label>
-              <select id="invoice-status" name="invoice-status" defaultValue="all">
-                <option value="all">All statuses</option>
-                <option value="approved">Approved</option>
-                <option value="review">Needs review</option>
-              </select>
-            </div>
-          </div>
+                <div className="dropzone-icon">
+                  {selectedFile ? "✓" : "↑"}
+                </div>
 
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Supplier</th>
-                  <th>Invoice number</th>
-                  <th>Date</th>
-                  <th>Subtotal</th>
-                  <th>VAT</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th />
-                </tr>
-              </thead>
+                <div>
+                  <p className="dropzone-title">
+                    {selectedFile
+                      ? "Invoice selected"
+                      : "Choose an invoice"}
+                  </p>
 
-              <tbody>
-                {invoices.map((invoice) => (
-                  <tr key={invoice.invoiceNumber}>
-                    <td>
-                      <strong>{invoice.supplier}</strong>
-                    </td>
-                    <td>{invoice.invoiceNumber}</td>
-                    <td>{invoice.date}</td>
-                    <td>{invoice.subtotal}</td>
-                    <td>{invoice.vat}</td>
-                    <td>
-                      <strong>{invoice.total}</strong>
-                    </td>
-                    <td>
-                      <span
-                        className={`status-badge ${
-                          invoice.status === "Approved"
-                            ? "status-approved"
-                            : "status-review"
-                        }`}
-                      >
-                        {invoice.status}
+                  <p className="dropzone-text">
+                    {selectedFile
+                      ? "Choose another file if you want to replace it"
+                      : "Click to browse or drag a file here"}
+                  </p>
+                </div>
+
+                <span className="file-types">
+                  PDF · JPG · PNG
+                </span>
+              </label>
+
+              {selectedFile && (
+                <div className="selected-file-card">
+                  <div>
+                    <p className="selected-file-name">
+                      {selectedFile.name}
+                    </p>
+
+                    <p className="selected-file-meta">
+                      {(
+                        selectedFile.size /
+                        1024 /
+                        1024
+                      ).toFixed(2)}{" "}
+                      MB ·{" "}
+                      {selectedFile.type ||
+                        "Unknown file type"}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="remove-file-button"
+                    onClick={removeFile}
+                    disabled={isProcessing}
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+
+              {previewUrl && (
+                <div className="invoice-preview">
+                  <img
+                    src={previewUrl}
+                    alt="Selected invoice preview"
+                  />
+                </div>
+              )}
+
+              {selectedFile &&
+                selectedFile.type ===
+                  "application/pdf" && (
+                  <div className="pdf-preview-card">
+                    <div className="pdf-preview-icon">
+                      PDF
+                    </div>
+
+                    <div>
+                      <p className="selected-file-name">
+                        PDF invoice ready
+                      </p>
+
+                      <p className="selected-file-meta">
+                        The PDF will be processed on the
+                        review step.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+              <div className="upload-divider">
+                <span>Invoice details</span>
+              </div>
+
+              <div className="form-grid">
+                <div className="form-field">
+                  <label htmlFor="supplier">
+                    Supplier
+                  </label>
+
+                  <select
+                    id="supplier"
+                    defaultValue=""
+                    disabled={isProcessing}
+                  >
+                    <option value="" disabled>
+                      Select supplier
+                    </option>
+
+                    <option>
+                      Albion Fine Foods
+                    </option>
+
+                    <option>
+                      Crazy Dan&apos;s House of Meat
+                    </option>
+
+                    <option>
+                      Fin and Flounder
+                    </option>
+
+                    <option>
+                      Mexgrocer
+                    </option>
+
+                    <option>
+                      James Knight of Mayfair
+                    </option>
+                  </select>
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="invoice-number">
+                    Invoice number
+                  </label>
+
+                  <input
+                    id="invoice-number"
+                    placeholder="Will be extracted automatically"
+                    type="text"
+                    disabled={isProcessing}
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="invoice-date">
+                    Invoice date
+                  </label>
+
+                  <input
+                    id="invoice-date"
+                    type="date"
+                    disabled={isProcessing}
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="invoice-total">
+                    Invoice total
+                  </label>
+
+                  <div className="currency-input">
+                    <span>£</span>
+
+                    <input
+                      id="invoice-total"
+                      inputMode="decimal"
+                      placeholder="0.00"
+                      type="text"
+                      disabled={isProcessing}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="upload-actions">
+                <Link
+                  className="cancel-button"
+                  href="/invoices"
+                >
+                  Cancel
+                </Link>
+
+                <button
+                  className="primary-button"
+                  type="button"
+                  disabled={
+                    !selectedFile || isProcessing
+                  }
+                  onClick={continueToReview}
+                >
+                  {isProcessing
+                    ? "Processing invoice..."
+                    : "Continue to review →"}
+                </button>
+              </div>
+            </article>
+
+            <aside className="upload-side-column">
+              <article className="panel process-card">
+                <p className="panel-kicker">
+                  What happens next
+                </p>
+
+                <h2>Invoice review</h2>
+
+                <div className="process-list">
+                  <div className="process-item">
+                    <span className="process-number">
+                      1
+                    </span>
+
+                    <div>
+                      <p>Read the invoice</p>
+
+                      <span>
+                        Supplier, invoice number, date,
+                        totals and products.
                       </span>
-                    </td>
-                    <td>
-                      <button className="row-action" type="button">
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+                    </div>
+                  </div>
+
+                  <div className="process-item">
+                    <span className="process-number">
+                      2
+                    </span>
+
+                    <div>
+                      <p>Check line items</p>
+
+                      <span>
+                        Review product names,
+                        quantities, pack sizes and
+                        prices.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="process-item">
+                    <span className="process-number">
+                      3
+                    </span>
+
+                    <div>
+                      <p>Match ingredients</p>
+
+                      <span>
+                        Link supplier products to your
+                        master ingredient list.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="process-item">
+                    <span className="process-number">
+                      4
+                    </span>
+
+                    <div>
+                      <p>Update costings</p>
+
+                      <span>
+                        New prices feed into
+                        ingredient and recipe costs.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article className="upload-tip">
+                <p className="upload-tip-title">
+                  Tip
+                </p>
+
+                <p>
+                  For paper invoices, photograph the page
+                  from directly above and make sure all
+                  four corners are visible.
+                </p>
+              </article>
+            </aside>
+          </section>
+        </div>
       </section>
     </main>
   );
