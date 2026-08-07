@@ -206,20 +206,25 @@ export default function UploadInvoicePage() {
               </div>
 
               <div className="form-grid">
-                <div className="form-field">
-                  <label htmlFor="supplier">Supplier</label>
+  <div className="form-field">
+    <label htmlFor="supplier">Supplier</label>
 
-                  <select id="supplier" defaultValue="">
-                    <option value="" disabled>
-                      Select supplier
-                    </option>
+    <select id="supplier" defaultValue="">
+      <option value="" disabled>
+        Select supplier
+      </option>
 
-                    <option>Smithfield Butchers</option>
-                    <option>Direct Seafoods</option>
-                    <option>Fresh Direct</option>
-                    <option>Mexgrocer</option>
-                  </select>
-                </div>
+      <option>Albion Fine Foods</option>
+      <option>Crazy Dan&apos;s House of Meat</option>
+      <option>Fin and Flounder</option>
+      <option>Mexgrocer</option>
+      <option>James Knight of Mayfair</option>
+      <option>Woods Fine Foods</option>
+      <option>Big K Charcoal</option>
+      <option>Raynor Hygiene</option>
+      <option>Ascot Wholesale</option>
+    </select>
+  </div>
 
                 <div className="form-field">
                   <label htmlFor="invoice-number">
