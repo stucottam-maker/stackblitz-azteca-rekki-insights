@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function UploadInvoicePage() {
+  const router = useRouter();
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -38,6 +41,27 @@ export default function UploadInvoicePage() {
     if (input) {
       input.value = "";
     }
+
+    sessionStorage.removeItem("invoiceFileName");
+    sessionStorage.removeItem("invoiceFileType");
+    sessionStorage.removeItem("invoiceFileSize");
+    sessionStorage.removeItem("invoicePreviewUrl");
+  }
+
+  function continueToReview() {
+    if (!selectedFile) return;
+
+    sessionStorage.setItem("invoiceFileName", selectedFile.name);
+    sessionStorage.setItem("invoiceFileType", selectedFile.type);
+    sessionStorage.setItem("invoiceFileSize", String(selectedFile.size));
+
+    if (previewUrl) {
+      sessionStorage.setItem("invoicePreviewUrl", previewUrl);
+    } else {
+      sessionStorage.removeItem("invoicePreviewUrl");
+    }
+
+    router.push("/invoices/review");
   }
 
   return (
@@ -94,20 +118,18 @@ export default function UploadInvoicePage() {
       <section className="main-content">
         <div className="upload-page">
           <header className="upload-header">
-            <div>
-              <Link className="back-link" href="/invoices">
-                ← Back to invoices
-              </Link>
+            <Link className="back-link" href="/invoices">
+              ← Back to invoices
+            </Link>
 
-              <p className="eyebrow">Invoice processing</p>
+            <p className="eyebrow">Invoice processing</p>
 
-              <h1>Upload invoice</h1>
+            <h1>Upload invoice</h1>
 
-              <p className="page-description">
-                Upload a supplier invoice and we’ll extract the key details for
-                review.
-              </p>
-            </div>
+            <p className="page-description">
+              Upload a supplier invoice and we’ll extract the key details for
+              review.
+            </p>
           </header>
 
           <section className="upload-layout">
@@ -206,25 +228,21 @@ export default function UploadInvoicePage() {
               </div>
 
               <div className="form-grid">
-  <div className="form-field">
-    <label htmlFor="supplier">Supplier</label>
+                <div className="form-field">
+                  <label htmlFor="supplier">Supplier</label>
 
-    <select id="supplier" defaultValue="">
-      <option value="" disabled>
-        Select supplier
-      </option>
+                  <select id="supplier" defaultValue="">
+                    <option value="" disabled>
+                      Select supplier
+                    </option>
 
-      <option>Albion Fine Foods</option>
-      <option>Crazy Dan&apos;s House of Meat</option>
-      <option>Fin and Flounder</option>
-      <option>Mexgrocer</option>
-      <option>James Knight of Mayfair</option>
-      <option>Woods Fine Foods</option>
-      <option>Big K Charcoal</option>
-      <option>Raynor Hygiene</option>
-      <option>Ascot Wholesale</option>
-    </select>
-  </div>
+                    <option>Albion Fine Foods</option>
+                    <option>Crazy Dan&apos;s House of Meat</option>
+                    <option>Fin and Flounder</option>
+                    <option>Mexgrocer</option>
+                    <option>James Knight of Mayfair</option>
+                  </select>
+                </div>
 
                 <div className="form-field">
                   <label htmlFor="invoice-number">
@@ -276,6 +294,7 @@ export default function UploadInvoicePage() {
                   className="primary-button"
                   type="button"
                   disabled={!selectedFile}
+                  onClick={continueToReview}
                 >
                   Continue to review →
                 </button>

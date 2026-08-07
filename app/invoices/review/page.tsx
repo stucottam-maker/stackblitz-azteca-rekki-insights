@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const lineItems = [
   {
@@ -28,6 +31,27 @@ const lineItems = [
 ];
 
 export default function InvoiceReviewPage() {
+  const [fileName, setFileName] = useState("");
+  const [fileType, setFileType] = useState("");
+  const [fileSize, setFileSize] = useState("");
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedName = sessionStorage.getItem("invoiceFileName") ?? "";
+    const storedType = sessionStorage.getItem("invoiceFileType") ?? "";
+    const storedSize = sessionStorage.getItem("invoiceFileSize") ?? "";
+    const storedPreview = sessionStorage.getItem("invoicePreviewUrl");
+
+    setFileName(storedName);
+    setFileType(storedType);
+    setFileSize(storedSize);
+    setPreviewUrl(storedPreview);
+  }, []);
+
+  const sizeInMb = fileSize
+    ? (Number(fileSize) / 1024 / 1024).toFixed(2)
+    : "";
+
   return (
     <main className="app-shell">
       <aside className="sidebar">
@@ -35,12 +59,12 @@ export default function InvoiceReviewPage() {
           <div className="brand-mark">A</div>
 
           <div>
-            <p className="brand-name">Azteca Insights</p>
+            <p className="brand-name">Insights</p>
             <p className="brand-subtitle">Kitchen cost control</p>
           </div>
         </div>
 
-        <nav className="sidebar-nav">
+        <nav className="sidebar-nav" aria-label="Main navigation">
           <Link className="nav-link" href="/">
             <span className="nav-icon">⌂</span>
             Dashboard
@@ -66,6 +90,17 @@ export default function InvoiceReviewPage() {
             Stock counts
           </Link>
         </nav>
+
+        <div className="sidebar-footer">
+          <div className="restaurant-card">
+            <div className="restaurant-avatar">AZ</div>
+
+            <div>
+              <p className="restaurant-name">Azteca</p>
+              <p className="restaurant-location">Battersea, London</p>
+            </div>
+          </div>
+        </div>
       </aside>
 
       <section className="main-content">
@@ -76,25 +111,70 @@ export default function InvoiceReviewPage() {
             </Link>
 
             <p className="eyebrow">Invoice processing</p>
+
             <h1>Review invoice</h1>
 
             <p className="page-description">
-              Check the extracted invoice details before approving.
+              Check the uploaded invoice and extracted details before approval.
             </p>
           </header>
 
           <section className="dashboard-grid">
             <article className="panel">
-              <p className="panel-kicker">Invoice</p>
-              <h2>Invoice preview</h2>
-
-              <div className="review-preview-placeholder">
-                Invoice preview will appear here
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">Uploaded file</p>
+                  <h2>Invoice preview</h2>
+                </div>
               </div>
+
+              {previewUrl ? (
+                <div className="review-image-preview">
+                  <img src={previewUrl} alt="Uploaded invoice preview" />
+                </div>
+              ) : fileType === "application/pdf" ? (
+                <div className="review-pdf-preview">
+                  <div className="pdf-preview-icon">PDF</div>
+
+                  <div>
+                    <p className="selected-file-name">
+                      {fileName || "Uploaded PDF"}
+                    </p>
+
+                    <p className="selected-file-meta">
+                      PDF preview will be added when we connect file storage.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="review-preview-placeholder">
+                  No invoice preview available
+                </div>
+              )}
+
+              {fileName && (
+                <div className="review-file-info">
+                  <div>
+                    <span>File</span>
+                    <strong>{fileName}</strong>
+                  </div>
+
+                  <div>
+                    <span>Size</span>
+                    <strong>{sizeInMb ? `${sizeInMb} MB` : "—"}</strong>
+                  </div>
+
+                  <div>
+                    <span>Type</span>
+                    <strong>{fileType || "Unknown"}</strong>
+                  </div>
+                </div>
+              )}
             </article>
 
             <article className="panel">
               <p className="panel-kicker">Extracted details</p>
+
               <h2>Invoice information</h2>
 
               <div className="review-details">
@@ -114,6 +194,16 @@ export default function InvoiceReviewPage() {
                 </div>
 
                 <div>
+                  <span>Subtotal</span>
+                  <strong>£1,070.50</strong>
+                </div>
+
+                <div>
+                  <span>VAT</span>
+                  <strong>£214.10</strong>
+                </div>
+
+                <div>
                   <span>Total</span>
                   <strong>£1,284.60</strong>
                 </div>
@@ -128,7 +218,7 @@ export default function InvoiceReviewPage() {
                 <h2>Line items</h2>
               </div>
 
-              <span className="alert-count">3</span>
+              <span className="alert-count">{lineItems.length}</span>
             </div>
 
             <div className="table-wrapper">
@@ -150,12 +240,15 @@ export default function InvoiceReviewPage() {
                       <td>
                         <strong>{item.product}</strong>
                       </td>
+
                       <td>{item.quantity}</td>
                       <td>{item.pack}</td>
                       <td>{item.unitPrice}</td>
+
                       <td>
                         <strong>{item.total}</strong>
                       </td>
+
                       <td>
                         <span
                           className={`status-badge ${
