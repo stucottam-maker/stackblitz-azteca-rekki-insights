@@ -1,7 +1,45 @@
 "use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function UploadInvoicePage() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] ?? null;
+
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setSelectedFile(file);
+
+    if (file && file.type.startsWith("image/")) {
+      setPreviewUrl(URL.createObjectURL(file));
+    } else {
+      setPreviewUrl(null);
+    }
+  }
+
+  function removeFile() {
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setSelectedFile(null);
+    setPreviewUrl(null);
+
+    const input = document.getElementById(
+      "invoice-file"
+    ) as HTMLInputElement | null;
+
+    if (input) {
+      input.value = "";
+    }
+  }
+
   return (
     <main className="app-shell">
       <aside className="sidebar">
@@ -62,7 +100,9 @@ export default function UploadInvoicePage() {
               </Link>
 
               <p className="eyebrow">Invoice processing</p>
+
               <h1>Upload invoice</h1>
+
               <p className="page-description">
                 Upload a supplier invoice and we’ll extract the key details for
                 review.
@@ -74,7 +114,9 @@ export default function UploadInvoicePage() {
             <article className="panel upload-panel">
               <div className="upload-panel-heading">
                 <p className="panel-kicker">Step 1</p>
+
                 <h2>Select invoice</h2>
+
                 <p className="upload-help">
                   Upload a PDF, JPG or PNG. Clear photos work best.
                 </p>
@@ -86,19 +128,78 @@ export default function UploadInvoicePage() {
                   name="invoice-file"
                   type="file"
                   accept=".pdf,.jpg,.jpeg,.png"
+                  onChange={handleFileChange}
                 />
 
-                <div className="dropzone-icon">↑</div>
+                <div className="dropzone-icon">
+                  {selectedFile ? "✓" : "↑"}
+                </div>
 
                 <div>
-                  <p className="dropzone-title">Choose an invoice</p>
+                  <p className="dropzone-title">
+                    {selectedFile
+                      ? "Invoice selected"
+                      : "Choose an invoice"}
+                  </p>
+
                   <p className="dropzone-text">
-                    Click to browse or drag a file here
+                    {selectedFile
+                      ? "Choose another file if you want to replace it"
+                      : "Click to browse or drag a file here"}
                   </p>
                 </div>
 
                 <span className="file-types">PDF · JPG · PNG</span>
               </label>
+
+              {selectedFile && (
+                <div className="selected-file-card">
+                  <div>
+                    <p className="selected-file-name">
+                      {selectedFile.name}
+                    </p>
+
+                    <p className="selected-file-meta">
+                      {(selectedFile.size / 1024 / 1024).toFixed(2)} MB ·{" "}
+                      {selectedFile.type || "Unknown file type"}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="remove-file-button"
+                    onClick={removeFile}
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+
+              {previewUrl && (
+                <div className="invoice-preview">
+                  <img
+                    src={previewUrl}
+                    alt="Selected invoice preview"
+                  />
+                </div>
+              )}
+
+              {selectedFile &&
+                selectedFile.type === "application/pdf" && (
+                  <div className="pdf-preview-card">
+                    <div className="pdf-preview-icon">PDF</div>
+
+                    <div>
+                      <p className="selected-file-name">
+                        PDF invoice ready
+                      </p>
+
+                      <p className="selected-file-meta">
+                        The PDF will be processed on the review step.
+                      </p>
+                    </div>
+                  </div>
+                )}
 
               <div className="upload-divider">
                 <span>Invoice details</span>
@@ -107,10 +208,12 @@ export default function UploadInvoicePage() {
               <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="supplier">Supplier</label>
+
                   <select id="supplier" defaultValue="">
                     <option value="" disabled>
                       Select supplier
                     </option>
+
                     <option>Smithfield Butchers</option>
                     <option>Direct Seafoods</option>
                     <option>Fresh Direct</option>
@@ -119,7 +222,10 @@ export default function UploadInvoicePage() {
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="invoice-number">Invoice number</label>
+                  <label htmlFor="invoice-number">
+                    Invoice number
+                  </label>
+
                   <input
                     id="invoice-number"
                     placeholder="Will be extracted automatically"
@@ -128,15 +234,21 @@ export default function UploadInvoicePage() {
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="invoice-date">Invoice date</label>
+                  <label htmlFor="invoice-date">
+                    Invoice date
+                  </label>
+
                   <input id="invoice-date" type="date" />
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="invoice-total">Invoice total</label>
+                  <label htmlFor="invoice-total">
+                    Invoice total
+                  </label>
 
                   <div className="currency-input">
                     <span>£</span>
+
                     <input
                       id="invoice-total"
                       inputMode="decimal"
@@ -148,11 +260,18 @@ export default function UploadInvoicePage() {
               </div>
 
               <div className="upload-actions">
-                <Link className="cancel-button" href="/invoices">
+                <Link
+                  className="cancel-button"
+                  href="/invoices"
+                >
                   Cancel
                 </Link>
 
-                <button className="primary-button" type="button">
+                <button
+                  className="primary-button"
+                  type="button"
+                  disabled={!selectedFile}
+                >
                   Continue to review →
                 </button>
               </div>
@@ -160,46 +279,61 @@ export default function UploadInvoicePage() {
 
             <aside className="upload-side-column">
               <article className="panel process-card">
-                <p className="panel-kicker">What happens next</p>
+                <p className="panel-kicker">
+                  What happens next
+                </p>
+
                 <h2>Invoice review</h2>
 
                 <div className="process-list">
                   <div className="process-item">
                     <span className="process-number">1</span>
+
                     <div>
                       <p>Read the invoice</p>
+
                       <span>
-                        Supplier, invoice number, date, totals and products.
+                        Supplier, invoice number, date, totals
+                        and products.
                       </span>
                     </div>
                   </div>
 
                   <div className="process-item">
                     <span className="process-number">2</span>
+
                     <div>
                       <p>Check line items</p>
+
                       <span>
-                        Review product names, quantities, pack sizes and prices.
+                        Review product names, quantities, pack
+                        sizes and prices.
                       </span>
                     </div>
                   </div>
 
                   <div className="process-item">
                     <span className="process-number">3</span>
+
                     <div>
                       <p>Match ingredients</p>
+
                       <span>
-                        Link supplier products to your master ingredient list.
+                        Link supplier products to your master
+                        ingredient list.
                       </span>
                     </div>
                   </div>
 
                   <div className="process-item">
                     <span className="process-number">4</span>
+
                     <div>
                       <p>Update costings</p>
+
                       <span>
-                        New prices feed into ingredient and recipe costs.
+                        New prices feed into ingredient and
+                        recipe costs.
                       </span>
                     </div>
                   </div>
@@ -208,9 +342,11 @@ export default function UploadInvoicePage() {
 
               <article className="upload-tip">
                 <p className="upload-tip-title">Tip</p>
+
                 <p>
-                  For paper invoices, photograph the page from directly above
-                  and make sure all four corners are visible.
+                  For paper invoices, photograph the page from
+                  directly above and make sure all four corners
+                  are visible.
                 </p>
               </article>
             </aside>
