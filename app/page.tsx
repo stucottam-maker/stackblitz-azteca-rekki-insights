@@ -135,7 +135,7 @@ export default function HomePage() {
           <div className="brand-mark">A</div>
 
           <div>
-            <p className="brand-name">Azteca Insights</p>
+            <p className="brand-name">Insights</p>
             <p className="brand-subtitle">Kitchen cost control</p>
           </div>
         </div>
@@ -183,7 +183,7 @@ export default function HomePage() {
         <header className="topbar">
           <div>
             <p className="eyebrow">Overview</p>
-            <h1>Good morning, Stu</h1>
+            <h1>Good morning</h1>
             <p className="page-description">
               Here is what is happening with your kitchen costs.
             </p>
