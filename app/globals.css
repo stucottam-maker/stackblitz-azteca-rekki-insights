@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --background: #f4f3ef;
   --surface: #ffffff;
@@ -48,10 +44,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--text);
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -83,13 +76,19 @@ h3 {
   margin: 0;
 }
 
+/* =========================
+   APP SHELL
+========================= */
+
 .app-shell {
   display: grid;
   grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
   min-height: 100vh;
 }
 
-/* Sidebar */
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar {
   position: sticky;
@@ -208,7 +207,9 @@ h3 {
   font-size: 11px;
 }
 
-/* Main content */
+/* =========================
+   MAIN CONTENT
+========================= */
 
 .main-content {
   min-width: 0;
@@ -243,6 +244,10 @@ h1 {
   color: var(--text-soft);
   font-size: 14px;
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 .primary-button,
 .secondary-button,
@@ -298,7 +303,9 @@ h1 {
   font-weight: 750;
 }
 
-/* Summary cards */
+/* =========================
+   STAT CARDS
+========================= */
 
 .stats-grid {
   display: grid;
@@ -347,7 +354,9 @@ h1 {
   color: var(--text-soft);
 }
 
-/* Panels */
+/* =========================
+   PANELS
+========================= */
 
 .dashboard-grid {
   display: grid;
@@ -398,7 +407,9 @@ h1 {
   font-size: 11px;
 }
 
-/* Supplier spending */
+/* =========================
+   SUPPLIER SPEND
+========================= */
 
 .supplier-list {
   display: flex;
@@ -438,7 +449,9 @@ h1 {
   background: var(--green);
 }
 
-/* Price alerts */
+/* =========================
+   PRICE ALERTS
+========================= */
 
 .alert-count {
   display: grid;
@@ -506,7 +519,9 @@ h1 {
   font-weight: 800;
 }
 
-/* Tables */
+/* =========================
+   TABLES
+========================= */
 
 .table-wrapper {
   overflow-x: auto;
@@ -571,7 +586,9 @@ td strong {
   color: var(--yellow);
 }
 
-/* Food cost */
+/* =========================
+   FOOD COST
+========================= */
 
 .food-cost-list {
   display: flex;
@@ -603,7 +620,9 @@ td strong {
   font-weight: 800;
 }
 
-/* Invoices page */
+/* =========================
+   INVOICES PAGE
+========================= */
 
 .invoice-stats {
   margin-bottom: 17px;
@@ -693,7 +712,9 @@ td strong {
   background: var(--green-soft);
 }
 
-/* Upload page */
+/* =========================
+   UPLOAD PAGE
+========================= */
 
 .upload-page {
   max-width: 1180px;
@@ -984,7 +1005,9 @@ td strong {
   line-height: 1.55;
 }
 
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 1100px) {
   .stats-grid {
@@ -1023,10 +1046,6 @@ td strong {
   }
 
   .brand > div:last-child,
-  .nav-link:not(.nav-link-active) {
-    font-size: 0;
-  }
-
   .brand-name,
   .brand-subtitle,
   .restaurant-card > div:last-child {
@@ -1036,10 +1055,6 @@ td strong {
   .nav-link {
     justify-content: center;
     padding-inline: 0;
-    font-size: 0;
-  }
-
-  .nav-link-active {
     font-size: 0;
   }
 
@@ -1096,10 +1111,6 @@ td strong {
 }
 
 @media (max-width: 560px) {
-  :root {
-    --sidebar-width: 0px;
-  }
-
   .app-shell {
     display: block;
   }
@@ -1128,9 +1139,7 @@ td strong {
     margin-top: 14px;
   }
 
-  .nav-link,
-  .nav-link-active,
-  .nav-link:not(.nav-link-active) {
+  .nav-link {
     flex-direction: column;
     gap: 4px;
     padding: 8px 3px;
