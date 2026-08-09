@@ -1083,6 +1083,8 @@ export default function OrdersPage() {
           </section>
         )}
       </section>
-    </main>
-  );
-}s
+      </main>
+
+);
+
+}
