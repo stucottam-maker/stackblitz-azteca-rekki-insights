@@ -133,6 +133,45 @@ export default function InvoiceReviewPage() {
       return "Cod";
     }
 
+    if (value.includes("stonebass")) {
+      return "Stonebass";
+    }
+
+    if (value.includes("trout")) {
+      return "Trout";
+    }
+
+    if (value.includes("salmon")) {
+      return "Salmon";
+    }
+
+    if (value.includes("ribeye")) {
+      return "Ribeye";
+    }
+
+    if (value.includes("short rib")) {
+      return "Short rib";
+    }
+
+    if (value.includes("pork belly")) {
+      return "Pork belly";
+    }
+
+    if (
+      value.includes("chicken thigh") ||
+      value.includes("chicken thighs")
+    ) {
+      return "Chicken thigh";
+    }
+
+    if (value.includes("birria")) {
+      return "Birria beef";
+    }
+
+    if (value.includes("carnitas")) {
+      return "Carnitas pork";
+    }
+
     return "";
   }
 
@@ -268,6 +307,14 @@ export default function InvoiceReviewPage() {
           >
             <span className="nav-icon">◇</span>
             Recipes
+          </Link>
+
+          <Link
+            className="nav-link"
+            href="/menu"
+          >
+            <span className="nav-icon">☰</span>
+            Menu
           </Link>
 
           <Link
