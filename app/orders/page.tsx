@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../components/Sidebar";
 
@@ -29,24 +28,25 @@ type OrderLine = {
   supplierProduct: string;
   stockQty: number;
   stockUnit: string;
-  parLevel: number;
-  suggestedQty: number;
   orderQty: number;
   orderUnit: string;
   unitPrice: number | null;
-  notes: string;
+  suggestedQty: number;
 };
 
 type PurchaseOrder = {
   id: string;
   supplier: string;
   createdAt: string;
-  status: "Draft" | "Sent";
+  status: "Sent";
   lines: OrderLine[];
   estimatedTotal: number;
 };
 
-type PageTab = "draft" | "sent" | "history";
+type OrderStep =
+  | "start"
+  | "order"
+  | "review";
 
 function money(value: number) {
   return new Intl.NumberFormat("en-GB", {
@@ -69,24 +69,15 @@ function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "short",
-    year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
   }).format(date);
 }
 
-function calculateLineTotal(line: OrderLine) {
-  if (line.unitPrice === null) {
-    return 0;
-  }
-
-  return line.orderQty * line.unitPrice;
-}
-
 function buildOrderLines(
   ingredientPrices: Record<string, IngredientPrice>,
   currentStock: StockItem[]
-) {
+): OrderLine[] {
   const names = Array.from(
     new Set([
       ...Object.keys(ingredientPrices),
@@ -94,7 +85,7 @@ function buildOrderLines(
     ])
   );
 
-  return names.map((name, index): OrderLine => {
+  return names.map((name, index) => {
     const price = ingredientPrices[name];
 
     const stock =
@@ -104,26 +95,21 @@ function buildOrderLines(
           name.toLowerCase()
       ) ?? null;
 
-    const stockQty = Number(stock?.quantity ?? 0);
+    const stockQty =
+      Number(stock?.quantity ?? 0);
 
     const stockUnit =
       stock?.unit ||
       price?.unit ||
       "kg";
 
-    const defaultPar =
+    const suggestedQty =
       stockQty > 0
-        ? round(stockQty * 1.5)
+        ? round(stockQty * 0.5)
         : 0;
 
-    const suggestedQty =
-      Math.max(
-        defaultPar - stockQty,
-        0
-      );
-
     return {
-      id: `line-${index}-${name}`,
+      id: `order-${index}-${name}`,
       ingredient: name,
       supplier:
         price?.supplier ||
@@ -133,23 +119,24 @@ function buildOrderLines(
         price?.product || "",
       stockQty,
       stockUnit,
-      parLevel: defaultPar,
-      suggestedQty,
-      orderQty: suggestedQty,
+      orderQty: 0,
       orderUnit:
         price?.unit ||
         stock?.unit ||
         "kg",
       unitPrice:
         price?.price ?? null,
-      notes: "",
+      suggestedQty,
     };
   });
 }
 
 export default function OrdersPage() {
-  const [tab, setTab] =
-    useState<PageTab>("draft");
+  const [step, setStep] =
+    useState<OrderStep>("start");
+
+  const [selectedSupplier, setSelectedSupplier] =
+    useState("");
 
   const [lines, setLines] =
     useState<OrderLine[]>([]);
@@ -177,34 +164,14 @@ export default function OrdersPage() {
         items?: StockItem[];
       };
 
-    const existingDraft =
-      localStorage.getItem(
-        "draftOrderLines"
-      );
+    setLines(
+      buildOrderLines(
+        ingredientPrices,
+        stockTake.items ?? []
+      )
+    );
 
-    if (existingDraft) {
-      try {
-        setLines(
-          JSON.parse(existingDraft)
-        );
-      } catch {
-        setLines(
-          buildOrderLines(
-            ingredientPrices,
-            stockTake.items ?? []
-          )
-        );
-      }
-    } else {
-      setLines(
-        buildOrderLines(
-          ingredientPrices,
-          stockTake.items ?? []
-        )
-      );
-    }
-
-    const storedPOs =
+    const storedOrders =
       JSON.parse(
         localStorage.getItem(
           "purchaseOrders"
@@ -212,213 +179,196 @@ export default function OrdersPage() {
       ) as PurchaseOrder[];
 
     setPurchaseOrders(
-      storedPOs
+      storedOrders
     );
   }, []);
 
-  const filteredLines =
+  const suppliers =
+    useMemo(() => {
+      return Array.from(
+        new Set(
+          lines
+            .map((line) => line.supplier)
+            .filter(
+              (supplier) =>
+                supplier &&
+                supplier !== "Unassigned"
+            )
+        )
+      ).sort();
+    }, [lines]);
+
+  const supplierLines =
     useMemo(() => {
       const query =
-        search.trim().toLowerCase();
+        search
+          .trim()
+          .toLowerCase();
 
-      return lines.filter((line) => {
-        return (
-          !query ||
-          line.ingredient
-            .toLowerCase()
-            .includes(query) ||
-          line.supplier
-            .toLowerCase()
-            .includes(query) ||
-          line.supplierProduct
-            .toLowerCase()
-            .includes(query)
-        );
-      });
-    }, [lines, search]);
+      return lines.filter(
+        (line) => {
+          if (
+            line.supplier !==
+            selectedSupplier
+          ) {
+            return false;
+          }
 
-  const supplierGroups =
+          if (!query) {
+            return true;
+          }
+
+          return (
+            line.ingredient
+              .toLowerCase()
+              .includes(query) ||
+            line.supplierProduct
+              .toLowerCase()
+              .includes(query)
+          );
+        }
+      );
+    }, [
+      lines,
+      selectedSupplier,
+      search,
+    ]);
+
+  const selectedOrderLines =
     useMemo(() => {
-      const groups: Record<
-        string,
-        OrderLine[]
-      > = {};
+      return lines.filter(
+        (line) =>
+          line.supplier ===
+            selectedSupplier &&
+          line.orderQty > 0
+      );
+    }, [
+      lines,
+      selectedSupplier,
+    ]);
 
-      filteredLines.forEach((line) => {
-        if (!groups[line.supplier]) {
-          groups[line.supplier] = [];
+  const estimatedTotal =
+    selectedOrderLines.reduce(
+      (total, line) => {
+        if (
+          line.unitPrice === null
+        ) {
+          return total;
         }
 
-        groups[line.supplier].push(line);
-      });
-
-      return groups;
-    }, [filteredLines]);
-
-  const estimatedOrderValue =
-    lines.reduce(
-      (total, line) =>
-        total +
-        calculateLineTotal(line),
+        return (
+          total +
+          line.orderQty *
+            line.unitPrice
+        );
+      },
       0
     );
 
-  const supplierCount =
-    new Set(
-      lines
-        .filter(
-          (line) =>
-            line.orderQty > 0
-        )
-        .map(
-          (line) =>
-            line.supplier
-        )
-    ).size;
-
-  const orderLineCount =
-    lines.filter(
-      (line) =>
-        line.orderQty > 0
-    ).length;
-
-  const needsPriceCount =
-    lines.filter(
-      (line) =>
-        line.orderQty > 0 &&
-        line.unitPrice === null
-    ).length;
-
-  const sentOrders =
-    purchaseOrders.filter(
-      (order) =>
-        order.status === "Sent"
-    );
-
-  const historyOrders =
-    [...purchaseOrders].sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() -
-        new Date(a.createdAt).getTime()
-    );
-
-  function updateLine(
+  function updateOrderQty(
     id: string,
-    field: keyof OrderLine,
-    value: string
+    quantity: number
   ) {
     setLines((current) =>
-      current.map((line) => {
-        if (line.id !== id) {
-          return line;
-        }
+      current.map((line) =>
+        line.id === id
+          ? {
+              ...line,
+              orderQty:
+                Math.max(
+                  round(quantity),
+                  0
+                ),
+            }
+          : line
+      )
+    );
+  }
 
+  function changeQty(
+    line: OrderLine,
+    amount: number
+  ) {
+    updateOrderQty(
+      line.id,
+      line.orderQty +
+        amount
+    );
+  }
+
+  function useSuggested(
+    line: OrderLine
+  ) {
+    updateOrderQty(
+      line.id,
+      line.suggestedQty
+    );
+  }
+
+  function useAllSuggested() {
+    setLines((current) =>
+      current.map((line) => {
         if (
-          field === "stockQty" ||
-          field === "parLevel" ||
-          field === "suggestedQty" ||
-          field === "orderQty"
+          line.supplier !==
+          selectedSupplier
         ) {
-          return {
-            ...line,
-            [field]:
-              value === ""
-                ? 0
-                : Number(value),
-          };
-        }
-
-        if (field === "unitPrice") {
-          return {
-            ...line,
-            unitPrice:
-              value === ""
-                ? null
-                : Number(value),
-          };
-        }
-
-        return {
-          ...line,
-          [field]: value,
-        };
-      })
-    );
-  }
-
-  function recalculateSuggested(
-    id: string
-  ) {
-    setLines((current) =>
-      current.map((line) => {
-        if (line.id !== id) {
           return line;
         }
 
-        const suggested =
-          Math.max(
-            line.parLevel -
-              line.stockQty,
-            0
-          );
-
         return {
           ...line,
-          suggestedQty:
-            round(suggested),
           orderQty:
-            round(suggested),
+            line.suggestedQty,
         };
       })
     );
   }
 
-  function saveDraft() {
-    localStorage.setItem(
-      "draftOrderLines",
-      JSON.stringify(lines)
-    );
-
-    alert(
-      "Draft orders saved."
+  function clearSupplierOrder() {
+    setLines((current) =>
+      current.map((line) =>
+        line.supplier ===
+        selectedSupplier
+          ? {
+              ...line,
+              orderQty: 0,
+            }
+          : line
+      )
     );
   }
 
-  function markSupplierSent(
+  function chooseSupplier(
     supplier: string
   ) {
-    const supplierLines =
-      lines.filter(
-        (line) =>
-          line.supplier ===
-            supplier &&
-          line.orderQty > 0
-      );
+    setSelectedSupplier(
+      supplier
+    );
 
+    setSearch("");
+    setStep("order");
+  }
+
+  function sendOrder() {
     if (
-      supplierLines.length === 0
+      selectedOrderLines.length ===
+      0
     ) {
       alert(
-        "There are no order lines for this supplier."
+        "Add at least one item to the order first."
       );
       return;
     }
 
-    const estimatedTotal =
-      supplierLines.reduce(
-        (total, line) =>
-          total +
-          calculateLineTotal(line),
-        0
-      );
-
     const order: PurchaseOrder = {
       id: `PO-${Date.now()}`,
-      supplier,
+      supplier:
+        selectedSupplier,
       createdAt:
         new Date().toISOString(),
       status: "Sent",
-      lines: supplierLines,
+      lines:
+        selectedOrderLines,
       estimatedTotal,
     };
 
@@ -427,664 +377,589 @@ export default function OrdersPage() {
       ...purchaseOrders,
     ];
 
+    localStorage.setItem(
+      "purchaseOrders",
+      JSON.stringify(
+        nextOrders
+      )
+    );
+
     setPurchaseOrders(
       nextOrders
     );
 
-    localStorage.setItem(
-      "purchaseOrders",
-      JSON.stringify(nextOrders)
-    );
+    clearSupplierOrder();
+
+    setStep("start");
 
     alert(
-      `${supplier} order marked as sent.`
+      `${selectedSupplier} order saved as sent.`
     );
   }
 
-  function clearOrders() {
-    const confirmed =
-      window.confirm(
-        "Clear all order quantities?"
-      );
-
-    if (!confirmed) {
-      return;
-    }
-
-    setLines((current) =>
-      current.map((line) => ({
-        ...line,
-        suggestedQty: 0,
-        orderQty: 0,
-      }))
-    );
-
-    localStorage.removeItem(
-      "draftOrderLines"
-    );
-  }
-
-  function renderOrderTable(
-    supplier: string,
-    supplierLines: OrderLine[]
-  ) {
-    const supplierTotal =
-      supplierLines.reduce(
-        (total, line) =>
-          total +
-          calculateLineTotal(line),
-        0
-      );
-
-    return (
-      <section
-        className="panel order-supplier-panel"
-        key={supplier}
-      >
-        <div className="panel-header">
-          <div>
-            <p className="panel-kicker">
-              Supplier order
-            </p>
-
-            <h2>
-              {supplier}
-            </h2>
-          </div>
-
-          <div className="order-supplier-summary">
-            <strong>
-              {money(
-                supplierTotal
-              )}
-            </strong>
-
-            <button
-              className="secondary-inline-button"
-              type="button"
-              onClick={() =>
-                markSupplierSent(
-                  supplier
-                )
-              }
-            >
-              Mark as sent
-            </button>
-          </div>
-        </div>
-
-        <div className="table-wrapper">
-          <table className="orders-table">
-            <thead>
-              <tr>
-                <th>Ingredient</th>
-                <th>Supplier product</th>
-                <th>Stock</th>
-                <th>Par</th>
-                <th>Suggested</th>
-                <th>Order qty</th>
-                <th>Unit</th>
-                <th>Unit cost</th>
-                <th>Est. total</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {supplierLines.map(
-                (line) => (
-                  <tr
-                    key={line.id}
-                  >
-                    <td>
-                      <strong>
-                        {line.ingredient}
-                      </strong>
-                    </td>
-
-                    <td className="order-product-cell">
-                      {line.supplierProduct ||
-                        "—"}
-                    </td>
-
-                    <td>
-                      <div className="order-stock-cell">
-                        <input
-                          value={
-                            line.stockQty
-                          }
-                          inputMode="decimal"
-                          onChange={(
-                            event
-                          ) =>
-                            updateLine(
-                              line.id,
-                              "stockQty",
-                              event.target.value
-                            )
-                          }
-                        />
-
-                        <span>
-                          {line.stockUnit}
-                        </span>
-                      </div>
-                    </td>
-
-                    <td>
-                      <input
-                        className="order-number-input"
-                        value={
-                          line.parLevel
-                        }
-                        inputMode="decimal"
-                        onChange={(
-                          event
-                        ) =>
-                          updateLine(
-                            line.id,
-                            "parLevel",
-                            event.target.value
-                          )
-                        }
-                        onBlur={() =>
-                          recalculateSuggested(
-                            line.id
-                          )
-                        }
-                      />
-                    </td>
-
-                    <td>
-                      <button
-                        className="suggested-order-button"
-                        type="button"
-                        onClick={() =>
-                          recalculateSuggested(
-                            line.id
-                          )
-                        }
-                      >
-                        {line.suggestedQty}
-                      </button>
-                    </td>
-
-                    <td>
-                      <input
-                        className="order-number-input order-qty-input"
-                        value={
-                          line.orderQty
-                        }
-                        inputMode="decimal"
-                        onChange={(
-                          event
-                        ) =>
-                          updateLine(
-                            line.id,
-                            "orderQty",
-                            event.target.value
-                          )
-                        }
-                      />
-                    </td>
-
-                    <td>
-                      <select
-                        className="order-unit-select"
-                        value={
-                          line.orderUnit
-                        }
-                        onChange={(
-                          event
-                        ) =>
-                          updateLine(
-                            line.id,
-                            "orderUnit",
-                            event.target.value
-                          )
-                        }
-                      >
-                        <option value="kg">
-                          kg
-                        </option>
-
-                        <option value="g">
-                          g
-                        </option>
-
-                        <option value="L">
-                          L
-                        </option>
-
-                        <option value="ml">
-                          ml
-                        </option>
-
-                        <option value="each">
-                          each
-                        </option>
-
-                        <option value="case">
-                          case
-                        </option>
-
-                        <option value="pack">
-                          pack
-                        </option>
-                      </select>
-                    </td>
-
-                    <td>
-                      <div className="table-money-input">
-                        <span>£</span>
-
-                        <input
-                          value={
-                            line.unitPrice ??
-                            ""
-                          }
-                          inputMode="decimal"
-                          placeholder="0.00"
-                          onChange={(
-                            event
-                          ) =>
-                            updateLine(
-                              line.id,
-                              "unitPrice",
-                              event.target.value
-                            )
-                          }
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <strong>
-                        {line.unitPrice !==
-                        null
-                          ? money(
-                              calculateLineTotal(
-                                line
-                              )
-                            )
-                          : "—"}
-                      </strong>
-                    </td>
-
-                    <td>
-                      <input
-                        className="order-notes-input"
-                        value={
-                          line.notes
-                        }
-                        placeholder="Optional"
-                        onChange={(
-                          event
-                        ) =>
-                          updateLine(
-                            line.id,
-                            "notes",
-                            event.target.value
-                          )
-                        }
-                      />
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    );
-  }
+  const recentOrders =
+    [...purchaseOrders]
+      .sort(
+        (a, b) =>
+          new Date(
+            b.createdAt
+          ).getTime() -
+          new Date(
+            a.createdAt
+          ).getTime()
+      )
+      .slice(0, 6);
 
   return (
     <main className="app-shell">
       <Sidebar active="orders" />
 
       <section className="main-content">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">
-              Purchasing
-            </p>
-
-            <h1>
-              Orders
-            </h1>
-
-            <p className="page-description">
-              Build supplier purchase
-              orders from current stock,
-              par levels and latest
-              invoice prices.
-            </p>
-          </div>
-
-          {tab === "draft" && (
-            <div className="stock-header-actions">
-              <button
-                className="cancel-button"
-                type="button"
-                onClick={
-                  clearOrders
-                }
-              >
-                Clear
-              </button>
-
-              <button
-                className="primary-button"
-                type="button"
-                onClick={
-                  saveDraft
-                }
-              >
-                Save draft
-              </button>
-            </div>
-          )}
-        </header>
-
-        <div className="stock-tabs">
-          <button
-            className={`stock-tab ${
-              tab === "draft"
-                ? "stock-tab-active"
-                : ""
-            }`}
-            type="button"
-            onClick={() =>
-              setTab("draft")
-            }
-          >
-            Draft orders
-          </button>
-
-          <button
-            className={`stock-tab ${
-              tab === "sent"
-                ? "stock-tab-active"
-                : ""
-            }`}
-            type="button"
-            onClick={() =>
-              setTab("sent")
-            }
-          >
-            Sent orders
-            <span>
-              {sentOrders.length}
-            </span>
-          </button>
-
-          <button
-            className={`stock-tab ${
-              tab === "history"
-                ? "stock-tab-active"
-                : ""
-            }`}
-            type="button"
-            onClick={() =>
-              setTab("history")
-            }
-          >
-            Order history
-          </button>
-        </div>
-
-        {tab === "draft" && (
+        {step === "start" && (
           <>
-            <section className="stats-grid">
-              <article className="stat-card">
-                <p className="stat-label">
-                  Estimated order
+            <header className="topbar">
+              <div>
+                <p className="eyebrow">
+                  Purchasing
                 </p>
 
-                <p className="stat-value">
-                  {money(
-                    estimatedOrderValue
-                  )}
-                </p>
+                <h1>
+                  Orders
+                </h1>
 
-                <p className="stat-change neutral">
-                  Current draft
+                <p className="page-description">
+                  Choose a supplier and
+                  build an order in a few
+                  seconds.
                 </p>
-              </article>
+              </div>
+            </header>
 
-              <article className="stat-card">
-                <p className="stat-label">
-                  Suppliers
-                </p>
+            <section className="panel quick-order-start">
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">
+                    New order
+                  </p>
 
-                <p className="stat-value">
-                  {supplierCount}
-                </p>
+                  <h2>
+                    Who are you ordering
+                    from?
+                  </h2>
+                </div>
+              </div>
 
-                <p className="stat-change neutral">
-                  With order lines
-                </p>
-              </article>
+              <div className="supplier-choice-grid">
+                {suppliers.map(
+                  (supplier) => {
+                    const count =
+                      lines.filter(
+                        (line) =>
+                          line.supplier ===
+                          supplier
+                      ).length;
 
-              <article className="stat-card">
-                <p className="stat-label">
-                  Lines to order
-                </p>
+                    return (
+                      <button
+                        type="button"
+                        className="supplier-choice-card"
+                        key={supplier}
+                        onClick={() =>
+                          chooseSupplier(
+                            supplier
+                          )
+                        }
+                      >
+                        <div className="supplier-choice-avatar">
+                          {supplier
+                            .split(" ")
+                            .slice(0, 2)
+                            .map(
+                              (word) =>
+                                word[0]
+                            )
+                            .join("")
+                            .toUpperCase()}
+                        </div>
 
-                <p className="stat-value">
-                  {orderLineCount}
-                </p>
+                        <div>
+                          <strong>
+                            {supplier}
+                          </strong>
 
-                <p className="stat-change neutral">
-                  Qty above zero
-                </p>
-              </article>
+                          <span>
+                            {count} products
+                          </span>
+                        </div>
 
-              <article className="stat-card">
-                <p className="stat-label">
-                  Missing prices
-                </p>
-
-                <p className="stat-value">
-                  {needsPriceCount}
-                </p>
-
-                <p
-                  className={
-                    needsPriceCount > 0
-                      ? "stat-change warning"
-                      : "stat-change neutral"
+                        <span className="supplier-choice-arrow">
+                          →
+                        </span>
+                      </button>
+                    );
                   }
-                >
-                  {needsPriceCount > 0
-                    ? "Needs supplier cost"
-                    : "All priced"}
-                </p>
-              </article>
+                )}
+
+                {suppliers.length ===
+                  0 && (
+                  <div className="empty-table-message">
+                    No supplier products
+                    yet. Approve an invoice
+                    first so supplier
+                    products can be linked.
+                  </div>
+                )}
+              </div>
             </section>
 
             <section className="panel">
               <div className="panel-header">
                 <div>
                   <p className="panel-kicker">
-                    Draft builder
+                    Recent orders
                   </p>
 
                   <h2>
-                    Supplier orders
+                    Latest purchasing
                   </h2>
                 </div>
               </div>
 
-              <div className="ingredient-toolbar">
-                <div className="ingredient-search">
-                  <input
-                    type="search"
-                    placeholder="Search ingredient, product or supplier..."
-                    value={search}
-                    onChange={(event) =>
-                      setSearch(
-                        event.target.value
-                      )
-                    }
-                  />
-                </div>
-              </div>
-            </section>
+              <div className="quick-order-history">
+                {recentOrders.length ===
+                0 ? (
+                  <div className="empty-table-message">
+                    No orders sent yet.
+                  </div>
+                ) : (
+                  recentOrders.map(
+                    (order) => (
+                      <article
+                        className="quick-order-history-row"
+                        key={order.id}
+                      >
+                        <div>
+                          <strong>
+                            {order.supplier}
+                          </strong>
 
-            {Object.entries(
-              supplierGroups
-            ).map(
-              ([
-                supplier,
-                supplierLines,
-              ]) =>
-                renderOrderTable(
-                  supplier,
-                  supplierLines
-                )
-            )}
-          </>
-        )}
+                          <span>
+                            {formatDate(
+                              order.createdAt
+                            )}
+                          </span>
+                        </div>
 
-        {tab === "sent" && (
-          <section className="panel">
-            <div className="panel-header">
-              <div>
-                <p className="panel-kicker">
-                  Open purchase orders
-                </p>
+                        <span>
+                          {order.lines.length}{" "}
+                          items
+                        </span>
 
-                <h2>
-                  Sent orders
-                </h2>
-              </div>
-            </div>
-
-            <div className="order-history-list">
-              {sentOrders.length ===
-              0 ? (
-                <div className="empty-table-message">
-                  No sent purchase orders
-                  yet.
-                </div>
-              ) : (
-                sentOrders.map(
-                  (order) => (
-                    <article
-                      className="order-history-card"
-                      key={order.id}
-                    >
-                      <div>
-                        <p className="order-history-supplier">
-                          {order.supplier}
-                        </p>
-
-                        <p className="muted-text">
-                          {formatDate(
-                            order.createdAt
+                        <strong>
+                          {money(
+                            order.estimatedTotal
                           )}
-                        </p>
-                      </div>
+                        </strong>
 
-                      <div>
                         <span className="status-badge status-approved">
                           Sent
                         </span>
-                      </div>
-
-                      <div>
-                        <strong>
-                          {order.lines.length}{" "}
-                          lines
-                        </strong>
-                      </div>
-
-                      <div>
-                        <strong>
-                          {money(
-                            order.estimatedTotal
-                          )}
-                        </strong>
-                      </div>
-                    </article>
+                      </article>
+                    )
                   )
-                )
-              )}
-            </div>
-          </section>
+                )}
+              </div>
+            </section>
+          </>
         )}
 
-        {tab === "history" && (
-          <section className="panel">
-            <div className="panel-header">
+        {step === "order" && (
+          <>
+            <header className="quick-order-header">
               <div>
-                <p className="panel-kicker">
-                  Purchasing history
+                <button
+                  className="quick-order-back"
+                  type="button"
+                  onClick={() =>
+                    setStep("start")
+                  }
+                >
+                  ← Orders
+                </button>
+
+                <p className="eyebrow">
+                  New order
                 </p>
 
-                <h2>
-                  Purchase orders
-                </h2>
+                <h1>
+                  {selectedSupplier}
+                </h1>
+
+                <p className="page-description">
+                  Enter what you want to
+                  order.
+                </p>
               </div>
-            </div>
 
-            <div className="order-history-list">
-              {historyOrders.length ===
-              0 ? (
-                <div className="empty-table-message">
-                  No purchase order
-                  history yet.
-                </div>
-              ) : (
-                historyOrders.map(
-                  (order) => (
+              <div className="quick-order-header-total">
+                <span>
+                  Estimated order
+                </span>
+
+                <strong>
+                  {money(
+                    estimatedTotal
+                  )}
+                </strong>
+
+                <span>
+                  {
+                    selectedOrderLines.length
+                  }{" "}
+                  items
+                </span>
+              </div>
+            </header>
+
+            <section className="quick-order-toolbar">
+              <div className="ingredient-search">
+                <input
+                  type="search"
+                  placeholder="Search products..."
+                  value={search}
+                  onChange={(event) =>
+                    setSearch(
+                      event.target.value
+                    )
+                  }
+                />
+              </div>
+
+              <button
+                className="cancel-button"
+                type="button"
+                onClick={
+                  clearSupplierOrder
+                }
+              >
+                Clear
+              </button>
+
+              <button
+                className="secondary-inline-button"
+                type="button"
+                onClick={
+                  useAllSuggested
+                }
+              >
+                Use suggested
+              </button>
+            </section>
+
+            <section className="panel quick-order-panel">
+              <div className="quick-order-column-headings">
+                <span>
+                  Product
+                </span>
+
+                <span>
+                  In stock
+                </span>
+
+                <span>
+                  Order
+                </span>
+              </div>
+
+              <div className="quick-order-lines">
+                {supplierLines.map(
+                  (line) => (
                     <article
-                      className="order-history-card"
-                      key={order.id}
+                      className={`quick-order-line ${
+                        line.orderQty >
+                        0
+                          ? "quick-order-line-active"
+                          : ""
+                      }`}
+                      key={line.id}
                     >
-                      <div>
-                        <p className="order-history-supplier">
-                          {order.supplier}
-                        </p>
-
-                        <p className="muted-text">
-                          {order.id}
-                        </p>
-                      </div>
-
-                      <div>
-                        <span className="status-badge status-approved">
-                          {order.status}
-                        </span>
-                      </div>
-
-                      <div>
-                        <span className="muted-text">
-                          {formatDate(
-                            order.createdAt
-                          )}
-                        </span>
-                      </div>
-
-                      <div>
+                      <div className="quick-order-product">
                         <strong>
-                          {money(
-                            order.estimatedTotal
-                          )}
+                          {line.ingredient}
                         </strong>
+
+                        {line.supplierProduct && (
+                          <span>
+                            {
+                              line.supplierProduct
+                            }
+                          </span>
+                        )}
+
+                        {line.suggestedQty >
+                          0 && (
+                          <button
+                            type="button"
+                            className="quick-suggestion"
+                            onClick={() =>
+                              useSuggested(
+                                line
+                              )
+                            }
+                          >
+                            Suggested{" "}
+                            {
+                              line.suggestedQty
+                            }{" "}
+                            {
+                              line.orderUnit
+                            }
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="quick-order-stock">
+                        <strong>
+                          {line.stockQty}
+                        </strong>
+
+                        <span>
+                          {line.stockUnit}
+                        </span>
+                      </div>
+
+                      <div className="quick-order-quantity">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            changeQty(
+                              line,
+                              -1
+                            )
+                          }
+                        >
+                          −
+                        </button>
+
+                        <input
+                          inputMode="decimal"
+                          value={
+                            line.orderQty
+                          }
+                          onChange={(
+                            event
+                          ) =>
+                            updateOrderQty(
+                              line.id,
+                              Number(
+                                event.target
+                                  .value ||
+                                  0
+                              )
+                            )
+                          }
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            changeQty(
+                              line,
+                              1
+                            )
+                          }
+                        >
+                          +
+                        </button>
+
+                        <span>
+                          {line.orderUnit}
+                        </span>
                       </div>
                     </article>
                   )
-                )
-              )}
+                )}
+              </div>
+            </section>
+
+            <div className="quick-order-footer">
+              <div>
+                <span>
+                  {
+                    selectedOrderLines.length
+                  }{" "}
+                  items
+                </span>
+
+                <strong>
+                  {money(
+                    estimatedTotal
+                  )}
+                </strong>
+              </div>
+
+              <button
+                type="button"
+                className="primary-button quick-review-button"
+                disabled={
+                  selectedOrderLines.length ===
+                  0
+                }
+                onClick={() =>
+                  setStep("review")
+                }
+              >
+                Review order →
+              </button>
             </div>
-          </section>
+          </>
+        )}
+
+        {step === "review" && (
+          <>
+            <header className="quick-order-header">
+              <div>
+                <button
+                  className="quick-order-back"
+                  type="button"
+                  onClick={() =>
+                    setStep("order")
+                  }
+                >
+                  ← Edit order
+                </button>
+
+                <p className="eyebrow">
+                  Review
+                </p>
+
+                <h1>
+                  {selectedSupplier}
+                </h1>
+
+                <p className="page-description">
+                  Check the order before
+                  marking it as sent.
+                </p>
+              </div>
+
+              <div className="quick-order-header-total">
+                <span>
+                  Estimated total
+                </span>
+
+                <strong>
+                  {money(
+                    estimatedTotal
+                  )}
+                </strong>
+
+                <span>
+                  {
+                    selectedOrderLines.length
+                  }{" "}
+                  items
+                </span>
+              </div>
+            </header>
+
+            <section className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">
+                    Purchase order
+                  </p>
+
+                  <h2>
+                    Order summary
+                  </h2>
+                </div>
+              </div>
+
+              <div className="quick-review-list">
+                {selectedOrderLines.map(
+                  (line) => (
+                    <article
+                      className="quick-review-row"
+                      key={line.id}
+                    >
+                      <div>
+                        <strong>
+                          {line.ingredient}
+                        </strong>
+
+                        <span>
+                          {line.supplierProduct ||
+                            "Supplier product"}
+                        </span>
+                      </div>
+
+                      <div className="quick-review-qty">
+                        <strong>
+                          {line.orderQty}{" "}
+                          {line.orderUnit}
+                        </strong>
+                      </div>
+
+                      <div className="quick-review-cost">
+                        {line.unitPrice !==
+                        null ? (
+                          <>
+                            <span>
+                              {money(
+                                line.unitPrice
+                              )}
+                              /
+                              {
+                                line.orderUnit
+                              }
+                            </span>
+
+                            <strong>
+                              {money(
+                                line.orderQty *
+                                  line.unitPrice
+                              )}
+                            </strong>
+                          </>
+                        ) : (
+                          <span>
+                            Price unavailable
+                          </span>
+                        )}
+                      </div>
+                    </article>
+                  )
+                )}
+              </div>
+            </section>
+
+            <div className="quick-order-footer">
+              <div>
+                <span>
+                  Estimated total
+                </span>
+
+                <strong>
+                  {money(
+                    estimatedTotal
+                  )}
+                </strong>
+              </div>
+
+              <button
+                type="button"
+                className="primary-button quick-review-button"
+                onClick={
+                  sendOrder
+                }
+              >
+                Mark as sent
+              </button>
+            </div>
+          </>
         )}
       </section>
-      </main>
-
-);
-
+    </main>
+  );
 }
