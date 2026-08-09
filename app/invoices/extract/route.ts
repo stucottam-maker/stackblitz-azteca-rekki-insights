@@ -34,20 +34,18 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "For the first version, please upload a JPG, PNG or WEBP invoice.",
+            "For this first version, please upload a JPG, PNG or WEBP invoice.",
         },
         { status: 400 }
       );
     }
 
     const bytes = await file.arrayBuffer();
-
     const base64 = Buffer.from(bytes).toString("base64");
-
     const dataUrl = `data:${file.type};base64,${base64}`;
 
     const response = await openai.responses.create({
-      model: "gpt-5.4-mini",
+      model: "gpt-5-mini",
 
       input: [
         {
@@ -69,7 +67,7 @@ Return:
 - invoice total
 - every purchased product line
 
-For each product line extract:
+For every product line extract:
 - supplier product description exactly as shown
 - quantity purchased
 - pack size if visible
@@ -79,11 +77,13 @@ For each product line extract:
 Important rules:
 - Do not invent missing information.
 - If something cannot be read, return null.
-- Monetary values must be numbers only, without £ symbols.
+- Monetary values must be numbers only without £ symbols.
 - Keep the original supplier wording for product descriptions.
-- Ignore headers, payment information, delivery information and totals when identifying product lines.
+- Ignore headers, payment details, delivery details and totals when identifying product lines.
+- Do not combine separate product lines.
               `.trim(),
             },
+
             {
               type: "input_image",
               image_url: dataUrl,
@@ -96,9 +96,7 @@ Important rules:
       text: {
         format: {
           type: "json_schema",
-
           name: "restaurant_invoice",
-
           strict: true,
 
           schema: {
