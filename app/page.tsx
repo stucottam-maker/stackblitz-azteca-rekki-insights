@@ -29,20 +29,20 @@ const stats = [
 
 const suppliers = [
   {
-    name: "Smithfield Butchers",
-    category: "Meat",
+    name: "Albion Fine Foods",
+    category: "Foodservice",
     spend: "£6,840",
     percentage: 37,
   },
   {
-    name: "Direct Seafoods",
+    name: "Fin and Flounder",
     category: "Fish",
     spend: "£3,260",
     percentage: 18,
   },
   {
-    name: "Fresh Direct",
-    category: "Fruit & vegetables",
+    name: "Crazy Dan's House of Meat",
+    category: "Meat",
     spend: "£2,970",
     percentage: 16,
   },
@@ -57,21 +57,21 @@ const suppliers = [
 const priceAlerts = [
   {
     ingredient: "Ribeye",
-    supplier: "Smithfield Butchers",
+    supplier: "Crazy Dan's House of Meat",
     previousPrice: "£16.20/kg",
     currentPrice: "£17.50/kg",
     change: "+8.0%",
   },
   {
     ingredient: "Short rib",
-    supplier: "Smithfield Butchers",
+    supplier: "Crazy Dan's House of Meat",
     previousPrice: "£9.10/kg",
     currentPrice: "£9.85/kg",
     change: "+8.2%",
   },
   {
     ingredient: "Tuna loin",
-    supplier: "Direct Seafoods",
+    supplier: "Fin and Flounder",
     previousPrice: "£18.90/kg",
     currentPrice: "£20.10/kg",
     change: "+6.3%",
@@ -80,25 +80,25 @@ const priceAlerts = [
 
 const recentInvoices = [
   {
-    supplier: "Smithfield Butchers",
+    supplier: "Fin and Flounder",
+    invoiceNumber: "SI-82760",
+    date: "30 Mar 2026",
+    total: "£493.63",
+    status: "Approved",
+  },
+  {
+    supplier: "Albion Fine Foods",
     invoiceNumber: "INV-10482",
     date: "3 Aug 2026",
     total: "£1,284.60",
     status: "Approved",
   },
   {
-    supplier: "Direct Seafoods",
+    supplier: "Crazy Dan's House of Meat",
     invoiceNumber: "DS-88341",
     date: "2 Aug 2026",
     total: "£746.20",
     status: "Review",
-  },
-  {
-    supplier: "Fresh Direct",
-    invoiceNumber: "FD-62017",
-    date: "2 Aug 2026",
-    total: "£438.75",
-    status: "Approved",
   },
   {
     supplier: "Mexgrocer",
@@ -135,7 +135,7 @@ export default function HomePage() {
           <div className="brand-mark">A</div>
 
           <div>
-            <p className="brand-name">Insights</p>
+            <p className="brand-name">Azteca Insights</p>
             <p className="brand-subtitle">Kitchen cost control</p>
           </div>
         </div>
@@ -161,6 +161,11 @@ export default function HomePage() {
             Recipes
           </Link>
 
+          <Link className="nav-link" href="/menu">
+            <span className="nav-icon">☰</span>
+            Menu
+          </Link>
+
           <Link className="nav-link" href="/stock">
             <span className="nav-icon">□</span>
             Stock counts
@@ -183,7 +188,9 @@ export default function HomePage() {
         <header className="topbar">
           <div>
             <p className="eyebrow">Overview</p>
+
             <h1>Good morning</h1>
+
             <p className="page-description">
               Here is what is happening with your kitchen costs.
             </p>
@@ -199,8 +206,12 @@ export default function HomePage() {
           {stats.map((stat) => (
             <article className="stat-card" key={stat.label}>
               <p className="stat-label">{stat.label}</p>
+
               <p className="stat-value">{stat.value}</p>
-              <p className={`stat-change ${stat.tone}`}>{stat.change}</p>
+
+              <p className={`stat-change ${stat.tone}`}>
+                {stat.change}
+              </p>
             </article>
           ))}
         </section>
@@ -223,11 +234,18 @@ export default function HomePage() {
                 <div className="supplier-row" key={supplier.name}>
                   <div className="supplier-details">
                     <div>
-                      <p className="supplier-name">{supplier.name}</p>
-                      <p className="muted-text">{supplier.category}</p>
+                      <p className="supplier-name">
+                        {supplier.name}
+                      </p>
+
+                      <p className="muted-text">
+                        {supplier.category}
+                      </p>
                     </div>
 
-                    <p className="supplier-spend">{supplier.spend}</p>
+                    <p className="supplier-spend">
+                      {supplier.spend}
+                    </p>
                   </div>
 
                   <div
@@ -236,7 +254,9 @@ export default function HomePage() {
                   >
                     <div
                       className="progress-value"
-                      style={{ width: `${supplier.percentage}%` }}
+                      style={{
+                        width: `${supplier.percentage}%`,
+                      }}
                     />
                   </div>
                 </div>
@@ -247,19 +267,32 @@ export default function HomePage() {
           <article className="panel alerts-panel">
             <div className="panel-header">
               <div>
-                <p className="panel-kicker">Attention needed</p>
+                <p className="panel-kicker">
+                  Attention needed
+                </p>
+
                 <h2>Price increases</h2>
               </div>
 
-              <span className="alert-count">{priceAlerts.length}</span>
+              <span className="alert-count">
+                {priceAlerts.length}
+              </span>
             </div>
 
             <div className="alert-list">
               {priceAlerts.map((alert) => (
-                <div className="price-alert" key={alert.ingredient}>
+                <div
+                  className="price-alert"
+                  key={alert.ingredient}
+                >
                   <div>
-                    <p className="alert-ingredient">{alert.ingredient}</p>
-                    <p className="muted-text">{alert.supplier}</p>
+                    <p className="alert-ingredient">
+                      {alert.ingredient}
+                    </p>
+
+                    <p className="muted-text">
+                      {alert.supplier}
+                    </p>
                   </div>
 
                   <div className="price-comparison">
@@ -269,7 +302,9 @@ export default function HomePage() {
                       <strong>{alert.currentPrice}</strong>
                     </p>
 
-                    <span className="increase-badge">{alert.change}</span>
+                    <span className="increase-badge">
+                      {alert.change}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -281,11 +316,17 @@ export default function HomePage() {
           <article className="panel invoices-panel">
             <div className="panel-header">
               <div>
-                <p className="panel-kicker">Latest activity</p>
+                <p className="panel-kicker">
+                  Latest activity
+                </p>
+
                 <h2>Recent invoices</h2>
               </div>
 
-              <Link className="text-button" href="/invoices">
+              <Link
+                className="text-button"
+                href="/invoices"
+              >
                 View all
               </Link>
             </div>
@@ -308,9 +349,11 @@ export default function HomePage() {
                       <td>
                         <strong>{invoice.supplier}</strong>
                       </td>
+
                       <td>{invoice.invoiceNumber}</td>
                       <td>{invoice.date}</td>
                       <td>{invoice.total}</td>
+
                       <td>
                         <span
                           className={`status-badge ${
@@ -332,26 +375,42 @@ export default function HomePage() {
           <article className="panel food-cost-panel">
             <div className="panel-header">
               <div>
-                <p className="panel-kicker">Menu costing</p>
+                <p className="panel-kicker">
+                  Menu costing
+                </p>
+
                 <h2>Above target</h2>
               </div>
             </div>
 
             <div className="food-cost-list">
               {foodCostAlerts.map((item) => (
-                <div className="food-cost-row" key={item.dish}>
+                <div
+                  className="food-cost-row"
+                  key={item.dish}
+                >
                   <div>
-                    <p className="food-cost-dish">{item.dish}</p>
-                    <p className="muted-text">Target {item.target}</p>
+                    <p className="food-cost-dish">
+                      {item.dish}
+                    </p>
+
+                    <p className="muted-text">
+                      Target {item.target}
+                    </p>
                   </div>
 
-                  <p className="food-cost-value">{item.foodCost}</p>
+                  <p className="food-cost-value">
+                    {item.foodCost}
+                  </p>
                 </div>
               ))}
             </div>
 
-            <Link className="secondary-button" href="/recipes">
-              Review recipe costs
+            <Link
+              className="secondary-button"
+              href="/menu"
+            >
+              Review menu costs
             </Link>
           </article>
         </section>
