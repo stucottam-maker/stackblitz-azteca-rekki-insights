@@ -1461,4 +1461,74 @@ td strong {
   color: var(--green);
   font-size: 9px;
   font-weight: 800;
-} 
+} .recipe-section-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.recipe-list-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.recipe-list-panel .panel-header {
+  margin: 0;
+  padding: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.recipe-card-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card {
+  padding: 18px 22px;
+  border-top: 1px solid var(--border);
+}
+
+.recipe-card:first-child {
+  border-top: 0;
+}
+
+.recipe-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.recipe-name {
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.recipe-meta {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  color: var(--text-soft);
+  font-size: 10px;
+}
+
+.recipe-ingredients-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.recipe-ingredients-preview span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--text-soft);
+  font-size: 10px;
+}
+
+@media (max-width: 1000px) {
+  .recipe-section-grid {
+    grid-template-columns: 1fr;
+  }
+}
