@@ -1,26 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type InvoiceLineItem = {
   product: string;
-  quantity: string | number;
-  pack: string;
-  unitPrice: string | number;
-  total: string | number;
+  quantity: string | number | null;
+  pack: string | null;
+  unitPrice: number | string | null;
+  total: number | string | null;
   status?: string;
+  ingredientMatch?: string;
 };
 
 type InvoiceExtraction = {
-  supplier?: string;
-  invoiceNumber?: string;
-  invoiceDate?: string;
+  supplier?: string | null;
+  invoiceNumber?: string | null;
+  invoiceDate?: string | null;
   subtotal?: number | string | null;
   vat?: number | string | null;
   total?: number | string | null;
   lineItems?: InvoiceLineItem[];
 };
+
+const masterIngredients = [
+  "Cod",
+  "Black cod",
+  "26/30 prawn",
+  "King prawn",
+  "Tuna loin",
+  "Stonebass",
+  "Trout",
+  "Salmon",
+  "Ribeye",
+  "Short rib",
+  "Pork belly",
+  "Chicken thigh",
+  "Birria beef",
+  "Carnitas pork",
+];
 
 export default function InvoiceReviewPage() {
   const [fileName, setFileName] = useState("");
@@ -65,7 +83,15 @@ export default function InvoiceReviewPage() {
           storedExtraction
         ) as InvoiceExtraction;
 
-        setInvoice(parsed);
+        setInvoice({
+          ...parsed,
+          lineItems:
+            parsed.lineItems?.map((item) => ({
+              ...item,
+              ingredientMatch:
+                guessIngredient(item.product),
+            })) ?? [],
+        });
       } catch (error) {
         console.error(
           "Could not read invoice extraction",
@@ -75,41 +101,124 @@ export default function InvoiceReviewPage() {
     }
   }, []);
 
+  function guessIngredient(product: string) {
+    const value = product.toLowerCase();
+
+    if (value.includes("black cod")) {
+      return "Black cod";
+    }
+
+    if (
+      value.includes("26/30") &&
+      value.includes("prawn")
+    ) {
+      return "26/30 prawn";
+    }
+
+    if (
+      value.includes("king prawn") ||
+      value.includes("10/20")
+    ) {
+      return "King prawn";
+    }
+
+    if (value.includes("tuna")) {
+      return "Tuna loin";
+    }
+
+    if (
+      value.includes("cod fillet") ||
+      value.includes("gadus")
+    ) {
+      return "Cod";
+    }
+
+    return "";
+  }
+
+  function updateInvoiceField(
+    field: keyof InvoiceExtraction,
+    value: string
+  ) {
+    setInvoice((current) => ({
+      ...current,
+      [field]: value,
+    }));
+  }
+
+  function updateLineItem(
+    index: number,
+    field: keyof InvoiceLineItem,
+    value: string
+  ) {
+    setInvoice((current) => {
+      const nextLines = [
+        ...(current.lineItems ?? []),
+      ];
+
+      nextLines[index] = {
+        ...nextLines[index],
+        [field]: value,
+      };
+
+      return {
+        ...current,
+        lineItems: nextLines,
+      };
+    });
+  }
+
   const sizeInMb = fileSize
     ? (Number(fileSize) / 1024 / 1024).toFixed(2)
     : "";
 
-  function formatMoney(
+  const lineItems = invoice.lineItems ?? [];
+
+  const unmatchedCount = useMemo(
+    () =>
+      lineItems.filter(
+        (item) => !item.ingredientMatch
+      ).length,
+    [lineItems]
+  );
+
+  function moneyInputValue(
     value: number | string | null | undefined
   ) {
     if (
       value === null ||
-      value === undefined ||
-      value === ""
+      value === undefined
     ) {
-      return "—";
+      return "";
     }
 
-    const numericValue =
-      typeof value === "number"
-        ? value
-        : Number(
-            String(value)
-              .replace("£", "")
-              .replace(",", "")
-          );
-
-    if (Number.isNaN(numericValue)) {
-      return String(value);
-    }
-
-    return new Intl.NumberFormat("en-GB", {
-      style: "currency",
-      currency: "GBP",
-    }).format(numericValue);
+    return String(value).replace("£", "");
   }
 
-  const lineItems = invoice.lineItems ?? [];
+  function approveInvoice() {
+    const payload = {
+      ...invoice,
+      lineItems,
+    };
+
+    console.log(
+      "Approved invoice payload:",
+      payload
+    );
+
+    sessionStorage.setItem(
+      "approvedInvoiceDraft",
+      JSON.stringify(payload)
+    );
+
+    alert(
+      unmatchedCount > 0
+        ? `Invoice saved as draft. ${unmatchedCount} product line${
+            unmatchedCount === 1 ? "" : "s"
+          } still need ingredient matching.`
+        : "Invoice is ready to save."
+    );
+  }
 
   return (
     <main className="app-shell">
@@ -206,8 +315,9 @@ export default function InvoiceReviewPage() {
             <h1>Review invoice</h1>
 
             <p className="page-description">
-              Check the uploaded invoice and extracted
-              details before approval.
+              Check the extracted data, correct anything
+              that looks wrong, and match each supplier
+              product to a master ingredient.
             </p>
           </header>
 
@@ -230,24 +340,6 @@ export default function InvoiceReviewPage() {
                     alt="Uploaded invoice preview"
                   />
                 </div>
-              ) : fileType ===
-                "application/pdf" ? (
-                <div className="review-pdf-preview">
-                  <div className="pdf-preview-icon">
-                    PDF
-                  </div>
-
-                  <div>
-                    <p className="selected-file-name">
-                      {fileName || "Uploaded PDF"}
-                    </p>
-
-                    <p className="selected-file-meta">
-                      PDF preview will be added when
-                      file storage is connected.
-                    </p>
-                  </div>
-                </div>
               ) : (
                 <div className="review-preview-placeholder">
                   No invoice preview available
@@ -263,7 +355,6 @@ export default function InvoiceReviewPage() {
 
                   <div>
                     <span>Size</span>
-
                     <strong>
                       {sizeInMb
                         ? `${sizeInMb} MB`
@@ -273,7 +364,6 @@ export default function InvoiceReviewPage() {
 
                   <div>
                     <span>Type</span>
-
                     <strong>
                       {fileType || "Unknown"}
                     </strong>
@@ -289,53 +379,114 @@ export default function InvoiceReviewPage() {
 
               <h2>Invoice information</h2>
 
-              <div className="review-details">
-                <div>
-                  <span>Supplier</span>
+              <div className="review-edit-grid">
+                <div className="form-field">
+                  <label>Supplier</label>
 
-                  <strong>
-                    {invoice.supplier || "—"}
-                  </strong>
+                  <input
+                    value={invoice.supplier ?? ""}
+                    onChange={(event) =>
+                      updateInvoiceField(
+                        "supplier",
+                        event.target.value
+                      )
+                    }
+                  />
                 </div>
 
-                <div>
-                  <span>Invoice number</span>
+                <div className="form-field">
+                  <label>Invoice number</label>
 
-                  <strong>
-                    {invoice.invoiceNumber || "—"}
-                  </strong>
+                  <input
+                    value={
+                      invoice.invoiceNumber ?? ""
+                    }
+                    onChange={(event) =>
+                      updateInvoiceField(
+                        "invoiceNumber",
+                        event.target.value
+                      )
+                    }
+                  />
                 </div>
 
-                <div>
-                  <span>Date</span>
+                <div className="form-field">
+                  <label>Date</label>
 
-                  <strong>
-                    {invoice.invoiceDate || "—"}
-                  </strong>
+                  <input
+                    value={
+                      invoice.invoiceDate ?? ""
+                    }
+                    onChange={(event) =>
+                      updateInvoiceField(
+                        "invoiceDate",
+                        event.target.value
+                      )
+                    }
+                  />
                 </div>
 
-                <div>
-                  <span>Subtotal</span>
+                <div className="form-field">
+                  <label>Subtotal</label>
 
-                  <strong>
-                    {formatMoney(invoice.subtotal)}
-                  </strong>
+                  <div className="currency-input">
+                    <span>£</span>
+
+                    <input
+                      inputMode="decimal"
+                      value={moneyInputValue(
+                        invoice.subtotal
+                      )}
+                      onChange={(event) =>
+                        updateInvoiceField(
+                          "subtotal",
+                          event.target.value
+                        )
+                      }
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <span>VAT</span>
+                <div className="form-field">
+                  <label>VAT</label>
 
-                  <strong>
-                    {formatMoney(invoice.vat)}
-                  </strong>
+                  <div className="currency-input">
+                    <span>£</span>
+
+                    <input
+                      inputMode="decimal"
+                      value={moneyInputValue(
+                        invoice.vat
+                      )}
+                      onChange={(event) =>
+                        updateInvoiceField(
+                          "vat",
+                          event.target.value
+                        )
+                      }
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <span>Total</span>
+                <div className="form-field">
+                  <label>Total</label>
 
-                  <strong>
-                    {formatMoney(invoice.total)}
-                  </strong>
+                  <div className="currency-input">
+                    <span>£</span>
+
+                    <input
+                      inputMode="decimal"
+                      value={moneyInputValue(
+                        invoice.total
+                      )}
+                      onChange={(event) =>
+                        updateInvoiceField(
+                          "total",
+                          event.target.value
+                        )
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             </article>
@@ -351,91 +502,173 @@ export default function InvoiceReviewPage() {
                 <h2>Line items</h2>
               </div>
 
-              <span className="alert-count">
-                {lineItems.length}
-              </span>
+              <div className="review-summary">
+                <span className="status-badge status-approved">
+                  {lineItems.length} extracted
+                </span>
+
+                {unmatchedCount > 0 && (
+                  <span className="status-badge status-review">
+                    {unmatchedCount} need matching
+                  </span>
+                )}
+              </div>
             </div>
 
-            {lineItems.length > 0 ? (
-              <div className="table-wrapper">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Qty</th>
-                      <th>Pack</th>
-                      <th>Unit price</th>
-                      <th>Total</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
+            <div className="table-wrapper">
+              <table className="review-edit-table">
+                <thead>
+                  <tr>
+                    <th>Supplier product</th>
+                    <th>Qty</th>
+                    <th>Pack</th>
+                    <th>Unit price</th>
+                    <th>Total</th>
+                    <th>Master ingredient</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
 
-                  <tbody>
-                    {lineItems.map(
-                      (item, index) => (
-                        <tr
-                          key={`${item.product}-${index}`}
-                        >
-                          <td>
-                            <strong>
-                              {item.product}
-                            </strong>
-                          </td>
+                <tbody>
+                  {lineItems.map(
+                    (item, index) => (
+                      <tr
+                        key={`${item.product}-${index}`}
+                      >
+                        <td className="review-product-cell">
+                          <textarea
+                            value={item.product}
+                            onChange={(event) =>
+                              updateLineItem(
+                                index,
+                                "product",
+                                event.target.value
+                              )
+                            }
+                          />
+                        </td>
 
-                          <td>
-                            {item.quantity}
-                          </td>
+                        <td>
+                          <input
+                            className="table-input table-input-small"
+                            value={
+                              item.quantity ?? ""
+                            }
+                            onChange={(event) =>
+                              updateLineItem(
+                                index,
+                                "quantity",
+                                event.target.value
+                              )
+                            }
+                          />
+                        </td>
 
-                          <td>
-                            {item.pack || "—"}
-                          </td>
+                        <td>
+                          <input
+                            className="table-input"
+                            value={item.pack ?? ""}
+                            onChange={(event) =>
+                              updateLineItem(
+                                index,
+                                "pack",
+                                event.target.value
+                              )
+                            }
+                          />
+                        </td>
 
-                          <td>
-                            {formatMoney(
-                              item.unitPrice
-                            )}
-                          </td>
+                        <td>
+                          <div className="table-money-input">
+                            <span>£</span>
 
-                          <td>
-                            <strong>
-                              {formatMoney(
+                            <input
+                              inputMode="decimal"
+                              value={moneyInputValue(
+                                item.unitPrice
+                              )}
+                              onChange={(event) =>
+                                updateLineItem(
+                                  index,
+                                  "unitPrice",
+                                  event.target.value
+                                )
+                              }
+                            />
+                          </div>
+                        </td>
+
+                        <td>
+                          <div className="table-money-input">
+                            <span>£</span>
+
+                            <input
+                              inputMode="decimal"
+                              value={moneyInputValue(
                                 item.total
                               )}
-                            </strong>
-                          </td>
+                              onChange={(event) =>
+                                updateLineItem(
+                                  index,
+                                  "total",
+                                  event.target.value
+                                )
+                              }
+                            />
+                          </div>
+                        </td>
 
-                          <td>
-                            <span
-                              className={`status-badge ${
-                                item.status ===
-                                "Needs review"
-                                  ? "status-review"
-                                  : "status-approved"
-                              }`}
-                            >
-                              {item.status ||
-                                "Extracted"}
-                            </span>
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="empty-extraction">
-                <p>
-                  No line items have been extracted
-                  yet.
-                </p>
+                        <td>
+                          <select
+                            className="ingredient-match-select"
+                            value={
+                              item.ingredientMatch ??
+                              ""
+                            }
+                            onChange={(event) =>
+                              updateLineItem(
+                                index,
+                                "ingredientMatch",
+                                event.target.value
+                              )
+                            }
+                          >
+                            <option value="">
+                              Select ingredient
+                            </option>
 
-                <span>
-                  We’ll populate these automatically
-                  once the invoice reader is connected.
-                </span>
-              </div>
-            )}
+                            {masterIngredients.map(
+                              (ingredient) => (
+                                <option
+                                  key={ingredient}
+                                  value={ingredient}
+                                >
+                                  {ingredient}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </td>
+
+                        <td>
+                          <span
+                            className={`status-badge ${
+                              item.ingredientMatch
+                                ? "status-approved"
+                                : "status-review"
+                            }`}
+                          >
+                            {item.ingredientMatch
+                              ? "Matched"
+                              : "Needs review"}
+                          </span>
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
 
             <div className="upload-actions">
               <Link
@@ -448,8 +681,11 @@ export default function InvoiceReviewPage() {
               <button
                 className="primary-button"
                 type="button"
+                onClick={approveInvoice}
               >
-                Approve invoice
+                {unmatchedCount > 0
+                  ? "Save review"
+                  : "Approve invoice"}
               </button>
             </div>
           </section>
