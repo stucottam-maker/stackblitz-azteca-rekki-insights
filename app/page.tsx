@@ -109,7 +109,7 @@ export default function HomePage() {
             </p>
 
             <h1>
-              Kitchen Insights
+              Insights
             </h1>
 
             <p className="page-description">
