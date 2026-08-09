@@ -1,242 +1,219 @@
 import Link from "next/link";
 import Sidebar from "./components/Sidebar";
 
-const stats = [
+const supplierSpend = [
   {
-    label: "Spend this month",
-    value: "£18,420",
-    change: "+4.2% vs last month",
-    tone: "negative",
-  },
-  {
-    label: "Average food cost",
-    value: "28.6%",
-    change: "Target: 27%",
-    tone: "warning",
-  },
-  {
-    label: "Invoices processed",
-    value: "47",
-    change: "3 awaiting review",
-    tone: "neutral",
-  },
-  {
-    label: "Price increases",
-    value: "14",
-    change: "In the last 30 days",
-    tone: "negative",
-  },
-];
-
-const suppliers = [
-  {
-    name: "Albion Fine Foods",
+    supplier: "Albion Fine Foods",
     category: "Foodservice",
-    spend: "£6,840",
-    percentage: 37,
+    spend: 6840,
+    width: 38,
   },
   {
-    name: "Fin and Flounder",
+    supplier: "Fin and Flounder",
     category: "Fish",
-    spend: "£3,260",
-    percentage: 18,
+    spend: 3260,
+    width: 21,
   },
   {
-    name: "Crazy Dan's House of Meat",
+    supplier: "Crazy Dan's House of Meat",
     category: "Meat",
-    spend: "£2,970",
-    percentage: 16,
+    spend: 2970,
+    width: 16,
   },
   {
-    name: "Mexgrocer",
+    supplier: "Mexgrocer",
     category: "Dry goods",
-    spend: "£2,140",
-    percentage: 12,
+    spend: 2140,
+    width: 12,
   },
 ];
 
-const priceAlerts = [
+const priceIncreases = [
   {
     ingredient: "Ribeye",
     supplier: "Crazy Dan's House of Meat",
-    previousPrice: "£16.20/kg",
-    currentPrice: "£17.50/kg",
-    change: "+8.0%",
+    oldPrice: "£16.20/kg",
+    newPrice: "£17.50/kg",
+    increase: "+8.0%",
   },
   {
     ingredient: "Short rib",
     supplier: "Crazy Dan's House of Meat",
-    previousPrice: "£9.10/kg",
-    currentPrice: "£9.85/kg",
-    change: "+8.2%",
+    oldPrice: "£9.10/kg",
+    newPrice: "£9.85/kg",
+    increase: "+8.2%",
   },
   {
     ingredient: "Tuna loin",
     supplier: "Fin and Flounder",
-    previousPrice: "£18.90/kg",
-    currentPrice: "£20.10/kg",
-    change: "+6.3%",
+    oldPrice: "£18.90/kg",
+    newPrice: "£20.10/kg",
+    increase: "+6.3%",
   },
 ];
 
-const recentInvoices = [
+const recentActivity = [
   {
-    supplier: "Fin and Flounder",
-    invoiceNumber: "SI-82760",
-    date: "30 Mar 2026",
-    total: "£493.63",
-    status: "Approved",
+    title: "Fin and Flounder invoice reviewed",
+    detail: "5 products extracted and matched",
+    time: "Today",
   },
   {
-    supplier: "Albion Fine Foods",
-    invoiceNumber: "INV-10482",
-    date: "3 Aug 2026",
-    total: "£1,284.60",
-    status: "Approved",
+    title: "Stock take updated",
+    detail: "Latest BOH quantities saved",
+    time: "Yesterday",
   },
   {
-    supplier: "Crazy Dan's House of Meat",
-    invoiceNumber: "DS-88341",
-    date: "2 Aug 2026",
-    total: "£746.20",
-    status: "Review",
-  },
-  {
-    supplier: "Mexgrocer",
-    invoiceNumber: "MX-21983",
-    date: "1 Aug 2026",
-    total: "£392.40",
-    status: "Approved",
+    title: "Recipe costing updated",
+    detail: "Ingredient prices available for costing",
+    time: "2 days ago",
   },
 ];
 
-const foodCostAlerts = [
+const menuCosting = [
   {
-    dish: "Ribeye",
-    foodCost: "34.2%",
-    target: "30%",
+    item: "Miso Black Cod",
+    cost: "31.8%",
+    target: "28%",
   },
   {
-    dish: "Tuna tostada",
-    foodCost: "31.8%",
-    target: "29%",
+    item: "Ribeye Steak 300g",
+    cost: "30.6%",
+    target: "28%",
   },
   {
-    dish: "Birria tacos",
-    foodCost: "29.4%",
+    item: "Pork Carnitas",
+    cost: "29.4%",
     target: "28%",
   },
 ];
 
+function money(value: number) {
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
 export default function HomePage() {
   return (
     <main className="app-shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">A</div>
-
-          <div>
-            <p className="brand-name">Azteca Insights</p>
-            <p className="brand-subtitle">Kitchen cost control</p>
-          </div>
-        </div>
-
-        <nav className="sidebar-nav" aria-label="Main navigation">
-          <Link className="nav-link nav-link-active" href="/">
-            <span className="nav-icon">⌂</span>
-            Dashboard
-          </Link>
-
-          <Link className="nav-link" href="/invoices">
-            <span className="nav-icon">▤</span>
-            Invoices
-          </Link>
-
-          <Link className="nav-link" href="/ingredients">
-            <span className="nav-icon">◫</span>
-            Ingredients
-          </Link>
-
-          <Link className="nav-link" href="/recipes">
-            <span className="nav-icon">◇</span>
-            Recipes
-          </Link>
-
-          <Link className="nav-link" href="/menu">
-            <span className="nav-icon">☰</span>
-            Menu
-          </Link>
-
-          <Link className="nav-link" href="/stock">
-            <span className="nav-icon">□</span>
-            Stock counts
-          </Link>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="restaurant-card">
-            <div className="restaurant-avatar">AZ</div>
-
-            <div>
-              <p className="restaurant-name">Azteca</p>
-              <p className="restaurant-location">Battersea, London</p>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <Sidebar active="dashboard" />
 
       <section className="main-content">
         <header className="topbar">
           <div>
-            <p className="eyebrow">Overview</p>
+            <p className="eyebrow">
+              Overview
+            </p>
 
-            <h1>Good morning</h1>
+            <h1>
+              Good morning
+            </h1>
 
             <p className="page-description">
               Here is what is happening with your kitchen costs.
             </p>
           </div>
 
-          <Link className="primary-button" href="/invoices/upload">
-            <span aria-hidden="true">＋</span>
-            Upload invoice
+          <Link
+            className="primary-button"
+            href="/invoices/upload"
+          >
+            + Upload invoice
           </Link>
         </header>
 
-        <section className="stats-grid" aria-label="Summary">
-          {stats.map((stat) => (
-            <article className="stat-card" key={stat.label}>
-              <p className="stat-label">{stat.label}</p>
+        <section className="stats-grid">
+          <article className="stat-card">
+            <p className="stat-label">
+              Spend this month
+            </p>
 
-              <p className="stat-value">{stat.value}</p>
+            <p className="stat-value">
+              £18,420
+            </p>
 
-              <p className={`stat-change ${stat.tone}`}>
-                {stat.change}
-              </p>
-            </article>
-          ))}
+            <p className="stat-change warning">
+              +4.2% vs last month
+            </p>
+          </article>
+
+          <article className="stat-card">
+            <p className="stat-label">
+              Average food cost
+            </p>
+
+            <p className="stat-value">
+              28.6%
+            </p>
+
+            <p className="stat-change neutral">
+              Target: 27%
+            </p>
+          </article>
+
+          <article className="stat-card">
+            <p className="stat-label">
+              Invoices processed
+            </p>
+
+            <p className="stat-value">
+              47
+            </p>
+
+            <p className="stat-change neutral">
+              3 awaiting review
+            </p>
+          </article>
+
+          <article className="stat-card">
+            <p className="stat-label">
+              Price increases
+            </p>
+
+            <p className="stat-value">
+              14
+            </p>
+
+            <p className="stat-change warning">
+              In the last 30 days
+            </p>
+          </article>
         </section>
 
         <section className="dashboard-grid">
-          <article className="panel supplier-panel">
+          <article className="panel">
             <div className="panel-header">
               <div>
-                <p className="panel-kicker">Purchasing</p>
-                <h2>Supplier spend</h2>
+                <p className="panel-kicker">
+                  Purchasing
+                </p>
+
+                <h2>
+                  Supplier spend
+                </h2>
               </div>
 
-              <button className="text-button" type="button">
-                View report
-              </button>
+              <Link
+                className="panel-link"
+                href="/orders"
+              >
+                View orders
+              </Link>
             </div>
 
-            <div className="supplier-list">
-              {suppliers.map((supplier) => (
-                <div className="supplier-row" key={supplier.name}>
-                  <div className="supplier-details">
+            <div className="supplier-spend-list">
+              {supplierSpend.map((supplier) => (
+                <div
+                  className="supplier-spend-row"
+                  key={supplier.supplier}
+                >
+                  <div className="supplier-spend-heading">
                     <div>
                       <p className="supplier-name">
-                        {supplier.name}
+                        {supplier.supplier}
                       </p>
 
                       <p className="muted-text">
@@ -244,19 +221,16 @@ export default function HomePage() {
                       </p>
                     </div>
 
-                    <p className="supplier-spend">
-                      {supplier.spend}
-                    </p>
+                    <strong>
+                      {money(supplier.spend)}
+                    </strong>
                   </div>
 
-                  <div
-                    className="progress-track"
-                    aria-label={`${supplier.name}: ${supplier.percentage}% of supplier spend`}
-                  >
+                  <div className="spend-progress">
                     <div
-                      className="progress-value"
+                      className="spend-progress-fill"
                       style={{
-                        width: `${supplier.percentage}%`,
+                        width: `${supplier.width}%`,
                       }}
                     />
                   </div>
@@ -265,46 +239,56 @@ export default function HomePage() {
             </div>
           </article>
 
-          <article className="panel alerts-panel">
+          <article className="panel">
             <div className="panel-header">
               <div>
                 <p className="panel-kicker">
                   Attention needed
                 </p>
 
-                <h2>Price increases</h2>
+                <h2>
+                  Price increases
+                </h2>
               </div>
 
               <span className="alert-count">
-                {priceAlerts.length}
+                {priceIncreases.length}
               </span>
             </div>
 
-            <div className="alert-list">
-              {priceAlerts.map((alert) => (
+            <div className="price-alert-list">
+              {priceIncreases.map((item) => (
                 <div
-                  className="price-alert"
-                  key={alert.ingredient}
+                  className="price-alert-row"
+                  key={item.ingredient}
                 >
                   <div>
-                    <p className="alert-ingredient">
-                      {alert.ingredient}
+                    <p className="price-alert-name">
+                      {item.ingredient}
                     </p>
 
                     <p className="muted-text">
-                      {alert.supplier}
+                      {item.supplier}
                     </p>
                   </div>
 
-                  <div className="price-comparison">
-                    <p>
-                      <span>{alert.previousPrice}</span>
-                      <span aria-hidden="true"> → </span>
-                      <strong>{alert.currentPrice}</strong>
-                    </p>
+                  <div className="price-alert-value">
+                    <div>
+                      <span>
+                        {item.oldPrice}
+                      </span>
+
+                      <span>
+                        →
+                      </span>
+
+                      <strong>
+                        {item.newPrice}
+                      </strong>
+                    </div>
 
                     <span className="increase-badge">
-                      {alert.change}
+                      {item.increase}
                     </span>
                   </div>
                 </div>
@@ -313,86 +297,82 @@ export default function HomePage() {
           </article>
         </section>
 
-        <section className="dashboard-grid lower-grid">
-          <article className="panel invoices-panel">
+        <section className="dashboard-grid dashboard-lower-grid">
+          <article className="panel">
             <div className="panel-header">
               <div>
                 <p className="panel-kicker">
                   Latest activity
                 </p>
 
-                <h2>Recent invoices</h2>
+                <h2>
+                  Recent updates
+                </h2>
               </div>
 
               <Link
-                className="text-button"
+                className="panel-link"
                 href="/invoices"
               >
                 View all
               </Link>
             </div>
 
-            <div className="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Supplier</th>
-                    <th>Invoice</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
+            <div className="activity-list">
+              {recentActivity.map((item) => (
+                <div
+                  className="activity-row"
+                  key={item.title}
+                >
+                  <div className="activity-dot" />
 
-                <tbody>
-                  {recentInvoices.map((invoice) => (
-                    <tr key={invoice.invoiceNumber}>
-                      <td>
-                        <strong>{invoice.supplier}</strong>
-                      </td>
+                  <div className="activity-content">
+                    <p className="activity-title">
+                      {item.title}
+                    </p>
 
-                      <td>{invoice.invoiceNumber}</td>
-                      <td>{invoice.date}</td>
-                      <td>{invoice.total}</td>
+                    <p className="muted-text">
+                      {item.detail}
+                    </p>
+                  </div>
 
-                      <td>
-                        <span
-                          className={`status-badge ${
-                            invoice.status === "Approved"
-                              ? "status-approved"
-                              : "status-review"
-                          }`}
-                        >
-                          {invoice.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                  <span className="activity-time">
+                    {item.time}
+                  </span>
+                </div>
+              ))}
             </div>
           </article>
 
-          <article className="panel food-cost-panel">
+          <article className="panel">
             <div className="panel-header">
               <div>
                 <p className="panel-kicker">
                   Menu costing
                 </p>
 
-                <h2>Above target</h2>
+                <h2>
+                  Above target
+                </h2>
               </div>
+
+              <Link
+                className="panel-link"
+                href="/menu"
+              >
+                View menu
+              </Link>
             </div>
 
-            <div className="food-cost-list">
-              {foodCostAlerts.map((item) => (
+            <div className="menu-cost-list">
+              {menuCosting.map((item) => (
                 <div
-                  className="food-cost-row"
-                  key={item.dish}
+                  className="menu-cost-row"
+                  key={item.item}
                 >
                   <div>
-                    <p className="food-cost-dish">
-                      {item.dish}
+                    <p className="menu-cost-name">
+                      {item.item}
                     </p>
 
                     <p className="muted-text">
@@ -400,20 +380,72 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  <p className="food-cost-value">
-                    {item.foodCost}
-                  </p>
+                  <strong className="menu-cost-value">
+                    {item.cost}
+                  </strong>
                 </div>
               ))}
             </div>
-
-            <Link
-              className="secondary-button"
-              href="/menu"
-            >
-              Review menu costs
-            </Link>
           </article>
+        </section>
+
+        <section className="dashboard-quick-actions">
+          <Link
+            className="quick-action-card"
+            href="/orders"
+          >
+            <span className="quick-action-icon">
+              +
+            </span>
+
+            <div>
+              <strong>
+                Create supplier order
+              </strong>
+
+              <p>
+                Build orders from stock and par levels.
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            className="quick-action-card"
+            href="/stock"
+          >
+            <span className="quick-action-icon">
+              □
+            </span>
+
+            <div>
+              <strong>
+                Start stock count
+              </strong>
+
+              <p>
+                Count current BOH inventory.
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            className="quick-action-card"
+            href="/recipes"
+          >
+            <span className="quick-action-icon">
+              ◇
+            </span>
+
+            <div>
+              <strong>
+                Review recipes
+              </strong>
+
+              <p>
+                Check recipe costs and missing prices.
+              </p>
+            </div>
+          </Link>
         </section>
       </section>
     </main>
