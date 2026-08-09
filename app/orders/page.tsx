@@ -378,7 +378,7 @@ export default function OrdersPage() {
     );
   }
 
-  function useSuggested(
+  function applySuggested(
     line: OrderLine
   ) {
     updateOrderQty(
@@ -770,7 +770,7 @@ export default function OrdersPage() {
                             type="button"
                             className="quick-suggestion"
                             onClick={() =>
-                              useSuggested(
+                              applySuggested(
                                 line
                               )
                             }
