@@ -35,12 +35,22 @@ type SavedStockTake = {
 
 type PageTab =
   | "current"
-  | "history";
+  | "history"
+  | "compare";
 
-const ingredientAliases: Record<
-  string,
-  string
-> = {
+type ComparisonRow = {
+  name: string;
+  category: string;
+  unit: string;
+  opening: number | null;
+  closing: number | null;
+  movement: number | null;
+  percentage: number | null;
+  price: number | null;
+  valueMovement: number | null;
+};
+
+const ingredientAliases: Record<string, string> = {
   tuna: "Tuna loin",
   "black cod": "Black cod",
   cod: "Cod",
@@ -48,13 +58,10 @@ const ingredientAliases: Record<
   "king prawn": "King prawn",
   ribeye: "Ribeye",
   "short rib": "Short rib",
-  "pork belly chicharron":
-    "Pork belly",
-  "chicken thigh pastor marinade":
-    "Chicken thigh",
+  "pork belly chicharron": "Pork belly",
+  "chicken thigh pastor marinade": "Chicken thigh",
   birria: "Birria beef",
-  "carnitas service":
-    "Carnitas pork",
+  "carnitas service": "Carnitas pork",
 };
 
 function normalise(value: string) {
@@ -65,57 +72,39 @@ function normalise(value: string) {
     .replace(/\s+/g, " ");
 }
 
-function ingredientPriceKey(
-  name: string
-) {
+function ingredientPriceKey(name: string) {
   const key = normalise(name);
 
-  return (
-    ingredientAliases[key] ??
-    name
-  );
+  return ingredientAliases[key] ?? name;
 }
 
 function money(value: number) {
-  return new Intl.NumberFormat(
-    "en-GB",
-    {
-      style: "currency",
-      currency: "GBP",
-    }
-  ).format(value);
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(value);
 }
 
-function formatDateTime(
-  value: string
-) {
+function formatDateTime(value: string) {
   if (!value) return "—";
 
   const date = new Date(value);
 
-  if (
-    Number.isNaN(date.getTime())
-  ) {
+  if (Number.isNaN(date.getTime())) {
     return value;
   }
 
-  return new Intl.DateTimeFormat(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }
-  ).format(date);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
 }
 
-function canonicalUnit(
-  value: string
-) {
-  const unit =
-    value.trim().toLowerCase();
+function canonicalUnit(value: string) {
+  const unit = value.trim().toLowerCase();
 
   if (
     unit === "l" ||
@@ -125,28 +114,36 @@ function canonicalUnit(
     return "L";
   }
 
-  if (unit === "kg") {
-    return "kg";
-  }
-
-  if (unit === "g") {
-    return "g";
-  }
-
-  if (unit === "ml") {
-    return "ml";
-  }
-
-  if (unit === "each") {
-    return "each";
-  }
+  if (unit === "kg") return "kg";
+  if (unit === "g") return "g";
+  if (unit === "ml") return "ml";
+  if (unit === "each") return "each";
 
   return value || "kg";
 }
 
-function calculateStockValue(
-  item: StockItem
+function numericQuantity(
+  value: number | string | null
 ) {
+  if (typeof value === "number") {
+    return value;
+  }
+
+  if (
+    value === null ||
+    value === ""
+  ) {
+    return null;
+  }
+
+  const parsed = Number(value);
+
+  return Number.isNaN(parsed)
+    ? null
+    : parsed;
+}
+
+function calculateStockValue(item: StockItem) {
   if (
     item.quantity === null ||
     item.price === null
@@ -154,11 +151,8 @@ function calculateStockValue(
     return 0;
   }
 
-  const quantity =
-    Number(item.quantity);
-
-  const price =
-    Number(item.price);
+  const quantity = Number(item.quantity);
+  const price = Number(item.price);
 
   if (
     Number.isNaN(quantity) ||
@@ -167,59 +161,38 @@ function calculateStockValue(
     return 0;
   }
 
-  const stockUnit =
-    canonicalUnit(item.unit);
-
-  const priceUnit =
-    canonicalUnit(
-      item.priceUnit
-    );
+  const stockUnit = canonicalUnit(item.unit);
+  const priceUnit = canonicalUnit(item.priceUnit);
 
   if (
     stockUnit === "g" &&
     priceUnit === "kg"
   ) {
-    return (
-      (quantity / 1000) *
-      price
-    );
+    return (quantity / 1000) * price;
   }
 
   if (
     stockUnit === "kg" &&
     priceUnit === "g"
   ) {
-    return (
-      quantity *
-      1000 *
-      price
-    );
+    return quantity * 1000 * price;
   }
 
   if (
     stockUnit === "ml" &&
     priceUnit === "L"
   ) {
-    return (
-      (quantity / 1000) *
-      price
-    );
+    return (quantity / 1000) * price;
   }
 
   if (
     stockUnit === "L" &&
     priceUnit === "ml"
   ) {
-    return (
-      quantity *
-      1000 *
-      price
-    );
+    return quantity * 1000 * price;
   }
 
-  if (
-    stockUnit === priceUnit
-  ) {
+  if (stockUnit === priceUnit) {
     return quantity * price;
   }
 
@@ -227,67 +200,192 @@ function calculateStockValue(
 }
 
 function buildCurrentStockItems(
-  prices: Record<
-    string,
-    IngredientPrice
-  >
+  prices: Record<string, IngredientPrice>
 ): StockItem[] {
-  return latestHistoricalStockTake.items.map(
-    (item) => {
-      const priceKey =
-        ingredientPriceKey(
-          item.name
+  return latestHistoricalStockTake.items.map((item) => {
+    const priceKey =
+      ingredientPriceKey(item.name);
+
+    const storedPrice =
+      prices[priceKey] ??
+      prices[item.name];
+
+    return {
+      ...item,
+      quantity:
+        numericQuantity(
+          item.quantity
+        ),
+      unit:
+        canonicalUnit(
+          item.unit
+        ),
+      price:
+        storedPrice?.price ??
+        null,
+      priceUnit:
+        storedPrice?.unit ??
+        "",
+      supplier:
+        storedPrice?.supplier ??
+        "",
+    };
+  });
+}
+
+function buildComparison(
+  fromId: string,
+  toId: string,
+  prices: Record<string, IngredientPrice>
+): ComparisonRow[] {
+  const fromTake =
+    historicalStockTakes.find(
+      (take) => take.id === fromId
+    );
+
+  const toTake =
+    historicalStockTakes.find(
+      (take) => take.id === toId
+    );
+
+  if (!fromTake || !toTake) {
+    return [];
+  }
+
+  const names = Array.from(
+    new Set([
+      ...fromTake.items.map((item) =>
+        normalise(item.name)
+      ),
+      ...toTake.items.map((item) =>
+        normalise(item.name)
+      ),
+    ])
+  );
+
+  return names.map((nameKey) => {
+    const fromItem =
+      fromTake.items.find(
+        (item) =>
+          normalise(item.name) ===
+          nameKey
+      );
+
+    const toItem =
+      toTake.items.find(
+        (item) =>
+          normalise(item.name) ===
+          nameKey
+      );
+
+    const sourceItem =
+      toItem ?? fromItem!;
+
+    const opening =
+      fromItem
+        ? numericQuantity(
+            fromItem.quantity
+          )
+        : null;
+
+    const closing =
+      toItem
+        ? numericQuantity(
+            toItem.quantity
+          )
+        : null;
+
+    let movement: number | null = null;
+
+    if (
+      opening !== null &&
+      closing !== null
+    ) {
+      movement =
+        closing - opening;
+    }
+
+    let percentage: number | null = null;
+
+    if (
+      movement !== null &&
+      opening !== null &&
+      opening !== 0
+    ) {
+      percentage =
+        (movement / opening) *
+        100;
+    }
+
+    const priceKey =
+      ingredientPriceKey(
+        sourceItem.name
+      );
+
+    const storedPrice =
+      prices[priceKey] ??
+      prices[sourceItem.name];
+
+    let valueMovement: number | null = null;
+
+    if (
+      movement !== null &&
+      storedPrice
+    ) {
+      const stockUnit =
+        canonicalUnit(
+          sourceItem.unit
         );
 
-      const storedPrice =
-        prices[priceKey] ??
-        prices[item.name];
+      const priceUnit =
+        canonicalUnit(
+          storedPrice.unit
+        );
 
-      const numericQuantity =
-        typeof item.quantity ===
-        "number"
-          ? item.quantity
-          : item.quantity !==
-                null &&
-              item.quantity !==
-                "" &&
-              !Number.isNaN(
-                Number(
-                  item.quantity
-                )
-              )
-          ? Number(
-              item.quantity
-            )
-          : null;
-
-      return {
-        ...item,
-        quantity:
-          numericQuantity,
-        unit:
-          canonicalUnit(
-            item.unit
-          ),
-        price:
-          storedPrice?.price ??
-          null,
-        priceUnit:
-          storedPrice?.unit ??
-          "",
-        supplier:
-          storedPrice?.supplier ??
-          "",
-      };
+      if (
+        stockUnit === priceUnit
+      ) {
+        valueMovement =
+          movement *
+          storedPrice.price;
+      } else if (
+        stockUnit === "g" &&
+        priceUnit === "kg"
+      ) {
+        valueMovement =
+          (movement / 1000) *
+          storedPrice.price;
+      } else if (
+        stockUnit === "ml" &&
+        priceUnit === "L"
+      ) {
+        valueMovement =
+          (movement / 1000) *
+          storedPrice.price;
+      }
     }
-  );
+
+    return {
+      name: sourceItem.name,
+      category:
+        sourceItem.category,
+      unit:
+        sourceItem.unit,
+      opening,
+      closing,
+      movement,
+      percentage,
+      price:
+        storedPrice?.price ??
+        null,
+      valueMovement,
+    };
+  });
 }
 
 export default function StockPage() {
   const [tab, setTab] =
-    useState<PageTab>(
-      "current"
-    );
+    useState<PageTab>("current");
 
   const [items, setItems] =
     useState<StockItem[]>([]);
@@ -312,6 +410,33 @@ export default function StockPage() {
     latestHistoricalStockTake.id
   );
 
+  const [
+    ingredientPrices,
+    setIngredientPrices,
+  ] = useState<
+    Record<string, IngredientPrice>
+  >({});
+
+  const [
+    compareFromId,
+    setCompareFromId,
+  ] = useState(
+    historicalStockTakes[
+      Math.max(
+        historicalStockTakes.length -
+          2,
+        0
+      )
+    ].id
+  );
+
+  const [
+    compareToId,
+    setCompareToId,
+  ] = useState(
+    latestHistoricalStockTake.id
+  );
+
   useEffect(() => {
     const storedPrices =
       JSON.parse(
@@ -322,6 +447,10 @@ export default function StockPage() {
         string,
         IngredientPrice
       >;
+
+    setIngredientPrices(
+      storedPrices
+    );
 
     const savedDraft =
       localStorage.getItem(
@@ -508,6 +637,91 @@ export default function StockPage() {
     items.length -
     pricedCount;
 
+  const comparison =
+    useMemo(() => {
+      return buildComparison(
+        compareFromId,
+        compareToId,
+        ingredientPrices
+      );
+    }, [
+      compareFromId,
+      compareToId,
+      ingredientPrices,
+    ]);
+
+  const filteredComparison =
+    useMemo(() => {
+      const query =
+        search
+          .trim()
+          .toLowerCase();
+
+      return comparison.filter(
+        (row) => {
+          const matchesSearch =
+            !query ||
+            row.name
+              .toLowerCase()
+              .includes(query) ||
+            row.category
+              .toLowerCase()
+              .includes(query);
+
+          const matchesCategory =
+            categoryFilter ===
+              "All" ||
+            row.category ===
+              categoryFilter;
+
+          return (
+            matchesSearch &&
+            matchesCategory
+          );
+        }
+      );
+    }, [
+      comparison,
+      search,
+      categoryFilter,
+    ]);
+
+  const biggestIncrease =
+    useMemo(() => {
+      return [...comparison]
+        .filter(
+          (row) =>
+            row.movement !== null
+        )
+        .sort(
+          (a, b) =>
+            (b.movement ?? 0) -
+            (a.movement ?? 0)
+        )[0];
+    }, [comparison]);
+
+  const biggestDecrease =
+    useMemo(() => {
+      return [...comparison]
+        .filter(
+          (row) =>
+            row.movement !== null
+        )
+        .sort(
+          (a, b) =>
+            (a.movement ?? 0) -
+            (b.movement ?? 0)
+        )[0];
+    }, [comparison]);
+
+  const totalValueMovement =
+    comparison.reduce(
+      (total, row) =>
+        total +
+        (row.valueMovement ?? 0),
+      0
+    );
+
   function updateItem(
     index: number,
     field:
@@ -624,23 +838,11 @@ export default function StockPage() {
         "Start a fresh count using the latest stock list? This clears the current quantities."
       );
 
-    if (!confirmed) {
-      return;
-    }
-
-    const storedPrices =
-      JSON.parse(
-        localStorage.getItem(
-          "ingredientPrices"
-        ) || "{}"
-      ) as Record<
-        string,
-        IngredientPrice
-      >;
+    if (!confirmed) return;
 
     const fresh =
       buildCurrentStockItems(
-        storedPrices
+        ingredientPrices
       ).map((item) => ({
         ...item,
         quantity: null,
@@ -656,19 +858,9 @@ export default function StockPage() {
   }
 
   function restoreLatestCount() {
-    const storedPrices =
-      JSON.parse(
-        localStorage.getItem(
-          "ingredientPrices"
-        ) || "{}"
-      ) as Record<
-        string,
-        IngredientPrice
-      >;
-
     setItems(
       buildCurrentStockItems(
-        storedPrices
+        ingredientPrices
       )
     );
 
@@ -803,9 +995,9 @@ export default function StockPage() {
 
             <p className="page-description">
               Count current BOH stock,
-              value priced ingredients
-              and review previous stock
-              takes.
+              review history and compare
+              inventory movement between
+              stock takes.
             </p>
 
             {tab ===
@@ -893,10 +1085,25 @@ export default function StockPage() {
               }
             </span>
           </button>
+
+          <button
+            className={`stock-tab ${
+              tab === "compare"
+                ? "stock-tab-active"
+                : ""
+            }`}
+            type="button"
+            onClick={() =>
+              switchTab(
+                "compare"
+              )
+            }
+          >
+            Compare
+          </button>
         </div>
 
-        {tab ===
-        "current" ? (
+        {tab === "current" && (
           <>
             <section className="stats-grid">
               <article className="stat-card">
@@ -925,9 +1132,7 @@ export default function StockPage() {
                 </p>
 
                 <p className="stat-change neutral">
-                  of{" "}
-                  {items.length}{" "}
-                  stock lines
+                  of {items.length} lines
                 </p>
               </article>
 
@@ -941,8 +1146,7 @@ export default function StockPage() {
                 </p>
 
                 <p className="stat-change neutral">
-                  Linked to invoice
-                  prices
+                  Linked to invoices
                 </p>
               </article>
 
@@ -952,13 +1156,11 @@ export default function StockPage() {
                 </p>
 
                 <p className="stat-value">
-                  {
-                    missingPriceCount
-                  }
+                  {missingPriceCount}
                 </p>
 
                 <p className="stat-change warning">
-                  Supplier costs needed
+                  Costs still needed
                 </p>
               </article>
             </section>
@@ -973,13 +1175,6 @@ export default function StockPage() {
                   Based on latest BOH
                   stock take
                 </h2>
-
-                <p className="page-description">
-                  The latest historical
-                  list is used as the
-                  starting template for
-                  new counts.
-                </p>
               </div>
 
               <button
@@ -1004,26 +1199,17 @@ export default function StockPage() {
                     Kitchen inventory
                   </h2>
                 </div>
-
-                <span className="menu-section-count">
-                  {
-                    filteredItems.length
-                  }
-                </span>
               </div>
 
               <div className="ingredient-toolbar">
                 <div className="ingredient-search">
                   <input
                     type="search"
-                    placeholder="Search stock, category or storage area..."
+                    placeholder="Search stock..."
                     value={search}
-                    onChange={(
-                      event
-                    ) =>
+                    onChange={(event) =>
                       setSearch(
-                        event.target
-                          .value
+                        event.target.value
                       )
                     }
                   />
@@ -1034,28 +1220,19 @@ export default function StockPage() {
                     value={
                       categoryFilter
                     }
-                    onChange={(
-                      event
-                    ) =>
+                    onChange={(event) =>
                       setCategoryFilter(
-                        event.target
-                          .value
+                        event.target.value
                       )
                     }
                   >
                     {categories.map(
                       (category) => (
                         <option
-                          key={
-                            category
-                          }
-                          value={
-                            category
-                          }
+                          key={category}
+                          value={category}
                         >
-                          {
-                            category
-                          }
+                          {category}
                         </option>
                       )
                     )}
@@ -1067,33 +1244,15 @@ export default function StockPage() {
                 <table className="stock-table">
                   <thead>
                     <tr>
-                      <th>
-                        Category
-                      </th>
-                      <th>
-                        Storage
-                      </th>
-                      <th>
-                        Item
-                      </th>
-                      <th>
-                        Count
-                      </th>
-                      <th>
-                        Unit
-                      </th>
-                      <th>
-                        Current cost
-                      </th>
-                      <th>
-                        Supplier
-                      </th>
-                      <th>
-                        Value
-                      </th>
-                      <th>
-                        Notes
-                      </th>
+                      <th>Category</th>
+                      <th>Storage</th>
+                      <th>Item</th>
+                      <th>Count</th>
+                      <th>Unit</th>
+                      <th>Current cost</th>
+                      <th>Supplier</th>
+                      <th>Value</th>
+                      <th>Notes</th>
                     </tr>
                   </thead>
 
@@ -1102,11 +1261,8 @@ export default function StockPage() {
                       (item) => {
                         const originalIndex =
                           items.findIndex(
-                            (
-                              candidate
-                            ) =>
-                              candidate ===
-                              item
+                            (candidate) =>
+                              candidate === item
                           );
 
                         const value =
@@ -1120,22 +1276,17 @@ export default function StockPage() {
                           >
                             <td>
                               <span className="ingredient-category-badge">
-                                {
-                                  item.category
-                                }
+                                {item.category}
                               </span>
                             </td>
 
                             <td>
-                              {item.storage ||
-                                "—"}
+                              {item.storage || "—"}
                             </td>
 
                             <td>
                               <strong className="stock-item-name">
-                                {
-                                  item.name
-                                }
+                                {item.name}
                               </strong>
                             </td>
 
@@ -1148,15 +1299,11 @@ export default function StockPage() {
                                   item.quantity ??
                                   ""
                                 }
-                                onChange={(
-                                  event
-                                ) =>
+                                onChange={(event) =>
                                   updateItem(
                                     originalIndex,
                                     "quantity",
-                                    event
-                                      .target
-                                      .value
+                                    event.target.value
                                   )
                                 }
                               />
@@ -1165,33 +1312,25 @@ export default function StockPage() {
                             <td>
                               <input
                                 className="stock-unit-input"
-                                value={
-                                  item.unit
-                                }
-                                onChange={(
-                                  event
-                                ) =>
+                                value={item.unit}
+                                onChange={(event) =>
                                   updateItem(
                                     originalIndex,
                                     "unit",
-                                    event
-                                      .target
-                                      .value
+                                    event.target.value
                                   )
                                 }
                               />
                             </td>
 
                             <td>
-                              {item.price !==
-                              null ? (
+                              {item.price !== null ? (
                                 <>
                                   <strong>
                                     {money(
                                       item.price
                                     )}
                                   </strong>
-
                                   <span className="stock-price-unit">
                                     {" "}
                                     /{" "}
@@ -1207,30 +1346,19 @@ export default function StockPage() {
                             </td>
 
                             <td>
-                              {item.supplier ||
-                                "—"}
+                              {item.supplier || "—"}
                             </td>
 
                             <td>
-                              {item.quantity !==
-                                null &&
-                              item.price !==
-                                null &&
-                              value >
-                                0 ? (
-                                <strong>
-                                  {money(
-                                    value
-                                  )}
-                                </strong>
-                              ) : (
-                                "—"
-                              )}
+                              {item.quantity !== null &&
+                              item.price !== null &&
+                              value > 0
+                                ? money(value)
+                                : "—"}
                             </td>
 
                             <td className="stock-notes-cell">
-                              {item.notes ||
-                                "—"}
+                              {item.notes || "—"}
                             </td>
                           </tr>
                         );
@@ -1241,121 +1369,41 @@ export default function StockPage() {
               </div>
             </section>
           </>
-        ) : (
+        )}
+
+        {tab === "history" && (
           <>
-            <section className="stats-grid">
-              <article className="stat-card">
-                <p className="stat-label">
-                  Historic counts
-                </p>
-
-                <p className="stat-value">
-                  {
-                    historicalStockTakes.length
-                  }
-                </p>
-
-                <p className="stat-change neutral">
-                  Imported stock takes
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Selected count
-                </p>
-
-                <p className="stat-value stock-date-stat">
-                  {
-                    selectedHistory.label
-                  }
-                </p>
-
-                <p className="stat-change neutral">
-                  Sheet{" "}
-                  {
-                    selectedHistory.sourceSheet
-                  }
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Stock lines
-                </p>
-
-                <p className="stat-value">
-                  {
-                    selectedHistory
-                      .items.length
-                  }
-                </p>
-
-                <p className="stat-change neutral">
-                  Imported lines
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Source
-                </p>
-
-                <p className="stat-value stock-source-stat">
-                  Excel
-                </p>
-
-                <p className="stat-change neutral">
-                  BOH stock take
-                </p>
-              </article>
-            </section>
-
             <section className="stock-history-cards">
-              {[
-                ...historicalStockTakes,
-              ]
+              {[...historicalStockTakes]
                 .reverse()
-                .map(
-                  (take) => (
-                    <button
-                      className={`stock-history-card ${
-                        selectedHistoryId ===
+                .map((take) => (
+                  <button
+                    className={`stock-history-card ${
+                      selectedHistoryId === take.id
+                        ? "stock-history-card-active"
+                        : ""
+                    }`}
+                    key={take.id}
+                    type="button"
+                    onClick={() =>
+                      setSelectedHistoryId(
                         take.id
-                          ? "stock-history-card-active"
-                          : ""
-                      }`}
-                      key={
-                        take.id
-                      }
-                      type="button"
-                      onClick={() =>
-                        setSelectedHistoryId(
-                          take.id
-                        )
-                      }
-                    >
-                      <span className="stock-history-date">
-                        {
-                          take.label
-                        }
-                      </span>
+                      )
+                    }
+                  >
+                    <span className="stock-history-date">
+                      {take.label}
+                    </span>
 
-                      <span className="stock-history-lines">
-                        {
-                          take.items
-                            .length
-                        }{" "}
-                        lines
-                      </span>
+                    <span className="stock-history-lines">
+                      {take.items.length} lines
+                    </span>
 
-                      <span className="stock-history-view">
-                        View stock take
-                        →
-                      </span>
-                    </button>
-                  )
-                )}
+                    <span className="stock-history-view">
+                      View stock take →
+                    </span>
+                  </button>
+                ))}
             </section>
 
             <section className="panel">
@@ -1366,17 +1414,9 @@ export default function StockPage() {
                   </p>
 
                   <h2>
-                    {
-                      selectedHistory.label
-                    }
+                    {selectedHistory.label}
                   </h2>
                 </div>
-
-                <span className="menu-section-count">
-                  {
-                    filteredHistoryItems.length
-                  }
-                </span>
               </div>
 
               <div className="ingredient-toolbar">
@@ -1385,12 +1425,233 @@ export default function StockPage() {
                     type="search"
                     placeholder="Search historic stock..."
                     value={search}
-                    onChange={(
-                      event
-                    ) =>
+                    onChange={(event) =>
                       setSearch(
-                        event.target
-                          .value
+                        event.target.value
+                      )
+                    }
+                  />
+                </div>
+              </div>
+
+              <div className="table-wrapper">
+                <table className="stock-table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Storage</th>
+                      <th>Item</th>
+                      <th>Quantity</th>
+                      <th>Unit</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {filteredHistoryItems.map(
+                      (item, index) => (
+                        <tr
+                          key={`${item.name}-${index}`}
+                        >
+                          <td>
+                            {item.category}
+                          </td>
+
+                          <td>
+                            {item.storage || "—"}
+                          </td>
+
+                          <td>
+                            <strong>
+                              {item.name}
+                            </strong>
+                          </td>
+
+                          <td>
+                            {item.quantity ?? "—"}
+                          </td>
+
+                          <td>
+                            {item.unit || "—"}
+                          </td>
+
+                          <td>
+                            {item.notes || "—"}
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </>
+        )}
+
+        {tab === "compare" && (
+          <>
+            <section className="panel stock-compare-controls">
+              <div>
+                <p className="panel-kicker">
+                  Comparison period
+                </p>
+
+                <h2>
+                  Compare stock takes
+                </h2>
+              </div>
+
+              <div className="compare-selects">
+                <div className="form-field">
+                  <label>From</label>
+
+                  <select
+                    value={compareFromId}
+                    onChange={(event) =>
+                      setCompareFromId(
+                        event.target.value
+                      )
+                    }
+                  >
+                    {historicalStockTakes.map(
+                      (take) => (
+                        <option
+                          key={take.id}
+                          value={take.id}
+                        >
+                          {take.label}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+
+                <div className="compare-arrow">
+                  →
+                </div>
+
+                <div className="form-field">
+                  <label>To</label>
+
+                  <select
+                    value={compareToId}
+                    onChange={(event) =>
+                      setCompareToId(
+                        event.target.value
+                      )
+                    }
+                  >
+                    {historicalStockTakes.map(
+                      (take) => (
+                        <option
+                          key={take.id}
+                          value={take.id}
+                        >
+                          {take.label}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section className="stats-grid">
+              <article className="stat-card">
+                <p className="stat-label">
+                  Compared items
+                </p>
+
+                <p className="stat-value">
+                  {comparison.length}
+                </p>
+              </article>
+
+              <article className="stat-card">
+                <p className="stat-label">
+                  Biggest increase
+                </p>
+
+                <p className="stat-value stock-compare-stat">
+                  {biggestIncrease?.name ??
+                    "—"}
+                </p>
+
+                <p className="stat-change neutral">
+                  {biggestIncrease?.movement !==
+                  null
+                    ? `+${
+                        biggestIncrease?.movement ??
+                        0
+                      } ${
+                        biggestIncrease?.unit ??
+                        ""
+                      }`
+                    : "—"}
+                </p>
+              </article>
+
+              <article className="stat-card">
+                <p className="stat-label">
+                  Biggest decrease
+                </p>
+
+                <p className="stat-value stock-compare-stat">
+                  {biggestDecrease?.name ??
+                    "—"}
+                </p>
+
+                <p className="stat-change warning">
+                  {biggestDecrease?.movement !==
+                  null
+                    ? `${biggestDecrease?.movement ??
+                        0} ${
+                        biggestDecrease?.unit ??
+                        ""
+                      }`
+                    : "—"}
+                </p>
+              </article>
+
+              <article className="stat-card">
+                <p className="stat-label">
+                  Value movement
+                </p>
+
+                <p className="stat-value">
+                  {money(
+                    totalValueMovement
+                  )}
+                </p>
+
+                <p className="stat-change neutral">
+                  Priced matches only
+                </p>
+              </article>
+            </section>
+
+            <section className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">
+                    Stock movement
+                  </p>
+
+                  <h2>
+                    Item comparison
+                  </h2>
+                </div>
+              </div>
+
+              <div className="ingredient-toolbar">
+                <div className="ingredient-search">
+                  <input
+                    type="search"
+                    placeholder="Search comparison..."
+                    value={search}
+                    onChange={(event) =>
+                      setSearch(
+                        event.target.value
                       )
                     }
                   />
@@ -1401,28 +1662,19 @@ export default function StockPage() {
                     value={
                       categoryFilter
                     }
-                    onChange={(
-                      event
-                    ) =>
+                    onChange={(event) =>
                       setCategoryFilter(
-                        event.target
-                          .value
+                        event.target.value
                       )
                     }
                   >
                     {categories.map(
                       (category) => (
                         <option
-                          key={
-                            category
-                          }
-                          value={
-                            category
-                          }
+                          key={category}
+                          value={category}
                         >
-                          {
-                            category
-                          }
+                          {category}
                         </option>
                       )
                     )}
@@ -1431,73 +1683,89 @@ export default function StockPage() {
               </div>
 
               <div className="table-wrapper">
-                <table className="stock-table">
+                <table className="stock-table compare-table">
                   <thead>
                     <tr>
-                      <th>
-                        Category
-                      </th>
-                      <th>
-                        Storage
-                      </th>
-                      <th>
-                        Item
-                      </th>
-                      <th>
-                        Quantity
-                      </th>
-                      <th>
-                        Unit
-                      </th>
-                      <th>
-                        Notes
-                      </th>
+                      <th>Item</th>
+                      <th>Category</th>
+                      <th>Opening</th>
+                      <th>Closing</th>
+                      <th>Movement</th>
+                      <th>% change</th>
+                      <th>Value movement</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {filteredHistoryItems.map(
-                      (
-                        item,
-                        index
-                      ) => (
-                        <tr
-                          key={`${item.category}-${item.name}-${index}`}
-                        >
+                    {filteredComparison.map(
+                      (row) => (
+                        <tr key={row.name}>
                           <td>
-                            <span className="ingredient-category-badge">
-                              {
-                                item.category
-                              }
-                            </span>
-                          </td>
-
-                          <td>
-                            {item.storage ||
-                              "—"}
-                          </td>
-
-                          <td>
-                            <strong className="stock-item-name">
-                              {
-                                item.name
-                              }
+                            <strong>
+                              {row.name}
                             </strong>
                           </td>
 
                           <td>
-                            {item.quantity ??
-                              "—"}
+                            {row.category}
                           </td>
 
                           <td>
-                            {item.unit ||
-                              "—"}
+                            {row.opening ??
+                              "—"}{" "}
+                            {row.unit}
                           </td>
 
-                          <td className="stock-notes-cell">
-                            {item.notes ||
-                              "—"}
+                          <td>
+                            {row.closing ??
+                              "—"}{" "}
+                            {row.unit}
+                          </td>
+
+                          <td>
+                            {row.movement !==
+                            null ? (
+                              <span
+                                className={
+                                  row.movement >
+                                  0
+                                    ? "movement-positive"
+                                    : row.movement <
+                                      0
+                                    ? "movement-negative"
+                                    : "movement-neutral"
+                                }
+                              >
+                                {row.movement >
+                                0
+                                  ? "+"
+                                  : ""}
+                                {row.movement.toFixed(
+                                  2
+                                )}{" "}
+                                {row.unit}
+                              </span>
+                            ) : (
+                              "—"
+                            )}
+                          </td>
+
+                          <td>
+                            {row.percentage !==
+                            null
+                              ? `${row.percentage.toFixed(
+                                  1
+                                )}%`
+                              : "—"}
+                          </td>
+
+                          <td>
+                            {row.valueMovement !==
+                            null
+                              ? money(
+                                  row.valueMovement
+                                )
+                              : "—"}
                           </td>
                         </tr>
                       )
