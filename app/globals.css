@@ -1381,4 +1381,84 @@ td strong {
   .review-edit-grid {
     grid-template-columns: 1fr;
   }
+}.menu-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.menu-section {
+  padding: 0;
+  overflow: hidden;
+}
+
+.menu-section .panel-header {
+  margin: 0;
+  padding: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.menu-section-count {
+  display: inline-flex;
+  align-items: center;
+  min-height: 27px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--text-soft);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.menu-table {
+  min-width: 900px;
+}
+
+.menu-table th,
+.menu-table td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.menu-table th:first-child,
+.menu-table td:first-child {
+  padding-left: 22px;
+}
+
+.menu-table th:last-child,
+.menu-table td:last-child {
+  padding-right: 22px;
+}
+
+.menu-dish-cell {
+  min-width: 360px;
+  white-space: normal;
+}
+
+.menu-dish-cell > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-dish-cell strong {
+  font-size: 13px;
+}
+
+.menu-dish-cell p {
+  max-width: 520px;
+  margin-top: 5px;
+  color: var(--text-soft);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.menu-dietary {
+  display: inline-flex;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
 }
