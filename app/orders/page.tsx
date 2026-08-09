@@ -21,6 +21,14 @@ type StockItem = {
   supplier: string;
 };
 
+type CatalogueItem = {
+  ingredient: string;
+  supplier: string;
+  supplierProduct: string;
+  unit: string;
+  fallbackPrice: number | null;
+};
+
 type OrderLine = {
   id: string;
   ingredient: string;
@@ -48,6 +56,152 @@ type OrderStep =
   | "order"
   | "review";
 
+const starterCatalogue: CatalogueItem[] = [
+  {
+    ingredient: "Cod",
+    supplier: "Fin and Flounder",
+    supplierProduct: "Cod Fillet",
+    unit: "kg",
+    fallbackPrice: 24.95,
+  },
+  {
+    ingredient: "Black cod",
+    supplier: "Fin and Flounder",
+    supplierProduct: "Frozen Black Cod",
+    unit: "kg",
+    fallbackPrice: 24.5,
+  },
+  {
+    ingredient: "26/30 prawn",
+    supplier: "Fin and Flounder",
+    supplierProduct: "Raw Peeled Deveined Prawn 26/30",
+    unit: "kg",
+    fallbackPrice: 10.5,
+  },
+  {
+    ingredient: "King prawn",
+    supplier: "Fin and Flounder",
+    supplierProduct: "King Prawn 10/20",
+    unit: "kg",
+    fallbackPrice: 15.5,
+  },
+  {
+    ingredient: "Tuna loin",
+    supplier: "Fin and Flounder",
+    supplierProduct: "Tuna Loin AAA",
+    unit: "kg",
+    fallbackPrice: 32.5,
+  },
+
+  {
+    ingredient: "Ribeye",
+    supplier: "Crazy Dan's House of Meat",
+    supplierProduct: "Ribeye",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Short rib",
+    supplier: "Crazy Dan's House of Meat",
+    supplierProduct: "Longhorn Short Rib",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Pork belly",
+    supplier: "Crazy Dan's House of Meat",
+    supplierProduct: "Pork Belly",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Chicken thigh",
+    supplier: "Crazy Dan's House of Meat",
+    supplierProduct: "Chicken Thigh",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Birria beef",
+    supplier: "Crazy Dan's House of Meat",
+    supplierProduct: "Beef for Birria",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Carnitas pork",
+    supplier: "Crazy Dan's House of Meat",
+    supplierProduct: "Pork for Carnitas",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+
+  {
+    ingredient: "Masafina tortilla 12cm",
+    supplier: "Mexgrocer",
+    supplierProduct: "Masafina Corn Tortilla 12cm",
+    unit: "each",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Masafina tortilla 10cm",
+    supplier: "Mexgrocer",
+    supplierProduct: "Masafina Corn Tortilla 10cm",
+    unit: "each",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Masafina blue corn tortilla 12cm",
+    supplier: "Mexgrocer",
+    supplierProduct: "Masafina Blue Corn Tortilla 12cm",
+    unit: "each",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Aji Amarillo",
+    supplier: "Mexgrocer",
+    supplierProduct: "Aji Amarillo Paste",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+
+  {
+    ingredient: "Miso",
+    supplier: "Albion Fine Foods",
+    supplierProduct: "Miso Paste",
+    unit: "kg",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Mirin",
+    supplier: "Albion Fine Foods",
+    supplierProduct: "Mirin",
+    unit: "L",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Rice vinegar",
+    supplier: "Albion Fine Foods",
+    supplierProduct: "Rice Vinegar",
+    unit: "L",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Fish sauce",
+    supplier: "Albion Fine Foods",
+    supplierProduct: "Fish Sauce",
+    unit: "L",
+    fallbackPrice: null,
+  },
+  {
+    ingredient: "Rapeseed oil",
+    supplier: "Albion Fine Foods",
+    supplierProduct: "Rapeseed Oil",
+    unit: "L",
+    fallbackPrice: null,
+  },
+];
+
 function money(value: number) {
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
@@ -74,75 +228,139 @@ function formatDate(value: string) {
   }).format(date);
 }
 
+function findStockItem(
+  currentStock: StockItem[],
+  ingredient: string
+) {
+  const target =
+    ingredient.toLowerCase();
+
+  return (
+    currentStock.find(
+      (item) =>
+        item.name
+          .toLowerCase() ===
+        target
+    ) ?? null
+  );
+}
+
 function buildOrderLines(
-  ingredientPrices: Record<string, IngredientPrice>,
+  ingredientPrices: Record<
+    string,
+    IngredientPrice
+  >,
   currentStock: StockItem[]
 ): OrderLine[] {
+  const catalogueNames =
+    starterCatalogue.map(
+      (item) => item.ingredient
+    );
+
   const names = Array.from(
     new Set([
-      ...Object.keys(ingredientPrices),
-      ...currentStock.map((item) => item.name),
+      ...catalogueNames,
+      ...Object.keys(
+        ingredientPrices
+      ),
     ])
   );
 
-  return names.map((name, index) => {
-    const price = ingredientPrices[name];
+  return names.map(
+    (name, index) => {
+      const catalogueItem =
+        starterCatalogue.find(
+          (item) =>
+            item.ingredient ===
+            name
+        );
 
-    const stock =
-      currentStock.find(
-        (item) =>
-          item.name.toLowerCase() ===
-          name.toLowerCase()
-      ) ?? null;
+      const livePrice =
+        ingredientPrices[name];
 
-    const stockQty =
-      Number(stock?.quantity ?? 0);
+      const stock =
+        findStockItem(
+          currentStock,
+          name
+        );
 
-    const stockUnit =
-      stock?.unit ||
-      price?.unit ||
-      "kg";
-
-    const suggestedQty =
-      stockQty > 0
-        ? round(stockQty * 0.5)
-        : 0;
-
-    return {
-      id: `order-${index}-${name}`,
-      ingredient: name,
-      supplier:
-        price?.supplier ||
+      const supplier =
+        livePrice?.supplier ||
+        catalogueItem?.supplier ||
         stock?.supplier ||
-        "Unassigned",
-      supplierProduct:
-        price?.product || "",
-      stockQty,
-      stockUnit,
-      orderQty: 0,
-      orderUnit:
-        price?.unit ||
+        "Unassigned";
+
+      const supplierProduct =
+        livePrice?.product ||
+        catalogueItem
+          ?.supplierProduct ||
+        name;
+
+      const orderUnit =
+        livePrice?.unit ||
+        catalogueItem?.unit ||
         stock?.unit ||
-        "kg",
-      unitPrice:
-        price?.price ?? null,
-      suggestedQty,
-    };
-  });
+        "kg";
+
+      const stockQty =
+        Number(
+          stock?.quantity ?? 0
+        );
+
+      const stockUnit =
+        stock?.unit ||
+        orderUnit;
+
+      const unitPrice =
+        livePrice?.price ??
+        catalogueItem
+          ?.fallbackPrice ??
+        null;
+
+      const suggestedQty =
+        stockQty > 0
+          ? round(
+              stockQty *
+                0.5
+            )
+          : 0;
+
+      return {
+        id: `order-${index}-${name}`,
+        ingredient: name,
+        supplier,
+        supplierProduct,
+        stockQty,
+        stockUnit,
+        orderQty: 0,
+        orderUnit,
+        unitPrice,
+        suggestedQty,
+      };
+    }
+  );
 }
 
 export default function OrdersPage() {
   const [step, setStep] =
-    useState<OrderStep>("start");
+    useState<OrderStep>(
+      "start"
+    );
 
-  const [selectedSupplier, setSelectedSupplier] =
-    useState("");
+  const [
+    selectedSupplier,
+    setSelectedSupplier,
+  ] = useState("");
 
   const [lines, setLines] =
     useState<OrderLine[]>([]);
 
-  const [purchaseOrders, setPurchaseOrders] =
-    useState<PurchaseOrder[]>([]);
+  const [
+    purchaseOrders,
+    setPurchaseOrders,
+  ] = useState<
+    PurchaseOrder[]
+  >([]);
 
   const [search, setSearch] =
     useState("");
@@ -153,7 +371,10 @@ export default function OrdersPage() {
         localStorage.getItem(
           "ingredientPrices"
         ) || "{}"
-      ) as Record<string, IngredientPrice>;
+      ) as Record<
+        string,
+        IngredientPrice
+      >;
 
     const stockTake =
       JSON.parse(
@@ -188,11 +409,15 @@ export default function OrdersPage() {
       return Array.from(
         new Set(
           lines
-            .map((line) => line.supplier)
+            .map(
+              (line) =>
+                line.supplier
+            )
             .filter(
               (supplier) =>
                 supplier &&
-                supplier !== "Unassigned"
+                supplier !==
+                  "Unassigned"
             )
         )
       ).sort();
@@ -270,17 +495,20 @@ export default function OrdersPage() {
     quantity: number
   ) {
     setLines((current) =>
-      current.map((line) =>
-        line.id === id
-          ? {
-              ...line,
-              orderQty:
-                Math.max(
-                  round(quantity),
-                  0
-                ),
-            }
-          : line
+      current.map(
+        (line) =>
+          line.id === id
+            ? {
+                ...line,
+                orderQty:
+                  Math.max(
+                    round(
+                      quantity
+                    ),
+                    0
+                  ),
+              }
+            : line
       )
     );
   }
@@ -307,33 +535,36 @@ export default function OrdersPage() {
 
   function useAllSuggested() {
     setLines((current) =>
-      current.map((line) => {
-        if (
-          line.supplier !==
-          selectedSupplier
-        ) {
-          return line;
-        }
+      current.map(
+        (line) => {
+          if (
+            line.supplier !==
+            selectedSupplier
+          ) {
+            return line;
+          }
 
-        return {
-          ...line,
-          orderQty:
-            line.suggestedQty,
-        };
-      })
+          return {
+            ...line,
+            orderQty:
+              line.suggestedQty,
+          };
+        }
+      )
     );
   }
 
   function clearSupplierOrder() {
     setLines((current) =>
-      current.map((line) =>
-        line.supplier ===
-        selectedSupplier
-          ? {
-              ...line,
-              orderQty: 0,
-            }
-          : line
+      current.map(
+        (line) =>
+          line.supplier ===
+          selectedSupplier
+            ? {
+                ...line,
+                orderQty: 0,
+              }
+            : line
       )
     );
   }
@@ -360,17 +591,18 @@ export default function OrdersPage() {
       return;
     }
 
-    const order: PurchaseOrder = {
-      id: `PO-${Date.now()}`,
-      supplier:
-        selectedSupplier,
-      createdAt:
-        new Date().toISOString(),
-      status: "Sent",
-      lines:
-        selectedOrderLines,
-      estimatedTotal,
-    };
+    const order: PurchaseOrder =
+      {
+        id: `PO-${Date.now()}`,
+        supplier:
+          selectedSupplier,
+        createdAt:
+          new Date().toISOString(),
+        status: "Sent",
+        lines:
+          selectedOrderLines,
+        estimatedTotal,
+      };
 
     const nextOrders = [
       order,
@@ -428,9 +660,7 @@ export default function OrdersPage() {
                 </h1>
 
                 <p className="page-description">
-                  Choose a supplier and
-                  build an order in a few
-                  seconds.
+                  Choose a supplier and build an order in a few seconds.
                 </p>
               </div>
             </header>
@@ -443,8 +673,7 @@ export default function OrdersPage() {
                   </p>
 
                   <h2>
-                    Who are you ordering
-                    from?
+                    Who are you ordering from?
                   </h2>
                 </div>
               </div>
@@ -499,16 +728,6 @@ export default function OrdersPage() {
                     );
                   }
                 )}
-
-                {suppliers.length ===
-                  0 && (
-                  <div className="empty-table-message">
-                    No supplier products
-                    yet. Approve an invoice
-                    first so supplier
-                    products can be linked.
-                  </div>
-                )}
               </div>
             </section>
 
@@ -551,8 +770,7 @@ export default function OrdersPage() {
                         </div>
 
                         <span>
-                          {order.lines.length}{" "}
-                          items
+                          {order.lines.length} items
                         </span>
 
                         <strong>
@@ -596,8 +814,7 @@ export default function OrdersPage() {
                 </h1>
 
                 <p className="page-description">
-                  Enter what you want to
-                  order.
+                  Enter what you want to order.
                 </p>
               </div>
 
@@ -613,10 +830,7 @@ export default function OrdersPage() {
                 </strong>
 
                 <span>
-                  {
-                    selectedOrderLines.length
-                  }{" "}
-                  items
+                  {selectedOrderLines.length} items
                 </span>
               </div>
             </header>
@@ -746,14 +960,11 @@ export default function OrdersPage() {
                           value={
                             line.orderQty
                           }
-                          onChange={(
-                            event
-                          ) =>
+                          onChange={(event) =>
                             updateOrderQty(
                               line.id,
                               Number(
-                                event.target
-                                  .value ||
+                                event.target.value ||
                                   0
                               )
                             )
@@ -785,10 +996,7 @@ export default function OrdersPage() {
             <div className="quick-order-footer">
               <div>
                 <span>
-                  {
-                    selectedOrderLines.length
-                  }{" "}
-                  items
+                  {selectedOrderLines.length} items
                 </span>
 
                 <strong>
@@ -838,8 +1046,7 @@ export default function OrdersPage() {
                 </h1>
 
                 <p className="page-description">
-                  Check the order before
-                  marking it as sent.
+                  Check the order before marking it as sent.
                 </p>
               </div>
 
@@ -855,10 +1062,7 @@ export default function OrdersPage() {
                 </strong>
 
                 <span>
-                  {
-                    selectedOrderLines.length
-                  }{" "}
-                  items
+                  {selectedOrderLines.length} items
                 </span>
               </div>
             </header>
@@ -889,8 +1093,7 @@ export default function OrdersPage() {
                         </strong>
 
                         <span>
-                          {line.supplierProduct ||
-                            "Supplier product"}
+                          {line.supplierProduct}
                         </span>
                       </div>
 
@@ -910,9 +1113,7 @@ export default function OrdersPage() {
                                 line.unitPrice
                               )}
                               /
-                              {
-                                line.orderUnit
-                              }
+                              {line.orderUnit}
                             </span>
 
                             <strong>
