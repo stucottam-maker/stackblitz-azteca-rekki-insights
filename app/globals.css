@@ -1693,4 +1693,102 @@ td strong {
   .recipe-detail-header {
     flex-direction: column;
   }
+}.ingredient-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.ingredient-search {
+  flex: 1;
+}
+
+.ingredient-search input,
+.ingredient-filter select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #dedbd4;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0 13px;
+  font: inherit;
+  color: #222;
+  outline: none;
+}
+
+.ingredient-search input:focus,
+.ingredient-filter select:focus {
+  border-color: #b8b3aa;
+}
+
+.ingredient-filter {
+  width: 190px;
+}
+
+.ingredients-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1100px;
+}
+
+.ingredients-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777269;
+  padding: 12px 14px;
+  border-bottom: 1px solid #ebe8e1;
+  white-space: nowrap;
+}
+
+.ingredients-table td {
+  padding: 15px 14px;
+  border-bottom: 1px solid #f0ede7;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.ingredients-table tbody tr:hover {
+  background: #faf9f6;
+}
+
+.ingredient-name-cell strong {
+  font-size: 14px;
+  color: #222;
+}
+
+.ingredient-category-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #f1efe9;
+  color: #625e56;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ingredient-product-cell {
+  max-width: 300px;
+  color: #625e56;
+}
+
+.empty-table-message {
+  text-align: center;
+  padding: 40px !important;
+  color: #8b867c;
+}
+
+@media (max-width: 900px) {
+  .ingredient-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ingredient-filter {
+    width: 100%;
+  }
 }
