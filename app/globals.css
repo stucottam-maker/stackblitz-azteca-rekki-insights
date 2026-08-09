@@ -1791,4 +1791,95 @@ td strong {
   .ingredient-filter {
     width: 100%;
   }
+}.stock-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stock-last-saved {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8a857c;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1050px;
+}
+
+.stock-table th {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #ebe8e1;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777269;
+  white-space: nowrap;
+}
+
+.stock-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid #f0ede7;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.stock-table tbody tr:hover {
+  background: #faf9f6;
+}
+
+.stock-item-name {
+  font-size: 14px;
+  color: #222;
+}
+
+.stock-count-input {
+  width: 92px;
+  height: 38px;
+  border: 1px solid #dedbd4;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0 10px;
+  font: inherit;
+  font-weight: 600;
+  outline: none;
+}
+
+.stock-count-input:focus {
+  border-color: #aaa49a;
+}
+
+.stock-unit-select {
+  width: 82px;
+  height: 38px;
+  border: 1px solid #dedbd4;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0 8px;
+  font: inherit;
+  outline: none;
+}
+
+.stock-price-unit {
+  color: #8a857c;
+  font-size: 11px;
+}
+
+.stock-missing-price {
+  color: #a26b45;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .stock-header-actions {
+    width: 100%;
+  }
+
+  .stock-header-actions button {
+    flex: 1;
+  }
 }
