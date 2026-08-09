@@ -48,14 +48,6 @@ type PurchaseOrder = {
 
 type PageTab = "draft" | "sent" | "history";
 
-const knownSuppliers = [
-  "Albion Fine Foods",
-  "Crazy Dan’s House of Meat",
-  "Fin and Flounder",
-  "Mexgrocer",
-  "James Knight of Mayfair",
-];
-
 function money(value: number) {
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
@@ -108,7 +100,8 @@ function buildOrderLines(
     const stock =
       currentStock.find(
         (item) =>
-          item.name.toLowerCase() === name.toLowerCase()
+          item.name.toLowerCase() ===
+          name.toLowerCase()
       ) ?? null;
 
     const stockQty = Number(stock?.quantity ?? 0);
@@ -123,7 +116,7 @@ function buildOrderLines(
         ? round(stockQty * 1.5)
         : 0;
 
-    const suggested =
+    const suggestedQty =
       Math.max(
         defaultPar - stockQty,
         0
@@ -141,8 +134,8 @@ function buildOrderLines(
       stockQty,
       stockUnit,
       parLevel: defaultPar,
-      suggestedQty: suggested,
-      orderQty: suggested,
+      suggestedQty,
+      orderQty: suggestedQty,
       orderUnit:
         price?.unit ||
         stock?.unit ||
@@ -226,9 +219,7 @@ export default function OrdersPage() {
   const filteredLines =
     useMemo(() => {
       const query =
-        search
-          .trim()
-          .toLowerCase();
+        search.trim().toLowerCase();
 
       return lines.filter((line) => {
         return (
@@ -526,36 +517,16 @@ export default function OrdersPage() {
           <table className="orders-table">
             <thead>
               <tr>
-                <th>
-                  Ingredient
-                </th>
-                <th>
-                  Supplier product
-                </th>
-                <th>
-                  Stock
-                </th>
-                <th>
-                  Par
-                </th>
-                <th>
-                  Suggested
-                </th>
-                <th>
-                  Order qty
-                </th>
-                <th>
-                  Unit
-                </th>
-                <th>
-                  Unit cost
-                </th>
-                <th>
-                  Est. total
-                </th>
-                <th>
-                  Notes
-                </th>
+                <th>Ingredient</th>
+                <th>Supplier product</th>
+                <th>Stock</th>
+                <th>Par</th>
+                <th>Suggested</th>
+                <th>Order qty</th>
+                <th>Unit</th>
+                <th>Unit cost</th>
+                <th>Est. total</th>
+                <th>Notes</th>
               </tr>
             </thead>
 
@@ -567,9 +538,7 @@ export default function OrdersPage() {
                   >
                     <td>
                       <strong>
-                        {
-                          line.ingredient
-                        }
+                        {line.ingredient}
                       </strong>
                     </td>
 
@@ -591,17 +560,13 @@ export default function OrdersPage() {
                             updateLine(
                               line.id,
                               "stockQty",
-                              event
-                                .target
-                                .value
+                              event.target.value
                             )
                           }
                         />
 
                         <span>
-                          {
-                            line.stockUnit
-                          }
+                          {line.stockUnit}
                         </span>
                       </div>
                     </td>
@@ -619,9 +584,7 @@ export default function OrdersPage() {
                           updateLine(
                             line.id,
                             "parLevel",
-                            event
-                              .target
-                              .value
+                            event.target.value
                           )
                         }
                         onBlur={() =>
@@ -642,9 +605,7 @@ export default function OrdersPage() {
                           )
                         }
                       >
-                        {
-                          line.suggestedQty
-                        }
+                        {line.suggestedQty}
                       </button>
                     </td>
 
@@ -661,9 +622,7 @@ export default function OrdersPage() {
                           updateLine(
                             line.id,
                             "orderQty",
-                            event
-                              .target
-                              .value
+                            event.target.value
                           )
                         }
                       />
@@ -681,9 +640,7 @@ export default function OrdersPage() {
                           updateLine(
                             line.id,
                             "orderUnit",
-                            event
-                              .target
-                              .value
+                            event.target.value
                           )
                         }
                       >
@@ -719,9 +676,7 @@ export default function OrdersPage() {
 
                     <td>
                       <div className="table-money-input">
-                        <span>
-                          £
-                        </span>
+                        <span>£</span>
 
                         <input
                           value={
@@ -736,9 +691,7 @@ export default function OrdersPage() {
                             updateLine(
                               line.id,
                               "unitPrice",
-                              event
-                                .target
-                                .value
+                              event.target.value
                             )
                           }
                         />
@@ -771,9 +724,7 @@ export default function OrdersPage() {
                           updateLine(
                             line.id,
                             "notes",
-                            event
-                              .target
-                              .value
+                            event.target.value
                           )
                         }
                       />
@@ -790,116 +741,7 @@ export default function OrdersPage() {
 
   return (
     <main className="app-shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">
-            A
-          </div>
-
-          <div>
-            <p className="brand-name">
-              Azteca Insights
-            </p>
-
-            <p className="brand-subtitle">
-              Kitchen cost control
-            </p>
-          </div>
-        </div>
-
-        <nav
-          className="sidebar-nav"
-          aria-label="Main navigation"
-        >
-          <Link
-            className="nav-link"
-            href="/"
-          >
-            <span className="nav-icon">
-              ⌂
-            </span>
-            Dashboard
-          </Link>
-
-          <Link
-            className="nav-link nav-link-active"
-            href="/orders"
-          >
-            <span className="nav-icon">
-              +
-            </span>
-            Orders
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/invoices"
-          >
-            <span className="nav-icon">
-              ▤
-            </span>
-            Invoices
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/ingredients"
-          >
-            <span className="nav-icon">
-              ◫
-            </span>
-            Ingredients
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/recipes"
-          >
-            <span className="nav-icon">
-              ◇
-            </span>
-            Recipes
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/menu"
-          >
-            <span className="nav-icon">
-              ☰
-            </span>
-            Menu
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/stock"
-          >
-            <span className="nav-icon">
-              □
-            </span>
-            Stock counts
-          </Link>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="restaurant-card">
-            <div className="restaurant-avatar">
-              AZ
-            </div>
-
-            <div>
-              <p className="restaurant-name">
-                Azteca
-              </p>
-
-              <p className="restaurant-location">
-                Battersea, London
-              </p>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <Sidebar active="orders" />
 
       <section className="main-content">
         <header className="topbar">
@@ -973,9 +815,7 @@ export default function OrdersPage() {
           >
             Sent orders
             <span>
-              {
-                sentOrders.length
-              }
+              {sentOrders.length}
             </span>
           </button>
 
@@ -1138,9 +978,7 @@ export default function OrdersPage() {
                     >
                       <div>
                         <p className="order-history-supplier">
-                          {
-                            order.supplier
-                          }
+                          {order.supplier}
                         </p>
 
                         <p className="muted-text">
@@ -1158,10 +996,7 @@ export default function OrdersPage() {
 
                       <div>
                         <strong>
-                          {
-                            order.lines
-                              .length
-                          }{" "}
+                          {order.lines.length}{" "}
                           lines
                         </strong>
                       </div>
@@ -1211,23 +1046,17 @@ export default function OrdersPage() {
                     >
                       <div>
                         <p className="order-history-supplier">
-                          {
-                            order.supplier
-                          }
+                          {order.supplier}
                         </p>
 
                         <p className="muted-text">
-                          {
-                            order.id
-                          }
+                          {order.id}
                         </p>
                       </div>
 
                       <div>
                         <span className="status-badge status-approved">
-                          {
-                            order.status
-                          }
+                          {order.status}
                         </span>
                       </div>
 
@@ -1256,4 +1085,4 @@ export default function OrdersPage() {
       </section>
     </main>
   );
-}
+}s
