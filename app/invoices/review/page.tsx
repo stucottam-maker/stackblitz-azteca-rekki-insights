@@ -23,6 +23,14 @@ type InvoiceExtraction = {
   lineItems?: InvoiceLineItem[];
 };
 
+type StoredIngredientPrice = {
+  price: number;
+  unit: string;
+  supplier: string;
+  product: string;
+  updatedAt: string;
+};
+
 const masterIngredients = [
   "Cod",
   "Black cod",
@@ -88,8 +96,7 @@ export default function InvoiceReviewPage() {
           lineItems:
             parsed.lineItems?.map((item) => ({
               ...item,
-              ingredientMatch:
-                guessIngredient(item.product),
+              ingredientMatch: guessIngredient(item.product),
             })) ?? [],
         });
       } catch (error) {
@@ -234,28 +241,79 @@ export default function InvoiceReviewPage() {
     return String(value).replace("£", "");
   }
 
+  function detectPriceUnit(item: InvoiceLineItem) {
+    const pack = (item.pack ?? "").toLowerCase();
+    const product = item.product.toLowerCase();
+
+    if (
+      pack.includes("kg") ||
+      product.includes("per kg") ||
+      product.includes("(per kg)")
+    ) {
+      return "kg";
+    }
+
+    if (
+      pack.includes("litre") ||
+      pack.includes("liter") ||
+      pack === "l" ||
+      product.includes("per litre")
+    ) {
+      return "L";
+    }
+
+    return "each";
+  }
+
   function approveInvoice() {
     const payload = {
       ...invoice,
       lineItems,
     };
 
-    console.log(
-      "Approved invoice payload:",
-      payload
+    const ingredientPrices =
+      JSON.parse(
+        localStorage.getItem("ingredientPrices") || "{}"
+      ) as Record<string, StoredIngredientPrice>;
+
+    lineItems.forEach((item) => {
+      if (!item.ingredientMatch) return;
+
+      const unitPrice = Number(item.unitPrice ?? 0);
+
+      if (
+        !unitPrice ||
+        Number.isNaN(unitPrice)
+      ) {
+        return;
+      }
+
+      ingredientPrices[item.ingredientMatch] = {
+        price: unitPrice,
+        unit: detectPriceUnit(item),
+        supplier:
+          invoice.supplier ?? "Unknown supplier",
+        product: item.product,
+        updatedAt: new Date().toISOString(),
+      };
+    });
+
+    localStorage.setItem(
+      "ingredientPrices",
+      JSON.stringify(ingredientPrices)
     );
 
-    sessionStorage.setItem(
+    localStorage.setItem(
       "approvedInvoiceDraft",
       JSON.stringify(payload)
     );
 
     alert(
       unmatchedCount > 0
-        ? `Invoice saved as draft. ${unmatchedCount} product line${
+        ? `Invoice saved. ${unmatchedCount} product line${
             unmatchedCount === 1 ? "" : "s"
           } still need ingredient matching.`
-        : "Invoice is ready to save."
+        : "Invoice approved and ingredient prices updated."
     );
   }
 
@@ -387,6 +445,23 @@ export default function InvoiceReviewPage() {
                     alt="Uploaded invoice preview"
                   />
                 </div>
+              ) : fileType === "application/pdf" ? (
+                <div className="review-pdf-preview">
+                  <div className="pdf-preview-icon">
+                    PDF
+                  </div>
+
+                  <div>
+                    <p className="selected-file-name">
+                      {fileName || "Uploaded PDF"}
+                    </p>
+
+                    <p className="selected-file-meta">
+                      PDF preview is not available in this
+                      local version yet.
+                    </p>
+                  </div>
+                </div>
               ) : (
                 <div className="review-preview-placeholder">
                   No invoice preview available
@@ -402,6 +477,7 @@ export default function InvoiceReviewPage() {
 
                   <div>
                     <span>Size</span>
+
                     <strong>
                       {sizeInMb
                         ? `${sizeInMb} MB`
@@ -411,6 +487,7 @@ export default function InvoiceReviewPage() {
 
                   <div>
                     <span>Type</span>
+
                     <strong>
                       {fileType || "Unknown"}
                     </strong>
@@ -669,8 +746,7 @@ export default function InvoiceReviewPage() {
                           <select
                             className="ingredient-match-select"
                             value={
-                              item.ingredientMatch ??
-                              ""
+                              item.ingredientMatch ?? ""
                             }
                             onChange={(event) =>
                               updateLineItem(
