@@ -1,380 +1,605 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Sidebar from "../../components/Sidebar";
+import { suppliers } from "../../data/suppliers";
 
-export default function UploadInvoicePage() {
+type ExtractedInvoice = {
+  supplier: string;
+  invoiceNumber: string;
+  invoiceDate: string;
+  subtotal: number | null;
+  vat: number | null;
+  total: number | null;
+  lineItems: {
+    product: string;
+    quantity: number | null;
+    pack: string;
+    unitPrice: number | null;
+    total: number | null;
+    status?: string;
+    ingredientMatch?: string;
+  }[];
+};
+
+export default function InvoiceUploadPage() {
   const router = useRouter();
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] =
+    useState<File | null>(null);
 
-  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0] ?? null;
+  const [previewUrl, setPreviewUrl] =
+    useState("");
+
+  const [supplier, setSupplier] =
+    useState("");
+
+  const [invoiceNumber, setInvoiceNumber] =
+    useState("");
+
+  const [invoiceDate, setInvoiceDate] =
+    useState("");
+
+  const [invoiceTotal, setInvoiceTotal] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const [error, setError] =
+    useState("");
+
+  const supplierOptions = Object.values(
+    suppliers
+  ).sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+
+  function handleFileChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const file =
+      event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setError("");
+    setSelectedFile(file);
 
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
     }
 
-    setSelectedFile(file);
-
-    if (file && file.type.startsWith("image/")) {
-      setPreviewUrl(URL.createObjectURL(file));
-    } else {
-      setPreviewUrl(null);
-    }
+    setPreviewUrl(
+      URL.createObjectURL(file)
+    );
   }
 
-  function removeFile() {
+  function clearFile() {
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
     }
 
     setSelectedFile(null);
-    setPreviewUrl(null);
-
-    const input = document.getElementById(
-      "invoice-file"
-    ) as HTMLInputElement | null;
-
-    if (input) {
-      input.value = "";
-    }
-
-    sessionStorage.removeItem("invoiceFileName");
-    sessionStorage.removeItem("invoiceFileType");
-    sessionStorage.removeItem("invoiceFileSize");
-    sessionStorage.removeItem("invoicePreviewUrl");
+    setPreviewUrl("");
+    setError("");
   }
 
-  function continueToReview() {
-    if (!selectedFile) return;
-
-    sessionStorage.setItem("invoiceFileName", selectedFile.name);
-    sessionStorage.setItem("invoiceFileType", selectedFile.type);
-    sessionStorage.setItem("invoiceFileSize", String(selectedFile.size));
-
-    if (previewUrl) {
-      sessionStorage.setItem("invoicePreviewUrl", previewUrl);
-    } else {
-      sessionStorage.removeItem("invoicePreviewUrl");
+  async function extractInvoice() {
+    if (!selectedFile) {
+      setError(
+        "Choose an invoice image first."
+      );
+      return;
     }
 
-    router.push("/invoices/review");
+    setLoading(true);
+    setError("");
+
+    try {
+      const formData =
+        new FormData();
+
+      formData.append(
+        "file",
+        selectedFile
+      );
+
+      if (supplier) {
+        formData.append(
+          "supplier",
+          supplier
+        );
+      }
+
+      const response = await fetch(
+        "/api/invoices/extract",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const result =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result?.error ||
+            "Invoice extraction failed."
+        );
+      }
+
+      const extracted:
+        ExtractedInvoice =
+        result?.invoice ??
+        result?.extraction ??
+        result?.data ??
+        result;
+
+      const finalInvoice:
+        ExtractedInvoice = {
+        supplier:
+          supplier ||
+          extracted.supplier ||
+          "",
+        invoiceNumber:
+          invoiceNumber ||
+          extracted.invoiceNumber ||
+          "",
+        invoiceDate:
+          invoiceDate ||
+          extracted.invoiceDate ||
+          "",
+        subtotal:
+          extracted.subtotal ??
+          null,
+        vat:
+          extracted.vat ??
+          null,
+        total:
+          invoiceTotal
+            ? Number(
+                invoiceTotal
+              )
+            : extracted.total ??
+              null,
+        lineItems:
+          extracted.lineItems ??
+          [],
+      };
+
+      sessionStorage.setItem(
+        "invoiceExtraction",
+        JSON.stringify(
+          finalInvoice
+        )
+      );
+
+      sessionStorage.setItem(
+        "invoiceFileName",
+        selectedFile.name
+      );
+
+      router.push(
+        "/invoices/review"
+      );
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong while extracting the invoice."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function continueWithoutExtraction() {
+    if (!supplier) {
+      setError(
+        "Select a supplier first."
+      );
+      return;
+    }
+
+    const manualInvoice:
+      ExtractedInvoice = {
+      supplier,
+      invoiceNumber,
+      invoiceDate,
+      subtotal: null,
+      vat: null,
+      total: invoiceTotal
+        ? Number(invoiceTotal)
+        : null,
+      lineItems: [],
+    };
+
+    sessionStorage.setItem(
+      "invoiceExtraction",
+      JSON.stringify(
+        manualInvoice
+      )
+    );
+
+    router.push(
+      "/invoices/review"
+    );
   }
 
   return (
     <main className="app-shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">A</div>
-
-          <div>
-            <p className="brand-name">Azteca Insights</p>
-            <p className="brand-subtitle">Kitchen cost control</p>
-          </div>
-        </div>
-
-        <nav className="sidebar-nav" aria-label="Main navigation">
-          <Link className="nav-link" href="/">
-            <span className="nav-icon">⌂</span>
-            Dashboard
-          </Link>
-
-          <Link className="nav-link nav-link-active" href="/invoices">
-            <span className="nav-icon">▤</span>
-            Invoices
-          </Link>
-
-          <Link className="nav-link" href="/ingredients">
-            <span className="nav-icon">◫</span>
-            Ingredients
-          </Link>
-
-          <Link className="nav-link" href="/recipes">
-            <span className="nav-icon">◇</span>
-            Recipes
-          </Link>
-
-          <Link className="nav-link" href="/stock">
-            <span className="nav-icon">□</span>
-            Stock counts
-          </Link>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="restaurant-card">
-            <div className="restaurant-avatar">AZ</div>
-
-            <div>
-              <p className="restaurant-name">Azteca</p>
-              <p className="restaurant-location">Battersea, London</p>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <Sidebar active="invoices" />
 
       <section className="main-content">
-        <div className="upload-page">
-          <header className="upload-header">
-            <Link className="back-link" href="/invoices">
-              ← Back to invoices
-            </Link>
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">
+              Purchasing
+            </p>
 
-            <p className="eyebrow">Invoice processing</p>
-
-            <h1>Upload invoice</h1>
+            <h1>
+              Upload invoice
+            </h1>
 
             <p className="page-description">
-              Upload a supplier invoice and we’ll extract the key details for
-              review.
+              Upload a supplier invoice and let the system extract the products, quantities and prices.
             </p>
-          </header>
+          </div>
+        </header>
 
-          <section className="upload-layout">
-            <article className="panel upload-panel">
-              <div className="upload-panel-heading">
-                <p className="panel-kicker">Step 1</p>
+        <section className="panel">
+          <div className="panel-header">
+            <div>
+              <p className="panel-kicker">
+                Invoice image
+              </p>
 
-                <h2>Select invoice</h2>
+              <h2>
+                Upload invoice
+              </h2>
+            </div>
+          </div>
 
-                <p className="upload-help">
-                  Upload a PDF, JPG or PNG. Clear photos work best.
-                </p>
-              </div>
+          {!selectedFile ? (
+            <label
+              style={{
+                display: "flex",
+                minHeight: "220px",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                gap: "12px",
+                border: "1px dashed #d6d2ca",
+                borderRadius: "14px",
+                cursor: "pointer",
+                padding: "30px",
+              }}
+            >
+              <strong>
+                Choose invoice image
+              </strong>
 
-              <label className="dropzone" htmlFor="invoice-file">
-                <input
-                  id="invoice-file"
-                  name="invoice-file"
-                  type="file"
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  onChange={handleFileChange}
-                />
+              <span>
+                JPEG, PNG or WEBP
+              </span>
 
-                <div className="dropzone-icon">
-                  {selectedFile ? "✓" : "↑"}
-                </div>
-
-                <div>
-                  <p className="dropzone-title">
-                    {selectedFile
-                      ? "Invoice selected"
-                      : "Choose an invoice"}
-                  </p>
-
-                  <p className="dropzone-text">
-                    {selectedFile
-                      ? "Choose another file if you want to replace it"
-                      : "Click to browse or drag a file here"}
-                  </p>
-                </div>
-
-                <span className="file-types">PDF · JPG · PNG</span>
-              </label>
-
-              {selectedFile && (
-                <div className="selected-file-card">
-                  <div>
-                    <p className="selected-file-name">
-                      {selectedFile.name}
-                    </p>
-
-                    <p className="selected-file-meta">
-                      {(selectedFile.size / 1024 / 1024).toFixed(2)} MB ·{" "}
-                      {selectedFile.type || "Unknown file type"}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="remove-file-button"
-                    onClick={removeFile}
-                  >
-                    Remove
-                  </button>
-                </div>
-              )}
-
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={
+                  handleFileChange
+                }
+                style={{
+                  display: "none",
+                }}
+              />
+            </label>
+          ) : (
+            <div>
               {previewUrl && (
-                <div className="invoice-preview">
-                  <img
-                    src={previewUrl}
-                    alt="Selected invoice preview"
-                  />
-                </div>
+                <img
+                  src={previewUrl}
+                  alt="Invoice preview"
+                  style={{
+                    width: "100%",
+                    maxHeight: "520px",
+                    objectFit:
+                      "contain",
+                    borderRadius:
+                      "12px",
+                    background:
+                      "#f4f1eb",
+                  }}
+                />
               )}
 
-              {selectedFile &&
-                selectedFile.type === "application/pdf" && (
-                  <div className="pdf-preview-card">
-                    <div className="pdf-preview-icon">PDF</div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent:
+                    "space-between",
+                  alignItems:
+                    "center",
+                  gap: "12px",
+                  marginTop: "14px",
+                }}
+              >
+                <div>
+                  <strong>
+                    {
+                      selectedFile.name
+                    }
+                  </strong>
 
-                    <div>
-                      <p className="selected-file-name">
-                        PDF invoice ready
-                      </p>
-
-                      <p className="selected-file-meta">
-                        The PDF will be processed on the review step.
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-              <div className="upload-divider">
-                <span>Invoice details</span>
-              </div>
-
-              <div className="form-grid">
-                <div className="form-field">
-                  <label htmlFor="supplier">Supplier</label>
-
-                  <select id="supplier" defaultValue="">
-                    <option value="" disabled>
-                      Select supplier
-                    </option>
-
-                    <option>Albion Fine Foods</option>
-                    <option>Crazy Dan&apos;s House of Meat</option>
-                    <option>Fin and Flounder</option>
-                    <option>Mexgrocer</option>
-                    <option>James Knight of Mayfair</option>
-                  </select>
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="invoice-number">
-                    Invoice number
-                  </label>
-
-                  <input
-                    id="invoice-number"
-                    placeholder="Will be extracted automatically"
-                    type="text"
-                  />
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="invoice-date">
-                    Invoice date
-                  </label>
-
-                  <input id="invoice-date" type="date" />
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="invoice-total">
-                    Invoice total
-                  </label>
-
-                  <div className="currency-input">
-                    <span>£</span>
-
-                    <input
-                      id="invoice-total"
-                      inputMode="decimal"
-                      placeholder="0.00"
-                      type="text"
-                    />
+                  <div
+                    style={{
+                      fontSize:
+                        "13px",
+                      opacity: 0.65,
+                      marginTop:
+                        "4px",
+                    }}
+                  >
+                    {(
+                      selectedFile.size /
+                      1024 /
+                      1024
+                    ).toFixed(2)}{" "}
+                    MB
                   </div>
                 </div>
-              </div>
-
-              <div className="upload-actions">
-                <Link
-                  className="cancel-button"
-                  href="/invoices"
-                >
-                  Cancel
-                </Link>
 
                 <button
-                  className="primary-button"
                   type="button"
-                  disabled={!selectedFile}
-                  onClick={continueToReview}
+                  className="cancel-button"
+                  onClick={
+                    clearFile
+                  }
                 >
-                  Continue to review →
+                  Remove
                 </button>
               </div>
-            </article>
+            </div>
+          )}
+        </section>
 
-            <aside className="upload-side-column">
-              <article className="panel process-card">
-                <p className="panel-kicker">
-                  What happens next
-                </p>
+        <section
+          className="panel"
+          style={{
+            marginTop: "24px",
+          }}
+        >
+          <div className="panel-header">
+            <div>
+              <p className="panel-kicker">
+                Invoice details
+              </p>
 
-                <h2>Invoice review</h2>
+              <h2>
+                Supplier information
+              </h2>
+            </div>
+          </div>
 
-                <div className="process-list">
-                  <div className="process-item">
-                    <span className="process-number">1</span>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(2, minmax(0, 1fr))",
+              gap: "18px",
+            }}
+          >
+            <label>
+              <span>
+                Supplier
+              </span>
 
-                    <div>
-                      <p>Read the invoice</p>
+              <select
+                value={
+                  supplier
+                }
+                onChange={(
+                  event
+                ) =>
+                  setSupplier(
+                    event.target
+                      .value
+                  )
+                }
+              >
+                <option value="">
+                  Select supplier
+                </option>
 
-                      <span>
-                        Supplier, invoice number, date, totals
-                        and products.
-                      </span>
-                    </div>
-                  </div>
+                {supplierOptions.map(
+                  (
+                    supplierItem
+                  ) => (
+                    <option
+                      key={
+                        supplierItem.name
+                      }
+                      value={
+                        supplierItem.name
+                      }
+                    >
+                      {
+                        supplierItem.name
+                      }
+                    </option>
+                  )
+                )}
+              </select>
+            </label>
 
-                  <div className="process-item">
-                    <span className="process-number">2</span>
+            <label>
+              <span>
+                Invoice number
+              </span>
 
-                    <div>
-                      <p>Check line items</p>
+              <input
+                value={
+                  invoiceNumber
+                }
+                onChange={(
+                  event
+                ) =>
+                  setInvoiceNumber(
+                    event.target
+                      .value
+                  )
+                }
+                placeholder="Will be extracted automatically"
+              />
+            </label>
 
-                      <span>
-                        Review product names, quantities, pack
-                        sizes and prices.
-                      </span>
-                    </div>
-                  </div>
+            <label>
+              <span>
+                Invoice date
+              </span>
 
-                  <div className="process-item">
-                    <span className="process-number">3</span>
+              <input
+                type="date"
+                value={
+                  invoiceDate
+                }
+                onChange={(
+                  event
+                ) =>
+                  setInvoiceDate(
+                    event.target
+                      .value
+                  )
+                }
+              />
+            </label>
 
-                    <div>
-                      <p>Match ingredients</p>
+            <label>
+              <span>
+                Invoice total
+              </span>
 
-                      <span>
-                        Link supplier products to your master
-                        ingredient list.
-                      </span>
-                    </div>
-                  </div>
+              <div
+                style={{
+                  position:
+                    "relative",
+                }}
+              >
+                <span
+                  style={{
+                    position:
+                      "absolute",
+                    left: "14px",
+                    top: "50%",
+                    transform:
+                      "translateY(-50%)",
+                    opacity: 0.55,
+                  }}
+                >
+                  £
+                </span>
 
-                  <div className="process-item">
-                    <span className="process-number">4</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={
+                    invoiceTotal
+                  }
+                  onChange={(
+                    event
+                  ) =>
+                    setInvoiceTotal(
+                      event.target
+                        .value
+                    )
+                  }
+                  placeholder="0.00"
+                  style={{
+                    paddingLeft:
+                      "30px",
+                  }}
+                />
+              </div>
+            </label>
+          </div>
+        </section>
 
-                    <div>
-                      <p>Update costings</p>
-
-                      <span>
-                        New prices feed into ingredient and
-                        recipe costs.
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <article className="upload-tip">
-                <p className="upload-tip-title">Tip</p>
-
-                <p>
-                  For paper invoices, photograph the page from
-                  directly above and make sure all four corners
-                  are visible.
-                </p>
-              </article>
-            </aside>
+        {error && (
+          <section
+            className="panel"
+            style={{
+              marginTop:
+                "18px",
+            }}
+          >
+            <div
+              style={{
+                color:
+                  "#a43e32",
+                fontWeight: 600,
+              }}
+            >
+              {error}
+            </div>
           </section>
+        )}
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent:
+              "flex-end",
+            gap: "12px",
+            marginTop: "24px",
+            marginBottom:
+              "60px",
+          }}
+        >
+          <button
+            type="button"
+            className="cancel-button"
+            onClick={() =>
+              router.push(
+                "/invoices"
+              )
+            }
+          >
+            Cancel
+          </button>
+
+          {!selectedFile && (
+            <button
+              type="button"
+              className="secondary-inline-button"
+              onClick={
+                continueWithoutExtraction
+              }
+            >
+              Enter manually
+            </button>
+          )}
+
+          <button
+            type="button"
+            className="primary-button"
+            onClick={
+              extractInvoice
+            }
+            disabled={
+              !selectedFile ||
+              loading
+            }
+          >
+            {loading
+              ? "Extracting invoice..."
+              : "Continue to review →"}
+          </button>
         </div>
       </section>
     </main>
