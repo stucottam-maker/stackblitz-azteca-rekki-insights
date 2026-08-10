@@ -55,9 +55,12 @@ export const suppliers: Record<string, Supplier> = {
   },
 
   "Spitalfields Fruit & Veg": {
-    name: "Spitalfields Fruit & Veg",
-    logo: "",
-  },
+  name: "Spitalfields Fruit & Veg",
+  logo: "",
+  phone: "07940 118192",
+  whatsapp: "447940118192",
+  orderMethod: "WhatsApp",
+},
 
   "James Knight of Mayfair": {
     name: "James Knight of Mayfair",
