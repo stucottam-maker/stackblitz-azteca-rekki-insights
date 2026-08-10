@@ -2836,3 +2836,163 @@ td strong {
 .panel:has(.invoice-supplier-picker) {
   overflow: visible;
 }
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: #f4f1eb;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  background: #ffffff;
+  border: 1px solid #e2ddd4;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 24px 60px rgba(30, 28, 24, 0.08);
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ece7de;
+}
+
+.login-brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #164b3b;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.login-brand > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.login-brand strong {
+  font-size: 17px;
+}
+
+.login-brand span {
+  font-size: 12px;
+  color: #817d75;
+}
+
+.login-heading {
+  padding: 30px 0 24px;
+}
+
+.login-heading h1 {
+  margin: 4px 0 8px;
+  font-size: 32px;
+}
+
+.login-heading p:last-child {
+  margin: 0;
+  color: #77736c;
+  line-height: 1.5;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.login-form label > span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #555149;
+}
+
+.login-form input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #dcd6cc;
+  border-radius: 10px;
+  padding: 0 13px;
+  font: inherit;
+  background: #ffffff;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: #215d48;
+  box-shadow: 0 0 0 3px rgba(33, 93, 72, 0.08);
+}
+
+.login-button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+}
+
+.login-error {
+  padding: 11px 13px;
+  background: #fff0ed;
+  border: 1px solid #f1c8c0;
+  border-radius: 9px;
+  color: #9f3f33;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.login-site {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #ece7de;
+}
+
+.login-site-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8eee9;
+  color: #174b3b;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.login-site > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.login-site strong {
+  font-size: 13px;
+}
+
+.login-site span {
+  font-size: 11px;
+  color: #817d75;
+}
