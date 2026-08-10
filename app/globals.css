@@ -3031,3 +3031,50 @@ td strong {
   opacity: 0.5;
   cursor: default;
 }
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 18px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-site {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sidebar-site-avatar {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sidebar-site-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.sidebar-site-copy strong {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sidebar-site-copy span {
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  white-space: nowrap;
+}
