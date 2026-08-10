@@ -1,9 +1,19 @@
 export type CatalogueItem = {
+
+  id: string;
+
   ingredient: string;
+
   supplier: string;
+
   supplierProduct: string;
+
   unit: string;
+
   fallbackPrice: number | null;
+
+  preferred?: boolean;
+
 };
 
 export const supplierCatalogue: CatalogueItem[] = [
@@ -51,11 +61,13 @@ export const supplierCatalogue: CatalogueItem[] = [
     fallbackPrice: 32.5,
   },
   {
+    id: "fin-stonebass-fillet",
     ingredient: "Stonebass",
     supplier: "Fin and Flounder",
     supplierProduct: "Stone Bass Fillet",
     unit: "kg",
     fallbackPrice: 13.8,
+    preferred: true,
   },
 
   // CRAZY DAN'S HOUSE OF MEAT
@@ -422,6 +434,7 @@ export const supplierCatalogue: CatalogueItem[] = [
 
   // OUI CHEF
   {
+    id: "oui-chef-placeholder",
     ingredient: "Oui Chef placeholder",
     supplier: "Oui Chef",
     supplierProduct: "Supplier catalogue pending",
@@ -431,10 +444,23 @@ export const supplierCatalogue: CatalogueItem[] = [
 
   // JAMES KNIGHT OF MAYFAIR
   {
+
+    id: "james-knight-trout",
     ingredient: "Trout",
     supplier: "James Knight of Mayfair",
     supplierProduct: "Trout",
     unit: "kg",
     fallbackPrice: null,
+  
+  },
+  { 
+    id: "james-knight-stonebass",
+    ingredient: "Stonebass",
+    supplier: "James Knight of Mayfair",
+    supplierProduct: "Stonebass",
+    unit: "kg",
+    fallbackPrice: null,
+    preferred: false,
+  
   },
 ];
