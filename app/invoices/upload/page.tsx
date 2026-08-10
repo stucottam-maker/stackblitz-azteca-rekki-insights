@@ -7,47 +7,11 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
+
 import Sidebar from "../../components/Sidebar";
 import { suppliers } from "../../data/suppliers";
 import { supabase } from "../../lib/supabase";
-async function uploadInvoiceFile(file: File) {
-  const {
-    data: userData,
-    error: userError,
-  } = await supabase.auth.getUser();
 
-  if (userError || !userData.user) {
-    throw new Error("You must be signed in.");
-  }
-
-  const extension =
-    file.name.split(".").pop()?.toLowerCase() || "jpg";
-
-  const safeName =
-    file.name
-      .replace(/\.[^/.]+$/, "")
-      .replace(/[^a-zA-Z0-9-_]/g, "-")
-      .toLowerCase();
-
-  const storagePath =
-    `${userData.user.id}/${Date.now()}-${safeName}.${extension}`;
-
-  const {
-    error: uploadError,
-  } = await supabase.storage
-    .from("invoice-files")
-    .upload(storagePath, file, {
-      cacheControl: "3600",
-      upsert: false,
-      contentType: file.type,
-    });
-
-  if (uploadError) {
-    throw uploadError;
-  }
-
-  return storagePath;
-}
 type ExtractedInvoice = {
   supplier: string;
   invoiceNumber: string;
@@ -140,8 +104,7 @@ export default function InvoiceUploadPage() {
     ]);
 
   const selectedSupplier =
-    supplier &&
-    suppliers[supplier]
+    supplier && suppliers[supplier]
       ? suppliers[supplier]
       : null;
 
@@ -155,9 +118,7 @@ export default function InvoiceUploadPage() {
       .toUpperCase();
   }
 
-  function handleSelectedFile(
-    file: File
-  ) {
+  function handleSelectedFile(file: File) {
     setError("");
 
     if (previewUrl) {
@@ -214,10 +175,88 @@ export default function InvoiceUploadPage() {
     name: string
   ) {
     setSupplier(name);
-
     setSupplierPickerOpen(false);
-
     setSupplierSearch("");
+  }
+
+  async function uploadInvoiceFile(
+    file: File
+  ) {
+    const {
+      data: userData,
+      error: userError,
+    } =
+      await supabase.auth.getUser();
+
+    if (
+      userError ||
+      !userData.user
+    ) {
+      throw new Error(
+        "You must be signed in to upload an invoice."
+      );
+    }
+
+    const extension =
+      file.name
+        .split(".")
+        .pop()
+        ?.toLowerCase() ||
+      "jpg";
+
+    const rawName =
+      file.name.replace(
+        /\.[^/.]+$/,
+        ""
+      );
+
+    const safeName =
+      rawName
+        .replace(
+          /[^a-zA-Z0-9-_]/g,
+          "-"
+        )
+        .replace(
+          /-+/g,
+          "-"
+        )
+        .replace(
+          /^-|-$/g,
+          ""
+        )
+        .toLowerCase() ||
+      "invoice";
+
+    const storagePath =
+      `${userData.user.id}/${Date.now()}-${safeName}.${extension}`;
+
+    const {
+      error: uploadError,
+    } =
+      await supabase.storage
+        .from(
+          "invoice-files"
+        )
+        .upload(
+          storagePath,
+          file,
+          {
+            cacheControl:
+              "3600",
+            upsert: false,
+            contentType:
+              file.type ||
+              undefined,
+          }
+        );
+
+    if (uploadError) {
+      throw new Error(
+        `Invoice image upload failed: ${uploadError.message}`
+      );
+    }
+
+    return storagePath;
   }
 
   async function extractInvoice() {
@@ -295,11 +334,14 @@ export default function InvoiceUploadPage() {
           null,
 
         vat:
-          extracted?.vat ?? null,
+          extracted?.vat ??
+          null,
 
         total:
           invoiceTotal !== ""
-            ? Number(invoiceTotal)
+            ? Number(
+                invoiceTotal
+              )
             : extracted?.total ??
               null,
 
@@ -310,6 +352,11 @@ export default function InvoiceUploadPage() {
             ? extracted.lineItems
             : [],
       };
+
+      const storagePath =
+        await uploadInvoiceFile(
+          selectedFile
+        );
 
       sessionStorage.setItem(
         "invoiceExtraction",
@@ -323,10 +370,17 @@ export default function InvoiceUploadPage() {
         selectedFile.name
       );
 
+      sessionStorage.setItem(
+        "invoiceFilePath",
+        storagePath
+      );
+
       router.push(
         "/invoices/review"
       );
     } catch (err) {
+      console.error(err);
+
       setError(
         err instanceof Error
           ? err.message
@@ -354,7 +408,9 @@ export default function InvoiceUploadPage() {
       vat: null,
       total:
         invoiceTotal !== ""
-          ? Number(invoiceTotal)
+          ? Number(
+              invoiceTotal
+            )
           : null,
       lineItems: [],
     };
@@ -364,6 +420,14 @@ export default function InvoiceUploadPage() {
       JSON.stringify(
         manualInvoice
       )
+    );
+
+    sessionStorage.removeItem(
+      "invoiceFileName"
+    );
+
+    sessionStorage.removeItem(
+      "invoiceFilePath"
     );
 
     router.push(
@@ -388,10 +452,11 @@ export default function InvoiceUploadPage() {
 
             <p className="page-description">
               Take a photo or upload a
-              supplier invoice and let
-              Kitchen Insights extract
-              the products, quantities
-              and prices.
+              supplier invoice. Kitchen
+              Insights will extract the
+              products, quantities and
+              prices and retain the
+              original invoice image.
             </p>
           </div>
         </header>
@@ -412,27 +477,32 @@ export default function InvoiceUploadPage() {
           {!selectedFile ? (
             <div
               style={{
-                minHeight: "270px",
+                minHeight:
+                  "270px",
                 border:
                   "1px dashed #d6d2ca",
-                borderRadius: "14px",
+                borderRadius:
+                  "14px",
                 padding: "34px",
                 background:
                   "#faf8f4",
                 display: "flex",
                 flexDirection:
                   "column",
-                alignItems: "center",
+                alignItems:
+                  "center",
                 justifyContent:
                   "center",
-                textAlign: "center",
+                textAlign:
+                  "center",
               }}
             >
               <div
                 style={{
                   width: "54px",
                   height: "54px",
-                  borderRadius: "50%",
+                  borderRadius:
+                    "50%",
                   background:
                     "#174f3c",
                   color: "#fff",
@@ -451,8 +521,10 @@ export default function InvoiceUploadPage() {
 
               <strong
                 style={{
-                  fontSize: "18px",
-                  marginBottom: "6px",
+                  fontSize:
+                    "18px",
+                  marginBottom:
+                    "6px",
                 }}
               >
                 Add an invoice
@@ -460,7 +532,8 @@ export default function InvoiceUploadPage() {
 
               <span
                 style={{
-                  color: "#77736c",
+                  color:
+                    "#77736c",
                   marginBottom:
                     "22px",
                 }}
@@ -509,7 +582,8 @@ export default function InvoiceUploadPage() {
                   handleFileChange
                 }
                 style={{
-                  display: "none",
+                  display:
+                    "none",
                 }}
               />
 
@@ -521,15 +595,19 @@ export default function InvoiceUploadPage() {
                   handleFileChange
                 }
                 style={{
-                  display: "none",
+                  display:
+                    "none",
                 }}
               />
 
               <span
                 style={{
-                  marginTop: "18px",
-                  fontSize: "12px",
-                  color: "#969188",
+                  marginTop:
+                    "18px",
+                  fontSize:
+                    "12px",
+                  color:
+                    "#969188",
                 }}
               >
                 JPG · PNG · WEBP
@@ -580,7 +658,8 @@ export default function InvoiceUploadPage() {
                     style={{
                       fontSize:
                         "13px",
-                      opacity: 0.65,
+                      opacity:
+                        0.65,
                       marginTop:
                         "4px",
                     }}
@@ -629,7 +708,8 @@ export default function InvoiceUploadPage() {
         <section
           className="panel"
           style={{
-            marginTop: "24px",
+            marginTop:
+              "24px",
           }}
         >
           <div className="panel-header">
@@ -873,7 +953,8 @@ export default function InvoiceUploadPage() {
                     top: "50%",
                     transform:
                       "translateY(-50%)",
-                    opacity: 0.55,
+                    opacity:
+                      0.55,
                   }}
                 >
                   £
@@ -917,7 +998,8 @@ export default function InvoiceUploadPage() {
               style={{
                 color:
                   "#a43e32",
-                fontWeight: 600,
+                fontWeight:
+                  600,
               }}
             >
               {error}
@@ -931,7 +1013,8 @@ export default function InvoiceUploadPage() {
             justifyContent:
               "flex-end",
             gap: "12px",
-            marginTop: "24px",
+            marginTop:
+              "24px",
             marginBottom:
               "60px",
             flexWrap: "wrap",
@@ -973,7 +1056,7 @@ export default function InvoiceUploadPage() {
             }
           >
             {loading
-              ? "Extracting invoice..."
+              ? "Saving & extracting..."
               : "Continue to review →"}
           </button>
         </div>
