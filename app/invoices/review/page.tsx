@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
+import { supabase } from "../../lib/supabase";
 
 type InvoiceLineItem = {
   product: string;
@@ -24,162 +25,17 @@ type InvoiceData = {
   lineItems: InvoiceLineItem[];
 };
 
-type IngredientPrice = {
-  price: number;
-  unit: string;
-  supplier: string;
-  product: string;
-  updatedAt: string;
-  invoiceNumber?: string;
-  invoiceDate?: string;
+type OrganisationContext = {
+  organisationId: string;
+  siteId: string;
 };
-
-type PriceHistoryEntry = {
-  ingredient: string;
-  supplier: string;
-  supplierProduct: string;
-  price: number;
-  unit: string;
-  invoiceNumber: string;
-  invoiceDate: string;
-  recordedAt: string;
-};
-
-type ApprovedInvoice = InvoiceData & {
-  id: string;
-  status: "Approved";
-  approvedAt: string;
-};
-
-const masterIngredients = [
-  // FISH
-  "Cod",
-  "Black cod",
-  "26/30 prawn",
-  "King prawn",
-  "Tuna loin",
-  "Stonebass",
-  "Trout",
-  "Salmon",
-  "Hake",
-  "Sea bass",
-  "Squid",
-  "Octopus",
-  "Scallop",
-  "Crab meat",
-  "Mussels",
-
-  // MEAT
-  "Ribeye",
-  "Short rib",
-  "Pork belly",
-  "Chicken thigh",
-  "Whole chicken",
-  "Birria beef",
-  "Carnitas pork",
-  "Brisket",
-  "Ox cheek",
-  "Lamb cutlet",
-  "Lamb rack",
-  "Tomahawk",
-  "Chorizo",
-
-  // TORTILLAS / MEXICAN
-  "Masafina tortilla 12cm",
-  "Masafina tortilla 10cm",
-  "Masafina blue corn tortilla 12cm",
-  "Aji Amarillo",
-  "Achiote paste",
-  "Chipotle in adobo",
-  "Black beans",
-  "Ancho chilli",
-  "Morita chilli",
-  "Habanero chilli",
-  "Arbol chilli",
-  "Mexican oregano",
-  "Agave syrup",
-
-  // PRODUCE
-  "Avocado",
-  "Lime",
-  "Lemon",
-  "Orange",
-  "Pineapple",
-  "Plantain",
-  "Aubergine",
-  "Spring onion",
-  "Red onion",
-  "White onion",
-  "Spanish onion",
-  "Garlic",
-  "Peeled garlic",
-  "Ginger",
-  "Coriander",
-  "Chives",
-  "Fennel",
-  "Hispi cabbage",
-  "Red cabbage",
-  "Carrot",
-  "Cauliflower",
-  "Celery",
-  "Courgette",
-  "Sweet potato",
-  "Green tomato",
-  "Plum tomato",
-  "Cherry tomato",
-  "Jalapeño",
-  "Padron pepper",
-  "Maitake mushroom",
-  "King oyster mushroom",
-
-  // DRY GOODS
-  "Rice flour",
-  "Potato flour",
-  "Cornflour",
-  "Plain flour",
-  "Self raising flour",
-  "Panko",
-  "Caster sugar",
-  "Brown sugar",
-  "Glucose syrup",
-  "Milk powder",
-  "Salt",
-  "Sea salt",
-  "Black pepper",
-  "Cumin",
-  "Coriander seed",
-  "Fennel seed",
-  "Fenugreek",
-  "Cinnamon",
-  "Cardamom",
-  "Star anise",
-
-  // SAUCES / OILS
-  "Miso",
-  "Mirin",
-  "Rice vinegar",
-  "Fish sauce",
-  "Rapeseed oil",
-  "Grapeseed oil",
-  "Olive oil",
-  "Red wine vinegar",
-  "Dijon mustard",
-  "Wholegrain mustard",
-  "Vegan mayo",
-  "Coconut milk",
-
-  // DAIRY
-  "Butter",
-  "Clarified butter",
-  "Double cream",
-  "Soured cream",
-  "Creme fraiche",
-  "Greek yoghurt",
-  "Eggs",
-];
 
 function money(value: number | null | undefined) {
-  if (value === null || value === undefined || Number.isNaN(value)) {
+  if (
+    value === null ||
+    value === undefined ||
+    Number.isNaN(value)
+  ) {
     return "—";
   }
 
@@ -190,12 +46,18 @@ function money(value: number | null | undefined) {
 }
 
 function numberValue(value: unknown): number | null {
-  if (value === null || value === undefined || value === "") {
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
     return null;
   }
 
   if (typeof value === "number") {
-    return Number.isFinite(value) ? value : null;
+    return Number.isFinite(value)
+      ? value
+      : null;
   }
 
   const cleaned = String(value)
@@ -205,7 +67,9 @@ function numberValue(value: unknown): number | null {
 
   const parsed = Number(cleaned);
 
-  return Number.isFinite(parsed) ? parsed : null;
+  return Number.isFinite(parsed)
+    ? parsed
+    : null;
 }
 
 function normalise(value: string) {
@@ -304,7 +168,11 @@ function guessIngredient(product: string) {
   ];
 
   for (const [terms, ingredient] of rules) {
-    if (terms.every((term) => text.includes(term))) {
+    if (
+      terms.every((term) =>
+        text.includes(term)
+      )
+    ) {
       return ingredient;
     }
   }
@@ -312,8 +180,11 @@ function guessIngredient(product: string) {
   return "";
 }
 
-function detectPriceUnit(item: InvoiceLineItem) {
-  const combined = `${item.product} ${item.pack}`.toLowerCase();
+function detectPriceUnit(
+  item: InvoiceLineItem
+) {
+  const combined =
+    `${item.product} ${item.pack}`.toLowerCase();
 
   if (
     combined.includes("per kg") ||
@@ -328,33 +199,32 @@ function detectPriceUnit(item: InvoiceLineItem) {
     combined.includes("litre") ||
     combined.includes("liter") ||
     combined.includes(" ltr") ||
-    combined.includes(" per l") ||
     combined.includes("/l")
   ) {
     return "L";
   }
 
   if (
-    combined.includes("each") ||
-    combined.includes(" ea") ||
-    combined.includes("unit")
+    combined.includes("case")
   ) {
-    return "each";
-  }
-
-  if (combined.includes("case")) {
     return "case";
   }
 
-  if (combined.includes("pack")) {
+  if (
+    combined.includes("pack")
+  ) {
     return "pack";
   }
 
-  if (combined.includes("bag")) {
+  if (
+    combined.includes("bag")
+  ) {
     return "bag";
   }
 
-  if (combined.includes("box")) {
+  if (
+    combined.includes("box")
+  ) {
     return "box";
   }
 
@@ -371,12 +241,14 @@ function loadInvoiceFromSession(): InvoiceData | null {
   ];
 
   for (const key of possibleKeys) {
-    const value = sessionStorage.getItem(key);
+    const value =
+      sessionStorage.getItem(key);
 
     if (!value) continue;
 
     try {
-      const parsed = JSON.parse(value);
+      const parsed =
+        JSON.parse(value);
 
       const candidate =
         parsed?.invoice ??
@@ -386,46 +258,217 @@ function loadInvoiceFromSession(): InvoiceData | null {
 
       if (
         candidate &&
-        Array.isArray(candidate.lineItems)
+        Array.isArray(
+          candidate.lineItems
+        )
       ) {
         return {
-          supplier: candidate.supplier ?? "",
-          invoiceNumber: candidate.invoiceNumber ?? "",
-          invoiceDate: candidate.invoiceDate ?? "",
-          subtotal: numberValue(candidate.subtotal),
-          vat: numberValue(candidate.vat),
-          total: numberValue(candidate.total),
-          lineItems: candidate.lineItems.map(
-            (item: any) => ({
-              product: item.product ?? "",
-              quantity: numberValue(item.quantity),
-              pack: item.pack ?? "",
-              unitPrice: numberValue(item.unitPrice),
-              total: numberValue(item.total),
-              status: item.status ?? "Review",
-              ingredientMatch:
-                item.ingredientMatch ??
-                guessIngredient(item.product ?? ""),
-            })
-          ),
+          supplier:
+            candidate.supplier ??
+            "",
+
+          invoiceNumber:
+            candidate.invoiceNumber ??
+            "",
+
+          invoiceDate:
+            candidate.invoiceDate ??
+            "",
+
+          subtotal:
+            numberValue(
+              candidate.subtotal
+            ),
+
+          vat:
+            numberValue(
+              candidate.vat
+            ),
+
+          total:
+            numberValue(
+              candidate.total
+            ),
+
+          lineItems:
+            candidate.lineItems.map(
+              (item: any) => ({
+                product:
+                  item.product ?? "",
+
+                quantity:
+                  numberValue(
+                    item.quantity
+                  ),
+
+                pack:
+                  item.pack ?? "",
+
+                unitPrice:
+                  numberValue(
+                    item.unitPrice
+                  ),
+
+                total:
+                  numberValue(
+                    item.total
+                  ),
+
+                status:
+                  item.status ??
+                  "Review",
+
+                ingredientMatch:
+                  item.ingredientMatch ??
+                  guessIngredient(
+                    item.product ?? ""
+                  ),
+              })
+            ),
         };
       }
     } catch {
-      // Try next possible session key
+      // Try another key
     }
   }
 
   return null;
 }
 
+const masterIngredients = [
+  "Cod",
+  "Black cod",
+  "26/30 prawn",
+  "King prawn",
+  "Tuna loin",
+  "Stonebass",
+  "Trout",
+  "Salmon",
+  "Hake",
+  "Sea bass",
+  "Squid",
+  "Octopus",
+  "Scallop",
+  "Crab meat",
+  "Mussels",
+
+  "Ribeye",
+  "Short rib",
+  "Pork belly",
+  "Chicken thigh",
+  "Whole chicken",
+  "Birria beef",
+  "Carnitas pork",
+  "Brisket",
+  "Ox cheek",
+  "Lamb cutlet",
+  "Lamb rack",
+  "Tomahawk",
+  "Chorizo",
+
+  "Masafina tortilla 12cm",
+  "Masafina tortilla 10cm",
+  "Masafina blue corn tortilla 12cm",
+
+  "Aji Amarillo",
+  "Achiote paste",
+  "Chipotle in adobo",
+  "Black beans",
+  "Ancho chilli",
+  "Morita chilli",
+  "Habanero chilli",
+  "Arbol chilli",
+  "Mexican oregano",
+  "Agave syrup",
+
+  "Avocado",
+  "Lime",
+  "Lemon",
+  "Orange",
+  "Pineapple",
+  "Plantain",
+  "Aubergine",
+  "Spring onion",
+  "Red onion",
+  "White onion",
+  "Spanish onion",
+  "Garlic",
+  "Peeled garlic",
+  "Ginger",
+  "Coriander",
+  "Chives",
+  "Fennel",
+  "Hispi cabbage",
+  "Red cabbage",
+  "Carrot",
+  "Cauliflower",
+  "Celery",
+  "Courgette",
+  "Sweet potato",
+  "Green tomato",
+  "Plum tomato",
+  "Cherry tomato",
+  "Jalapeño",
+  "Padron pepper",
+  "Maitake mushroom",
+  "King oyster mushroom",
+
+  "Rice flour",
+  "Potato flour",
+  "Cornflour",
+  "Plain flour",
+  "Self raising flour",
+  "Panko",
+  "Caster sugar",
+  "Brown sugar",
+  "Glucose syrup",
+  "Milk powder",
+  "Salt",
+  "Sea salt",
+  "Black pepper",
+  "Cumin",
+  "Coriander seed",
+  "Fennel seed",
+  "Fenugreek",
+  "Cinnamon",
+  "Cardamom",
+  "Star anise",
+
+  "Miso",
+  "Mirin",
+  "Rice vinegar",
+  "Fish sauce",
+  "Rapeseed oil",
+  "Grapeseed oil",
+  "Olive oil",
+  "Red wine vinegar",
+  "Dijon mustard",
+  "Wholegrain mustard",
+  "Vegan mayo",
+  "Coconut milk",
+
+  "Butter",
+  "Clarified butter",
+  "Double cream",
+  "Soured cream",
+  "Creme fraiche",
+  "Greek yoghurt",
+  "Eggs",
+];
+
 export default function InvoiceReviewPage() {
   const router = useRouter();
 
   const [invoice, setInvoice] =
-    useState<InvoiceData | null>(null);
+    useState<InvoiceData | null>(
+      null
+    );
 
   const [loading, setLoading] =
     useState(true);
+
+  const [saving, setSaving] =
+    useState(false);
 
   const [approved, setApproved] =
     useState(false);
@@ -441,6 +484,7 @@ export default function InvoiceReviewPage() {
       setError(
         "No extracted invoice was found. Upload an invoice first."
       );
+
       setLoading(false);
       return;
     }
@@ -449,19 +493,20 @@ export default function InvoiceReviewPage() {
     setLoading(false);
   }, []);
 
-  const matchedCount = useMemo(() => {
-    return (
+  const matchedCount = useMemo(
+    () =>
       invoice?.lineItems.filter(
         (item) =>
           item.ingredientMatch &&
-          item.ingredientMatch.trim() !== ""
-      ).length ?? 0
-    );
-  }, [invoice]);
+          item.ingredientMatch.trim() !==
+            ""
+      ).length ?? 0,
+    [invoice]
+  );
 
   const unmatchedCount =
-    (invoice?.lineItems.length ?? 0) -
-    matchedCount;
+    (invoice?.lineItems.length ??
+      0) - matchedCount;
 
   function updateInvoiceField(
     field:
@@ -471,7 +516,9 @@ export default function InvoiceReviewPage() {
     value: string
   ) {
     setInvoice((current) => {
-      if (!current) return current;
+      if (!current) {
+        return current;
+      }
 
       return {
         ...current,
@@ -481,62 +528,83 @@ export default function InvoiceReviewPage() {
   }
 
   function updateMoneyField(
-    field: "subtotal" | "vat" | "total",
+    field:
+      | "subtotal"
+      | "vat"
+      | "total",
     value: string
   ) {
     setInvoice((current) => {
-      if (!current) return current;
+      if (!current) {
+        return current;
+      }
 
       return {
         ...current,
-        [field]: numberValue(value),
+        [field]:
+          numberValue(value),
       };
     });
   }
 
   function updateLine(
     index: number,
-    field: keyof InvoiceLineItem,
-    value: string | number | null
+    field:
+      keyof InvoiceLineItem,
+    value:
+      | string
+      | number
+      | null
   ) {
     setInvoice((current) => {
-      if (!current) return current;
-
-      const nextItems =
-        current.lineItems.map(
-          (item, itemIndex) => {
-            if (itemIndex !== index) {
-              return item;
-            }
-
-            if (
-              field === "quantity" ||
-              field === "unitPrice" ||
-              field === "total"
-            ) {
-              return {
-                ...item,
-                [field]: numberValue(value),
-              };
-            }
-
-            return {
-              ...item,
-              [field]: value,
-            };
-          }
-        );
+      if (!current) {
+        return current;
+      }
 
       return {
         ...current,
-        lineItems: nextItems,
+        lineItems:
+          current.lineItems.map(
+            (item, itemIndex) => {
+              if (
+                itemIndex !== index
+              ) {
+                return item;
+              }
+
+              if (
+                field ===
+                  "quantity" ||
+                field ===
+                  "unitPrice" ||
+                field === "total"
+              ) {
+                return {
+                  ...item,
+                  [field]:
+                    numberValue(
+                      value
+                    ),
+                };
+              }
+
+              return {
+                ...item,
+                [field]: value,
+              };
+            }
+          ),
       };
     });
   }
 
-  function removeLine(index: number) {
+  function removeLine(
+    index: number
+  ) {
     setInvoice((current) => {
-      if (!current) return current;
+      if (!current) {
+        return current;
+      }
 
       return {
         ...current,
@@ -551,7 +619,9 @@ export default function InvoiceReviewPage() {
 
   function addLine() {
     setInvoice((current) => {
-      if (!current) return current;
+      if (!current) {
+        return current;
+      }
 
       return {
         ...current,
@@ -571,8 +641,272 @@ export default function InvoiceReviewPage() {
     });
   }
 
-  function approveInvoice() {
-    if (!invoice) return;
+  async function getOrganisationContext(
+    userId: string
+  ): Promise<OrganisationContext> {
+    const {
+      data: membership,
+      error: membershipError,
+    } = await supabase
+      .from(
+        "organisation_members"
+      )
+      .select(
+        "organisation_id"
+      )
+      .eq("user_id", userId)
+      .limit(1)
+      .single();
+
+    if (
+      membershipError ||
+      !membership
+    ) {
+      throw new Error(
+        "Your user is not linked to an organisation."
+      );
+    }
+
+    const {
+      data: site,
+      error: siteError,
+    } = await supabase
+      .from("sites")
+      .select("id")
+      .eq(
+        "organisation_id",
+        membership.organisation_id
+      )
+      .limit(1)
+      .single();
+
+    if (
+      siteError ||
+      !site
+    ) {
+      throw new Error(
+        "No site was found for your organisation."
+      );
+    }
+
+    return {
+      organisationId:
+        membership.organisation_id,
+      siteId: site.id,
+    };
+  }
+
+  async function getOrCreateSupplier(
+    organisationId: string,
+    supplierName: string
+  ) {
+    const {
+      data: existing,
+      error: lookupError,
+    } = await supabase
+      .from("suppliers")
+      .select("id")
+      .eq(
+        "organisation_id",
+        organisationId
+      )
+      .eq("name", supplierName)
+      .maybeSingle();
+
+    if (lookupError) {
+      throw lookupError;
+    }
+
+    if (existing) {
+      return existing.id;
+    }
+
+    const {
+      data: created,
+      error: createError,
+    } = await supabase
+      .from("suppliers")
+      .insert({
+        organisation_id:
+          organisationId,
+        name: supplierName,
+      })
+      .select("id")
+      .single();
+
+    if (
+      createError ||
+      !created
+    ) {
+      throw (
+        createError ??
+        new Error(
+          "Could not create supplier."
+        )
+      );
+    }
+
+    return created.id;
+  }
+
+  async function getOrCreateIngredient(
+    organisationId: string,
+    ingredientName: string,
+    unit: string
+  ) {
+    const {
+      data: existing,
+      error: lookupError,
+    } = await supabase
+      .from("ingredients")
+      .select("id")
+      .eq(
+        "organisation_id",
+        organisationId
+      )
+      .eq("name", ingredientName)
+      .maybeSingle();
+
+    if (lookupError) {
+      throw lookupError;
+    }
+
+    if (existing) {
+      return existing.id;
+    }
+
+    const {
+      data: created,
+      error: createError,
+    } = await supabase
+      .from("ingredients")
+      .insert({
+        organisation_id:
+          organisationId,
+        name: ingredientName,
+        base_unit: unit,
+      })
+      .select("id")
+      .single();
+
+    if (
+      createError ||
+      !created
+    ) {
+      throw (
+        createError ??
+        new Error(
+          "Could not create ingredient."
+        )
+      );
+    }
+
+    return created.id;
+  }
+
+  async function getOrCreateSupplierProduct(
+    organisationId: string,
+    supplierId: string,
+    ingredientId: string,
+    item: InvoiceLineItem
+  ) {
+    const {
+      data: existing,
+      error: lookupError,
+    } = await supabase
+      .from(
+        "supplier_products"
+      )
+      .select("id")
+      .eq(
+        "organisation_id",
+        organisationId
+      )
+      .eq(
+        "supplier_id",
+        supplierId
+      )
+      .eq(
+        "supplier_product_name",
+        item.product
+      )
+      .limit(1)
+      .maybeSingle();
+
+    if (lookupError) {
+      throw lookupError;
+    }
+
+    if (existing) {
+      await supabase
+        .from(
+          "supplier_products"
+        )
+        .update({
+          ingredient_id:
+            ingredientId,
+          price_unit:
+            detectPriceUnit(
+              item
+            ),
+          latest_price:
+            item.unitPrice,
+          updated_at:
+            new Date().toISOString(),
+        })
+        .eq(
+          "id",
+          existing.id
+        );
+
+      return existing.id;
+    }
+
+    const {
+      data: created,
+      error: createError,
+    } = await supabase
+      .from(
+        "supplier_products"
+      )
+      .insert({
+        organisation_id:
+          organisationId,
+        supplier_id:
+          supplierId,
+        ingredient_id:
+          ingredientId,
+        supplier_product_name:
+          item.product,
+        price_unit:
+          detectPriceUnit(
+            item
+          ),
+        latest_price:
+          item.unitPrice,
+      })
+      .select("id")
+      .single();
+
+    if (
+      createError ||
+      !created
+    ) {
+      throw (
+        createError ??
+        new Error(
+          "Could not create supplier product."
+        )
+      );
+    }
+
+    return created.id;
+  }
+
+  async function approveInvoice() {
+    if (!invoice || saving) {
+      return;
+    }
 
     if (!invoice.supplier.trim()) {
       alert(
@@ -581,313 +915,446 @@ export default function InvoiceReviewPage() {
       return;
     }
 
-    if (invoice.lineItems.length === 0) {
+    if (
+      invoice.lineItems.length ===
+      0
+    ) {
       alert(
         "This invoice has no line items."
       );
       return;
     }
 
-    const unmatched =
-      invoice.lineItems.filter(
-        (item) =>
-          !item.ingredientMatch ||
-          !item.ingredientMatch.trim()
-      );
-
-    if (unmatched.length > 0) {
+    if (
+      unmatchedCount > 0
+    ) {
       const continueApproval =
         window.confirm(
-          `${unmatched.length} line item${
-            unmatched.length === 1
+          `${unmatchedCount} line item${
+            unmatchedCount === 1
               ? ""
               : "s"
           } are not matched to an ingredient.\n\nApprove the invoice anyway?`
         );
 
-      if (!continueApproval) {
+      if (
+        !continueApproval
+      ) {
         return;
       }
     }
 
-    const now =
-      new Date().toISOString();
+    setSaving(true);
+    setError("");
 
-    /*
-     * ------------------------------------------------
-     * 1. LOAD CURRENT LIVE INGREDIENT PRICES
-     * ------------------------------------------------
-     */
+    try {
+      /*
+       * 1. AUTH USER
+       */
 
-    const ingredientPrices =
-      JSON.parse(
-        localStorage.getItem(
-          "ingredientPrices"
-        ) || "{}"
-      ) as Record<
-        string,
-        IngredientPrice
-      >;
+      const {
+        data: userData,
+        error: userError,
+      } =
+        await supabase.auth.getUser();
 
-    /*
-     * ------------------------------------------------
-     * 2. LOAD HISTORICAL PRICE DATA
-     * ------------------------------------------------
-     */
-
-    const priceHistory =
-      JSON.parse(
-        localStorage.getItem(
-          "ingredientPriceHistory"
-        ) || "[]"
-      ) as PriceHistoryEntry[];
-
-    /*
-     * ------------------------------------------------
-     * 3. UPDATE PRICES FROM MATCHED INVOICE LINES
-     * ------------------------------------------------
-     */
-
-    invoice.lineItems.forEach(
-      (item) => {
-        const ingredient =
-          item.ingredientMatch?.trim();
-
-        if (!ingredient) {
-          return;
-        }
-
-        const unitPrice =
-          numberValue(item.unitPrice);
-
-        if (
-          unitPrice === null ||
-          unitPrice <= 0
-        ) {
-          return;
-        }
-
-        const priceUnit =
-          detectPriceUnit(item);
-
-        /*
-         * Current/latest price
-         */
-
-        ingredientPrices[ingredient] = {
-          price: unitPrice,
-          unit: priceUnit,
-          supplier:
-            invoice.supplier,
-          product:
-            item.product,
-          updatedAt: now,
-          invoiceNumber:
-            invoice.invoiceNumber,
-          invoiceDate:
-            invoice.invoiceDate,
-        };
-
-        /*
-         * Historical price entry
-         */
-
-        const historyEntry: PriceHistoryEntry =
-          {
-            ingredient,
-            supplier:
-              invoice.supplier,
-            supplierProduct:
-              item.product,
-            price: unitPrice,
-            unit: priceUnit,
-            invoiceNumber:
-              invoice.invoiceNumber,
-            invoiceDate:
-              invoice.invoiceDate,
-            recordedAt: now,
-          };
-
-        /*
-         * Avoid accidentally adding the exact
-         * same invoice line twice if Approve
-         * gets clicked again.
-         */
-
-        const alreadyExists =
-          priceHistory.some(
-            (entry) =>
-              entry.ingredient ===
-                historyEntry.ingredient &&
-              entry.supplier ===
-                historyEntry.supplier &&
-              entry.invoiceNumber ===
-                historyEntry.invoiceNumber &&
-              entry.price ===
-                historyEntry.price
-          );
-
-        if (!alreadyExists) {
-          priceHistory.push(
-            historyEntry
-          );
-        }
+      if (
+        userError ||
+        !userData.user
+      ) {
+        router.push("/login");
+        return;
       }
-    );
 
-    localStorage.setItem(
-      "ingredientPrices",
-      JSON.stringify(
-        ingredientPrices
-      )
-    );
+      const user =
+        userData.user;
 
-    localStorage.setItem(
-      "ingredientPriceHistory",
-      JSON.stringify(
-        priceHistory
-      )
-    );
+      /*
+       * 2. FIND ORGANISATION + SITE
+       */
 
-    /*
-     * ------------------------------------------------
-     * 4. SAVE THE APPROVED INVOICE
-     * ------------------------------------------------
-     */
-
-    const existingInvoices =
-      JSON.parse(
-        localStorage.getItem(
-          "approvedInvoices"
-        ) || "[]"
-      ) as ApprovedInvoice[];
-
-    const invoiceId =
-      `${invoice.supplier}-${invoice.invoiceNumber}-${invoice.invoiceDate}`
-        .toLowerCase()
-        .replace(
-          /[^a-z0-9]+/g,
-          "-"
-        )
-        .replace(
-          /^-|-$/g,
-          ""
+      const {
+        organisationId,
+        siteId,
+      } =
+        await getOrganisationContext(
+          user.id
         );
 
-    const approvedInvoice: ApprovedInvoice =
-      {
-        ...invoice,
-        id:
-          invoiceId ||
-          `invoice-${Date.now()}`,
-        status: "Approved",
-        approvedAt: now,
-      };
+      /*
+       * 3. FIND / CREATE SUPPLIER
+       */
 
-    /*
-     * Replace same invoice if it has already
-     * been approved rather than duplicating it.
-     */
+      const supplierId =
+        await getOrCreateSupplier(
+          organisationId,
+          invoice.supplier.trim()
+        );
 
-    const withoutExisting =
-      existingInvoices.filter(
-        (savedInvoice) =>
-          savedInvoice.id !==
-          approvedInvoice.id
-      );
+      /*
+       * 4. CREATE INVOICE
+       */
 
-    const nextInvoices = [
-      approvedInvoice,
-      ...withoutExisting,
-    ];
+      const {
+        data: createdInvoice,
+        error: invoiceError,
+      } = await supabase
+        .from("invoices")
+        .insert({
+          organisation_id:
+            organisationId,
 
-    localStorage.setItem(
-      "approvedInvoices",
-      JSON.stringify(
-        nextInvoices
-      )
-    );
+          site_id:
+            siteId,
 
-    /*
-     * Keep this key because other existing
-     * parts of the project may already use it.
-     */
+          supplier_id:
+            supplierId,
 
-    localStorage.setItem(
-      "approvedInvoiceDraft",
-      JSON.stringify(
-        approvedInvoice
-      )
-    );
+          invoice_number:
+            invoice.invoiceNumber ||
+            null,
 
-    /*
-     * ------------------------------------------------
-     * 5. SAVE SUPPLIER PRODUCT KNOWLEDGE
-     * ------------------------------------------------
-     */
+          invoice_date:
+            invoice.invoiceDate ||
+            null,
 
-    const supplierProducts =
-      JSON.parse(
-        localStorage.getItem(
-          "supplierProducts"
-        ) || "{}"
-      ) as Record<
-        string,
-        {
-          ingredient: string;
-          supplier: string;
-          product: string;
-          unit: string;
-          latestPrice: number | null;
-          updatedAt: string;
-        }
-      >;
+          subtotal:
+            invoice.subtotal,
 
-    invoice.lineItems.forEach(
-      (item) => {
-        const ingredient =
+          vat:
+            invoice.vat,
+
+          total:
+            invoice.total,
+
+          status:
+            "approved",
+
+          approved_by:
+            user.id,
+
+          approved_at:
+            new Date().toISOString(),
+
+          file_name:
+            sessionStorage.getItem(
+              "invoiceFileName"
+            ),
+        })
+        .select("id")
+        .single();
+
+      if (
+        invoiceError ||
+        !createdInvoice
+      ) {
+        throw (
+          invoiceError ??
+          new Error(
+            "Could not create invoice."
+          )
+        );
+      }
+
+      const invoiceId =
+        createdInvoice.id;
+
+      /*
+       * 5. PROCESS EACH LINE
+       */
+
+      for (
+        const item of
+        invoice.lineItems
+      ) {
+        const ingredientName =
           item.ingredientMatch?.trim();
 
-        if (!ingredient) return;
+        const priceUnit =
+          detectPriceUnit(
+            item
+          );
 
-        const key =
-          `${invoice.supplier}|${item.product}`
-            .toLowerCase();
+        let ingredientId:
+          | string
+          | null = null;
 
-        supplierProducts[key] = {
-          ingredient,
-          supplier:
-            invoice.supplier,
-          product: item.product,
-          unit:
-            detectPriceUnit(item),
-          latestPrice:
-            numberValue(
-              item.unitPrice
-            ),
-          updatedAt: now,
-        };
+        let supplierProductId:
+          | string
+          | null = null;
+
+        if (
+          ingredientName
+        ) {
+          ingredientId =
+            await getOrCreateIngredient(
+              organisationId,
+              ingredientName,
+              priceUnit
+            );
+
+          supplierProductId =
+            await getOrCreateSupplierProduct(
+              organisationId,
+              supplierId,
+              ingredientId,
+              item
+            );
+        }
+
+        /*
+         * Invoice line
+         */
+
+        const {
+          error:
+            lineError,
+        } = await supabase
+          .from(
+            "invoice_lines"
+          )
+          .insert({
+            invoice_id:
+              invoiceId,
+
+            supplier_product_id:
+              supplierProductId,
+
+            ingredient_id:
+              ingredientId,
+
+            product_name:
+              item.product,
+
+            quantity:
+              item.quantity,
+
+            pack:
+              item.pack ||
+              null,
+
+            unit_price:
+              item.unitPrice,
+
+            line_total:
+              item.total,
+
+            price_unit:
+              priceUnit,
+          });
+
+        if (lineError) {
+          throw lineError;
+        }
+
+        /*
+         * Price updates only apply
+         * to matched ingredients with
+         * an actual price.
+         */
+
+        if (
+          !ingredientId ||
+          item.unitPrice === null ||
+          item.unitPrice <= 0
+        ) {
+          continue;
+        }
+
+        /*
+         * Current price
+         */
+
+        const {
+          error:
+            currentPriceError,
+        } = await supabase
+          .from(
+            "ingredient_prices"
+          )
+          .upsert(
+            {
+              organisation_id:
+                organisationId,
+
+              site_id:
+                siteId,
+
+              ingredient_id:
+                ingredientId,
+
+              supplier_id:
+                supplierId,
+
+              supplier_product_id:
+                supplierProductId,
+
+              price:
+                item.unitPrice,
+
+              unit:
+                priceUnit,
+
+              invoice_id:
+                invoiceId,
+
+              effective_date:
+                invoice.invoiceDate ||
+                new Date()
+                  .toISOString()
+                  .slice(0, 10),
+
+              updated_at:
+                new Date().toISOString(),
+            },
+            {
+              onConflict:
+                "site_id,ingredient_id",
+            }
+          );
+
+        if (
+          currentPriceError
+        ) {
+          throw currentPriceError;
+        }
+
+        /*
+         * Historical price record
+         */
+
+        const {
+          error:
+            historyError,
+        } = await supabase
+          .from(
+            "ingredient_price_history"
+          )
+          .insert({
+            organisation_id:
+              organisationId,
+
+            site_id:
+              siteId,
+
+            ingredient_id:
+              ingredientId,
+
+            supplier_id:
+              supplierId,
+
+            supplier_product_id:
+              supplierProductId,
+
+            invoice_id:
+              invoiceId,
+
+            price:
+              item.unitPrice,
+
+            unit:
+              priceUnit,
+          });
+
+        if (historyError) {
+          throw historyError;
+        }
       }
-    );
 
-    localStorage.setItem(
-      "supplierProducts",
-      JSON.stringify(
-        supplierProducts
-      )
-    );
+      /*
+       * 6. TEMPORARY LOCALSTORAGE MIRROR
+       *
+       * We keep this only while Recipes/Menu
+       * still read localStorage.
+       */
 
-    /*
-     * ------------------------------------------------
-     * 6. FINISH
-     * ------------------------------------------------
-     */
+      const localPrices =
+        JSON.parse(
+          localStorage.getItem(
+            "ingredientPrices"
+          ) || "{}"
+        );
 
-    setApproved(true);
+      invoice.lineItems.forEach(
+        (item) => {
+          const ingredient =
+            item.ingredientMatch?.trim();
 
-    alert(
-      `Invoice ${invoice.invoiceNumber || ""} approved.\n\nIngredient prices and price history have been updated.`
-    );
+          if (
+            !ingredient ||
+            item.unitPrice ===
+              null ||
+            item.unitPrice <= 0
+          ) {
+            return;
+          }
+
+          localPrices[
+            ingredient
+          ] = {
+            price:
+              item.unitPrice,
+
+            unit:
+              detectPriceUnit(
+                item
+              ),
+
+            supplier:
+              invoice.supplier,
+
+            product:
+              item.product,
+
+            updatedAt:
+              new Date().toISOString(),
+
+            invoiceNumber:
+              invoice.invoiceNumber,
+
+            invoiceDate:
+              invoice.invoiceDate,
+          };
+        }
+      );
+
+      localStorage.setItem(
+        "ingredientPrices",
+        JSON.stringify(
+          localPrices
+        )
+      );
+
+      /*
+       * 7. CLEAR DRAFT + FINISH
+       */
+
+      sessionStorage.removeItem(
+        "invoiceExtraction"
+      );
+
+      setApproved(true);
+
+      alert(
+        `Invoice ${
+          invoice.invoiceNumber ||
+          ""
+        } saved to Supabase successfully.`
+      );
+
+      router.push(
+        "/invoices"
+      );
+    } catch (err: any) {
+      console.error(err);
+
+      setError(
+        err?.message ||
+          "Something went wrong while saving the invoice."
+      );
+    } finally {
+      setSaving(false);
+    }
   }
 
   if (loading) {
@@ -904,7 +1371,11 @@ export default function InvoiceReviewPage() {
     );
   }
 
-  if (!invoice || error) {
+  if (
+    !invoice ||
+    error &&
+      !invoice
+  ) {
     return (
       <main className="app-shell">
         <Sidebar active="invoices" />
@@ -959,9 +1430,8 @@ export default function InvoiceReviewPage() {
 
             <p className="page-description">
               Check the extracted data,
-              match supplier products to
-              ingredients and approve the
-              invoice.
+              match products and approve
+              the invoice.
             </p>
           </div>
 
@@ -969,7 +1439,6 @@ export default function InvoiceReviewPage() {
             style={{
               display: "flex",
               gap: "10px",
-              alignItems: "center",
             }}
           >
             <button
@@ -990,14 +1459,39 @@ export default function InvoiceReviewPage() {
               onClick={
                 approveInvoice
               }
-              disabled={approved}
+              disabled={
+                approved ||
+                saving
+              }
             >
-              {approved
+              {saving
+                ? "Saving..."
+                : approved
                 ? "Approved ✓"
                 : "Approve invoice"}
             </button>
           </div>
         </header>
+
+        {error && (
+          <section
+            className="panel"
+            style={{
+              marginBottom:
+                "18px",
+            }}
+          >
+            <div
+              style={{
+                color:
+                  "#a43e32",
+                fontWeight: 600,
+              }}
+            >
+              {error}
+            </div>
+          </section>
+        )}
 
         <section
           className="stats-grid"
@@ -1022,7 +1516,9 @@ export default function InvoiceReviewPage() {
             </span>
 
             <strong>
-              {money(invoice.total)}
+              {money(
+                invoice.total
+              )}
             </strong>
           </article>
 
@@ -1080,7 +1576,8 @@ export default function InvoiceReviewPage() {
                 onChange={(event) =>
                   updateInvoiceField(
                     "supplier",
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
               />
@@ -1098,7 +1595,8 @@ export default function InvoiceReviewPage() {
                 onChange={(event) =>
                   updateInvoiceField(
                     "invoiceNumber",
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
               />
@@ -1110,13 +1608,15 @@ export default function InvoiceReviewPage() {
               </span>
 
               <input
+                type="date"
                 value={
                   invoice.invoiceDate
                 }
                 onChange={(event) =>
                   updateInvoiceField(
                     "invoiceDate",
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
               />
@@ -1131,12 +1631,14 @@ export default function InvoiceReviewPage() {
                 type="number"
                 step="0.01"
                 value={
-                  invoice.subtotal ?? ""
+                  invoice.subtotal ??
+                  ""
                 }
                 onChange={(event) =>
                   updateMoneyField(
                     "subtotal",
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
               />
@@ -1156,7 +1658,8 @@ export default function InvoiceReviewPage() {
                 onChange={(event) =>
                   updateMoneyField(
                     "vat",
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
               />
@@ -1171,12 +1674,14 @@ export default function InvoiceReviewPage() {
                 type="number"
                 step="0.01"
                 value={
-                  invoice.total ?? ""
+                  invoice.total ??
+                  ""
                 }
                 onChange={(event) =>
                   updateMoneyField(
                     "total",
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
               />
@@ -1188,6 +1693,8 @@ export default function InvoiceReviewPage() {
           className="panel"
           style={{
             marginTop: "24px",
+            marginBottom:
+              "80px",
           }}
         >
           <div className="panel-header">
@@ -1222,13 +1729,9 @@ export default function InvoiceReviewPage() {
                     Supplier product
                   </th>
 
-                  <th>
-                    Qty
-                  </th>
+                  <th>Qty</th>
 
-                  <th>
-                    Pack
-                  </th>
+                  <th>Pack</th>
 
                   <th>
                     Unit price
@@ -1239,7 +1742,7 @@ export default function InvoiceReviewPage() {
                   </th>
 
                   <th>
-                    Match ingredient
+                    Ingredient
                   </th>
 
                   <th></th>
@@ -1248,7 +1751,10 @@ export default function InvoiceReviewPage() {
 
               <tbody>
                 {invoice.lineItems.map(
-                  (item, index) => (
+                  (
+                    item,
+                    index
+                  ) => (
                     <tr key={index}>
                       <td>
                         <input
@@ -1290,7 +1796,7 @@ export default function InvoiceReviewPage() {
                           }
                           style={{
                             width:
-                              "85px",
+                              "80px",
                           }}
                         />
                       </td>
@@ -1311,10 +1817,6 @@ export default function InvoiceReviewPage() {
                                 .value
                             )
                           }
-                          style={{
-                            width:
-                              "120px",
-                          }}
                         />
                       </td>
 
@@ -1337,10 +1839,6 @@ export default function InvoiceReviewPage() {
                                 .value
                             )
                           }
-                          style={{
-                            width:
-                              "100px",
-                          }}
                         />
                       </td>
 
@@ -1363,10 +1861,6 @@ export default function InvoiceReviewPage() {
                                 .value
                             )
                           }
-                          style={{
-                            width:
-                              "100px",
-                          }}
                         />
                       </td>
 
@@ -1434,68 +1928,20 @@ export default function InvoiceReviewPage() {
           </div>
         </section>
 
-        <section
-          className="panel"
-          style={{
-            marginTop: "24px",
-            marginBottom: "100px",
-          }}
-        >
-          <div className="panel-header">
-            <div>
-              <p className="panel-kicker">
-                Integration
-              </p>
-
-              <h2>
-                What happens when you approve?
-              </h2>
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gap: "10px",
-            }}
-          >
-            <div>
-              ✓ Invoice saved to invoice
-              history
-            </div>
-
-            <div>
-              ✓ Latest ingredient prices
-              updated
-            </div>
-
-            <div>
-              ✓ Previous prices retained in
-              price history
-            </div>
-
-            <div>
-              ✓ Supplier product mappings
-              remembered
-            </div>
-
-            <div>
-              ✓ New prices available to
-              recipes, menu costing and
-              ordering
-            </div>
-          </div>
-        </section>
-
         <div className="quick-order-footer">
           <div>
             <span>
-              {invoice.lineItems.length}{" "}
+              {
+                invoice.lineItems
+                  .length
+              }{" "}
               invoice lines
             </span>
 
             <strong>
-              {money(invoice.total)}
+              {money(
+                invoice.total
+              )}
             </strong>
           </div>
 
@@ -1505,9 +1951,14 @@ export default function InvoiceReviewPage() {
             onClick={
               approveInvoice
             }
-            disabled={approved}
+            disabled={
+              approved ||
+              saving
+            }
           >
-            {approved
+            {saving
+              ? "Saving to Supabase..."
+              : approved
               ? "Invoice approved ✓"
               : `Approve invoice${
                   unmatchedCount
