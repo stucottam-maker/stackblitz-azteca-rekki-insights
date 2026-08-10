@@ -1,10 +1,14 @@
 "use client";
 
-import { suppliers } from "../../data/suppliers";
-import { useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
-
+import { suppliers } from "../../data/suppliers";
 
 type ExtractedInvoice = {
   supplier: string;
@@ -27,37 +31,81 @@ type ExtractedInvoice = {
 export default function InvoiceUploadPage() {
   const router = useRouter();
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState("");
+  const cameraInputRef =
+    useRef<HTMLInputElement | null>(null);
 
-  const [supplier, setSupplier] = useState("");
-  const [supplierSearch, setSupplierSearch] = useState("");
-  const [supplierPickerOpen, setSupplierPickerOpen] = useState(false);
+  const fileInputRef =
+    useRef<HTMLInputElement | null>(null);
 
-  const [invoiceNumber, setInvoiceNumber] = useState("");
-  const [invoiceDate, setInvoiceDate] = useState("");
-  const [invoiceTotal, setInvoiceTotal] = useState("");
+  const [selectedFile, setSelectedFile] =
+    useState<File | null>(null);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [previewUrl, setPreviewUrl] =
+    useState("");
+
+  const [supplier, setSupplier] =
+    useState("");
+
+  const [supplierSearch, setSupplierSearch] =
+    useState("");
+
+  const [
+    supplierPickerOpen,
+    setSupplierPickerOpen,
+  ] = useState(false);
+
+  const [
+    invoiceNumber,
+    setInvoiceNumber,
+  ] = useState("");
+
+  const [invoiceDate, setInvoiceDate] =
+    useState("");
+
+  const [
+    invoiceTotal,
+    setInvoiceTotal,
+  ] = useState("");
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const [error, setError] =
+    useState("");
 
   const supplierOptions = useMemo(() => {
-    return Object.values(suppliers).sort((a, b) =>
-      a.name.localeCompare(b.name)
+    return Object.values(suppliers).sort(
+      (a, b) =>
+        a.name.localeCompare(b.name)
     );
   }, []);
 
-  const filteredSuppliers = useMemo(() => {
-    const query = supplierSearch.trim().toLowerCase();
+  const filteredSuppliers =
+    useMemo(() => {
+      const query = supplierSearch
+        .trim()
+        .toLowerCase();
 
-    if (!query) {
-      return supplierOptions;
-    }
+      if (!query) {
+        return supplierOptions;
+      }
 
-    return supplierOptions.filter((supplierItem) =>
-      supplierItem.name.toLowerCase().includes(query)
-    );
-  }, [supplierOptions, supplierSearch]);
+      return supplierOptions.filter(
+        (supplierItem) =>
+          supplierItem.name
+            .toLowerCase()
+            .includes(query)
+      );
+    }, [
+      supplierOptions,
+      supplierSearch,
+    ]);
+
+  const selectedSupplier =
+    supplier &&
+    suppliers[supplier]
+      ? suppliers[supplier]
+      : null;
 
   function getInitials(name: string) {
     return name
@@ -69,44 +117,76 @@ export default function InvoiceUploadPage() {
       .toUpperCase();
   }
 
-  function handleFileChange(
-    event: React.ChangeEvent<HTMLInputElement>
+  function handleSelectedFile(
+    file: File
   ) {
-    const file = event.target.files?.[0];
+    setError("");
+
+    if (previewUrl) {
+      URL.revokeObjectURL(
+        previewUrl
+      );
+    }
+
+    setSelectedFile(file);
+
+    setPreviewUrl(
+      URL.createObjectURL(file)
+    );
+  }
+
+  function handleFileChange(
+    event: ChangeEvent<HTMLInputElement>
+  ) {
+    const file =
+      event.target.files?.[0];
 
     if (!file) {
       return;
     }
 
-    setError("");
+    handleSelectedFile(file);
 
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
-    }
-
-    setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
+    event.target.value = "";
   }
 
   function clearFile() {
     if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
+      URL.revokeObjectURL(
+        previewUrl
+      );
     }
 
     setSelectedFile(null);
     setPreviewUrl("");
     setError("");
+
+    if (cameraInputRef.current) {
+      cameraInputRef.current.value =
+        "";
+    }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value =
+        "";
+    }
   }
 
-  function selectSupplier(name: string) {
+  function selectSupplier(
+    name: string
+  ) {
     setSupplier(name);
+
     setSupplierPickerOpen(false);
+
     setSupplierSearch("");
   }
 
   async function extractInvoice() {
     if (!selectedFile) {
-      setError("Choose an invoice image first.");
+      setError(
+        "Take a photo or choose an invoice file first."
+      );
       return;
     }
 
@@ -114,20 +194,32 @@ export default function InvoiceUploadPage() {
     setError("");
 
     try {
-      const formData = new FormData();
+      const formData =
+        new FormData();
 
-      formData.append("file", selectedFile);
+      formData.append(
+        "file",
+        selectedFile
+      );
 
       if (supplier) {
-        formData.append("supplier", supplier);
+        formData.append(
+          "supplier",
+          supplier
+        );
       }
 
-      const response = await fetch("/api/invoices/extract", {
-        method: "POST",
-        body: formData,
-      });
+      const response =
+        await fetch(
+          "/api/invoices/extract",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
-      const result = await response.json();
+      const result =
+        await response.json();
 
       if (!response.ok) {
         throw new Error(
@@ -136,13 +228,15 @@ export default function InvoiceUploadPage() {
         );
       }
 
-      const extracted: ExtractedInvoice =
+      const extracted:
+        ExtractedInvoice =
         result?.invoice ??
         result?.extraction ??
         result?.data ??
         result;
 
-      const finalInvoice: ExtractedInvoice = {
+      const finalInvoice:
+        ExtractedInvoice = {
         supplier:
           supplier ||
           extracted?.supplier ||
@@ -159,7 +253,8 @@ export default function InvoiceUploadPage() {
           "",
 
         subtotal:
-          extracted?.subtotal ?? null,
+          extracted?.subtotal ??
+          null,
 
         vat:
           extracted?.vat ?? null,
@@ -167,17 +262,22 @@ export default function InvoiceUploadPage() {
         total:
           invoiceTotal !== ""
             ? Number(invoiceTotal)
-            : extracted?.total ?? null,
+            : extracted?.total ??
+              null,
 
         lineItems:
-          Array.isArray(extracted?.lineItems)
+          Array.isArray(
+            extracted?.lineItems
+          )
             ? extracted.lineItems
             : [],
       };
 
       sessionStorage.setItem(
         "invoiceExtraction",
-        JSON.stringify(finalInvoice)
+        JSON.stringify(
+          finalInvoice
+        )
       );
 
       sessionStorage.setItem(
@@ -185,7 +285,9 @@ export default function InvoiceUploadPage() {
         selectedFile.name
       );
 
-      router.push("/invoices/review");
+      router.push(
+        "/invoices/review"
+      );
     } catch (err) {
       setError(
         err instanceof Error
@@ -199,11 +301,14 @@ export default function InvoiceUploadPage() {
 
   function continueWithoutExtraction() {
     if (!supplier) {
-      setError("Select a supplier first.");
+      setError(
+        "Select a supplier first."
+      );
       return;
     }
 
-    const manualInvoice: ExtractedInvoice = {
+    const manualInvoice:
+      ExtractedInvoice = {
       supplier,
       invoiceNumber,
       invoiceDate,
@@ -218,16 +323,15 @@ export default function InvoiceUploadPage() {
 
     sessionStorage.setItem(
       "invoiceExtraction",
-      JSON.stringify(manualInvoice)
+      JSON.stringify(
+        manualInvoice
+      )
     );
 
-    router.push("/invoices/review");
+    router.push(
+      "/invoices/review"
+    );
   }
-
-  const selectedSupplier =
-    supplier && suppliers[supplier]
-      ? suppliers[supplier]
-      : null;
 
   return (
     <main className="app-shell">
@@ -245,8 +349,11 @@ export default function InvoiceUploadPage() {
             </h1>
 
             <p className="page-description">
-              Upload a supplier invoice and let the system extract the
-              products, quantities and prices.
+              Take a photo or upload a
+              supplier invoice and let
+              Kitchen Insights extract
+              the products, quantities
+              and prices.
             </p>
           </div>
         </header>
@@ -255,47 +362,141 @@ export default function InvoiceUploadPage() {
           <div className="panel-header">
             <div>
               <p className="panel-kicker">
-                Invoice image
+                Invoice
               </p>
 
               <h2>
-                Upload invoice
+                Capture invoice
               </h2>
             </div>
           </div>
 
           {!selectedFile ? (
-            <label
+            <div
               style={{
-                display: "flex",
-                minHeight: "220px",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-                gap: "12px",
-                border: "1px dashed #d6d2ca",
+                minHeight: "270px",
+                border:
+                  "1px dashed #d6d2ca",
                 borderRadius: "14px",
-                cursor: "pointer",
-                padding: "30px",
+                padding: "34px",
+                background:
+                  "#faf8f4",
+                display: "flex",
+                flexDirection:
+                  "column",
+                alignItems: "center",
+                justifyContent:
+                  "center",
+                textAlign: "center",
               }}
             >
-              <strong>
-                Choose invoice image
+              <div
+                style={{
+                  width: "54px",
+                  height: "54px",
+                  borderRadius: "50%",
+                  background:
+                    "#174f3c",
+                  color: "#fff",
+                  display: "flex",
+                  alignItems:
+                    "center",
+                  justifyContent:
+                    "center",
+                  fontSize: "24px",
+                  marginBottom:
+                    "14px",
+                }}
+              >
+                ↑
+              </div>
+
+              <strong
+                style={{
+                  fontSize: "18px",
+                  marginBottom: "6px",
+                }}
+              >
+                Add an invoice
               </strong>
 
-              <span>
-                JPEG, PNG or WEBP
+              <span
+                style={{
+                  color: "#77736c",
+                  marginBottom:
+                    "22px",
+                }}
+              >
+                Photograph a paper
+                invoice or choose an
+                image from your device.
               </span>
 
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  flexWrap: "wrap",
+                  justifyContent:
+                    "center",
+                }}
+              >
+                <button
+                  type="button"
+                  className="primary-button"
+                  onClick={() =>
+                    cameraInputRef.current?.click()
+                  }
+                >
+                  📷 Take photo
+                </button>
+
+                <button
+                  type="button"
+                  className="secondary-inline-button"
+                  onClick={() =>
+                    fileInputRef.current?.click()
+                  }
+                >
+                  Upload file
+                </button>
+              </div>
+
               <input
+                ref={cameraInputRef}
                 type="file"
-                accept="image/jpeg,image/png,image/webp"
-                onChange={handleFileChange}
+                accept="image/*"
+                capture="environment"
+                onChange={
+                  handleFileChange
+                }
                 style={{
                   display: "none",
                 }}
               />
-            </label>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={
+                  handleFileChange
+                }
+                style={{
+                  display: "none",
+                }}
+              />
+
+              <span
+                style={{
+                  marginTop: "18px",
+                  fontSize: "12px",
+                  color: "#969188",
+                }}
+              >
+                JPG · PNG · WEBP
+              </span>
+            </div>
           ) : (
             <div>
               {previewUrl && (
@@ -304,10 +505,14 @@ export default function InvoiceUploadPage() {
                   alt="Invoice preview"
                   style={{
                     width: "100%",
-                    maxHeight: "520px",
-                    objectFit: "contain",
-                    borderRadius: "12px",
-                    background: "#f4f1eb",
+                    maxHeight:
+                      "560px",
+                    objectFit:
+                      "contain",
+                    borderRadius:
+                      "12px",
+                    background:
+                      "#f4f1eb",
                   }}
                 />
               )}
@@ -315,22 +520,31 @@ export default function InvoiceUploadPage() {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  justifyContent:
+                    "space-between",
+                  alignItems:
+                    "center",
                   gap: "12px",
-                  marginTop: "14px",
+                  marginTop:
+                    "14px",
+                  flexWrap:
+                    "wrap",
                 }}
               >
                 <div>
                   <strong>
-                    {selectedFile.name}
+                    {
+                      selectedFile.name
+                    }
                   </strong>
 
                   <div
                     style={{
-                      fontSize: "13px",
+                      fontSize:
+                        "13px",
                       opacity: 0.65,
-                      marginTop: "4px",
+                      marginTop:
+                        "4px",
                     }}
                   >
                     {(
@@ -342,13 +556,33 @@ export default function InvoiceUploadPage() {
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  className="cancel-button"
-                  onClick={clearFile}
+                <div
+                  style={{
+                    display:
+                      "flex",
+                    gap: "10px",
+                  }}
                 >
-                  Remove
-                </button>
+                  <button
+                    type="button"
+                    className="secondary-inline-button"
+                    onClick={() =>
+                      cameraInputRef.current?.click()
+                    }
+                  >
+                    Retake photo
+                  </button>
+
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={
+                      clearFile
+                    }
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -390,7 +624,8 @@ export default function InvoiceUploadPage() {
                 className="invoice-supplier-trigger"
                 onClick={() =>
                   setSupplierPickerOpen(
-                    (current) => !current
+                    (current) =>
+                      !current
                   )
                 }
               >
@@ -400,7 +635,9 @@ export default function InvoiceUploadPage() {
                       <div className="invoice-supplier-logo-wrap">
                         {selectedSupplier.logo ? (
                           <img
-                            src={selectedSupplier.logo}
+                            src={
+                              selectedSupplier.logo
+                            }
                             alt=""
                             className="invoice-supplier-logo"
                           />
@@ -414,7 +651,9 @@ export default function InvoiceUploadPage() {
                       </div>
 
                       <strong>
-                        {selectedSupplier.name}
+                        {
+                          selectedSupplier.name
+                        }
                       </strong>
                     </>
                   ) : (
@@ -425,7 +664,9 @@ export default function InvoiceUploadPage() {
                 </div>
 
                 <span className="invoice-supplier-chevron">
-                  {supplierPickerOpen ? "⌃" : "⌄"}
+                  {supplierPickerOpen
+                    ? "⌃"
+                    : "⌄"}
                 </span>
               </button>
 
@@ -434,10 +675,16 @@ export default function InvoiceUploadPage() {
                   <div className="invoice-supplier-search">
                     <input
                       type="search"
-                      value={supplierSearch}
-                      onChange={(event) =>
+                      value={
+                        supplierSearch
+                      }
+                      onChange={(
+                        event
+                      ) =>
                         setSupplierSearch(
-                          event.target.value
+                          event
+                            .target
+                            .value
                         )
                       }
                       placeholder="Search suppliers..."
@@ -449,11 +696,14 @@ export default function InvoiceUploadPage() {
                     {filteredSuppliers.length ===
                     0 ? (
                       <div className="invoice-supplier-empty">
-                        No suppliers found
+                        No suppliers
+                        found
                       </div>
                     ) : (
                       filteredSuppliers.map(
-                        (supplierItem) => (
+                        (
+                          supplierItem
+                        ) => (
                           <button
                             type="button"
                             key={
@@ -491,7 +741,9 @@ export default function InvoiceUploadPage() {
 
                             <div className="invoice-supplier-option-copy">
                               <strong>
-                                {supplierItem.name}
+                                {
+                                  supplierItem.name
+                                }
                               </strong>
 
                               {supplierItem.orderMethod && (
@@ -528,10 +780,15 @@ export default function InvoiceUploadPage() {
               </span>
 
               <input
-                value={invoiceNumber}
-                onChange={(event) =>
+                value={
+                  invoiceNumber
+                }
+                onChange={(
+                  event
+                ) =>
                   setInvoiceNumber(
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
                 placeholder="Will be extracted automatically"
@@ -545,10 +802,15 @@ export default function InvoiceUploadPage() {
 
               <input
                 type="date"
-                value={invoiceDate}
-                onChange={(event) =>
+                value={
+                  invoiceDate
+                }
+                onChange={(
+                  event
+                ) =>
                   setInvoiceDate(
-                    event.target.value
+                    event.target
+                      .value
                   )
                 }
               />
@@ -561,12 +823,14 @@ export default function InvoiceUploadPage() {
 
               <div
                 style={{
-                  position: "relative",
+                  position:
+                    "relative",
                 }}
               >
                 <span
                   style={{
-                    position: "absolute",
+                    position:
+                      "absolute",
                     left: "14px",
                     top: "50%",
                     transform:
@@ -581,15 +845,21 @@ export default function InvoiceUploadPage() {
                   type="number"
                   min="0"
                   step="0.01"
-                  value={invoiceTotal}
-                  onChange={(event) =>
+                  value={
+                    invoiceTotal
+                  }
+                  onChange={(
+                    event
+                  ) =>
                     setInvoiceTotal(
-                      event.target.value
+                      event.target
+                        .value
                     )
                   }
                   placeholder="0.00"
                   style={{
-                    paddingLeft: "30px",
+                    paddingLeft:
+                      "30px",
                   }}
                 />
               </div>
@@ -601,12 +871,14 @@ export default function InvoiceUploadPage() {
           <section
             className="panel"
             style={{
-              marginTop: "18px",
+              marginTop:
+                "18px",
             }}
           >
             <div
               style={{
-                color: "#a43e32",
+                color:
+                  "#a43e32",
                 fontWeight: 600,
               }}
             >
@@ -618,17 +890,22 @@ export default function InvoiceUploadPage() {
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent:
+              "flex-end",
             gap: "12px",
             marginTop: "24px",
-            marginBottom: "60px",
+            marginBottom:
+              "60px",
+            flexWrap: "wrap",
           }}
         >
           <button
             type="button"
             className="cancel-button"
             onClick={() =>
-              router.push("/invoices")
+              router.push(
+                "/invoices"
+              )
             }
           >
             Cancel
@@ -649,7 +926,9 @@ export default function InvoiceUploadPage() {
           <button
             type="button"
             className="primary-button"
-            onClick={extractInvoice}
+            onClick={
+              extractInvoice
+            }
             disabled={
               !selectedFile ||
               loading
