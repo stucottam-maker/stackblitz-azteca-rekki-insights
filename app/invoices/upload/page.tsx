@@ -10,7 +10,44 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import { suppliers } from "../../data/suppliers";
 import { supabase } from "../../lib/supabase";
+async function uploadInvoiceFile(file: File) {
+  const {
+    data: userData,
+    error: userError,
+  } = await supabase.auth.getUser();
 
+  if (userError || !userData.user) {
+    throw new Error("You must be signed in.");
+  }
+
+  const extension =
+    file.name.split(".").pop()?.toLowerCase() || "jpg";
+
+  const safeName =
+    file.name
+      .replace(/\.[^/.]+$/, "")
+      .replace(/[^a-zA-Z0-9-_]/g, "-")
+      .toLowerCase();
+
+  const storagePath =
+    `${userData.user.id}/${Date.now()}-${safeName}.${extension}`;
+
+  const {
+    error: uploadError,
+  } = await supabase.storage
+    .from("invoice-files")
+    .upload(storagePath, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type,
+    });
+
+  if (uploadError) {
+    throw uploadError;
+  }
+
+  return storagePath;
+}
 type ExtractedInvoice = {
   supplier: string;
   invoiceNumber: string;
