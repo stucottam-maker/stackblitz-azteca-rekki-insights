@@ -5,6 +5,7 @@ export type CatalogueItem = {
   supplierProduct: string;
   unit: string;
   fallbackPrice: number | null;
+  preferred?: boolean;
 };
 
 export const supplierCatalogue: CatalogueItem[] = [
