@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import { suppliers } from "../../data/suppliers";
@@ -26,56 +26,65 @@ type ExtractedInvoice = {
 export default function InvoiceUploadPage() {
   const router = useRouter();
 
-  const [selectedFile, setSelectedFile] =
-    useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
-  const [previewUrl, setPreviewUrl] =
-    useState("");
+  const [supplier, setSupplier] = useState("");
+  const [supplierSearch, setSupplierSearch] = useState("");
+  const [supplierPickerOpen, setSupplierPickerOpen] = useState(false);
 
-  const [supplier, setSupplier] =
-    useState("");
+  const [invoiceNumber, setInvoiceNumber] = useState("");
+  const [invoiceDate, setInvoiceDate] = useState("");
+  const [invoiceTotal, setInvoiceTotal] = useState("");
 
-  const [invoiceNumber, setInvoiceNumber] =
-    useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const [invoiceDate, setInvoiceDate] =
-    useState("");
+  const supplierOptions = useMemo(() => {
+    return Object.values(suppliers).sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+  }, []);
 
-  const [invoiceTotal, setInvoiceTotal] =
-    useState("");
+  const filteredSuppliers = useMemo(() => {
+    const query = supplierSearch.trim().toLowerCase();
 
-  const [loading, setLoading] =
-    useState(false);
+    if (!query) {
+      return supplierOptions;
+    }
 
-  const [error, setError] =
-    useState("");
+    return supplierOptions.filter((supplierItem) =>
+      supplierItem.name.toLowerCase().includes(query)
+    );
+  }, [supplierOptions, supplierSearch]);
 
-  const supplierOptions = Object.values(
-    suppliers
-  ).sort((a, b) =>
-    a.name.localeCompare(b.name)
-  );
+  function getInitials(name: string) {
+    return name
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase();
+  }
 
   function handleFileChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
-    const file =
-      event.target.files?.[0];
+    const file = event.target.files?.[0];
 
     if (!file) {
       return;
     }
 
     setError("");
-    setSelectedFile(file);
 
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
     }
 
-    setPreviewUrl(
-      URL.createObjectURL(file)
-    );
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
   }
 
   function clearFile() {
@@ -88,11 +97,15 @@ export default function InvoiceUploadPage() {
     setError("");
   }
 
+  function selectSupplier(name: string) {
+    setSupplier(name);
+    setSupplierPickerOpen(false);
+    setSupplierSearch("");
+  }
+
   async function extractInvoice() {
     if (!selectedFile) {
-      setError(
-        "Choose an invoice image first."
-      );
+      setError("Choose an invoice image first.");
       return;
     }
 
@@ -100,31 +113,20 @@ export default function InvoiceUploadPage() {
     setError("");
 
     try {
-      const formData =
-        new FormData();
+      const formData = new FormData();
 
-      formData.append(
-        "file",
-        selectedFile
-      );
+      formData.append("file", selectedFile);
 
       if (supplier) {
-        formData.append(
-          "supplier",
-          supplier
-        );
+        formData.append("supplier", supplier);
       }
 
-      const response = await fetch(
-        "/api/invoices/extract",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch("/api/invoices/extract", {
+        method: "POST",
+        body: formData,
+      });
 
-      const result =
-        await response.json();
+      const result = await response.json();
 
       if (!response.ok) {
         throw new Error(
@@ -133,50 +135,48 @@ export default function InvoiceUploadPage() {
         );
       }
 
-      const extracted:
-        ExtractedInvoice =
+      const extracted: ExtractedInvoice =
         result?.invoice ??
         result?.extraction ??
         result?.data ??
         result;
 
-      const finalInvoice:
-        ExtractedInvoice = {
+      const finalInvoice: ExtractedInvoice = {
         supplier:
           supplier ||
-          extracted.supplier ||
+          extracted?.supplier ||
           "",
+
         invoiceNumber:
           invoiceNumber ||
-          extracted.invoiceNumber ||
+          extracted?.invoiceNumber ||
           "",
+
         invoiceDate:
           invoiceDate ||
-          extracted.invoiceDate ||
+          extracted?.invoiceDate ||
           "",
+
         subtotal:
-          extracted.subtotal ??
-          null,
+          extracted?.subtotal ?? null,
+
         vat:
-          extracted.vat ??
-          null,
+          extracted?.vat ?? null,
+
         total:
-          invoiceTotal
-            ? Number(
-                invoiceTotal
-              )
-            : extracted.total ??
-              null,
+          invoiceTotal !== ""
+            ? Number(invoiceTotal)
+            : extracted?.total ?? null,
+
         lineItems:
-          extracted.lineItems ??
-          [],
+          Array.isArray(extracted?.lineItems)
+            ? extracted.lineItems
+            : [],
       };
 
       sessionStorage.setItem(
         "invoiceExtraction",
-        JSON.stringify(
-          finalInvoice
-        )
+        JSON.stringify(finalInvoice)
       );
 
       sessionStorage.setItem(
@@ -184,9 +184,7 @@ export default function InvoiceUploadPage() {
         selectedFile.name
       );
 
-      router.push(
-        "/invoices/review"
-      );
+      router.push("/invoices/review");
     } catch (err) {
       setError(
         err instanceof Error
@@ -198,38 +196,37 @@ export default function InvoiceUploadPage() {
     }
   }
 
-  async function continueWithoutExtraction() {
+  function continueWithoutExtraction() {
     if (!supplier) {
-      setError(
-        "Select a supplier first."
-      );
+      setError("Select a supplier first.");
       return;
     }
 
-    const manualInvoice:
-      ExtractedInvoice = {
+    const manualInvoice: ExtractedInvoice = {
       supplier,
       invoiceNumber,
       invoiceDate,
       subtotal: null,
       vat: null,
-      total: invoiceTotal
-        ? Number(invoiceTotal)
-        : null,
+      total:
+        invoiceTotal !== ""
+          ? Number(invoiceTotal)
+          : null,
       lineItems: [],
     };
 
     sessionStorage.setItem(
       "invoiceExtraction",
-      JSON.stringify(
-        manualInvoice
-      )
+      JSON.stringify(manualInvoice)
     );
 
-    router.push(
-      "/invoices/review"
-    );
+    router.push("/invoices/review");
   }
+
+  const selectedSupplier =
+    supplier && suppliers[supplier]
+      ? suppliers[supplier]
+      : null;
 
   return (
     <main className="app-shell">
@@ -247,7 +244,8 @@ export default function InvoiceUploadPage() {
             </h1>
 
             <p className="page-description">
-              Upload a supplier invoice and let the system extract the products, quantities and prices.
+              Upload a supplier invoice and let the system extract the
+              products, quantities and prices.
             </p>
           </div>
         </header>
@@ -291,9 +289,7 @@ export default function InvoiceUploadPage() {
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
-                onChange={
-                  handleFileChange
-                }
+                onChange={handleFileChange}
                 style={{
                   display: "none",
                 }}
@@ -308,12 +304,9 @@ export default function InvoiceUploadPage() {
                   style={{
                     width: "100%",
                     maxHeight: "520px",
-                    objectFit:
-                      "contain",
-                    borderRadius:
-                      "12px",
-                    background:
-                      "#f4f1eb",
+                    objectFit: "contain",
+                    borderRadius: "12px",
+                    background: "#f4f1eb",
                   }}
                 />
               )}
@@ -321,28 +314,22 @@ export default function InvoiceUploadPage() {
               <div
                 style={{
                   display: "flex",
-                  justifyContent:
-                    "space-between",
-                  alignItems:
-                    "center",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                   gap: "12px",
                   marginTop: "14px",
                 }}
               >
                 <div>
                   <strong>
-                    {
-                      selectedFile.name
-                    }
+                    {selectedFile.name}
                   </strong>
 
                   <div
                     style={{
-                      fontSize:
-                        "13px",
+                      fontSize: "13px",
                       opacity: 0.65,
-                      marginTop:
-                        "4px",
+                      marginTop: "4px",
                     }}
                   >
                     {(
@@ -357,9 +344,7 @@ export default function InvoiceUploadPage() {
                 <button
                   type="button"
                   className="cancel-button"
-                  onClick={
-                    clearFile
-                  }
+                  onClick={clearFile}
                 >
                   Remove
                 </button>
@@ -394,48 +379,147 @@ export default function InvoiceUploadPage() {
               gap: "18px",
             }}
           >
-            <label>
-              <span>
+            <div className="invoice-supplier-picker">
+              <span className="invoice-field-label">
                 Supplier
               </span>
 
-              <select
-                value={
-                  supplier
-                }
-                onChange={(
-                  event
-                ) =>
-                  setSupplier(
-                    event.target
-                      .value
+              <button
+                type="button"
+                className="invoice-supplier-trigger"
+                onClick={() =>
+                  setSupplierPickerOpen(
+                    (current) => !current
                   )
                 }
               >
-                <option value="">
-                  Select supplier
-                </option>
+                <div className="invoice-supplier-trigger-left">
+                  {selectedSupplier ? (
+                    <>
+                      <div className="invoice-supplier-logo-wrap">
+                        {selectedSupplier.logo ? (
+                          <img
+                            src={selectedSupplier.logo}
+                            alt=""
+                            className="invoice-supplier-logo"
+                          />
+                        ) : (
+                          <span className="invoice-supplier-initials">
+                            {getInitials(
+                              selectedSupplier.name
+                            )}
+                          </span>
+                        )}
+                      </div>
 
-                {supplierOptions.map(
-                  (
-                    supplierItem
-                  ) => (
-                    <option
-                      key={
-                        supplierItem.name
+                      <strong>
+                        {selectedSupplier.name}
+                      </strong>
+                    </>
+                  ) : (
+                    <span className="invoice-supplier-placeholder">
+                      Select supplier
+                    </span>
+                  )}
+                </div>
+
+                <span className="invoice-supplier-chevron">
+                  {supplierPickerOpen ? "⌃" : "⌄"}
+                </span>
+              </button>
+
+              {supplierPickerOpen && (
+                <div className="invoice-supplier-menu">
+                  <div className="invoice-supplier-search">
+                    <input
+                      type="search"
+                      value={supplierSearch}
+                      onChange={(event) =>
+                        setSupplierSearch(
+                          event.target.value
+                        )
                       }
-                      value={
-                        supplierItem.name
-                      }
-                    >
-                      {
-                        supplierItem.name
-                      }
-                    </option>
-                  )
-                )}
-              </select>
-            </label>
+                      placeholder="Search suppliers..."
+                      autoFocus
+                    />
+                  </div>
+
+                  <div className="invoice-supplier-options">
+                    {filteredSuppliers.length ===
+                    0 ? (
+                      <div className="invoice-supplier-empty">
+                        No suppliers found
+                      </div>
+                    ) : (
+                      filteredSuppliers.map(
+                        (supplierItem) => (
+                          <button
+                            type="button"
+                            key={
+                              supplierItem.name
+                            }
+                            className={`invoice-supplier-option ${
+                              supplier ===
+                              supplierItem.name
+                                ? "invoice-supplier-option-active"
+                                : ""
+                            }`}
+                            onClick={() =>
+                              selectSupplier(
+                                supplierItem.name
+                              )
+                            }
+                          >
+                            <div className="invoice-supplier-logo-wrap">
+                              {supplierItem.logo ? (
+                                <img
+                                  src={
+                                    supplierItem.logo
+                                  }
+                                  alt=""
+                                  className="invoice-supplier-logo"
+                                />
+                              ) : (
+                                <span className="invoice-supplier-initials">
+                                  {getInitials(
+                                    supplierItem.name
+                                  )}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="invoice-supplier-option-copy">
+                              <strong>
+                                {supplierItem.name}
+                              </strong>
+
+                              {supplierItem.orderMethod && (
+                                <span>
+                                  {
+                                    supplierItem.orderMethod
+                                  }
+
+                                  {supplierItem.email
+                                    ? ` · ${supplierItem.email}`
+                                    : ""}
+                                </span>
+                              )}
+                            </div>
+
+                            {supplier ===
+                              supplierItem.name && (
+                              <span className="invoice-supplier-check">
+                                ✓
+                              </span>
+                            )}
+                          </button>
+                        )
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <label>
               <span>
@@ -443,15 +527,10 @@ export default function InvoiceUploadPage() {
               </span>
 
               <input
-                value={
-                  invoiceNumber
-                }
-                onChange={(
-                  event
-                ) =>
+                value={invoiceNumber}
+                onChange={(event) =>
                   setInvoiceNumber(
-                    event.target
-                      .value
+                    event.target.value
                   )
                 }
                 placeholder="Will be extracted automatically"
@@ -465,15 +544,10 @@ export default function InvoiceUploadPage() {
 
               <input
                 type="date"
-                value={
-                  invoiceDate
-                }
-                onChange={(
-                  event
-                ) =>
+                value={invoiceDate}
+                onChange={(event) =>
                   setInvoiceDate(
-                    event.target
-                      .value
+                    event.target.value
                   )
                 }
               />
@@ -486,14 +560,12 @@ export default function InvoiceUploadPage() {
 
               <div
                 style={{
-                  position:
-                    "relative",
+                  position: "relative",
                 }}
               >
                 <span
                   style={{
-                    position:
-                      "absolute",
+                    position: "absolute",
                     left: "14px",
                     top: "50%",
                     transform:
@@ -508,21 +580,15 @@ export default function InvoiceUploadPage() {
                   type="number"
                   min="0"
                   step="0.01"
-                  value={
-                    invoiceTotal
-                  }
-                  onChange={(
-                    event
-                  ) =>
+                  value={invoiceTotal}
+                  onChange={(event) =>
                     setInvoiceTotal(
-                      event.target
-                        .value
+                      event.target.value
                     )
                   }
                   placeholder="0.00"
                   style={{
-                    paddingLeft:
-                      "30px",
+                    paddingLeft: "30px",
                   }}
                 />
               </div>
@@ -534,14 +600,12 @@ export default function InvoiceUploadPage() {
           <section
             className="panel"
             style={{
-              marginTop:
-                "18px",
+              marginTop: "18px",
             }}
           >
             <div
               style={{
-                color:
-                  "#a43e32",
+                color: "#a43e32",
                 fontWeight: 600,
               }}
             >
@@ -553,21 +617,17 @@ export default function InvoiceUploadPage() {
         <div
           style={{
             display: "flex",
-            justifyContent:
-              "flex-end",
+            justifyContent: "flex-end",
             gap: "12px",
             marginTop: "24px",
-            marginBottom:
-              "60px",
+            marginBottom: "60px",
           }}
         >
           <button
             type="button"
             className="cancel-button"
             onClick={() =>
-              router.push(
-                "/invoices"
-              )
+              router.push("/invoices")
             }
           >
             Cancel
@@ -588,9 +648,7 @@ export default function InvoiceUploadPage() {
           <button
             type="button"
             className="primary-button"
-            onClick={
-              extractInvoice
-            }
+            onClick={extractInvoice}
             disabled={
               !selectedFile ||
               loading
