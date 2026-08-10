@@ -15,9 +15,21 @@ type InvoiceRow = {
   status: string;
   approved_at: string | null;
   created_at: string;
-  supplier?: {
-    name: string;
-  } | null;
+  supplier?:
+
+  | {
+
+      name: string;
+
+    }
+
+  | {
+
+      name: string;
+
+    }[]
+
+  | null;
   invoice_lines?: {
     id: string;
   }[];
