@@ -1,358 +1,505 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { useRouter } from "next/navigation";
+import Sidebar from "../components/Sidebar";
+import { supabase } from "../lib/supabase";
 
-type IngredientPrice = {
-  price: number;
-  unit: string;
-  supplier: string;
-  product: string;
-  updatedAt: string;
+type IngredientRelation =
+  | {
+      id: string;
+      name: string;
+      category: string | null;
+      base_unit: string | null;
+    }
+  | {
+      id: string;
+      name: string;
+      category: string | null;
+      base_unit: string | null;
+    }[]
+  | null;
+
+type SupplierRelation =
+  | {
+      id: string;
+      name: string;
+    }
+  | {
+      id: string;
+      name: string;
+    }[]
+  | null;
+
+type IngredientPriceRow = {
+  id: string;
+  price: number | null;
+  unit: string | null;
+  effective_date: string | null;
+  updated_at: string | null;
+
+  ingredient:
+    IngredientRelation;
+
+  supplier:
+    SupplierRelation;
 };
 
-type IngredientRecord = {
+type IngredientView = {
+  priceId: string;
+  ingredientId: string;
   name: string;
   category: string;
+  baseUnit: string;
   price: number | null;
-  unit: string;
+  priceUnit: string;
   supplier: string;
-  supplierProduct: string;
+  effectiveDate: string;
   updatedAt: string;
 };
 
-const ingredientCategories: Record<string, string> = {
-  Cod: "Fish",
-  "Black cod": "Fish",
-  "26/30 prawn": "Fish",
-  "King prawn": "Fish",
-  "Tuna loin": "Fish",
-  Stonebass: "Fish",
-  Trout: "Fish",
-  Salmon: "Fish",
+function relationFirst<T>(
+  relation:
+    | T
+    | T[]
+    | null
+    | undefined
+): T | null {
+  if (!relation) {
+    return null;
+  }
 
-  Ribeye: "Meat",
-  "Short rib": "Meat",
-  "Pork belly": "Meat",
-  "Chicken thigh": "Meat",
-  "Birria beef": "Meat",
-  "Carnitas pork": "Meat",
+  if (Array.isArray(relation)) {
+    return relation[0] ?? null;
+  }
 
-  "Masafina tortilla 12cm": "Dry goods",
-  "Masafina tortilla 10cm": "Dry goods",
-  "Masafina blue corn tortilla 12cm": "Dry goods",
+  return relation;
+}
 
-  Miso: "Dry goods",
-  Sugar: "Dry goods",
-  Mirin: "Dry goods",
-  Sake: "Dry goods",
-  "Rice vinegar": "Dry goods",
-  "Gram flour": "Dry goods",
-  "Rice flour": "Dry goods",
-  "Potato flour": "Dry goods",
-  Cornstarch: "Dry goods",
-  "Powdered milk": "Dry goods",
-
-  Chives: "Produce",
-  Coriander: "Produce",
-  Shallot: "Produce",
-  Lemongrass: "Produce",
-  Lime: "Produce",
-  Garlic: "Produce",
-  "Spring onion": "Produce",
-  "Kaffir lime leaf": "Produce",
-
-  "Fish sauce": "Sauces",
-  "Pickled jalapeño": "Sauces",
-  "Aji Amarillo": "Sauces",
-  "Kimchi no moto": "Sauces",
-
-  "Grapeseed oil": "Oils",
-  "Rapeseed oil": "Oils",
-
-  Butter: "Dairy",
-  Comté: "Dairy",
-
-  "Black beans": "Dry goods",
-  "Chipotle salt": "Dry goods",
-};
-
-const baseIngredients = Object.keys(ingredientCategories);
-
-function money(value: number | null) {
+function money(
+  value: number | null
+) {
   if (value === null) {
     return "—";
   }
 
-  return new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  }).format(value);
+  return new Intl.NumberFormat(
+    "en-GB",
+    {
+      style: "currency",
+      currency: "GBP",
+      minimumFractionDigits: 2,
+    }
+  ).format(value);
 }
 
-function formatDate(value: string) {
-  if (!value) return "—";
+function formatDate(
+  value: string
+) {
+  if (!value) {
+    return "—";
+  }
 
   const date = new Date(value);
 
-  if (Number.isNaN(date.getTime())) {
+  if (
+    Number.isNaN(date.getTime())
+  ) {
     return value;
   }
 
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
+  return new Intl.DateTimeFormat(
+    "en-GB",
+    {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }
+  ).format(date);
 }
 
 export default function IngredientsPage() {
-  const [ingredients, setIngredients] = useState<IngredientRecord[]>([]);
-  const [search, setSearch] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("All");
+  const router = useRouter();
 
-  useEffect(() => {
-    const storedPrices = JSON.parse(
-      localStorage.getItem("ingredientPrices") || "{}"
-    ) as Record<string, IngredientPrice>;
-
-    const allNames = Array.from(
-      new Set([
-        ...baseIngredients,
-        ...Object.keys(storedPrices),
-      ])
+  const [
+    ingredients,
+    setIngredients,
+  ] =
+    useState<IngredientView[]>(
+      []
     );
 
-    const mapped: IngredientRecord[] = allNames.map((name) => {
-      const stored = storedPrices[name];
+  const [loading, setLoading] =
+    useState(true);
 
-      return {
-        name,
-        category:
-          ingredientCategories[name] ?? "Uncategorised",
-        price: stored?.price ?? null,
-        unit: stored?.unit ?? "",
-        supplier: stored?.supplier ?? "",
-        supplierProduct: stored?.product ?? "",
-        updatedAt: stored?.updatedAt ?? "",
-      };
-    });
+  const [error, setError] =
+    useState("");
 
-    mapped.sort((a, b) => a.name.localeCompare(b.name));
+  const [search, setSearch] =
+    useState("");
 
-    setIngredients(mapped);
+  const [
+    categoryFilter,
+    setCategoryFilter,
+  ] = useState("All");
+
+  async function loadIngredients() {
+    setLoading(true);
+    setError("");
+
+    try {
+      const {
+        data: userData,
+        error: userError,
+      } =
+        await supabase.auth.getUser();
+
+      if (
+        userError ||
+        !userData.user
+      ) {
+        router.replace("/login");
+        return;
+      }
+
+      const {
+        data: membership,
+        error:
+          membershipError,
+      } = await supabase
+        .from(
+          "organisation_members"
+        )
+        .select(
+          "organisation_id"
+        )
+        .eq(
+          "user_id",
+          userData.user.id
+        )
+        .limit(1)
+        .maybeSingle();
+
+      if (
+        membershipError ||
+        !membership
+      ) {
+        throw new Error(
+          "No organisation membership found for this user."
+        );
+      }
+
+      const organisationId =
+        membership.organisation_id;
+
+      const {
+        data: site,
+        error: siteError,
+      } = await supabase
+        .from("sites")
+        .select("id")
+        .eq(
+          "organisation_id",
+          organisationId
+        )
+        .limit(1)
+        .maybeSingle();
+
+      if (
+        siteError ||
+        !site
+      ) {
+        throw new Error(
+          "No site found for this organisation."
+        );
+      }
+
+      const {
+        data,
+        error:
+          ingredientError,
+      } = await supabase
+        .from(
+          "ingredient_prices"
+        )
+        .select(`
+          id,
+          price,
+          unit,
+          effective_date,
+          updated_at,
+          ingredient:ingredients (
+            id,
+            name,
+            category,
+            base_unit
+          ),
+          supplier:suppliers (
+            id,
+            name
+          )
+        `)
+        .eq(
+          "organisation_id",
+          organisationId
+        )
+        .eq(
+          "site_id",
+          site.id
+        )
+        .order(
+          "updated_at",
+          {
+            ascending: false,
+          }
+        );
+
+      if (ingredientError) {
+        throw ingredientError;
+      }
+
+      const rows =
+        (data ??
+          []) as unknown as IngredientPriceRow[];
+
+      const mapped =
+        rows
+          .map((row) => {
+            const ingredient =
+              relationFirst(
+                row.ingredient
+              );
+
+            const supplier =
+              relationFirst(
+                row.supplier
+              );
+
+            if (!ingredient) {
+              return null;
+            }
+
+            return {
+              priceId: row.id,
+
+              ingredientId:
+                ingredient.id,
+
+              name:
+                ingredient.name,
+
+              category:
+                ingredient.category ||
+                "Uncategorised",
+
+              baseUnit:
+                ingredient.base_unit ||
+                "",
+
+              price: row.price,
+
+              priceUnit:
+                row.unit ||
+                ingredient.base_unit ||
+                "",
+
+              supplier:
+                supplier?.name ||
+                "Unknown supplier",
+
+              effectiveDate:
+                row.effective_date ||
+                "",
+
+              updatedAt:
+                row.updated_at ||
+                "",
+            };
+          })
+          .filter(
+            (
+              item
+            ): item is IngredientView =>
+              item !== null
+          );
+
+      mapped.sort((a, b) =>
+        a.name.localeCompare(
+          b.name
+        )
+      );
+
+      setIngredients(mapped);
+    } catch (err) {
+      console.error(err);
+
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to load ingredients."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadIngredients();
   }, []);
 
-  const categories = useMemo(() => {
-    return [
-      "All",
-      ...Array.from(
-        new Set(
-          ingredients.map((ingredient) => ingredient.category)
-        )
-      ).sort(),
-    ];
-  }, [ingredients]);
+  const categories =
+    useMemo(() => {
+      const values =
+        new Set<string>();
 
-  const filteredIngredients = useMemo(() => {
-    const searchValue = search.trim().toLowerCase();
+      ingredients.forEach(
+        (ingredient) =>
+          values.add(
+            ingredient.category
+          )
+      );
 
-    return ingredients.filter((ingredient) => {
-      const matchesSearch =
-        !searchValue ||
-        ingredient.name.toLowerCase().includes(searchValue) ||
-        ingredient.supplier.toLowerCase().includes(searchValue) ||
-        ingredient.supplierProduct
-          .toLowerCase()
-          .includes(searchValue);
+      return [
+        "All",
+        ...Array.from(values).sort(),
+      ];
+    }, [ingredients]);
 
-      const matchesCategory =
-        categoryFilter === "All" ||
-        ingredient.category === categoryFilter;
+  const filtered =
+    useMemo(() => {
+      const query =
+        search
+          .trim()
+          .toLowerCase();
 
-      return matchesSearch && matchesCategory;
-    });
-  }, [ingredients, search, categoryFilter]);
+      return ingredients.filter(
+        (ingredient) => {
+          const matchesSearch =
+            !query ||
+            ingredient.name
+              .toLowerCase()
+              .includes(query) ||
+            ingredient.supplier
+              .toLowerCase()
+              .includes(query) ||
+            ingredient.category
+              .toLowerCase()
+              .includes(query);
 
-  const pricedCount = ingredients.filter(
-    (ingredient) => ingredient.price !== null
-  ).length;
+          const matchesCategory =
+            categoryFilter ===
+              "All" ||
+            ingredient.category ===
+              categoryFilter;
 
-  const unpricedCount = ingredients.length - pricedCount;
+          return (
+            matchesSearch &&
+            matchesCategory
+          );
+        }
+      );
+    }, [
+      ingredients,
+      search,
+      categoryFilter,
+    ]);
 
-  const supplierCount = new Set(
-    ingredients
-      .map((ingredient) => ingredient.supplier)
-      .filter(Boolean)
-  ).size;
+  const pricedCount =
+    ingredients.filter(
+      (item) =>
+        item.price !== null
+    ).length;
+
+  const supplierCount =
+    new Set(
+      ingredients.map(
+        (item) =>
+          item.supplier
+      )
+    ).size;
 
   return (
     <main className="app-shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">A</div>
-
-          <div>
-            <p className="brand-name">
-              Azteca Insights
-            </p>
-
-            <p className="brand-subtitle">
-              Kitchen cost control
-            </p>
-          </div>
-        </div>
-
-        <nav
-          className="sidebar-nav"
-          aria-label="Main navigation"
-        >
-          <Link
-            className="nav-link"
-            href="/"
-          >
-            <span className="nav-icon">⌂</span>
-            Dashboard
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/invoices"
-          >
-            <span className="nav-icon">▤</span>
-            Invoices
-          </Link>
-
-          <Link
-            className="nav-link nav-link-active"
-            href="/ingredients"
-          >
-            <span className="nav-icon">◫</span>
-            Ingredients
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/recipes"
-          >
-            <span className="nav-icon">◇</span>
-            Recipes
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/menu"
-          >
-            <span className="nav-icon">☰</span>
-            Menu
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/stock"
-          >
-            <span className="nav-icon">□</span>
-            Stock counts
-          </Link>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="restaurant-card">
-            <div className="restaurant-avatar">
-              AZ
-            </div>
-
-            <div>
-              <p className="restaurant-name">
-                Azteca
-              </p>
-
-              <p className="restaurant-location">
-                Battersea, London
-              </p>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <Sidebar active="ingredients" />
 
       <section className="main-content">
         <header className="topbar">
           <div>
             <p className="eyebrow">
-              Master ingredient database
+              Cost control
             </p>
 
-            <h1>Ingredients</h1>
+            <h1>
+              Ingredients
+            </h1>
 
             <p className="page-description">
-              Master ingredients linked to supplier products,
-              invoice prices and recipe costing.
+              Live ingredient pricing
+              generated from approved
+              supplier invoices.
             </p>
           </div>
 
           <button
-            className="primary-button"
             type="button"
+            className="secondary-inline-button"
+            onClick={
+              loadIngredients
+            }
+            disabled={loading}
           >
-            + Add ingredient
+            {loading
+              ? "Refreshing..."
+              : "Refresh"}
           </button>
         </header>
 
         <section className="stats-grid">
           <article className="stat-card">
-            <p className="stat-label">
-              Total ingredients
-            </p>
+            <span>
+              Ingredients
+            </span>
 
-            <p className="stat-value">
+            <strong>
               {ingredients.length}
-            </p>
+            </strong>
 
-            <p className="stat-change neutral">
-              Master ingredient records
-            </p>
+            <small>
+              Shared database
+            </small>
           </article>
 
           <article className="stat-card">
-            <p className="stat-label">
-              Priced
-            </p>
+            <span>
+              Current prices
+            </span>
 
-            <p className="stat-value">
+            <strong>
               {pricedCount}
-            </p>
+            </strong>
 
-            <p className="stat-change neutral">
-              Linked to invoice pricing
-            </p>
+            <small>
+              Invoice-derived
+            </small>
           </article>
 
           <article className="stat-card">
-            <p className="stat-label">
-              Missing price
-            </p>
-
-            <p className="stat-value">
-              {unpricedCount}
-            </p>
-
-            <p className="stat-change warning">
-              Need supplier pricing
-            </p>
-          </article>
-
-          <article className="stat-card">
-            <p className="stat-label">
+            <span>
               Suppliers
-            </p>
+            </span>
 
-            <p className="stat-value">
+            <strong>
               {supplierCount}
-            </p>
+            </strong>
 
-            <p className="stat-change neutral">
-              Supplying priced ingredients
-            </p>
+            <small>
+              Supplying priced
+              ingredients
+            </small>
           </article>
         </section>
 
@@ -360,132 +507,241 @@ export default function IngredientsPage() {
           <div className="panel-header">
             <div>
               <p className="panel-kicker">
-                Ingredient library
+                Cost database
               </p>
 
-              <h2>Master ingredients</h2>
+              <h2>
+                Ingredient prices
+              </h2>
             </div>
-
-            <span className="menu-section-count">
-              {filteredIngredients.length}
-            </span>
           </div>
 
-          <div className="ingredient-toolbar">
-            <div className="ingredient-search">
-              <input
-                type="search"
-                placeholder="Search ingredients or supplier products..."
-                value={search}
-                onChange={(event) =>
-                  setSearch(event.target.value)
-                }
-              />
-            </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              marginBottom:
+                "18px",
+              flexWrap: "wrap",
+            }}
+          >
+            <input
+              type="search"
+              value={search}
+              onChange={(
+                event
+              ) =>
+                setSearch(
+                  event.target.value
+                )
+              }
+              placeholder="Search ingredients or suppliers..."
+              style={{
+                flex: "1 1 280px",
+              }}
+            />
 
-            <div className="ingredient-filter">
-              <select
-                value={categoryFilter}
-                onChange={(event) =>
-                  setCategoryFilter(event.target.value)
-                }
-              >
-                {categories.map((category) => (
+            <select
+              value={
+                categoryFilter
+              }
+              onChange={(
+                event
+              ) =>
+                setCategoryFilter(
+                  event.target.value
+                )
+              }
+              style={{
+                minWidth:
+                  "180px",
+              }}
+            >
+              {categories.map(
+                (category) => (
                   <option
                     key={category}
                     value={category}
                   >
                     {category}
                   </option>
-                ))}
-              </select>
-            </div>
+                )
+              )}
+            </select>
           </div>
 
-          <div className="table-wrapper">
-            <table className="ingredients-table">
-              <thead>
-                <tr>
-                  <th>Ingredient</th>
-                  <th>Category</th>
-                  <th>Current cost</th>
-                  <th>Basis</th>
-                  <th>Supplier</th>
-                  <th>Supplier product</th>
-                  <th>Last updated</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
+          {error && (
+            <div
+              style={{
+                padding:
+                  "14px 16px",
+                borderRadius:
+                  "10px",
+                marginBottom:
+                  "16px",
+                background:
+                  "#fff0ed",
+                color:
+                  "#9d352c",
+              }}
+            >
+              {error}
+            </div>
+          )}
 
-              <tbody>
-                {filteredIngredients.map((ingredient) => (
-                  <tr key={ingredient.name}>
-                    <td>
-                      <div className="ingredient-name-cell">
-                        <strong>
-                          {ingredient.name}
-                        </strong>
-                      </div>
-                    </td>
-
-                    <td>
-                      <span className="ingredient-category-badge">
-                        {ingredient.category}
-                      </span>
-                    </td>
-
-                    <td>
-                      <strong>
-                        {money(ingredient.price)}
-                      </strong>
-                    </td>
-
-                    <td>
-                      {ingredient.unit
-                        ? `per ${ingredient.unit}`
-                        : "—"}
-                    </td>
-
-                    <td>
-                      {ingredient.supplier || "—"}
-                    </td>
-
-                    <td className="ingredient-product-cell">
-                      {ingredient.supplierProduct || "—"}
-                    </td>
-
-                    <td>
-                      {formatDate(ingredient.updatedAt)}
-                    </td>
-
-                    <td>
-                      <span
-                        className={`status-badge ${
-                          ingredient.price !== null
-                            ? "status-approved"
-                            : "status-review"
-                        }`}
-                      >
-                        {ingredient.price !== null
-                          ? "Priced"
-                          : "Needs price"}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-
-                {filteredIngredients.length === 0 && (
+          {loading ? (
+            <div
+              style={{
+                padding:
+                  "36px 0",
+                textAlign:
+                  "center",
+                opacity: 0.65,
+              }}
+            >
+              Loading ingredient
+              prices...
+            </div>
+          ) : filtered.length ===
+            0 ? (
+            <div
+              style={{
+                padding:
+                  "36px 0",
+                textAlign:
+                  "center",
+                opacity: 0.65,
+              }}
+            >
+              No ingredients found.
+            </div>
+          ) : (
+            <div
+              style={{
+                overflowX: "auto",
+              }}
+            >
+              <table className="data-table">
+                <thead>
                   <tr>
-                    <td
-                      colSpan={8}
-                      className="empty-table-message"
-                    >
-                      No ingredients match your filters.
-                    </td>
+                    <th>
+                      Ingredient
+                    </th>
+
+                    <th>
+                      Category
+                    </th>
+
+                    <th>
+                      Supplier
+                    </th>
+
+                    <th>
+                      Price
+                    </th>
+
+                    <th>
+                      Unit
+                    </th>
+
+                    <th>
+                      Effective
+                    </th>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody>
+                  {filtered.map(
+                    (ingredient) => (
+                      <tr
+                        key={
+                          ingredient.priceId
+                        }
+                      >
+                        <td>
+                          <strong>
+                            {
+                              ingredient.name
+                            }
+                          </strong>
+                        </td>
+
+                        <td>
+                          {
+                            ingredient.category
+                          }
+                        </td>
+
+                        <td>
+                          {
+                            ingredient.supplier
+                          }
+                        </td>
+
+                        <td>
+                          <strong>
+                            {money(
+                              ingredient.price
+                            )}
+                          </strong>
+                        </td>
+
+                        <td>
+                          {ingredient.priceUnit ||
+                            ingredient.baseUnit ||
+                            "—"}
+                        </td>
+
+                        <td>
+                          {formatDate(
+                            ingredient.effectiveDate ||
+                              ingredient.updatedAt
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section
+          className="panel"
+          style={{
+            marginTop: "24px",
+            marginBottom:
+              "60px",
+          }}
+        >
+          <div>
+            <p className="panel-kicker">
+              How pricing works
+            </p>
+
+            <h2>
+              Invoice-driven costs
+            </h2>
+
+            <p
+              style={{
+                maxWidth:
+                  "760px",
+                opacity: 0.72,
+                lineHeight: 1.6,
+              }}
+            >
+              When an invoice is
+              approved, Kitchen
+              Insights updates the
+              current ingredient price
+              for this site and stores
+              the previous changes in
+              price history. This page
+              now reads that shared
+              Supabase data directly.
+            </p>
           </div>
         </section>
       </section>
