@@ -2813,3 +2813,24 @@ td strong {
     max-height: calc(100vh - 190px);
   }
 }
+/* Fix invoice supplier list clipping */
+
+.invoice-supplier-picker {
+  position: relative;
+  z-index: 100;
+}
+
+.invoice-supplier-menu {
+  position: absolute;
+  z-index: 9999;
+  overflow: visible;
+}
+
+.invoice-supplier-options {
+  max-height: none;
+  overflow: visible;
+}
+
+.panel:has(.invoice-supplier-picker) {
+  overflow: visible;
+}
