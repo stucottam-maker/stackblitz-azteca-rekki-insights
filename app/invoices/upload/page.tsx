@@ -1,5 +1,6 @@
 "use client";
 
+import { suppliers } from "../../data/suppliers";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
