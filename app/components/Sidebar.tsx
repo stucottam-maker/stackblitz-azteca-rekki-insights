@@ -126,7 +126,7 @@ export default function Sidebar({
         </Link>
       </nav>
 
-    <div className="sidebar-footer">
+   <div className="sidebar-footer">
   <LogoutButton />
 
   <div className="sidebar-site">
@@ -140,6 +140,4 @@ export default function Sidebar({
     </div>
   </div>
 </div>
-    </aside>
-  );
 }
