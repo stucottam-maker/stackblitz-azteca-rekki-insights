@@ -2996,6 +2996,13 @@ td strong {
   font-size: 11px;
   color: #817d75;
 }
+.sidebar-footer {
+
+  margin-top: auto;
+
+  padding-top: 16px;
+
+}
 .sidebar-logout-button {
   width: 100%;
   border: 0;
