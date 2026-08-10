@@ -155,9 +155,7 @@ function buildOrderLines(
           : 0;
 
       return {
-        id:
-          catalogueItem.id ||
-          `catalogue-${index}-${catalogueItem.supplier}-${catalogueItem.ingredient}`,
+        id: `catalogue-${index}-${catalogueItem.supplier}-${catalogueItem.ingredient}`,
         ingredient: catalogueItem.ingredient,
         supplier: catalogueItem.supplier,
         supplierProduct:
