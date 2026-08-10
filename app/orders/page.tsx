@@ -2,10 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import {
-    supplierCatalogue,
-    CatalogueItem,
-  } from "../data/supplierCatalogue";
+import { supplierCatalogue } from "../data/supplierCatalogue";
+import { suppliers as supplierDirectory } from "../data/suppliers";
 
 type IngredientPrice = {
   price: number;
@@ -24,8 +22,6 @@ type StockItem = {
   priceUnit: string;
   supplier: string;
 };
-
-
 
 type OrderLine = {
   id: string;
@@ -49,12 +45,7 @@ type PurchaseOrder = {
   estimatedTotal: number;
 };
 
-type OrderStep =
-  | "start"
-  | "order"
-  | "review";
-
-
+type OrderStep = "start" | "order" | "review";
 
 function money(value: number) {
   return new Intl.NumberFormat("en-GB", {
@@ -82,108 +73,96 @@ function formatDate(value: string) {
   }).format(date);
 }
 
+function supplierInitials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+}
+
 function findStockItem(
   currentStock: StockItem[],
   ingredient: string
 ) {
-  const target =
-    ingredient.toLowerCase();
+  const target = ingredient.toLowerCase().trim();
 
   return (
     currentStock.find(
       (item) =>
-        item.name
-          .toLowerCase() ===
-        target
+        item.name.toLowerCase().trim() === target
     ) ?? null
   );
 }
 
 function buildOrderLines(
-  ingredientPrices: Record<
-    string,
-    IngredientPrice
-  >,
+  ingredientPrices: Record<string, IngredientPrice>,
   currentStock: StockItem[]
 ): OrderLine[] {
-  const catalogueNames =
-    supplierCatalogue.map(
-      (item) => item.ingredient
-    );
+  /*
+   * Build one line PER supplier product.
+   *
+   * This is important because:
+   * Stonebass can exist at Fin & Flounder AND James Knight,
+   * limes can exist at Albion AND Oui Chef, etc.
+   *
+   * We do not want to collapse those into a single ingredient row.
+   */
 
-  const names = Array.from(
-    new Set([
-      ...catalogueNames,
-      ...Object.keys(
-        ingredientPrices
-      ),
-    ])
-  );
-
-  return names.map(
-    (name, index) => {
-      const catalogueItem =
-        supplierCatalogue.find(
-          (item) =>
-            item.ingredient ===
-            name
-        );
-
+  const catalogueLines: OrderLine[] =
+    supplierCatalogue.map((catalogueItem, index) => {
       const livePrice =
-        ingredientPrices[name];
+        ingredientPrices[catalogueItem.ingredient];
 
-      const stock =
-        findStockItem(
-          currentStock,
-          name
-        );
+      const stock = findStockItem(
+        currentStock,
+        catalogueItem.ingredient
+      );
 
-      const supplier =
-        livePrice?.supplier ||
-        catalogueItem?.supplier ||
-        stock?.supplier ||
-        "Unassigned";
-
-      const supplierProduct =
-        livePrice?.product ||
-        catalogueItem
-          ?.supplierProduct ||
-        name;
+      /*
+       * Only use the live invoice price if it belongs
+       * to this exact supplier.
+       */
+      const matchingLivePrice =
+        livePrice &&
+        livePrice.supplier === catalogueItem.supplier
+          ? livePrice
+          : null;
 
       const orderUnit =
-        livePrice?.unit ||
-        catalogueItem?.unit ||
+        matchingLivePrice?.unit ||
+        catalogueItem.unit ||
         stock?.unit ||
         "kg";
 
-      const stockQty =
-        Number(
-          stock?.quantity ?? 0
-        );
+      const stockQty = Number(
+        stock?.quantity ?? 0
+      );
 
       const stockUnit =
-        stock?.unit ||
-        orderUnit;
+        stock?.unit || orderUnit;
 
       const unitPrice =
-        livePrice?.price ??
-        catalogueItem
-          ?.fallbackPrice ??
+        matchingLivePrice?.price ??
+        catalogueItem.fallbackPrice ??
         null;
 
       const suggestedQty =
         stockQty > 0
-          ? round(
-              stockQty *
-                0.5
-            )
+          ? round(stockQty * 0.5)
           : 0;
 
       return {
-        id: `order-${index}-${name}`,
-        ingredient: name,
-        supplier,
-        supplierProduct,
+        id:
+          catalogueItem.id ||
+          `catalogue-${index}-${catalogueItem.supplier}-${catalogueItem.ingredient}`,
+        ingredient: catalogueItem.ingredient,
+        supplier: catalogueItem.supplier,
+        supplierProduct:
+          matchingLivePrice?.product ||
+          catalogueItem.supplierProduct,
         stockQty,
         stockUnit,
         orderQty: 0,
@@ -191,15 +170,103 @@ function buildOrderLines(
         unitPrice,
         suggestedQty,
       };
-    }
+    });
+
+  /*
+   * Add live invoice products that do not yet exist
+   * in the static supplier catalogue.
+   */
+  const catalogueKeys = new Set(
+    supplierCatalogue.map(
+      (item) =>
+        `${item.supplier}::${item.ingredient}`.toLowerCase()
+    )
+  );
+
+  const invoiceOnlyLines: OrderLine[] =
+    Object.entries(ingredientPrices)
+      .filter(([ingredient, price]) => {
+        const key =
+          `${price.supplier}::${ingredient}`.toLowerCase();
+
+        return !catalogueKeys.has(key);
+      })
+      .map(([ingredient, price], index) => {
+        const stock = findStockItem(
+          currentStock,
+          ingredient
+        );
+
+        const stockQty = Number(
+          stock?.quantity ?? 0
+        );
+
+        const orderUnit =
+          price.unit ||
+          stock?.unit ||
+          "kg";
+
+        return {
+          id: `invoice-${index}-${price.supplier}-${ingredient}`,
+          ingredient,
+          supplier: price.supplier,
+          supplierProduct:
+            price.product || ingredient,
+          stockQty,
+          stockUnit:
+            stock?.unit || orderUnit,
+          orderQty: 0,
+          orderUnit,
+          unitPrice: price.price,
+          suggestedQty:
+            stockQty > 0
+              ? round(stockQty * 0.5)
+              : 0,
+        };
+      });
+
+  return [
+    ...catalogueLines,
+    ...invoiceOnlyLines,
+  ];
+}
+
+function SupplierLogo({
+  supplier,
+  size = "normal",
+}: {
+  supplier: string;
+  size?: "normal" | "small";
+}) {
+  const logo =
+    supplierDirectory[supplier]?.logo;
+
+  return (
+    <div
+      className={`supplier-choice-avatar ${
+        size === "small"
+          ? "supplier-choice-avatar-small"
+          : ""
+      }`}
+    >
+      {logo ? (
+        <img
+          src={logo}
+          alt=""
+          className="supplier-logo"
+        />
+      ) : (
+        <span>
+          {supplierInitials(supplier)}
+        </span>
+      )}
+    </div>
   );
 }
 
 export default function OrdersPage() {
   const [step, setStep] =
-    useState<OrderStep>(
-      "start"
-    );
+    useState<OrderStep>("start");
 
   const [
     selectedSupplier,
@@ -212,9 +279,7 @@ export default function OrdersPage() {
   const [
     purchaseOrders,
     setPurchaseOrders,
-  ] = useState<
-    PurchaseOrder[]
-  >([]);
+  ] = useState<PurchaseOrder[]>([]);
 
   const [search, setSearch] =
     useState("");
@@ -253,25 +318,19 @@ export default function OrdersPage() {
         ) || "[]"
       ) as PurchaseOrder[];
 
-    setPurchaseOrders(
-      storedOrders
-    );
+    setPurchaseOrders(storedOrders);
   }, []);
 
-  const suppliers =
+  const supplierNames =
     useMemo(() => {
       return Array.from(
         new Set(
           lines
-            .map(
-              (line) =>
-                line.supplier
-            )
+            .map((line) => line.supplier)
             .filter(
               (supplier) =>
                 supplier &&
-                supplier !==
-                  "Unassigned"
+                supplier !== "Unassigned"
             )
         )
       ).sort();
@@ -280,33 +339,29 @@ export default function OrdersPage() {
   const supplierLines =
     useMemo(() => {
       const query =
-        search
-          .trim()
-          .toLowerCase();
+        search.trim().toLowerCase();
 
-      return lines.filter(
-        (line) => {
-          if (
-            line.supplier !==
-            selectedSupplier
-          ) {
-            return false;
-          }
-
-          if (!query) {
-            return true;
-          }
-
-          return (
-            line.ingredient
-              .toLowerCase()
-              .includes(query) ||
-            line.supplierProduct
-              .toLowerCase()
-              .includes(query)
-          );
+      return lines.filter((line) => {
+        if (
+          line.supplier !==
+          selectedSupplier
+        ) {
+          return false;
         }
-      );
+
+        if (!query) {
+          return true;
+        }
+
+        return (
+          line.ingredient
+            .toLowerCase()
+            .includes(query) ||
+          line.supplierProduct
+            .toLowerCase()
+            .includes(query)
+        );
+      });
     }, [
       lines,
       selectedSupplier,
@@ -329,9 +384,7 @@ export default function OrdersPage() {
   const estimatedTotal =
     selectedOrderLines.reduce(
       (total, line) => {
-        if (
-          line.unitPrice === null
-        ) {
+        if (line.unitPrice === null) {
           return total;
         }
 
@@ -349,20 +402,16 @@ export default function OrdersPage() {
     quantity: number
   ) {
     setLines((current) =>
-      current.map(
-        (line) =>
-          line.id === id
-            ? {
-                ...line,
-                orderQty:
-                  Math.max(
-                    round(
-                      quantity
-                    ),
-                    0
-                  ),
-              }
-            : line
+      current.map((line) =>
+        line.id === id
+          ? {
+              ...line,
+              orderQty: Math.max(
+                round(quantity),
+                0
+              ),
+            }
+          : line
       )
     );
   }
@@ -373,8 +422,7 @@ export default function OrdersPage() {
   ) {
     updateOrderQty(
       line.id,
-      line.orderQty +
-        amount
+      line.orderQty + amount
     );
   }
 
@@ -389,36 +437,33 @@ export default function OrdersPage() {
 
   function useAllSuggested() {
     setLines((current) =>
-      current.map(
-        (line) => {
-          if (
-            line.supplier !==
-            selectedSupplier
-          ) {
-            return line;
-          }
-
-          return {
-            ...line,
-            orderQty:
-              line.suggestedQty,
-          };
+      current.map((line) => {
+        if (
+          line.supplier !==
+          selectedSupplier
+        ) {
+          return line;
         }
-      )
+
+        return {
+          ...line,
+          orderQty:
+            line.suggestedQty,
+        };
+      })
     );
   }
 
   function clearSupplierOrder() {
     setLines((current) =>
-      current.map(
-        (line) =>
-          line.supplier ===
-          selectedSupplier
-            ? {
-                ...line,
-                orderQty: 0,
-              }
-            : line
+      current.map((line) =>
+        line.supplier ===
+        selectedSupplier
+          ? {
+              ...line,
+              orderQty: 0,
+            }
+          : line
       )
     );
   }
@@ -426,18 +471,14 @@ export default function OrdersPage() {
   function chooseSupplier(
     supplier: string
   ) {
-    setSelectedSupplier(
-      supplier
-    );
-
+    setSelectedSupplier(supplier);
     setSearch("");
     setStep("order");
   }
 
   function sendOrder() {
     if (
-      selectedOrderLines.length ===
-      0
+      selectedOrderLines.length === 0
     ) {
       alert(
         "Add at least one item to the order first."
@@ -445,18 +486,17 @@ export default function OrdersPage() {
       return;
     }
 
-    const order: PurchaseOrder =
-      {
-        id: `PO-${Date.now()}`,
-        supplier:
-          selectedSupplier,
-        createdAt:
-          new Date().toISOString(),
-        status: "Sent",
-        lines:
-          selectedOrderLines,
-        estimatedTotal,
-      };
+    const order: PurchaseOrder = {
+      id: `PO-${Date.now()}`,
+      supplier:
+        selectedSupplier,
+      createdAt:
+        new Date().toISOString(),
+      status: "Sent",
+      lines:
+        selectedOrderLines,
+      estimatedTotal,
+    };
 
     const nextOrders = [
       order,
@@ -465,14 +505,10 @@ export default function OrdersPage() {
 
     localStorage.setItem(
       "purchaseOrders",
-      JSON.stringify(
-        nextOrders
-      )
+      JSON.stringify(nextOrders)
     );
 
-    setPurchaseOrders(
-      nextOrders
-    );
+    setPurchaseOrders(nextOrders);
 
     clearSupplierOrder();
 
@@ -509,12 +545,11 @@ export default function OrdersPage() {
                   Purchasing
                 </p>
 
-                <h1>
-                  Orders
-                </h1>
+                <h1>Orders</h1>
 
                 <p className="page-description">
-                  Choose a supplier and build an order in a few seconds.
+                  Choose a supplier and build an
+                  order in a few seconds.
                 </p>
               </div>
             </header>
@@ -533,7 +568,7 @@ export default function OrdersPage() {
               </div>
 
               <div className="supplier-choice-grid">
-                {suppliers.map(
+                {supplierNames.map(
                   (supplier) => {
                     const count =
                       lines.filter(
@@ -553,25 +588,20 @@ export default function OrdersPage() {
                           )
                         }
                       >
-                        <div className="supplier-choice-avatar">
-                          {supplier
-                            .split(" ")
-                            .slice(0, 2)
-                            .map(
-                              (word) =>
-                                word[0]
-                            )
-                            .join("")
-                            .toUpperCase()}
-                        </div>
+                        <SupplierLogo
+                          supplier={supplier}
+                        />
 
-                        <div>
+                        <div className="supplier-choice-copy">
                           <strong>
                             {supplier}
                           </strong>
 
                           <span>
-                            {count} products
+                            {count}{" "}
+                            {count === 1
+                              ? "product"
+                              : "products"}
                           </span>
                         </div>
 
@@ -611,20 +641,35 @@ export default function OrdersPage() {
                         className="quick-order-history-row"
                         key={order.id}
                       >
-                        <div>
-                          <strong>
-                            {order.supplier}
-                          </strong>
+                        <div className="quick-order-history-supplier">
+                          <SupplierLogo
+                            supplier={
+                              order.supplier
+                            }
+                            size="small"
+                          />
 
-                          <span>
-                            {formatDate(
-                              order.createdAt
-                            )}
-                          </span>
+                          <div>
+                            <strong>
+                              {
+                                order.supplier
+                              }
+                            </strong>
+
+                            <span>
+                              {formatDate(
+                                order.createdAt
+                              )}
+                            </span>
+                          </div>
                         </div>
 
                         <span>
-                          {order.lines.length} items
+                          {
+                            order.lines
+                              .length
+                          }{" "}
+                          items
                         </span>
 
                         <strong>
@@ -659,17 +704,28 @@ export default function OrdersPage() {
                   ← Orders
                 </button>
 
-                <p className="eyebrow">
-                  New order
-                </p>
+                <div className="quick-order-supplier-title">
+                  <SupplierLogo
+                    supplier={
+                      selectedSupplier
+                    }
+                  />
 
-                <h1>
-                  {selectedSupplier}
-                </h1>
+                  <div>
+                    <p className="eyebrow">
+                      New order
+                    </p>
 
-                <p className="page-description">
-                  Enter what you want to order.
-                </p>
+                    <h1>
+                      {selectedSupplier}
+                    </h1>
+
+                    <p className="page-description">
+                      Enter what you want
+                      to order.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="quick-order-header-total">
@@ -684,7 +740,10 @@ export default function OrdersPage() {
                 </strong>
 
                 <span>
-                  {selectedOrderLines.length} items
+                  {
+                    selectedOrderLines.length
+                  }{" "}
+                  items
                 </span>
               </div>
             </header>
@@ -726,17 +785,9 @@ export default function OrdersPage() {
 
             <section className="panel quick-order-panel">
               <div className="quick-order-column-headings">
-                <span>
-                  Product
-                </span>
-
-                <span>
-                  In stock
-                </span>
-
-                <span>
-                  Order
-                </span>
+                <span>Product</span>
+                <span>In stock</span>
+                <span>Order</span>
               </div>
 
               <div className="quick-order-lines">
@@ -744,8 +795,7 @@ export default function OrdersPage() {
                   (line) => (
                     <article
                       className={`quick-order-line ${
-                        line.orderQty >
-                        0
+                        line.orderQty > 0
                           ? "quick-order-line-active"
                           : ""
                       }`}
@@ -788,11 +838,15 @@ export default function OrdersPage() {
 
                       <div className="quick-order-stock">
                         <strong>
-                          {line.stockQty}
+                          {
+                            line.stockQty
+                          }
                         </strong>
 
                         <span>
-                          {line.stockUnit}
+                          {
+                            line.stockUnit
+                          }
                         </span>
                       </div>
 
@@ -814,11 +868,15 @@ export default function OrdersPage() {
                           value={
                             line.orderQty
                           }
-                          onChange={(event) =>
+                          onChange={(
+                            event
+                          ) =>
                             updateOrderQty(
                               line.id,
                               Number(
-                                event.target.value ||
+                                event
+                                  .target
+                                  .value ||
                                   0
                               )
                             )
@@ -838,7 +896,9 @@ export default function OrdersPage() {
                         </button>
 
                         <span>
-                          {line.orderUnit}
+                          {
+                            line.orderUnit
+                          }
                         </span>
                       </div>
                     </article>
@@ -850,7 +910,10 @@ export default function OrdersPage() {
             <div className="quick-order-footer">
               <div>
                 <span>
-                  {selectedOrderLines.length} items
+                  {
+                    selectedOrderLines.length
+                  }{" "}
+                  items
                 </span>
 
                 <strong>
@@ -891,17 +954,29 @@ export default function OrdersPage() {
                   ← Edit order
                 </button>
 
-                <p className="eyebrow">
-                  Review
-                </p>
+                <div className="quick-order-supplier-title">
+                  <SupplierLogo
+                    supplier={
+                      selectedSupplier
+                    }
+                  />
 
-                <h1>
-                  {selectedSupplier}
-                </h1>
+                  <div>
+                    <p className="eyebrow">
+                      Review
+                    </p>
 
-                <p className="page-description">
-                  Check the order before marking it as sent.
-                </p>
+                    <h1>
+                      {selectedSupplier}
+                    </h1>
+
+                    <p className="page-description">
+                      Check the order
+                      before marking it
+                      as sent.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="quick-order-header-total">
@@ -916,7 +991,10 @@ export default function OrdersPage() {
                 </strong>
 
                 <span>
-                  {selectedOrderLines.length} items
+                  {
+                    selectedOrderLines.length
+                  }{" "}
+                  items
                 </span>
               </div>
             </header>
@@ -947,14 +1025,20 @@ export default function OrdersPage() {
                         </strong>
 
                         <span>
-                          {line.supplierProduct}
+                          {
+                            line.supplierProduct
+                          }
                         </span>
                       </div>
 
                       <div className="quick-review-qty">
                         <strong>
-                          {line.orderQty}{" "}
-                          {line.orderUnit}
+                          {
+                            line.orderQty
+                          }{" "}
+                          {
+                            line.orderUnit
+                          }
                         </strong>
                       </div>
 
@@ -967,7 +1051,9 @@ export default function OrdersPage() {
                                 line.unitPrice
                               )}
                               /
-                              {line.orderUnit}
+                              {
+                                line.orderUnit
+                              }
                             </span>
 
                             <strong>
@@ -979,7 +1065,8 @@ export default function OrdersPage() {
                           </>
                         ) : (
                           <span>
-                            Price unavailable
+                            Price
+                            unavailable
                           </span>
                         )}
                       </div>
@@ -1005,9 +1092,7 @@ export default function OrdersPage() {
               <button
                 type="button"
                 className="primary-button quick-review-button"
-                onClick={
-                  sendOrder
-                }
+                onClick={sendOrder}
               >
                 Mark as sent
               </button>
