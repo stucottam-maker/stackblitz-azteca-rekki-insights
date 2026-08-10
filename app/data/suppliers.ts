@@ -8,10 +8,22 @@ export type Supplier = {
 };
 
 export const suppliers: Record<string, Supplier> = {
-  "Fin and Flounder": {
-    name: "Fin and Flounder",
-    logo: "/suppliers/fin-and-flounder.png",
-    email: "restaurants@findandflounder.com",
+  "Albion Fine Foods": {
+    name: "Albion Fine Foods",
+    logo: "/suppliers/albion.png",
+    email: "orders@albionff.co.uk",
+    orderMethod: "Email",
+  },
+
+  "Ascot Wholesale": {
+    name: "Ascot Wholesale",
+    logo: "/suppliers/ascot-wholesale.png",
+  },
+
+  "Big K Charcoal": {
+    name: "Big K Charcoal",
+    logo: "/suppliers/big-k.png",
+    email: "sales@bigk.co.uk",
     orderMethod: "Email",
   },
 
@@ -22,45 +34,12 @@ export const suppliers: Record<string, Supplier> = {
     orderMethod: "Email",
   },
 
-  Mexgrocer: {
-    name: "Mexgrocer",
-    logo: "/suppliers/mexgrocer.png",
-    email: "orders@mexgrocer.co.uk",
+  "Fin and Flounder": {
+    name: "Fin and Flounder",
+    logo: "/suppliers/fin-and-flounder.png",
+    email: "restaurants@findandflounder.com",
     orderMethod: "Email",
   },
-
-  Masafina: {
-  name: "Masafina",
-  logo: "/suppliers/masafina.png",
-  email: "orders@masafina.com",
-  orderMethod: "Email",
-},
-  "Albion Fine Foods": {
-    name: "Albion Fine Foods",
-    logo: "/suppliers/albion.png",
-    email: "orders@albionff.co.uk",
-    orderMethod: "Email",
-  },
-
-  "Woods Fine Foods": {
-    name: "Woods Fine Foods",
-    logo: "/suppliers/woods.png",
-    email: "orders@woodsfoodservice.co.uk",
-    orderMethod: "Email",
-  },
-
-  "Oui Chef": {
-    name: "Oui Chef",
-    logo: "/suppliers/oui-chef.png",
-  },
-
-  "Spitalfields Fruit & Veg": {
-  name: "Spitalfields Fruit & Veg",
-  logo: "",
-  phone: "07940 118192",
-  whatsapp: "447940118192",
-  orderMethod: "WhatsApp",
-},
 
   "James Knight of Mayfair": {
     name: "James Knight of Mayfair",
@@ -69,11 +48,23 @@ export const suppliers: Record<string, Supplier> = {
     orderMethod: "Email",
   },
 
-  "Big K Charcoal": {
-    name: "Big K Charcoal",
-    logo: "/suppliers/big-k.png",
-    email: "sales@bigk.co.uk",
+  Masafina: {
+    name: "Masafina",
+    logo: "/suppliers/masafina.png",
+    email: "orders@masafina.com",
     orderMethod: "Email",
+  },
+
+  Mexgrocer: {
+    name: "Mexgrocer",
+    logo: "/suppliers/mexgrocer.png",
+    email: "orders@mexgrocer.co.uk",
+    orderMethod: "Email",
+  },
+
+  "Oui Chef": {
+    name: "Oui Chef",
+    logo: "/suppliers/oui-chef.png",
   },
 
   "Raynor Hygiene": {
@@ -81,15 +72,25 @@ export const suppliers: Record<string, Supplier> = {
     logo: "/suppliers/raynor-hygiene.png",
   },
 
-  "Ascot Wholesale": {
-    name: "Ascot Wholesale",
-    logo: "/suppliers/ascot-wholesale.png",
+  "Spitalfields Fruit & Veg": {
+    name: "Spitalfields Fruit & Veg",
+    logo: "",
+    phone: "07940 118192",
+    whatsapp: "447940118192",
+    orderMethod: "WhatsApp",
   },
 
   "Tazaki Foods": {
     name: "Tazaki Foods",
     logo: "",
     email: "japanesesales@tazakifoods.com",
+    orderMethod: "Email",
+  },
+
+  "Woods Fine Foods": {
+    name: "Woods Fine Foods",
+    logo: "/suppliers/woods.png",
+    email: "orders@woodsfoodservice.co.uk",
     orderMethod: "Email",
   },
 };
