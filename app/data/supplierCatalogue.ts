@@ -1,19 +1,10 @@
 export type CatalogueItem = {
-
-  id: string;
-
+  id?: string;
   ingredient: string;
-
   supplier: string;
-
   supplierProduct: string;
-
   unit: string;
-
   fallbackPrice: number | null;
-
-  preferred?: boolean;
-
 };
 
 export const supplierCatalogue: CatalogueItem[] = [
