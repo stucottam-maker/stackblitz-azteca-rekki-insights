@@ -1,143 +1,119 @@
+"use client";
+
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
-export type SidebarPage =
-  | "dashboard"
-  | "orders"
-  | "invoices"
-  | "ingredients"
-  | "recipes"
-  | "menu"
-  | "stock";
 
 type SidebarProps = {
-  active: SidebarPage;
+  active?: string;
 };
+
+const navItems = [
+  {
+    key: "dashboard",
+    label: "Dashboard",
+    href: "/",
+    icon: "⌂",
+  },
+  {
+    key: "orders",
+    label: "Orders",
+    href: "/orders",
+    icon: "+",
+  },
+  {
+    key: "invoices",
+    label: "Invoices",
+    href: "/invoices",
+    icon: "▤",
+  },
+  {
+    key: "ingredients",
+    label: "Ingredients",
+    href: "/ingredients",
+    icon: "◫",
+  },
+  {
+    key: "recipes",
+    label: "Recipes",
+    href: "/recipes",
+    icon: "◇",
+  },
+  {
+    key: "menu",
+    label: "Menu",
+    href: "/menu",
+    icon: "≡",
+  },
+  {
+    key: "stock",
+    label: "Stock counts",
+    href: "/stock",
+    icon: "□",
+  },
+];
 
 export default function Sidebar({
   active,
 }: SidebarProps) {
-  function navClass(
-    page: SidebarPage
-  ) {
-    return active === page
-      ? "nav-link nav-link-active"
-      : "nav-link";
-  }
-
   return (
     <aside className="sidebar">
       <div className="brand">
-  <div className="sidebar-brand-mark">
-    K
-  </div>
+        <div className="sidebar-brand-mark">
+          K
+        </div>
 
-  <div className="sidebar-brand-copy">
-    <strong>Kitchen Insights</strong>
-    <span>Cost & purchasing control</span>
-  </div>
-</div>
+        <div className="sidebar-brand-copy">
+          <strong>
+            Kitchen Insights
+          </strong>
 
-      <nav
-        className="sidebar-nav"
-        aria-label="Main navigation"
-      >
-        <Link
-          className={navClass(
-            "dashboard"
-          )}
-          href="/"
-        >
-          <span className="nav-icon">
-            ⌂
+          <span>
+            Cost & purchasing control
           </span>
-          Dashboard
-        </Link>
+        </div>
+      </div>
 
-        <Link
-          className={navClass(
-            "orders"
-          )}
-          href="/orders"
-        >
-          <span className="nav-icon">
-            +
-          </span>
-          Orders
-        </Link>
+      <nav className="sidebar-nav">
+        {navItems.map((item) => (
+          <Link
+            key={item.key}
+            href={item.href}
+            className={`sidebar-link ${
+              active === item.key
+                ? "active"
+                : ""
+            }`}
+          >
+            <span className="sidebar-link-icon">
+              {item.icon}
+            </span>
 
-        <Link
-          className={navClass(
-            "invoices"
-          )}
-          href="/invoices"
-        >
-          <span className="nav-icon">
-            ▤
-          </span>
-          Invoices
-        </Link>
-
-        <Link
-          className={navClass(
-            "ingredients"
-          )}
-          href="/ingredients"
-        >
-          <span className="nav-icon">
-            ◫
-          </span>
-          Ingredients
-        </Link>
-
-        <Link
-          className={navClass(
-            "recipes"
-          )}
-          href="/recipes"
-        >
-          <span className="nav-icon">
-            ◇
-          </span>
-          Recipes
-        </Link>
-
-        <Link
-          className={navClass(
-            "menu"
-          )}
-          href="/menu"
-        >
-          <span className="nav-icon">
-            ☰
-          </span>
-          Menu
-        </Link>
-
-        <Link
-          className={navClass(
-            "stock"
-          )}
-          href="/stock"
-        >
-          <span className="nav-icon">
-            □
-          </span>
-          Stock counts
-        </Link>
+            <span>
+              {item.label}
+            </span>
+          </Link>
+        ))}
       </nav>
 
-   <div className="sidebar-footer">
-  <LogoutButton />
+      <div className="sidebar-footer">
+        <LogoutButton />
 
-  <div className="sidebar-site">
-    <div className="sidebar-site-avatar">
-      AZ
-    </div>
+        <div className="sidebar-site">
+          <div className="sidebar-site-avatar">
+            AZ
+          </div>
 
-    <div className="sidebar-site-copy">
-      <strong>Azteca</strong>
-      <span>Battersea, London</span>
-    </div>
-  </div>
-</div>
+          <div className="sidebar-site-copy">
+            <strong>
+              Azteca
+            </strong>
+
+            <span>
+              Battersea, London
+            </span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
 }
