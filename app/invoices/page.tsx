@@ -54,7 +54,17 @@ function formatDate(value: string | null | undefined) {
   if (!value) {
     return "—";
   }
+function getSupplierName(invoice: InvoiceRow) {
+  if (!invoice.supplier) {
+    return "";
+  }
 
+  if (Array.isArray(invoice.supplier)) {
+    return invoice.supplier[0]?.name ?? "";
+  }
+
+  return invoice.supplier.name ?? "";
+}
   const parsed = new Date(value);
 
   if (Number.isNaN(parsed.getTime())) {
@@ -130,8 +140,10 @@ export default function InvoicesPage() {
       }
 
       setInvoices(
-        (data as InvoiceRow[]) ?? []
-      );
+
+  (data as unknown as InvoiceRow[]) ?? []
+
+);
     } catch (err: any) {
       console.error(err);
 
@@ -150,7 +162,7 @@ export default function InvoicesPage() {
         invoices
           .map(
             (invoice) =>
-              invoice.supplier?.name
+             getSupplierName(invoice)
           )
           .filter(
             (name): name is string =>
