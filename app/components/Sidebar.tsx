@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import LogoutButton from "./LogoutButton";
 export type SidebarPage =
   | "dashboard"
   | "orders"
