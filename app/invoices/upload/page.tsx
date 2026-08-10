@@ -9,6 +9,7 @@ import {
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import { suppliers } from "../../data/suppliers";
+import { supabase } from "../../lib/supabase";
 
 type ExtractedInvoice = {
   supplier: string;
