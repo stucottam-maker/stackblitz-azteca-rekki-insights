@@ -183,9 +183,9 @@ export default function InvoicesPage() {
 
     return invoices.filter(
       (invoice) => {
-        const supplierName =
-          invoice.supplier?.name ??
-          "";
+       const supplierName =
+
+  getSupplierName(invoice);
 
         const matchesSupplier =
           supplierFilter === "All" ||
