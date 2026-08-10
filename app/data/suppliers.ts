@@ -30,10 +30,11 @@ export const suppliers: Record<string, Supplier> = {
   },
 
   Masafina: {
-    name: "Masafina",
-    logo: "/suppliers/masafina.png",
-  },
-
+  name: "Masafina",
+  logo: "/suppliers/masafina.png",
+  email: "orders@masafina.com",
+  orderMethod: "Email",
+},
   "Albion Fine Foods": {
     name: "Albion Fine Foods",
     logo: "/suppliers/albion.png",
