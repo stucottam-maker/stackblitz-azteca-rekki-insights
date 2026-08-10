@@ -100,7 +100,11 @@ h3 {
   background: var(--green-dark);
   color: #ffffff;
 }
-
+.sidebar-brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 .brand {
   display: flex;
   align-items: center;
