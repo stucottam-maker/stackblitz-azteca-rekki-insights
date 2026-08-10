@@ -5,6 +5,15 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../components/Sidebar";
 import { supabase } from "../lib/supabase";
 
+type SupplierRelation =
+  | {
+      name: string;
+    }
+  | {
+      name: string;
+    }[]
+  | null;
+
 type InvoiceRow = {
   id: string;
   invoice_number: string | null;
@@ -15,21 +24,7 @@ type InvoiceRow = {
   status: string;
   approved_at: string | null;
   created_at: string;
-  supplier?:
-
-  | {
-
-      name: string;
-
-    }
-
-  | {
-
-      name: string;
-
-    }[]
-
-  | null;
+  supplier?: SupplierRelation;
   invoice_lines?: {
     id: string;
   }[];
@@ -54,17 +49,7 @@ function formatDate(value: string | null | undefined) {
   if (!value) {
     return "—";
   }
-function getSupplierName(invoice: InvoiceRow) {
-  if (!invoice.supplier) {
-    return "";
-  }
 
-  if (Array.isArray(invoice.supplier)) {
-    return invoice.supplier[0]?.name ?? "";
-  }
-
-  return invoice.supplier.name ?? "";
-}
   const parsed = new Date(value);
 
   if (Number.isNaN(parsed.getTime())) {
@@ -76,6 +61,18 @@ function getSupplierName(invoice: InvoiceRow) {
     month: "short",
     year: "numeric",
   }).format(parsed);
+}
+
+function getSupplierName(invoice: InvoiceRow) {
+  if (!invoice.supplier) {
+    return "";
+  }
+
+  if (Array.isArray(invoice.supplier)) {
+    return invoice.supplier[0]?.name ?? "";
+  }
+
+  return invoice.supplier.name ?? "";
 }
 
 export default function InvoicesPage() {
@@ -140,10 +137,8 @@ export default function InvoicesPage() {
       }
 
       setInvoices(
-
-  (data as unknown as InvoiceRow[]) ?? []
-
-);
+        (data as unknown as InvoiceRow[]) ?? []
+      );
     } catch (err: any) {
       console.error(err);
 
@@ -156,14 +151,11 @@ export default function InvoicesPage() {
     }
   }
 
-  const suppliers = useMemo(() => {
+  const supplierNames = useMemo(() => {
     const uniqueSuppliers = Array.from(
       new Set(
         invoices
-          .map(
-            (invoice) =>
-             getSupplierName(invoice)
-          )
+          .map((invoice) => getSupplierName(invoice))
           .filter(
             (name): name is string =>
               Boolean(name)
@@ -171,9 +163,8 @@ export default function InvoicesPage() {
       )
     );
 
-    return uniqueSuppliers.sort(
-      (a, b) =>
-        a.localeCompare(b)
+    return uniqueSuppliers.sort((a, b) =>
+      a.localeCompare(b)
     );
   }, [invoices]);
 
@@ -181,35 +172,28 @@ export default function InvoicesPage() {
     const query =
       search.trim().toLowerCase();
 
-    return invoices.filter(
-      (invoice) => {
-       const supplierName =
+    return invoices.filter((invoice) => {
+      const supplierName =
+        getSupplierName(invoice);
 
-  getSupplierName(invoice);
+      const matchesSupplier =
+        supplierFilter === "All" ||
+        supplierName === supplierFilter;
 
-        const matchesSupplier =
-          supplierFilter === "All" ||
-          supplierName ===
-            supplierFilter;
+      const matchesSearch =
+        !query ||
+        supplierName
+          .toLowerCase()
+          .includes(query) ||
+        (invoice.invoice_number ?? "")
+          .toLowerCase()
+          .includes(query);
 
-        const matchesSearch =
-          !query ||
-          supplierName
-            .toLowerCase()
-            .includes(query) ||
-          (
-            invoice.invoice_number ??
-            ""
-          )
-            .toLowerCase()
-            .includes(query);
-
-        return (
-          matchesSupplier &&
-          matchesSearch
-        );
-      }
-    );
+      return (
+        matchesSupplier &&
+        matchesSearch
+      );
+    });
   }, [
     invoices,
     search,
@@ -219,10 +203,7 @@ export default function InvoicesPage() {
   const totalSpend = useMemo(() => {
     return invoices.reduce(
       (sum, invoice) =>
-        sum +
-        Number(
-          invoice.total ?? 0
-        ),
+        sum + Number(invoice.total ?? 0),
       0
     );
   }, [invoices]);
@@ -237,27 +218,19 @@ export default function InvoicesPage() {
         }
 
         const invoiceDate =
-          new Date(
-            invoice.invoice_date
-          );
+          new Date(invoice.invoice_date);
 
         if (
-          Number.isNaN(
-            invoiceDate.getTime()
-          ) ||
-          invoiceDate.getMonth() !==
-            now.getMonth() ||
-          invoiceDate.getFullYear() !==
-            now.getFullYear()
+          Number.isNaN(invoiceDate.getTime()) ||
+          invoiceDate.getMonth() !== now.getMonth() ||
+          invoiceDate.getFullYear() !== now.getFullYear()
         ) {
           return sum;
         }
 
         return (
           sum +
-          Number(
-            invoice.total ?? 0
-          )
+          Number(invoice.total ?? 0)
         );
       },
       0
@@ -267,12 +240,11 @@ export default function InvoicesPage() {
   const approvedCount =
     invoices.filter(
       (invoice) =>
-        invoice.status ===
-        "approved"
+        invoice.status === "approved"
     ).length;
 
   const supplierCount =
-    suppliers.length;
+    supplierNames.length;
 
   return (
     <main className="app-shell">
@@ -290,9 +262,7 @@ export default function InvoicesPage() {
             </h1>
 
             <p className="page-description">
-              Shared supplier invoice
-              history for your kitchen
-              team.
+              Shared supplier invoice history for your kitchen team.
             </p>
           </div>
 
@@ -300,9 +270,7 @@ export default function InvoicesPage() {
             type="button"
             className="primary-button"
             onClick={() =>
-              router.push(
-                "/invoices/upload"
-              )
+              router.push("/invoices/upload")
             }
           >
             + Upload invoice
@@ -377,9 +345,7 @@ export default function InvoicesPage() {
               <button
                 type="button"
                 className="secondary-inline-button"
-                onClick={
-                  loadInvoices
-                }
+                onClick={loadInvoices}
               >
                 Refresh
               </button>
@@ -388,9 +354,7 @@ export default function InvoicesPage() {
                 type="button"
                 className="secondary-inline-button"
                 onClick={() =>
-                  router.push(
-                    "/invoices/upload"
-                  )
+                  router.push("/invoices/upload")
                 }
               >
                 Upload new
@@ -411,9 +375,7 @@ export default function InvoicesPage() {
               type="search"
               value={search}
               onChange={(event) =>
-                setSearch(
-                  event.target.value
-                )
+                setSearch(event.target.value)
               }
               placeholder="Search supplier or invoice number..."
               style={{
@@ -437,16 +399,14 @@ export default function InvoicesPage() {
                 All suppliers
               </option>
 
-              {suppliers.map(
-                (supplier) => (
-                  <option
-                    key={supplier}
-                    value={supplier}
-                  >
-                    {supplier}
-                  </option>
-                )
-              )}
+              {supplierNames.map((supplier) => (
+                <option
+                  key={supplier}
+                  value={supplier}
+                >
+                  {supplier}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -469,8 +429,7 @@ export default function InvoicesPage() {
             <div className="empty-table-message">
               Loading invoices...
             </div>
-          ) : filteredInvoices.length ===
-            0 ? (
+          ) : filteredInvoices.length === 0 ? (
             <div
               style={{
                 padding: "56px 20px",
@@ -514,9 +473,7 @@ export default function InvoicesPage() {
                   type="button"
                   className="primary-button"
                   onClick={() =>
-                    router.push(
-                      "/invoices/upload"
-                    )
+                    router.push("/invoices/upload")
                   }
                 >
                   Upload first invoice
@@ -532,71 +489,38 @@ export default function InvoicesPage() {
               <table className="ingredients-table">
                 <thead>
                   <tr>
-                    <th>
-                      Supplier
-                    </th>
-
-                    <th>
-                      Invoice
-                    </th>
-
-                    <th>
-                      Date
-                    </th>
-
-                    <th>
-                      Lines
-                    </th>
-
-                    <th>
-                      Subtotal
-                    </th>
-
-                    <th>
-                      VAT
-                    </th>
-
-                    <th>
-                      Total
-                    </th>
-
-                    <th>
-                      Status
-                    </th>
+                    <th>Supplier</th>
+                    <th>Invoice</th>
+                    <th>Date</th>
+                    <th>Lines</th>
+                    <th>Subtotal</th>
+                    <th>VAT</th>
+                    <th>Total</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {filteredInvoices.map(
                     (invoice) => (
-                      <tr
-                        key={
-                          invoice.id
-                        }
-                      >
+                      <tr key={invoice.id}>
                         <td>
                           <div
                             style={{
-                              display:
-                                "flex",
-                              flexDirection:
-                                "column",
+                              display: "flex",
+                              flexDirection: "column",
                               gap: "3px",
                             }}
                           >
                             <strong>
-                              {invoice
-                                .supplier
-                                ?.name ||
+                              {getSupplierName(invoice) ||
                                 "Unknown supplier"}
                             </strong>
 
                             <span
                               style={{
-                                fontSize:
-                                  "12px",
-                                opacity:
-                                  0.58,
+                                fontSize: "12px",
+                                opacity: 0.58,
                               }}
                             >
                               Approved{" "}
@@ -619,8 +543,7 @@ export default function InvoicesPage() {
                         </td>
 
                         <td>
-                          {invoice
-                            .invoice_lines
+                          {invoice.invoice_lines
                             ?.length ?? 0}
                         </td>
 
@@ -631,9 +554,7 @@ export default function InvoicesPage() {
                         </td>
 
                         <td>
-                          {money(
-                            invoice.vat
-                          )}
+                          {money(invoice.vat)}
                         </td>
 
                         <td>
@@ -647,15 +568,11 @@ export default function InvoicesPage() {
                         <td>
                           <span
                             style={{
-                              display:
-                                "inline-flex",
-                              alignItems:
-                                "center",
+                              display: "inline-flex",
+                              alignItems: "center",
                               gap: "6px",
-                              padding:
-                                "5px 9px",
-                              borderRadius:
-                                "999px",
+                              padding: "5px 9px",
+                              borderRadius: "999px",
                               background:
                                 invoice.status ===
                                 "approved"
@@ -666,10 +583,8 @@ export default function InvoicesPage() {
                                 "approved"
                                   ? "#245e48"
                                   : "#6f6a61",
-                              fontSize:
-                                "12px",
-                              fontWeight:
-                                700,
+                              fontSize: "12px",
+                              fontWeight: 700,
                             }}
                           >
                             {invoice.status ===
@@ -717,8 +632,7 @@ export default function InvoicesPage() {
             <div
               style={{
                 padding: "16px",
-                border:
-                  "1px solid #e4dfd6",
+                border: "1px solid #e4dfd6",
                 borderRadius: "12px",
               }}
             >
@@ -728,11 +642,9 @@ export default function InvoicesPage() {
 
               <p
                 style={{
-                  margin:
-                    "6px 0 0",
+                  margin: "6px 0 0",
                   opacity: 0.68,
-                  fontSize:
-                    "13px",
+                  fontSize: "13px",
                 }}
               >
                 Upload the supplier invoice.
@@ -742,8 +654,7 @@ export default function InvoicesPage() {
             <div
               style={{
                 padding: "16px",
-                border:
-                  "1px solid #e4dfd6",
+                border: "1px solid #e4dfd6",
                 borderRadius: "12px",
               }}
             >
@@ -753,11 +664,9 @@ export default function InvoicesPage() {
 
               <p
                 style={{
-                  margin:
-                    "6px 0 0",
+                  margin: "6px 0 0",
                   opacity: 0.68,
-                  fontSize:
-                    "13px",
+                  fontSize: "13px",
                 }}
               >
                 AI reads the invoice data.
@@ -767,8 +676,7 @@ export default function InvoicesPage() {
             <div
               style={{
                 padding: "16px",
-                border:
-                  "1px solid #e4dfd6",
+                border: "1px solid #e4dfd6",
                 borderRadius: "12px",
               }}
             >
@@ -778,11 +686,9 @@ export default function InvoicesPage() {
 
               <p
                 style={{
-                  margin:
-                    "6px 0 0",
+                  margin: "6px 0 0",
                   opacity: 0.68,
-                  fontSize:
-                    "13px",
+                  fontSize: "13px",
                 }}
               >
                 Match ingredients and approve.
@@ -792,8 +698,7 @@ export default function InvoicesPage() {
             <div
               style={{
                 padding: "16px",
-                border:
-                  "1px solid #e4dfd6",
+                border: "1px solid #e4dfd6",
                 borderRadius: "12px",
               }}
             >
@@ -803,11 +708,9 @@ export default function InvoicesPage() {
 
               <p
                 style={{
-                  margin:
-                    "6px 0 0",
+                  margin: "6px 0 0",
                   opacity: 0.68,
-                  fontSize:
-                    "13px",
+                  fontSize: "13px",
                 }}
               >
                 The whole authorised team sees the same data.
