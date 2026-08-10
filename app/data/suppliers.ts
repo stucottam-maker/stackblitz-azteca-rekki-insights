@@ -13,7 +13,12 @@ export const suppliers: Record<string, Supplier> = {
     name: "Crazy Dan's House of Meat",
     logo: "/suppliers/crazy-dans.png",
   },
-
+"Tazaki Foods": {
+  name: "Tazaki Foods",
+  logo: "/suppliers/tazaki-foods.png",
+  email: "japanesesales@tazakifoods.com",
+  orderMethod: "Email",
+},
   Mexgrocer: {
     name: "Mexgrocer",
     logo: "/suppliers/mexgrocer.png",
