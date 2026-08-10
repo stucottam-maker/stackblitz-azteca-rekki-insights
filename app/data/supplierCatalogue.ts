@@ -170,4 +170,30 @@ export type CatalogueItem = {
       unit: "kg",
       fallbackPrice: null,
     },
-  ];
+    // WOODS FINE FOODS
+    {
+      ingredient: "Woods Fine Foods placeholder",
+      supplier: "Woods Fine Foods",
+      supplierProduct: "Supplier catalogue pending",
+      unit: "each",
+      fallbackPrice: null,
+    },
+    
+    // OUI CHEF
+    {
+      ingredient: "Oui Chef placeholder",
+      supplier: "Oui Chef",
+      supplierProduct: "Supplier catalogue pending",
+      unit: "each",
+      fallbackPrice: null,
+    },
+    
+    // SPITALFIELDS FRUIT & VEG
+    {
+      ingredient: "Spitalfields Fruit & Veg placeholder",
+      supplier: "Spitalfields Fruit & Veg",
+      supplierProduct: "Supplier catalogue pending",
+      unit: "each",
+      fallbackPrice: null,
+    },
+    ];
