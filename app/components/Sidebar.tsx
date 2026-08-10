@@ -126,23 +126,20 @@ export default function Sidebar({
         </Link>
       </nav>
 
-      <div className="sidebar-footer">
-        <div className="restaurant-card">
-          <div className="restaurant-avatar">
-            AZ
-          </div>
+    <div className="sidebar-footer">
+  <LogoutButton />
 
-          <div>
-            <p className="restaurant-name">
-              Azteca
-            </p>
+  <div className="sidebar-site">
+    <div className="sidebar-site-avatar">
+      AZ
+    </div>
 
-            <p className="restaurant-location">
-              Battersea, London
-            </p>
-          </div>
-        </div>
-      </div>
+    <div className="sidebar-site-copy">
+      <strong>Azteca</strong>
+      <span>Battersea, London</span>
+    </div>
+  </div>
+</div>
     </aside>
   );
 }
