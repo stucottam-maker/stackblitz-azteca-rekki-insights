@@ -27,20 +27,15 @@ export default function Sidebar({
   return (
     <aside className="sidebar">
       <div className="brand">
-        <div className="brand-mark">
-          A
-        </div>
+  <div className="sidebar-brand-mark">
+    K
+  </div>
 
-        <div>
-          <p className="brand-name">
-            Azteca Insights
-          </p>
-
-          <p className="brand-subtitle">
-            Kitchen cost control
-          </p>
-        </div>
-      </div>
+  <div className="sidebar-brand-copy">
+    <strong>Kitchen Insights</strong>
+    <span>Cost & purchasing control</span>
+  </div>
+</div>
 
       <nav
         className="sidebar-nav"
