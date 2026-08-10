@@ -1083,24 +1083,37 @@ export default function InvoiceReviewPage() {
           | string
           | null = null;
 
-        if (
-          ingredientName
-        ) {
-          ingredientId =
-            await getOrCreateIngredient(
-              organisationId,
-              ingredientName,
-              priceUnit
-            );
+       if (ingredientName) {
 
-          supplierProductId =
-            await getOrCreateSupplierProduct(
-              organisationId,
-              supplierId,
-              ingredientId,
-              item
-            );
-        }
+  const resolvedIngredientId =
+
+    await getOrCreateIngredient(
+
+      organisationId,
+
+      ingredientName,
+
+      priceUnit
+
+    );
+
+  ingredientId = resolvedIngredientId;
+
+  supplierProductId =
+
+    await getOrCreateSupplierProduct(
+
+      organisationId,
+
+      supplierId,
+
+      resolvedIngredientId,
+
+      item
+
+    );
+
+}
 
         /*
          * Invoice line
