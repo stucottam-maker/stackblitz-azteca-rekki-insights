@@ -348,16 +348,7 @@ export const supplierCatalogue: CatalogueItem[] = [
     preferred: true,
     category: "Beef",
   },
-  {
-    id: "crazy-birria-beef",
-    ingredient: "Birria beef",
-    supplier: "Crazy Dan's House of Meat",
-    supplierProduct: "Beef diced",
-    unit: "kg",
-    fallbackPrice: null,
-    preferred: true,
-    category: "Beef",
-  },
+  
   {
     id: "crazy-chicken-thigh-skin-off",
     ingredient: "Chicken thigh",
