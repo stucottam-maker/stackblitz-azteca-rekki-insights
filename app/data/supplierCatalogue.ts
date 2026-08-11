@@ -429,16 +429,7 @@ export const supplierCatalogue: CatalogueItem[] = [
     preferred: false,
     category: "Pork",
   },
-  {
-    id: "crazy-carnitas",
-    ingredient: "Carnitas pork",
-    supplier: "Crazy Dan's House of Meat",
-    supplierProduct: "Pork for Carnitas",
-    unit: "kg",
-    fallbackPrice: null,
-    preferred: true,
-    category: "Pork",
-  },
+  
   {
     id: "crazy-tomahawk",
     ingredient: "Tomahawk",
