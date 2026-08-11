@@ -1,48 +1,170 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+
+const SUPPORTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
+const invoiceSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    supplier: {
+      type: ["string", "null"],
+    },
+    invoiceNumber: {
+      type: ["string", "null"],
+    },
+    invoiceDate: {
+      type: ["string", "null"],
+      description: "Invoice date, preferably YYYY-MM-DD where possible.",
+    },
+    subtotal: {
+      type: ["number", "null"],
+    },
+    vat: {
+      type: ["number", "null"],
+    },
+    total: {
+      type: ["number", "null"],
+    },
+    lineItems: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          product: {
+            type: "string",
+          },
+          quantity: {
+            type: ["number", "null"],
+          },
+          pack: {
+            type: ["string", "null"],
+          },
+          unitPrice: {
+            type: ["number", "null"],
+          },
+          total: {
+            type: ["number", "null"],
+          },
+          status: {
+            type: ["string", "null"],
+          },
+        },
+        required: [
+          "product",
+          "quantity",
+          "pack",
+          "unitPrice",
+          "total",
+          "status",
+        ],
+      },
+    },
+  },
+  required: [
+    "supplier",
+    "invoiceNumber",
+    "invoiceDate",
+    "subtotal",
+    "vat",
+    "total",
+    "lineItems",
+  ],
+};
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
-    const file = formData.get("file");
+    // ---------------------------------------------------------
+    // OPENAI
+    // Create client only when this endpoint is actually called.
+    // This prevents npm run build failing when the key isn't
+    // available in the local StackBlitz build environment.
+    // ---------------------------------------------------------
 
-    if (!(file instanceof File)) {
-      return NextResponse.json(
-        { error: "No invoice file provided." },
-        { status: 400 }
-      );
-    }
+    const apiKey = process.env.OPENAI_API_KEY;
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!apiKey) {
       return NextResponse.json(
-        { error: "OpenAI API key is not configured." },
+        {
+          error:
+            "OpenAI API key is not configured. Add OPENAI_API_KEY to the server environment.",
+        },
         { status: 500 }
       );
     }
 
-    const allowedTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-    ];
+    const openai = new OpenAI({
+      apiKey,
+    });
 
-    if (!allowedTypes.includes(file.type)) {
+    // ---------------------------------------------------------
+    // READ UPLOADED FILE
+    // ---------------------------------------------------------
+
+    const formData = await request.formData();
+    const uploadedFile = formData.get("file");
+
+    if (!uploadedFile || !(uploadedFile instanceof File)) {
       return NextResponse.json(
         {
-          error:
-            "For this first version, please upload a JPG, PNG or WEBP invoice.",
+          error: "No invoice file was uploaded.",
         },
         { status: 400 }
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const base64 = Buffer.from(bytes).toString("base64");
-    const dataUrl = `data:${file.type};base64,${base64}`;
+    if (uploadedFile.size === 0) {
+      return NextResponse.json(
+        {
+          error: "The uploaded invoice file is empty.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (uploadedFile.size > MAX_FILE_SIZE) {
+      return NextResponse.json(
+        {
+          error: "Invoice image is too large. Maximum size is 10 MB.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!SUPPORTED_IMAGE_TYPES.includes(uploadedFile.type)) {
+      return NextResponse.json(
+        {
+          error:
+            "Unsupported file type. Please upload a JPEG, PNG or WEBP invoice image.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // ---------------------------------------------------------
+    // CONVERT IMAGE TO BASE64
+    // ---------------------------------------------------------
+
+    const bytes = await uploadedFile.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const base64 = buffer.toString("base64");
+
+    const imageUrl = `data:${uploadedFile.type};base64,${base64}`;
+
+    // ---------------------------------------------------------
+    // EXTRACT INVOICE
+    // ---------------------------------------------------------
 
     const response = await openai.responses.create({
       model: "gpt-5-mini",
@@ -54,39 +176,30 @@ export async function POST(request: Request) {
             {
               type: "input_text",
               text: `
-You are extracting purchasing information from a UK restaurant supplier invoice.
+You are extracting structured data from a UK restaurant supplier invoice.
 
-Read the invoice carefully.
+Read the invoice carefully and return the invoice data according to the supplied JSON schema.
 
-Return:
-- supplier name
-- invoice number
-- invoice date
-- subtotal before VAT
-- VAT
-- invoice total
-- every purchased product line
+IMPORTANT RULES:
 
-For every product line extract:
-- supplier product description exactly as shown
-- quantity purchased
-- pack size if visible
-- unit price
-- line total
-
-Important rules:
-- Do not invent missing information.
-- If something cannot be read, return null.
-- Monetary values must be numbers only without £ symbols.
-- Keep the original supplier wording for product descriptions.
-- Ignore headers, payment details, delivery details and totals when identifying product lines.
-- Do not combine separate product lines.
+- Do not invent values.
+- If a value cannot be determined, return null.
+- Preserve the supplier's product description as closely as possible.
+- Extract every genuine invoice line item.
+- Ignore headers, footers, delivery notes and payment terms unless they are relevant invoice fields.
+- Monetary values must be numbers only, without £ symbols.
+- Quantity must be numeric where possible.
+- If a pack size or ordering unit is shown, include it in "pack".
+- "unitPrice" means the price charged per invoiced unit shown on the invoice.
+- "total" on each line means that invoice line's total/net value.
+- Invoice subtotal, VAT and total should come from the invoice totals section.
+- Do not calculate missing monetary values unless the invoice clearly provides enough information and the calculation is unambiguous.
+- Dates should preferably be returned as YYYY-MM-DD.
               `.trim(),
             },
-
             {
               type: "input_image",
-              image_url: dataUrl,
+              image_url: imageUrl,
               detail: "high",
             },
           ],
@@ -98,122 +211,130 @@ Important rules:
           type: "json_schema",
           name: "restaurant_invoice",
           strict: true,
-
-          schema: {
-            type: "object",
-
-            properties: {
-              supplier: {
-                type: ["string", "null"],
-              },
-
-              invoiceNumber: {
-                type: ["string", "null"],
-              },
-
-              invoiceDate: {
-                type: ["string", "null"],
-              },
-
-              subtotal: {
-                type: ["number", "null"],
-              },
-
-              vat: {
-                type: ["number", "null"],
-              },
-
-              total: {
-                type: ["number", "null"],
-              },
-
-              lineItems: {
-                type: "array",
-
-                items: {
-                  type: "object",
-
-                  properties: {
-                    product: {
-                      type: "string",
-                    },
-
-                    quantity: {
-                      type: ["number", "string", "null"],
-                    },
-
-                    pack: {
-                      type: ["string", "null"],
-                    },
-
-                    unitPrice: {
-                      type: ["number", "null"],
-                    },
-
-                    total: {
-                      type: ["number", "null"],
-                    },
-
-                    status: {
-                      type: "string",
-                      enum: ["Extracted"],
-                    },
-                  },
-
-                  required: [
-                    "product",
-                    "quantity",
-                    "pack",
-                    "unitPrice",
-                    "total",
-                    "status",
-                  ],
-
-                  additionalProperties: false,
-                },
-              },
-            },
-
-            required: [
-              "supplier",
-              "invoiceNumber",
-              "invoiceDate",
-              "subtotal",
-              "vat",
-              "total",
-              "lineItems",
-            ],
-
-            additionalProperties: false,
-          },
+          schema: invoiceSchema,
         },
       },
     });
 
+    // ---------------------------------------------------------
+    // READ STRUCTURED RESULT
+    // ---------------------------------------------------------
+
     const outputText = response.output_text;
 
     if (!outputText) {
-      throw new Error("No extraction returned from OpenAI.");
+      return NextResponse.json(
+        {
+          error: "No invoice data was returned by the extraction model.",
+        },
+        { status: 502 }
+      );
     }
 
-    const invoice = JSON.parse(outputText);
+    let extractedInvoice;
 
-    return NextResponse.json({
-      success: true,
-      fileName: file.name,
-      fileType: file.type,
-      fileSize: file.size,
-      invoice,
-    });
-  } catch (error) {
+    try {
+      extractedInvoice = JSON.parse(outputText);
+    } catch (error) {
+      console.error("Invoice JSON parsing failed:", error);
+      console.error("Raw model output:", outputText);
+
+      return NextResponse.json(
+        {
+          error: "The extracted invoice data could not be parsed.",
+        },
+        { status: 502 }
+      );
+    }
+
+    // ---------------------------------------------------------
+    // BASIC CLEANUP
+    // ---------------------------------------------------------
+
+    const cleanedInvoice = {
+      supplier: extractedInvoice.supplier ?? null,
+      invoiceNumber: extractedInvoice.invoiceNumber ?? null,
+      invoiceDate: extractedInvoice.invoiceDate ?? null,
+
+      subtotal:
+        typeof extractedInvoice.subtotal === "number"
+          ? extractedInvoice.subtotal
+          : null,
+
+      vat:
+        typeof extractedInvoice.vat === "number"
+          ? extractedInvoice.vat
+          : null,
+
+      total:
+        typeof extractedInvoice.total === "number"
+          ? extractedInvoice.total
+          : null,
+
+      lineItems: Array.isArray(extractedInvoice.lineItems)
+        ? extractedInvoice.lineItems
+            .filter(
+              (item: any) =>
+                typeof item?.product === "string" &&
+                item.product.trim().length > 0
+            )
+            .map((item: any) => ({
+              product: item.product.trim(),
+
+              quantity:
+                typeof item.quantity === "number"
+                  ? item.quantity
+                  : null,
+
+              pack:
+                typeof item.pack === "string" &&
+                item.pack.trim()
+                  ? item.pack.trim()
+                  : null,
+
+              unitPrice:
+                typeof item.unitPrice === "number"
+                  ? item.unitPrice
+                  : null,
+
+              total:
+                typeof item.total === "number"
+                  ? item.total
+                  : null,
+
+              status:
+                typeof item.status === "string" &&
+                item.status.trim()
+                  ? item.status.trim()
+                  : null,
+            }))
+        : [],
+    };
+
+    console.log(
+      `Invoice extracted: ${cleanedInvoice.supplier ?? "Unknown supplier"} - ${
+        cleanedInvoice.lineItems.length
+      } lines`
+    );
+
+    // Keep the response as the invoice object itself so the
+    // existing upload/review flow can consume it directly.
+    return NextResponse.json(cleanedInvoice);
+  } catch (error: any) {
     console.error("Invoice extraction error:", error);
+
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Unknown invoice extraction error";
 
     return NextResponse.json(
       {
-        error:
-          error instanceof Error
-            ? error.message
-            : "Failed to process invoice.",
+        error: "Invoice extraction failed.",
+        details:
+          process.env.NODE_ENV === "development"
+            ? message
+            : undefined,
       },
       { status: 500 }
     );
