@@ -1,3 +1,5 @@
+import { woodsCatalogueItems } from "./woodsCatalogue";
+
 export type CatalogueItem = {
   id: string;
   ingredient: string;
@@ -7,6 +9,18 @@ export type CatalogueItem = {
   fallbackPrice: number | null;
   preferred?: boolean;
   category?: string;
+
+  // Optional supplier-product metadata.
+  // Currently used mainly by Woods Foodservice.
+  sku?: string;
+  packSize?: number | null;
+  casePrice?: number | null;
+  splitPrice?: number | null;
+  lastOrdered?: string;
+  lastOrderedQty?: number | null;
+  lastOrderVariation?: string;
+  brand?: string;
+  woodsId?: number;
 };
 
 export type SupplierContact = {
@@ -189,7 +203,6 @@ export const supplierCatalogue: CatalogueItem[] = [
 
   // ============================================================
   // JAMES KNIGHT OF MAYFAIR
-  // BACKUP / SECONDARY FISH SUPPLIER
   // ============================================================
 
   {
@@ -305,7 +318,6 @@ export const supplierCatalogue: CatalogueItem[] = [
 
   // ============================================================
   // CRAZY DAN'S HOUSE OF MEAT
-  // K&D MEATS = CRAZY DAN'S
   // ============================================================
 
   {
@@ -348,7 +360,6 @@ export const supplierCatalogue: CatalogueItem[] = [
     preferred: true,
     category: "Beef",
   },
-  
   {
     id: "crazy-chicken-thigh-skin-off",
     ingredient: "Chicken thigh",
@@ -429,7 +440,6 @@ export const supplierCatalogue: CatalogueItem[] = [
     preferred: false,
     category: "Pork",
   },
-  
   {
     id: "crazy-tomahawk",
     ingredient: "Tomahawk",
@@ -638,268 +648,10 @@ export const supplierCatalogue: CatalogueItem[] = [
 
   // ============================================================
   // WOODS FOODSERVICE
+  // Full 191-product Buy Again catalogue
   // ============================================================
 
-  {
-    id: "woods-evoo",
-    ingredient: "Extra virgin olive oil",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Core - Extra Virgin Olive Oil 5L",
-    unit: "each",
-    fallbackPrice: 60.29,
-    preferred: true,
-    category: "Oil",
-  },
-  {
-    id: "woods-coconut-milk",
-    ingredient: "Coconut milk",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Chakoh - Coconut Milk 6 x 2.9kg",
-    unit: "pack",
-    fallbackPrice: 11.15,
-    preferred: true,
-    category: "Dry Goods",
-  },
-  {
-    id: "woods-eggs",
-    ingredient: "Eggs",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Eggs Barn Clarence Court - Burfords 5 Dozen - 60 Eggs",
-    unit: "pack",
-    fallbackPrice: 31.11,
-    preferred: true,
-    category: "Dairy & Eggs",
-  },
-  {
-    id: "woods-panko-gf",
-    ingredient: "GF panko",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Breadcrumb - Panko Gluten Free Centaur 1kg",
-    unit: "each",
-    fallbackPrice: 4.79,
-    preferred: true,
-    category: "Dry Goods",
-  },
-  {
-    id: "woods-table-salt",
-    ingredient: "Salt",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Table Salt - SPL 3kg",
-    unit: "bag",
-    fallbackPrice: 4.07,
-    preferred: true,
-    category: "Spices",
-  },
-  {
-    id: "woods-sea-salt",
-    ingredient: "Maldon salt",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Sea Salt Flakes - Maldon 1.4kg",
-    unit: "tub",
-    fallbackPrice: 13.63,
-    preferred: true,
-    category: "Spices",
-  },
-  {
-    id: "woods-hazelnuts",
-    ingredient: "Hazelnuts",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Hazelnuts Blanched - Afropol 1kg",
-    unit: "each",
-    fallbackPrice: 13.24,
-    preferred: false,
-    category: "Nuts",
-  },
-  {
-    id: "woods-white-chocolate",
-    ingredient: "White chocolate",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Callebaut 28% White Chocolate Callets 2.5kg",
-    unit: "each",
-    fallbackPrice: 30.4,
-    preferred: true,
-    category: "Dessert",
-  },
-  {
-    id: "woods-dark-chocolate",
-    ingredient: "Dark chocolate",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Callebaut 70.5% Dark Chocolate Callets 2.5kg",
-    unit: "each",
-    fallbackPrice: 27.68,
-    preferred: true,
-    category: "Dessert",
-  },
-  {
-    id: "woods-black-cocoa",
-    ingredient: "Black cocoa powder",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Cacao Barry - Noir Intense Black Cocoa Powder 1kg",
-    unit: "each",
-    fallbackPrice: 13.59,
-    preferred: false,
-    category: "Dessert",
-  },
-  {
-    id: "woods-caster-sugar",
-    ingredient: "Caster sugar",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Caster Sugar Bag - Tate & Lyle 6 x 2kg",
-    unit: "pack",
-    fallbackPrice: 20.58,
-    preferred: true,
-    category: "Dry Goods",
-  },
-  {
-    id: "woods-brown-sugar",
-    ingredient: "Light brown sugar",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Soft Light Brown Sugar - Tate & Lyle 3kg",
-    unit: "each",
-    fallbackPrice: 8.21,
-    preferred: true,
-    category: "Dry Goods",
-  },
-  {
-    id: "woods-glucose",
-    ingredient: "Glucose syrup",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Glucose Syrup Belgogluc - Liquid 1kg",
-    unit: "each",
-    fallbackPrice: 3.18,
-    preferred: false,
-    category: "Dessert",
-  },
-  {
-    id: "woods-plain-flour",
-    ingredient: "Plain flour",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Flour Plain Heygates Soft 6 x 1.5kg",
-    unit: "pack",
-    fallbackPrice: 7.5,
-    preferred: true,
-    category: "Dry Goods",
-  },
-  {
-    id: "woods-milk-powder",
-    ingredient: "Milk powder",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Skimmed Milk Powder - Milfresh 2kg",
-    unit: "each",
-    fallbackPrice: 9.76,
-    preferred: true,
-    category: "Dairy",
-  },
-  {
-    id: "woods-black-pepper",
-    ingredient: "Black pepper",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Black Peppercorns - Greenfields 500g",
-    unit: "each",
-    fallbackPrice: 6.51,
-    preferred: true,
-    category: "Spices",
-  },
-  {
-    id: "woods-cumin",
-    ingredient: "Cumin seeds",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Cumin Seeds - Greenfields 500g",
-    unit: "each",
-    fallbackPrice: 9.83,
-    preferred: true,
-    category: "Spices",
-  },
-  {
-    id: "woods-coriander-seed",
-    ingredient: "Coriander seeds",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Coriander Seeds - Greenfields 300g",
-    unit: "each",
-    fallbackPrice: 2.94,
-    preferred: true,
-    category: "Spices",
-  },
-  {
-    id: "woods-cinnamon",
-    ingredient: "Cinnamon stick",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Cinnamon Stick - Bark Bulk - Afropol 1kg",
-    unit: "each",
-    fallbackPrice: 11.76,
-    preferred: false,
-    category: "Spices",
-  },
-  {
-    id: "woods-red-wine-vinegar",
-    ingredient: "Red wine vinegar",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Core - Red Wine Vinegar 5L",
-    unit: "each",
-    fallbackPrice: 4.97,
-    preferred: true,
-    category: "Vinegar",
-  },
-  {
-    id: "woods-vegan-mayo",
-    ingredient: "Vegan mayonnaise",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Hellmann's Vegan Mayo 5L",
-    unit: "each",
-    fallbackPrice: 34.44,
-    preferred: false,
-    category: "Sauces",
-  },
-  {
-    id: "woods-clarified-butter",
-    ingredient: "Clarified butter",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Butter Clarified - Karla 2kg",
-    unit: "each",
-    fallbackPrice: 28.1,
-    preferred: false,
-    category: "Dairy",
-  },
-  {
-    id: "woods-soured-cream",
-    ingredient: "Soured cream",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Soured Cream - BV Dairy 2kg",
-    unit: "each",
-    fallbackPrice: 6.21,
-    preferred: true,
-    category: "Dairy",
-  },
-  {
-    id: "woods-creme-fraiche",
-    ingredient: "Creme fraiche",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Creme Fraiche - BV Dairy 2kg",
-    unit: "each",
-    fallbackPrice: 8.28,
-    preferred: true,
-    category: "Dairy",
-  },
-  {
-    id: "woods-yoghurt",
-    ingredient: "Greek yoghurt",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Yoghurt Greek - BV Dairy 2kg",
-    unit: "each",
-    fallbackPrice: 5.33,
-    preferred: true,
-    category: "Dairy",
-  },
-  {
-    id: "woods-double-cream",
-    ingredient: "Double cream",
-    supplier: "Woods Foodservice",
-    supplierProduct: "Double Cream - Wells Farm 2.27L",
-    unit: "each",
-    fallbackPrice: 8.5,
-    preferred: true,
-    category: "Dairy",
-  },
+  ...woodsCatalogueItems,
 
   // ============================================================
   // OUI CHEF
@@ -1213,7 +965,6 @@ export const supplierCatalogue: CatalogueItem[] = [
 
   // ============================================================
   // TAZAKI FOODS
-  // japanesesales@tazakifoods.com
   // ============================================================
 
   {
@@ -1620,8 +1371,7 @@ export const supplierCatalogue: CatalogueItem[] = [
     id: "raynor-dishwash-detergent",
     ingredient: "Dishwasher detergent",
     supplier: "Raynor Hygiene",
-    supplierProduct:
-      "Machine Dishwash Detergent - Hard Water 2 x 5L",
+    supplierProduct: "Machine Dishwash Detergent - Hard Water 2 x 5L",
     unit: "pack",
     fallbackPrice: 11.85,
     preferred: true,
@@ -1821,8 +1571,7 @@ export const supplierCatalogue: CatalogueItem[] = [
     id: "raynor-jcloth",
     ingredient: "J cloth",
     supplier: "Raynor Hygiene",
-    supplierProduct:
-      "J-Cloth Biodegradable & Compostable Green Microfibre Black x50",
+    supplierProduct: "J-Cloth Biodegradable & Compostable Green Microfibre Black x50",
     unit: "unit",
     fallbackPrice: 8.89,
     preferred: true,
@@ -1861,8 +1610,6 @@ export const supplierCatalogue: CatalogueItem[] = [
 
   // ============================================================
   // SPITALFIELDS FRUIT & VEG
-  // SECONDARY FRUIT & VEG SUPPLIER
-  // Prices/catalogue can be learned from invoices later.
   // ============================================================
 
   {
