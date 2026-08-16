@@ -103,8 +103,7 @@ function getRecipeStoredKey(slug: string) {
   return `recipe:${slug}`;
 }
 
-export default function RecipeDetailPage() {
-  const params = useParams<{ slug: string }>();
+
   const slug = params.slug;
 
   const baseRecipe = useMemo(
