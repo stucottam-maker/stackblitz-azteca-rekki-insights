@@ -1,26 +1,141 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 
-const params = useParams<{ slug: string }>();
-
-const slug = params.slug;
-
+import Sidebar from "../../components/Sidebar";
 import {
   recipes,
   recipeSlug,
-  Recipe,
-  RecipeIngredient,
+  type Recipe,
+  type RecipeIngredient,
 } from "../../data/recipes";
 
-type CostedIngredient = RecipeIngredient & {
-  costPerBaseUnit: string;
-  baseUnit: string;
+type IngredientPrice = {
+  price?: number;
+  unit?: string;
+  supplier?: string;
+  product?: string;
+  updatedAt?: string;
 };
 
-function money(value: number) {
+type IngredientPrices = Record<string, IngredientPrice>;
+
+type RecipeTab =
+  | "yield"
+  | "conversions"
+  | "procedure"
+  | "used-in"
+  | "allergens";
+
+type EditableIngredient = RecipeIngredient & {
+  grossQuantity?: number | null;
+  wastePercent?: number | null;
+  type?: "Inventory item" | "Sub-recipe";
+};
+
+type StoredRecipePayload = {
+  recipe?: Recipe;
+  ingredients?: EditableIngredient[];
+  yieldAmount?: number | null;
+  yieldUnit?: string;
+  notes?: string;
+  procedure?: string;
+  allergens?: string[];
+  summary?: {
+    totalCost?: number | null;
+    costPerYieldUnit?: number | null;
+    pricedLineCount?: number;
+    missingLineCount?: number;
+  };
+  updatedAt?: string;
+};
+
+const ALLERGENS = [
+  "Gluten",
+  "Crustaceans",
+  "Eggs",
+  "Fish",
+  "Peanuts",
+  "Soybeans",
+  "Milk",
+  "Nuts",
+  "Celery",
+  "Mustard",
+  "Sesame",
+  "Sulphites",
+  "Lupin",
+  "Molluscs",
+];
+
+function safeParse<T>(value: string | null, fallback: T): T {
+  if (!value) return fallback;
+
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+function getRecipeStorageKey(slug: string) {
+  return `recipe:${slug}`;
+}
+
+function normalise(value?: string) {
+  return (value ?? "").trim().toLowerCase();
+}
+
+function findSubRecipe(name: string) {
+  const target = normalise(name);
+
+  return recipes.find((recipe) => normalise(recipe.name) === target);
+}
+
+function findIngredientPrice(
+  prices: IngredientPrices,
+  ingredientName: string
+) {
+  if (prices[ingredientName]) {
+    return prices[ingredientName];
+  }
+
+  const target = normalise(ingredientName);
+
+  const matchingKey = Object.keys(prices).find(
+    (key) => normalise(key) === target
+  );
+
+  return matchingKey ? prices[matchingKey] : undefined;
+}
+
+function convertQuantityToPriceUnit(
+  quantity: number,
+  recipeUnit: string,
+  priceUnit: string
+) {
+  const from = normalise(recipeUnit);
+  const to = normalise(priceUnit);
+
+  if (!from || !to || from === to) {
+    return quantity;
+  }
+
+  if (from === "g" && to === "kg") return quantity / 1000;
+  if (from === "kg" && to === "g") return quantity * 1000;
+
+  if (from === "ml" && to === "l") return quantity / 1000;
+  if (from === "l" && to === "ml") return quantity * 1000;
+
+  return quantity;
+}
+
+function formatMoney(value: number | null) {
+  if (value === null || !Number.isFinite(value)) {
+    return "—";
+  }
+
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -28,162 +143,233 @@ function money(value: number) {
 }
 
 export default function RecipeDetailPage() {
-  const pathname = usePathname();
+  const params = useParams<{ slug: string }>();
+  const slug = params.slug;
 
-  const slug =
-    pathname.split("/").filter(Boolean).pop() ?? "";
+  const baseRecipe = useMemo(() => {
+    return recipes.find((recipe) => recipeSlug(recipe.name) === slug);
+  }, [slug]);
 
-  const originalRecipe = recipes.find(
-    (item) => recipeSlug(item.name) === slug
-  );
+  const [activeTab, setActiveTab] = useState<RecipeTab>("yield");
 
-  const [recipe, setRecipe] =
-    useState<Recipe | null>(null);
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
 
-  const [ingredients, setIngredients] =
-    useState<CostedIngredient[]>([]);
+  const [ingredients, setIngredients] = useState<EditableIngredient[]>([]);
+
+  const [ingredientPrices, setIngredientPrices] =
+    useState<IngredientPrices>({});
+
+  const [yieldAmount, setYieldAmount] = useState<number | null>(null);
+  const [yieldUnit, setYieldUnit] = useState("");
+  const [notes, setNotes] = useState("");
+  const [procedure, setProcedure] = useState("");
+  const [allergens, setAllergens] = useState<string[]>([]);
+  const [savedMessage, setSavedMessage] = useState("");
 
   useEffect(() => {
-    if (!originalRecipe) return;
-
-    const stored = localStorage.getItem(
-      `recipe:${slug}`
-    );
-
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-
-        setRecipe(parsed.recipe);
-        setIngredients(parsed.ingredients);
-
-        return;
-      } catch (error) {
-        console.error(
-          "Could not load saved recipe",
-          error
-        );
-      }
+    if (!baseRecipe) {
+      setRecipe(null);
+      return;
     }
 
-    setRecipe(originalRecipe);
+    const stored = safeParse<StoredRecipePayload | null>(
+      localStorage.getItem(getRecipeStorageKey(slug)),
+      null
+    );
 
-    setIngredients(
-      originalRecipe.ingredients.map(
-        (ingredient) => ({
-          ...ingredient,
+    const startingRecipe = stored?.recipe ?? baseRecipe;
 
-          costPerBaseUnit: "",
+    const startingIngredients: EditableIngredient[] =
+      stored?.ingredients ??
+      startingRecipe.ingredients.map((ingredient) => ({
+        ...ingredient,
+        grossQuantity: ingredient.quantity,
+        wastePercent: 0,
+        type: findSubRecipe(ingredient.name)
+          ? "Sub-recipe"
+          : "Inventory item",
+      }));
 
-          baseUnit:
-            ingredient.unit === "g"
-              ? "kg"
-              : ingredient.unit === "ml"
-              ? "L"
-              : ingredient.unit === "pieces"
-              ? "each"
-              : ingredient.unit,
-        })
+    setRecipe(startingRecipe);
+    setIngredients(startingIngredients);
+
+    setYieldAmount(
+      stored?.yieldAmount ??
+        startingRecipe.yieldAmount ??
+        null
+    );
+
+    setYieldUnit(
+      stored?.yieldUnit ??
+        startingRecipe.yieldUnit ??
+        ""
+    );
+
+    setNotes(
+      stored?.notes ??
+        startingRecipe.notes ??
+        ""
+    );
+
+    setProcedure(stored?.procedure ?? "");
+    setAllergens(stored?.allergens ?? []);
+
+    setIngredientPrices(
+      safeParse<IngredientPrices>(
+        localStorage.getItem("ingredientPrices"),
+        {}
       )
     );
-  }, [slug, originalRecipe]);
+  }, [baseRecipe, slug]);
 
-  const ingredientCosts = useMemo(() => {
+  const lineCosts = useMemo(() => {
     return ingredients.map((ingredient) => {
-      const quantity = Number(
-        ingredient.quantity ?? 0
-      );
+      const quantity = Number(ingredient.quantity ?? 0);
 
-      const unitCost = Number(
-        ingredient.costPerBaseUnit || 0
-      );
-
-      let cost = 0;
-
-      if (
-        ingredient.unit === "g" &&
-        ingredient.baseUnit === "kg"
-      ) {
-        cost =
-          (quantity / 1000) *
-          unitCost;
-      } else if (
-        ingredient.unit === "ml" &&
-        ingredient.baseUnit === "L"
-      ) {
-        cost =
-          (quantity / 1000) *
-          unitCost;
-      } else if (
-        ingredient.unit === "pieces" &&
-        ingredient.baseUnit === "each"
-      ) {
-        cost =
-          quantity *
-          unitCost;
-      } else if (
-        ingredient.unit === "kg" &&
-        ingredient.baseUnit === "kg"
-      ) {
-        cost =
-          quantity *
-          unitCost;
-      } else if (
-        ingredient.unit === "L" &&
-        ingredient.baseUnit === "L"
-      ) {
-        cost =
-          quantity *
-          unitCost;
-      } else {
-        cost =
-          quantity *
-          unitCost;
+      if (!quantity || quantity <= 0) {
+        return {
+          cost: null as number | null,
+          source: "",
+        };
       }
 
-      return cost;
+      if (ingredient.type === "Sub-recipe") {
+        const subRecipe = findSubRecipe(ingredient.name);
+
+        if (!subRecipe) {
+          return {
+            cost: null,
+            source: "Missing sub-recipe",
+          };
+        }
+
+        const storedSubRecipe = safeParse<StoredRecipePayload | null>(
+          localStorage.getItem(
+            getRecipeStorageKey(recipeSlug(subRecipe.name))
+          ),
+          null
+        );
+
+        const costPerYieldUnit =
+          storedSubRecipe?.summary?.costPerYieldUnit ?? null;
+
+        if (
+          costPerYieldUnit === null ||
+          !Number.isFinite(costPerYieldUnit)
+        ) {
+          return {
+            cost: null,
+            source: "Sub-recipe not costed",
+          };
+        }
+
+        return {
+          cost: quantity * costPerYieldUnit,
+          source: "Sub-recipe",
+        };
+      }
+
+      const priceRecord = findIngredientPrice(
+        ingredientPrices,
+        ingredient.name
+      );
+
+      if (
+        !priceRecord?.price ||
+        !Number.isFinite(priceRecord.price)
+      ) {
+        return {
+          cost: null,
+          source: "Missing price",
+        };
+      }
+
+      const convertedQuantity = convertQuantityToPriceUnit(
+        quantity,
+        ingredient.unit,
+        priceRecord.unit ?? ingredient.unit
+      );
+
+      return {
+        cost: convertedQuantity * priceRecord.price,
+        source: priceRecord.supplier ?? "Ingredient price",
+      };
     });
-  }, [ingredients]);
+  }, [ingredients, ingredientPrices]);
 
-  const batchCost =
-    ingredientCosts.reduce(
-      (total, cost) => total + cost,
-      0
+  const totalCost = useMemo(() => {
+    const validCosts = lineCosts
+      .map((line) => line.cost)
+      .filter((cost): cost is number => cost !== null);
+
+    if (validCosts.length === 0) {
+      return null;
+    }
+
+    return validCosts.reduce((sum, cost) => sum + cost, 0);
+  }, [lineCosts]);
+
+  const costPerYieldUnit = useMemo(() => {
+    if (
+      totalCost === null ||
+      yieldAmount === null ||
+      !Number.isFinite(yieldAmount) ||
+      yieldAmount <= 0
+    ) {
+      return null;
+    }
+
+    return totalCost / yieldAmount;
+  }, [totalCost, yieldAmount]);
+
+  const pricedLineCount = lineCosts.filter(
+    (line) => line.cost !== null
+  ).length;
+
+  const missingLineCount =
+    ingredients.length - pricedLineCount;
+
+  const usedInRecipes = useMemo(() => {
+    if (!recipe) {
+      return [];
+    }
+
+    const target = normalise(recipe.name);
+
+    return recipes.filter((candidate) =>
+      candidate.ingredients.some(
+        (ingredient) => normalise(ingredient.name) === target
+      )
     );
-
-  const yieldAmount = Number(
-    recipe?.yieldAmount ?? 0
-  );
-
-  const costPerYieldUnit =
-    yieldAmount > 0
-      ? batchCost / yieldAmount
-      : 0;
+  }, [recipe]);
 
   function updateIngredient(
     index: number,
-    field: keyof CostedIngredient,
+    field: keyof EditableIngredient,
     value: string
   ) {
     setIngredients((current) =>
-      current.map(
-        (
-          ingredient,
-          ingredientIndex
-        ) =>
-          ingredientIndex === index
-            ? {
-                ...ingredient,
+      current.map((ingredient, ingredientIndex) => {
+        if (ingredientIndex !== index) {
+          return ingredient;
+        }
 
-                [field]:
-                  field === "quantity"
-                    ? value === ""
-                      ? null
-                      : Number(value)
-                    : value,
-              }
-            : ingredient
-      )
+        if (
+          field === "quantity" ||
+          field === "grossQuantity" ||
+          field === "wastePercent"
+        ) {
+          return {
+            ...ingredient,
+            [field]: value === "" ? null : Number(value),
+          };
+        }
+
+        return {
+          ...ingredient,
+          [field]: value,
+        };
+      })
     );
   }
 
@@ -193,543 +379,677 @@ export default function RecipeDetailPage() {
       {
         name: "",
         quantity: null,
+        grossQuantity: null,
+        wastePercent: 0,
         unit: "g",
-        costPerBaseUnit: "",
-        baseUnit: "kg",
+        type: "Inventory item",
       },
     ]);
   }
 
-  function removeIngredient(
-    index: number
-  ) {
+  function removeIngredient(index: number) {
     setIngredients((current) =>
-      current.filter(
-        (_, itemIndex) =>
-          itemIndex !== index
-      )
+      current.filter((_, ingredientIndex) => ingredientIndex !== index)
+    );
+  }
+
+  function toggleAllergen(allergen: string) {
+    setAllergens((current) =>
+      current.includes(allergen)
+        ? current.filter((item) => item !== allergen)
+        : [...current, allergen]
     );
   }
 
   function saveRecipe() {
-    if (!recipe) return;
+    if (!recipe) {
+      return;
+    }
+
+    const updatedRecipe: Recipe = {
+      ...recipe,
+      yieldAmount,
+      yieldUnit,
+      notes,
+      ingredients: ingredients.map((ingredient) => ({
+        name: ingredient.name,
+        quantity: ingredient.quantity,
+        unit: ingredient.unit,
+      })),
+    };
+
+    const payload: StoredRecipePayload = {
+      recipe: updatedRecipe,
+      ingredients,
+      yieldAmount,
+      yieldUnit,
+      notes,
+      procedure,
+      allergens,
+      summary: {
+        totalCost,
+        costPerYieldUnit,
+        pricedLineCount,
+        missingLineCount,
+      },
+      updatedAt: new Date().toISOString(),
+    };
 
     localStorage.setItem(
-      `recipe:${slug}`,
-      JSON.stringify({
-        recipe,
-        ingredients,
-      })
+      getRecipeStorageKey(slug),
+      JSON.stringify(payload)
     );
 
-    alert("Recipe saved locally.");
+    setRecipe(updatedRecipe);
+
+    setSavedMessage("Saved");
+
+    window.setTimeout(() => {
+      setSavedMessage("");
+    }, 1800);
   }
 
-  if (!originalRecipe || !recipe) {
+  if (!baseRecipe || !recipe) {
     return (
-      <main className="main-content">
-        <h1>Recipe not found</h1>
+      <div className="app-shell">
+        <Sidebar active="recipes" />
 
-        <Link
-          className="back-link"
-          href="/recipes"
-        >
-          ← Back to recipes
-        </Link>
-      </main>
+        <main className="main-content recipe-editor-page">
+          <Link href="/recipes" className="back-link">
+            ← Back to recipes
+          </Link>
+
+          <section className="panel">
+            <h1>Recipe not found</h1>
+          </section>
+        </main>
+      </div>
     );
   }
 
   return (
-    <main className="app-shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">
-            A
-          </div>
+    <div className="app-shell">
+      <Sidebar active="recipes" />
 
+      <main className="main-content recipe-editor-page">
+        <header className="recipe-editor-topbar">
           <div>
-            <p className="brand-name">
-              Azteca Insights
-            </p>
-
-            <p className="brand-subtitle">
-              Kitchen cost control
-            </p>
-          </div>
-        </div>
-
-        <nav
-          className="sidebar-nav"
-          aria-label="Main navigation"
-        >
-          <Link
-            className="nav-link"
-            href="/"
-          >
-            <span className="nav-icon">
-              ⌂
-            </span>
-            Dashboard
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/invoices"
-          >
-            <span className="nav-icon">
-              ▤
-            </span>
-            Invoices
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/ingredients"
-          >
-            <span className="nav-icon">
-              ◫
-            </span>
-            Ingredients
-          </Link>
-
-          <Link
-            className="nav-link nav-link-active"
-            href="/recipes"
-          >
-            <span className="nav-icon">
-              ◇
-            </span>
-            Recipes
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/menu"
-          >
-            <span className="nav-icon">
-              ☰
-            </span>
-            Menu
-          </Link>
-
-          <Link
-            className="nav-link"
-            href="/stock"
-          >
-            <span className="nav-icon">
-              □
-            </span>
-            Stock counts
-          </Link>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="restaurant-card">
-            <div className="restaurant-avatar">
-              AZ
-            </div>
-
-            <div>
-              <p className="restaurant-name">
-                Azteca
-              </p>
-
-              <p className="restaurant-location">
-                Battersea, London
-              </p>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <section className="main-content">
-        <header className="recipe-detail-header">
-          <div>
-            <Link
-              className="back-link"
-              href="/recipes"
-            >
-              ← Back to recipes
+            <Link href="/recipes" className="back-link">
+              ← Recipes
             </Link>
 
-            <p className="eyebrow">
-              {recipe.type === "Prep"
-                ? "Prep recipe"
-                : "Menu recipe"}
+            <p className="page-eyebrow">
+              Recipe costing
             </p>
 
             <input
-              className="recipe-title-input"
+              className="recipe-editor-title-input"
               value={recipe.name}
               onChange={(event) =>
-                setRecipe({
-                  ...recipe,
-                  name: event.target.value,
-                })
+                setRecipe((current) =>
+                  current
+                    ? {
+                        ...current,
+                        name: event.target.value,
+                      }
+                    : current
+                )
               }
             />
 
-            {recipe.linkedMenuItem && (
-              <p className="page-description">
-                Linked to menu item:{" "}
-                {recipe.linkedMenuItem}
-              </p>
-            )}
+            <div className="recipe-editor-meta">
+              <span>{recipe.type}</span>
+
+              {recipe.linkedMenuItem && (
+                <span>
+                  Used in {recipe.linkedMenuItem}
+                </span>
+              )}
+            </div>
           </div>
 
-          <button
-            className="primary-button"
-            type="button"
-            onClick={saveRecipe}
-          >
-            Save recipe
-          </button>
-        </header>
-
-        <section className="stats-grid">
-          <article className="stat-card">
-            <p className="stat-label">
-              Batch cost
-            </p>
-
-            <p className="stat-value">
-              {money(batchCost)}
-            </p>
-
-            <p className="stat-change neutral">
-              Based on entered prices
-            </p>
-          </article>
-
-          <article className="stat-card">
-            <p className="stat-label">
-              Yield
-            </p>
-
-            <div className="recipe-stat-edit">
-              <input
-                value={
-                  recipe.yieldAmount ?? ""
-                }
-                inputMode="decimal"
-                placeholder="Amount"
-                onChange={(event) =>
-                  setRecipe({
-                    ...recipe,
-
-                    yieldAmount:
-                      event.target.value === ""
-                        ? null
-                        : Number(
-                            event.target.value
-                          ),
-                  })
-                }
-              />
-
-              <input
-                value={
-                  recipe.yieldUnit ?? ""
-                }
-                placeholder="Unit"
-                onChange={(event) =>
-                  setRecipe({
-                    ...recipe,
-                    yieldUnit:
-                      event.target.value,
-                  })
-                }
-              />
-            </div>
-          </article>
-
-          <article className="stat-card">
-            <p className="stat-label">
-              Cost per yield unit
-            </p>
-
-            <p className="stat-value">
-              {yieldAmount > 0
-                ? money(
-                    costPerYieldUnit
-                  )
-                : "—"}
-            </p>
-
-            <p className="stat-change neutral">
-              Per{" "}
-              {recipe.yieldUnit ||
-                "unit"}
-            </p>
-          </article>
-
-          <article className="stat-card">
-            <p className="stat-label">
-              Ingredients
-            </p>
-
-            <p className="stat-value">
-              {ingredients.length}
-            </p>
-
-            <p className="stat-change neutral">
-              Recipe lines
-            </p>
-          </article>
-        </section>
-
-        <section className="panel recipe-editor-panel">
-          <div className="panel-header">
-            <div>
-              <p className="panel-kicker">
-                Costing
-              </p>
-
-              <h2>Ingredients</h2>
-            </div>
+          <div className="recipe-editor-actions">
+            {savedMessage && (
+              <span className="recipe-save-message">
+                {savedMessage}
+              </span>
+            )}
 
             <button
-              className="secondary-inline-button"
               type="button"
-              onClick={addIngredient}
+              className="primary-button"
+              onClick={saveRecipe}
             >
-              + Add ingredient
+              Save recipe
             </button>
           </div>
+        </header>
 
-          <div className="table-wrapper">
-            <table className="recipe-cost-table">
-              <thead>
-                <tr>
-                  <th>Ingredient</th>
-                  <th>Qty</th>
-                  <th>Recipe unit</th>
-                  <th>Current cost</th>
-                  <th>Cost basis</th>
-                  <th>Recipe cost</th>
-                  <th />
-                </tr>
-              </thead>
+        <section className="recipe-editor-summary">
+          <div className="recipe-editor-summary-item">
+            <span>Batch cost</span>
+            <strong>{formatMoney(totalCost)}</strong>
+          </div>
 
-              <tbody>
-                {ingredients.map(
-                  (ingredient, index) => (
-                    <tr
-                      key={`${index}-${ingredient.name}`}
-                    >
-                      <td>
-                        <input
-                          className="recipe-table-name"
-                          value={
-                            ingredient.name
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateIngredient(
-                              index,
-                              "name",
-                              event.target
-                                .value
-                            )
-                          }
-                        />
-                      </td>
+          <div className="recipe-editor-summary-item">
+            <span>Yield</span>
+            <strong>
+              {yieldAmount ?? "—"} {yieldUnit}
+            </strong>
+          </div>
 
-                      <td>
-                        <input
-                          className="recipe-table-small"
-                          value={
-                            ingredient.quantity ??
-                            ""
-                          }
-                          inputMode="decimal"
-                          onChange={(
-                            event
-                          ) =>
-                            updateIngredient(
-                              index,
-                              "quantity",
-                              event.target
-                                .value
-                            )
-                          }
-                        />
-                      </td>
+          <div className="recipe-editor-summary-item">
+            <span>
+              Cost / {yieldUnit || "yield unit"}
+            </span>
 
-                      <td>
-                        <select
-                          className="recipe-table-select"
-                          value={
-                            ingredient.unit
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateIngredient(
-                              index,
-                              "unit",
-                              event.target
-                                .value
-                            )
-                          }
-                        >
-                          <option value="g">
-                            g
-                          </option>
+            <strong>
+              {formatMoney(costPerYieldUnit)}
+            </strong>
+          </div>
 
-                          <option value="kg">
-                            kg
-                          </option>
+          <div className="recipe-editor-summary-item">
+            <span>Cost coverage</span>
 
-                          <option value="ml">
-                            ml
-                          </option>
+            <strong>
+              {pricedLineCount}/{ingredients.length}
+            </strong>
 
-                          <option value="L">
-                            L
-                          </option>
-
-                          <option value="pieces">
-                            pieces
-                          </option>
-
-                          <option value="heads">
-                            heads
-                          </option>
-
-                          <option value="tbsp">
-                            tbsp
-                          </option>
-
-                          <option value="portion">
-                            portion
-                          </option>
-                        </select>
-                      </td>
-
-                      <td>
-                        <div className="table-money-input">
-                          <span>£</span>
-
-                          <input
-                            value={
-                              ingredient.costPerBaseUnit
-                            }
-                            inputMode="decimal"
-                            placeholder="0.00"
-                            onChange={(
-                              event
-                            ) =>
-                              updateIngredient(
-                                index,
-                                "costPerBaseUnit",
-                                event.target
-                                  .value
-                              )
-                            }
-                          />
-                        </div>
-                      </td>
-
-                      <td>
-                        <select
-                          className="recipe-table-select"
-                          value={
-                            ingredient.baseUnit
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateIngredient(
-                              index,
-                              "baseUnit",
-                              event.target
-                                .value
-                            )
-                          }
-                        >
-                          <option value="kg">
-                            per kg
-                          </option>
-
-                          <option value="L">
-                            per litre
-                          </option>
-
-                          <option value="each">
-                            each
-                          </option>
-
-                          <option value="g">
-                            per g
-                          </option>
-
-                          <option value="ml">
-                            per ml
-                          </option>
-
-                          <option value="heads">
-                            per head
-                          </option>
-
-                          <option value="tbsp">
-                            per tbsp
-                          </option>
-                        </select>
-                      </td>
-
-                      <td>
-                        <strong>
-                          {money(
-                            ingredientCosts[
-                              index
-                            ]
-                          )}
-                        </strong>
-                      </td>
-
-                      <td>
-                        <button
-                          className="remove-recipe-line"
-                          type="button"
-                          onClick={() =>
-                            removeIngredient(
-                              index
-                            )
-                          }
-                        >
-                          ×
-                        </button>
-                      </td>
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </table>
+            <small>
+              {missingLineCount === 0
+                ? "All lines priced"
+                : `${missingLineCount} missing`}
+            </small>
           </div>
         </section>
 
-        <section className="panel recipe-notes-panel">
-          <p className="panel-kicker">
-            Method / notes
-          </p>
+        <nav className="recipe-editor-tabs">
+          {[
+            ["yield", "Recipe & Yield"],
+            ["conversions", "Conversions / Inventory"],
+            ["procedure", "Procedure"],
+            ["used-in", "Used In"],
+            ["allergens", "Allergens"],
+          ].map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              className={`recipe-editor-tab ${
+                activeTab === value
+                  ? "recipe-editor-tab-active"
+                  : ""
+              }`}
+              onClick={() =>
+                setActiveTab(value as RecipeTab)
+              }
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
 
-          <h2>Recipe notes</h2>
+        {activeTab === "yield" && (
+          <>
+            <section className="recipe-yield-panel">
+              <div>
+                <label>Yield quantity</label>
 
-          <textarea
-            value={recipe.notes ?? ""}
-            placeholder="Add preparation notes..."
-            onChange={(event) =>
-              setRecipe({
-                ...recipe,
-                notes: event.target.value,
-              })
-            }
-          />
-        </section>
-      </section>
-    </main>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={yieldAmount ?? ""}
+                  onChange={(event) =>
+                    setYieldAmount(
+                      event.target.value === ""
+                        ? null
+                        : Number(event.target.value)
+                    )
+                  }
+                />
+              </div>
+
+              <div>
+                <label>Yield unit</label>
+
+                <select
+                  value={yieldUnit}
+                  onChange={(event) =>
+                    setYieldUnit(event.target.value)
+                  }
+                >
+                  <option value="">Select</option>
+                  <option value="portion">portion</option>
+                  <option value="kg">kg</option>
+                  <option value="g">g</option>
+                  <option value="L">L</option>
+                  <option value="ml">ml</option>
+                  <option value="each">each</option>
+                  <option value="batch">batch</option>
+                </select>
+              </div>
+
+              <div className="recipe-yield-cost">
+                <span>Calculated cost</span>
+
+                <strong>
+                  {formatMoney(totalCost)}
+                </strong>
+              </div>
+            </section>
+
+            <section className="recipe-editor-table-card">
+              <div className="recipe-editor-table-header">
+                <div>
+                  <p className="page-eyebrow">
+                    Recipe
+                  </p>
+
+                  <h2>Ingredients</h2>
+                </div>
+
+                <button
+                  type="button"
+                  className="secondary-inline-button"
+                  onClick={addIngredient}
+                >
+                  + Add ingredient
+                </button>
+              </div>
+
+              <div className="recipe-editor-table-wrap">
+                <table className="recipe-marketman-table">
+                  <thead>
+                    <tr>
+                      <th>Item name</th>
+                      <th>Type</th>
+                      <th>Net quantity</th>
+                      <th>Gross quantity</th>
+                      <th>Unit</th>
+                      <th>Cost</th>
+                      <th />
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {ingredients.map(
+                      (ingredient, index) => {
+                        const lineCost =
+                          lineCosts[index];
+
+                        return (
+                          <tr
+                            key={`${ingredient.name}-${index}`}
+                          >
+                            <td className="recipe-name-column">
+                              <input
+                                value={ingredient.name}
+                                onChange={(event) =>
+                                  updateIngredient(
+                                    index,
+                                    "name",
+                                    event.target.value
+                                  )
+                                }
+                              />
+                            </td>
+
+                            <td>
+                              <select
+                                value={
+                                  ingredient.type ??
+                                  "Inventory item"
+                                }
+                                onChange={(event) =>
+                                  updateIngredient(
+                                    index,
+                                    "type",
+                                    event.target.value
+                                  )
+                                }
+                              >
+                                <option value="Inventory item">
+                                  Inventory item
+                                </option>
+
+                                <option value="Sub-recipe">
+                                  Sub-recipe
+                                </option>
+                              </select>
+                            </td>
+
+                            <td>
+                              <input
+                                type="number"
+                                step="0.001"
+                                value={
+                                  ingredient.quantity ??
+                                  ""
+                                }
+                                onChange={(event) =>
+                                  updateIngredient(
+                                    index,
+                                    "quantity",
+                                    event.target.value
+                                  )
+                                }
+                              />
+                            </td>
+
+                            <td>
+                              <input
+                                type="number"
+                                step="0.001"
+                                value={
+                                  ingredient.grossQuantity ??
+                                  ""
+                                }
+                                onChange={(event) =>
+                                  updateIngredient(
+                                    index,
+                                    "grossQuantity",
+                                    event.target.value
+                                  )
+                                }
+                              />
+                            </td>
+
+                            <td>
+                              <select
+                                value={ingredient.unit}
+                                onChange={(event) =>
+                                  updateIngredient(
+                                    index,
+                                    "unit",
+                                    event.target.value
+                                  )
+                                }
+                              >
+                                <option value="g">g</option>
+                                <option value="kg">kg</option>
+                                <option value="ml">ml</option>
+                                <option value="L">L</option>
+                                <option value="each">
+                                  each
+                                </option>
+                                <option value="tbsp">
+                                  tbsp
+                                </option>
+                                <option value="tsp">
+                                  tsp
+                                </option>
+                                <option value="head">
+                                  head
+                                </option>
+                                <option value="bunch">
+                                  bunch
+                                </option>
+                              </select>
+                            </td>
+
+                            <td className="recipe-cost-column">
+                              <strong>
+                                {formatMoney(
+                                  lineCost.cost
+                                )}
+                              </strong>
+
+                              <span>
+                                {lineCost.source}
+                              </span>
+                            </td>
+
+                            <td>
+                              <button
+                                type="button"
+                                className="remove-recipe-line"
+                                onClick={() =>
+                                  removeIngredient(index)
+                                }
+                              >
+                                ×
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section className="recipe-notes-panel panel">
+              <div className="panel-header">
+                <div>
+                  <p className="page-eyebrow">
+                    Notes
+                  </p>
+
+                  <h2>Recipe notes</h2>
+                </div>
+              </div>
+
+              <textarea
+                value={notes}
+                onChange={(event) =>
+                  setNotes(event.target.value)
+                }
+                placeholder="Service notes, storage, prep details..."
+              />
+            </section>
+          </>
+        )}
+
+        {activeTab === "conversions" && (
+          <section className="recipe-editor-table-card">
+            <div className="recipe-editor-table-header">
+              <div>
+                <p className="page-eyebrow">
+                  Inventory
+                </p>
+
+                <h2>Recipe conversions</h2>
+              </div>
+            </div>
+
+            <div className="recipe-editor-table-wrap">
+              <table className="recipe-marketman-table">
+                <thead>
+                  <tr>
+                    <th>Ingredient</th>
+                    <th>Gross qty</th>
+                    <th>Net qty</th>
+                    <th>Waste %</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {ingredients.map(
+                    (ingredient, index) => {
+                      const gross = Number(
+                        ingredient.grossQuantity ?? 0
+                      );
+
+                      const net = Number(
+                        ingredient.quantity ?? 0
+                      );
+
+                      const wastePercent =
+                        gross > 0
+                          ? Math.max(
+                              0,
+                              ((gross - net) /
+                                gross) *
+                                100
+                            )
+                          : 0;
+
+                      return (
+                        <tr
+                          key={`${ingredient.name}-conversion-${index}`}
+                        >
+                          <td>
+                            <strong>
+                              {ingredient.name ||
+                                "Unnamed item"}
+                            </strong>
+                          </td>
+
+                          <td>
+                            <input
+                              type="number"
+                              step="0.001"
+                              value={
+                                ingredient.grossQuantity ??
+                                ""
+                              }
+                              onChange={(event) =>
+                                updateIngredient(
+                                  index,
+                                  "grossQuantity",
+                                  event.target.value
+                                )
+                              }
+                            />
+                          </td>
+
+                          <td>
+                            {ingredient.quantity ??
+                              "—"}
+                          </td>
+
+                          <td>
+                            {wastePercent.toFixed(1)}%
+                          </td>
+
+                          <td>
+                            {ingredient.unit}
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {activeTab === "procedure" && (
+          <section className="recipe-procedure-card">
+            <div className="recipe-editor-table-header">
+              <div>
+                <p className="page-eyebrow">
+                  Method
+                </p>
+
+                <h2>Procedure</h2>
+              </div>
+            </div>
+
+            <textarea
+              className="recipe-procedure-textarea"
+              value={procedure}
+              onChange={(event) =>
+                setProcedure(event.target.value)
+              }
+              placeholder="Add the preparation method here..."
+            />
+          </section>
+        )}
+
+        {activeTab === "used-in" && (
+          <section className="recipe-used-in-card">
+            <div className="recipe-editor-table-header">
+              <div>
+                <p className="page-eyebrow">
+                  Usage
+                </p>
+
+                <h2>Recipes using this item</h2>
+              </div>
+            </div>
+
+            {usedInRecipes.length === 0 ? (
+              <div className="recipe-empty-state">
+                <p>
+                  This recipe is not currently used
+                  as a sub-recipe elsewhere.
+                </p>
+              </div>
+            ) : (
+              <div className="recipe-used-in-list">
+                {usedInRecipes.map((usedIn) => (
+                  <Link
+                    href={`/recipes/${recipeSlug(
+                      usedIn.name
+                    )}`}
+                    key={usedIn.name}
+                    className="recipe-used-in-row"
+                  >
+                    <div>
+                      <strong>
+                        {usedIn.name}
+                      </strong>
+
+                      <span>
+                        {usedIn.type}
+                      </span>
+                    </div>
+
+                    <span>→</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {activeTab === "allergens" && (
+          <section className="recipe-allergens-card">
+            <div className="recipe-editor-table-header">
+              <div>
+                <p className="page-eyebrow">
+                  Safety
+                </p>
+
+                <h2>Allergens</h2>
+              </div>
+            </div>
+
+            <div className="recipe-allergen-grid">
+              {ALLERGENS.map((allergen) => {
+                const selected =
+                  allergens.includes(allergen);
+
+                return (
+                  <button
+                    type="button"
+                    key={allergen}
+                    className={`recipe-allergen-option ${
+                      selected
+                        ? "recipe-allergen-option-active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      toggleAllergen(allergen)
+                    }
+                  >
+                    <span className="recipe-allergen-check">
+                      {selected ? "✓" : ""}
+                    </span>
+
+                    <strong>
+                      {allergen}
+                    </strong>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        )}
+      </main>
+    </div>
   );
 }
