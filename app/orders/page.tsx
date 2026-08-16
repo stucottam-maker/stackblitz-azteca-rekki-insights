@@ -137,9 +137,7 @@ function findStockItem(
   );
 }
 
-function getEffectivePrice(
-  line: OrderLine
-) {
+function getEffectivePrice(line: OrderLine) {
   if (
     line.priceMode === "case" &&
     line.casePrice !== null &&
@@ -159,9 +157,7 @@ function getEffectivePrice(
   return line.unitPrice;
 }
 
-function getEffectiveUnit(
-  line: OrderLine
-) {
+function getEffectiveUnit(line: OrderLine) {
   if (line.priceMode === "case") {
     return "case";
   }
@@ -170,129 +166,117 @@ function getEffectiveUnit(
 }
 
 function buildOrderLines(
-  ingredientPrices: Record<
-    string,
-    IngredientPrice
-  >,
+  ingredientPrices: Record<string, IngredientPrice>,
   currentStock: StockItem[]
 ): OrderLine[] {
   const catalogueLines: OrderLine[] =
-    supplierCatalogue.map(
-      (catalogueItem, index) => {
-        const livePrice =
-          ingredientPrices[
-            catalogueItem.ingredient
-          ];
+    supplierCatalogue.map((catalogueItem, index) => {
+      const livePrice =
+        ingredientPrices[catalogueItem.ingredient];
 
-        const stock = findStockItem(
-          currentStock,
-          catalogueItem.ingredient
-        );
+      const stock = findStockItem(
+        currentStock,
+        catalogueItem.ingredient
+      );
 
-        const matchingLivePrice =
-          livePrice &&
-          livePrice.supplier ===
-            catalogueItem.supplier
-            ? livePrice
-            : null;
+      const matchingLivePrice =
+        livePrice &&
+        livePrice.supplier === catalogueItem.supplier
+          ? livePrice
+          : null;
 
-        const hasSplitPrice =
-          catalogueItem.splitPrice !==
-            null &&
-          catalogueItem.splitPrice !==
-            undefined;
+      const hasSplitPrice =
+        catalogueItem.splitPrice !== null &&
+        catalogueItem.splitPrice !== undefined;
 
-        const hasCasePrice =
-          catalogueItem.casePrice !==
-            null &&
-          catalogueItem.casePrice !==
-            undefined;
+      const hasCasePrice =
+        catalogueItem.casePrice !== null &&
+        catalogueItem.casePrice !== undefined;
 
-        const defaultPriceMode: OrderPriceMode =
-          hasSplitPrice
-            ? "split"
-            : hasCasePrice
-            ? "case"
-            : "default";
+      const defaultPriceMode: OrderPriceMode =
+        hasSplitPrice
+          ? "split"
+          : hasCasePrice
+          ? "case"
+          : "default";
 
-        const orderUnit =
-          matchingLivePrice?.unit ||
-          catalogueItem.unit ||
-          stock?.unit ||
-          "each";
+      const orderUnit =
+        matchingLivePrice?.unit ||
+        catalogueItem.unit ||
+        stock?.unit ||
+        "each";
 
-        const stockQty = Number(
-          stock?.quantity ?? 0
-        );
+      const stockQty = Number(
+        stock?.quantity ?? 0
+      );
 
-        const stockUnit =
-          stock?.unit || orderUnit;
+      const stockUnit =
+        stock?.unit || orderUnit;
 
-        const unitPrice =
-          matchingLivePrice?.price ??
-          catalogueItem.fallbackPrice ??
-          null;
+      const unitPrice =
+        matchingLivePrice?.price ??
+        catalogueItem.fallbackPrice ??
+        null;
 
-        const suggestedQty =
-          stockQty > 0
-            ? round(stockQty * 0.5)
-            : 0;
+      const suggestedQty =
+        stockQty > 0
+          ? round(stockQty * 0.5)
+          : 0;
 
-        return {
-          id:
-            catalogueItem.id ||
-            `catalogue-${index}-${catalogueItem.supplier}-${catalogueItem.ingredient}`,
+      return {
+        id:
+          catalogueItem.id ||
+          `catalogue-${index}-${catalogueItem.supplier}-${catalogueItem.ingredient}`,
 
-          ingredient:
-            catalogueItem.ingredient,
+        ingredient:
+          catalogueItem.ingredient,
 
-          supplier:
-            catalogueItem.supplier,
+        supplier:
+          catalogueItem.supplier,
 
-          supplierProduct:
-            matchingLivePrice?.product ||
-            catalogueItem.supplierProduct,
+        supplierProduct:
+          matchingLivePrice?.product ||
+          catalogueItem.supplierProduct,
 
-          stockQty,
-          stockUnit,
+        stockQty,
+        stockUnit,
 
-          orderQty: 0,
-          orderUnit,
+        orderQty: 0,
+        orderUnit,
 
-          unitPrice,
-          suggestedQty,
+        unitPrice,
+        suggestedQty,
 
-          sku: catalogueItem.sku,
+        sku: catalogueItem.sku,
 
-          packSize:
-            catalogueItem.packSize,
+        packSize:
+          catalogueItem.packSize,
 
-          casePrice:
-            catalogueItem.casePrice,
+        casePrice:
+          catalogueItem.casePrice,
 
-          splitPrice:
-            catalogueItem.splitPrice,
+        splitPrice:
+          catalogueItem.splitPrice,
 
-          priceMode:
-            defaultPriceMode,
+        priceMode:
+          defaultPriceMode,
 
-          lastOrdered:
-            catalogueItem.lastOrdered,
+        lastOrdered:
+          catalogueItem.lastOrdered,
 
-          lastOrderedQty:
-            catalogueItem.lastOrderedQty,
+        lastOrderedQty:
+          catalogueItem.lastOrderedQty,
 
-          lastOrderVariation:
-            catalogueItem.lastOrderVariation,
+        lastOrderVariation:
+          catalogueItem.lastOrderVariation,
 
-          brand:
-            catalogueItem.brand,
+        brand:
+          catalogueItem.brand,
 
-          woodsId:
-            catalogueItem.woodsId,
-        };
-      }
-    );
+        woodsId:
+          catalogueItem.woodsId,
+      };
+    });
 
   const catalogueKeys =
     new Set(
@@ -303,75 +287,63 @@ function buildOrderLines(
     );
 
   const invoiceOnlyLines: OrderLine[] =
-    Object.entries(
-      ingredientPrices
-    )
-      .filter(
-        ([ingredient, price]) => {
-          const key =
-            `${price.supplier}::${ingredient}`.toLowerCase();
+    Object.entries(ingredientPrices)
+      .filter(([ingredient, price]) => {
+        const key =
+          `${price.supplier}::${ingredient}`.toLowerCase();
 
-          return !catalogueKeys.has(
-            key
-          );
-        }
-      )
-      .map(
-        (
-          [ingredient, price],
-          index
-        ) => {
-          const stock =
-            findStockItem(
-              currentStock,
-              ingredient
-            );
+        return !catalogueKeys.has(key);
+      })
+      .map(([ingredient, price], index) => {
+        const stock = findStockItem(
+          currentStock,
+          ingredient
+        );
 
-          const stockQty = Number(
-            stock?.quantity ?? 0
-          );
+        const stockQty = Number(
+          stock?.quantity ?? 0
+        );
 
-          const orderUnit =
-            price.unit ||
-            stock?.unit ||
-            "each";
+        const orderUnit =
+          price.unit ||
+          stock?.unit ||
+          "each";
 
-          return {
-            id: `invoice-${index}-${price.supplier}-${ingredient}`,
+        return {
+          id: `invoice-${index}-${price.supplier}-${ingredient}`,
 
+          ingredient,
+          supplier:
+            price.supplier,
+
+          supplierProduct:
+            price.product ||
             ingredient,
-            supplier:
-              price.supplier,
 
-            supplierProduct:
-              price.product ||
-              ingredient,
+          stockQty,
 
-            stockQty,
-
-            stockUnit:
-              stock?.unit ||
-              orderUnit,
-
-            orderQty: 0,
-
+          stockUnit:
+            stock?.unit ||
             orderUnit,
 
-            unitPrice:
-              price.price,
+          orderQty: 0,
 
-            suggestedQty:
-              stockQty > 0
-                ? round(
-                    stockQty * 0.5
-                  )
-                : 0,
+          orderUnit,
 
-            priceMode:
-              "default",
-          };
-        }
-      );
+          unitPrice:
+            price.price,
+
+          suggestedQty:
+            stockQty > 0
+              ? round(
+                  stockQty * 0.5
+                )
+              : 0,
+
+          priceMode:
+            "default",
+        };
+      });
 
   return [
     ...catalogueLines,
@@ -387,9 +359,7 @@ function SupplierLogo({
   size?: "normal" | "small";
 }) {
   const logo =
-    supplierDirectory[
-      supplier
-    ]?.logo;
+    supplierDirectory[supplier]?.logo;
 
   return (
     <div
@@ -407,9 +377,7 @@ function SupplierLogo({
         />
       ) : (
         <span>
-          {supplierInitials(
-            supplier
-          )}
+          {supplierInitials(supplier)}
         </span>
       )}
     </div>
@@ -430,13 +398,9 @@ function PriceSummary({
     line.splitPrice !== undefined;
 
   if (!hasCase && !hasSplit) {
-    return line.unitPrice !==
-      null ? (
+    return line.unitPrice !== null ? (
       <span className="quick-order-price-note">
-        {money(
-          line.unitPrice
-        )}
-        /{line.orderUnit}
+        {money(line.unitPrice)}/{line.orderUnit}
       </span>
     ) : (
       <span className="quick-order-price-note">
@@ -451,9 +415,7 @@ function PriceSummary({
         <span>
           Split{" "}
           <strong>
-            {money(
-              line.splitPrice!
-            )}
+            {money(line.splitPrice!)}
           </strong>
         </span>
       )}
@@ -462,9 +424,7 @@ function PriceSummary({
         <span>
           Case{" "}
           <strong>
-            {money(
-              line.casePrice!
-            )}
+            {money(line.casePrice!)}
           </strong>
 
           {line.packSize &&
@@ -482,9 +442,7 @@ function PriceSummary({
 
 export default function OrdersPage() {
   const [step, setStep] =
-    useState<OrderStep>(
-      "start"
-    );
+    useState<OrderStep>("start");
 
   const [
     selectedSupplier,
@@ -492,16 +450,12 @@ export default function OrdersPage() {
   ] = useState("");
 
   const [lines, setLines] =
-    useState<OrderLine[]>(
-      []
-    );
+    useState<OrderLine[]>([]);
 
   const [
     purchaseOrders,
     setPurchaseOrders,
-  ] = useState<
-    PurchaseOrder[]
-  >([]);
+  ] = useState<PurchaseOrder[]>([]);
 
   const [search, setSearch] =
     useState("");
@@ -512,10 +466,7 @@ export default function OrdersPage() {
         localStorage.getItem(
           "ingredientPrices"
         ) || "{}"
-      ) as Record<
-        string,
-        IngredientPrice
-      >;
+      ) as Record<string, IngredientPrice>;
 
     const stockTake =
       JSON.parse(
@@ -529,8 +480,7 @@ export default function OrdersPage() {
     setLines(
       buildOrderLines(
         ingredientPrices,
-        stockTake.items ??
-          []
+        stockTake.items ?? []
       )
     );
 
@@ -541,9 +491,7 @@ export default function OrdersPage() {
         ) || "[]"
       ) as PurchaseOrder[];
 
-    setPurchaseOrders(
-      storedOrders
-    );
+    setPurchaseOrders(storedOrders);
   }, []);
 
   const supplierNames =
@@ -551,15 +499,11 @@ export default function OrdersPage() {
       return Array.from(
         new Set(
           lines
-            .map(
-              (line) =>
-                line.supplier
-            )
+            .map((line) => line.supplier)
             .filter(
               (supplier) =>
                 supplier &&
-                supplier !==
-                  "Unassigned"
+                supplier !== "Unassigned"
             )
         )
       ).sort();
@@ -568,47 +512,35 @@ export default function OrdersPage() {
   const supplierLines =
     useMemo(() => {
       const query =
-        search
-          .trim()
-          .toLowerCase();
+        search.trim().toLowerCase();
 
-      return lines.filter(
-        (line) => {
-          if (
-            line.supplier !==
-            selectedSupplier
-          ) {
-            return false;
-          }
-
-          if (!query) {
-            return true;
-          }
-
-          return (
-            line.ingredient
-              .toLowerCase()
-              .includes(
-                query
-              ) ||
-            line.supplierProduct
-              .toLowerCase()
-              .includes(
-                query
-              ) ||
-            line.sku
-              ?.toLowerCase()
-              .includes(
-                query
-              ) ||
-            line.brand
-              ?.toLowerCase()
-              .includes(
-                query
-              )
-          );
+      return lines.filter((line) => {
+        if (
+          line.supplier !==
+          selectedSupplier
+        ) {
+          return false;
         }
-      );
+
+        if (!query) {
+          return true;
+        }
+
+        return (
+          line.ingredient
+            .toLowerCase()
+            .includes(query) ||
+          line.supplierProduct
+            .toLowerCase()
+            .includes(query) ||
+          line.sku
+            ?.toLowerCase()
+            .includes(query) ||
+          line.brand
+            ?.toLowerCase()
+            .includes(query)
+        );
+      });
     }, [
       lines,
       selectedSupplier,
@@ -632,14 +564,9 @@ export default function OrdersPage() {
     selectedOrderLines.reduce(
       (total, line) => {
         const effectivePrice =
-          getEffectivePrice(
-            line
-          );
+          getEffectivePrice(line);
 
-        if (
-          effectivePrice ===
-          null
-        ) {
+        if (effectivePrice === null) {
           return total;
         }
 
@@ -657,20 +584,16 @@ export default function OrdersPage() {
     quantity: number
   ) {
     setLines((current) =>
-      current.map(
-        (line) =>
-          line.id === id
-            ? {
-                ...line,
-                orderQty:
-                  Math.max(
-                    round(
-                      quantity
-                    ),
-                    0
-                  ),
-              }
-            : line
+      current.map((line) =>
+        line.id === id
+          ? {
+              ...line,
+              orderQty: Math.max(
+                round(quantity),
+                0
+              ),
+            }
+          : line
       )
     );
   }
@@ -681,8 +604,7 @@ export default function OrdersPage() {
   ) {
     updateOrderQty(
       line.id,
-      line.orderQty +
-        amount
+      line.orderQty + amount
     );
   }
 
@@ -700,51 +622,46 @@ export default function OrdersPage() {
     mode: OrderPriceMode
   ) {
     setLines((current) =>
-      current.map(
-        (line) =>
-          line.id === id
-            ? {
-                ...line,
-                priceMode:
-                  mode,
-              }
-            : line
+      current.map((line) =>
+        line.id === id
+          ? {
+              ...line,
+              priceMode: mode,
+            }
+          : line
       )
     );
   }
 
   function useAllSuggested() {
     setLines((current) =>
-      current.map(
-        (line) => {
-          if (
-            line.supplier !==
-            selectedSupplier
-          ) {
-            return line;
-          }
-
-          return {
-            ...line,
-            orderQty:
-              line.suggestedQty,
-          };
+      current.map((line) => {
+        if (
+          line.supplier !==
+          selectedSupplier
+        ) {
+          return line;
         }
-      )
+
+        return {
+          ...line,
+          orderQty:
+            line.suggestedQty,
+        };
+      })
     );
   }
 
   function clearSupplierOrder() {
     setLines((current) =>
-      current.map(
-        (line) =>
-          line.supplier ===
-          selectedSupplier
-            ? {
-                ...line,
-                orderQty: 0,
-              }
-            : line
+      current.map((line) =>
+        line.supplier ===
+        selectedSupplier
+          ? {
+              ...line,
+              orderQty: 0,
+            }
+          : line
       )
     );
   }
@@ -763,8 +680,7 @@ export default function OrdersPage() {
 
   function sendOrder() {
     if (
-      selectedOrderLines.length ===
-      0
+      selectedOrderLines.length === 0
     ) {
       alert(
         "Add at least one item to the order first."
@@ -773,23 +689,22 @@ export default function OrdersPage() {
       return;
     }
 
-    const order: PurchaseOrder =
-      {
-        id: `PO-${Date.now()}`,
+    const order: PurchaseOrder = {
+      id: `PO-${Date.now()}`,
 
-        supplier:
-          selectedSupplier,
+      supplier:
+        selectedSupplier,
 
-        createdAt:
-          new Date().toISOString(),
+      createdAt:
+        new Date().toISOString(),
 
-        status: "Sent",
+      status: "Sent",
 
-        lines:
-          selectedOrderLines,
+      lines:
+        selectedOrderLines,
 
-        estimatedTotal,
-      };
+      estimatedTotal,
+    };
 
     const nextOrders = [
       order,
@@ -798,14 +713,10 @@ export default function OrdersPage() {
 
     localStorage.setItem(
       "purchaseOrders",
-      JSON.stringify(
-        nextOrders
-      )
+      JSON.stringify(nextOrders)
     );
 
-    setPurchaseOrders(
-      nextOrders
-    );
+    setPurchaseOrders(nextOrders);
 
     clearSupplierOrder();
 
@@ -878,9 +789,7 @@ export default function OrdersPage() {
                       <button
                         type="button"
                         className="supplier-choice-card"
-                        key={
-                          supplier
-                        }
+                        key={supplier}
                         onClick={() =>
                           chooseSupplier(
                             supplier
@@ -895,9 +804,7 @@ export default function OrdersPage() {
 
                         <div className="supplier-choice-copy">
                           <strong>
-                            {
-                              supplier
-                            }
+                            {supplier}
                           </strong>
 
                           <span>
@@ -942,9 +849,7 @@ export default function OrdersPage() {
                     (order) => (
                       <article
                         className="quick-order-history-row"
-                        key={
-                          order.id
-                        }
+                        key={order.id}
                       >
                         <div className="quick-order-history-supplier">
                           <SupplierLogo
@@ -971,8 +876,7 @@ export default function OrdersPage() {
 
                         <span>
                           {
-                            order
-                              .lines
+                            order.lines
                               .length
                           }{" "}
                           items
@@ -1004,9 +908,7 @@ export default function OrdersPage() {
                   className="quick-order-back"
                   type="button"
                   onClick={() =>
-                    setStep(
-                      "start"
-                    )
+                    setStep("start")
                   }
                 >
                   ← Orders
@@ -1025,9 +927,7 @@ export default function OrdersPage() {
                     </p>
 
                     <h1>
-                      {
-                        selectedSupplier
-                      }
+                      {selectedSupplier}
                     </h1>
 
                     <p className="page-description">
@@ -1063,16 +963,10 @@ export default function OrdersPage() {
                 <input
                   type="search"
                   placeholder="Search product, SKU or brand..."
-                  value={
-                    search
-                  }
-                  onChange={(
-                    event
-                  ) =>
+                  value={search}
+                  onChange={(event) =>
                     setSearch(
-                      event
-                        .target
-                        .value
+                      event.target.value
                     )
                   }
                 />
@@ -1102,9 +996,7 @@ export default function OrdersPage() {
             <section className="panel quick-order-panel">
               <div className="quick-order-column-headings">
                 <span>Product</span>
-                <span>
-                  In stock
-                </span>
+                <span>In stock</span>
                 <span>Order</span>
               </div>
 
@@ -1126,53 +1018,45 @@ export default function OrdersPage() {
                     return (
                       <article
                         className={`quick-order-line ${
-                          line.orderQty >
-                          0
+                          line.orderQty > 0
                             ? "quick-order-line-active"
                             : ""
                         }`}
-                        key={
-                          line.id
-                        }
+                        key={line.id}
                       >
                         <div className="quick-order-product">
                           <div className="quick-order-product-title">
                             <strong>
-                              {
-                                line.ingredient
-                              }
+                              {line.ingredient}
                             </strong>
 
                             {line.sku && (
                               <span className="quick-order-sku">
                                 SKU{" "}
-                                {
-                                  line.sku
-                                }
+                                {line.sku}
                               </span>
                             )}
                           </div>
 
-                          {line.supplierProduct && (
-                            <span>
-                              {
-                                line.supplierProduct
-                              }
-                            </span>
-                          )}
-
                           {line.brand && (
                             <span className="quick-order-brand">
-                              {
-                                line.brand
-                              }
+                              {line.brand}
                             </span>
                           )}
 
+                          {!line.sku &&
+                            line.supplierProduct &&
+                            line.supplierProduct !==
+                              line.ingredient && (
+                              <span>
+                                {
+                                  line.supplierProduct
+                                }
+                              </span>
+                            )}
+
                           <PriceSummary
-                            line={
-                              line
-                            }
+                            line={line}
                           />
 
                           {(hasSplit ||
@@ -1296,14 +1180,11 @@ export default function OrdersPage() {
                             value={
                               line.orderQty
                             }
-                            onChange={(
-                              event
-                            ) =>
+                            onChange={(event) =>
                               updateOrderQty(
                                 line.id,
                                 Number(
-                                  event
-                                    .target
+                                  event.target
                                     .value ||
                                     0
                                 )
@@ -1360,9 +1241,7 @@ export default function OrdersPage() {
                   0
                 }
                 onClick={() =>
-                  setStep(
-                    "review"
-                  )
+                  setStep("review")
                 }
               >
                 Review order →
@@ -1379,9 +1258,7 @@ export default function OrdersPage() {
                   className="quick-order-back"
                   type="button"
                   onClick={() =>
-                    setStep(
-                      "order"
-                    )
+                    setStep("order")
                   }
                 >
                   ← Edit order
@@ -1400,9 +1277,7 @@ export default function OrdersPage() {
                     </p>
 
                     <h1>
-                      {
-                        selectedSupplier
-                      }
+                      {selectedSupplier}
                     </h1>
 
                     <p className="page-description">
@@ -1463,29 +1338,34 @@ export default function OrdersPage() {
                     return (
                       <article
                         className="quick-review-row"
-                        key={
-                          line.id
-                        }
+                        key={line.id}
                       >
                         <div>
                           <strong>
-                            {
-                              line.ingredient
-                            }
+                            {line.ingredient}
                           </strong>
 
-                          <span>
-                            {
-                              line.supplierProduct
-                            }
-                          </span>
+                          {!line.sku &&
+                            line.supplierProduct &&
+                            line.supplierProduct !==
+                              line.ingredient && (
+                              <span>
+                                {
+                                  line.supplierProduct
+                                }
+                              </span>
+                            )}
+
+                          {line.brand && (
+                            <span>
+                              {line.brand}
+                            </span>
+                          )}
 
                           {line.sku && (
                             <span>
                               SKU{" "}
-                              {
-                                line.sku
-                              }
+                              {line.sku}
                             </span>
                           )}
                         </div>
@@ -1495,9 +1375,7 @@ export default function OrdersPage() {
                             {
                               line.orderQty
                             }{" "}
-                            {
-                              unit
-                            }
+                            {unit}
                           </strong>
                         </div>
 
@@ -1549,9 +1427,7 @@ export default function OrdersPage() {
               <button
                 type="button"
                 className="primary-button quick-review-button"
-                onClick={
-                  sendOrder
-                }
+                onClick={sendOrder}
               >
                 Mark as sent
               </button>
