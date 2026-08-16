@@ -1,5 +1,8 @@
 "use client";
+
 import Link from "next/link";
+
+import Sidebar from "../components/Sidebar";
 
 type MenuItem = {
   name: string;
@@ -81,7 +84,6 @@ const menuSections: MenuSection[] = [
       },
     ],
   },
-
   {
     name: "Sashimi and Ceviche",
     items: [
@@ -117,7 +119,6 @@ const menuSections: MenuSection[] = [
       },
     ],
   },
-
   {
     name: "Tacos",
     items: [
@@ -196,7 +197,6 @@ const menuSections: MenuSection[] = [
       },
     ],
   },
-
   {
     name: "Salsa",
     items: [
@@ -281,7 +281,6 @@ const menuSections: MenuSection[] = [
       },
     ],
   },
-
   {
     name: "Sharing Dishes",
     items: [
@@ -340,7 +339,8 @@ const menuSections: MenuSection[] = [
       {
         name: "28 Day Dry Aged Irish Tomahawk Ribeye 1.2kg",
         price: 90,
-        description: "Chimichurri verde, comte cubes",
+        description:
+          "Chimichurri verde, comte cubes",
         dietary: "G · D",
         recipeCost: null,
         foodCostPercent: null,
@@ -349,7 +349,6 @@ const menuSections: MenuSection[] = [
       },
     ],
   },
-
   {
     name: "Sides",
     items: [
@@ -378,7 +377,8 @@ const menuSections: MenuSection[] = [
       {
         name: "Charred Hispi Cabbage",
         price: 7,
-        description: "Miso, pickled jalapeño",
+        description:
+          "Miso, pickled jalapeño",
         dietary: "V · VG",
         recipeCost: null,
         foodCostPercent: null,
@@ -409,14 +409,14 @@ const menuSections: MenuSection[] = [
       },
     ],
   },
-
   {
     name: "Desserts",
     items: [
       {
         name: "Cinnamon Churros",
         price: 8,
-        description: "Tres leches dip",
+        description:
+          "Tres leches dip",
         dietary: "D · G",
         recipeCost: null,
         foodCostPercent: null,
@@ -448,8 +448,13 @@ const menuSections: MenuSection[] = [
   },
 ];
 
-function formatMoney(value: number | null | undefined) {
-  if (value === null || value === undefined) {
+function formatMoney(
+  value: number | null | undefined
+) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
     return "—";
   }
 
@@ -461,210 +466,312 @@ function formatMoney(value: number | null | undefined) {
 
 export default function MenuPage() {
   const totalItems = menuSections.reduce(
-    (total, section) => total + section.items.length,
+    (total, section) =>
+      total + section.items.length,
     0
   );
 
-  const costedItems = menuSections.reduce(
-    (total, section) =>
-      total +
-      section.items.filter((item) => item.status === "Costed").length,
-    0
-  );
+  const costedItems =
+    menuSections.reduce(
+      (total, section) =>
+        total +
+        section.items.filter(
+          (item) =>
+            item.status === "Costed"
+        ).length,
+      0
+    );
+
+  const recipeNeeded =
+    totalItems - costedItems;
+
+  const costedWithFoodCost =
+    menuSections.flatMap(
+      (section) =>
+        section.items.filter(
+          (item) =>
+            item.foodCostPercent !==
+              null &&
+            item.foodCostPercent !==
+              undefined
+        )
+    );
+
+  const averageFoodCost =
+    costedWithFoodCost.length > 0
+      ? costedWithFoodCost.reduce(
+          (sum, item) =>
+            sum +
+            Number(
+              item.foodCostPercent ??
+                0
+            ),
+          0
+        ) /
+        costedWithFoodCost.length
+      : null;
+
+  const aboveTarget =
+    costedWithFoodCost.filter(
+      (item) =>
+        Number(
+          item.foodCostPercent ?? 0
+        ) > 30
+    ).length;
 
   return (
-    <main className="app-shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">A</div>
+    <div className="app-shell">
+      <Sidebar active="menu" />
 
-          <div>
-            <p className="brand-name">Azteca Insights</p>
-            <p className="brand-subtitle">Kitchen cost control</p>
-          </div>
-        </div>
-
-        <nav className="sidebar-nav" aria-label="Main navigation">
-          <Link className="nav-link" href="/">
-            <span className="nav-icon">⌂</span>
-            Dashboard
-          </Link>
-
-          <Link className="nav-link" href="/invoices">
-            <span className="nav-icon">▤</span>
-            Invoices
-          </Link>
-
-          <Link className="nav-link" href="/ingredients">
-            <span className="nav-icon">◫</span>
-            Ingredients
-          </Link>
-
-          <Link className="nav-link" href="/recipes">
-            <span className="nav-icon">◇</span>
-            Recipes
-          </Link>
-
-          <Link className="nav-link nav-link-active" href="/menu">
-            <span className="nav-icon">☰</span>
-            Menu
-          </Link>
-
-          <Link className="nav-link" href="/stock">
-            <span className="nav-icon">□</span>
-            Stock counts
-          </Link>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="restaurant-card">
-            <div className="restaurant-avatar">AZ</div>
-
-            <div>
-              <p className="restaurant-name">Azteca</p>
-              <p className="restaurant-location">
-                Battersea, London
-              </p>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <section className="main-content">
+      <main className="main-content menu-page">
         <header className="topbar">
           <div>
-            <p className="eyebrow">Menu costing</p>
+            <p className="eyebrow">
+              Menu costing
+            </p>
+
             <h1>Menu</h1>
 
             <p className="page-description">
-              Track selling prices, recipe costs and food cost
-              across the current Azteca menu.
+              Track selling prices,
+              recipe costs and food
+              cost across the current
+              Azteca menu.
             </p>
           </div>
 
-          <Link className="primary-button" href="/recipes">
+          <Link
+            className="primary-button"
+            href="/recipes"
+          >
             + Create recipe
           </Link>
         </header>
 
         <section className="stats-grid">
           <article className="stat-card">
-            <p className="stat-label">Menu items</p>
-            <p className="stat-value">{totalItems}</p>
+            <p className="stat-label">
+              Menu items
+            </p>
+
+            <p className="stat-value">
+              {totalItems}
+            </p>
+
             <p className="stat-change neutral">
               Current live menu
             </p>
           </article>
 
           <article className="stat-card">
-            <p className="stat-label">Recipes costed</p>
-            <p className="stat-value">{costedItems}</p>
+            <p className="stat-label">
+              Recipes costed
+            </p>
+
+            <p className="stat-value">
+              {costedItems}
+            </p>
+
             <p className="stat-change warning">
-              {totalItems - costedItems} still need recipes
+              {recipeNeeded} still need
+              recipes
             </p>
           </article>
 
           <article className="stat-card">
-            <p className="stat-label">Average food cost</p>
-            <p className="stat-value">—</p>
+            <p className="stat-label">
+              Average food cost
+            </p>
+
+            <p className="stat-value">
+              {averageFoodCost === null
+                ? "—"
+                : `${averageFoodCost.toFixed(
+                    1
+                  )}%`}
+            </p>
+
             <p className="stat-change neutral">
-              Available once recipes are costed
+              {averageFoodCost === null
+                ? "Available once recipes are costed"
+                : "Across costed menu items"}
             </p>
           </article>
 
           <article className="stat-card">
-            <p className="stat-label">Above target</p>
-            <p className="stat-value">—</p>
+            <p className="stat-label">
+              Above target
+            </p>
+
+            <p className="stat-value">
+              {averageFoodCost === null
+                ? "—"
+                : aboveTarget}
+            </p>
+
             <p className="stat-change neutral">
-              Target alerts coming next
+              {averageFoodCost === null
+                ? "Target alerts coming next"
+                : "Items above 30% food cost"}
             </p>
           </article>
         </section>
 
-        <section className="menu-sections">
-          {menuSections.map((section) => (
-            <article className="panel menu-section" key={section.name}>
-              <div className="panel-header">
-                <div>
-                  <p className="panel-kicker">Menu section</p>
-                  <h2>{section.name}</h2>
+        <section className="menu-section-stack">
+          {menuSections.map(
+            (section) => (
+              <article
+                className="panel menu-section-panel"
+                key={section.name}
+              >
+                <div className="panel-header">
+                  <div>
+                    <p className="panel-kicker">
+                      Menu section
+                    </p>
+
+                    <h2>
+                      {section.name}
+                    </h2>
+                  </div>
+
+                  <span className="menu-section-count">
+                    {
+                      section.items
+                        .length
+                    }{" "}
+                    {section.items
+                      .length === 1
+                      ? "item"
+                      : "items"}
+                  </span>
                 </div>
 
-                <span className="menu-section-count">
-                  {section.items.length} items
-                </span>
-              </div>
+                <div className="table-wrapper">
+                  <table className="menu-costing-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          Dish
+                        </th>
 
-              <div className="table-wrapper">
-                <table className="menu-table">
-                  <thead>
-                    <tr>
-                      <th>Dish</th>
-                      <th>Selling price</th>
-                      <th>Recipe cost</th>
-                      <th>Food cost</th>
-                      <th>GP</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
+                        <th>
+                          Selling price
+                        </th>
 
-                  <tbody>
-                    {section.items.map((item) => (
-                      <tr key={item.name}>
-                        <td className="menu-dish-cell">
-                          <div>
-                            <strong>{item.name}</strong>
+                        <th>
+                          Recipe cost
+                        </th>
 
-                            {item.dietary && (
-                              <span className="menu-dietary">
-                                {item.dietary}
-                              </span>
-                            )}
-                          </div>
+                        <th>
+                          Food cost
+                        </th>
 
-                          <p>{item.description}</p>
-                        </td>
+                        <th>
+                          GP
+                        </th>
 
-                        <td>
-                          <strong>{formatMoney(item.price)}</strong>
-                        </td>
-
-                        <td>{formatMoney(item.recipeCost)}</td>
-
-                        <td>
-                          {item.foodCostPercent !== null &&
-                          item.foodCostPercent !== undefined
-                            ? `${item.foodCostPercent.toFixed(1)}%`
-                            : "—"}
-                        </td>
-
-                        <td>
-                          {item.gpPercent !== null &&
-                          item.gpPercent !== undefined
-                            ? `${item.gpPercent.toFixed(1)}%`
-                            : "—"}
-                        </td>
-
-                        <td>
-                          <span
-                            className={`status-badge ${
-                              item.status === "Costed"
-                                ? "status-approved"
-                                : "status-review"
-                            }`}
-                          >
-                            {item.status}
-                          </span>
-                        </td>
+                        <th>
+                          Status
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </article>
-          ))}
+                    </thead>
+
+                    <tbody>
+                      {section.items.map(
+                        (item) => (
+                          <tr
+                            key={
+                              item.name
+                            }
+                          >
+                            <td className="menu-dish-cell">
+                              <div className="menu-dish-title-row">
+                                <strong>
+                                  {
+                                    item.name
+                                  }
+                                </strong>
+
+                                {item.dietary && (
+                                  <span className="menu-dietary-badge">
+                                    {
+                                      item.dietary
+                                    }
+                                  </span>
+                                )}
+                              </div>
+
+                              {item.description && (
+                                <p>
+                                  {
+                                    item.description
+                                  }
+                                </p>
+                              )}
+                            </td>
+
+                            <td>
+                              <strong className="menu-selling-price">
+                                {formatMoney(
+                                  item.price
+                                )}
+                              </strong>
+                            </td>
+
+                            <td>
+                              {formatMoney(
+                                item.recipeCost
+                              )}
+                            </td>
+
+                            <td>
+                              {item.foodCostPercent !==
+                                null &&
+                              item.foodCostPercent !==
+                                undefined
+                                ? `${item.foodCostPercent.toFixed(
+                                    1
+                                  )}%`
+                                : "—"}
+                            </td>
+
+                            <td>
+                              {item.gpPercent !==
+                                null &&
+                              item.gpPercent !==
+                                undefined
+                                ? `${item.gpPercent.toFixed(
+                                    1
+                                  )}%`
+                                : "—"}
+                            </td>
+
+                            <td>
+                              <span
+                                className={`menu-status-badge ${
+                                  item.status ===
+                                  "Costed"
+                                    ? "menu-status-costed"
+                                    : "menu-status-needed"
+                                }`}
+                              >
+                                {
+                                  item.status
+                                }
+                              </span>
+                            </td>
+                          </tr>
+                        )
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </article>
+            )
+          )}
         </section>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
