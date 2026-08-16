@@ -23,17 +23,39 @@ type StockItem = {
   supplier: string;
 };
 
+type OrderPriceMode = "default" | "split" | "case";
+
 type OrderLine = {
   id: string;
+
   ingredient: string;
   supplier: string;
   supplierProduct: string;
+
   stockQty: number;
   stockUnit: string;
+
   orderQty: number;
   orderUnit: string;
+
   unitPrice: number | null;
   suggestedQty: number;
+
+  sku?: string;
+
+  packSize?: number | null;
+
+  casePrice?: number | null;
+  splitPrice?: number | null;
+
+  priceMode?: OrderPriceMode;
+
+  lastOrdered?: string;
+  lastOrderedQty?: number | null;
+  lastOrderVariation?: string;
+
+  brand?: string;
+  woodsId?: number;
 };
 
 type PurchaseOrder = {
@@ -73,6 +95,20 @@ function formatDate(value: string) {
   }).format(date);
 }
 
+function formatShortDate(value: string) {
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+
 function supplierInitials(name: string) {
   return name
     .split(" ")
@@ -87,141 +123,255 @@ function findStockItem(
   currentStock: StockItem[],
   ingredient: string
 ) {
-  const target = ingredient.toLowerCase().trim();
+  const target = ingredient
+    .toLowerCase()
+    .trim();
 
   return (
     currentStock.find(
       (item) =>
-        item.name.toLowerCase().trim() === target
+        item.name
+          .toLowerCase()
+          .trim() === target
     ) ?? null
   );
 }
 
+function getEffectivePrice(
+  line: OrderLine
+) {
+  if (
+    line.priceMode === "case" &&
+    line.casePrice !== null &&
+    line.casePrice !== undefined
+  ) {
+    return line.casePrice;
+  }
+
+  if (
+    line.priceMode === "split" &&
+    line.splitPrice !== null &&
+    line.splitPrice !== undefined
+  ) {
+    return line.splitPrice;
+  }
+
+  return line.unitPrice;
+}
+
+function getEffectiveUnit(
+  line: OrderLine
+) {
+  if (line.priceMode === "case") {
+    return "case";
+  }
+
+  return line.orderUnit;
+}
+
 function buildOrderLines(
-  ingredientPrices: Record<string, IngredientPrice>,
+  ingredientPrices: Record<
+    string,
+    IngredientPrice
+  >,
   currentStock: StockItem[]
 ): OrderLine[] {
-  /*
-   * Build one line PER supplier product.
-   *
-   * This is important because:
-   * Stonebass can exist at Fin & Flounder AND James Knight,
-   * limes can exist at Albion AND Oui Chef, etc.
-   *
-   * We do not want to collapse those into a single ingredient row.
-   */
-
   const catalogueLines: OrderLine[] =
-    supplierCatalogue.map((catalogueItem, index) => {
-      const livePrice =
-        ingredientPrices[catalogueItem.ingredient];
-
-      const stock = findStockItem(
-        currentStock,
-        catalogueItem.ingredient
-      );
-
-      /*
-       * Only use the live invoice price if it belongs
-       * to this exact supplier.
-       */
-      const matchingLivePrice =
-        livePrice &&
-        livePrice.supplier === catalogueItem.supplier
-          ? livePrice
-          : null;
-
-      const orderUnit =
-        matchingLivePrice?.unit ||
-        catalogueItem.unit ||
-        stock?.unit ||
-        "kg";
-
-      const stockQty = Number(
-        stock?.quantity ?? 0
-      );
-
-      const stockUnit =
-        stock?.unit || orderUnit;
-
-      const unitPrice =
-        matchingLivePrice?.price ??
-        catalogueItem.fallbackPrice ??
-        null;
-
-      const suggestedQty =
-        stockQty > 0
-          ? round(stockQty * 0.5)
-          : 0;
-
-      return {
-        id: `catalogue-${index}-${catalogueItem.supplier}-${catalogueItem.ingredient}`,
-        ingredient: catalogueItem.ingredient,
-        supplier: catalogueItem.supplier,
-        supplierProduct:
-          matchingLivePrice?.product ||
-          catalogueItem.supplierProduct,
-        stockQty,
-        stockUnit,
-        orderQty: 0,
-        orderUnit,
-        unitPrice,
-        suggestedQty,
-      };
-    });
-
-  /*
-   * Add live invoice products that do not yet exist
-   * in the static supplier catalogue.
-   */
-  const catalogueKeys = new Set(
     supplierCatalogue.map(
-      (item) =>
-        `${item.supplier}::${item.ingredient}`.toLowerCase()
-    )
-  );
+      (catalogueItem, index) => {
+        const livePrice =
+          ingredientPrices[
+            catalogueItem.ingredient
+          ];
 
-  const invoiceOnlyLines: OrderLine[] =
-    Object.entries(ingredientPrices)
-      .filter(([ingredient, price]) => {
-        const key =
-          `${price.supplier}::${ingredient}`.toLowerCase();
-
-        return !catalogueKeys.has(key);
-      })
-      .map(([ingredient, price], index) => {
         const stock = findStockItem(
           currentStock,
-          ingredient
+          catalogueItem.ingredient
         );
+
+        const matchingLivePrice =
+          livePrice &&
+          livePrice.supplier ===
+            catalogueItem.supplier
+            ? livePrice
+            : null;
+
+        const hasSplitPrice =
+          catalogueItem.splitPrice !==
+            null &&
+          catalogueItem.splitPrice !==
+            undefined;
+
+        const hasCasePrice =
+          catalogueItem.casePrice !==
+            null &&
+          catalogueItem.casePrice !==
+            undefined;
+
+        const defaultPriceMode: OrderPriceMode =
+          hasSplitPrice
+            ? "split"
+            : hasCasePrice
+            ? "case"
+            : "default";
+
+        const orderUnit =
+          matchingLivePrice?.unit ||
+          catalogueItem.unit ||
+          stock?.unit ||
+          "each";
 
         const stockQty = Number(
           stock?.quantity ?? 0
         );
 
-        const orderUnit =
-          price.unit ||
-          stock?.unit ||
-          "kg";
+        const stockUnit =
+          stock?.unit || orderUnit;
+
+        const unitPrice =
+          matchingLivePrice?.price ??
+          catalogueItem.fallbackPrice ??
+          null;
+
+        const suggestedQty =
+          stockQty > 0
+            ? round(stockQty * 0.5)
+            : 0;
 
         return {
-          id: `invoice-${index}-${price.supplier}-${ingredient}`,
-          ingredient,
-          supplier: price.supplier,
+          id:
+            catalogueItem.id ||
+            `catalogue-${index}-${catalogueItem.supplier}-${catalogueItem.ingredient}`,
+
+          ingredient:
+            catalogueItem.ingredient,
+
+          supplier:
+            catalogueItem.supplier,
+
           supplierProduct:
-            price.product || ingredient,
+            matchingLivePrice?.product ||
+            catalogueItem.supplierProduct,
+
           stockQty,
-          stockUnit:
-            stock?.unit || orderUnit,
+          stockUnit,
+
           orderQty: 0,
           orderUnit,
-          unitPrice: price.price,
-          suggestedQty:
-            stockQty > 0
-              ? round(stockQty * 0.5)
-              : 0,
+
+          unitPrice,
+          suggestedQty,
+
+          sku: catalogueItem.sku,
+
+          packSize:
+            catalogueItem.packSize,
+
+          casePrice:
+            catalogueItem.casePrice,
+
+          splitPrice:
+            catalogueItem.splitPrice,
+
+          priceMode:
+            defaultPriceMode,
+
+          lastOrdered:
+            catalogueItem.lastOrdered,
+
+          lastOrderedQty:
+            catalogueItem.lastOrderedQty,
+
+          lastOrderVariation:
+            catalogueItem.lastOrderVariation,
+
+          brand:
+            catalogueItem.brand,
+
+          woodsId:
+            catalogueItem.woodsId,
         };
-      });
+      }
+    );
+
+  const catalogueKeys =
+    new Set(
+      supplierCatalogue.map(
+        (item) =>
+          `${item.supplier}::${item.ingredient}`.toLowerCase()
+      )
+    );
+
+  const invoiceOnlyLines: OrderLine[] =
+    Object.entries(
+      ingredientPrices
+    )
+      .filter(
+        ([ingredient, price]) => {
+          const key =
+            `${price.supplier}::${ingredient}`.toLowerCase();
+
+          return !catalogueKeys.has(
+            key
+          );
+        }
+      )
+      .map(
+        (
+          [ingredient, price],
+          index
+        ) => {
+          const stock =
+            findStockItem(
+              currentStock,
+              ingredient
+            );
+
+          const stockQty = Number(
+            stock?.quantity ?? 0
+          );
+
+          const orderUnit =
+            price.unit ||
+            stock?.unit ||
+            "each";
+
+          return {
+            id: `invoice-${index}-${price.supplier}-${ingredient}`,
+
+            ingredient,
+            supplier:
+              price.supplier,
+
+            supplierProduct:
+              price.product ||
+              ingredient,
+
+            stockQty,
+
+            stockUnit:
+              stock?.unit ||
+              orderUnit,
+
+            orderQty: 0,
+
+            orderUnit,
+
+            unitPrice:
+              price.price,
+
+            suggestedQty:
+              stockQty > 0
+                ? round(
+                    stockQty * 0.5
+                  )
+                : 0,
+
+            priceMode:
+              "default",
+          };
+        }
+      );
 
   return [
     ...catalogueLines,
@@ -237,7 +387,9 @@ function SupplierLogo({
   size?: "normal" | "small";
 }) {
   const logo =
-    supplierDirectory[supplier]?.logo;
+    supplierDirectory[
+      supplier
+    ]?.logo;
 
   return (
     <div
@@ -255,7 +407,73 @@ function SupplierLogo({
         />
       ) : (
         <span>
-          {supplierInitials(supplier)}
+          {supplierInitials(
+            supplier
+          )}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function PriceSummary({
+  line,
+}: {
+  line: OrderLine;
+}) {
+  const hasCase =
+    line.casePrice !== null &&
+    line.casePrice !== undefined;
+
+  const hasSplit =
+    line.splitPrice !== null &&
+    line.splitPrice !== undefined;
+
+  if (!hasCase && !hasSplit) {
+    return line.unitPrice !==
+      null ? (
+      <span className="quick-order-price-note">
+        {money(
+          line.unitPrice
+        )}
+        /{line.orderUnit}
+      </span>
+    ) : (
+      <span className="quick-order-price-note">
+        Price unavailable
+      </span>
+    );
+  }
+
+  return (
+    <div className="quick-order-price-summary">
+      {hasSplit && (
+        <span>
+          Split{" "}
+          <strong>
+            {money(
+              line.splitPrice!
+            )}
+          </strong>
+        </span>
+      )}
+
+      {hasCase && (
+        <span>
+          Case{" "}
+          <strong>
+            {money(
+              line.casePrice!
+            )}
+          </strong>
+
+          {line.packSize &&
+            line.packSize > 1 && (
+              <>
+                {" "}
+                · {line.packSize} units
+              </>
+            )}
         </span>
       )}
     </div>
@@ -264,7 +482,9 @@ function SupplierLogo({
 
 export default function OrdersPage() {
   const [step, setStep] =
-    useState<OrderStep>("start");
+    useState<OrderStep>(
+      "start"
+    );
 
   const [
     selectedSupplier,
@@ -272,12 +492,16 @@ export default function OrdersPage() {
   ] = useState("");
 
   const [lines, setLines] =
-    useState<OrderLine[]>([]);
+    useState<OrderLine[]>(
+      []
+    );
 
   const [
     purchaseOrders,
     setPurchaseOrders,
-  ] = useState<PurchaseOrder[]>([]);
+  ] = useState<
+    PurchaseOrder[]
+  >([]);
 
   const [search, setSearch] =
     useState("");
@@ -305,7 +529,8 @@ export default function OrdersPage() {
     setLines(
       buildOrderLines(
         ingredientPrices,
-        stockTake.items ?? []
+        stockTake.items ??
+          []
       )
     );
 
@@ -316,7 +541,9 @@ export default function OrdersPage() {
         ) || "[]"
       ) as PurchaseOrder[];
 
-    setPurchaseOrders(storedOrders);
+    setPurchaseOrders(
+      storedOrders
+    );
   }, []);
 
   const supplierNames =
@@ -324,11 +551,15 @@ export default function OrdersPage() {
       return Array.from(
         new Set(
           lines
-            .map((line) => line.supplier)
+            .map(
+              (line) =>
+                line.supplier
+            )
             .filter(
               (supplier) =>
                 supplier &&
-                supplier !== "Unassigned"
+                supplier !==
+                  "Unassigned"
             )
         )
       ).sort();
@@ -337,29 +568,47 @@ export default function OrdersPage() {
   const supplierLines =
     useMemo(() => {
       const query =
-        search.trim().toLowerCase();
+        search
+          .trim()
+          .toLowerCase();
 
-      return lines.filter((line) => {
-        if (
-          line.supplier !==
-          selectedSupplier
-        ) {
-          return false;
+      return lines.filter(
+        (line) => {
+          if (
+            line.supplier !==
+            selectedSupplier
+          ) {
+            return false;
+          }
+
+          if (!query) {
+            return true;
+          }
+
+          return (
+            line.ingredient
+              .toLowerCase()
+              .includes(
+                query
+              ) ||
+            line.supplierProduct
+              .toLowerCase()
+              .includes(
+                query
+              ) ||
+            line.sku
+              ?.toLowerCase()
+              .includes(
+                query
+              ) ||
+            line.brand
+              ?.toLowerCase()
+              .includes(
+                query
+              )
+          );
         }
-
-        if (!query) {
-          return true;
-        }
-
-        return (
-          line.ingredient
-            .toLowerCase()
-            .includes(query) ||
-          line.supplierProduct
-            .toLowerCase()
-            .includes(query)
-        );
-      });
+      );
     }, [
       lines,
       selectedSupplier,
@@ -382,14 +631,22 @@ export default function OrdersPage() {
   const estimatedTotal =
     selectedOrderLines.reduce(
       (total, line) => {
-        if (line.unitPrice === null) {
+        const effectivePrice =
+          getEffectivePrice(
+            line
+          );
+
+        if (
+          effectivePrice ===
+          null
+        ) {
           return total;
         }
 
         return (
           total +
           line.orderQty *
-            line.unitPrice
+            effectivePrice
         );
       },
       0
@@ -400,16 +657,20 @@ export default function OrdersPage() {
     quantity: number
   ) {
     setLines((current) =>
-      current.map((line) =>
-        line.id === id
-          ? {
-              ...line,
-              orderQty: Math.max(
-                round(quantity),
-                0
-              ),
-            }
-          : line
+      current.map(
+        (line) =>
+          line.id === id
+            ? {
+                ...line,
+                orderQty:
+                  Math.max(
+                    round(
+                      quantity
+                    ),
+                    0
+                  ),
+              }
+            : line
       )
     );
   }
@@ -420,7 +681,8 @@ export default function OrdersPage() {
   ) {
     updateOrderQty(
       line.id,
-      line.orderQty + amount
+      line.orderQty +
+        amount
     );
   }
 
@@ -433,35 +695,56 @@ export default function OrdersPage() {
     );
   }
 
+  function setPriceMode(
+    id: string,
+    mode: OrderPriceMode
+  ) {
+    setLines((current) =>
+      current.map(
+        (line) =>
+          line.id === id
+            ? {
+                ...line,
+                priceMode:
+                  mode,
+              }
+            : line
+      )
+    );
+  }
+
   function useAllSuggested() {
     setLines((current) =>
-      current.map((line) => {
-        if (
-          line.supplier !==
-          selectedSupplier
-        ) {
-          return line;
-        }
+      current.map(
+        (line) => {
+          if (
+            line.supplier !==
+            selectedSupplier
+          ) {
+            return line;
+          }
 
-        return {
-          ...line,
-          orderQty:
-            line.suggestedQty,
-        };
-      })
+          return {
+            ...line,
+            orderQty:
+              line.suggestedQty,
+          };
+        }
+      )
     );
   }
 
   function clearSupplierOrder() {
     setLines((current) =>
-      current.map((line) =>
-        line.supplier ===
-        selectedSupplier
-          ? {
-              ...line,
-              orderQty: 0,
-            }
-          : line
+      current.map(
+        (line) =>
+          line.supplier ===
+          selectedSupplier
+            ? {
+                ...line,
+                orderQty: 0,
+              }
+            : line
       )
     );
   }
@@ -469,32 +752,44 @@ export default function OrdersPage() {
   function chooseSupplier(
     supplier: string
   ) {
-    setSelectedSupplier(supplier);
+    setSelectedSupplier(
+      supplier
+    );
+
     setSearch("");
+
     setStep("order");
   }
 
   function sendOrder() {
     if (
-      selectedOrderLines.length === 0
+      selectedOrderLines.length ===
+      0
     ) {
       alert(
         "Add at least one item to the order first."
       );
+
       return;
     }
 
-    const order: PurchaseOrder = {
-      id: `PO-${Date.now()}`,
-      supplier:
-        selectedSupplier,
-      createdAt:
-        new Date().toISOString(),
-      status: "Sent",
-      lines:
-        selectedOrderLines,
-      estimatedTotal,
-    };
+    const order: PurchaseOrder =
+      {
+        id: `PO-${Date.now()}`,
+
+        supplier:
+          selectedSupplier,
+
+        createdAt:
+          new Date().toISOString(),
+
+        status: "Sent",
+
+        lines:
+          selectedOrderLines,
+
+        estimatedTotal,
+      };
 
     const nextOrders = [
       order,
@@ -503,10 +798,14 @@ export default function OrdersPage() {
 
     localStorage.setItem(
       "purchaseOrders",
-      JSON.stringify(nextOrders)
+      JSON.stringify(
+        nextOrders
+      )
     );
 
-    setPurchaseOrders(nextOrders);
+    setPurchaseOrders(
+      nextOrders
+    );
 
     clearSupplierOrder();
 
@@ -579,7 +878,9 @@ export default function OrdersPage() {
                       <button
                         type="button"
                         className="supplier-choice-card"
-                        key={supplier}
+                        key={
+                          supplier
+                        }
                         onClick={() =>
                           chooseSupplier(
                             supplier
@@ -587,12 +888,16 @@ export default function OrdersPage() {
                         }
                       >
                         <SupplierLogo
-                          supplier={supplier}
+                          supplier={
+                            supplier
+                          }
                         />
 
                         <div className="supplier-choice-copy">
                           <strong>
-                            {supplier}
+                            {
+                              supplier
+                            }
                           </strong>
 
                           <span>
@@ -637,7 +942,9 @@ export default function OrdersPage() {
                     (order) => (
                       <article
                         className="quick-order-history-row"
-                        key={order.id}
+                        key={
+                          order.id
+                        }
                       >
                         <div className="quick-order-history-supplier">
                           <SupplierLogo
@@ -664,7 +971,8 @@ export default function OrdersPage() {
 
                         <span>
                           {
-                            order.lines
+                            order
+                              .lines
                               .length
                           }{" "}
                           items
@@ -696,7 +1004,9 @@ export default function OrdersPage() {
                   className="quick-order-back"
                   type="button"
                   onClick={() =>
-                    setStep("start")
+                    setStep(
+                      "start"
+                    )
                   }
                 >
                   ← Orders
@@ -715,7 +1025,9 @@ export default function OrdersPage() {
                     </p>
 
                     <h1>
-                      {selectedSupplier}
+                      {
+                        selectedSupplier
+                      }
                     </h1>
 
                     <p className="page-description">
@@ -750,11 +1062,17 @@ export default function OrdersPage() {
               <div className="ingredient-search">
                 <input
                   type="search"
-                  placeholder="Search products..."
-                  value={search}
-                  onChange={(event) =>
+                  placeholder="Search product, SKU or brand..."
+                  value={
+                    search
+                  }
+                  onChange={(
+                    event
+                  ) =>
                     setSearch(
-                      event.target.value
+                      event
+                        .target
+                        .value
                     )
                   }
                 />
@@ -784,123 +1102,236 @@ export default function OrdersPage() {
             <section className="panel quick-order-panel">
               <div className="quick-order-column-headings">
                 <span>Product</span>
-                <span>In stock</span>
+                <span>
+                  In stock
+                </span>
                 <span>Order</span>
               </div>
 
               <div className="quick-order-lines">
                 {supplierLines.map(
-                  (line) => (
-                    <article
-                      className={`quick-order-line ${
-                        line.orderQty > 0
-                          ? "quick-order-line-active"
-                          : ""
-                      }`}
-                      key={line.id}
-                    >
-                      <div className="quick-order-product">
-                        <strong>
-                          {line.ingredient}
-                        </strong>
+                  (line) => {
+                    const hasSplit =
+                      line.splitPrice !==
+                        null &&
+                      line.splitPrice !==
+                        undefined;
 
-                        {line.supplierProduct && (
+                    const hasCase =
+                      line.casePrice !==
+                        null &&
+                      line.casePrice !==
+                        undefined;
+
+                    return (
+                      <article
+                        className={`quick-order-line ${
+                          line.orderQty >
+                          0
+                            ? "quick-order-line-active"
+                            : ""
+                        }`}
+                        key={
+                          line.id
+                        }
+                      >
+                        <div className="quick-order-product">
+                          <div className="quick-order-product-title">
+                            <strong>
+                              {
+                                line.ingredient
+                              }
+                            </strong>
+
+                            {line.sku && (
+                              <span className="quick-order-sku">
+                                SKU{" "}
+                                {
+                                  line.sku
+                                }
+                              </span>
+                            )}
+                          </div>
+
+                          {line.supplierProduct && (
+                            <span>
+                              {
+                                line.supplierProduct
+                              }
+                            </span>
+                          )}
+
+                          {line.brand && (
+                            <span className="quick-order-brand">
+                              {
+                                line.brand
+                              }
+                            </span>
+                          )}
+
+                          <PriceSummary
+                            line={
+                              line
+                            }
+                          />
+
+                          {(hasSplit ||
+                            hasCase) && (
+                            <div className="quick-price-mode">
+                              {hasSplit && (
+                                <button
+                                  type="button"
+                                  className={
+                                    line.priceMode ===
+                                    "split"
+                                      ? "quick-price-mode-active"
+                                      : ""
+                                  }
+                                  onClick={() =>
+                                    setPriceMode(
+                                      line.id,
+                                      "split"
+                                    )
+                                  }
+                                >
+                                  Split
+                                </button>
+                              )}
+
+                              {hasCase && (
+                                <button
+                                  type="button"
+                                  className={
+                                    line.priceMode ===
+                                    "case"
+                                      ? "quick-price-mode-active"
+                                      : ""
+                                  }
+                                  onClick={() =>
+                                    setPriceMode(
+                                      line.id,
+                                      "case"
+                                    )
+                                  }
+                                >
+                                  Case
+                                </button>
+                              )}
+                            </div>
+                          )}
+
+                          {line.lastOrdered && (
+                            <span className="quick-order-last-ordered">
+                              Last ordered{" "}
+                              {formatShortDate(
+                                line.lastOrdered
+                              )}
+
+                              {line.lastOrderedQty !==
+                                null &&
+                                line.lastOrderedQty !==
+                                  undefined && (
+                                  <>
+                                    {" "}
+                                    · qty{" "}
+                                    {
+                                      line.lastOrderedQty
+                                    }
+                                  </>
+                                )}
+                            </span>
+                          )}
+
+                          {line.suggestedQty >
+                            0 && (
+                            <button
+                              type="button"
+                              className="quick-suggestion"
+                              onClick={() =>
+                                applySuggested(
+                                  line
+                                )
+                              }
+                            >
+                              Suggested{" "}
+                              {
+                                line.suggestedQty
+                              }{" "}
+                              {
+                                line.orderUnit
+                              }
+                            </button>
+                          )}
+                        </div>
+
+                        <div className="quick-order-stock">
+                          <strong>
+                            {
+                              line.stockQty
+                            }
+                          </strong>
+
                           <span>
                             {
-                              line.supplierProduct
+                              line.stockUnit
                             }
                           </span>
-                        )}
+                        </div>
 
-                        {line.suggestedQty >
-                          0 && (
+                        <div className="quick-order-quantity">
                           <button
                             type="button"
-                            className="quick-suggestion"
                             onClick={() =>
-                              applySuggested(
-                                line
+                              changeQty(
+                                line,
+                                -1
                               )
                             }
                           >
-                            Suggested{" "}
-                            {
-                              line.suggestedQty
-                            }{" "}
-                            {
-                              line.orderUnit
-                            }
+                            −
                           </button>
-                        )}
-                      </div>
 
-                      <div className="quick-order-stock">
-                        <strong>
-                          {
-                            line.stockQty
-                          }
-                        </strong>
-
-                        <span>
-                          {
-                            line.stockUnit
-                          }
-                        </span>
-                      </div>
-
-                      <div className="quick-order-quantity">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            changeQty(
-                              line,
-                              -1
-                            )
-                          }
-                        >
-                          −
-                        </button>
-
-                        <input
-                          inputMode="decimal"
-                          value={
-                            line.orderQty
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateOrderQty(
-                              line.id,
-                              Number(
-                                event
-                                  .target
-                                  .value ||
-                                  0
+                          <input
+                            inputMode="decimal"
+                            value={
+                              line.orderQty
+                            }
+                            onChange={(
+                              event
+                            ) =>
+                              updateOrderQty(
+                                line.id,
+                                Number(
+                                  event
+                                    .target
+                                    .value ||
+                                    0
+                                )
                               )
-                            )
-                          }
-                        />
+                            }
+                          />
 
-                        <button
-                          type="button"
-                          onClick={() =>
-                            changeQty(
-                              line,
-                              1
-                            )
-                          }
-                        >
-                          +
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              changeQty(
+                                line,
+                                1
+                              )
+                            }
+                          >
+                            +
+                          </button>
 
-                        <span>
-                          {
-                            line.orderUnit
-                          }
-                        </span>
-                      </div>
-                    </article>
-                  )
+                          <span>
+                            {getEffectiveUnit(
+                              line
+                            )}
+                          </span>
+                        </div>
+                      </article>
+                    );
+                  }
                 )}
               </div>
             </section>
@@ -929,7 +1360,9 @@ export default function OrdersPage() {
                   0
                 }
                 onClick={() =>
-                  setStep("review")
+                  setStep(
+                    "review"
+                  )
                 }
               >
                 Review order →
@@ -946,7 +1379,9 @@ export default function OrdersPage() {
                   className="quick-order-back"
                   type="button"
                   onClick={() =>
-                    setStep("order")
+                    setStep(
+                      "order"
+                    )
                   }
                 >
                   ← Edit order
@@ -965,7 +1400,9 @@ export default function OrdersPage() {
                     </p>
 
                     <h1>
-                      {selectedSupplier}
+                      {
+                        selectedSupplier
+                      }
                     </h1>
 
                     <p className="page-description">
@@ -1012,64 +1449,86 @@ export default function OrdersPage() {
 
               <div className="quick-review-list">
                 {selectedOrderLines.map(
-                  (line) => (
-                    <article
-                      className="quick-review-row"
-                      key={line.id}
-                    >
-                      <div>
-                        <strong>
-                          {line.ingredient}
-                        </strong>
+                  (line) => {
+                    const price =
+                      getEffectivePrice(
+                        line
+                      );
 
-                        <span>
-                          {
-                            line.supplierProduct
-                          }
-                        </span>
-                      </div>
+                    const unit =
+                      getEffectiveUnit(
+                        line
+                      );
 
-                      <div className="quick-review-qty">
-                        <strong>
-                          {
-                            line.orderQty
-                          }{" "}
-                          {
-                            line.orderUnit
-                          }
-                        </strong>
-                      </div>
+                    return (
+                      <article
+                        className="quick-review-row"
+                        key={
+                          line.id
+                        }
+                      >
+                        <div>
+                          <strong>
+                            {
+                              line.ingredient
+                            }
+                          </strong>
 
-                      <div className="quick-review-cost">
-                        {line.unitPrice !==
-                        null ? (
-                          <>
+                          <span>
+                            {
+                              line.supplierProduct
+                            }
+                          </span>
+
+                          {line.sku && (
                             <span>
-                              {money(
-                                line.unitPrice
-                              )}
-                              /
+                              SKU{" "}
                               {
-                                line.orderUnit
+                                line.sku
                               }
                             </span>
+                          )}
+                        </div>
 
-                            <strong>
-                              {money(
-                                line.orderQty *
-                                  line.unitPrice
-                              )}
-                            </strong>
-                          </>
-                        ) : (
-                          <span>
-                            Price
-                            unavailable
-                          </span>
-                        )}
-                      </div>
-                    </article>
-                  )
+                        <div className="quick-review-qty">
+                          <strong>
+                            {
+                              line.orderQty
+                            }{" "}
+                            {
+                              unit
+                            }
+                          </strong>
+                        </div>
+
+                        <div className="quick-review-cost">
+                          {price !==
+                          null ? (
+                            <>
+                              <span>
+                                {money(
+                                  price
+                                )}
+                                /{unit}
+                              </span>
+
+                              <strong>
+                                {money(
+                                  line.orderQty *
+                                    price
+                                )}
+                              </strong>
+                            </>
+                          ) : (
+                            <span>
+                              Price
+                              unavailable
+                            </span>
+                          )}
+                        </div>
+                      </article>
+                    );
+                  }
                 )}
               </div>
             </section>
@@ -1090,7 +1549,9 @@ export default function OrdersPage() {
               <button
                 type="button"
                 className="primary-button quick-review-button"
-                onClick={sendOrder}
+                onClick={
+                  sendOrder
+                }
               >
                 Mark as sent
               </button>
