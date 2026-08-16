@@ -1,6 +1,7 @@
 import { woodsCatalogueItems } from "./woodsCatalogue";
 import { mexgrocerCatalogue } from "./mexgrocerCatalogue";
 import { ouiChefCatalogueItems } from "./ouiChefCatalogue";
+import { masafinaCatalogueItems } from "./masafinaCatalogue";
 function normalizeProductName(value: string) {
   return value
     .normalize("NFD")
