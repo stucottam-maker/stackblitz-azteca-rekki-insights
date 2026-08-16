@@ -1,561 +1,511 @@
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
-
-.dashboard-page {
-  padding-bottom: 48px;
-}
-
-.dashboard-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-.dashboard-header h1 {
-  margin: 4px 0 6px;
-  font-size: 34px;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-}
-
-.dashboard-subtitle {
-  margin: 0;
-  color: #747770;
-  font-size: 14px;
-}
-
-.dashboard-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dashboard-overview-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.dashboard-overview-card {
-  background: #fff;
-  border: 1px solid #e5e3dd;
-  border-radius: 14px;
-  padding: 17px;
-}
-
-.dashboard-overview-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.dashboard-overview-top span {
-  color: #777a74;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.dashboard-overview-top a {
-  color: #d46a32;
-  font-size: 9px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.dashboard-overview-card > strong {
-  display: block;
-  margin-top: 13px;
-  color: #173f35;
-  font-size: 26px;
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-.dashboard-overview-card > p {
-  margin: 9px 0 0;
-  color: #8b8e87;
-  font-size: 10px;
-  line-height: 1.4;
-}
-
-.dashboard-attention-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-
-  margin-bottom: 16px;
-  padding: 18px 20px;
-
-  background: #173f35;
-  border-radius: 15px;
-  color: #fff;
-}
-
-.dashboard-attention-copy {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.dashboard-attention-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex: 0 0 auto;
-
-  width: 38px;
-  height: 38px;
-
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-
-  font-size: 17px;
-  font-weight: 800;
-}
-
-.dashboard-dark-eyebrow {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.dashboard-attention-card h2 {
-  margin: 5px 0 4px;
-  font-size: 17px;
-  line-height: 1.2;
-}
-
-.dashboard-attention-card p:last-child {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 11px;
-  line-height: 1.45;
-}
-
-.dashboard-attention-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  flex: 0 0 auto;
-
-  padding: 9px 12px;
-
-  background: #f0e7d8;
-  border-radius: 9px;
-
-  color: #173f35;
-  font-size: 10px;
-  font-weight: 750;
-  text-decoration: none;
-}
-
-.dashboard-main-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(280px, 0.75fr);
-  gap: 16px;
-  align-items: start;
-  margin-bottom: 16px;
-}
-
-.dashboard-side-column {
-  display: grid;
-  gap: 14px;
-}
-
-.dashboard-panel,
-.dashboard-cogs-card {
-  background: #fff;
-  border: 1px solid #e4e2dc;
-  border-radius: 15px;
-}
-
-.dashboard-panel {
-  padding: 18px;
-}
-
-.dashboard-panel-header,
-.dashboard-cogs-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.dashboard-panel-header h2,
-.dashboard-cogs-header h2 {
-  margin: 5px 0 0;
-  color: #272b27;
-  font-size: 18px;
-  line-height: 1.2;
-}
-
-.dashboard-panel-header > a,
-.dashboard-cogs-header > a {
-  color: #d46a32;
-  font-size: 10px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.dashboard-insight-list {
-  display: grid;
-  margin-top: 15px;
-}
-
-.dashboard-insight-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-
-  padding: 14px 0;
-
-  border-bottom: 1px solid #eeece7;
-
-  color: inherit;
-  text-decoration: none;
-}
-
-.dashboard-insight-row:last-child {
-  border-bottom: 0;
-}
-
-.dashboard-insight-main {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  min-width: 0;
-}
-
-.dashboard-insight-dot {
-  flex: 0 0 auto;
-  width: 8px;
-  height: 8px;
-  margin-top: 5px;
-  border-radius: 999px;
-}
-
-.dashboard-insight-dot-high {
-  background: #bc553b;
-}
-
-.dashboard-insight-dot-medium {
-  background: #d08a31;
-}
-
-.dashboard-insight-dot-low {
-  background: #4e846f;
-}
-
-.dashboard-insight-main strong {
-  display: block;
-  color: #303430;
-  font-size: 12px;
-  line-height: 1.35;
-}
-
-.dashboard-insight-main p {
-  margin: 4px 0 0;
-  color: #858880;
-  font-size: 10px;
-  line-height: 1.45;
-}
-
-.dashboard-insight-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 0 0 auto;
-}
-
-.dashboard-insight-meta strong {
-  color: #173f35;
-  font-size: 12px;
-}
-
-.dashboard-insight-meta span {
-  color: #d46a32;
-  font-size: 13px;
-}
-
-.dashboard-empty-state {
-  padding: 42px 18px;
-  text-align: center;
-}
-
-.dashboard-empty-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 40px;
-  height: 40px;
-
-  margin: 0 auto 12px;
-
-  background: #eaf2ed;
-  border-radius: 999px;
-
-  color: #31725e;
-  font-weight: 800;
-}
-
-.dashboard-empty-state h3 {
-  margin: 0;
-  font-size: 14px;
-  color: #303430;
-}
-
-.dashboard-empty-state p {
-  max-width: 430px;
-  margin: 7px auto 0;
-  color: #858880;
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-.dashboard-side-empty {
-  margin: 17px 0 2px;
-  color: #858880;
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-.dashboard-supplier-list {
-  display: grid;
-  margin-top: 12px;
-}
-
-.dashboard-supplier-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-
-  padding: 11px 0;
-  border-bottom: 1px solid #efede8;
-}
-
-.dashboard-supplier-row:last-child {
-  border-bottom: 0;
-}
-
-.dashboard-supplier-row > div {
-  display: flex;
-  flex-direction: column;
-}
-
-.dashboard-supplier-row > div strong {
-  color: #373b37;
-  font-size: 11px;
-}
-
-.dashboard-supplier-row > div span {
-  margin-top: 2px;
-  color: #9a9d96;
-  font-size: 9px;
-}
-
-.dashboard-supplier-row > strong {
-  color: #173f35;
-  font-size: 11px;
-}
-
-.dashboard-status-list {
-  display: grid;
-  margin-top: 12px;
-}
-
-.dashboard-status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-
-  padding: 11px 0;
-
-  border-bottom: 1px solid #efede8;
-
-  color: inherit;
-  text-decoration: none;
-}
-
-.dashboard-status-row:last-child {
-  border-bottom: 0;
-}
-
-.dashboard-status-row span {
-  color: #767973;
-  font-size: 11px;
-}
-
-.dashboard-status-row strong {
-  color: #303430;
-  font-size: 12px;
-}
-
-.dashboard-cogs-card {
-  padding: 18px;
-}
-
-.dashboard-cogs-grid {
-  display: grid;
-  grid-template-columns:
-    minmax(100px, 1fr)
-    32px
-    minmax(100px, 1fr)
-    32px
-    minmax(100px, 1fr)
-    32px
-    minmax(120px, 1.15fr);
-
-  align-items: center;
-
-  gap: 8px;
-
-  margin-top: 18px;
-}
-
-.dashboard-cogs-grid > div:not(.dashboard-cogs-symbol) {
-  padding: 13px 14px;
-
-  background: #f8f6f1;
-  border-radius: 10px;
-}
-
-.dashboard-cogs-grid span {
-  display: block;
-  color: #858880;
-  font-size: 10px;
-}
-
-.dashboard-cogs-grid strong {
-  display: block;
-  margin-top: 5px;
-  color: #303430;
-  font-size: 15px;
-}
-
-.dashboard-cogs-symbol {
-  text-align: center;
-  color: #9a9d96;
-  font-size: 20px;
-}
-
-.dashboard-cogs-result {
-  background: #eaf1ed !important;
-}
-
-.dashboard-cogs-result strong {
-  color: #173f35;
-  font-size: 17px;
-}
-
-@media (max-width: 1100px) {
-  .dashboard-overview-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .dashboard-main-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-side-column {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .dashboard-cogs-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .dashboard-cogs-symbol {
-    display: none;
-  }
-
-  .dashboard-cogs-result {
-    grid-column: span 3;
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+
+import Sidebar from "./components/Sidebar";
+
+import {
+  generateInsights,
+  formatCurrency,
+  formatPercent,
+  IngredientPriceRecord,
+  PurchaseOrder,
+  ApprovedInvoice,
+  StockTake,
+  RecipeCostSummary,
+} from "./data/insights";
+
+function safeParse<T>(value: string | null, fallback: T): T {
+  if (!value) return fallback;
+
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    return fallback;
   }
 }
 
-@media (max-width: 768px) {
-  .dashboard-page {
-    padding-top: 18px !important;
-  }
+export default function DashboardPage() {
+  const [ingredientPrices, setIngredientPrices] = useState<
+    Record<string, IngredientPriceRecord>
+  >({});
 
-  .dashboard-header {
-    display: block;
-  }
+  const [previousIngredientPrices, setPreviousIngredientPrices] = useState<
+    Record<string, IngredientPriceRecord>
+  >({});
 
-  .dashboard-header h1 {
-    font-size: 28px;
-  }
+  const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>([]);
+  const [invoices, setInvoices] = useState<ApprovedInvoice[]>([]);
+  const [stockTakes, setStockTakes] = useState<StockTake[]>([]);
+  const [recipeCosts, setRecipeCosts] = useState<RecipeCostSummary[]>([]);
 
-  .dashboard-header-actions {
-    margin-top: 16px;
-  }
+  const [salesThisPeriod, setSalesThisPeriod] = useState<number | null>(null);
 
-  .dashboard-overview-grid {
-    gap: 9px;
-  }
+  const [theoreticalFoodCostPercent, setTheoreticalFoodCostPercent] =
+    useState<number | null>(null);
 
-  .dashboard-overview-card {
-    padding: 14px;
-  }
+  useEffect(() => {
+    const prices = safeParse<Record<string, IngredientPriceRecord>>(
+      localStorage.getItem("ingredientPrices"),
+      {}
+    );
 
-  .dashboard-overview-card > strong {
-    font-size: 21px;
-  }
+    const previousPrices = safeParse<Record<string, IngredientPriceRecord>>(
+      localStorage.getItem("previousIngredientPrices"),
+      {}
+    );
 
-  .dashboard-attention-card {
-    display: block;
-  }
+    const orders = safeParse<PurchaseOrder[]>(
+      localStorage.getItem("purchaseOrders"),
+      []
+    );
 
-  .dashboard-attention-link {
-    margin-top: 14px;
-  }
+    const invoiceHistory = safeParse<ApprovedInvoice[]>(
+      localStorage.getItem("approvedInvoices"),
+      []
+    );
 
-  .dashboard-side-column {
-    grid-template-columns: 1fr;
-  }
+    const singleApprovedInvoice = safeParse<ApprovedInvoice | null>(
+      localStorage.getItem("approvedInvoiceDraft"),
+      null
+    );
 
-  .dashboard-cogs-grid {
-    grid-template-columns: 1fr;
-  }
+    const stockHistory = safeParse<StockTake[]>(
+      localStorage.getItem("stockTakeHistory"),
+      []
+    );
 
-  .dashboard-cogs-result {
-    grid-column: auto;
-  }
-}
+    const currentStock = safeParse<StockTake | null>(
+      localStorage.getItem("currentStockTake"),
+      null
+    );
 
-@media (max-width: 480px) {
-  .dashboard-overview-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+    const storedRecipeCosts = safeParse<RecipeCostSummary[]>(
+      localStorage.getItem("recipeCostSummaries"),
+      []
+    );
 
-  .dashboard-header-actions {
-    width: 100%;
-  }
+    const storedSales = Number(localStorage.getItem("salesThisPeriod"));
 
-  .dashboard-header-actions a {
-    flex: 1;
-    text-align: center;
-  }
+    const storedTheoretical = Number(
+      localStorage.getItem("theoreticalFoodCostPercent")
+    );
 
-  .dashboard-panel {
-    padding: 14px;
-  }
+    setIngredientPrices(prices);
+    setPreviousIngredientPrices(previousPrices);
+    setPurchaseOrders(orders);
 
-  .dashboard-insight-row {
-    align-items: flex-start;
-  }
+    if (invoiceHistory.length > 0) {
+      setInvoices(invoiceHistory);
+    } else if (singleApprovedInvoice) {
+      setInvoices([singleApprovedInvoice]);
+    } else {
+      setInvoices([]);
+    }
 
-  .dashboard-insight-meta strong {
-    display: none;
-  }
+    const combinedStock = [...stockHistory];
+
+    if (currentStock) {
+      const currentId = currentStock.id;
+
+      const alreadyExists = currentId
+        ? combinedStock.some((item) => item.id === currentId)
+        : false;
+
+      if (!alreadyExists) {
+        combinedStock.push(currentStock);
+      }
+    }
+
+    setStockTakes(combinedStock);
+    setRecipeCosts(storedRecipeCosts);
+
+    setSalesThisPeriod(
+      Number.isFinite(storedSales) && storedSales > 0 ? storedSales : null
+    );
+
+    setTheoreticalFoodCostPercent(
+      Number.isFinite(storedTheoretical) && storedTheoretical > 0
+        ? storedTheoretical
+        : null
+    );
+  }, []);
+
+  const insightData = useMemo(
+    () =>
+      generateInsights({
+        ingredientPrices,
+        previousIngredientPrices,
+        purchaseOrders,
+        invoices,
+        stockTakes,
+        recipeCosts,
+        salesThisPeriod,
+        theoreticalFoodCostPercent,
+      }),
+    [
+      ingredientPrices,
+      previousIngredientPrices,
+      purchaseOrders,
+      invoices,
+      stockTakes,
+      recipeCosts,
+      salesThisPeriod,
+      theoreticalFoodCostPercent,
+    ]
+  );
+
+  const topInsights = insightData.insights.slice(0, 5);
+
+  const highPriority = insightData.insights.filter(
+    (insight) => insight.severity === "high"
+  ).length;
+
+  const mediumPriority = insightData.insights.filter(
+    (insight) => insight.severity === "medium"
+  ).length;
+
+  return (
+    <div className="app-shell">
+      <Sidebar active="dashboard" />
+
+      <main className="main-content dashboard-page">
+        <header className="dashboard-header">
+          <div>
+            <p className="page-eyebrow">Kitchen Insights</p>
+            <h1>Dashboard</h1>
+            <p className="dashboard-subtitle">
+              A live view of cost, purchasing, stock and operational risk.
+            </p>
+          </div>
+
+          <div className="dashboard-header-actions">
+            <Link href="/insights" className="secondary-button">
+              View insights
+            </Link>
+
+            <Link href="/invoices/upload" className="primary-button">
+              Upload invoice
+            </Link>
+          </div>
+        </header>
+
+        <section className="dashboard-overview-grid">
+          <article className="dashboard-overview-card">
+            <div className="dashboard-overview-top">
+              <span>Spend this month</span>
+              <Link href="/reports">View</Link>
+            </div>
+
+            <strong>
+              {formatCurrency(insightData.metrics.spendThisMonth)}
+            </strong>
+
+            <p>
+              {insightData.metrics.spendChangePercent === null
+                ? "No comparison yet"
+                : `${formatPercent(
+                    Math.abs(insightData.metrics.spendChangePercent)
+                  )} ${
+                    insightData.metrics.spendChangePercent >= 0
+                      ? "above"
+                      : "below"
+                  } last month`}
+            </p>
+          </article>
+
+          <article className="dashboard-overview-card">
+            <div className="dashboard-overview-top">
+              <span>Latest stock value</span>
+              <Link href="/stock">View</Link>
+            </div>
+
+            <strong>
+              {formatCurrency(insightData.metrics.currentStockValue)}
+            </strong>
+
+            <p>
+              {insightData.metrics.stockValueChange === null
+                ? "Complete another stock count"
+                : `${insightData.metrics.stockValueChange >= 0 ? "+" : "-"}${formatCurrency(
+                    Math.abs(insightData.metrics.stockValueChange)
+                  )} vs previous count`}
+            </p>
+          </article>
+
+          <article className="dashboard-overview-card">
+            <div className="dashboard-overview-top">
+              <span>Actual COGS</span>
+              <Link href="/reports">View</Link>
+            </div>
+
+            <strong>{formatCurrency(insightData.metrics.actualCogs)}</strong>
+
+            <p>
+              {insightData.metrics.actualFoodCostPercent === null
+                ? "Sales data needed for %"
+                : `${formatPercent(
+                    insightData.metrics.actualFoodCostPercent
+                  )} actual food cost`}
+            </p>
+          </article>
+
+          <article className="dashboard-overview-card">
+            <div className="dashboard-overview-top">
+              <span>Food cost variance</span>
+              <Link href="/insights">Review</Link>
+            </div>
+
+            <strong
+              className={
+                insightData.metrics.foodCostVariancePercent !== null &&
+                insightData.metrics.foodCostVariancePercent > 0
+                  ? "metric-negative"
+                  : ""
+              }
+            >
+              {insightData.metrics.foodCostVariancePercent === null
+                ? "—"
+                : `${
+                    insightData.metrics.foodCostVariancePercent >= 0 ? "+" : ""
+                  }${insightData.metrics.foodCostVariancePercent.toFixed(
+                    1
+                  )} pts`}
+            </strong>
+
+            <p>
+              {insightData.metrics.theoreticalFoodCostPercent === null
+                ? "Theoretical costing not available"
+                : `${formatPercent(
+                    insightData.metrics.theoreticalFoodCostPercent
+                  )} theoretical`}
+            </p>
+          </article>
+        </section>
+
+        <section className="dashboard-attention-card">
+          <div className="dashboard-attention-copy">
+            <div className="dashboard-attention-icon">!</div>
+
+            <div>
+              <p className="page-eyebrow dashboard-dark-eyebrow">
+                Needs attention
+              </p>
+
+              {highPriority > 0 ? (
+                <>
+                  <h2>
+                    {highPriority} high-priority{" "}
+                    {highPriority === 1 ? "issue" : "issues"}
+                  </h2>
+
+                  <p>
+                    {mediumPriority > 0
+                      ? `${mediumPriority} additional medium-priority items are also worth reviewing.`
+                      : "Kitchen Insights has identified operational changes worth reviewing."}
+                  </p>
+                </>
+              ) : insightData.insights.length > 0 ? (
+                <>
+                  <h2>No high-priority issues</h2>
+
+                  <p>
+                    There are {insightData.insights.length} lower-priority items
+                    worth keeping an eye on.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2>More operational data needed</h2>
+
+                  <p>
+                    Approve invoices, count stock and cost recipes to unlock
+                    useful comparisons.
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+
+          <Link href="/insights" className="dashboard-attention-link">
+            Open Insights
+            <span>→</span>
+          </Link>
+        </section>
+
+        <div className="dashboard-main-grid">
+          <section className="dashboard-panel">
+            <div className="dashboard-panel-header">
+              <div>
+                <p className="page-eyebrow">Prioritised</p>
+                <h2>Latest insights</h2>
+              </div>
+
+              <Link href="/insights">View all</Link>
+            </div>
+
+            {topInsights.length === 0 ? (
+              <div className="dashboard-empty-state">
+                <div className="dashboard-empty-icon">✓</div>
+
+                <h3>No insights yet</h3>
+
+                <p>
+                  As more invoices, stock counts and recipe costs are added,
+                  Kitchen Insights will begin surfacing useful changes here.
+                </p>
+              </div>
+            ) : (
+              <div className="dashboard-insight-list">
+                {topInsights.map((insight) => (
+                  <Link
+                    href={insight.actions?.[0]?.href ?? "/insights"}
+                    key={insight.id}
+                    className="dashboard-insight-row"
+                  >
+                    <div className="dashboard-insight-main">
+                      <span
+                        className={`dashboard-insight-dot dashboard-insight-dot-${insight.severity}`}
+                      />
+
+                      <div>
+                        <strong>{insight.title}</strong>
+                        <p>{insight.message}</p>
+                      </div>
+                    </div>
+
+                    <div className="dashboard-insight-meta">
+                      {insight.metric && <strong>{insight.metric}</strong>}
+
+                      <span>→</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <aside className="dashboard-side-column">
+            <section className="dashboard-panel">
+              <div className="dashboard-panel-header">
+                <div>
+                  <p className="page-eyebrow">Purchasing</p>
+                  <h2>Supplier spend</h2>
+                </div>
+
+                <Link href="/reports">Report</Link>
+              </div>
+
+              {insightData.supplierSpend.length === 0 ? (
+                <p className="dashboard-side-empty">
+                  Supplier totals will appear as invoices are approved.
+                </p>
+              ) : (
+                <div className="dashboard-supplier-list">
+                  {insightData.supplierSpend.slice(0, 5).map((supplier) => (
+                    <div
+                      className="dashboard-supplier-row"
+                      key={supplier.supplier}
+                    >
+                      <div>
+                        <strong>{supplier.supplier}</strong>
+
+                        <span>
+                          {supplier.invoiceCount}{" "}
+                          {supplier.invoiceCount === 1
+                            ? "invoice"
+                            : "invoices"}
+                        </span>
+                      </div>
+
+                      <strong>{formatCurrency(supplier.total)}</strong>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section className="dashboard-panel">
+              <div className="dashboard-panel-header">
+                <div>
+                  <p className="page-eyebrow">Operation</p>
+                  <h2>Current status</h2>
+                </div>
+              </div>
+
+              <div className="dashboard-status-list">
+                <Link href="/orders" className="dashboard-status-row">
+                  <span>Open orders</span>
+                  <strong>{insightData.metrics.openOrders}</strong>
+                </Link>
+
+                <Link href="/invoices" className="dashboard-status-row">
+                  <span>Approved invoices</span>
+                  <strong>{insightData.metrics.approvedInvoices}</strong>
+                </Link>
+
+                <Link href="/suppliers" className="dashboard-status-row">
+                  <span>Active suppliers</span>
+                  <strong>{insightData.metrics.activeSuppliers}</strong>
+                </Link>
+
+                <Link href="/ingredients" className="dashboard-status-row">
+                  <span>Missing prices</span>
+                  <strong>{insightData.metrics.missingIngredientPrices}</strong>
+                </Link>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <section className="dashboard-cogs-card">
+          <div className="dashboard-cogs-header">
+            <div>
+              <p className="page-eyebrow">Stock & COGS</p>
+              <h2>Latest stock period</h2>
+            </div>
+
+            <Link href="/reports">Full report</Link>
+          </div>
+
+          <div className="dashboard-cogs-grid">
+            <div>
+              <span>Opening stock</span>
+              <strong>
+                {formatCurrency(insightData.metrics.openingStockValue)}
+              </strong>
+            </div>
+
+            <div className="dashboard-cogs-symbol">+</div>
+
+            <div>
+              <span>Purchases</span>
+              <strong>
+                {formatCurrency(
+                  insightData.metrics.purchasesBetweenCounts
+                )}
+              </strong>
+            </div>
+
+            <div className="dashboard-cogs-symbol">−</div>
+
+            <div>
+              <span>Closing stock</span>
+              <strong>
+                {formatCurrency(insightData.metrics.closingStockValue)}
+              </strong>
+            </div>
+
+            <div className="dashboard-cogs-symbol">=</div>
+
+            <div className="dashboard-cogs-result">
+              <span>Actual COGS</span>
+              <strong>{formatCurrency(insightData.metrics.actualCogs)}</strong>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
