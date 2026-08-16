@@ -4617,3 +4617,58 @@ td strong {
     padding: 14px;
   }
 }
+/* =========================================================
+   DESKTOP LAYOUT FIX
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.app-shell {
+  display: block !important;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+}
+
+.main-content {
+  display: block;
+  width: calc(100% - 220px) !important;
+  max-width: none !important;
+  min-width: 0;
+  margin-left: 220px !important;
+  padding: 32px !important;
+}
+
+.dashboard-page,
+.insights-page,
+.reports-page {
+  width: calc(100% - 220px) !important;
+  max-width: none !important;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .app-shell {
+    display: block !important;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .main-content,
+  .dashboard-page,
+  .insights-page,
+  .reports-page {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    padding: 18px 14px !important;
+  }
+}
