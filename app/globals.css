@@ -5605,3 +5605,88 @@ td strong {
     grid-template-columns: 1fr !important;
   }
 }
+/* =========================================================
+   APP SHELL — FINAL DESKTOP LAYOUT
+   ========================================================= */
+
+@media (min-width: 769px) {
+  .app-shell {
+    display: grid !important;
+    grid-template-columns: 220px minmax(0, 1fr) !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+  }
+
+  .sidebar {
+    position: sticky !important;
+    top: 0 !important;
+    left: auto !important;
+    bottom: auto !important;
+
+    width: 220px !important;
+    height: 100vh !important;
+
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  .main-content {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    margin-left: 0 !important;
+
+    padding-left: 36px !important;
+    padding-right: 36px !important;
+
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+
+  .main-content.dashboard-page,
+  .main-content.insights-page,
+  .main-content.reports-page,
+  .main-content.suppliers-page,
+  .main-content.ingredients-page,
+  .main-content.recipes-page,
+  .main-content.menu-page,
+  .main-content.stock-page,
+  .main-content.orders-page,
+  .main-content.invoices-page {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .app-shell {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .sidebar {
+    position: sticky !important;
+    top: 0 !important;
+
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .main-content {
+    width: 100% !important;
+    max-width: none !important;
+
+    margin-left: 0 !important;
+
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
