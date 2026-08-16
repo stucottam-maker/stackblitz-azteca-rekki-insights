@@ -174,6 +174,9 @@ export const supplierContacts: SupplierContact[] = [
   {
     name: "Big K Charcoal",
   },
+   {
+    name: "Masafina",
+  },
   {
     name: "Raynor Hygiene",
   },
