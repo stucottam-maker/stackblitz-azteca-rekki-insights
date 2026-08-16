@@ -4672,3 +4672,154 @@ td strong {
     padding: 18px 14px !important;
   }
 }
+/* =========================================================
+   DASHBOARD VISUAL POLISH
+   ========================================================= */
+
+.dashboard-page {
+  padding: 38px 38px 56px !important;
+}
+
+.dashboard-header {
+  margin-bottom: 28px;
+}
+
+.dashboard-header h1 {
+  font-size: 38px;
+  line-height: 1;
+}
+
+.dashboard-subtitle {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.dashboard-overview-grid {
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.dashboard-overview-card {
+  min-height: 126px;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.dashboard-overview-top span {
+  font-size: 12px;
+}
+
+.dashboard-overview-card > strong {
+  margin-top: 16px;
+  font-size: 30px;
+}
+
+.dashboard-overview-card > p {
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.dashboard-attention-card {
+  margin-bottom: 18px;
+  padding: 22px 24px;
+  border-radius: 16px;
+}
+
+.dashboard-attention-card h2 {
+  font-size: 20px;
+}
+
+.dashboard-attention-card p:last-child {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.dashboard-main-grid {
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.dashboard-panel {
+  padding: 22px;
+  border-radius: 16px;
+}
+
+.dashboard-panel-header h2 {
+  font-size: 20px;
+}
+
+.dashboard-insight-row {
+  padding: 16px 0;
+}
+
+.dashboard-insight-main strong {
+  font-size: 13px;
+}
+
+.dashboard-insight-main p {
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.dashboard-supplier-row,
+.dashboard-status-row {
+  padding: 13px 0;
+}
+
+.dashboard-cogs-card {
+  padding: 22px;
+  border-radius: 16px;
+}
+
+.dashboard-cogs-grid {
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.dashboard-cogs-grid > div:not(.dashboard-cogs-symbol) {
+  padding: 16px;
+}
+
+.dashboard-cogs-grid strong {
+  font-size: 17px;
+}
+
+/* slightly soften the empty-state areas */
+.dashboard-side-empty,
+.dashboard-empty-state p {
+  color: #8d9089;
+}
+
+/* keep desktop width feeling balanced */
+@media (min-width: 1200px) {
+  .dashboard-main-grid {
+    grid-template-columns: minmax(0, 1.8fr) minmax(320px, 0.72fr);
+  }
+}
+
+/* preserve compact mobile spacing */
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 18px 14px 40px !important;
+  }
+
+  .dashboard-header h1 {
+    font-size: 30px;
+  }
+
+  .dashboard-overview-card {
+    min-height: 112px;
+    padding: 15px;
+  }
+
+  .dashboard-overview-card > strong {
+    font-size: 23px;
+  }
+
+  .dashboard-panel,
+  .dashboard-cogs-card {
+    padding: 15px;
+  }
+}
