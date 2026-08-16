@@ -1,18 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import LogoutButton from "./LogoutButton";
+
+export type SidebarPage =
+  | "dashboard"
+  | "insights"
+  | "orders"
+  | "invoices"
+  | "suppliers"
+  | "ingredients"
+  | "recipes"
+  | "menu"
+  | "stock"
+  | "reports";
 
 type SidebarProps = {
-  active?: string;
+  active: SidebarPage;
 };
 
-const navItems = [
+const navItems: {
+  key: SidebarPage;
+  label: string;
+  href: string;
+  icon: string;
+}[] = [
   {
     key: "dashboard",
     label: "Dashboard",
     href: "/",
     icon: "⌂",
+  },
+  {
+    key: "insights",
+    label: "Insights",
+    href: "/insights",
+    icon: "✦",
   },
   {
     key: "orders",
@@ -25,6 +47,12 @@ const navItems = [
     label: "Invoices",
     href: "/invoices",
     icon: "▤",
+  },
+  {
+    key: "suppliers",
+    label: "Suppliers",
+    href: "/suppliers",
+    icon: "◎",
   },
   {
     key: "ingredients",
@@ -46,71 +74,65 @@ const navItems = [
   },
   {
     key: "stock",
-    label: "Stock counts",
+    label: "Stock",
     href: "/stock",
     icon: "□",
   },
+  {
+    key: "reports",
+    label: "Reports",
+    href: "/reports",
+    icon: "↗",
+  },
 ];
 
-export default function Sidebar({
-  active,
-}: SidebarProps) {
+export default function Sidebar({ active }: SidebarProps) {
   return (
     <aside className="sidebar">
-      <div className="brand">
-        <div className="sidebar-brand-mark">
-          K
-        </div>
+      <div className="sidebar-brand">
+        <Link href="/" className="sidebar-brand-link">
+          <div className="sidebar-logo">
+            KI
+          </div>
 
-        <div className="sidebar-brand-copy">
-          <strong>
-            Kitchen Insights
-          </strong>
-
-          <span>
-            Cost & purchasing control
-          </span>
-        </div>
+          <div className="sidebar-brand-copy">
+            <strong>Kitchen Insights</strong>
+            <span>Cost control & operations</span>
+          </div>
+        </Link>
       </div>
 
       <nav className="sidebar-nav">
-        {navItems.map((item) => (
-          <Link
-            key={item.key}
-            href={item.href}
-            className={`sidebar-link ${
-              active === item.key
-                ? "active"
-                : ""
-            }`}
-          >
-            <span className="sidebar-link-icon">
-              {item.icon}
-            </span>
+        {navItems.map((item) => {
+          const isActive = item.key === active;
 
-            <span>
-              {item.label}
-            </span>
-          </Link>
-        ))}
+          return (
+            <Link
+              key={item.key}
+              href={item.href}
+              className={`nav-link ${
+                isActive ? "nav-link-active" : ""
+              }`}
+            >
+              <span className="nav-icon">
+                {item.icon}
+              </span>
+
+              <span className="nav-label">
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
       </nav>
 
       <div className="sidebar-footer">
-        <LogoutButton />
+        <div className="sidebar-footer-status">
+          <span className="sidebar-status-dot" />
 
-        <div className="sidebar-site">
-          <div className="sidebar-site-avatar">
-            AZ
-          </div>
-
-          <div className="sidebar-site-copy">
-            <strong>
-              Azteca
-            </strong>
-
-            <span>
-              Battersea, London
-            </span>
+          <div>
+            <strong>Azteca London</strong>
+            <span>Kitchen workspace</span>
           </div>
         </div>
       </div>
