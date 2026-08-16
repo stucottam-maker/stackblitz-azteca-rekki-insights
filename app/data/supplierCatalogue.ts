@@ -1,6 +1,120 @@
 import { woodsCatalogueItems } from "./woodsCatalogue";
 import { mexgrocerCatalogue } from "./mexgrocerCatalogue";
+function normalizeProductName(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
 
+function isPreferredMexgrocerProduct(title: string) {
+  const name = normalizeProductName(title);
+
+  return [
+    // EL Yucateco - Achiote Paste 1kg
+    name.includes("el yucateco") &&
+      name.includes("achiote") &&
+      name.includes("1kg"),
+
+    // La Costena - Chipotle in Adobo 2.8kg
+    name.includes("la costena") &&
+      name.includes("chipotle") &&
+      name.includes("adobo") &&
+      name.includes("2 8kg"),
+
+    // Dried Black Beans 25kg
+    name.includes("dried black beans") &&
+      name.includes("25kg"),
+
+    // Tajin - Ancho Chilli 75g
+    name.includes("tajin") &&
+      name.includes("ancho") &&
+      name.includes("75g"),
+
+    // Choco has 26kg, public catalogue currently has 25kg
+    name.includes("agave syrup") &&
+      (name.includes("25kg") ||
+        name.includes("26kg")),
+
+    // Abuelita Chocolate 540g
+    name.includes("abuelita") &&
+      name.includes("chocolate") &&
+      name.includes("540g"),
+
+    // Chatica Dulce de Leche
+    name.includes("chatica") &&
+      name.includes("dulce de leche") &&
+      name.includes("450g"),
+
+    // Azteca Mole Rojo 5kg
+    name.includes("mole rojo") &&
+      name.includes("5kg"),
+
+    // Ancho chilli
+    name.includes("ancho") &&
+      name.includes("whole dried") &&
+      name.includes("1kg"),
+
+    // Goya Aji Amarillo
+    name.includes("aji amarillo") &&
+      name.includes("paste"),
+
+    // Avocado leaf powder
+    name.includes("avocado leaf powder") &&
+      name.includes("1kg"),
+
+    // Morita powder
+    name.includes("morita") &&
+      name.includes("powder") &&
+      name.includes("100g"),
+
+    // Habanero whole
+    name.includes("habanero") &&
+      name.includes("whole dried") &&
+      name.includes("1kg"),
+
+    // Jalapeno whole
+    name.includes("jalapeno") &&
+      name.includes("whole dried") &&
+      name.includes("1kg"),
+
+    // Morita whole
+    name.includes("morita") &&
+      name.includes("whole dried") &&
+      name.includes("1kg"),
+
+    // Tajin Pasilla
+    name.includes("tajin") &&
+      name.includes("pasilla") &&
+      name.includes("75g"),
+
+    // Arbol chilli
+    name.includes("arbol") &&
+      name.includes("whole dried") &&
+      name.includes("1kg"),
+
+    // La Fonda cactus pouch
+    name.includes("la fonda") &&
+      name.includes("cactus") &&
+      name.includes("whole leaves") &&
+      name.includes("pouch"),
+
+    // Choco's "La fonda tradicional tortillas 15"
+    // Closest catering catalogue item
+    name.includes("la fonda ls tradicional corn tortilla") &&
+      name.includes("case"),
+
+    // Dona Maria brown mole
+    name.includes("dona maria") &&
+      name.includes("mole brown"),
+
+    // Choco Mexican oregano — restaurant-size catalogue option
+    name.includes("terana oregano") &&
+      name.includes("400g"),
+  ].some(Boolean);
+}
 export type CatalogueItem = {
   id: string;
   ingredient: string;
@@ -462,32 +576,52 @@ export const supplierCatalogue: CatalogueItem[] = [
     category: "Pork",
   },
 
+   // ============================================================
   // MEXGROCER
-  // Full food / catering catalogue
+  // 481 cleaned catalogue products
+  // Choco order-guide items are preferred
   // ============================================================
 
-  ...mexgrocerCatalogue.map((product) => ({
-  id: `mex-${product.itemId ?? product.title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")}`,
+  ...mexgrocerCatalogue
+    .map((product) => {
+      const preferred =
+        isPreferredMexgrocerProduct(product.title);
 
-  ingredient: product.title,
+      return {
+        id: `mex-${
+          product.itemId ??
+          product.title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+        }`,
 
-  supplier: "Mexgrocer",
+        ingredient: product.title,
 
-  supplierProduct: product.title,
+        supplier: "Mexgrocer",
 
-  // Mexgrocer website prices are for the listed pack/product,
-  // so ordering it as "each" is correct for now.
-  unit: "each",
+        supplierProduct: product.title,
 
-  fallbackPrice: product.price,
+        unit: "each",
 
-  preferred: false,
+        fallbackPrice: product.price,
 
-  category:
-    product.categorySlug || "Mexican",
-})),
+        preferred,
+
+        category:
+          product.categorySlug || "Mexican",
+      };
+    })
+    .sort(
+      (a, b) =>
+        Number(b.preferred) -
+        Number(a.preferred)
+    ),
+
+  // ============================================================
+  // WOODS FOODSERVICE
+  // ============================================================
+
+  ...woodsCatalogueItems,
   // ============================================================
   // WOODS FOODSERVICE
   // Full 191-product Buy Again catalogue
