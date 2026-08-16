@@ -110,8 +110,6 @@ export default function ReportsPage() {
       setInvoices(invoiceHistory);
     } else if (singleApprovedInvoice) {
       setInvoices([singleApprovedInvoice]);
-    } else {
-      setInvoices([]);
     }
 
     const combinedStock = [...stockHistory];
@@ -166,6 +164,8 @@ export default function ReportsPage() {
     ]
   );
 
+  const supplierRows = insightData.supplierSpend;
+
   const priceChanges = useMemo(() => {
     return Object.entries(ingredientPrices)
       .map(([ingredient, current]) => {
@@ -202,7 +202,10 @@ export default function ReportsPage() {
       .sort((a, b) => Math.abs(b.change) - Math.abs(a.change));
   }, [ingredientPrices, previousIngredientPrices]);
 
-  const supplierRows = insightData.supplierSpend;
+  const totalSupplierSpend = supplierRows.reduce(
+    (sum, supplier) => sum + supplier.total,
+    0
+  );
 
   return (
     <div className="app-shell">
@@ -214,7 +217,7 @@ export default function ReportsPage() {
             <p className="page-eyebrow">Analysis</p>
             <h1>Reports</h1>
             <p className="reports-subtitle">
-              Purchasing, COGS, supplier performance, price movement and stock.
+              Purchasing, COGS, supplier spend, stock movement and margins.
             </p>
           </div>
 
@@ -223,8 +226,8 @@ export default function ReportsPage() {
               View insights
             </Link>
 
-            <Link href="/invoices" className="primary-button">
-              Invoices
+            <Link href="/invoices/upload" className="primary-button">
+              Upload invoice
             </Link>
           </div>
         </header>
@@ -295,7 +298,7 @@ export default function ReportsPage() {
                     insightData.metrics.theoreticalFoodCostPercent
                   )}
                 </strong>
-                <p>Recipe-based cost</p>
+                <p>Recipe-based food cost</p>
               </article>
 
               <article className="report-summary-card">
@@ -327,17 +330,20 @@ export default function ReportsPage() {
                 <div className="report-panel-header">
                   <div>
                     <p className="page-eyebrow">Purchasing</p>
-                    <h2>Top suppliers</h2>
+                    <h2>Supplier spend</h2>
                   </div>
 
-                  <button type="button" onClick={() => setActiveView("supplier")}>
-                    View report
+                  <button
+                    type="button"
+                    onClick={() => setActiveView("supplier")}
+                  >
+                    Full report
                   </button>
                 </div>
 
                 {supplierRows.length === 0 ? (
                   <p className="report-empty">
-                    Supplier spend will appear after invoices are approved.
+                    Supplier spend will appear as invoices are approved.
                   </p>
                 ) : (
                   <div className="report-supplier-list">
@@ -366,12 +372,12 @@ export default function ReportsPage() {
               <section className="report-panel">
                 <div className="report-panel-header">
                   <div>
-                    <p className="page-eyebrow">Stock</p>
+                    <p className="page-eyebrow">Inventory</p>
                     <h2>Latest COGS period</h2>
                   </div>
 
                   <button type="button" onClick={() => setActiveView("cogs")}>
-                    View report
+                    Full report
                   </button>
                 </div>
 
@@ -438,14 +444,9 @@ export default function ReportsPage() {
 
                   <tbody>
                     {supplierRows.map((supplier) => {
-                      const totalSpend = supplierRows.reduce(
-                        (sum, row) => sum + row.total,
-                        0
-                      );
-
                       const share =
-                        totalSpend > 0
-                          ? (supplier.total / totalSpend) * 100
+                        totalSupplierSpend > 0
+                          ? (supplier.total / totalSupplierSpend) * 100
                           : 0;
 
                       return (
@@ -511,7 +512,7 @@ export default function ReportsPage() {
               </div>
             </div>
 
-            <div className="reports-summary-grid reports-summary-grid-small">
+            <section className="reports-summary-grid reports-summary-grid-small">
               <article className="report-summary-card">
                 <span>Sales</span>
                 <strong>{formatCurrency(salesThisPeriod)}</strong>
@@ -525,7 +526,7 @@ export default function ReportsPage() {
               </article>
 
               <article className="report-summary-card">
-                <span>Theoretical food cost</span>
+                <span>Theoretical</span>
                 <strong>
                   {formatPercent(
                     insightData.metrics.theoreticalFoodCostPercent
@@ -547,7 +548,7 @@ export default function ReportsPage() {
                       )} pts`}
                 </strong>
               </article>
-            </div>
+            </section>
           </section>
         )}
 
@@ -562,7 +563,7 @@ export default function ReportsPage() {
 
             {priceChanges.length === 0 ? (
               <p className="report-empty">
-                Price history will appear once previous supplier prices are
+                Price movements will appear once previous supplier prices are
                 stored.
               </p>
             ) : (
@@ -580,7 +581,7 @@ export default function ReportsPage() {
 
                   <tbody>
                     {priceChanges.map((item) => (
-                      <tr key={item.ingredient}>
+                      <tr key={`${item.ingredient}-${item.supplier}`}>
                         <td>{item.ingredient}</td>
                         <td>{item.supplier}</td>
                         <td>
@@ -619,7 +620,7 @@ export default function ReportsPage() {
               <Link href="/stock">Open stock</Link>
             </div>
 
-            <div className="reports-summary-grid reports-summary-grid-small">
+            <section className="reports-summary-grid reports-summary-grid-small">
               <article className="report-summary-card">
                 <span>Latest stock value</span>
                 <strong>
@@ -628,7 +629,7 @@ export default function ReportsPage() {
               </article>
 
               <article className="report-summary-card">
-                <span>Previous stock value</span>
+                <span>Previous stock</span>
                 <strong>
                   {formatCurrency(insightData.metrics.previousStockValue)}
                 </strong>
@@ -639,9 +640,7 @@ export default function ReportsPage() {
                 <strong>
                   {insightData.metrics.stockValueChange === null
                     ? "—"
-                    : `${
-                        insightData.metrics.stockValueChange >= 0 ? "+" : "-"
-                      }${formatCurrency(
+                    : `${insightData.metrics.stockValueChange >= 0 ? "+" : "-"}${formatCurrency(
                         Math.abs(insightData.metrics.stockValueChange)
                       )}`}
                 </strong>
@@ -651,7 +650,7 @@ export default function ReportsPage() {
                 <span>Stock counts</span>
                 <strong>{stockTakes.length}</strong>
               </article>
-            </div>
+            </section>
           </section>
         )}
 
@@ -668,8 +667,8 @@ export default function ReportsPage() {
 
             {recipeCosts.length === 0 ? (
               <p className="report-empty">
-                Recipe cost summaries will appear here once recipes are linked
-                to selling prices.
+                Recipe margins will appear once recipe costs and selling prices
+                are linked.
               </p>
             ) : (
               <div className="report-table-wrap">
