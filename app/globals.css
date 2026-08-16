@@ -5040,3 +5040,144 @@ td{
     font-size: 32px;
   }
 }
+/* ============================================================
+   ORDERS — WOODS PRODUCT METADATA
+   ============================================================ */
+
+.quick-order-product {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.quick-order-product-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.quick-order-product-title strong {
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.quick-order-sku {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #7a7a72;
+  background: #f3f1eb;
+  border: 1px solid #e5e1d8;
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.quick-order-brand {
+  display: block;
+  font-size: 12px;
+  color: #77756f;
+}
+
+.quick-order-price-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.quick-order-price-summary span {
+  font-size: 12px;
+  color: #6c6a64;
+}
+
+.quick-order-price-summary strong {
+  color: #232a25;
+  font-weight: 700;
+}
+
+.quick-order-price-note {
+  display: block;
+  font-size: 12px;
+  color: #6c6a64;
+}
+
+.quick-price-mode {
+  display: inline-flex;
+  width: fit-content;
+  overflow: hidden;
+  border: 1px solid #d8d5cc;
+  border-radius: 6px;
+  margin-top: 2px;
+}
+
+.quick-price-mode button {
+  appearance: none;
+  border: 0;
+  border-right: 1px solid #d8d5cc;
+  background: #f7f5f0;
+  color: #4e504b;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quick-price-mode button:last-child {
+  border-right: 0;
+}
+
+.quick-price-mode button:hover {
+  background: #efede6;
+}
+
+.quick-price-mode .quick-price-mode-active {
+  background: #174d40;
+  color: #fff;
+}
+
+.quick-order-last-ordered {
+  display: block;
+  margin-top: 1px;
+  font-size: 11px;
+  color: #8a877f;
+}
+
+.quick-order-line {
+  align-items: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.quick-order-stock {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.quick-order-stock strong,
+.quick-order-stock span {
+  display: inline;
+}
+
+.quick-order-quantity {
+  align-items: center;
+}
+
+.quick-order-quantity input {
+  min-width: 72px;
+}
+
+@media (max-width: 900px) {
+  .quick-order-price-summary {
+    gap: 8px;
+  }
+
+  .quick-order-line {
+    align-items: start;
+  }
+}
