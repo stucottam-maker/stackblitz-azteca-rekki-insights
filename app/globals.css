@@ -1045,3 +1045,36 @@ td{
     text-align:center
   }
 }
+/* =========================================================
+   ORDERS — SPACING POLISH
+   ========================================================= */
+
+.supplier-choice-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.supplier-choice-copy strong {
+  display: block;
+  color: #24231f;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.supplier-choice-copy span {
+  display: block;
+  color: #817b71;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.supplier-choice-card {
+  min-height: 88px;
+}
+
+.supplier-choice-card > div:nth-child(2) {
+  min-width: 0;
+}
