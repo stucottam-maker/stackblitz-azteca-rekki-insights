@@ -4736,3 +4736,307 @@ td{
     width: 100%;
   }
 }
+/* =========================================================
+   LOGIN — POLISHED
+   ========================================================= */
+
+.login-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(255, 255, 255, 0.9),
+      transparent 35%
+    ),
+    #f4f2ed;
+}
+
+.login-shell {
+  width: min(100%, 430px);
+
+  padding: 30px;
+
+  border: 1px solid #e3dfd7;
+  border-radius: 18px;
+
+  background: #fff;
+
+  box-shadow:
+    0 14px 40px
+    rgba(23, 63, 53, 0.08);
+}
+
+.login-brand-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 28px;
+}
+
+.login-brand-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 auto;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+}
+
+.login-brand-icon img {
+  display: block;
+
+  width: 42px;
+  height: 42px;
+}
+
+.login-brand-copy {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.login-brand-copy strong {
+  color: #173f35;
+
+  font-size: 14px;
+  font-weight: 760;
+  line-height: 1.2;
+
+  letter-spacing: -0.015em;
+}
+
+.login-brand-copy span {
+  color: #93978f;
+
+  font-size: 9px;
+  line-height: 1.3;
+}
+
+.login-heading {
+  margin-bottom: 24px;
+}
+
+.login-heading .eyebrow {
+  margin-bottom: 5px;
+}
+
+.login-heading h1 {
+  margin: 0;
+
+  color: #20251f;
+
+  font-size: 36px;
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+.login-heading > p:last-child {
+  max-width: 340px;
+
+  margin-top: 10px;
+
+  color: #7f837b;
+
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.login-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.login-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.login-field > span {
+  color: #4f544e;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.login-field input {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 13px;
+
+  border: 1px solid #dedbd4;
+  border-radius: 9px;
+
+  background: #fff;
+  color: #303430;
+
+  font-size: 12px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.login-field input::placeholder {
+  color: #b3b5af;
+}
+
+.login-field input:focus {
+  border-color: #8ca397;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(49, 114, 94, 0.07);
+}
+
+.login-error {
+  padding: 11px 12px;
+
+  border: 1px solid #efcbc5;
+  border-radius: 9px;
+
+  background: #fff0ed;
+  color: #9d352c;
+
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.login-button {
+  width: 100%;
+  min-height: 46px;
+
+  margin-top: 2px;
+
+  justify-content: center;
+}
+
+.login-button:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.login-divider {
+  display: flex;
+
+  align-items: center;
+
+  margin: 24px 0 18px;
+}
+
+.login-divider span {
+  width: 100%;
+  height: 1px;
+
+  background: #ece9e3;
+}
+
+.login-workspace-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 12px;
+
+  border: 1px solid #e7e4de;
+  border-radius: 11px;
+
+  background: #faf9f6;
+}
+
+.login-workspace-mark {
+  display: flex;
+
+  width: 36px;
+  height: 36px;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #173f35;
+  color: #fff;
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.login-workspace-copy {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.login-workspace-copy > span {
+  color: #9b9e97;
+
+  font-size: 7px;
+  font-weight: 750;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+}
+
+.login-workspace-copy strong {
+  color: #303430;
+
+  font-size: 11px;
+  font-weight: 720;
+}
+
+.login-workspace-copy small {
+  color: #8d9089;
+
+  font-size: 8px;
+}
+
+@media (max-width: 560px) {
+  .login-page {
+    align-items: flex-start;
+
+    padding: 18px;
+  }
+
+  .login-shell {
+    margin-top: 24px;
+
+    padding: 24px;
+
+    border-radius: 15px;
+  }
+
+  .login-heading h1 {
+    font-size: 32px;
+  }
+}
