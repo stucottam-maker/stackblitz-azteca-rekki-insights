@@ -1915,3 +1915,230 @@ td{
     font-size: 23px;
   }
 }
+/* =========================================================
+   UNIVERSAL KPI / SUMMARY CARDS
+   ========================================================= */
+
+.stats-grid,
+.dashboard-overview-grid,
+.insights-summary-grid,
+.reports-summary-grid,
+.suppliers-summary-grid,
+.recipe-editor-summary {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* Default 4-card layout */
+.stats-grid,
+.dashboard-overview-grid,
+.insights-summary-grid,
+.reports-summary-grid,
+.suppliers-summary-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Ingredients = 3 cards */
+.ingredients-page .stats-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* One shared card shape */
+.stat-card,
+.dashboard-overview-card,
+.insight-summary-card,
+.report-summary-card,
+.supplier-summary-card,
+.recipe-editor-summary-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  min-width: 0;
+  min-height: 124px;
+
+  padding: 18px 20px;
+
+  border: 1px solid #e5e3dd;
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  box-shadow: 0 1px 2px rgba(26, 31, 27, 0.03);
+}
+
+/* =========================================================
+   KPI LABEL
+   ========================================================= */
+
+.stat-label,
+.dashboard-overview-top span,
+.insight-summary-label,
+.report-summary-card > span,
+.supplier-summary-card > span,
+.recipe-editor-summary-item > span {
+  display: block;
+
+  margin: 0;
+
+  color: #777a74;
+
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 650;
+
+  letter-spacing: 0;
+}
+
+/* Dashboard has label + link in same row */
+.dashboard-overview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* =========================================================
+   KPI VALUE
+   ========================================================= */
+
+.stat-value,
+.dashboard-overview-card > strong,
+.insight-summary-value,
+.report-summary-card > strong,
+.supplier-summary-card > strong,
+.recipe-editor-summary-item > strong {
+  display: block;
+
+  margin: 13px 0 0;
+
+  color: #173f35;
+
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 760;
+
+  letter-spacing: -0.035em;
+}
+
+/* =========================================================
+   KPI SUPPORTING TEXT
+   ========================================================= */
+
+.stat-change,
+.dashboard-overview-card > p,
+.insight-summary-card > p,
+.report-summary-card > p,
+.supplier-summary-card > p,
+.recipe-editor-summary-item > small {
+  display: block;
+
+  margin: 9px 0 0;
+
+  color: #92958e;
+
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* warnings */
+.stat-change.warning {
+  color: #a57218;
+}
+
+/* =========================================================
+   STOCK KPI CARDS
+   ========================================================= */
+
+.stock-page .stats-grid .stat-card {
+  min-height: 124px;
+}
+
+/* =========================================================
+   RECIPES KPI CARDS
+   ========================================================= */
+
+.recipes-page .stat-card {
+  min-height: 124px;
+}
+
+/* =========================================================
+   MENU KPI CARDS
+   ========================================================= */
+
+.menu-page .stat-card {
+  min-height: 124px;
+}
+
+/* =========================================================
+   INVOICE KPI CARDS
+   ========================================================= */
+
+.invoices-page .stat-card,
+.invoice-stats .stat-card {
+  min-height: 124px;
+}
+
+/* =========================================================
+   INGREDIENT KPI CARDS
+   ========================================================= */
+
+.ingredients-page .stat-card {
+  min-height: 124px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .stats-grid,
+  .dashboard-overview-grid,
+  .insights-summary-grid,
+  .reports-summary-grid,
+  .suppliers-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ingredients-page .stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .ingredients-page .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-grid,
+  .dashboard-overview-grid,
+  .insights-summary-grid,
+  .reports-summary-grid,
+  .suppliers-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .stat-card,
+  .dashboard-overview-card,
+  .insight-summary-card,
+  .report-summary-card,
+  .supplier-summary-card,
+  .recipe-editor-summary-item {
+    min-height: 108px;
+    padding: 15px;
+  }
+
+  .stat-value,
+  .dashboard-overview-card > strong,
+  .insight-summary-value,
+  .report-summary-card > strong,
+  .supplier-summary-card > strong,
+  .recipe-editor-summary-item > strong {
+    font-size: 23px;
+  }
+}
