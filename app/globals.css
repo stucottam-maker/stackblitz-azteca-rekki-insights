@@ -5272,3 +5272,44 @@ td strong {
     padding: 14px;
   }
 }
+/* =========================================================
+   GLOBAL CONTENT ALIGNMENT FIX
+   ========================================================= */
+
+@media (min-width: 769px) {
+  .main-content {
+    width: calc(100% - 220px) !important;
+    margin-left: 220px !important;
+
+    /* important: give every page breathing room from sidebar */
+    padding-left: 40px !important;
+    padding-right: 36px !important;
+
+    box-sizing: border-box;
+  }
+
+  .dashboard-page,
+  .insights-page,
+  .reports-page,
+  .suppliers-page,
+  .ingredients-page,
+  .recipes-page,
+  .menu-page,
+  .stock-page,
+  .orders-page,
+  .invoices-page {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* Keep mobile edge-to-edge underneath the top nav */
+@media (max-width: 768px) {
+  .main-content {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
