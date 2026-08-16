@@ -1078,3 +1078,429 @@ td{
 .supplier-choice-card > div:nth-child(2) {
   min-width: 0;
 }
+/* =========================================================
+   RECIPE DETAIL — MARKETMAN STYLE
+   ========================================================= */
+
+.recipe-editor-page {
+  padding-top: 34px;
+  padding-bottom: 60px;
+}
+
+.recipe-editor-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 18px;
+}
+
+.recipe-editor-title-input {
+  display: block;
+  width: min(760px, 100%);
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #20231f;
+  font-size: 34px;
+  line-height: 1.05;
+  font-weight: 760;
+  letter-spacing: -0.03em;
+}
+
+.recipe-editor-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.recipe-editor-meta span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: #efede7;
+  color: #696c66;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.recipe-editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recipe-save-message {
+  color: #31725e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.recipe-editor-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.recipe-editor-summary-item {
+  padding: 16px;
+  border: 1px solid #e4e1da;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.recipe-editor-summary-item span {
+  display: block;
+  color: #858880;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.recipe-editor-summary-item strong {
+  display: block;
+  margin-top: 7px;
+  color: #173f35;
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.recipe-editor-summary-item small {
+  display: block;
+  margin-top: 5px;
+  color: #999c95;
+  font-size: 9px;
+}
+
+.recipe-editor-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #ddd9d1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.recipe-editor-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.recipe-editor-tab {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 12px 15px;
+  background: transparent;
+  color: #686b65;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.recipe-editor-tab-active {
+  color: #173f35;
+}
+
+.recipe-editor-tab-active::after {
+  position: absolute;
+  right: 8px;
+  bottom: -1px;
+  left: 8px;
+  height: 2px;
+  background: #31725e;
+  content: "";
+}
+
+.recipe-yield-panel {
+  display: grid;
+  grid-template-columns: 180px 180px minmax(220px, 1fr);
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid #e4e1da;
+  border-radius: 13px;
+  background: #fff;
+}
+
+.recipe-yield-panel label {
+  display: block;
+  margin-bottom: 7px;
+  color: #797c75;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.recipe-yield-panel input,
+.recipe-yield-panel select {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #dcd8d0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.recipe-yield-cost {
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: #eef3f0;
+}
+
+.recipe-yield-cost span {
+  display: block;
+  color: #777a74;
+  font-size: 9px;
+}
+
+.recipe-yield-cost strong {
+  display: block;
+  margin-top: 4px;
+  color: #173f35;
+  font-size: 18px;
+}
+
+.recipe-editor-table-card,
+.recipe-procedure-card,
+.recipe-used-in-card,
+.recipe-allergens-card {
+  overflow: hidden;
+  margin-bottom: 18px;
+  border: 1px solid #e3dfd7;
+  border-radius: 13px;
+  background: #fff;
+}
+
+.recipe-editor-table-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e7e3dc;
+}
+
+.recipe-editor-table-header h2 {
+  margin-top: 5px;
+  font-size: 17px;
+}
+
+.recipe-editor-table-wrap {
+  overflow-x: auto;
+}
+
+.recipe-marketman-table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+.recipe-marketman-table th {
+  padding: 11px 12px;
+  background: #f2f4f3;
+  border-bottom: 1px solid #dfe3e0;
+  color: #68716c;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.recipe-marketman-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ece9e3;
+  vertical-align: middle;
+}
+
+.recipe-marketman-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.recipe-marketman-table input,
+.recipe-marketman-table select {
+  width: 100%;
+  min-height: 37px;
+  padding: 0 9px;
+  border: 1px solid #dcd8d0;
+  border-radius: 7px;
+  background: #fff;
+  color: #303430;
+  font-size: 11px;
+  outline: none;
+}
+
+.recipe-marketman-table input:focus,
+.recipe-marketman-table select:focus {
+  border-color: #8ca397;
+  box-shadow: 0 0 0 2px rgba(49, 114, 94, 0.08);
+}
+
+.recipe-name-column {
+  min-width: 260px;
+}
+
+.recipe-cost-column {
+  min-width: 130px;
+}
+
+.recipe-cost-column strong {
+  display: block;
+  color: #173f35;
+  font-size: 11px;
+}
+
+.recipe-cost-column span {
+  display: block;
+  margin-top: 3px;
+  color: #999c95;
+  font-size: 8px;
+}
+
+.recipe-procedure-textarea {
+  width: 100%;
+  min-height: 320px;
+  padding: 20px;
+  border: 0;
+  outline: none;
+  resize: vertical;
+  background: #fff;
+  color: #303430;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.recipe-used-in-list {
+  display: grid;
+}
+
+.recipe-used-in-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #ece9e3;
+}
+
+.recipe-used-in-row:last-child {
+  border-bottom: 0;
+}
+
+.recipe-used-in-row div {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-used-in-row strong {
+  font-size: 12px;
+}
+
+.recipe-used-in-row div span {
+  margin-top: 3px;
+  color: #8b8e87;
+  font-size: 9px;
+}
+
+.recipe-empty-state {
+  padding: 34px 20px;
+  color: #858880;
+  font-size: 11px;
+  text-align: center;
+}
+
+.recipe-allergen-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 18px 20px 20px;
+}
+
+.recipe-allergen-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px;
+  border: 1px solid #e1ddd5;
+  border-radius: 9px;
+  background: #fff;
+  color: #565a54;
+  cursor: pointer;
+  text-align: left;
+}
+
+.recipe-allergen-option-active {
+  border-color: #8da398;
+  background: #eef4f0;
+  color: #173f35;
+}
+
+.recipe-allergen-check {
+  display: flex;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d2cec6;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.recipe-allergen-option-active .recipe-allergen-check {
+  border-color: #31725e;
+  background: #31725e;
+  color: #fff;
+}
+
+.recipe-allergen-option strong {
+  font-size: 10px;
+}
+
+@media (max-width: 1000px) {
+  .recipe-editor-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recipe-yield-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recipe-yield-cost {
+    grid-column: span 2;
+  }
+
+  .recipe-allergen-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .recipe-editor-topbar {
+    display: block;
+  }
+
+  .recipe-editor-actions {
+    margin-top: 16px;
+  }
+
+  .recipe-editor-title-input {
+    font-size: 28px;
+  }
+
+  .recipe-yield-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-yield-cost {
+    grid-column: auto;
+  }
+
+  .recipe-allergen-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
