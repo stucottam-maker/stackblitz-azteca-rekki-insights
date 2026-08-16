@@ -1,11 +1,13 @@
 "use client";
 
 import {
+  useCallback,
   useEffect,
   useMemo,
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
+
 import Sidebar from "../components/Sidebar";
 import { supabase } from "../lib/supabase";
 
@@ -41,12 +43,8 @@ type IngredientPriceRow = {
   unit: string | null;
   effective_date: string | null;
   updated_at: string | null;
-
-  ingredient:
-    IngredientRelation;
-
-  supplier:
-    SupplierRelation;
+  ingredient: IngredientRelation;
+  supplier: SupplierRelation;
 };
 
 type IngredientView = {
@@ -63,11 +61,7 @@ type IngredientView = {
 };
 
 function relationFirst<T>(
-  relation:
-    | T
-    | T[]
-    | null
-    | undefined
+  relation: T | T[] | null | undefined
 ): T | null {
   if (!relation) {
     return null;
@@ -80,58 +74,41 @@ function relationFirst<T>(
   return relation;
 }
 
-function money(
-  value: number | null
-) {
+function money(value: number | null) {
   if (value === null) {
     return "—";
   }
 
-  return new Intl.NumberFormat(
-    "en-GB",
-    {
-      style: "currency",
-      currency: "GBP",
-      minimumFractionDigits: 2,
-    }
-  ).format(value);
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+    minimumFractionDigits: 2,
+  }).format(value);
 }
 
-function formatDate(
-  value: string
-) {
+function formatDate(value: string) {
   if (!value) {
     return "—";
   }
 
   const date = new Date(value);
 
-  if (
-    Number.isNaN(date.getTime())
-  ) {
+  if (Number.isNaN(date.getTime())) {
     return value;
   }
 
-  return new Intl.DateTimeFormat(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }
-  ).format(date);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
 }
 
 export default function IngredientsPage() {
   const router = useRouter();
 
-  const [
-    ingredients,
-    setIngredients,
-  ] =
-    useState<IngredientView[]>(
-      []
-    );
+  const [ingredients, setIngredients] =
+    useState<IngredientView[]>([]);
 
   const [loading, setLoading] =
     useState(true);
@@ -142,12 +119,10 @@ export default function IngredientsPage() {
   const [search, setSearch] =
     useState("");
 
-  const [
-    categoryFilter,
-    setCategoryFilter,
-  ] = useState("All");
+  const [categoryFilter, setCategoryFilter] =
+    useState("All");
 
-  async function loadIngredients() {
+  const loadIngredients = useCallback(async () => {
     setLoading(true);
     setError("");
 
@@ -155,8 +130,7 @@ export default function IngredientsPage() {
       const {
         data: userData,
         error: userError,
-      } =
-        await supabase.auth.getUser();
+      } = await supabase.auth.getUser();
 
       if (
         userError ||
@@ -168,19 +142,11 @@ export default function IngredientsPage() {
 
       const {
         data: membership,
-        error:
-          membershipError,
+        error: membershipError,
       } = await supabase
-        .from(
-          "organisation_members"
-        )
-        .select(
-          "organisation_id"
-        )
-        .eq(
-          "user_id",
-          userData.user.id
-        )
+        .from("organisation_members")
+        .select("organisation_id")
+        .eq("user_id", userData.user.id)
         .limit(1)
         .maybeSingle();
 
@@ -220,12 +186,9 @@ export default function IngredientsPage() {
 
       const {
         data,
-        error:
-          ingredientError,
+        error: ingredientError,
       } = await supabase
-        .from(
-          "ingredient_prices"
-        )
+        .from("ingredient_prices")
         .select(`
           id,
           price,
@@ -247,16 +210,10 @@ export default function IngredientsPage() {
           "organisation_id",
           organisationId
         )
-        .eq(
-          "site_id",
-          site.id
-        )
-        .order(
-          "updated_at",
-          {
-            ascending: false,
-          }
-        );
+        .eq("site_id", site.id)
+        .order("updated_at", {
+          ascending: false,
+        });
 
       if (ingredientError) {
         throw ingredientError;
@@ -266,71 +223,58 @@ export default function IngredientsPage() {
         (data ??
           []) as unknown as IngredientPriceRow[];
 
-      const mapped =
-        rows
-          .map((row) => {
-            const ingredient =
-              relationFirst(
-                row.ingredient
-              );
+      const mapped = rows
+        .map((row) => {
+          const ingredient =
+            relationFirst(row.ingredient);
 
-            const supplier =
-              relationFirst(
-                row.supplier
-              );
+          const supplier =
+            relationFirst(row.supplier);
 
-            if (!ingredient) {
-              return null;
-            }
+          if (!ingredient) {
+            return null;
+          }
 
-            return {
-              priceId: row.id,
+          return {
+            priceId: row.id,
+            ingredientId: ingredient.id,
 
-              ingredientId:
-                ingredient.id,
+            name: ingredient.name,
 
-              name:
-                ingredient.name,
+            category:
+              ingredient.category ||
+              "Uncategorised",
 
-              category:
-                ingredient.category ||
-                "Uncategorised",
+            baseUnit:
+              ingredient.base_unit || "",
 
-              baseUnit:
-                ingredient.base_unit ||
-                "",
+            price: row.price,
 
-              price: row.price,
+            priceUnit:
+              row.unit ||
+              ingredient.base_unit ||
+              "",
 
-              priceUnit:
-                row.unit ||
-                ingredient.base_unit ||
-                "",
+            supplier:
+              supplier?.name ||
+              "Unknown supplier",
 
-              supplier:
-                supplier?.name ||
-                "Unknown supplier",
+            effectiveDate:
+              row.effective_date || "",
 
-              effectiveDate:
-                row.effective_date ||
-                "",
-
-              updatedAt:
-                row.updated_at ||
-                "",
-            };
-          })
-          .filter(
-            (
-              item
-            ): item is IngredientView =>
-              item !== null
-          );
+            updatedAt:
+              row.updated_at || "",
+          };
+        })
+        .filter(
+          (
+            item
+          ): item is IngredientView =>
+            item !== null
+        );
 
       mapped.sort((a, b) =>
-        a.name.localeCompare(
-          b.name
-        )
+        a.name.localeCompare(b.name)
       );
 
       setIngredients(mapped);
@@ -345,110 +289,109 @@ export default function IngredientsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [router]);
 
   useEffect(() => {
-    loadIngredients();
-  }, []);
+    void loadIngredients();
+  }, [loadIngredients]);
 
-  const categories =
-    useMemo(() => {
-      const values =
-        new Set<string>();
+  const categories = useMemo(() => {
+    const values =
+      new Set<string>();
 
-      ingredients.forEach(
-        (ingredient) =>
-          values.add(
-            ingredient.category
-          )
-      );
+    ingredients.forEach(
+      (ingredient) => {
+        values.add(
+          ingredient.category
+        );
+      }
+    );
 
-      return [
-        "All",
-        ...Array.from(values).sort(),
-      ];
-    }, [ingredients]);
+    return [
+      "All",
+      ...Array.from(values).sort(),
+    ];
+  }, [ingredients]);
 
-  const filtered =
-    useMemo(() => {
-      const query =
-        search
-          .trim()
-          .toLowerCase();
+  const filtered = useMemo(() => {
+    const query =
+      search.trim().toLowerCase();
 
-      return ingredients.filter(
-        (ingredient) => {
-          const matchesSearch =
-            !query ||
-            ingredient.name
-              .toLowerCase()
-              .includes(query) ||
-            ingredient.supplier
-              .toLowerCase()
-              .includes(query) ||
-            ingredient.category
-              .toLowerCase()
-              .includes(query);
+    return ingredients.filter(
+      (ingredient) => {
+        const matchesSearch =
+          !query ||
+          ingredient.name
+            .toLowerCase()
+            .includes(query) ||
+          ingredient.supplier
+            .toLowerCase()
+            .includes(query) ||
+          ingredient.category
+            .toLowerCase()
+            .includes(query);
 
-          const matchesCategory =
-            categoryFilter ===
-              "All" ||
-            ingredient.category ===
-              categoryFilter;
+        const matchesCategory =
+          categoryFilter === "All" ||
+          ingredient.category ===
+            categoryFilter;
 
-          return (
-            matchesSearch &&
-            matchesCategory
-          );
-        }
-      );
-    }, [
-      ingredients,
-      search,
-      categoryFilter,
-    ]);
+        return (
+          matchesSearch &&
+          matchesCategory
+        );
+      }
+    );
+  }, [
+    ingredients,
+    search,
+    categoryFilter,
+  ]);
 
   const pricedCount =
     ingredients.filter(
-      (item) =>
-        item.price !== null
+      (ingredient) =>
+        ingredient.price !== null
     ).length;
 
   const supplierCount =
     new Set(
-      ingredients.map(
-        (item) =>
-          item.supplier
-      )
+      ingredients
+        .map(
+          (ingredient) =>
+            ingredient.supplier
+        )
+        .filter(
+          (supplier) =>
+            supplier !==
+            "Unknown supplier"
+        )
     ).size;
 
   return (
-    <main className="app-shell">
+    <div className="app-shell">
       <Sidebar active="ingredients" />
 
-      <section className="main-content">
+      <main className="main-content ingredients-page">
         <header className="topbar">
           <div>
             <p className="eyebrow">
               Cost control
             </p>
 
-            <h1>
-              Ingredients
-            </h1>
+            <h1>Ingredients</h1>
 
             <p className="page-description">
-              Live ingredient pricing
-              generated from approved
-              supplier invoices.
+              Live ingredient pricing generated from
+              approved supplier invoices.
             </p>
           </div>
 
           <button
             type="button"
             className="secondary-inline-button"
-            onClick={
-              loadIngredients
+            onClick={() =>
+              void loadIngredients()
             }
             disabled={loading}
           >
@@ -460,50 +403,49 @@ export default function IngredientsPage() {
 
         <section className="stats-grid">
           <article className="stat-card">
-            <span>
+            <p className="stat-label">
               Ingredients
-            </span>
+            </p>
 
-            <strong>
+            <p className="stat-value">
               {ingredients.length}
-            </strong>
+            </p>
 
-            <small>
+            <p className="stat-change neutral">
               Shared database
-            </small>
+            </p>
           </article>
 
           <article className="stat-card">
-            <span>
+            <p className="stat-label">
               Current prices
-            </span>
+            </p>
 
-            <strong>
+            <p className="stat-value">
               {pricedCount}
-            </strong>
+            </p>
 
-            <small>
+            <p className="stat-change neutral">
               Invoice-derived
-            </small>
+            </p>
           </article>
 
           <article className="stat-card">
-            <span>
+            <p className="stat-label">
               Suppliers
-            </span>
+            </p>
 
-            <strong>
+            <p className="stat-value">
               {supplierCount}
-            </strong>
+            </p>
 
-            <small>
-              Supplying priced
-              ingredients
-            </small>
+            <p className="stat-change neutral">
+              Supplying priced ingredients
+            </p>
           </article>
         </section>
 
-        <section className="panel">
+        <section className="panel ingredients-main-panel">
           <div className="panel-header">
             <div>
               <p className="panel-kicker">
@@ -514,114 +456,91 @@ export default function IngredientsPage() {
                 Ingredient prices
               </h2>
             </div>
+
+            <span className="ingredients-result-count">
+              {filtered.length}{" "}
+              {filtered.length === 1
+                ? "ingredient"
+                : "ingredients"}
+            </span>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              marginBottom:
-                "18px",
-              flexWrap: "wrap",
-            }}
-          >
-            <input
-              type="search"
-              value={search}
-              onChange={(
-                event
-              ) =>
-                setSearch(
-                  event.target.value
-                )
-              }
-              placeholder="Search ingredients or suppliers..."
-              style={{
-                flex: "1 1 280px",
-              }}
-            />
+          <div className="ingredient-toolbar">
+            <div className="ingredient-search">
+              <input
+                type="search"
+                value={search}
+                onChange={(event) =>
+                  setSearch(
+                    event.target.value
+                  )
+                }
+                placeholder="Search ingredients, suppliers or categories..."
+              />
+            </div>
 
-            <select
-              value={
-                categoryFilter
-              }
-              onChange={(
-                event
-              ) =>
-                setCategoryFilter(
-                  event.target.value
-                )
-              }
-              style={{
-                minWidth:
-                  "180px",
-              }}
-            >
-              {categories.map(
-                (category) => (
-                  <option
-                    key={category}
-                    value={category}
-                  >
-                    {category}
-                  </option>
-                )
-              )}
-            </select>
+            <div className="ingredient-filter">
+              <select
+                value={categoryFilter}
+                onChange={(event) =>
+                  setCategoryFilter(
+                    event.target.value
+                  )
+                }
+              >
+                {categories.map(
+                  (category) => (
+                    <option
+                      key={category}
+                      value={category}
+                    >
+                      {category}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
           </div>
 
           {error && (
-            <div
-              style={{
-                padding:
-                  "14px 16px",
-                borderRadius:
-                  "10px",
-                marginBottom:
-                  "16px",
-                background:
-                  "#fff0ed",
-                color:
-                  "#9d352c",
-              }}
-            >
+            <div className="ingredients-error">
               {error}
             </div>
           )}
 
           {loading ? (
-            <div
-              style={{
-                padding:
-                  "36px 0",
-                textAlign:
-                  "center",
-                opacity: 0.65,
-              }}
-            >
-              Loading ingredient
-              prices...
+            <div className="ingredients-empty-state">
+              <div className="ingredients-empty-icon">
+                ↻
+              </div>
+
+              <h3>
+                Loading ingredient prices
+              </h3>
+
+              <p>
+                Fetching the latest pricing
+                from the shared database.
+              </p>
             </div>
-          ) : filtered.length ===
-            0 ? (
-            <div
-              style={{
-                padding:
-                  "36px 0",
-                textAlign:
-                  "center",
-                opacity: 0.65,
-              }}
-            >
-              No ingredients found.
+          ) : filtered.length === 0 ? (
+            <div className="ingredients-empty-state">
+              <div className="ingredients-empty-icon">
+                ◇
+              </div>
+
+              <h3>
+                No ingredients found
+              </h3>
+
+              <p>
+                Try another search term or
+                change the category filter.
+              </p>
             </div>
           ) : (
-            <div
-              style={{
-                overflowX: "auto",
-              }}
-            >
-              <table className="data-table">
+            <div className="table-wrapper">
+              <table className="ingredients-table">
                 <thead>
                   <tr>
                     <th>
@@ -658,18 +577,18 @@ export default function IngredientsPage() {
                           ingredient.priceId
                         }
                       >
-                        <td>
+                        <td className="ingredient-name-cell">
                           <strong>
-                            {
-                              ingredient.name
-                            }
+                            {ingredient.name}
                           </strong>
                         </td>
 
                         <td>
-                          {
-                            ingredient.category
-                          }
+                          <span className="ingredient-category-badge">
+                            {
+                              ingredient.category
+                            }
+                          </span>
                         </td>
 
                         <td>
@@ -679,7 +598,7 @@ export default function IngredientsPage() {
                         </td>
 
                         <td>
-                          <strong>
+                          <strong className="ingredient-price-value">
                             {money(
                               ingredient.price
                             )}
@@ -687,9 +606,11 @@ export default function IngredientsPage() {
                         </td>
 
                         <td>
-                          {ingredient.priceUnit ||
-                            ingredient.baseUnit ||
-                            "—"}
+                          <span className="ingredient-unit">
+                            {ingredient.priceUnit ||
+                              ingredient.baseUnit ||
+                              "—"}
+                          </span>
                         </td>
 
                         <td>
@@ -707,14 +628,11 @@ export default function IngredientsPage() {
           )}
         </section>
 
-        <section
-          className="panel"
-          style={{
-            marginTop: "24px",
-            marginBottom:
-              "60px",
-          }}
-        >
+        <section className="panel ingredients-info-panel">
+          <div className="ingredients-info-icon">
+            £
+          </div>
+
           <div>
             <p className="panel-kicker">
               How pricing works
@@ -724,27 +642,17 @@ export default function IngredientsPage() {
               Invoice-driven costs
             </h2>
 
-            <p
-              style={{
-                maxWidth:
-                  "760px",
-                opacity: 0.72,
-                lineHeight: 1.6,
-              }}
-            >
-              When an invoice is
-              approved, Kitchen
-              Insights updates the
-              current ingredient price
-              for this site and stores
-              the previous changes in
-              price history. This page
-              now reads that shared
-              Supabase data directly.
+            <p>
+              When an invoice is approved,
+              Kitchen Insights updates the
+              current ingredient price for this
+              site while retaining previous
+              pricing changes for historical
+              reporting and cost analysis.
             </p>
           </div>
         </section>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
