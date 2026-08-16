@@ -54,7 +54,7 @@ export const supplierContacts: SupplierContact[] = [
 
 // Helper to keep imported catalogues safe
 function normaliseCatalogue(
-  items: any[],
+  items: readonly any[],
   supplier?: string
 ): CatalogueItem[] {
 
