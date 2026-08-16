@@ -45,12 +45,6 @@ export const suppliers: Record<string, Supplier> = {
     orderMethod: "Email",
   },
 
-  Masafina: {
-    name: "Masafina",
-    logo: "/suppliers/masafina.png",
-    email: "orders@masafina.com",
-    orderMethod: "Email",
-  },
 
   Mexgrocer: {
     name: "Mexgrocer",
