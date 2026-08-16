@@ -17,11 +17,6 @@ export const suppliers: Record<string, Supplier> = {
     orderMethod: "Email",
   },
 
-  "Ascot Wholesale": {
-    name: "Ascot Wholesale",
-    logo: "/suppliers/ascot-wholesale.png",
-  },
-
   "Big K Charcoal": {
     name: "Big K Charcoal",
     logo: "/suppliers/big-k.png",
