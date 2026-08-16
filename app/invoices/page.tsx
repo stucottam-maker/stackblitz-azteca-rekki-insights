@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
+
 import Sidebar from "../components/Sidebar";
 import { supabase } from "../lib/supabase";
 
@@ -30,7 +36,9 @@ type InvoiceRow = {
   }[];
 };
 
-function money(value: number | null | undefined) {
+function money(
+  value: number | null | undefined
+) {
   if (
     value === null ||
     value === undefined ||
@@ -45,7 +53,9 @@ function money(value: number | null | undefined) {
   }).format(value);
 }
 
-function formatDate(value: string | null | undefined) {
+function formatDate(
+  value: string | null | undefined
+) {
   if (!value) {
     return "—";
   }
@@ -63,7 +73,9 @@ function formatDate(value: string | null | undefined) {
   }).format(parsed);
 }
 
-function getSupplierName(invoice: InvoiceRow) {
+function getSupplierName(
+  invoice: InvoiceRow
+) {
   if (!invoice.supplier) {
     return "";
   }
@@ -78,191 +90,238 @@ function getSupplierName(invoice: InvoiceRow) {
 export default function InvoicesPage() {
   const router = useRouter();
 
-  const [invoices, setInvoices] = useState<InvoiceRow[]>([]);
-  const [search, setSearch] = useState("");
-  const [supplierFilter, setSupplierFilter] = useState("All");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [invoices, setInvoices] =
+    useState<InvoiceRow[]>([]);
 
-  useEffect(() => {
-    loadInvoices();
-  }, []);
+  const [search, setSearch] =
+    useState("");
 
-  async function loadInvoices() {
-    setLoading(true);
-    setError("");
-
-    try {
-      const {
-        data: userData,
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError || !userData.user) {
-        router.push("/login");
-        return;
-      }
-
-      const {
-        data,
-        error: invoiceError,
-      } = await supabase
-        .from("invoices")
-        .select(`
-          id,
-          invoice_number,
-          invoice_date,
-          subtotal,
-          vat,
-          total,
-          status,
-          approved_at,
-          created_at,
-          supplier:suppliers (
-            name
-          ),
-          invoice_lines (
-            id
-          )
-        `)
-        .order("invoice_date", {
-          ascending: false,
-        })
-        .order("created_at", {
-          ascending: false,
-        });
-
-      if (invoiceError) {
-        throw invoiceError;
-      }
-
-      setInvoices(
-        (data as unknown as InvoiceRow[]) ?? []
-      );
-    } catch (err: any) {
-      console.error(err);
-
-      setError(
-        err?.message ||
-          "Could not load invoice history."
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const supplierNames = useMemo(() => {
-    const uniqueSuppliers = Array.from(
-      new Set(
-        invoices
-          .map((invoice) => getSupplierName(invoice))
-          .filter(
-            (name): name is string =>
-              Boolean(name)
-          )
-      )
-    );
-
-    return uniqueSuppliers.sort((a, b) =>
-      a.localeCompare(b)
-    );
-  }, [invoices]);
-
-  const filteredInvoices = useMemo(() => {
-    const query =
-      search.trim().toLowerCase();
-
-    return invoices.filter((invoice) => {
-      const supplierName =
-        getSupplierName(invoice);
-
-      const matchesSupplier =
-        supplierFilter === "All" ||
-        supplierName === supplierFilter;
-
-      const matchesSearch =
-        !query ||
-        supplierName
-          .toLowerCase()
-          .includes(query) ||
-        (invoice.invoice_number ?? "")
-          .toLowerCase()
-          .includes(query);
-
-      return (
-        matchesSupplier &&
-        matchesSearch
-      );
-    });
-  }, [
-    invoices,
-    search,
+  const [
     supplierFilter,
-  ]);
+    setSupplierFilter,
+  ] = useState("All");
 
-  const totalSpend = useMemo(() => {
-    return invoices.reduce(
-      (sum, invoice) =>
-        sum + Number(invoice.total ?? 0),
-      0
-    );
-  }, [invoices]);
+  const [loading, setLoading] =
+    useState(true);
 
-  const thisMonthSpend = useMemo(() => {
-    const now = new Date();
+  const [error, setError] =
+    useState("");
 
-    return invoices.reduce(
-      (sum, invoice) => {
-        if (!invoice.invoice_date) {
-          return sum;
-        }
+  const loadInvoices = useCallback(
+    async () => {
+      setLoading(true);
+      setError("");
 
-        const invoiceDate =
-          new Date(invoice.invoice_date);
+      try {
+        const {
+          data: userData,
+          error: userError,
+        } =
+          await supabase.auth.getUser();
 
         if (
-          Number.isNaN(invoiceDate.getTime()) ||
-          invoiceDate.getMonth() !== now.getMonth() ||
-          invoiceDate.getFullYear() !== now.getFullYear()
+          userError ||
+          !userData.user
         ) {
-          return sum;
+          router.replace("/login");
+          return;
         }
 
-        return (
-          sum +
-          Number(invoice.total ?? 0)
+        const {
+          data,
+          error: invoiceError,
+        } = await supabase
+          .from("invoices")
+          .select(`
+            id,
+            invoice_number,
+            invoice_date,
+            subtotal,
+            vat,
+            total,
+            status,
+            approved_at,
+            created_at,
+            supplier:suppliers (
+              name
+            ),
+            invoice_lines (
+              id
+            )
+          `)
+          .order("invoice_date", {
+            ascending: false,
+          })
+          .order("created_at", {
+            ascending: false,
+          });
+
+        if (invoiceError) {
+          throw invoiceError;
+        }
+
+        setInvoices(
+          (data as unknown as InvoiceRow[]) ??
+            []
         );
-      },
-      0
-    );
-  }, [invoices]);
+      } catch (err) {
+        console.error(err);
+
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Could not load invoice history."
+        );
+      } finally {
+        setLoading(false);
+      }
+    },
+    [router]
+  );
+
+  useEffect(() => {
+    void loadInvoices();
+  }, [loadInvoices]);
+
+  const supplierNames =
+    useMemo(() => {
+      return Array.from(
+        new Set(
+          invoices
+            .map((invoice) =>
+              getSupplierName(invoice)
+            )
+            .filter(
+              (name): name is string =>
+                Boolean(name)
+            )
+        )
+      ).sort((a, b) =>
+        a.localeCompare(b)
+      );
+    }, [invoices]);
+
+  const filteredInvoices =
+    useMemo(() => {
+      const query =
+        search
+          .trim()
+          .toLowerCase();
+
+      return invoices.filter(
+        (invoice) => {
+          const supplierName =
+            getSupplierName(invoice);
+
+          const matchesSupplier =
+            supplierFilter ===
+              "All" ||
+            supplierName ===
+              supplierFilter;
+
+          const matchesSearch =
+            !query ||
+            supplierName
+              .toLowerCase()
+              .includes(query) ||
+            (
+              invoice.invoice_number ??
+              ""
+            )
+              .toLowerCase()
+              .includes(query);
+
+          return (
+            matchesSupplier &&
+            matchesSearch
+          );
+        }
+      );
+    }, [
+      invoices,
+      search,
+      supplierFilter,
+    ]);
+
+  const totalSpend =
+    useMemo(() => {
+      return invoices.reduce(
+        (sum, invoice) =>
+          sum +
+          Number(
+            invoice.total ?? 0
+          ),
+        0
+      );
+    }, [invoices]);
+
+  const thisMonthSpend =
+    useMemo(() => {
+      const now = new Date();
+
+      return invoices.reduce(
+        (sum, invoice) => {
+          if (
+            !invoice.invoice_date
+          ) {
+            return sum;
+          }
+
+          const invoiceDate =
+            new Date(
+              invoice.invoice_date
+            );
+
+          if (
+            Number.isNaN(
+              invoiceDate.getTime()
+            ) ||
+            invoiceDate.getMonth() !==
+              now.getMonth() ||
+            invoiceDate.getFullYear() !==
+              now.getFullYear()
+          ) {
+            return sum;
+          }
+
+          return (
+            sum +
+            Number(
+              invoice.total ?? 0
+            )
+          );
+        },
+        0
+      );
+    }, [invoices]);
 
   const approvedCount =
     invoices.filter(
       (invoice) =>
-        invoice.status === "approved"
+        invoice.status ===
+        "approved"
     ).length;
 
   const supplierCount =
     supplierNames.length;
 
   return (
-    <main className="app-shell">
+    <div className="app-shell">
       <Sidebar active="invoices" />
 
-      <section className="main-content">
+      <main className="main-content invoices-page">
         <header className="topbar">
           <div>
             <p className="eyebrow">
               Purchasing
             </p>
 
-            <h1>
-              Invoices
-            </h1>
+            <h1>Invoices</h1>
 
             <p className="page-description">
-              Shared supplier invoice history for your kitchen team.
+              Shared supplier invoice
+              history for your kitchen
+              team.
             </p>
           </div>
 
@@ -270,61 +329,76 @@ export default function InvoicesPage() {
             type="button"
             className="primary-button"
             onClick={() =>
-              router.push("/invoices/upload")
+              router.push(
+                "/invoices/upload"
+              )
             }
           >
             + Upload invoice
           </button>
         </header>
 
-        <section
-          className="stats-grid"
-          style={{
-            marginBottom: "24px",
-          }}
-        >
+        <section className="stats-grid invoice-stats">
           <article className="stat-card">
-            <span>
+            <p className="stat-label">
               Approved invoices
-            </span>
+            </p>
 
-            <strong>
+            <p className="stat-value">
               {approvedCount}
-            </strong>
+            </p>
+
+            <p className="stat-change neutral">
+              Processed and stored
+            </p>
           </article>
 
           <article className="stat-card">
-            <span>
+            <p className="stat-label">
               Total recorded spend
-            </span>
+            </p>
 
-            <strong>
+            <p className="stat-value">
               {money(totalSpend)}
-            </strong>
+            </p>
+
+            <p className="stat-change neutral">
+              Approved invoice value
+            </p>
           </article>
 
           <article className="stat-card">
-            <span>
+            <p className="stat-label">
               This month
-            </span>
+            </p>
 
-            <strong>
-              {money(thisMonthSpend)}
-            </strong>
+            <p className="stat-value">
+              {money(
+                thisMonthSpend
+              )}
+            </p>
+
+            <p className="stat-change neutral">
+              Current month spend
+            </p>
           </article>
 
           <article className="stat-card">
-            <span>
+            <p className="stat-label">
               Active suppliers
-            </span>
+            </p>
 
-            <strong>
+            <p className="stat-value">
               {supplierCount}
-            </strong>
+            </p>
+
+            <p className="stat-change neutral">
+              In invoice history
+            </p>
           </article>
         </section>
 
-        <section className="panel">
+        <section className="panel invoices-main-panel">
           <div className="panel-header">
             <div>
               <p className="panel-kicker">
@@ -336,25 +410,27 @@ export default function InvoicesPage() {
               </h2>
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                gap: "10px",
-              }}
-            >
+            <div className="invoice-panel-actions">
               <button
                 type="button"
                 className="secondary-inline-button"
-                onClick={loadInvoices}
+                onClick={() =>
+                  void loadInvoices()
+                }
+                disabled={loading}
               >
-                Refresh
+                {loading
+                  ? "Refreshing..."
+                  : "Refresh"}
               </button>
 
               <button
                 type="button"
                 className="secondary-inline-button"
                 onClick={() =>
-                  router.push("/invoices/upload")
+                  router.push(
+                    "/invoices/upload"
+                  )
                 }
               >
                 Upload new
@@ -362,118 +438,101 @@ export default function InvoicesPage() {
             </div>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              alignItems: "center",
-              marginBottom: "18px",
-              flexWrap: "wrap",
-            }}
-          >
-            <input
-              type="search"
-              value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
-              placeholder="Search supplier or invoice number..."
-              style={{
-                flex: "1 1 280px",
-                minWidth: "220px",
-              }}
-            />
+          <div className="invoice-toolbar-clean">
+            <div className="invoice-search-clean">
+              <input
+                type="search"
+                value={search}
+                onChange={(event) =>
+                  setSearch(
+                    event.target.value
+                  )
+                }
+                placeholder="Search supplier or invoice number..."
+              />
+            </div>
 
-            <select
-              value={supplierFilter}
-              onChange={(event) =>
-                setSupplierFilter(
-                  event.target.value
-                )
-              }
-              style={{
-                minWidth: "210px",
-              }}
-            >
-              <option value="All">
-                All suppliers
-              </option>
-
-              {supplierNames.map((supplier) => (
-                <option
-                  key={supplier}
-                  value={supplier}
-                >
-                  {supplier}
+            <div className="invoice-filter-clean">
+              <select
+                value={
+                  supplierFilter
+                }
+                onChange={(event) =>
+                  setSupplierFilter(
+                    event.target.value
+                  )
+                }
+              >
+                <option value="All">
+                  All suppliers
                 </option>
-              ))}
-            </select>
+
+                {supplierNames.map(
+                  (supplier) => (
+                    <option
+                      key={supplier}
+                      value={supplier}
+                    >
+                      {supplier}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
           </div>
 
           {error && (
-            <div
-              style={{
-                marginBottom: "18px",
-                padding: "12px 14px",
-                borderRadius: "10px",
-                background: "#fff0ed",
-                color: "#9f3f33",
-                fontWeight: 600,
-              }}
-            >
+            <div className="invoice-error">
               {error}
             </div>
           )}
 
           {loading ? (
-            <div className="empty-table-message">
-              Loading invoices...
+            <div className="invoice-empty-state">
+              <div className="invoice-empty-icon">
+                ↻
+              </div>
+
+              <h3>
+                Loading invoices
+              </h3>
+
+              <p>
+                Fetching shared
+                supplier invoice
+                history.
+              </p>
             </div>
-          ) : filteredInvoices.length === 0 ? (
-            <div
-              style={{
-                padding: "56px 20px",
-                textAlign: "center",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "34px",
-                  marginBottom: "12px",
-                }}
-              >
+          ) : filteredInvoices.length ===
+            0 ? (
+            <div className="invoice-empty-state">
+              <div className="invoice-empty-icon">
                 ▤
               </div>
 
-              <h3
-                style={{
-                  marginBottom: "8px",
-                }}
-              >
-                {invoices.length === 0
+              <h3>
+                {invoices.length ===
+                0
                   ? "No approved invoices yet"
                   : "No invoices match your filters"}
               </h3>
 
-              <p
-                style={{
-                  maxWidth: "520px",
-                  margin:
-                    "0 auto 18px auto",
-                  opacity: 0.7,
-                }}
-              >
-                {invoices.length === 0
-                  ? "Upload and approve your first supplier invoice. It will be stored in Supabase and visible to authorised team members on any device."
-                  : "Try clearing the search or changing the supplier filter."}
+              <p>
+                {invoices.length ===
+                0
+                  ? "Upload and approve your first supplier invoice to begin building spend, pricing and supplier history."
+                  : "Try clearing your search or choosing another supplier."}
               </p>
 
-              {invoices.length === 0 && (
+              {invoices.length ===
+                0 && (
                 <button
                   type="button"
                   className="primary-button"
                   onClick={() =>
-                    router.push("/invoices/upload")
+                    router.push(
+                      "/invoices/upload"
+                    )
                   }
                 >
                   Upload first invoice
@@ -481,54 +540,64 @@ export default function InvoicesPage() {
               )}
             </div>
           ) : (
-            <div
-              style={{
-                overflowX: "auto",
-              }}
-            >
-              <table className="ingredients-table">
+            <div className="table-wrapper">
+              <table className="invoice-history-table">
                 <thead>
                   <tr>
-                    <th>Supplier</th>
-                    <th>Invoice</th>
-                    <th>Date</th>
-                    <th>Lines</th>
-                    <th>Subtotal</th>
-                    <th>VAT</th>
-                    <th>Total</th>
-                    <th>Status</th>
+                    <th>
+                      Supplier
+                    </th>
+
+                    <th>
+                      Invoice
+                    </th>
+
+                    <th>
+                      Date
+                    </th>
+
+                    <th>
+                      Lines
+                    </th>
+
+                    <th>
+                      Subtotal
+                    </th>
+
+                    <th>
+                      VAT
+                    </th>
+
+                    <th>
+                      Total
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {filteredInvoices.map(
                     (invoice) => (
-                      <tr key={invoice.id}>
-                        <td>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              gap: "3px",
-                            }}
-                          >
-                            <strong>
-                              {getSupplierName(invoice) ||
-                                "Unknown supplier"}
-                            </strong>
+                      <tr
+                        key={invoice.id}
+                      >
+                        <td className="invoice-supplier-cell">
+                          <strong>
+                            {getSupplierName(
+                              invoice
+                            ) ||
+                              "Unknown supplier"}
+                          </strong>
 
-                            <span
-                              style={{
-                                fontSize: "12px",
-                                opacity: 0.58,
-                              }}
-                            >
-                              Approved{" "}
-                              {formatDate(
-                                invoice.approved_at
-                              )}
-                            </span>
-                          </div>
+                          <span>
+                            Approved{" "}
+                            {formatDate(
+                              invoice.approved_at
+                            )}
+                          </span>
                         </td>
 
                         <td>
@@ -543,8 +612,10 @@ export default function InvoicesPage() {
                         </td>
 
                         <td>
-                          {invoice.invoice_lines
-                            ?.length ?? 0}
+                          {invoice
+                            .invoice_lines
+                            ?.length ??
+                            0}
                         </td>
 
                         <td>
@@ -554,10 +625,12 @@ export default function InvoicesPage() {
                         </td>
 
                         <td>
-                          {money(invoice.vat)}
+                          {money(
+                            invoice.vat
+                          )}
                         </td>
 
-                        <td>
+                        <td className="invoice-total-cell">
                           <strong>
                             {money(
                               invoice.total
@@ -567,25 +640,12 @@ export default function InvoicesPage() {
 
                         <td>
                           <span
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "6px",
-                              padding: "5px 9px",
-                              borderRadius: "999px",
-                              background:
-                                invoice.status ===
-                                "approved"
-                                  ? "#edf4ef"
-                                  : "#f3f1ec",
-                              color:
-                                invoice.status ===
-                                "approved"
-                                  ? "#245e48"
-                                  : "#6f6a61",
-                              fontSize: "12px",
-                              fontWeight: 700,
-                            }}
+                            className={`invoice-status-badge ${
+                              invoice.status ===
+                              "approved"
+                                ? "invoice-status-approved"
+                                : ""
+                            }`}
                           >
                             {invoice.status ===
                             "approved"
@@ -602,13 +662,7 @@ export default function InvoicesPage() {
           )}
         </section>
 
-        <section
-          className="panel"
-          style={{
-            marginTop: "24px",
-            marginBottom: "60px",
-          }}
-        >
+        <section className="panel invoice-workflow-panel">
           <div className="panel-header">
             <div>
               <p className="panel-kicker">
@@ -621,104 +675,69 @@ export default function InvoicesPage() {
             </div>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(4, minmax(0, 1fr))",
-              gap: "14px",
-            }}
-          >
-            <div
-              style={{
-                padding: "16px",
-                border: "1px solid #e4dfd6",
-                borderRadius: "12px",
-              }}
-            >
-              <strong>
-                1. Upload
-              </strong>
+          <div className="invoice-workflow-grid">
+            <article className="invoice-workflow-step">
+              <span>1</span>
 
-              <p
-                style={{
-                  margin: "6px 0 0",
-                  opacity: 0.68,
-                  fontSize: "13px",
-                }}
-              >
-                Upload the supplier invoice.
-              </p>
-            </div>
+              <div>
+                <strong>
+                  Upload
+                </strong>
 
-            <div
-              style={{
-                padding: "16px",
-                border: "1px solid #e4dfd6",
-                borderRadius: "12px",
-              }}
-            >
-              <strong>
-                2. Extract
-              </strong>
+                <p>
+                  Upload the supplier
+                  invoice.
+                </p>
+              </div>
+            </article>
 
-              <p
-                style={{
-                  margin: "6px 0 0",
-                  opacity: 0.68,
-                  fontSize: "13px",
-                }}
-              >
-                AI reads the invoice data.
-              </p>
-            </div>
+            <article className="invoice-workflow-step">
+              <span>2</span>
 
-            <div
-              style={{
-                padding: "16px",
-                border: "1px solid #e4dfd6",
-                borderRadius: "12px",
-              }}
-            >
-              <strong>
-                3. Approve
-              </strong>
+              <div>
+                <strong>
+                  Extract
+                </strong>
 
-              <p
-                style={{
-                  margin: "6px 0 0",
-                  opacity: 0.68,
-                  fontSize: "13px",
-                }}
-              >
-                Match ingredients and approve.
-              </p>
-            </div>
+                <p>
+                  AI reads supplier,
+                  totals and line items.
+                </p>
+              </div>
+            </article>
 
-            <div
-              style={{
-                padding: "16px",
-                border: "1px solid #e4dfd6",
-                borderRadius: "12px",
-              }}
-            >
-              <strong>
-                4. Shared
-              </strong>
+            <article className="invoice-workflow-step">
+              <span>3</span>
 
-              <p
-                style={{
-                  margin: "6px 0 0",
-                  opacity: 0.68,
-                  fontSize: "13px",
-                }}
-              >
-                The whole authorised team sees the same data.
-              </p>
-            </div>
+              <div>
+                <strong>
+                  Approve
+                </strong>
+
+                <p>
+                  Match ingredients and
+                  verify pricing.
+                </p>
+              </div>
+            </article>
+
+            <article className="invoice-workflow-step">
+              <span>4</span>
+
+              <div>
+                <strong>
+                  Shared
+                </strong>
+
+                <p>
+                  Approved data becomes
+                  available to the team.
+                </p>
+              </div>
+            </article>
           </div>
         </section>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
