@@ -1,5 +1,5 @@
 import { woodsCatalogueItems } from "./woodsCatalogue";
-import { mexgrocerCatalogueItems } from "./mexgrocerCatalogue";
+import { mexgrocerCatalogue } from "./mexgrocerCatalogue";
 
 export type CatalogueItem = {
   id: string;
@@ -466,7 +466,28 @@ export const supplierCatalogue: CatalogueItem[] = [
   // Full food / catering catalogue
   // ============================================================
 
-  ...mexgrocerCatalogueItems,
+  ...mexgrocerCatalogue.map((product) => ({
+  id: `mex-${product.itemId ?? product.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")}`,
+
+  ingredient: product.title,
+
+  supplier: "Mexgrocer",
+
+  supplierProduct: product.title,
+
+  // Mexgrocer website prices are for the listed pack/product,
+  // so ordering it as "each" is correct for now.
+  unit: "each",
+
+  fallbackPrice: product.price,
+
+  preferred: false,
+
+  category:
+    product.categorySlug || "Mexican",
+})),
   // ============================================================
   // WOODS FOODSERVICE
   // Full 191-product Buy Again catalogue
