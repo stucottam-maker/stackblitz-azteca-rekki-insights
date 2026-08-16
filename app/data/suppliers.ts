@@ -84,17 +84,19 @@ export const suppliers: Record<string, Supplier> = {
     orderMethod: "Email",
   },
 
-  "Woods Foodservice": {
-    name: "Woods Foodservice",
-    logo: "/suppliers/woods.png",
-    email: "orders@woodsfoodservice.co.uk",
-    orderMethod: "Email",
-  },
-  "Masafina": {
+"Woods Foodservice": {
+  name: "Woods Foodservice",
+  logo: "/suppliers/woods.png",
+  email: "orders@woodsfoodservice.co.uk",
+  orderMethod: "Email",
+},
+
+"Masafina": {
   name: "Masafina",
   logo: "/suppliers/masafina.png",
   email: "orders@masafina.com",
   orderMethod: "Email",
+},
 };
 
 export function getSupplier(supplierName: string) {
