@@ -1785,3 +1785,133 @@ td{
     padding: 18px 16px;
   }
 }
+/* =========================================================
+   SHARED SUMMARY CARDS
+   Ingredients / Invoices / Menu
+   ========================================================= */
+
+.ingredients-page .stats-grid,
+.invoices-page .stats-grid,
+.invoice-stats,
+.menu-page .stats-grid {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.ingredients-page .stats-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.invoices-page .stats-grid,
+.invoice-stats,
+.menu-page .stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ingredients-page .stat-card,
+.invoices-page .stat-card,
+.invoice-stats .stat-card,
+.menu-page .stat-card {
+  min-height: 122px;
+  padding: 19px 20px;
+
+  border: 1px solid #e5e3dd;
+  border-radius: 15px;
+
+  background: #fff;
+}
+
+.ingredients-page .stat-label,
+.invoices-page .stat-label,
+.invoice-stats .stat-label,
+.menu-page .stat-label {
+  color: #777a74;
+
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 650;
+}
+
+.ingredients-page .stat-value,
+.invoices-page .stat-value,
+.invoice-stats .stat-value,
+.menu-page .stat-value {
+  display: block;
+
+  margin-top: 13px;
+
+  color: #173f35;
+
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 760;
+  letter-spacing: -0.03em;
+}
+
+.ingredients-page .stat-change,
+.invoices-page .stat-change,
+.invoice-stats .stat-change,
+.menu-page .stat-change {
+  margin-top: 9px;
+
+  color: #92958e;
+
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Keep warning/support copy subtle */
+.ingredients-page .stat-change.warning,
+.invoices-page .stat-change.warning,
+.invoice-stats .stat-change.warning,
+.menu-page .stat-change.warning {
+  color: #a57218;
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  .ingredients-page .stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .invoices-page .stats-grid,
+  .invoice-stats,
+  .menu-page .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .ingredients-page .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .invoices-page .stats-grid,
+  .invoice-stats,
+  .menu-page .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .ingredients-page .stat-card,
+  .invoices-page .stat-card,
+  .invoice-stats .stat-card,
+  .menu-page .stat-card {
+    min-height: 108px;
+    padding: 15px;
+  }
+
+  .ingredients-page .stat-value,
+  .invoices-page .stat-value,
+  .invoice-stats .stat-value,
+  .menu-page .stat-value {
+    font-size: 23px;
+  }
+}
