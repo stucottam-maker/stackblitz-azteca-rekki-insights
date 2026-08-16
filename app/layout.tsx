@@ -1,34 +1,50 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import AuthGuard from "./components/AuthGuard";
-const inter = Inter({ subsets: ['latin'] });
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+
+import "./globals.css";
+
 import PWARegister from "./components/PWARegister";
+
+const inter = Inter({
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: 'Kitchen Insights',
-  description: 'Kitchen cost control, purchasing, stock, recipes and reporting.',
-  openGraph: {
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
+  title: {
+    default: "Kitchen Insights",
+    template: "%s | Kitchen Insights",
   },
+
+  description:
+    "Kitchen cost control, purchasing, stock, recipes and reporting.",
+
+  applicationName: "Kitchen Insights",
+
+  icons: {
+    icon: "/icon",
+  },
+
+  openGraph: {
+    title: "Kitchen Insights",
+    description:
+      "Kitchen cost control, purchasing, stock, recipes and reporting.",
+    type: "website",
+    siteName: "Kitchen Insights",
+  },
+
   twitter: {
-    card: 'summary_large_image',
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
+    card: "summary",
+    title: "Kitchen Insights",
+    description:
+      "Kitchen cost control, purchasing, stock, recipes and reporting.",
   },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
       <body className={inter.className}>
