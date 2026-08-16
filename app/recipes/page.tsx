@@ -2,16 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../components/Sidebar";
 import {
   recipes,
   recipeSlug,
-  Recipe,
-  RecipeIngredient,
-} from "../../data/recipes";
-
+  type Recipe,
+  type RecipeIngredient,
+} from "../data/recipes";
 type IngredientPrice = {
   price?: number;
   unit?: string;
