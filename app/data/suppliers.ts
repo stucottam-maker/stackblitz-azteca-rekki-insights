@@ -95,7 +95,6 @@ export const suppliers: Record<string, Supplier> = {
   logo: "/suppliers/masafina.png",
   email: "orders@masafina.com",
   orderMethod: "Email",
-},
 };
 
 export function getSupplier(supplierName: string) {
