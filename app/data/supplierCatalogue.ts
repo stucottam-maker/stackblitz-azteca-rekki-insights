@@ -23,6 +23,7 @@ export type CatalogueItem = {
 
   lastOrdered?: string;
   lastOrderedQty?: number | null;
+  lastOrderVariation?: string;
   brand?: string;
 };
 
