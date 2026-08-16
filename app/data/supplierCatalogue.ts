@@ -623,11 +623,7 @@ export const supplierCatalogue: CatalogueItem[] = [
         Number(a.preferred)
     ),
 
-  // ============================================================
-  // WOODS FOODSERVICE
-  // ============================================================
 
-  ...woodsCatalogueItems,
   // ============================================================
   // WOODS FOODSERVICE
   // Full 191-product Buy Again catalogue
