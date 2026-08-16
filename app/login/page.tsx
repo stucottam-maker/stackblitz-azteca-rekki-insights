@@ -1,27 +1,42 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import {
+  type FormEvent,
+  useState,
+} from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+
 import { supabase } from "../lib/supabase";
 
 export default function LoginPage() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [email, setEmail] =
+    useState("");
 
-  async function handleLogin(event: FormEvent<HTMLFormElement>) {
+  const [password, setPassword] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const [error, setError] =
+    useState("");
+
+  async function handleLogin(
+    event: FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
     setLoading(true);
     setError("");
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
     if (error) {
       setError(error.message);
@@ -35,46 +50,83 @@ export default function LoginPage() {
 
   return (
     <main className="login-page">
-      <section className="login-card">
-        <div className="login-brand">
-          <div className="login-brand-mark">K</div>
+      <section className="login-shell">
+        <div className="login-brand-row">
+          <div className="login-brand-icon">
+            <Image
+              src="/icon.png"
+              alt="Kitchen Insights"
+              width={42}
+              height={42}
+              priority
+            />
+          </div>
 
-          <div>
-            <strong>Kitchen Insights</strong>
-            <span>Cost & purchasing control</span>
+          <div className="login-brand-copy">
+            <strong>
+              Kitchen Insights
+            </strong>
+
+            <span>
+              Cost control &
+              operations
+            </span>
           </div>
         </div>
 
         <div className="login-heading">
-          <p className="eyebrow">Welcome back</p>
-          <h1>Sign in</h1>
+          <p className="eyebrow">
+            Welcome back
+          </p>
+
+          <h1>
+            Sign in
+          </h1>
+
           <p>
-            Access purchasing, invoices, ingredients,
-            recipes and stock controls.
+            Access purchasing,
+            invoices, ingredients,
+            recipes, stock and
+            reporting.
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="login-form">
-          <label>
-            <span>Email</span>
+        <form
+          onSubmit={handleLogin}
+          className="login-form"
+        >
+          <label className="login-field">
+            <span>
+              Email
+            </span>
 
             <input
               type="email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) =>
+                setEmail(
+                  event.target.value
+                )
+              }
               placeholder="you@example.com"
               required
               autoComplete="email"
             />
           </label>
 
-          <label>
-            <span>Password</span>
+          <label className="login-field">
+            <span>
+              Password
+            </span>
 
             <input
               type="password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) =>
+                setPassword(
+                  event.target.value
+                )
+              }
               placeholder="Your password"
               required
               autoComplete="current-password"
@@ -92,16 +144,33 @@ export default function LoginPage() {
             className="primary-button login-button"
             disabled={loading}
           >
-            {loading ? "Signing in..." : "Sign in"}
+            {loading
+              ? "Signing in..."
+              : "Sign in"}
           </button>
         </form>
 
-        <div className="login-site">
-          <div className="login-site-mark">AZ</div>
+        <div className="login-divider">
+          <span />
+        </div>
 
-          <div>
-            <strong>Azteca</strong>
-            <span>Battersea, London</span>
+        <div className="login-workspace-card">
+          <div className="login-workspace-mark">
+            AZ
+          </div>
+
+          <div className="login-workspace-copy">
+            <span>
+              Workspace
+            </span>
+
+            <strong>
+              Azteca
+            </strong>
+
+            <small>
+              Battersea, London
+            </small>
           </div>
         </div>
       </section>
