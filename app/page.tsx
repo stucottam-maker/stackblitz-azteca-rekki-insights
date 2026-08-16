@@ -1,453 +1,561 @@
-import Link from "next/link";
-import Sidebar from "./components/Sidebar";
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
 
-const supplierSpend = [
-  {
-    supplier: "Albion Fine Foods",
-    category: "Foodservice",
-    spend: 6840,
-    width: 38,
-  },
-  {
-    supplier: "Fin and Flounder",
-    category: "Fish",
-    spend: 3260,
-    width: 21,
-  },
-  {
-    supplier: "Crazy Dan's House of Meat",
-    category: "Meat",
-    spend: 2970,
-    width: 16,
-  },
-  {
-    supplier: "Mexgrocer",
-    category: "Dry goods",
-    spend: 2140,
-    width: 12,
-  },
-];
-
-const priceIncreases = [
-  {
-    ingredient: "Ribeye",
-    supplier: "Crazy Dan's House of Meat",
-    oldPrice: "£16.20/kg",
-    newPrice: "£17.50/kg",
-    increase: "+8.0%",
-  },
-  {
-    ingredient: "Short rib",
-    supplier: "Crazy Dan's House of Meat",
-    oldPrice: "£9.10/kg",
-    newPrice: "£9.85/kg",
-    increase: "+8.2%",
-  },
-  {
-    ingredient: "Tuna loin",
-    supplier: "Fin and Flounder",
-    oldPrice: "£18.90/kg",
-    newPrice: "£20.10/kg",
-    increase: "+6.3%",
-  },
-];
-
-const recentActivity = [
-  {
-    title: "Fin and Flounder invoice reviewed",
-    detail: "5 products extracted and matched",
-    time: "Today",
-  },
-  {
-    title: "Stock take updated",
-    detail: "Latest BOH quantities saved",
-    time: "Yesterday",
-  },
-  {
-    title: "Recipe costing updated",
-    detail: "Ingredient prices available for costing",
-    time: "2 days ago",
-  },
-];
-
-const menuCosting = [
-  {
-    item: "Miso Black Cod",
-    cost: "31.8%",
-    target: "28%",
-  },
-  {
-    item: "Ribeye Steak 300g",
-    cost: "30.6%",
-    target: "28%",
-  },
-  {
-    item: "Pork Carnitas",
-    cost: "29.4%",
-    target: "28%",
-  },
-];
-
-function money(value: number) {
-  return new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-    maximumFractionDigits: 0,
-  }).format(value);
+.dashboard-page {
+  padding-bottom: 48px;
 }
 
-export default function HomePage() {
-  return (
-    <main className="app-shell">
-      <Sidebar active="dashboard" />
+.dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
 
-      <section className="main-content">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">
-              Overview
-            </p>
+.dashboard-header h1 {
+  margin: 4px 0 6px;
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
 
-            <h1>
-              Insights
-            </h1>
+.dashboard-subtitle {
+  margin: 0;
+  color: #747770;
+  font-size: 14px;
+}
 
-            <p className="page-description">
-              Here is what is happening with your kitchen costs.
-            </p>
-          </div>
+.dashboard-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-          <Link
-            className="primary-button"
-            href="/invoices/upload"
-          >
-            + Upload invoice
-          </Link>
-        </header>
+.dashboard-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
 
-        <section className="stats-grid">
-          <article className="stat-card">
-            <p className="stat-label">
-              Spend this month
-            </p>
+.dashboard-overview-card {
+  background: #fff;
+  border: 1px solid #e5e3dd;
+  border-radius: 14px;
+  padding: 17px;
+}
 
-            <p className="stat-value">
-              £18,420
-            </p>
+.dashboard-overview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
 
-            <p className="stat-change warning">
-              +4.2% vs last month
-            </p>
-          </article>
+.dashboard-overview-top span {
+  color: #777a74;
+  font-size: 11px;
+  font-weight: 600;
+}
 
-          <article className="stat-card">
-            <p className="stat-label">
-              Average food cost
-            </p>
+.dashboard-overview-top a {
+  color: #d46a32;
+  font-size: 9px;
+  font-weight: 700;
+  text-decoration: none;
+}
 
-            <p className="stat-value">
-              28.6%
-            </p>
+.dashboard-overview-card > strong {
+  display: block;
+  margin-top: 13px;
+  color: #173f35;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
 
-            <p className="stat-change neutral">
-              Target: 27%
-            </p>
-          </article>
+.dashboard-overview-card > p {
+  margin: 9px 0 0;
+  color: #8b8e87;
+  font-size: 10px;
+  line-height: 1.4;
+}
 
-          <article className="stat-card">
-            <p className="stat-label">
-              Invoices processed
-            </p>
+.dashboard-attention-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 
-            <p className="stat-value">
-              47
-            </p>
+  margin-bottom: 16px;
+  padding: 18px 20px;
 
-            <p className="stat-change neutral">
-              3 awaiting review
-            </p>
-          </article>
+  background: #173f35;
+  border-radius: 15px;
+  color: #fff;
+}
 
-          <article className="stat-card">
-            <p className="stat-label">
-              Price increases
-            </p>
+.dashboard-attention-copy {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
-            <p className="stat-value">
-              14
-            </p>
+.dashboard-attention-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-            <p className="stat-change warning">
-              In the last 30 days
-            </p>
-          </article>
-        </section>
+  flex: 0 0 auto;
 
-        <section className="dashboard-grid">
-          <article className="panel">
-            <div className="panel-header">
-              <div>
-                <p className="panel-kicker">
-                  Purchasing
-                </p>
+  width: 38px;
+  height: 38px;
 
-                <h2>
-                  Supplier spend
-                </h2>
-              </div>
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
 
-              <Link
-                className="panel-link"
-                href="/orders"
-              >
-                View orders
-              </Link>
-            </div>
+  font-size: 17px;
+  font-weight: 800;
+}
 
-            <div className="supplier-spend-list">
-              {supplierSpend.map((supplier) => (
-                <div
-                  className="supplier-spend-row"
-                  key={supplier.supplier}
-                >
-                  <div className="supplier-spend-heading">
-                    <div>
-                      <p className="supplier-name">
-                        {supplier.supplier}
-                      </p>
+.dashboard-dark-eyebrow {
+  color: rgba(255, 255, 255, 0.5);
+}
 
-                      <p className="muted-text">
-                        {supplier.category}
-                      </p>
-                    </div>
+.dashboard-attention-card h2 {
+  margin: 5px 0 4px;
+  font-size: 17px;
+  line-height: 1.2;
+}
 
-                    <strong>
-                      {money(supplier.spend)}
-                    </strong>
-                  </div>
+.dashboard-attention-card p:last-child {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 11px;
+  line-height: 1.45;
+}
 
-                  <div className="spend-progress">
-                    <div
-                      className="spend-progress-fill"
-                      style={{
-                        width: `${supplier.width}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </article>
+.dashboard-attention-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-          <article className="panel">
-            <div className="panel-header">
-              <div>
-                <p className="panel-kicker">
-                  Attention needed
-                </p>
+  flex: 0 0 auto;
 
-                <h2>
-                  Price increases
-                </h2>
-              </div>
+  padding: 9px 12px;
 
-              <span className="alert-count">
-                {priceIncreases.length}
-              </span>
-            </div>
+  background: #f0e7d8;
+  border-radius: 9px;
 
-            <div className="price-alert-list">
-              {priceIncreases.map((item) => (
-                <div
-                  className="price-alert-row"
-                  key={item.ingredient}
-                >
-                  <div>
-                    <p className="price-alert-name">
-                      {item.ingredient}
-                    </p>
+  color: #173f35;
+  font-size: 10px;
+  font-weight: 750;
+  text-decoration: none;
+}
 
-                    <p className="muted-text">
-                      {item.supplier}
-                    </p>
-                  </div>
+.dashboard-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(280px, 0.75fr);
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 16px;
+}
 
-                  <div className="price-alert-value">
-                    <div>
-                      <span>
-                        {item.oldPrice}
-                      </span>
+.dashboard-side-column {
+  display: grid;
+  gap: 14px;
+}
 
-                      <span>
-                        →
-                      </span>
+.dashboard-panel,
+.dashboard-cogs-card {
+  background: #fff;
+  border: 1px solid #e4e2dc;
+  border-radius: 15px;
+}
 
-                      <strong>
-                        {item.newPrice}
-                      </strong>
-                    </div>
+.dashboard-panel {
+  padding: 18px;
+}
 
-                    <span className="increase-badge">
-                      {item.increase}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </article>
-        </section>
+.dashboard-panel-header,
+.dashboard-cogs-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
 
-        <section className="dashboard-grid dashboard-lower-grid">
-          <article className="panel">
-            <div className="panel-header">
-              <div>
-                <p className="panel-kicker">
-                  Latest activity
-                </p>
+.dashboard-panel-header h2,
+.dashboard-cogs-header h2 {
+  margin: 5px 0 0;
+  color: #272b27;
+  font-size: 18px;
+  line-height: 1.2;
+}
 
-                <h2>
-                  Recent updates
-                </h2>
-              </div>
+.dashboard-panel-header > a,
+.dashboard-cogs-header > a {
+  color: #d46a32;
+  font-size: 10px;
+  font-weight: 700;
+  text-decoration: none;
+}
 
-              <Link
-                className="panel-link"
-                href="/invoices"
-              >
-                View all
-              </Link>
-            </div>
+.dashboard-insight-list {
+  display: grid;
+  margin-top: 15px;
+}
 
-            <div className="activity-list">
-              {recentActivity.map((item) => (
-                <div
-                  className="activity-row"
-                  key={item.title}
-                >
-                  <div className="activity-dot" />
+.dashboard-insight-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
 
-                  <div className="activity-content">
-                    <p className="activity-title">
-                      {item.title}
-                    </p>
+  padding: 14px 0;
 
-                    <p className="muted-text">
-                      {item.detail}
-                    </p>
-                  </div>
+  border-bottom: 1px solid #eeece7;
 
-                  <span className="activity-time">
-                    {item.time}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </article>
+  color: inherit;
+  text-decoration: none;
+}
 
-          <article className="panel">
-            <div className="panel-header">
-              <div>
-                <p className="panel-kicker">
-                  Menu costing
-                </p>
+.dashboard-insight-row:last-child {
+  border-bottom: 0;
+}
 
-                <h2>
-                  Above target
-                </h2>
-              </div>
+.dashboard-insight-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  min-width: 0;
+}
 
-              <Link
-                className="panel-link"
-                href="/menu"
-              >
-                View menu
-              </Link>
-            </div>
+.dashboard-insight-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 999px;
+}
 
-            <div className="menu-cost-list">
-              {menuCosting.map((item) => (
-                <div
-                  className="menu-cost-row"
-                  key={item.item}
-                >
-                  <div>
-                    <p className="menu-cost-name">
-                      {item.item}
-                    </p>
+.dashboard-insight-dot-high {
+  background: #bc553b;
+}
 
-                    <p className="muted-text">
-                      Target {item.target}
-                    </p>
-                  </div>
+.dashboard-insight-dot-medium {
+  background: #d08a31;
+}
 
-                  <strong className="menu-cost-value">
-                    {item.cost}
-                  </strong>
-                </div>
-              ))}
-            </div>
-          </article>
-        </section>
+.dashboard-insight-dot-low {
+  background: #4e846f;
+}
 
-        <section className="dashboard-quick-actions">
-          <Link
-            className="quick-action-card"
-            href="/orders"
-          >
-            <span className="quick-action-icon">
-              +
-            </span>
+.dashboard-insight-main strong {
+  display: block;
+  color: #303430;
+  font-size: 12px;
+  line-height: 1.35;
+}
 
-            <div>
-              <strong>
-                Create supplier order
-              </strong>
+.dashboard-insight-main p {
+  margin: 4px 0 0;
+  color: #858880;
+  font-size: 10px;
+  line-height: 1.45;
+}
 
-              <p>
-                Build orders from stock and par levels.
-              </p>
-            </div>
-          </Link>
+.dashboard-insight-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
 
-          <Link
-            className="quick-action-card"
-            href="/stock"
-          >
-            <span className="quick-action-icon">
-              □
-            </span>
+.dashboard-insight-meta strong {
+  color: #173f35;
+  font-size: 12px;
+}
 
-            <div>
-              <strong>
-                Start stock count
-              </strong>
+.dashboard-insight-meta span {
+  color: #d46a32;
+  font-size: 13px;
+}
 
-              <p>
-                Count current BOH inventory.
-              </p>
-            </div>
-          </Link>
+.dashboard-empty-state {
+  padding: 42px 18px;
+  text-align: center;
+}
 
-          <Link
-            className="quick-action-card"
-            href="/recipes"
-          >
-            <span className="quick-action-icon">
-              ◇
-            </span>
+.dashboard-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-            <div>
-              <strong>
-                Review recipes
-              </strong>
+  width: 40px;
+  height: 40px;
 
-              <p>
-                Check recipe costs and missing prices.
-              </p>
-            </div>
-          </Link>
-        </section>
-      </section>
-    </main>
-  );
+  margin: 0 auto 12px;
+
+  background: #eaf2ed;
+  border-radius: 999px;
+
+  color: #31725e;
+  font-weight: 800;
+}
+
+.dashboard-empty-state h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #303430;
+}
+
+.dashboard-empty-state p {
+  max-width: 430px;
+  margin: 7px auto 0;
+  color: #858880;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.dashboard-side-empty {
+  margin: 17px 0 2px;
+  color: #858880;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.dashboard-supplier-list {
+  display: grid;
+  margin-top: 12px;
+}
+
+.dashboard-supplier-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 11px 0;
+  border-bottom: 1px solid #efede8;
+}
+
+.dashboard-supplier-row:last-child {
+  border-bottom: 0;
+}
+
+.dashboard-supplier-row > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-supplier-row > div strong {
+  color: #373b37;
+  font-size: 11px;
+}
+
+.dashboard-supplier-row > div span {
+  margin-top: 2px;
+  color: #9a9d96;
+  font-size: 9px;
+}
+
+.dashboard-supplier-row > strong {
+  color: #173f35;
+  font-size: 11px;
+}
+
+.dashboard-status-list {
+  display: grid;
+  margin-top: 12px;
+}
+
+.dashboard-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 11px 0;
+
+  border-bottom: 1px solid #efede8;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.dashboard-status-row:last-child {
+  border-bottom: 0;
+}
+
+.dashboard-status-row span {
+  color: #767973;
+  font-size: 11px;
+}
+
+.dashboard-status-row strong {
+  color: #303430;
+  font-size: 12px;
+}
+
+.dashboard-cogs-card {
+  padding: 18px;
+}
+
+.dashboard-cogs-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(100px, 1fr)
+    32px
+    minmax(100px, 1fr)
+    32px
+    minmax(100px, 1fr)
+    32px
+    minmax(120px, 1.15fr);
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 18px;
+}
+
+.dashboard-cogs-grid > div:not(.dashboard-cogs-symbol) {
+  padding: 13px 14px;
+
+  background: #f8f6f1;
+  border-radius: 10px;
+}
+
+.dashboard-cogs-grid span {
+  display: block;
+  color: #858880;
+  font-size: 10px;
+}
+
+.dashboard-cogs-grid strong {
+  display: block;
+  margin-top: 5px;
+  color: #303430;
+  font-size: 15px;
+}
+
+.dashboard-cogs-symbol {
+  text-align: center;
+  color: #9a9d96;
+  font-size: 20px;
+}
+
+.dashboard-cogs-result {
+  background: #eaf1ed !important;
+}
+
+.dashboard-cogs-result strong {
+  color: #173f35;
+  font-size: 17px;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-side-column {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-cogs-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dashboard-cogs-symbol {
+    display: none;
+  }
+
+  .dashboard-cogs-result {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding-top: 18px !important;
+  }
+
+  .dashboard-header {
+    display: block;
+  }
+
+  .dashboard-header h1 {
+    font-size: 28px;
+  }
+
+  .dashboard-header-actions {
+    margin-top: 16px;
+  }
+
+  .dashboard-overview-grid {
+    gap: 9px;
+  }
+
+  .dashboard-overview-card {
+    padding: 14px;
+  }
+
+  .dashboard-overview-card > strong {
+    font-size: 21px;
+  }
+
+  .dashboard-attention-card {
+    display: block;
+  }
+
+  .dashboard-attention-link {
+    margin-top: 14px;
+  }
+
+  .dashboard-side-column {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-cogs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-cogs-result {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-overview-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard-header-actions {
+    width: 100%;
+  }
+
+  .dashboard-header-actions a {
+    flex: 1;
+    text-align: center;
+  }
+
+  .dashboard-panel {
+    padding: 14px;
+  }
+
+  .dashboard-insight-row {
+    align-items: flex-start;
+  }
+
+  .dashboard-insight-meta strong {
+    display: none;
+  }
 }
