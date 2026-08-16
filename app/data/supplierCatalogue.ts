@@ -25,6 +25,7 @@ export type CatalogueItem = {
   lastOrderedQty?: number | null;
   lastOrderVariation?: string;
   brand?: string;
+  woodsId?: number;
 };
 
 
