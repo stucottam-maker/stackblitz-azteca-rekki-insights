@@ -20,7 +20,7 @@ function normalizeUnit(value: string) {
   return value.trim().toLowerCase();
 }
 
-// Oui Chef Choco order guide captured in full across five paginated responses.
+// Complete 134-item Oui Chef Choco order guide captured from paginated responses.
 // Preferred means the product has a non-null Choco lastOrderDate.
 export const rawOuiChefCatalogue: OuiChefCatalogueProduct[] = [
   { sku: "APP-GRAN", name: "APPLE GRANNY SMITH", unit: "Kg", price: 1.81, category: "Fruits", lastOrderDate: 1724878878242 },
@@ -132,6 +132,31 @@ export const rawOuiChefCatalogue: OuiChefCatalogueProduct[] = [
   { sku: "BANANALEAF", name: "BANANA LEAF 500G", unit: "Each", price: null, category: "Vegetables", lastOrderDate: 1724878878242 },
   { sku: "PUR-LYCHEE", name: "PUREE LYCHEE FRZ 1KG", unit: "Each", price: null, category: "Frozen", lastOrderDate: 1726000316152 },
   { sku: "EGG-Q", name: "EGGS QUAIL PUNNET", unit: "Each", price: null, category: "Dairy & Eggs", lastOrderDate: 1729201515315 },
+  { sku: "AUB", name: "AUBERGINES (5xBox)", unit: "Box", price: null, category: "Vegetables", lastOrderDate: 1731969183927 },
+  { sku: "CHIL-GRN-KG", name: "CHILLIES DUTCH GREEN", unit: "Each", price: null, category: "Vegetables", lastOrderDate: null },
+  { sku: "TURK-CHILLI", name: "TURKISH CHILLI", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1730660533759 },
+  { sku: "PEP-ROM", name: "PEPPER ROMERO", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1729289211671 },
+  { sku: "PEP-ITA-YELL", name: "PEPPER YELLOW ITALIAN", unit: "Each", price: null, category: "Vegetables", lastOrderDate: 1724272721060 },
+  { sku: "PEP-RED", name: "PEPPER RED", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1731107883661 },
+  { sku: "COURGETTE", name: "COURGETTE", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1731622291289 },
+  { sku: "CAB-FLAT", name: "CABBAGE FLAT", unit: "Each", price: null, category: "Vegetables", lastOrderDate: 1721638920185 },
+  { sku: "CAB-RED", name: "CABBAGE RED", unit: "Each", price: null, category: "Vegetables", lastOrderDate: 1731276138055 },
+  { sku: "ONI-SW", name: "ONION SWEET WHITE", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1731879578918 },
+  { sku: "ONI-B", name: "ONION BABY KG", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1728255571321 },
+  { sku: "POT-NEW-BOX", name: "POTATOES NEW", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1730325098499 },
+  { sku: "CUCUMB", name: "CUCUMBER", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1731710409284 },
+  { sku: "CORN-SWT-EA", name: "CORN ON THE COB P/P", unit: "Each", price: null, category: "Vegetables", lastOrderDate: 1731107883661 },
+  { sku: "PARSNIP", name: "PARSNIP", unit: "Kg", price: null, category: "Vegetables", lastOrderDate: 1732056077570 },
+  { sku: "ORIL99", name: "Golden Swan - Lychee in Syrup 24 x 567ml", unit: "Pack", price: 1.96, category: "Dry Goods", lastOrderDate: null },
+  { sku: "SUGS10", name: "Soft Light Brown Sugar - Tate & Lyle 3kg", unit: "Unit", price: 8.21, category: "Dry Goods", lastOrderDate: 1725659421971 },
+  { sku: "ORIT23", name: "Tofu Silken - Yutaka - Ambient", unit: "Unit", price: 2.21, category: "Dry Goods", lastOrderDate: null },
+  { sku: "CASTER", name: "CASTER SUGAR 5KG", unit: "Each", price: null, category: "Dry Goods", lastOrderDate: 1725052896584 },
+  { sku: "MALDON", name: "MALDON SEA SALT 1.4KG", unit: "Each", price: null, category: "Dry Goods", lastOrderDate: 1727031439158 },
+  { sku: "COCO-CHAOK", name: "COCONUT MILK CHAOKOH 2.9KG", unit: "EA", price: null, category: "Dry Goods", lastOrderDate: 1724273240172 },
+  { sku: "GAR-POW", name: "GARLIC POWDER 500G", unit: "Each", price: null, category: "Dry Goods", lastOrderDate: 1725310061805 },
+  { sku: "KETCH-HEINZ", name: "HEINZ TOMATO KETCHUP 2.2KG", unit: "Each", price: null, category: "Dry Goods", lastOrderDate: 1731107883661 },
+  { sku: "VINEGAR-WHITE", name: "VINEGAR WHITE WINE 5LTR", unit: "Each", price: null, category: "Dry Goods", lastOrderDate: 1731969183927 },
+  { sku: "EGGFRC1", name: "Eggs Barn Clarence Court -  Burfords 5 Dozen - 60 Eggs", unit: "Pack", price: 31.11, category: "Dairy & Eggs", lastOrderDate: 1730928741283 },
 ];
 
 export const ouiChefCatalogueItems = rawOuiChefCatalogue
