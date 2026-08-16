@@ -7,6 +7,8 @@ export type Supplier = {
   orderMethod?: "Email" | "WhatsApp" | "Phone" | "Portal";
 };
 
+// Single source of truth for supplier identity, contact details,
+// logos and preferred ordering method.
 export const suppliers: Record<string, Supplier> = {
   "Albion Fine Foods": {
     name: "Albion Fine Foods",
@@ -87,22 +89,34 @@ export const suppliers: Record<string, Supplier> = {
     orderMethod: "Email",
   },
 
-  "Woods Fine Foods": {
-    name: "Woods Fine Foods",
+  "Woods Foodservice": {
+    name: "Woods Foodservice",
     logo: "/suppliers/woods.png",
     email: "orders@woodsfoodservice.co.uk",
     orderMethod: "Email",
   },
 };
 
+export function getSupplier(supplierName: string) {
+  return suppliers[supplierName] ?? null;
+}
+
 export function getSupplierLogo(supplierName: string) {
-  return suppliers[supplierName]?.logo || null;
+  return getSupplier(supplierName)?.logo || null;
 }
 
 export function getSupplierEmail(supplierName: string) {
-  return suppliers[supplierName]?.email || null;
+  return getSupplier(supplierName)?.email || null;
+}
+
+export function getSupplierPhone(supplierName: string) {
+  return getSupplier(supplierName)?.phone || null;
+}
+
+export function getSupplierWhatsApp(supplierName: string) {
+  return getSupplier(supplierName)?.whatsapp || null;
 }
 
 export function getSupplierOrderMethod(supplierName: string) {
-  return suppliers[supplierName]?.orderMethod || null;
+  return getSupplier(supplierName)?.orderMethod || null;
 }
