@@ -1,0 +1,209 @@
+/* =========================================================
+   ORDERS — CLEANER QUANTITY CONTROLS
+   Loaded after globals.css so these are safe visual overrides.
+   ========================================================= */
+
+.quick-order-quantity {
+  display: inline-grid;
+  grid-template-columns: 38px minmax(64px, 82px) 38px auto;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.quick-order-quantity button {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid #ddd9d1;
+  background: #f8f7f4;
+  color: #173f35;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.quick-order-quantity button:first-child {
+  border-radius: 9px 0 0 9px;
+}
+
+.quick-order-quantity button:nth-of-type(2) {
+  border-left: 0;
+  border-radius: 0 9px 9px 0;
+}
+
+.quick-order-quantity button:active {
+  background: #e8f1eb;
+}
+
+.quick-order-quantity input {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 8px;
+  border: 1px solid #ddd9d1;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  background: #fff;
+  color: #232723;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+}
+
+.quick-order-quantity input:focus {
+  position: relative;
+  z-index: 1;
+  border-color: #8ca397;
+  box-shadow: inset 0 0 0 1px #8ca397;
+}
+
+.quick-order-quantity > span {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #f1efe9;
+  color: #777a74;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.quick-order-line-active .quick-order-quantity button {
+  border-color: #b8c9c0;
+}
+
+.quick-order-line-active .quick-order-quantity input {
+  border-top-color: #b8c9c0;
+  border-bottom-color: #b8c9c0;
+}
+
+/* Mobile ordering should feel like compact product cards, not a desktop table stacked vertically. */
+@media (max-width: 950px) {
+  .quick-order-panel {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .quick-order-lines {
+    display: block;
+  }
+
+  .quick-order-line {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "product product"
+      "stock quantity";
+    gap: 13px 16px;
+    align-items: end;
+    padding: 16px 14px;
+    background: #fff;
+  }
+
+  .quick-order-line-active {
+    background: #f6faf7;
+    box-shadow: inset 3px 0 0 #31725e;
+  }
+
+  .quick-order-product {
+    grid-area: product;
+    min-width: 0;
+  }
+
+  .quick-order-product-title strong {
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .quick-order-product > span:not(.quick-order-brand):not(.quick-order-last-ordered) {
+    line-height: 1.4;
+  }
+
+  .quick-order-stock {
+    grid-area: stock;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    justify-content: start;
+    gap: 2px 4px;
+    min-width: 74px;
+  }
+
+  .quick-order-stock::before {
+    grid-column: 1 / -1;
+    content: "In stock";
+    color: #9a9d96;
+    font-size: 8px;
+    line-height: 1;
+    font-weight: 750;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .quick-order-stock strong {
+    color: #303430;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .quick-order-stock span {
+    color: #8b8e87;
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  .quick-order-quantity {
+    grid-area: quantity;
+    justify-self: end;
+  }
+
+  .quick-order-price-note,
+  .quick-order-price-summary {
+    margin-top: 5px;
+  }
+
+  .quick-order-last-ordered {
+    margin-top: 7px;
+  }
+}
+
+@media (max-width: 560px) {
+  .quick-order-line {
+    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-areas:
+      "product product"
+      "stock quantity";
+    gap: 12px;
+    padding: 15px 12px;
+  }
+
+  .quick-order-quantity {
+    grid-template-columns: 36px minmax(58px, 76px) 36px auto;
+  }
+
+  .quick-order-quantity button {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .quick-order-quantity input {
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .quick-order-quantity > span {
+    min-height: 28px;
+    margin-left: 6px;
+    padding: 0 8px;
+    font-size: 9px;
+  }
+}
