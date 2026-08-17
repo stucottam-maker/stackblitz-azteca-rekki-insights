@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "app/api/invoices/extract/route.ts": {
+      "maxDuration": 60
+    }
+  }
+}
