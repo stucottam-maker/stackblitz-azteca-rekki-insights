@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 import Sidebar from "../components/Sidebar";
 import { supabase } from "../lib/supabase";
+import { observedApprovedInvoices } from "../data/invoiceOrderHistory";
 
 type SupplierRelation =
   | {
@@ -160,9 +161,34 @@ export default function InvoicesPage() {
           throw invoiceError;
         }
 
+        const databaseInvoices = (data as unknown as InvoiceRow[]) ?? [];
+        const databaseNumbers = new Set(
+          databaseInvoices.map((invoice) => invoice.invoice_number).filter(Boolean)
+        );
+        const observedRows: InvoiceRow[] = observedApprovedInvoices
+          .filter((invoice) => !databaseNumbers.has(invoice.invoiceNumber ?? null))
+          .map((invoice) => ({
+            id: invoice.id,
+            invoice_number: invoice.invoiceNumber ?? null,
+            invoice_date: invoice.invoiceDate ?? null,
+            subtotal: invoice.subtotal ?? null,
+            vat: invoice.vat ?? null,
+            total: invoice.total ?? null,
+            status: invoice.estimatedTotal ? "Approved · estimated" : "Approved",
+            approved_at: invoice.invoiceDate ?? null,
+            created_at: invoice.invoiceDate ?? new Date(0).toISOString(),
+            supplier: { name: invoice.supplier },
+            invoice_lines: invoice.lineItems.map((line, index) => ({
+              id: `${invoice.id}-line-${index}`,
+            })),
+          }));
+
         setInvoices(
-          (data as unknown as InvoiceRow[]) ??
-            []
+          [...databaseInvoices, ...observedRows].sort(
+            (a, b) =>
+              new Date(b.invoice_date ?? b.created_at).getTime() -
+              new Date(a.invoice_date ?? a.created_at).getTime()
+          )
         );
       } catch (err) {
         console.error(err);

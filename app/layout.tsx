@@ -5,6 +5,7 @@ import "./globals.css";
 import "./order-ui.css";
 
 import PWARegister from "./components/PWARegister";
+import InvoiceSeedHydrator from "./components/InvoiceSeedHydrator";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <PWARegister />
+        <InvoiceSeedHydrator />
         {children}
       </body>
     </html>
