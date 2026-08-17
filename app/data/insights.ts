@@ -826,6 +826,70 @@ function buildOrderInsights(
   ];
 }
 
+function buildOrderingHabitInsights(
+  orders: PurchaseOrder[]
+): KitchenInsight[] {
+  const history = new Map<
+    string,
+    { supplier: string; ingredient: string; quantities: number[]; dates: number[] }
+  >();
+
+  orders
+    .filter((order) => order.status?.toLowerCase() !== "draft")
+    .forEach((order) => {
+      const date = new Date(order.createdAt ?? 0).getTime();
+      if (!Number.isFinite(date) || !order.supplier) return;
+
+      order.lines?.forEach((line) => {
+        const ingredient = line.ingredient ?? line.supplierProduct ?? "Product";
+        const key = `${order.supplier}::${ingredient}`;
+        const entry = history.get(key) ?? {
+          supplier: order.supplier!,
+          ingredient,
+          quantities: [],
+          dates: [],
+        };
+        entry.quantities.push(asNumber(line.orderQty));
+        entry.dates.push(date);
+        history.set(key, entry);
+      });
+    });
+
+  const now = Date.now();
+
+  return Array.from(history.values())
+    .filter((entry) => entry.dates.length >= 2)
+    .flatMap<KitchenInsight>((entry) => {
+      entry.dates.sort((a, b) => a - b);
+      const intervals = entry.dates.slice(1).map(
+        (date, index) => (date - entry.dates[index]) / 86_400_000
+      );
+      const usualDays = Math.max(
+        1,
+        Math.round(intervals.reduce((sum, days) => sum + days, 0) / intervals.length)
+      );
+      const daysSince = Math.floor((now - entry.dates[entry.dates.length - 1]) / 86_400_000);
+      const averageQuantity =
+        entry.quantities.reduce((sum, quantity) => sum + quantity, 0) /
+        entry.quantities.length;
+
+      if (daysSince < usualDays) return [];
+
+      return [{
+        id: `reorder-${entry.supplier}-${entry.ingredient}`
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-"),
+        title: `${entry.ingredient} may be due to reorder`,
+        message: `You usually order this from ${entry.supplier} every ${usualDays} days. The last order was ${daysSince} days ago.`,
+        category: "purchasing" as const,
+        severity: daysSince >= usualDays * 1.5 ? ("medium" as const) : ("low" as const),
+        metric: `Usually ${averageQuantity.toFixed(1)} units`,
+        actions: [{ label: "Build repeat order", href: "/orders" }],
+      }];
+    })
+    .slice(0, 5);
+}
+
 function buildStockInsights(
   stockTakes: StockTake[],
   ingredientPrices: Record<
@@ -1272,6 +1336,9 @@ export function generateInsights({
     ...buildOrderInsights(
       purchaseOrders,
       invoices
+    ),
+    ...buildOrderingHabitInsights(
+      purchaseOrders
     ),
     ...buildDataQualityInsights(
       ingredientPrices

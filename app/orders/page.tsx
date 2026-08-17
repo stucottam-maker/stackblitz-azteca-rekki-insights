@@ -4,6 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { supplierCatalogue } from "../data/supplierCatalogue";
 import { suppliers as supplierDirectory } from "../data/suppliers";
+import { getSupplierEmail } from "../data/suppliers";
+import {
+  getRegularOrderItems,
+  orderEmailBody,
+  readOrganisationSettings,
+} from "../lib/purchasing";
 
 type IngredientPrice = {
   price: number;
@@ -62,12 +68,17 @@ type PurchaseOrder = {
   id: string;
   supplier: string;
   createdAt: string;
-  status: "Sent";
+  status: "Draft" | "Sent" | "Received" | "Completed";
   lines: OrderLine[];
   estimatedTotal: number;
+  sentAt?: string;
+  sentTo?: string;
+  copiedTo?: string[];
+  notes?: string;
 };
 
 type OrderStep = "start" | "order" | "review";
+type SupplierTab = "catalogue" | "regular" | "history";
 
 function money(value: number) {
   return new Intl.NumberFormat("en-GB", {
@@ -460,6 +471,12 @@ export default function OrdersPage() {
   const [search, setSearch] =
     useState("");
 
+  const [supplierTab, setSupplierTab] =
+    useState<SupplierTab>("catalogue");
+
+  const [orderNotes, setOrderNotes] =
+    useState("");
+
   useEffect(() => {
     const ingredientPrices =
       JSON.parse(
@@ -675,7 +692,40 @@ export default function OrdersPage() {
 
     setSearch("");
 
+    setSupplierTab("catalogue");
+
     setStep("order");
+  }
+
+  function applyPreviousOrder(order: PurchaseOrder) {
+    setSelectedSupplier(order.supplier);
+    setLines((current) =>
+      current.map((line) => {
+        const previous = order.lines.find(
+          (orderedLine) =>
+            orderedLine.id === line.id || orderedLine.ingredient === line.ingredient
+        );
+        return previous ? { ...line, orderQty: previous.orderQty } : line;
+      })
+    );
+    setSupplierTab("catalogue");
+    setStep("order");
+  }
+
+  function applyRegularItems() {
+    const regular = getRegularOrderItems(
+      purchaseOrders as Parameters<typeof getRegularOrderItems>[0],
+      selectedSupplier
+    );
+    setLines((current) =>
+      current.map((line) => {
+        const suggestion = regular.find(
+          (item) => item.lineId === line.id || item.ingredient === line.ingredient
+        );
+        return suggestion ? { ...line, orderQty: suggestion.averageQuantity } : line;
+      })
+    );
+    setSupplierTab("catalogue");
   }
 
   function sendOrder() {
@@ -689,14 +739,26 @@ export default function OrdersPage() {
       return;
     }
 
+    const now = new Date().toISOString();
+    const settings = readOrganisationSettings();
+    const supplierEmail = getSupplierEmail(selectedSupplier) ?? undefined;
+    const copiedTo = settings.sendInternalCopy
+      ? settings.internalOrderEmails.filter(Boolean)
+      : [];
+
     const order: PurchaseOrder = {
       id: `PO-${Date.now()}`,
 
       supplier:
         selectedSupplier,
 
-      createdAt:
-        new Date().toISOString(),
+      createdAt: now,
+
+      sentAt: now,
+
+      sentTo: supplierEmail,
+
+      copiedTo,
 
       status: "Sent",
 
@@ -704,6 +766,8 @@ export default function OrdersPage() {
         selectedOrderLines,
 
       estimatedTotal,
+
+      notes: settings.includeOrderNotes ? orderNotes.trim() : undefined,
     };
 
     const nextOrders = [
@@ -720,11 +784,25 @@ export default function OrdersPage() {
 
     clearSupplierOrder();
 
+    setOrderNotes("");
+
     setStep("start");
 
-    alert(
-      `${selectedSupplier} order saved as sent.`
-    );
+    if (settings.sendSupplierEmail && supplierEmail) {
+      const subject = `Purchase Order ${order.id} - ${settings.name}`;
+      window.location.href = `mailto:${encodeURIComponent(
+        supplierEmail
+      )}?cc=${encodeURIComponent(copiedTo.join(","))}&subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(
+        orderEmailBody(
+          order as Parameters<typeof orderEmailBody>[0],
+          settings.name
+        )
+      )}`;
+    } else {
+      alert(`${selectedSupplier} order saved as sent.`);
+    }
   }
 
   const recentOrders =
@@ -739,6 +817,17 @@ export default function OrdersPage() {
           ).getTime()
       )
       .slice(0, 6);
+
+  const supplierOrderHistory = purchaseOrders
+    .filter((order) => order.supplier === selectedSupplier)
+    .sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+  const regularOrderItems = getRegularOrderItems(
+    purchaseOrders as Parameters<typeof getRegularOrderItems>[0],
+    selectedSupplier
+  );
 
   return (
     <main className="app-shell">
@@ -813,6 +902,10 @@ export default function OrdersPage() {
                               ? "product"
                               : "products"}
                           </span>
+
+                          {getSupplierEmail(supplier) && (
+                            <small>{getSupplierEmail(supplier)}</small>
+                          )}
                         </div>
 
                         <span className="supplier-choice-arrow">
@@ -891,6 +984,14 @@ export default function OrdersPage() {
                         <span className="status-badge status-approved">
                           Sent
                         </span>
+
+                        <button
+                          type="button"
+                          className="secondary-inline-button"
+                          onClick={() => applyPreviousOrder(order)}
+                        >
+                          Repeat
+                        </button>
                       </article>
                     )
                   )
@@ -993,7 +1094,24 @@ export default function OrdersPage() {
               </button>
             </section>
 
-            <section className="panel quick-order-panel">
+            <nav className="purchasing-tabs" aria-label="Supplier order views">
+              {([
+                ["catalogue", "Order"],
+                ["regular", `Regular orders (${regularOrderItems.length})`],
+                ["history", `Order history (${supplierOrderHistory.length})`],
+              ] as const).map(([tab, label]) => (
+                <button
+                  type="button"
+                  key={tab}
+                  className={supplierTab === tab ? "purchasing-tab-active" : ""}
+                  onClick={() => setSupplierTab(tab)}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+
+            {supplierTab === "catalogue" && <section className="panel quick-order-panel">
               <div className="quick-order-column-headings">
                 <span>Product</span>
                 <span>In stock</span>
@@ -1215,7 +1333,50 @@ export default function OrdersPage() {
                   }
                 )}
               </div>
-            </section>
+            </section>}
+
+            {supplierTab === "regular" && (
+              <section className="panel purchasing-list-panel">
+                <div className="panel-header">
+                  <div>
+                    <p className="panel-kicker">Learned from order history</p>
+                    <h2>Regularly ordered</h2>
+                  </div>
+                  {regularOrderItems.length > 0 && (
+                    <button className="secondary-inline-button" type="button" onClick={applyRegularItems}>
+                      Add all regular items
+                    </button>
+                  )}
+                </div>
+                {regularOrderItems.length === 0 ? (
+                  <div className="empty-table-message">Regular items appear after orders have been sent.</div>
+                ) : regularOrderItems.map((item) => (
+                  <article className="regular-order-row" key={item.lineId}>
+                    <div><strong>{item.ingredient}</strong><span>{item.supplierProduct}</span></div>
+                    <span>Last ordered {formatShortDate(item.lastOrderedAt)}</span>
+                    <span>{item.averageIntervalDays ? `Every ${item.averageIntervalDays} days` : "Ordered once"}</span>
+                    <strong>{item.averageQuantity} {item.orderUnit}</strong>
+                  </article>
+                ))}
+              </section>
+            )}
+
+            {supplierTab === "history" && (
+              <section className="panel purchasing-list-panel">
+                <div className="panel-header"><div><p className="panel-kicker">Audit trail</p><h2>Order history</h2></div></div>
+                {supplierOrderHistory.length === 0 ? (
+                  <div className="empty-table-message">No orders have been sent to this supplier yet.</div>
+                ) : supplierOrderHistory.map((order) => (
+                  <article className="order-history-card" key={order.id}>
+                    <div><strong>{order.id}</strong><span>{formatDate(order.sentAt ?? order.createdAt)}</span></div>
+                    <span>{order.lines.length} items</span>
+                    <strong>{money(order.estimatedTotal)}</strong>
+                    <span className="status-badge status-approved">{order.status}</span>
+                    <button className="secondary-inline-button" type="button" onClick={() => applyPreviousOrder(order)}>Repeat order</button>
+                  </article>
+                ))}
+              </section>
+            )}
 
             <div className="quick-order-footer">
               <div>
@@ -1281,9 +1442,7 @@ export default function OrdersPage() {
                     </h1>
 
                     <p className="page-description">
-                      Check the order
-                      before marking it
-                      as sent.
+                      Review the order details before sending to the supplier.
                     </p>
                   </div>
                 </div>
@@ -1409,6 +1568,15 @@ export default function OrdersPage() {
                   }
                 )}
               </div>
+
+              <label className="order-notes-field">
+                <span>Delivery or order notes</span>
+                <textarea
+                  value={orderNotes}
+                  onChange={(event) => setOrderNotes(event.target.value)}
+                  placeholder="Add delivery instructions or a note for the supplier..."
+                />
+              </label>
             </section>
 
             <div className="quick-order-footer">
@@ -1429,7 +1597,7 @@ export default function OrdersPage() {
                 className="primary-button quick-review-button"
                 onClick={sendOrder}
               >
-                Mark as sent
+                Send order
               </button>
             </div>
           </>
