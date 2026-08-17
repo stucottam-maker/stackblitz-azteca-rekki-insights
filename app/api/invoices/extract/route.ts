@@ -198,20 +198,20 @@ IMPORTANT RULES:
 - Dates should preferably be returned as YYYY-MM-DD.
               `.trim(),
             },
-            {
-            file.type === "application/pdf"
-  ? {
-      type: "input_file",
-      filename: file.name,
-      file_data: dataUrl,
-    }
-  : {
-      type: "input_image",
-      image_url: dataUrl,
-      detail: "high",
-    },
-            },
-          ],
+           
+         content: [
+  file.type === "application/pdf"
+    ? {
+        type: "input_file",
+        filename: file.name,
+        file_data: dataUrl,
+      }
+    : {
+        type: "input_image",
+        image_url: dataUrl,
+        detail: "high",
+      },
+],
         },
       ],
 
