@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import Sidebar from "../../components/Sidebar";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_FILE_SIZE = 60 * 1024 * 1024;
 
 const ACCEPTED_TYPES = [
   "application/pdf",
