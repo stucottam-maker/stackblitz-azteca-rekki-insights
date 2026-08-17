@@ -127,20 +127,12 @@ export default function UploadInvoicePage() {
 
 
 
-      const {
-        data: uploadData,
-        error: uploadError,
-      } =
-        await supabase.storage
-          .from("invoice-files")
-          .upload(
-            filePath,
-            file,
-            {
-              contentType:
-                file.type,
-            }
-          );
+      const { data, error } = await supabase.storage
+  .from("invoice-files")
+  .upload(
+    filePath,
+    file
+  );
 
 
       if (uploadError) {
