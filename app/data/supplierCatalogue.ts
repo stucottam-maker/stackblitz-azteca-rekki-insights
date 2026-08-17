@@ -3,6 +3,7 @@ import { mexgrocerCatalogue } from "./mexgrocerCatalogue";
 import { ouiChefCatalogueItems } from "./ouiChefCatalogue";
 import { masafinaCatalogueItems } from "./masafinaCatalogue";
 import { raynorCatalogueItems } from "./raynorCatalogue";
+import { observedCatalogueItems } from "./invoiceOrderHistory";
 
 export type CatalogueItem = {
   id: string;
@@ -125,6 +126,7 @@ function normaliseCatalogue(
 }
 
 export const supplierCatalogue: CatalogueItem[] = [
+  ...observedCatalogueItems,
   // =====================================================
   // IMPORTED SUPPLIER CATALOGUES
   // =====================================================

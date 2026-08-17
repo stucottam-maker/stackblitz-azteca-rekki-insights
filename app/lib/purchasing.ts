@@ -1,3 +1,5 @@
+import { observedInvoiceOrders } from "../data/invoiceOrderHistory";
+
 export const PURCHASE_ORDERS_KEY = "purchaseOrders";
 export const ORGANISATION_SETTINGS_KEY = "organisationSettings";
 
@@ -130,7 +132,7 @@ export function getRegularOrderItems(
     });
   });
 
-  return Array.from(history.entries())
+  const calculated = Array.from(history.entries())
     .map(([lineId, entry]) => {
       const intervals = entry.dates.slice(1).map((date, index) =>
         Math.max(
@@ -161,4 +163,30 @@ export function getRegularOrderItems(
       };
     })
     .sort((a, b) => b.orderCount - a.orderCount || a.ingredient.localeCompare(b.ingredient));
+
+  const observed = observedInvoiceOrders
+    .filter((order) => order.supplier === supplier)
+    .flatMap((order) =>
+      order.items.map((item, index) => ({
+        lineId: `invoice-${supplier.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${index}`,
+        ingredient: item.ingredient,
+        supplierProduct: item.supplierProduct,
+        orderUnit: item.unit,
+        averageQuantity: item.quantity,
+        lastOrderedAt: order.invoiceDate,
+        averageIntervalDays: null,
+        orderCount: 1,
+      }))
+    );
+
+  const calculatedIngredients = new Set(
+    calculated.map((item) => item.ingredient.toLowerCase())
+  );
+
+  return [
+    ...calculated,
+    ...observed.filter(
+      (item) => !calculatedIngredients.has(item.ingredient.toLowerCase())
+    ),
+  ];
 }

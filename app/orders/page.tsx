@@ -719,8 +719,13 @@ export default function OrdersPage() {
     );
     setLines((current) =>
       current.map((line) => {
+        const normalise = (value: string) =>
+          value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
         const suggestion = regular.find(
-          (item) => item.lineId === line.id || item.ingredient === line.ingredient
+          (item) =>
+            item.lineId === line.id ||
+            normalise(item.ingredient) === normalise(line.ingredient) ||
+            normalise(item.supplierProduct) === normalise(line.supplierProduct)
         );
         return suggestion ? { ...line, orderQty: suggestion.averageQuantity } : line;
       })
