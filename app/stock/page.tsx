@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import Sidebar from "../components/Sidebar";
+import { persistWorkspaceState, removeWorkspaceState } from "../lib/workspaceState";
 
 import {
   HistoricalStockItem,
@@ -847,12 +848,12 @@ export default function StockPage() {
         items,
       };
 
-    localStorage.setItem(
+    void persistWorkspaceState(
       "currentStockTake",
       JSON.stringify(
         stockTake
       )
-    );
+    ).catch((error) => console.error("Stock cloud save failed", error));
 
     setLastSaved(now);
 
@@ -883,16 +884,16 @@ export default function StockPage() {
       stockTake
     );
 
-    localStorage.setItem(
+    void persistWorkspaceState(
       "stockTakeHistory",
       JSON.stringify(
         history
       )
-    );
+    ).catch((error) => console.error("Stock history cloud save failed", error));
 
-    localStorage.removeItem(
+    void removeWorkspaceState(
       "currentStockTake"
-    );
+    ).catch((error) => console.error("Stock cloud clear failed", error));
 
     setLastSaved(now);
 
@@ -921,9 +922,9 @@ export default function StockPage() {
 
     setItems(fresh);
 
-    localStorage.removeItem(
+    void removeWorkspaceState(
       "currentStockTake"
-    );
+    ).catch((error) => console.error("Stock cloud clear failed", error));
 
     setLastSaved("");
   }
@@ -935,9 +936,9 @@ export default function StockPage() {
       )
     );
 
-    localStorage.removeItem(
+    void removeWorkspaceState(
       "currentStockTake"
-    );
+    ).catch((error) => console.error("Stock cloud clear failed", error));
 
     setLastSaved("");
   }

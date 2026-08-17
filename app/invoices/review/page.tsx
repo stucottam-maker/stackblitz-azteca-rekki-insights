@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import { supabase } from "../../lib/supabase";
+import { persistWorkspaceState } from "../../lib/workspaceState";
 
 type InvoiceLineItem = {
   product: string;
@@ -1331,7 +1332,7 @@ export default function InvoiceReviewPage() {
         }
       );
 
-      localStorage.setItem(
+      await persistWorkspaceState(
         "ingredientPrices",
         JSON.stringify(
           localPrices

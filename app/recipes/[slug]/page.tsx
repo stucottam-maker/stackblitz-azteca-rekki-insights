@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 import Sidebar from "../../components/Sidebar";
+import { persistWorkspaceState } from "../../lib/workspaceState";
 import {
   recipes,
   recipeSlug,
@@ -435,10 +436,10 @@ export default function RecipeDetailPage() {
       updatedAt: new Date().toISOString(),
     };
 
-    localStorage.setItem(
+    void persistWorkspaceState(
       getRecipeStorageKey(slug),
       JSON.stringify(payload)
-    );
+    ).catch((error) => console.error("Recipe cloud save failed", error));
 
     setRecipe(updatedRecipe);
 

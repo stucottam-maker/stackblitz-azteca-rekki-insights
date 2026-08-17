@@ -10,6 +10,7 @@ import {
   orderEmailBody,
   readOrganisationSettings,
 } from "../lib/purchasing";
+import { persistWorkspaceState } from "../lib/workspaceState";
 
 type IngredientPrice = {
   price: number;
@@ -733,7 +734,7 @@ export default function OrdersPage() {
     setSupplierTab("catalogue");
   }
 
-  function sendOrder() {
+  async function sendOrder() {
     if (
       selectedOrderLines.length === 0
     ) {
@@ -780,7 +781,7 @@ export default function OrdersPage() {
       ...purchaseOrders,
     ];
 
-    localStorage.setItem(
+    await persistWorkspaceState(
       "purchaseOrders",
       JSON.stringify(nextOrders)
     );

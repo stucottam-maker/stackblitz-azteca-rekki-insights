@@ -8,6 +8,7 @@ import {
   readOrganisationSettings,
   type OrganisationSettings,
 } from "../lib/purchasing";
+import { persistWorkspaceState } from "../lib/workspaceState";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<OrganisationSettings>(
@@ -17,9 +18,9 @@ export default function SettingsPage() {
 
   useEffect(() => setSettings(readOrganisationSettings()), []);
 
-  function submit(event: FormEvent) {
+  async function submit(event: FormEvent) {
     event.preventDefault();
-    localStorage.setItem(ORGANISATION_SETTINGS_KEY, JSON.stringify(settings));
+    await persistWorkspaceState(ORGANISATION_SETTINGS_KEY, JSON.stringify(settings));
     setSaved(true);
     window.setTimeout(() => setSaved(false), 2500);
   }
