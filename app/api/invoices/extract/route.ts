@@ -11,6 +11,7 @@ const SUPPORTED_IMAGE_TYPES = [
   "image/jpg",
   "image/png",
   "image/webp",
+  "application/pdf",
 ];
 
 const invoiceSchema = {
@@ -198,9 +199,17 @@ IMPORTANT RULES:
               `.trim(),
             },
             {
-              type: "input_image",
-              image_url: imageUrl,
-              detail: "high",
+            file.type === "application/pdf"
+  ? {
+      type: "input_file",
+      filename: file.name,
+      file_data: dataUrl,
+    }
+  : {
+      type: "input_image",
+      image_url: dataUrl,
+      detail: "high",
+    },
             },
           ],
         },
