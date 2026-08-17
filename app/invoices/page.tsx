@@ -23,12 +23,14 @@ type InvoiceRow = {
   status: string;
   approved_at: string | null;
   created_at: string;
-
-  supplier:
-    | {
-        name: string;
-      }
-    | null;
+supplier:
+  | {
+      name: string;
+    }
+  | {
+      name: string;
+    }[]
+  | null;
 
   invoice_lines?: {
     id: string;
@@ -419,8 +421,11 @@ export default function InvoicesPage() {
                     >
 
                       <td>
-                        {invoice.supplier?.name ??
-                          "Unknown"}
+                       {
+  Array.isArray(invoice.supplier)
+    ? invoice.supplier[0]?.name ?? "Unknown"
+    : invoice.supplier?.name ?? "Unknown"
+}
                       </td>
 
 
