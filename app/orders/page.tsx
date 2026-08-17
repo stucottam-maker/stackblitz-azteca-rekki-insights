@@ -1412,8 +1412,8 @@ export default function OrdersPage() {
         )}
 
         {step === "review" && (
-          <>
-            <header className="quick-order-header">
+          <div className="order-review-page">
+            <header className="quick-order-header order-review-header">
               <div>
                 <button
                   className="quick-order-back"
@@ -1468,7 +1468,7 @@ export default function OrdersPage() {
               </div>
             </header>
 
-            <section className="panel">
+            <section className="panel order-review-card">
               <div className="panel-header">
                 <div>
                   <p className="panel-kicker">
@@ -1479,6 +1479,18 @@ export default function OrdersPage() {
                     Order summary
                   </h2>
                 </div>
+
+                <div className="order-review-recipient">
+                  <span>Sending to</span>
+                  <strong>{getSupplierEmail(selectedSupplier) ?? "Supplier email not added"}</strong>
+                </div>
+              </div>
+
+              <div className="quick-review-headings" aria-hidden="true">
+                <span>Product</span>
+                <span>Quantity</span>
+                <span>Price</span>
+                <span>Line total</span>
               </div>
 
               <div className="quick-review-list">
@@ -1548,13 +1560,6 @@ export default function OrdersPage() {
                                 )}
                                 /{unit}
                               </span>
-
-                              <strong>
-                                {money(
-                                  line.orderQty *
-                                    price
-                                )}
-                              </strong>
                             </>
                           ) : (
                             <span>
@@ -1562,6 +1567,14 @@ export default function OrdersPage() {
                               unavailable
                             </span>
                           )}
+                        </div>
+
+                        <div className="quick-review-line-total">
+                          <strong>
+                            {price !== null
+                              ? money(line.orderQty * price)
+                              : "—"}
+                          </strong>
                         </div>
                       </article>
                     );
@@ -1579,7 +1592,7 @@ export default function OrdersPage() {
               </label>
             </section>
 
-            <div className="quick-order-footer">
+            <div className="quick-order-footer order-review-footer">
               <div>
                 <span>
                   Estimated total
@@ -1590,6 +1603,10 @@ export default function OrdersPage() {
                     estimatedTotal
                   )}
                 </strong>
+
+                <span className="order-review-footer-count">
+                  {selectedOrderLines.length} {selectedOrderLines.length === 1 ? "item" : "items"}
+                </span>
               </div>
 
               <button
@@ -1600,7 +1617,7 @@ export default function OrdersPage() {
                 Send order
               </button>
             </div>
-          </>
+          </div>
         )}
       </section>
     </main>
