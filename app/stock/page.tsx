@@ -3,7 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 
 import Sidebar from "../components/Sidebar";
-import { persistWorkspaceState, removeWorkspaceState } from "../lib/workspaceState";
+import {
+  persistWorkspaceState,
+  readWorkspaceState,
+  readWorkspaceStates,
+  removeWorkspaceState,
+} from "../lib/workspaceState";
 
 import {
   HistoricalStockItem,
@@ -502,55 +507,24 @@ export default function StockPage() {
   );
 
   useEffect(() => {
-    const storedPrices =
-      JSON.parse(
-        localStorage.getItem(
-          "ingredientPrices"
-        ) || "{}"
-      ) as Record<
-        string,
-        IngredientPrice
-      >;
-
-    setIngredientPrices(
-      storedPrices
-    );
-
-    const savedDraft =
-      localStorage.getItem(
-        "currentStockTake"
-      );
-
-    if (savedDraft) {
-      try {
-        const parsed =
-          JSON.parse(
-            savedDraft
-          ) as SavedStockTake;
-
-        setItems(
-          parsed.items ?? []
-        );
-
-        setLastSaved(
-          parsed.createdAt ??
-            ""
-        );
-
-        return;
-      } catch (error) {
-        console.error(
-          "Could not load saved stock count",
-          error
-        );
-      }
-    }
-
-    setItems(
-      buildCurrentStockItems(
-        storedPrices
-      )
-    );
+    readWorkspaceStates(["ingredientPrices", "currentStockTake"])
+      .then((state) => {
+        const storedPrices = (state.get("ingredientPrices") ?? {}) as Record<
+          string,
+          IngredientPrice
+        >;
+        const savedDraft = (state.get("currentStockTake") ?? null) as
+          | SavedStockTake
+          | null;
+        setIngredientPrices(storedPrices);
+        if (savedDraft) {
+          setItems(savedDraft.items ?? []);
+          setLastSaved(savedDraft.createdAt ?? "");
+        } else {
+          setItems(buildCurrentStockItems(storedPrices));
+        }
+      })
+      .catch((error) => console.error("Stock cloud load failed", error));
   }, []);
 
   const categories =
@@ -862,7 +836,7 @@ export default function StockPage() {
     );
   }
 
-  function completeStockTake() {
+  async function completeStockTake() {
     const now =
       new Date().toISOString();
 
@@ -873,27 +847,25 @@ export default function StockPage() {
         items,
       };
 
-    const history =
-      JSON.parse(
-        localStorage.getItem(
-          "stockTakeHistory"
-        ) || "[]"
-      ) as SavedStockTake[];
+    const history = await readWorkspaceState<SavedStockTake[]>(
+      "stockTakeHistory",
+      []
+    );
 
     history.unshift(
       stockTake
     );
 
-    void persistWorkspaceState(
+    await persistWorkspaceState(
       "stockTakeHistory",
       JSON.stringify(
         history
       )
-    ).catch((error) => console.error("Stock history cloud save failed", error));
+    );
 
-    void removeWorkspaceState(
+    await removeWorkspaceState(
       "currentStockTake"
-    ).catch((error) => console.error("Stock cloud clear failed", error));
+    );
 
     setLastSaved(now);
 

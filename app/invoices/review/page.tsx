@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import { supabase } from "../../lib/supabase";
-import { persistWorkspaceState } from "../../lib/workspaceState";
+import { persistWorkspaceState, readWorkspaceState } from "../../lib/workspaceState";
 
 type InvoiceLineItem = {
   product: string;
@@ -1275,19 +1275,10 @@ export default function InvoiceReviewPage() {
         }
       }
 
-      /*
-       * 6. TEMPORARY LOCALSTORAGE MIRROR
-       *
-       * We keep this only while Recipes/Menu
-       * still read localStorage.
-       */
-
-      const localPrices =
-        JSON.parse(
-          localStorage.getItem(
-            "ingredientPrices"
-          ) || "{}"
-        );
+      const cloudPrices = await readWorkspaceState<Record<string, unknown>>(
+        "ingredientPrices",
+        {}
+      );
 
       invoice.lineItems.forEach(
         (item) => {
@@ -1303,7 +1294,7 @@ export default function InvoiceReviewPage() {
             return;
           }
 
-          localPrices[
+          cloudPrices[
             ingredient
           ] = {
             price:
@@ -1335,7 +1326,7 @@ export default function InvoiceReviewPage() {
       await persistWorkspaceState(
         "ingredientPrices",
         JSON.stringify(
-          localPrices
+          cloudPrices
         )
       );
 

@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 
 import Sidebar from "../components/Sidebar";
+import { loadInsightWorkspaceData } from "../lib/insightWorkspaceData";
 import { getSupplier, suppliers as supplierDirectory } from "../data/suppliers";
 
 import {
@@ -39,21 +40,6 @@ type SupplierSummary = {
   invoiceCount: number;
   lastInvoiceDate?: string;
 };
-
-function safeParse<T>(
-  value: string | null,
-  fallback: T
-): T {
-  if (!value) {
-    return fallback;
-  }
-
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return fallback;
-  }
-}
 
 function formatDate(
   value?: string
@@ -150,123 +136,15 @@ export default function SuppliersPage() {
   >(null);
 
   useEffect(() => {
-    setIngredientPrices(
-      safeParse<
-        Record<
-          string,
-          IngredientPriceRecord
-        >
-      >(
-        localStorage.getItem(
-          "ingredientPrices"
-        ),
-        {}
-      )
-    );
-
-    setPurchaseOrders(
-      safeParse<
-        PurchaseOrder[]
-      >(
-        localStorage.getItem(
-          "purchaseOrders"
-        ),
-        []
-      )
-    );
-
-    const invoiceHistory =
-      safeParse<
-        ApprovedInvoice[]
-      >(
-        localStorage.getItem(
-          "approvedInvoices"
-        ),
-        []
-      );
-
-    const singleApprovedInvoice =
-      safeParse<
-        ApprovedInvoice | null
-      >(
-        localStorage.getItem(
-          "approvedInvoiceDraft"
-        ),
-        null
-      );
-
-    if (
-      invoiceHistory.length >
-      0
-    ) {
-      setInvoices(
-        invoiceHistory
-      );
-    } else if (
-      singleApprovedInvoice
-    ) {
-      setInvoices([
-        singleApprovedInvoice,
-      ]);
-    } else {
-      setInvoices([]);
-    }
-
-    const stockHistory =
-      safeParse<
-        StockTake[]
-      >(
-        localStorage.getItem(
-          "stockTakeHistory"
-        ),
-        []
-      );
-
-    const currentStock =
-      safeParse<
-        StockTake | null
-      >(
-        localStorage.getItem(
-          "currentStockTake"
-        ),
-        null
-      );
-
-    const combinedStock = [
-      ...stockHistory,
-    ];
-
-    if (currentStock) {
-      const alreadyExists =
-        currentStock.id
-          ? combinedStock.some(
-              (item) =>
-                item.id ===
-                currentStock.id
-            )
-          : false;
-
-      if (!alreadyExists) {
-        combinedStock.push(
-          currentStock
-        );
-      }
-    }
-
-    setStockTakes(
-      combinedStock
-    );
-
-    setRecipeCosts(
-      safeParse<
-        RecipeCostSummary[]
-      >(
-        localStorage.getItem(
-          "recipeCostSummaries"
-        ),
-        []
-      )
-    );
+    loadInsightWorkspaceData()
+      .then((data) => {
+        setIngredientPrices(data.ingredientPrices);
+        setPurchaseOrders(data.purchaseOrders);
+        setInvoices(data.invoices);
+        setStockTakes(data.stockTakes);
+        setRecipeCosts(data.recipeCosts);
+      })
+      .catch((error) => console.error("Suppliers cloud load failed", error));
   }, []);
 
   const insightData =

@@ -59,25 +59,6 @@ export const defaultOrganisationSettings: OrganisationSettings = {
   includeOrderNotes: true,
 };
 
-export function readOrganisationSettings(): OrganisationSettings {
-  if (typeof window === "undefined") return defaultOrganisationSettings;
-
-  try {
-    const stored = JSON.parse(
-      localStorage.getItem(ORGANISATION_SETTINGS_KEY) || "null"
-    ) as Partial<OrganisationSettings> | null;
-
-    return {
-      ...defaultOrganisationSettings,
-      ...stored,
-      internalOrderEmails:
-        stored?.internalOrderEmails ?? defaultOrganisationSettings.internalOrderEmails,
-    };
-  } catch {
-    return defaultOrganisationSettings;
-  }
-}
-
 export function orderEmailBody(order: PurchaseOrder, organisationName: string) {
   const lines = order.lines.map(
     (line) => `- ${line.supplierProduct || line.ingredient}: ${line.orderQty} ${line.orderUnit}`

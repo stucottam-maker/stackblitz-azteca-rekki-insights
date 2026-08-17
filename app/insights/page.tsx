@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Sidebar from "../components/Sidebar";
+import { loadInsightWorkspaceData } from "../lib/insightWorkspaceData";
 
 import {
   generateInsights,
@@ -23,16 +24,6 @@ type InsightFilter =
   | "stock"
   | "performance"
   | "data";
-
-function safeParse<T>(value: string | null, fallback: T): T {
-  if (!value) return fallback;
-
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return fallback;
-  }
-}
 
 function severityLabel(severity: KitchenInsight["severity"]) {
   if (severity === "high") return "High";
@@ -86,90 +77,18 @@ export default function InsightsPage() {
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    const prices = safeParse<Record<string, IngredientPriceRecord>>(
-      localStorage.getItem("ingredientPrices"),
-      {}
-    );
-
-    const previousPrices = safeParse<Record<string, IngredientPriceRecord>>(
-      localStorage.getItem("previousIngredientPrices"),
-      {}
-    );
-
-    const orders = safeParse<PurchaseOrder[]>(
-      localStorage.getItem("purchaseOrders"),
-      []
-    );
-
-    const invoiceHistory = safeParse<ApprovedInvoice[]>(
-      localStorage.getItem("approvedInvoices"),
-      []
-    );
-
-    const singleApprovedInvoice = safeParse<ApprovedInvoice | null>(
-      localStorage.getItem("approvedInvoiceDraft"),
-      null
-    );
-
-    const stockHistory = safeParse<StockTake[]>(
-      localStorage.getItem("stockTakeHistory"),
-      []
-    );
-
-    const currentStock = safeParse<StockTake | null>(
-      localStorage.getItem("currentStockTake"),
-      null
-    );
-
-    const storedRecipeCosts = safeParse<RecipeCostSummary[]>(
-      localStorage.getItem("recipeCostSummaries"),
-      []
-    );
-
-    const storedSales = Number(localStorage.getItem("salesThisPeriod"));
-
-    const storedTheoretical = Number(
-      localStorage.getItem("theoreticalFoodCostPercent")
-    );
-
-    setIngredientPrices(prices);
-    setPreviousIngredientPrices(previousPrices);
-    setPurchaseOrders(orders);
-
-    if (invoiceHistory.length > 0) {
-      setInvoices(invoiceHistory);
-    } else if (singleApprovedInvoice) {
-      setInvoices([singleApprovedInvoice]);
-    } else {
-      setInvoices([]);
-    }
-
-    const combinedStock = [...stockHistory];
-
-    if (currentStock) {
-      const currentId = currentStock.id;
-
-      const alreadyExists = currentId
-        ? combinedStock.some((item) => item.id === currentId)
-        : false;
-
-      if (!alreadyExists) {
-        combinedStock.push(currentStock);
-      }
-    }
-
-    setStockTakes(combinedStock);
-    setRecipeCosts(storedRecipeCosts);
-
-    setSalesThisPeriod(
-      Number.isFinite(storedSales) && storedSales > 0 ? storedSales : null
-    );
-
-    setTheoreticalFoodCostPercent(
-      Number.isFinite(storedTheoretical) && storedTheoretical > 0
-        ? storedTheoretical
-        : null
-    );
+    loadInsightWorkspaceData()
+      .then((data) => {
+        setIngredientPrices(data.ingredientPrices);
+        setPreviousIngredientPrices(data.previousIngredientPrices);
+        setPurchaseOrders(data.purchaseOrders);
+        setInvoices(data.invoices);
+        setStockTakes(data.stockTakes);
+        setRecipeCosts(data.recipeCosts);
+        setSalesThisPeriod(data.salesThisPeriod);
+        setTheoreticalFoodCostPercent(data.theoreticalFoodCostPercent);
+      })
+      .catch((error) => console.error("Insights cloud load failed", error));
   }, []);
 
   const insightData = useMemo(

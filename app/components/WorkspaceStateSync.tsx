@@ -1,19 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { synchroniseWorkspaceState } from "../lib/workspaceState";
-
-const RELOAD_GUARD = "workspace-state-cloud-hydrated";
+import { migrateLegacyWorkspaceState } from "../lib/workspaceState";
 
 export default function WorkspaceStateSync() {
   useEffect(() => {
-    synchroniseWorkspaceState()
-      .then((hydrated) => {
-        if (hydrated && !sessionStorage.getItem(RELOAD_GUARD)) {
-          sessionStorage.setItem(RELOAD_GUARD, "true");
-          window.location.reload();
-        }
-      })
+    migrateLegacyWorkspaceState()
       .catch((error) => console.error("Workspace cloud sync failed", error));
   }, []);
 

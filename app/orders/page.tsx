@@ -8,9 +8,15 @@ import { getSupplierEmail } from "../data/suppliers";
 import {
   getRegularOrderItems,
   orderEmailBody,
-  readOrganisationSettings,
+  defaultOrganisationSettings,
+  ORGANISATION_SETTINGS_KEY,
+  type OrganisationSettings,
 } from "../lib/purchasing";
-import { persistWorkspaceState } from "../lib/workspaceState";
+import {
+  persistWorkspaceState,
+  readWorkspaceState,
+  readWorkspaceStates,
+} from "../lib/workspaceState";
 
 type IngredientPrice = {
   price: number;
@@ -479,37 +485,19 @@ export default function OrdersPage() {
     useState("");
 
   useEffect(() => {
-    const ingredientPrices =
-      JSON.parse(
-        localStorage.getItem(
-          "ingredientPrices"
-        ) || "{}"
-      ) as Record<string, IngredientPrice>;
-
-    const stockTake =
-      JSON.parse(
-        localStorage.getItem(
-          "currentStockTake"
-        ) || '{"items":[]}'
-      ) as {
-        items?: StockItem[];
-      };
-
-    setLines(
-      buildOrderLines(
-        ingredientPrices,
-        stockTake.items ?? []
-      )
-    );
-
-    const storedOrders =
-      JSON.parse(
-        localStorage.getItem(
-          "purchaseOrders"
-        ) || "[]"
-      ) as PurchaseOrder[];
-
-    setPurchaseOrders(storedOrders);
+    readWorkspaceStates(["ingredientPrices", "currentStockTake", "purchaseOrders"])
+      .then((state) => {
+        const ingredientPrices = (state.get("ingredientPrices") ?? {}) as Record<
+          string,
+          IngredientPrice
+        >;
+        const stockTake = (state.get("currentStockTake") ?? { items: [] }) as {
+          items?: StockItem[];
+        };
+        setLines(buildOrderLines(ingredientPrices, stockTake.items ?? []));
+        setPurchaseOrders((state.get("purchaseOrders") ?? []) as PurchaseOrder[]);
+      })
+      .catch((error) => console.error("Orders cloud load failed", error));
   }, []);
 
   const supplierNames =
@@ -746,7 +734,10 @@ export default function OrdersPage() {
     }
 
     const now = new Date().toISOString();
-    const settings = readOrganisationSettings();
+    const settings = await readWorkspaceState<OrganisationSettings>(
+      ORGANISATION_SETTINGS_KEY,
+      defaultOrganisationSettings
+    );
     const supplierEmail = getSupplierEmail(selectedSupplier) ?? undefined;
     const copiedTo = settings.sendInternalCopy
       ? settings.internalOrderEmails.filter(Boolean)

@@ -5,10 +5,9 @@ import Sidebar from "../components/Sidebar";
 import {
   ORGANISATION_SETTINGS_KEY,
   defaultOrganisationSettings,
-  readOrganisationSettings,
   type OrganisationSettings,
 } from "../lib/purchasing";
-import { persistWorkspaceState } from "../lib/workspaceState";
+import { persistWorkspaceState, readWorkspaceState } from "../lib/workspaceState";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<OrganisationSettings>(
@@ -16,7 +15,19 @@ export default function SettingsPage() {
   );
   const [saved, setSaved] = useState(false);
 
-  useEffect(() => setSettings(readOrganisationSettings()), []);
+  useEffect(() => {
+    readWorkspaceState<OrganisationSettings>(
+      ORGANISATION_SETTINGS_KEY,
+      defaultOrganisationSettings
+    )
+      .then((stored) => setSettings({
+        ...defaultOrganisationSettings,
+        ...stored,
+        internalOrderEmails:
+          stored.internalOrderEmails ?? defaultOrganisationSettings.internalOrderEmails,
+      }))
+      .catch((error) => console.error("Settings cloud load failed", error));
+  }, []);
 
   async function submit(event: FormEvent) {
     event.preventDefault();

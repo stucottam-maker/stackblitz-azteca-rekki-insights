@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 import Sidebar from "../../components/Sidebar";
-import { persistWorkspaceState } from "../../lib/workspaceState";
+import { persistWorkspaceState, readWorkspaceStates } from "../../lib/workspaceState";
 import {
   recipes,
   recipeSlug,
@@ -69,16 +69,6 @@ const ALLERGENS = [
   "Lupin",
   "Molluscs",
 ];
-
-function safeParse<T>(value: string | null, fallback: T): T {
-  if (!value) return fallback;
-
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return fallback;
-  }
-}
 
 function getRecipeStorageKey(slug: string) {
   return `recipe:${slug}`;
@@ -159,6 +149,9 @@ export default function RecipeDetailPage() {
 
   const [ingredientPrices, setIngredientPrices] =
     useState<IngredientPrices>({});
+  const [storedRecipes, setStoredRecipes] = useState<
+    Record<string, StoredRecipePayload>
+  >({});
 
   const [yieldAmount, setYieldAmount] = useState<number | null>(null);
   const [yieldUnit, setYieldUnit] = useState("");
@@ -173,11 +166,12 @@ export default function RecipeDetailPage() {
       return;
     }
 
-    const stored = safeParse<StoredRecipePayload | null>(
-      localStorage.getItem(getRecipeStorageKey(slug)),
-      null
-    );
-
+    const recipeKeys = recipes.map((item) => getRecipeStorageKey(recipeSlug(item.name)));
+    readWorkspaceStates(["ingredientPrices", ...recipeKeys])
+      .then((state) => {
+    const stored = (state.get(getRecipeStorageKey(slug)) ?? null) as
+      | StoredRecipePayload
+      | null;
     const startingRecipe = stored?.recipe ?? baseRecipe;
 
     const startingIngredients: EditableIngredient[] =
@@ -215,12 +209,17 @@ export default function RecipeDetailPage() {
     setProcedure(stored?.procedure ?? "");
     setAllergens(stored?.allergens ?? []);
 
-    setIngredientPrices(
-      safeParse<IngredientPrices>(
-        localStorage.getItem("ingredientPrices"),
-        {}
+    setIngredientPrices((state.get("ingredientPrices") ?? {}) as IngredientPrices);
+    setStoredRecipes(
+      Object.fromEntries(
+        recipeKeys.flatMap((key) => {
+          const value = state.get(key) as StoredRecipePayload | undefined;
+          return value ? [[key, value]] : [];
+        })
       )
     );
+      })
+      .catch((error) => console.error("Recipe cloud load failed", error));
   }, [baseRecipe, slug]);
 
   const lineCosts = useMemo(() => {
@@ -244,12 +243,8 @@ export default function RecipeDetailPage() {
           };
         }
 
-        const storedSubRecipe = safeParse<StoredRecipePayload | null>(
-          localStorage.getItem(
-            getRecipeStorageKey(recipeSlug(subRecipe.name))
-          ),
-          null
-        );
+        const storedSubRecipe =
+          storedRecipes[getRecipeStorageKey(recipeSlug(subRecipe.name))] ?? null;
 
         const costPerYieldUnit =
           storedSubRecipe?.summary?.costPerYieldUnit ?? null;
@@ -296,7 +291,7 @@ export default function RecipeDetailPage() {
         source: priceRecord.supplier ?? "Ingredient price",
       };
     });
-  }, [ingredients, ingredientPrices]);
+  }, [ingredients, ingredientPrices, storedRecipes]);
 
   const totalCost = useMemo(() => {
     const validCosts = lineCosts
