@@ -576,7 +576,8 @@ export default function InvoiceUploadPage() {
               <input
                 ref={cameraInputRef}
                 type="file"
-                accept="image/*"
+               accept="application/pdf,image/*"
+      
                 capture="environment"
                 onChange={
                   handleFileChange
