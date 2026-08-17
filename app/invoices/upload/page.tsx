@@ -70,7 +70,15 @@ export default function UploadInvoicePage() {
         }
       );
 
-      const result = await response.json();
+     const text = await response.text();
+
+let result;
+
+try {
+  result = JSON.parse(text);
+} catch {
+  throw new Error(text);
+}
 
       if (!response.ok) {
         throw new Error(
