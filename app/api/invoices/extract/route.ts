@@ -152,7 +152,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "File too large. Maximum size is 10MB.",
+            "File too large. Maximum size is 60MB.",
         },
         {
           status: 400,
