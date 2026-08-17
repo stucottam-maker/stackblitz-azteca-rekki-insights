@@ -109,11 +109,26 @@ export async function POST(request: Request) {
     });
 
 
-    const formData =
-      await request.formData();
+    const body = await request.json();
 
-    const uploadedFile =
-      formData.get("file");
+const {
+  fileUrl,
+  fileName,
+  fileType,
+} = body;
+
+
+if (!fileUrl) {
+  return NextResponse.json(
+    {
+      error:
+        "No invoice file URL provided.",
+    },
+    {
+      status:400,
+    }
+  );
+}
 
 
     if (
