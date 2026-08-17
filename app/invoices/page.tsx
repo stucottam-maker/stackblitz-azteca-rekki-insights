@@ -200,19 +200,21 @@ export default function InvoicesPage() {
 
 
 
-  const suppliers =
-    useMemo(
-      () =>
-        new Set(
-          invoices.map(
-            invoice =>
-              invoice.supplier?.name
+ const suppliers =
+  useMemo(
+    () =>
+      new Set(
+        invoices
+          .map((invoice) =>
+            Array.isArray(invoice.supplier)
+              ? invoice.supplier[0]?.name
+              : invoice.supplier?.name
           )
           .filter(Boolean)
-        ).size,
+      ).size,
 
-      [invoices]
-    );
+    [invoices]
+  );
 
 
 
