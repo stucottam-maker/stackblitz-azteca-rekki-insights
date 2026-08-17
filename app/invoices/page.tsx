@@ -1,190 +1,228 @@
 "use client";
 
 import {
+  useCallback,
+  useEffect,
+  useMemo,
   useState,
 } from "react";
 
-import {
-  useRouter,
-} from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import Sidebar from "../../components/Sidebar";
-
-
-const MAX_FILE_SIZE =
-  10 * 1024 * 1024;
+import Sidebar from "../components/Sidebar";
+import { supabase } from "../lib/supabase";
 
 
-const ACCEPTED_TYPES = [
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-];
+type InvoiceRow = {
+  id: string;
+  invoice_number: string | null;
+  invoice_date: string | null;
+  subtotal: number | null;
+  vat: number | null;
+  total: number | null;
+  status: string;
+  approved_at: string | null;
+  created_at: string;
 
-
-export default function UploadInvoicePage() {
-
-  const router =
-    useRouter();
-
-
-  const [file, setFile] =
-    useState<File | null>(null);
-
-
-  const [uploading, setUploading] =
-    useState(false);
-
-
-  const [error, setError] =
-    useState("");
-
-
-  function handleFileChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
-
-    const selected =
-      event.target.files?.[0];
-
-
-    setError("");
-
-
-    if (!selected) {
-      return;
-    }
-
-
-    if (
-      !ACCEPTED_TYPES.includes(
-        selected.type
-      )
-    ) {
-
-      setError(
-        "Please upload a PDF, JPG, PNG or WEBP invoice."
-      );
-
-      return;
-    }
-
-
-    if (
-      selected.size >
-      MAX_FILE_SIZE
-    ) {
-
-      setError(
-        "File is too large. Maximum size is 10MB."
-      );
-
-      return;
-    }
-
-
-    setFile(selected);
-  }
-
-
-
-  async function extractInvoice() {
-
-    if (
-      !file ||
-      uploading
-    ) {
-      return;
-    }
-
-
-    setUploading(true);
-    setError("");
-
-
-    try {
-
-      const formData =
-        new FormData();
-
-
-      formData.append(
-        "file",
-        file
-      );
-
-
-      const response =
-        await fetch(
-          "/api/invoices/extract",
-          {
-            method:
-              "POST",
-
-            body:
-              formData,
-          }
-        );
-
-
-      const result =
-        await response.json();
-
-
-      if (!response.ok) {
-
-        throw new Error(
-          result.error ||
-          "Invoice extraction failed."
-        );
+  supplier:
+    | {
+        name: string;
       }
+    | null;
+
+  invoice_lines?: {
+    id: string;
+  }[];
+};
 
 
-      sessionStorage.setItem(
-        "invoiceExtraction",
-        JSON.stringify(result)
-      );
-
-
-      sessionStorage.setItem(
-        "invoiceFileName",
-        file.name
-      );
-
-
-      router.push(
-        "/invoices/review"
-      );
-
-
-    } catch(error:any) {
-
-      console.error(error);
-
-
-      setError(
-        error.message ||
-        "Could not extract invoice."
-      );
-
-    } finally {
-
-      setUploading(false);
-
-    }
+function money(
+  value: number | null | undefined
+) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return "—";
   }
+
+  return new Intl.NumberFormat(
+    "en-GB",
+    {
+      style: "currency",
+      currency: "GBP",
+    }
+  ).format(value);
+}
+
+
+function formatDate(
+  value: string | null
+) {
+  if (!value) {
+    return "—";
+  }
+
+  return new Intl.DateTimeFormat(
+    "en-GB",
+    {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }
+  ).format(
+    new Date(value)
+  );
+}
+
+
+export default function InvoicesPage() {
+
+  const router = useRouter();
+
+  const [
+    invoices,
+    setInvoices,
+  ] = useState<InvoiceRow[]>([]);
+
+
+  const [
+    loading,
+    setLoading,
+  ] = useState(true);
+
+
+  const [
+    error,
+    setError,
+  ] = useState("");
+
+
+  const loadInvoices =
+    useCallback(
+      async () => {
+
+        setLoading(true);
+        setError("");
+
+        try {
+
+          const {
+            data,
+            error,
+          } =
+            await supabase
+              .from("invoices")
+              .select(`
+                id,
+                invoice_number,
+                invoice_date,
+                subtotal,
+                vat,
+                total,
+                status,
+                approved_at,
+                created_at,
+
+                supplier:suppliers(
+                  name
+                ),
+
+                invoice_lines(
+                  id
+                )
+              `)
+              .order(
+                "created_at",
+                {
+                  ascending:false,
+                }
+              );
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          setInvoices(
+            (data as InvoiceRow[]) ?? []
+          );
+
+
+        } catch(err) {
+
+          console.error(err);
+
+          setError(
+            err instanceof Error
+              ? err.message
+              : "Could not load invoices."
+          );
+
+        } finally {
+
+          setLoading(false);
+
+        }
+
+      },
+      []
+    );
+
+
+  useEffect(() => {
+
+    void loadInvoices();
+
+  }, [loadInvoices]);
+
+
+
+  const totalSpend =
+    useMemo(
+      () =>
+        invoices.reduce(
+          (
+            total,
+            invoice
+          ) =>
+            total +
+            Number(
+              invoice.total ?? 0
+            ),
+          0
+        ),
+      [invoices]
+    );
+
+
+
+  const suppliers =
+    useMemo(
+      () =>
+        new Set(
+          invoices.map(
+            invoice =>
+              invoice.supplier?.name
+          )
+          .filter(Boolean)
+        ).size,
+
+      [invoices]
+    );
 
 
 
   return (
 
-    <main className="app-shell">
+    <div className="app-shell">
+
 
       <Sidebar active="invoices" />
 
 
-      <section className="main-content">
+      <main className="main-content">
 
 
         <header className="topbar">
@@ -197,153 +235,253 @@ export default function UploadInvoicePage() {
 
 
             <h1>
-              Upload invoice
+              Invoices
             </h1>
 
 
             <p className="page-description">
-              Upload a supplier invoice and
-              Kitchen Insights will extract
-              products, quantities and prices.
+              Supplier invoice history and spend tracking.
             </p>
 
           </div>
+
+
+          <button
+            className="primary-button"
+            onClick={() =>
+              router.push(
+                "/invoices/upload"
+              )
+            }
+          >
+            + Upload invoice
+          </button>
+
 
         </header>
 
 
 
-        <section className="panel">
-
-          <div className="panel-header">
-
-            <div>
-
-              <p className="panel-kicker">
-                Invoice
-              </p>
+        <section className="stats-grid">
 
 
-              <h2>
-                Capture invoice
-              </h2>
+          <div className="stat-card">
 
-            </div>
+            <p className="stat-label">
+              Invoices
+            </p>
+
+            <p className="stat-value">
+              {invoices.length}
+            </p>
 
           </div>
 
 
 
-          <label
-            style={{
-              display:"block",
-              border:"2px dashed #ddd",
-              borderRadius:"18px",
-              padding:"50px",
-              textAlign:"center",
-              cursor:"pointer",
-            }}
-          >
+          <div className="stat-card">
 
-
-            <input
-              type="file"
-              hidden
-              accept="
-                application/pdf,
-                image/jpeg,
-                image/png,
-                image/webp
-              "
-              onChange={
-                handleFileChange
-              }
-            />
-
-
-            <div
-              style={{
-                fontSize:"42px",
-                marginBottom:"15px",
-              }}
-            >
-              ↑
-            </div>
-
-
-            <h3>
-              {file
-                ? file.name
-                : "Add an invoice"}
-            </h3>
-
-
-            <p>
-              Upload PDF or photograph a
-              paper invoice.
+            <p className="stat-label">
+              Recorded spend
             </p>
 
-
-            <p
-              style={{
-                marginTop:"15px",
-                color:"#888",
-              }}
-            >
-              PDF · JPG · PNG · WEBP
+            <p className="stat-value">
+              {money(totalSpend)}
             </p>
 
-
-          </label>
-
-
-
-          {error && (
-
-            <div
-              style={{
-                marginTop:"20px",
-                color:"#a43e32",
-                fontWeight:600,
-              }}
-            >
-              {error}
-            </div>
-
-          )}
+          </div>
 
 
 
-          <button
-            type="button"
-            className="primary-button"
-            style={{
-              marginTop:"25px",
-            }}
-            disabled={
-              !file ||
-              uploading
-            }
-            onClick={
-              extractInvoice
-            }
-          >
+          <div className="stat-card">
 
-            {uploading
-              ? "Extracting invoice..."
-              : "Extract invoice"}
+            <p className="stat-label">
+              Suppliers
+            </p>
 
-          </button>
+            <p className="stat-value">
+              {suppliers}
+            </p>
 
+          </div>
 
 
         </section>
 
 
 
-      </section>
+        <section className="panel">
 
-    </main>
+
+          <div className="panel-header">
+
+            <h2>
+              Invoice history
+            </h2>
+
+
+            <button
+              className="secondary-inline-button"
+              onClick={() =>
+                void loadInvoices()
+              }
+            >
+              Refresh
+            </button>
+
+          </div>
+
+
+
+          {error && (
+
+            <p className="invoice-error">
+              {error}
+            </p>
+
+          )}
+
+
+
+          {loading ? (
+
+            <p>
+              Loading invoices...
+            </p>
+
+
+          ) : invoices.length === 0 ? (
+
+            <div className="invoice-empty-state">
+
+              <h3>
+                No invoices yet
+              </h3>
+
+              <p>
+                Upload your first supplier invoice.
+              </p>
+
+            </div>
+
+
+          ) : (
+
+
+            <div className="table-wrapper">
+
+
+              <table className="invoice-history-table">
+
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      Supplier
+                    </th>
+
+                    <th>
+                      Invoice
+                    </th>
+
+                    <th>
+                      Date
+                    </th>
+
+                    <th>
+                      Lines
+                    </th>
+
+                    <th>
+                      Total
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                  {invoices.map(
+                    invoice => (
+
+                    <tr
+                      key={invoice.id}
+                    >
+
+                      <td>
+                        {invoice.supplier?.name ??
+                          "Unknown"}
+                      </td>
+
+
+                      <td>
+                        {invoice.invoice_number ??
+                          "—"}
+                      </td>
+
+
+                      <td>
+                        {formatDate(
+                          invoice.invoice_date
+                        )}
+                      </td>
+
+
+                      <td>
+                        {
+                          invoice.invoice_lines
+                            ?.length ?? 0
+                        }
+                      </td>
+
+
+                      <td>
+                        {money(
+                          invoice.total
+                        )}
+                      </td>
+
+
+                      <td>
+                        {invoice.status}
+                      </td>
+
+
+                    </tr>
+
+                  ))}
+
+
+                </tbody>
+
+
+              </table>
+
+
+            </div>
+
+
+          )}
+
+
+        </section>
+
+
+      </main>
+
+
+    </div>
 
   );
+
 }
