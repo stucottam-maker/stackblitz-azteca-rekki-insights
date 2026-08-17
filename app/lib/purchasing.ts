@@ -1,0 +1,164 @@
+export const PURCHASE_ORDERS_KEY = "purchaseOrders";
+export const ORGANISATION_SETTINGS_KEY = "organisationSettings";
+
+export type OrderStatus = "Draft" | "Sent" | "Received" | "Completed";
+
+export type PurchaseOrderLine = {
+  id: string;
+  ingredient: string;
+  supplier: string;
+  supplierProduct: string;
+  stockQty: number;
+  stockUnit: string;
+  orderQty: number;
+  orderUnit: string;
+  unitPrice: number | null;
+  suggestedQty: number;
+  sku?: string;
+  packSize?: number | null;
+  casePrice?: number | null;
+  splitPrice?: number | null;
+  priceMode?: "default" | "split" | "case";
+  brand?: string;
+  woodsId?: number;
+};
+
+export type PurchaseOrder = {
+  id: string;
+  supplier: string;
+  createdAt: string;
+  sentAt?: string;
+  sentTo?: string;
+  copiedTo?: string[];
+  status: OrderStatus;
+  lines: PurchaseOrderLine[];
+  estimatedTotal: number;
+  notes?: string;
+};
+
+export type OrganisationSettings = {
+  name: string;
+  internalOrderEmails: string[];
+  sendInternalCopy: boolean;
+  sendSupplierEmail: boolean;
+  attachPurchaseOrder: boolean;
+  includeOrderNotes: boolean;
+};
+
+export const defaultOrganisationSettings: OrganisationSettings = {
+  name: "Azteca London",
+  internalOrderEmails: [
+    "kitchen@aztecalondon.com",
+    "carloosperez30@gmail.com",
+  ],
+  sendInternalCopy: true,
+  sendSupplierEmail: true,
+  attachPurchaseOrder: true,
+  includeOrderNotes: true,
+};
+
+export function readOrganisationSettings(): OrganisationSettings {
+  if (typeof window === "undefined") return defaultOrganisationSettings;
+
+  try {
+    const stored = JSON.parse(
+      localStorage.getItem(ORGANISATION_SETTINGS_KEY) || "null"
+    ) as Partial<OrganisationSettings> | null;
+
+    return {
+      ...defaultOrganisationSettings,
+      ...stored,
+      internalOrderEmails:
+        stored?.internalOrderEmails ?? defaultOrganisationSettings.internalOrderEmails,
+    };
+  } catch {
+    return defaultOrganisationSettings;
+  }
+}
+
+export function orderEmailBody(order: PurchaseOrder, organisationName: string) {
+  const lines = order.lines.map(
+    (line) => `- ${line.supplierProduct || line.ingredient}: ${line.orderQty} ${line.orderUnit}`
+  );
+
+  return [
+    `Purchase order ${order.id} from ${organisationName}`,
+    "",
+    ...lines,
+    "",
+    `Estimated total: ${new Intl.NumberFormat("en-GB", {
+      style: "currency",
+      currency: "GBP",
+    }).format(order.estimatedTotal)}`,
+    order.notes ? `Notes: ${order.notes}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+export type RegularOrderItem = {
+  lineId: string;
+  ingredient: string;
+  supplierProduct: string;
+  orderUnit: string;
+  averageQuantity: number;
+  lastOrderedAt: string;
+  averageIntervalDays: number | null;
+  orderCount: number;
+};
+
+export function getRegularOrderItems(
+  orders: PurchaseOrder[],
+  supplier: string
+): RegularOrderItem[] {
+  const supplierOrders = orders
+    .filter((order) => order.supplier === supplier && order.status !== "Draft")
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+  const history = new Map<
+    string,
+    { line: PurchaseOrderLine; quantities: number[]; dates: string[] }
+  >();
+
+  supplierOrders.forEach((order) => {
+    order.lines.forEach((line) => {
+      const key = line.id || `${line.ingredient}:${line.supplierProduct}`;
+      const entry = history.get(key) ?? { line, quantities: [], dates: [] };
+      entry.quantities.push(line.orderQty);
+      entry.dates.push(order.createdAt);
+      history.set(key, entry);
+    });
+  });
+
+  return Array.from(history.entries())
+    .map(([lineId, entry]) => {
+      const intervals = entry.dates.slice(1).map((date, index) =>
+        Math.max(
+          1,
+          Math.round(
+            (new Date(date).getTime() - new Date(entry.dates[index]).getTime()) /
+              86_400_000
+          )
+        )
+      );
+
+      return {
+        lineId,
+        ingredient: entry.line.ingredient,
+        supplierProduct: entry.line.supplierProduct,
+        orderUnit: entry.line.orderUnit,
+        averageQuantity:
+          Math.round(
+            (entry.quantities.reduce((sum, quantity) => sum + quantity, 0) /
+              entry.quantities.length) *
+              100
+          ) / 100,
+        lastOrderedAt: entry.dates[entry.dates.length - 1],
+        averageIntervalDays: intervals.length
+          ? Math.round(intervals.reduce((sum, days) => sum + days, 0) / intervals.length)
+          : null,
+        orderCount: entry.quantities.length,
+      };
+    })
+    .sort((a, b) => b.orderCount - a.orderCount || a.ingredient.localeCompare(b.ingredient));
+}

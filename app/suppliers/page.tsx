@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 
 import Sidebar from "../components/Sidebar";
+import { getSupplier, suppliers as supplierDirectory } from "../data/suppliers";
 
 import {
   supplierCatalogue,
@@ -28,6 +29,9 @@ import {
 type SupplierSummary = {
   name: string;
   email?: string;
+  phone?: string;
+  orderMethod?: string;
+  deliveryDays?: string[];
   productCount: number;
   preferredCount: number;
   categories: string[];
@@ -298,6 +302,8 @@ export default function SuppliersPage() {
           )
       );
 
+      Object.keys(supplierDirectory).forEach((name) => names.add(name));
+
       supplierCatalogue.forEach(
         (item) =>
           names.add(
@@ -325,6 +331,8 @@ export default function SuppliersPage() {
                 supplier.name ===
                 name
             );
+
+          const supplierProfile = getSupplier(name);
 
           const products =
             supplierCatalogue.filter(
@@ -386,7 +394,13 @@ export default function SuppliersPage() {
           return {
             name,
             email:
-              contact?.email,
+              supplierProfile?.email ?? contact?.email,
+
+            phone: supplierProfile?.phone,
+
+            orderMethod: supplierProfile?.orderMethod,
+
+            deliveryDays: supplierProfile?.deliveryDays,
 
             productCount:
               products.length,
@@ -880,6 +894,25 @@ export default function SuppliersPage() {
                         {formatDate(
                           selectedSummary.lastInvoiceDate
                         )}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Ordering method</span>
+                      <strong>{selectedSummary.orderMethod ?? "Not added"}</strong>
+                    </div>
+
+                    <div>
+                      <span>Phone</span>
+                      <strong>{selectedSummary.phone ?? "Not added"}</strong>
+                    </div>
+
+                    <div>
+                      <span>Delivery days</span>
+                      <strong>
+                        {selectedSummary.deliveryDays?.length
+                          ? selectedSummary.deliveryDays.join(", ")
+                          : "Not added"}
                       </strong>
                     </div>
 

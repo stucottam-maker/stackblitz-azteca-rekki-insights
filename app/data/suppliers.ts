@@ -4,6 +4,8 @@ export type Supplier = {
   email?: string;
   phone?: string;
   whatsapp?: string;
+  accountsEmail?: string;
+  deliveryDays?: string[];
   orderMethod?: "Email" | "WhatsApp" | "Phone" | "Portal";
 };
 
@@ -28,6 +30,7 @@ export const suppliers: Record<string, Supplier> = {
     name: "Crazy Dan's House of Meat",
     logo: "/suppliers/crazy-dans.png",
     email: "houseofmeats@btconnect.com",
+    deliveryDays: ["Tuesday", "Thursday", "Saturday"],
     orderMethod: "Email",
   },
 
@@ -35,6 +38,7 @@ export const suppliers: Record<string, Supplier> = {
     name: "Fin and Flounder",
     logo: "/suppliers/fin-and-flounder.png",
     email: "restaurants@findandflounder.com",
+    deliveryDays: ["Tuesday", "Thursday", "Saturday"],
     orderMethod: "Email",
   },
 
@@ -50,6 +54,7 @@ export const suppliers: Record<string, Supplier> = {
     name: "Mexgrocer",
     logo: "/suppliers/mexgrocer.png",
     email: "orders@mexgrocer.co.uk",
+    deliveryDays: ["Monday", "Wednesday", "Friday"],
     orderMethod: "Email",
   },
 

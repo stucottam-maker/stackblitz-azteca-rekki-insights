@@ -12,7 +12,8 @@ export type SidebarPage =
   | "recipes"
   | "menu"
   | "stock"
-  | "reports";
+  | "reports"
+  | "settings";
 
 type SidebarProps = {
   active: SidebarPage;
@@ -83,6 +84,12 @@ const navItems: {
     label: "Reports",
     href: "/reports",
     icon: "↗",
+  },
+  {
+    key: "settings",
+    label: "Settings",
+    href: "/settings",
+    icon: "⚙",
   },
 ];
 
