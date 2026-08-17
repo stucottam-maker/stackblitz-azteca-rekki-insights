@@ -351,6 +351,32 @@
   padding-bottom: 40px;
 }
 
+.quick-order-header-total {
+  display: grid;
+  min-width: 190px;
+  flex: 0 0 auto;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid #e3e5df;
+  border-radius: 14px;
+  background: #fff;
+  text-align: right;
+}
+
+.quick-order-header-total > span {
+  display: block;
+  color: #767a72;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.quick-order-header-total > strong {
+  display: block;
+  color: #1f2923;
+  font-size: 25px;
+  line-height: 1.15;
+}
+
 .order-review-header {
   align-items: center;
   margin-bottom: 22px;
@@ -545,6 +571,12 @@
 }
 
 @media (max-width: 760px) {
+  .quick-order-header-total {
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+  }
+
   .order-review-header {
     align-items: stretch;
   }
