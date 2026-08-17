@@ -214,22 +214,18 @@ Rules:
 
 
 
-    const fileContent =
-      uploadedFile.type === "application/pdf"
-        ? {
-            type: "input_file",
-            filename:
-              uploadedFile.name,
-            file_data:
-              fileUrl,
-          }
-        : {
-            type: "input_image",
-            image_url:
-              fileUrl,
-            detail:
-              "high",
-          };
+   const fileContent =
+  uploadedFile.type === "application/pdf"
+    ? {
+        type: "input_file" as const,
+        filename: uploadedFile.name,
+        file_data: fileUrl,
+      }
+    : {
+        type: "input_image" as const,
+        image_url: fileUrl,
+        detail: "high" as const,
+      };
 
 
 
