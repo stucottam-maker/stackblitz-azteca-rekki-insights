@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+export const maxDuration = 120;
+
 const MAX_FILE_SIZE = 60 * 1024 * 1024; // 60 MB
 
 const SUPPORTED_FILE_TYPES = [
