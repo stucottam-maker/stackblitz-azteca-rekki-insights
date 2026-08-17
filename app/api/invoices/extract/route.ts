@@ -143,7 +143,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!SUPPORTED_IMAGE_TYPES.includes(uploadedFile.type)) {
+   if (!SUPPORTED_FILE_TYPES.includes(file.type)) {
       return NextResponse.json(
         {
           error:
