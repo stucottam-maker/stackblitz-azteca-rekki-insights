@@ -1,0 +1,106 @@
+/* Mobile navigation hard-fix.
+   Keep the sidebar as a compact sticky header on phones instead of a tall menu. */
+
+@media (max-width: 640px) {
+  body > .app-shell {
+    display: block !important;
+  }
+
+  body > .app-shell > .sidebar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 8px 10px 7px !important;
+    overflow: hidden !important;
+  }
+
+  body > .app-shell > .sidebar .brand {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 9px !important;
+    min-height: 38px !important;
+    padding: 0 2px 7px !important;
+    margin: 0 !important;
+  }
+
+  body > .app-shell > .sidebar .brand-mark {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    border-radius: 9px !important;
+    font-size: 12px !important;
+  }
+
+  body > .app-shell > .sidebar .sidebar-brand-copy {
+    display: flex !important;
+  }
+
+  body > .app-shell > .sidebar .brand-name {
+    display: block !important;
+    font-size: 13px !important;
+  }
+
+  body > .app-shell > .sidebar .brand-subtitle {
+    display: none !important;
+  }
+
+  body > .app-shell > .sidebar .sidebar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    grid-template-columns: none !important;
+    align-items: center !important;
+    gap: 5px !important;
+    width: 100% !important;
+    height: 39px !important;
+    min-height: 39px !important;
+    margin: 5px 0 0 !important;
+    padding: 0 0 1px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-x: contain !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body > .app-shell > .sidebar .sidebar-nav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  body > .app-shell > .sidebar .nav-link {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 34px !important;
+    margin: 0 !important;
+    padding: 7px 9px !important;
+    border-radius: 9px !important;
+    font-size: 10.5px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  body > .app-shell > .sidebar .nav-icon {
+    display: inline-grid !important;
+    width: auto !important;
+    min-width: 13px !important;
+    font-size: 13px !important;
+  }
+
+  body > .app-shell > .sidebar .nav-link-active::before {
+    display: none !important;
+  }
+
+  body > .app-shell > .sidebar .sidebar-footer {
+    display: none !important;
+  }
+}
