@@ -4,16 +4,13 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
 export const maxDuration = 300;
 
 
 
-const openai =
-  new OpenAI({
-    apiKey:
-      process.env.OPENAI_API_KEY,
-  });
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 
 
@@ -21,200 +18,126 @@ const openai =
 
 const invoiceSchema = {
 
+  type: "object",
 
-  type:"object",
+  additionalProperties: false,
 
+  properties: {
 
-  additionalProperties:false,
+    invoices: {
 
+      type: "array",
 
-  properties:{
+      minItems: 1,
 
+      items: {
 
-    invoices:{
+        type: "object",
 
+        additionalProperties: false,
 
-      type:"array",
+        properties: {
 
+          supplier: {
+            type: ["string", "null"],
+          },
 
-      minItems:1,
+          invoiceNumber: {
+            type: ["string", "null"],
+          },
 
+          invoiceDate: {
+            type: ["string", "null"],
+          },
 
-      items:{
+          subtotal: {
+            type: ["number", "null"],
+          },
 
+          vat: {
+            type: ["number", "null"],
+          },
 
-        type:"object",
-
-
-        additionalProperties:false,
-
-
-        properties:{
-
-
-          supplier:{
-            type:[
-              "string",
-              "null"
-            ]
+          total: {
+            type: ["number", "null"],
           },
 
 
-          invoiceNumber:{
-            type:[
-              "string",
-              "null"
-            ]
-          },
+          lineItems: {
 
+            type: "array",
 
-          invoiceDate:{
-            type:[
-              "string",
-              "null"
-            ]
-          },
+            items: {
 
+              type: "object",
 
-          subtotal:{
-            type:[
-              "number",
-              "null"
-            ]
-          },
+              additionalProperties: false,
 
+              properties: {
 
-          vat:{
-            type:[
-              "number",
-              "null"
-            ]
-          },
-
-
-          total:{
-            type:[
-              "number",
-              "null"
-            ]
-          },
-
-
-
-          lineItems:{
-
-
-            type:"array",
-
-
-            minItems:1,
-
-
-            items:{
-
-
-              type:"object",
-
-
-              additionalProperties:false,
-
-
-              properties:{
-
-
-                product:{
-                  type:"string"
+                product: {
+                  type: "string",
                 },
 
-
-                quantity:{
-                  type:[
-                    "number",
-                    "null"
-                  ]
+                quantity: {
+                  type: ["number", "null"],
                 },
 
-
-                pack:{
-                  type:[
-                    "string",
-                    "null"
-                  ]
+                pack: {
+                  type: ["string", "null"],
                 },
 
-
-                unitPrice:{
-                  type:[
-                    "number",
-                    "null"
-                  ]
+                unitPrice: {
+                  type: ["number", "null"],
                 },
 
-
-                total:{
-                  type:[
-                    "number",
-                    "null"
-                  ]
+                total: {
+                  type: ["number", "null"],
                 },
 
-
-                status:{
-                  type:[
-                    "string",
-                    "null"
-                  ]
-                }
-
+                status: {
+                  type: ["string", "null"],
+                },
 
               },
 
 
-              required:[
-
+              required: [
                 "product",
                 "quantity",
                 "pack",
                 "unitPrice",
                 "total",
-                "status"
+                "status",
+              ],
 
-              ]
+            },
 
-            }
-
-
-          }
-
-
+          },
 
         },
 
 
-        required:[
-
+        required: [
           "supplier",
           "invoiceNumber",
           "invoiceDate",
           "subtotal",
           "vat",
           "total",
-          "lineItems"
+          "lineItems",
+        ],
 
-        ]
+      },
 
-      }
-
-    }
-
+    },
 
   },
 
 
-  required:[
-    "invoices"
-  ]
-
+  required: [
+    "invoices",
+  ],
 
 };
 
@@ -224,26 +147,27 @@ const invoiceSchema = {
 
 
 
-const extractionPrompt = `
 
-You are extracting structured data from UK restaurant supplier invoices.
+const prompt = `
 
-The uploaded PDF may contain MULTIPLE invoices.
+You extract structured data from UK restaurant supplier invoices.
 
-Read every page carefully.
+The uploaded file may contain multiple invoices.
 
-IMPORTANT:
+Read every page.
 
-- Separate every invoice.
-- Do not merge invoices together.
-- Extract every genuine invoice line.
-- Never create empty lineItems if products are visible.
-- Preserve exact supplier product descriptions.
+Rules:
+
+- Extract every invoice separately.
+- Do not merge invoices.
+- Extract every genuine product line.
+- Do not return empty lineItems when products are visible.
+- Preserve supplier product descriptions exactly.
 - Ignore delivery notes.
 - Ignore payment terms.
 - Ignore account summaries.
 
-For each invoice extract:
+For every invoice return:
 
 supplier
 invoice number
@@ -252,24 +176,23 @@ subtotal
 VAT
 total
 
-For every product line extract:
+For every line:
 
 product
 quantity
-pack size
+pack
 unit price
 line total
 
 Rules:
 
-- Do not invent values.
-- Return null when unknown.
-- Keep product names exactly as written.
+- Do not invent information.
+- Use null if unknown.
+- Money values must be numbers.
 - Quantity must be numeric where possible.
-- Money values must be numbers only.
-- Dates must use YYYY-MM-DD.
+- Dates must be YYYY-MM-DD.
 
-If a PDF contains 11 invoices, return 11 invoices.
+If there are 32 invoices, return 32 invoices.
 
 `;
 
@@ -279,397 +202,250 @@ If a PDF contains 11 invoices, return 11 invoices.
 
 
 
+
 export async function POST(
- request:Request
-){
+  request: Request
+) {
 
 
-try{
+  try {
 
 
-const body =
- await request.json();
+    const body =
+      await request.json();
 
 
 
-const {
- fileUrl,
- fileType,
- fileName
-}=body;
+    const {
+      fileUrl,
+      fileType,
+      fileName,
+    } = body;
 
 
 
-if(!fileUrl){
+    if (!fileUrl) {
 
-return NextResponse.json(
- {
-  error:
-  "No file URL supplied"
- },
- {
-  status:400
- }
-);
+      return NextResponse.json(
+        {
+          error:
+            "Missing file URL",
+        },
+        {
+          status:400,
+        }
+      );
 
-}
+    }
 
 
 
 
 
 
-const fileContent =
+    const content:any[] = [];
 
-fileType === "application/pdf"
 
-?
 
-{
+    if (
+      fileType === "application/pdf"
+    ) {
 
- type:
- "input_file",
 
- file_url:
- fileUrl
+      content.push({
 
-}
+        type: "input_file",
 
-:
+        file_url: fileUrl,
 
-{
+      } as any);
 
- type:
- "input_image",
 
- image_url:
- fileUrl,
 
- detail:
- "high"
+    } else {
 
-};
 
+      content.push({
 
+        type: "input_image",
 
+        image_url: fileUrl,
 
+        detail: "high",
 
+      } as any);
 
 
+    }
 
-console.log(
-"Extracting:",
-{
- fileName,
- fileType,
- fileUrl
-}
-);
 
 
 
 
+    content.push({
 
+      type:"input_text",
 
+      text:prompt,
 
+    });
 
 
-const response =
 
-await openai.responses.create({
 
 
 
-model:
-"gpt-5",
 
 
+    console.log(
+      "Starting extraction:",
+      fileName
+    );
 
-input:[
 
 
-{
 
-role:
-"user",
 
 
-content:[
 
 
-fileContent,
+    const response =
+      await openai.responses.create({
 
 
-{
+        model:
+          "gpt-5",
 
-type:
-"input_text",
 
-text:
-extractionPrompt
 
-}
+        input:[
 
+          {
 
-]
+            role:"user",
 
+            content,
 
-}
+          },
 
+        ],
 
-],
 
 
+        text:{
 
+          format:{
 
+            type:"json_schema",
 
-text:{
+            name:
+              "invoice_batch",
 
 
-format:{
+            strict:true,
 
 
-type:
-"json_schema",
+            schema:
+              invoiceSchema,
 
+          },
 
-name:
-"restaurant_invoice_batch",
+        },
 
 
-strict:true,
+      });
 
 
-schema:
-invoiceSchema
 
 
-}
 
 
-}
 
+    const output =
+      response.output_text;
 
 
-});
 
+    console.log(
+      "AI OUTPUT LENGTH:",
+      output?.length
+    );
 
 
 
 
 
 
+    if(!output){
 
 
-const output =
-response.output_text;
+      throw new Error(
+        "No response from OpenAI"
+      );
 
 
+    }
 
 
 
-if(!output){
 
 
-return NextResponse.json(
 
-{
-error:
-"No extraction output"
-},
+    const parsed =
+      JSON.parse(output);
 
-{
-status:500
-}
 
-);
 
 
-}
 
 
+    return NextResponse.json({
 
+      invoices:
+        parsed.invoices || [],
 
+    });
 
 
 
-let parsed;
 
 
-try{
 
 
-parsed =
-JSON.parse(output);
+  }
 
+  catch(error:any) {
 
-}
 
-catch(err){
+    console.error(
+      "Invoice extraction error:",
+      error
+    );
 
 
-console.error(
-"JSON parse failed",
-output
-);
 
+    return NextResponse.json(
 
+      {
 
-return NextResponse.json(
+        error:
+          "Invoice extraction failed.",
 
-{
-error:
-"Invalid AI response",
 
-raw:
-output
-},
+        details:
+          error.message,
 
-{
-status:500
-}
+      },
 
-);
 
+      {
+        status:500,
+      }
 
-}
+    );
 
 
-
-
-
-
-
-const invoices =
-
-(parsed.invoices || [])
-
-.map((invoice:any)=>(
-
-
-{
-
-
-supplier:
-invoice.supplier ?? null,
-
-
-invoiceNumber:
-invoice.invoiceNumber ?? null,
-
-
-invoiceDate:
-invoice.invoiceDate ?? null,
-
-
-subtotal:
-invoice.subtotal ?? null,
-
-
-vat:
-invoice.vat ?? null,
-
-
-total:
-invoice.total ?? null,
-
-
-
-lineItems:
-
-
-Array.isArray(
-invoice.lineItems
-)
-
-?
-
-invoice.lineItems
-.filter(
-(item:any)=>
-item.product
-)
-
-:
-
-[]
-
-
-}
-
-
-));
-
-
-
-
-
-
-
-
-
-console.log(
-
-"Extracted invoices:",
-invoices.length
-
-);
-
-
-
-
-
-
-
-
-
-return NextResponse.json({
-
-invoices
-
-});
-
-
-
-
-
-
-}
-
-catch(error:any){
-
-
-
-console.error(
-"Invoice extraction error:",
-error
-);
-
-
-
-
-return NextResponse.json(
-
-{
-
-error:
-"Invoice extraction failed",
-
-details:
-error?.message
-
-},
-
-{
-status:500
-}
-
-);
-
-
-
-}
-
+  }
 
 
 }
