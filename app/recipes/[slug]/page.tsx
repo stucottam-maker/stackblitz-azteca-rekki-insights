@@ -4,14 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-import Sidebar from "../../components/Sidebar";
-import { persistWorkspaceState, readWorkspaceStates } from "../../lib/workspaceState";
 import {
   recipes,
   recipeSlug,
   type Recipe,
   type RecipeIngredient,
 } from "../../data/allRecipes";
+import {
+  persistWorkspaceState,
+  readWorkspaceStates,
+} from "../../lib/workspaceState";
 
 type IngredientPrice = {
   price?: number;
@@ -19,20 +21,15 @@ type IngredientPrice = {
   supplier?: string;
   product?: string;
   updatedAt?: string;
+  invoiceNumber?: string | null;
+  invoiceDate?: string | null;
+  source?: string;
+  conversionAssumption?: string;
 };
 
 type IngredientPrices = Record<string, IngredientPrice>;
 
-type RecipeTab =
-  | "yield"
-  | "conversions"
-  | "procedure"
-  | "used-in"
-  | "allergens";
-
 type EditableIngredient = RecipeIngredient & {
-  grossQuantity?: number | null;
-  wastePercent?: number | null;
   type?: "Inventory item" | "Sub-recipe";
 };
 
@@ -53,6 +50,8 @@ type StoredRecipePayload = {
   updatedAt?: string;
 };
 
+type UnitFamily = "mass" | "volume" | "count" | "bunch" | "other";
+
 const ALLERGENS = [
   "Gluten",
   "Crustaceans",
@@ -70,63 +69,66 @@ const ALLERGENS = [
   "Molluscs",
 ];
 
-function getRecipeStorageKey(slug: string) {
-  return `recipe:${slug}`;
-}
-
 function normalise(value?: string) {
   return (value ?? "").trim().toLowerCase();
 }
 
-function findSubRecipe(name: string) {
-  const target = normalise(name);
-
-  return recipes.find((recipe) => normalise(recipe.name) === target);
+function recipeKey(name: string) {
+  return `recipe:${recipeSlug(name)}`;
 }
 
-function findIngredientPrice(
-  prices: IngredientPrices,
-  ingredientName: string
-) {
-  if (prices[ingredientName]) {
-    return prices[ingredientName];
-  }
-
-  const target = normalise(ingredientName);
-
-  const matchingKey = Object.keys(prices).find(
-    (key) => normalise(key) === target
-  );
-
-  return matchingKey ? prices[matchingKey] : undefined;
+function unitFamily(unit?: string): UnitFamily {
+  const value = normalise(unit);
+  if (["g", "gram", "grams", "kg", "kilogram", "kilograms"].includes(value)) return "mass";
+  if (["ml", "millilitre", "millilitres", "l", "ltr", "litre", "litres"].includes(value)) return "volume";
+  if (["each", "ea", "unit", "units", "head", "heads", "can", "cans", "piece", "pieces", "portion", "portions", "unt"].includes(value)) return "count";
+  if (["bunch", "bunches"].includes(value)) return "bunch";
+  return "other";
 }
 
-function convertQuantityToPriceUnit(
-  quantity: number,
-  recipeUnit: string,
-  priceUnit: string
-) {
-  const from = normalise(recipeUnit);
-  const to = normalise(priceUnit);
+function baseUnit(unit?: string) {
+  const value = normalise(unit);
+  if (["kg", "kilogram", "kilograms"].includes(value)) return "kg";
+  if (["g", "gram", "grams"].includes(value)) return "g";
+  if (["l", "ltr", "litre", "litres"].includes(value)) return "l";
+  if (["ml", "millilitre", "millilitres"].includes(value)) return "ml";
+  return value;
+}
 
-  if (!from || !to || from === to) {
-    return quantity;
-  }
+function convertQuantity(quantity: number, fromUnit: string, toUnit: string) {
+  const from = baseUnit(fromUnit);
+  const to = baseUnit(toUnit);
+  const fromFamily = unitFamily(fromUnit);
+  const toFamily = unitFamily(toUnit);
+
+  if (!from || !to) return null;
+  if (from === to) return quantity;
+  if (fromFamily !== toFamily) return null;
 
   if (from === "g" && to === "kg") return quantity / 1000;
   if (from === "kg" && to === "g") return quantity * 1000;
-
   if (from === "ml" && to === "l") return quantity / 1000;
   if (from === "l" && to === "ml") return quantity * 1000;
 
-  return quantity;
+  if (fromFamily === "count" || fromFamily === "bunch") return quantity;
+  return null;
 }
 
-function formatMoney(value: number | null) {
-  if (value === null || !Number.isFinite(value)) {
-    return "—";
-  }
+function findPrice(prices: IngredientPrices, ingredient: string) {
+  const direct = prices[ingredient];
+  if (direct) return direct;
+  const key = Object.keys(prices).find(
+    (candidate) => normalise(candidate) === normalise(ingredient)
+  );
+  return key ? prices[key] : undefined;
+}
 
+function findSubRecipe(name: string) {
+  return recipes.find((recipe) => normalise(recipe.name) === normalise(name));
+}
+
+function money(value: number | null) {
+  if (value === null || !Number.isFinite(value)) return "—";
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -136,282 +138,173 @@ function formatMoney(value: number | null) {
 export default function RecipeDetailPage() {
   const params = useParams<{ slug: string }>();
   const slug = params.slug;
+  const baseRecipe = useMemo(
+    () => recipes.find((recipe) => recipeSlug(recipe.name) === slug) ?? null,
+    [slug]
+  );
 
-  const baseRecipe = useMemo(() => {
-    return recipes.find((recipe) => recipeSlug(recipe.name) === slug);
-  }, [slug]);
-
-  const [activeTab, setActiveTab] = useState<RecipeTab>("yield");
-
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
-
+  const [recipe, setRecipe] = useState<Recipe | null>(baseRecipe);
   const [ingredients, setIngredients] = useState<EditableIngredient[]>([]);
-
-  const [ingredientPrices, setIngredientPrices] =
-    useState<IngredientPrices>({});
-  const [storedRecipes, setStoredRecipes] = useState<
-    Record<string, StoredRecipePayload>
-  >({});
-
+  const [prices, setPrices] = useState<IngredientPrices>({});
+  const [storedRecipes, setStoredRecipes] = useState<Record<string, StoredRecipePayload>>({});
   const [yieldAmount, setYieldAmount] = useState<number | null>(null);
   const [yieldUnit, setYieldUnit] = useState("");
   const [notes, setNotes] = useState("");
   const [procedure, setProcedure] = useState("");
   const [allergens, setAllergens] = useState<string[]>([]);
-  const [savedMessage, setSavedMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (!baseRecipe) {
-      setRecipe(null);
+      setLoading(false);
       return;
     }
 
-    const recipeKeys = recipes.map((item) => getRecipeStorageKey(recipeSlug(item.name)));
+    const recipeKeys = recipes.map((item) => recipeKey(item.name));
     readWorkspaceStates(["ingredientPrices", ...recipeKeys])
       .then((state) => {
-    const stored = (state.get(getRecipeStorageKey(slug)) ?? null) as
-      | StoredRecipePayload
-      | null;
-    const startingRecipe = stored?.recipe ?? baseRecipe;
+        const stored = (state.get(recipeKey(baseRecipe.name)) ?? null) as StoredRecipePayload | null;
+        const startingRecipe = stored?.recipe ?? baseRecipe;
+        const startingIngredients =
+          stored?.ingredients ??
+          startingRecipe.ingredients.map((ingredient) => ({
+            ...ingredient,
+            type: findSubRecipe(ingredient.name) ? "Sub-recipe" : "Inventory item",
+          }));
 
-    const startingIngredients: EditableIngredient[] =
-      stored?.ingredients ??
-      startingRecipe.ingredients.map((ingredient) => ({
-        ...ingredient,
-        grossQuantity: ingredient.quantity,
-        wastePercent: 0,
-        type: findSubRecipe(ingredient.name)
-          ? "Sub-recipe"
-          : "Inventory item",
-      }));
-
-    setRecipe(startingRecipe);
-    setIngredients(startingIngredients);
-
-    setYieldAmount(
-      stored?.yieldAmount ??
-        startingRecipe.yieldAmount ??
-        null
-    );
-
-    setYieldUnit(
-      stored?.yieldUnit ??
-        startingRecipe.yieldUnit ??
-        ""
-    );
-
-    setNotes(
-      stored?.notes ??
-        startingRecipe.notes ??
-        ""
-    );
-
-    setProcedure(stored?.procedure ?? "");
-    setAllergens(stored?.allergens ?? []);
-
-    setIngredientPrices((state.get("ingredientPrices") ?? {}) as IngredientPrices);
-    setStoredRecipes(
-      Object.fromEntries(
-        recipeKeys.flatMap((key) => {
-          const value = state.get(key) as StoredRecipePayload | undefined;
-          return value ? [[key, value]] : [];
-        })
-      )
-    );
+        setRecipe(startingRecipe);
+        setIngredients(startingIngredients);
+        setYieldAmount(stored?.yieldAmount ?? startingRecipe.yieldAmount ?? null);
+        setYieldUnit(stored?.yieldUnit ?? startingRecipe.yieldUnit ?? "");
+        setNotes(stored?.notes ?? startingRecipe.notes ?? "");
+        setProcedure(stored?.procedure ?? "");
+        setAllergens(stored?.allergens ?? []);
+        setPrices((state.get("ingredientPrices") ?? {}) as IngredientPrices);
+        setStoredRecipes(
+          Object.fromEntries(
+            recipeKeys.flatMap((key) => {
+              const value = state.get(key) as StoredRecipePayload | undefined;
+              return value ? [[key, value]] : [];
+            })
+          )
+        );
       })
-      .catch((error) => console.error("Recipe cloud load failed", error));
-  }, [baseRecipe, slug]);
+      .catch((error) => setMessage(error?.message || "Could not load recipe"))
+      .finally(() => setLoading(false));
+  }, [baseRecipe]);
 
   const lineCosts = useMemo(() => {
     return ingredients.map((ingredient) => {
       const quantity = Number(ingredient.quantity ?? 0);
-
       if (!quantity || quantity <= 0) {
-        return {
-          cost: null as number | null,
-          source: "",
-        };
+        return { cost: null as number | null, source: "Quantity needed", detail: "" };
       }
 
-      if (ingredient.type === "Sub-recipe") {
-        const subRecipe = findSubRecipe(ingredient.name);
-
-        if (!subRecipe) {
-          return {
-            cost: null,
-            source: "Missing sub-recipe",
-          };
+      const subRecipe = findSubRecipe(ingredient.name);
+      if (ingredient.type === "Sub-recipe" || subRecipe) {
+        if (!subRecipe) return { cost: null, source: "Sub-recipe missing", detail: "" };
+        const stored = storedRecipes[recipeKey(subRecipe.name)];
+        const unitCost = stored?.summary?.costPerYieldUnit ?? null;
+        if (unitCost === null || !Number.isFinite(unitCost)) {
+          return { cost: null, source: "Sub-recipe not costed", detail: "" };
         }
-
-        const storedSubRecipe =
-          storedRecipes[getRecipeStorageKey(recipeSlug(subRecipe.name))] ?? null;
-
-        const costPerYieldUnit =
-          storedSubRecipe?.summary?.costPerYieldUnit ?? null;
-
-        if (
-          costPerYieldUnit === null ||
-          !Number.isFinite(costPerYieldUnit)
-        ) {
-          return {
-            cost: null,
-            source: "Sub-recipe not costed",
-          };
-        }
-
         return {
-          cost: quantity * costPerYieldUnit,
+          cost: quantity * unitCost,
           source: "Sub-recipe",
+          detail: `${money(unitCost)}/${stored?.yieldUnit ?? subRecipe.yieldUnit ?? "unit"}`,
         };
       }
 
-      const priceRecord = findIngredientPrice(
-        ingredientPrices,
-        ingredient.name
-      );
-
-      if (
-        !priceRecord?.price ||
-        !Number.isFinite(priceRecord.price)
-      ) {
-        return {
-          cost: null,
-          source: "Missing price",
-        };
+      const price = findPrice(prices, ingredient.name);
+      if (!price?.price || !Number.isFinite(price.price)) {
+        return { cost: null, source: "Missing price", detail: "" };
       }
 
-      const convertedQuantity = convertQuantityToPriceUnit(
+      const converted = convertQuantity(
         quantity,
         ingredient.unit,
-        priceRecord.unit ?? ingredient.unit
+        price.unit ?? ingredient.unit
       );
+      if (converted === null) {
+        return {
+          cost: null,
+          source: "Unit mismatch",
+          detail: `${ingredient.unit} → ${price.unit ?? "unknown"}`,
+        };
+      }
+
+      const audit = [
+        price.supplier,
+        price.product,
+        price.invoiceNumber ? `invoice ${price.invoiceNumber}` : null,
+        price.invoiceDate,
+      ]
+        .filter(Boolean)
+        .join(" · ");
 
       return {
-        cost: convertedQuantity * priceRecord.price,
-        source: priceRecord.supplier ?? "Ingredient price",
+        cost: converted * price.price,
+        source: price.supplier ?? "Invoice price",
+        detail: audit,
       };
     });
-  }, [ingredients, ingredientPrices, storedRecipes]);
+  }, [ingredients, prices, storedRecipes]);
 
   const totalCost = useMemo(() => {
-    const validCosts = lineCosts
-      .map((line) => line.cost)
-      .filter((cost): cost is number => cost !== null);
+    if (!ingredients.length) return null;
+    const valid = lineCosts.map((line) => line.cost).filter((cost): cost is number => cost !== null);
+    return valid.length ? valid.reduce((sum, cost) => sum + cost, 0) : null;
+  }, [ingredients.length, lineCosts]);
 
-    if (validCosts.length === 0) {
-      return null;
-    }
+  const pricedLineCount = lineCosts.filter((line) => line.cost !== null).length;
+  const missingLineCount = ingredients.length - pricedLineCount;
+  const costPerYieldUnit =
+    totalCost !== null && yieldAmount !== null && yieldAmount > 0
+      ? totalCost / yieldAmount
+      : null;
 
-    return validCosts.reduce((sum, cost) => sum + cost, 0);
-  }, [lineCosts]);
-
-  const costPerYieldUnit = useMemo(() => {
-    if (
-      totalCost === null ||
-      yieldAmount === null ||
-      !Number.isFinite(yieldAmount) ||
-      yieldAmount <= 0
-    ) {
-      return null;
-    }
-
-    return totalCost / yieldAmount;
-  }, [totalCost, yieldAmount]);
-
-  const pricedLineCount = lineCosts.filter(
-    (line) => line.cost !== null
-  ).length;
-
-  const missingLineCount =
-    ingredients.length - pricedLineCount;
-
-  const usedInRecipes = useMemo(() => {
-    if (!recipe) {
-      return [];
-    }
-
-    const target = normalise(recipe.name);
-
+  const usedIn = useMemo(() => {
+    if (!recipe) return [];
     return recipes.filter((candidate) =>
       candidate.ingredients.some(
-        (ingredient) => normalise(ingredient.name) === target
+        (ingredient) => normalise(ingredient.name) === normalise(recipe.name)
       )
     );
   }, [recipe]);
 
-  function updateIngredient(
-    index: number,
-    field: keyof EditableIngredient,
-    value: string
-  ) {
+  function updateIngredient(index: number, field: keyof EditableIngredient, value: string) {
     setIngredients((current) =>
-      current.map((ingredient, ingredientIndex) => {
-        if (ingredientIndex !== index) {
-          return ingredient;
-        }
-
-        if (
-          field === "quantity" ||
-          field === "grossQuantity" ||
-          field === "wastePercent"
-        ) {
-          return {
-            ...ingredient,
-            [field]: value === "" ? null : Number(value),
-          };
-        }
-
-        return {
-          ...ingredient,
-          [field]: value,
-        };
-      })
+      current.map((ingredient, ingredientIndex) =>
+        ingredientIndex === index
+          ? {
+              ...ingredient,
+              [field]: field === "quantity" ? (value === "" ? null : Number(value)) : value,
+              ...(field === "name"
+                ? { type: findSubRecipe(value) ? "Sub-recipe" : "Inventory item" }
+                : {}),
+            }
+          : ingredient
+      )
     );
   }
 
   function addIngredient() {
     setIngredients((current) => [
       ...current,
-      {
-        name: "",
-        quantity: null,
-        grossQuantity: null,
-        wastePercent: 0,
-        unit: "g",
-        type: "Inventory item",
-      },
+      { name: "", quantity: null, unit: "g", type: "Inventory item" },
     ]);
   }
 
-  function removeIngredient(index: number) {
-    setIngredients((current) =>
-      current.filter((_, ingredientIndex) => ingredientIndex !== index)
-    );
-  }
-
-  function toggleAllergen(allergen: string) {
-    setAllergens((current) =>
-      current.includes(allergen)
-        ? current.filter((item) => item !== allergen)
-        : [...current, allergen]
-    );
-  }
-
-  function saveRecipe() {
-    if (!recipe) {
-      return;
-    }
+  async function saveRecipe() {
+    if (!recipe) return;
 
     const updatedRecipe: Recipe = {
       ...recipe,
       yieldAmount,
       yieldUnit,
       notes,
-      ingredients: ingredients.map((ingredient) => ({
-        name: ingredient.name,
-        quantity: ingredient.quantity,
-        unit: ingredient.unit,
-      })),
+      ingredients: ingredients.map(({ name, quantity, unit }) => ({ name, quantity, unit })),
     };
 
     const payload: StoredRecipePayload = {
@@ -431,621 +324,209 @@ export default function RecipeDetailPage() {
       updatedAt: new Date().toISOString(),
     };
 
-    void persistWorkspaceState(
-      getRecipeStorageKey(slug),
-      JSON.stringify(payload)
-    ).catch((error) => console.error("Recipe cloud save failed", error));
-
-    setRecipe(updatedRecipe);
-
-    setSavedMessage("Saved");
-
-    window.setTimeout(() => {
-      setSavedMessage("");
-    }, 1800);
+    try {
+      await persistWorkspaceState(recipeKey(baseRecipe?.name ?? recipe.name), JSON.stringify(payload));
+      setRecipe(updatedRecipe);
+      setStoredRecipes((current) => ({
+        ...current,
+        [recipeKey(baseRecipe?.name ?? recipe.name)]: payload,
+      }));
+      setMessage("Recipe saved.");
+    } catch (error: any) {
+      setMessage(error?.message || "Could not save recipe");
+    }
   }
 
+  if (loading) return <div className="page"><div className="panel">Loading recipe…</div></div>;
   if (!baseRecipe || !recipe) {
     return (
-      <div className="app-shell">
-        <Sidebar active="recipes" />
-
-        <main className="main-content recipe-editor-page">
-          <Link href="/recipes" className="back-link">
-            ← Back to recipes
-          </Link>
-
-          <section className="panel">
-            <h1>Recipe not found</h1>
-          </section>
-        </main>
+      <div className="page">
+        <Link href="/recipes" className="back-link">← Recipes</Link>
+        <section className="panel"><h1>Recipe not found</h1></section>
       </div>
     );
   }
 
   return (
-    <div className="app-shell">
-      <Sidebar active="recipes" />
+    <div className="page recipe-v2-page">
+      <header className="topbar">
+        <div>
+          <Link href="/recipes" className="back-link">← Recipes</Link>
+          <p className="eyebrow">Recipe costing</p>
+          <input
+            className="recipe-editor-title-input"
+            value={recipe.name}
+            onChange={(event) => setRecipe((current) => current ? { ...current, name: event.target.value } : current)}
+          />
+          <p className="page-description">
+            {recipe.type} recipe{recipe.linkedMenuItem ? ` · linked to ${recipe.linkedMenuItem}` : ""}
+          </p>
+        </div>
+        <button type="button" className="primary-button" onClick={() => void saveRecipe()}>
+          Save recipe
+        </button>
+      </header>
 
-      <main className="main-content recipe-editor-page">
-        <header className="recipe-editor-topbar">
+      {message && <div className="notice">{message}</div>}
+
+      <section className="stats-grid">
+        <article className="stat-card">
+          <p className="stat-label">Batch cost</p>
+          <p className="stat-value">{money(totalCost)}</p>
+        </article>
+        <article className="stat-card">
+          <p className="stat-label">Cost per yield unit</p>
+          <p className="stat-value">{money(costPerYieldUnit)}</p>
+          <p className="stat-change neutral">{yieldUnit || "Set yield below"}</p>
+        </article>
+        <article className="stat-card">
+          <p className="stat-label">Priced lines</p>
+          <p className="stat-value">{pricedLineCount}/{ingredients.length}</p>
+        </article>
+        <article className="stat-card">
+          <p className="stat-label">Needs attention</p>
+          <p className="stat-value">{missingLineCount}</p>
+          <p className={`stat-change ${missingLineCount ? "warning" : "neutral"}`}>
+            {missingLineCount ? "Quantity, price or unit issue" : "Fully costed"}
+          </p>
+        </article>
+      </section>
+
+      <section className="panel recipe-v2-yield">
+        <div className="panel-header">
           <div>
-            <Link href="/recipes" className="back-link">
-              ← Recipes
-            </Link>
-
-            <p className="page-eyebrow">
-              Recipe costing
-            </p>
-
+            <p className="panel-kicker">Yield</p>
+            <h2>Batch output</h2>
+            <p>Use the actual finished yield after cooking/prep. Kitchen Insights will not guess reductions or trim loss.</p>
+          </div>
+        </div>
+        <div className="recipe-v2-yield-fields">
+          <label>
+            <span>Yield amount</span>
             <input
-              className="recipe-editor-title-input"
-              value={recipe.name}
-              onChange={(event) =>
-                setRecipe((current) =>
-                  current
-                    ? {
-                        ...current,
-                        name: event.target.value,
-                      }
-                    : current
-                )
-              }
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={yieldAmount ?? ""}
+              onChange={(event) => setYieldAmount(event.target.value === "" ? null : Number(event.target.value))}
             />
+          </label>
+          <label>
+            <span>Yield unit</span>
+            <input
+              value={yieldUnit}
+              placeholder="g, ml, portions…"
+              onChange={(event) => setYieldUnit(event.target.value)}
+            />
+          </label>
+        </div>
+      </section>
 
-            <div className="recipe-editor-meta">
-              <span>{recipe.type}</span>
-
-              {recipe.linkedMenuItem && (
-                <span>
-                  Used in {recipe.linkedMenuItem}
-                </span>
-              )}
-            </div>
+      <section className="panel">
+        <div className="panel-header">
+          <div>
+            <p className="panel-kicker">Costing</p>
+            <h2>Ingredients</h2>
           </div>
+          <button type="button" className="secondary-inline-button" onClick={addIngredient}>+ Add ingredient</button>
+        </div>
 
-          <div className="recipe-editor-actions">
-            {savedMessage && (
-              <span className="recipe-save-message">
-                {savedMessage}
-              </span>
-            )}
-
-            <button
-              type="button"
-              className="primary-button"
-              onClick={saveRecipe}
-            >
-              Save recipe
-            </button>
-          </div>
-        </header>
-
-        <section className="recipe-editor-summary">
-          <div className="recipe-editor-summary-item">
-            <span>Batch cost</span>
-            <strong>{formatMoney(totalCost)}</strong>
-          </div>
-
-          <div className="recipe-editor-summary-item">
-            <span>Yield</span>
-            <strong>
-              {yieldAmount ?? "—"} {yieldUnit}
-            </strong>
-          </div>
-
-          <div className="recipe-editor-summary-item">
-            <span>
-              Cost / {yieldUnit || "yield unit"}
-            </span>
-
-            <strong>
-              {formatMoney(costPerYieldUnit)}
-            </strong>
-          </div>
-
-          <div className="recipe-editor-summary-item">
-            <span>Cost coverage</span>
-
-            <strong>
-              {pricedLineCount}/{ingredients.length}
-            </strong>
-
-            <small>
-              {missingLineCount === 0
-                ? "All lines priced"
-                : `${missingLineCount} missing`}
-            </small>
-          </div>
-        </section>
-
-        <nav className="recipe-editor-tabs">
-          {[
-            ["yield", "Recipe & Yield"],
-            ["conversions", "Conversions / Inventory"],
-            ["procedure", "Procedure"],
-            ["used-in", "Used In"],
-            ["allergens", "Allergens"],
-          ].map(([value, label]) => (
-            <button
-              key={value}
-              type="button"
-              className={`recipe-editor-tab ${
-                activeTab === value
-                  ? "recipe-editor-tab-active"
-                  : ""
-              }`}
-              onClick={() =>
-                setActiveTab(value as RecipeTab)
-              }
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-
-        {activeTab === "yield" && (
-          <>
-            <section className="recipe-yield-panel">
-              <div>
-                <label>Yield quantity</label>
-
+        <div className="recipe-v2-lines">
+          {ingredients.map((ingredient, index) => {
+            const line = lineCosts[index];
+            const price = findPrice(prices, ingredient.name);
+            return (
+              <div className="recipe-v2-line" key={`${index}-${ingredient.name}`}>
+                <input
+                  className="recipe-v2-name"
+                  value={ingredient.name}
+                  onChange={(event) => updateIngredient(index, "name", event.target.value)}
+                  placeholder="Ingredient"
+                />
                 <input
                   type="number"
+                  min="0"
                   step="0.01"
-                  value={yieldAmount ?? ""}
-                  onChange={(event) =>
-                    setYieldAmount(
-                      event.target.value === ""
-                        ? null
-                        : Number(event.target.value)
+                  inputMode="decimal"
+                  value={ingredient.quantity ?? ""}
+                  onChange={(event) => updateIngredient(index, "quantity", event.target.value)}
+                  placeholder="Qty"
+                />
+                <input
+                  value={ingredient.unit}
+                  onChange={(event) => updateIngredient(index, "unit", event.target.value)}
+                  placeholder="Unit"
+                />
+                <div className="recipe-v2-price-source">
+                  <strong>{line.cost === null ? line.source : money(line.cost)}</strong>
+                  <span>
+                    {line.detail ||
+                      (price?.price
+                        ? `${money(price.price)}/${price.unit ?? ingredient.unit}`
+                        : "No usable invoice price")}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  className="cancel-button"
+                  onClick={() => setIngredients((current) => current.filter((_, itemIndex) => itemIndex !== index))}
+                  aria-label={`Remove ${ingredient.name || "ingredient"}`}
+                >
+                  Remove
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="recipe-v2-bottom-grid">
+        <article className="panel">
+          <div className="panel-header"><div><p className="panel-kicker">Kitchen</p><h2>Method & notes</h2></div></div>
+          <label className="recipe-v2-textarea">
+            <span>Procedure</span>
+            <textarea rows={8} value={procedure} onChange={(event) => setProcedure(event.target.value)} placeholder="Step-by-step method…" />
+          </label>
+          <label className="recipe-v2-textarea">
+            <span>Notes</span>
+            <textarea rows={5} value={notes} onChange={(event) => setNotes(event.target.value)} />
+          </label>
+        </article>
+
+        <article className="panel">
+          <div className="panel-header"><div><p className="panel-kicker">Food safety</p><h2>Allergens</h2></div></div>
+          <div className="recipe-v2-allergens">
+            {ALLERGENS.map((allergen) => (
+              <label key={allergen}>
+                <input
+                  type="checkbox"
+                  checked={allergens.includes(allergen)}
+                  onChange={() =>
+                    setAllergens((current) =>
+                      current.includes(allergen)
+                        ? current.filter((item) => item !== allergen)
+                        : [...current, allergen]
                     )
                   }
                 />
-              </div>
+                {allergen}
+              </label>
+            ))}
+          </div>
 
-              <div>
-                <label>Yield unit</label>
-
-                <select
-                  value={yieldUnit}
-                  onChange={(event) =>
-                    setYieldUnit(event.target.value)
-                  }
-                >
-                  <option value="">Select</option>
-                  <option value="portion">portion</option>
-                  <option value="kg">kg</option>
-                  <option value="g">g</option>
-                  <option value="L">L</option>
-                  <option value="ml">ml</option>
-                  <option value="each">each</option>
-                  <option value="batch">batch</option>
-                </select>
-              </div>
-
-              <div className="recipe-yield-cost">
-                <span>Calculated cost</span>
-
-                <strong>
-                  {formatMoney(totalCost)}
-                </strong>
-              </div>
-            </section>
-
-            <section className="recipe-editor-table-card">
-              <div className="recipe-editor-table-header">
-                <div>
-                  <p className="page-eyebrow">
-                    Recipe
-                  </p>
-
-                  <h2>Ingredients</h2>
-                </div>
-
-                <button
-                  type="button"
-                  className="secondary-inline-button"
-                  onClick={addIngredient}
-                >
-                  + Add ingredient
-                </button>
-              </div>
-
-              <div className="recipe-editor-table-wrap">
-                <table className="recipe-marketman-table">
-                  <thead>
-                    <tr>
-                      <th>Item name</th>
-                      <th>Type</th>
-                      <th>Net quantity</th>
-                      <th>Gross quantity</th>
-                      <th>Unit</th>
-                      <th>Cost</th>
-                      <th />
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {ingredients.map(
-                      (ingredient, index) => {
-                        const lineCost =
-                          lineCosts[index];
-
-                        return (
-                          <tr
-                            key={`${ingredient.name}-${index}`}
-                          >
-                            <td className="recipe-name-column">
-                              <input
-                                value={ingredient.name}
-                                onChange={(event) =>
-                                  updateIngredient(
-                                    index,
-                                    "name",
-                                    event.target.value
-                                  )
-                                }
-                              />
-                            </td>
-
-                            <td>
-                              <select
-                                value={
-                                  ingredient.type ??
-                                  "Inventory item"
-                                }
-                                onChange={(event) =>
-                                  updateIngredient(
-                                    index,
-                                    "type",
-                                    event.target.value
-                                  )
-                                }
-                              >
-                                <option value="Inventory item">
-                                  Inventory item
-                                </option>
-
-                                <option value="Sub-recipe">
-                                  Sub-recipe
-                                </option>
-                              </select>
-                            </td>
-
-                            <td>
-                              <input
-                                type="number"
-                                step="0.001"
-                                value={
-                                  ingredient.quantity ??
-                                  ""
-                                }
-                                onChange={(event) =>
-                                  updateIngredient(
-                                    index,
-                                    "quantity",
-                                    event.target.value
-                                  )
-                                }
-                              />
-                            </td>
-
-                            <td>
-                              <input
-                                type="number"
-                                step="0.001"
-                                value={
-                                  ingredient.grossQuantity ??
-                                  ""
-                                }
-                                onChange={(event) =>
-                                  updateIngredient(
-                                    index,
-                                    "grossQuantity",
-                                    event.target.value
-                                  )
-                                }
-                              />
-                            </td>
-
-                            <td>
-                              <select
-                                value={ingredient.unit}
-                                onChange={(event) =>
-                                  updateIngredient(
-                                    index,
-                                    "unit",
-                                    event.target.value
-                                  )
-                                }
-                              >
-                                <option value="g">g</option>
-                                <option value="kg">kg</option>
-                                <option value="ml">ml</option>
-                                <option value="L">L</option>
-                                <option value="each">
-                                  each
-                                </option>
-                                <option value="tbsp">
-                                  tbsp
-                                </option>
-                                <option value="tsp">
-                                  tsp
-                                </option>
-                                <option value="head">
-                                  head
-                                </option>
-                                <option value="bunch">
-                                  bunch
-                                </option>
-                              </select>
-                            </td>
-
-                            <td className="recipe-cost-column">
-                              <strong>
-                                {formatMoney(
-                                  lineCost.cost
-                                )}
-                              </strong>
-
-                              <span>
-                                {lineCost.source}
-                              </span>
-                            </td>
-
-                            <td>
-                              <button
-                                type="button"
-                                className="remove-recipe-line"
-                                onClick={() =>
-                                  removeIngredient(index)
-                                }
-                              >
-                                ×
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      }
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
-            <section className="recipe-notes-panel panel">
-              <div className="panel-header">
-                <div>
-                  <p className="page-eyebrow">
-                    Notes
-                  </p>
-
-                  <h2>Recipe notes</h2>
-                </div>
-              </div>
-
-              <textarea
-                value={notes}
-                onChange={(event) =>
-                  setNotes(event.target.value)
-                }
-                placeholder="Service notes, storage, prep details..."
-              />
-            </section>
-          </>
-        )}
-
-        {activeTab === "conversions" && (
-          <section className="recipe-editor-table-card">
-            <div className="recipe-editor-table-header">
-              <div>
-                <p className="page-eyebrow">
-                  Inventory
-                </p>
-
-                <h2>Recipe conversions</h2>
-              </div>
-            </div>
-
-            <div className="recipe-editor-table-wrap">
-              <table className="recipe-marketman-table">
-                <thead>
-                  <tr>
-                    <th>Ingredient</th>
-                    <th>Gross qty</th>
-                    <th>Net qty</th>
-                    <th>Waste %</th>
-                    <th>Unit</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {ingredients.map(
-                    (ingredient, index) => {
-                      const gross = Number(
-                        ingredient.grossQuantity ?? 0
-                      );
-
-                      const net = Number(
-                        ingredient.quantity ?? 0
-                      );
-
-                      const wastePercent =
-                        gross > 0
-                          ? Math.max(
-                              0,
-                              ((gross - net) /
-                                gross) *
-                                100
-                            )
-                          : 0;
-
-                      return (
-                        <tr
-                          key={`${ingredient.name}-conversion-${index}`}
-                        >
-                          <td>
-                            <strong>
-                              {ingredient.name ||
-                                "Unnamed item"}
-                            </strong>
-                          </td>
-
-                          <td>
-                            <input
-                              type="number"
-                              step="0.001"
-                              value={
-                                ingredient.grossQuantity ??
-                                ""
-                              }
-                              onChange={(event) =>
-                                updateIngredient(
-                                  index,
-                                  "grossQuantity",
-                                  event.target.value
-                                )
-                              }
-                            />
-                          </td>
-
-                          <td>
-                            {ingredient.quantity ??
-                              "—"}
-                          </td>
-
-                          <td>
-                            {wastePercent.toFixed(1)}%
-                          </td>
-
-                          <td>
-                            {ingredient.unit}
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        )}
-
-        {activeTab === "procedure" && (
-          <section className="recipe-procedure-card">
-            <div className="recipe-editor-table-header">
-              <div>
-                <p className="page-eyebrow">
-                  Method
-                </p>
-
-                <h2>Procedure</h2>
-              </div>
-            </div>
-
-            <textarea
-              className="recipe-procedure-textarea"
-              value={procedure}
-              onChange={(event) =>
-                setProcedure(event.target.value)
-              }
-              placeholder="Add the preparation method here..."
-            />
-          </section>
-        )}
-
-        {activeTab === "used-in" && (
-          <section className="recipe-used-in-card">
-            <div className="recipe-editor-table-header">
-              <div>
-                <p className="page-eyebrow">
-                  Usage
-                </p>
-
-                <h2>Recipes using this item</h2>
-              </div>
-            </div>
-
-            {usedInRecipes.length === 0 ? (
-              <div className="recipe-empty-state">
-                <p>
-                  This recipe is not currently used
-                  as a sub-recipe elsewhere.
-                </p>
-              </div>
+          <div className="recipe-v2-used-in">
+            <strong>Used in</strong>
+            {usedIn.length ? (
+              usedIn.map((item) => (
+                <Link key={item.name} href={`/recipes/${recipeSlug(item.name)}`}>{item.name}</Link>
+              ))
             ) : (
-              <div className="recipe-used-in-list">
-                {usedInRecipes.map((usedIn) => (
-                  <Link
-                    href={`/recipes/${recipeSlug(
-                      usedIn.name
-                    )}`}
-                    key={usedIn.name}
-                    className="recipe-used-in-row"
-                  >
-                    <div>
-                      <strong>
-                        {usedIn.name}
-                      </strong>
-
-                      <span>
-                        {usedIn.type}
-                      </span>
-                    </div>
-
-                    <span>→</span>
-                  </Link>
-                ))}
-              </div>
+              <span>No other recipes currently reference this recipe.</span>
             )}
-          </section>
-        )}
-
-        {activeTab === "allergens" && (
-          <section className="recipe-allergens-card">
-            <div className="recipe-editor-table-header">
-              <div>
-                <p className="page-eyebrow">
-                  Safety
-                </p>
-
-                <h2>Allergens</h2>
-              </div>
-            </div>
-
-            <div className="recipe-allergen-grid">
-              {ALLERGENS.map((allergen) => {
-                const selected =
-                  allergens.includes(allergen);
-
-                return (
-                  <button
-                    type="button"
-                    key={allergen}
-                    className={`recipe-allergen-option ${
-                      selected
-                        ? "recipe-allergen-option-active"
-                        : ""
-                    }`}
-                    onClick={() =>
-                      toggleAllergen(allergen)
-                    }
-                  >
-                    <span className="recipe-allergen-check">
-                      {selected ? "✓" : ""}
-                    </span>
-
-                    <strong>
-                      {allergen}
-                    </strong>
-                  </button>
-                );
-              })}
-            </div>
-          </section>
-        )}
-      </main>
+          </div>
+        </article>
+      </section>
     </div>
   );
 }
