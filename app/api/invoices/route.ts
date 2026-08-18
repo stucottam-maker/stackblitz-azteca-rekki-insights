@@ -1,17 +1,19 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+
+import {
+  authErrorResponse,
+  requireOrganisation,
+  serviceSupabase,
+} from "../../lib/serverAuth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const { data, error } = await supabase
+    const { organisationId, siteId } = await requireOrganisation(request);
+
+    const { data, error } = await serviceSupabase
       .from("invoices")
       .select(`
         id,
@@ -26,16 +28,13 @@ export async function GET() {
           name
         )
       `)
+      .eq("organisation_id", organisationId)
+      .eq("site_id", siteId)
       .order("invoice_date", { ascending: false, nullsFirst: false })
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("INVOICE LIST ERROR", error);
-
-      return NextResponse.json(
-        { error: error.message },
-        { status: 500 }
-      );
+      throw error;
     }
 
     const invoices = (data || []).map((invoice: any) => {
@@ -58,12 +57,13 @@ export async function GET() {
     });
 
     return NextResponse.json({ invoices });
-  } catch (error: any) {
+  } catch (error) {
     console.error("INVOICE LIST FAILED", error);
+    const response = authErrorResponse(error);
 
     return NextResponse.json(
-      { error: error.message || "Could not load invoices" },
-      { status: 500 }
+      { error: response.message },
+      { status: response.status }
     );
   }
 }
