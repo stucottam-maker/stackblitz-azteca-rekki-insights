@@ -53,9 +53,7 @@ export default function UploadInvoicePage() {
     setError("");
 
 
-    if (!selected) {
-      return;
-    }
+    if (!selected) return;
 
 
 
@@ -66,7 +64,7 @@ export default function UploadInvoicePage() {
     ){
 
       setError(
-        "Please upload PDF, JPG, PNG or WEBP files only."
+        "Please upload a PDF, JPG, PNG or WEBP invoice."
       );
 
       return;
@@ -112,7 +110,6 @@ export default function UploadInvoicePage() {
 
 
     setUploading(true);
-
     setError("");
 
 
@@ -120,9 +117,8 @@ export default function UploadInvoicePage() {
     try {
 
 
-
       /*
-        1. Upload invoice to Supabase Storage
+        1. Upload PDF/image to Supabase Storage
       */
 
 
@@ -159,6 +155,7 @@ export default function UploadInvoicePage() {
 
 
 
+
       /*
         2. Get public URL
       */
@@ -183,7 +180,7 @@ export default function UploadInvoicePage() {
 
 
       /*
-        3. Send only JSON to API
+        3. Send small JSON request
       */
 
 
@@ -219,8 +216,42 @@ export default function UploadInvoicePage() {
 
 
 
-      const result =
-        await response.json();
+      /*
+        4. Read response safely
+      */
+
+
+      const responseText =
+        await response.text();
+
+
+
+      let result:any;
+
+
+
+      try {
+
+        result =
+          JSON.parse(responseText);
+
+      }
+
+      catch {
+
+        console.error(
+          "Non JSON API response:",
+          responseText
+        );
+
+
+        throw new Error(
+          responseText ||
+          "Unknown extraction error"
+        );
+
+      }
+
 
 
 
@@ -240,7 +271,7 @@ export default function UploadInvoicePage() {
         throw new Error(
           result.details ||
           result.error ||
-          "Invoice extraction failed."
+          "Invoice extraction failed"
         );
 
       }
@@ -277,6 +308,7 @@ export default function UploadInvoicePage() {
 
 
     }
+
     catch(err:any){
 
 
@@ -288,11 +320,13 @@ export default function UploadInvoicePage() {
 
       setError(
         err.message ||
-        "Invoice extraction failed."
+        "Invoice extraction failed"
       );
 
 
     }
+
+
     finally{
 
       setUploading(false);
@@ -320,7 +354,6 @@ export default function UploadInvoicePage() {
       <section className="main-content">
 
 
-
         <header className="topbar">
 
           <div>
@@ -336,7 +369,7 @@ export default function UploadInvoicePage() {
 
 
             <p className="page-description">
-              Upload supplier invoices and extract products, prices and quantities.
+              Upload supplier invoices and extract products, quantities and prices.
             </p>
 
 
@@ -348,9 +381,7 @@ export default function UploadInvoicePage() {
 
 
 
-
         <section className="panel">
-
 
 
           <div className="panel-header">
@@ -365,6 +396,7 @@ export default function UploadInvoicePage() {
               <h2>
                 Capture invoice
               </h2>
+
 
             </div>
 
@@ -423,8 +455,10 @@ export default function UploadInvoicePage() {
 
               {
                 file
-                ? file.name
-                : "Add an invoice"
+                ?
+                file.name
+                :
+                "Add an invoice"
               }
 
             </h3>
@@ -439,8 +473,8 @@ export default function UploadInvoicePage() {
 
             <p
               style={{
+                marginTop:"15px",
                 color:"#888",
-                marginTop:"12px",
               }}
             >
               PDF · JPG · PNG · WEBP
@@ -449,6 +483,8 @@ export default function UploadInvoicePage() {
 
 
           </label>
+
+
 
 
 
@@ -465,11 +501,14 @@ export default function UploadInvoicePage() {
                   whiteSpace:"pre-wrap",
                 }}
               >
+
                 {error}
+
               </div>
 
             )
           }
+
 
 
 
@@ -482,6 +521,10 @@ export default function UploadInvoicePage() {
 
             className="primary-button"
 
+            style={{
+              marginTop:"25px",
+            }}
+
             disabled={
               !file ||
               uploading
@@ -491,16 +534,12 @@ export default function UploadInvoicePage() {
               extractInvoice
             }
 
-            style={{
-              marginTop:"25px",
-            }}
-
           >
 
             {
               uploading
               ?
-              "Uploading invoice..."
+              "Extracting invoice..."
               :
               "Extract invoice"
             }
@@ -515,12 +554,12 @@ export default function UploadInvoicePage() {
         </section>
 
 
-
       </section>
 
 
     </main>
 
   );
+
 
 }
