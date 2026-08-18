@@ -22,6 +22,7 @@ const links = [
   ["☰", "Menu", "/menu"],
   ["□", "Stock", "/stock"],
   ["↗", "Reports", "/reports"],
+  ["£", "COGS Setup", "/reports/setup"],
   ["⚙", "Settings", "/settings"],
 ] as const;
 
@@ -32,19 +33,16 @@ export default function Sidebar({ active }: SidebarProps) {
   const [signingOut, setSigningOut] = useState(false);
 
   function isActive(name: string, url: string) {
-    if (active) {
-      return active.toLowerCase() === name.toLowerCase();
-    }
-
+    if (active) return active.toLowerCase() === name.toLowerCase();
     if (url === "/") return pathname === "/";
     if (url === "/ingredients") return pathname === "/ingredients";
+    if (url === "/reports") return pathname === "/reports";
     return pathname === url || pathname.startsWith(`${url}/`);
   }
 
   async function logout() {
     if (signingOut) return;
     setSigningOut(true);
-
     try {
       await supabase.auth.signOut();
     } finally {
@@ -57,7 +55,6 @@ export default function Sidebar({ active }: SidebarProps) {
   useEffect(() => {
     const nav = navRef.current;
     if (!nav || !window.matchMedia("(max-width: 640px)").matches) return;
-
     const activeLink = nav.querySelector<HTMLElement>(".nav-link-active");
     if (!activeLink) return;
 
