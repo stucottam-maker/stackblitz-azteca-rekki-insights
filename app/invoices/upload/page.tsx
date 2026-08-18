@@ -14,6 +14,7 @@ const MAX_FILE_SIZE =
 const ACCEPTED_TYPES = [
   "application/pdf",
   "image/jpeg",
+  "image/jpg",
   "image/png",
   "image/webp",
   "image/heic",
