@@ -3,6 +3,7 @@ import "./ui-fixes.css";
 import "./mobile-nav-fix.css";
 import "./mobile-page-fixes.css";
 
+import InvoicePriceSync from "./components/InvoicePriceSync";
 import Sidebar from "./components/Sidebar";
 
 export const metadata = {
@@ -18,6 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <InvoicePriceSync />
+
         <div className="app-shell">
           <Sidebar />
 
