@@ -6,67 +6,50 @@ import { useRouter } from "next/navigation";
 
 export default function InvoiceReviewPage() {
 
-
   const router = useRouter();
 
-
-  const [invoices,setInvoices] =
-    useState<any[]>([]);
-
-
-  const [loading,setLoading] =
-    useState(true);
-
-
-  const [saving,setSaving] =
-    useState(false);
-
-
-  const [message,setMessage] =
-    useState("");
+  const [invoices, setInvoices] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
 
 
 
+  useEffect(() => {
+
+    const loadInvoices = () => {
+
+      try {
+
+        const stored =
+          sessionStorage.getItem(
+            "extractedInvoices"
+          );
 
 
-  useEffect(()=>{
+        if (!stored) {
+          setLoading(false);
+          return;
+        }
 
-
-    try {
-
-
-      const stored =
-        sessionStorage.getItem(
-          "extractedInvoices"
-        );
-
-
-      if(stored){
 
         const parsed =
           JSON.parse(stored);
 
 
         console.log(
-          "REVIEW DATA:",
+          "REVIEW LOADED:",
           parsed
         );
 
 
-
-        if(
-          Array.isArray(parsed)
-        ){
+        if (Array.isArray(parsed)) {
 
           setInvoices(parsed);
 
-        }
-
-        else if(
-          Array.isArray(
-            parsed.invoices
-          )
-        ){
+        } else if (
+          Array.isArray(parsed.invoices)
+        ) {
 
           setInvoices(
             parsed.invoices
@@ -74,42 +57,36 @@ export default function InvoiceReviewPage() {
 
         }
 
+
+      } catch(error) {
+
+        console.error(
+          "Review loading error",
+          error
+        );
+
       }
 
 
+      setLoading(false);
 
-    }
-
-    catch(error){
-
-      console.error(
-        "Loading review failed",
-        error
-      );
-
-    }
+    };
 
 
-    setLoading(false);
+    loadInvoices();
 
 
-  },[]);
+  }, []);
 
 
 
 
 
-
-
-
-  async function approveInvoices(){
-
+  async function approveInvoices() {
 
     try {
 
-
       setSaving(true);
-
       setMessage("");
 
 
@@ -123,32 +100,22 @@ export default function InvoiceReviewPage() {
 
             headers:{
               "Content-Type":
-                "application/json",
+                "application/json"
             },
 
 
-            body:
-              JSON.stringify({
+            body: JSON.stringify({
 
-                invoices,
-
-                /*
-                  temporary
-                  replace with real
-                  organisation id
-                  once auth is connected
-                */
-
-                organisation_id:
-                  "00000000-0000-0000-0000-000000000000"
+              invoices,
 
 
-              })
+              organisation_id:
+                "00000000-0000-0000-0000-000000000000"
+
+            })
 
           }
         );
-
-
 
 
 
@@ -157,8 +124,14 @@ export default function InvoiceReviewPage() {
 
 
 
+      console.log(
+        "SAVE RESPONSE:",
+        data
+      );
 
-      if(!response.ok){
+
+
+      if(!response.ok) {
 
         throw new Error(
           data.error ||
@@ -169,17 +142,8 @@ export default function InvoiceReviewPage() {
 
 
 
-
-
-      console.log(
-        "SAVED:",
-        data
-      );
-
-
-
       setMessage(
-        `Saved ${data.saved} invoices successfully`
+        `Saved ${data.saved || data.count} invoices successfully`
       );
 
 
@@ -196,18 +160,15 @@ export default function InvoiceReviewPage() {
           "/invoices"
         );
 
-      },1200);
+      },1500);
 
 
 
-
-    }
-
-
-    catch(error:any){
+    } catch(error:any) {
 
 
       console.error(
+        "SAVE FAILED",
         error
       );
 
@@ -217,39 +178,27 @@ export default function InvoiceReviewPage() {
       );
 
 
-    }
-
-
-    finally{
+    } finally {
 
       setSaving(false);
 
     }
 
-
   }
 
 
 
 
 
+  if(loading) {
 
-
-
-  if(loading){
-
-    return(
-
+    return (
       <div className="page">
-
         Loading invoices...
-
       </div>
-
     );
 
   }
-
 
 
 
@@ -261,6 +210,7 @@ export default function InvoiceReviewPage() {
 
 
       <div className="page-header">
+
 
         <div>
 
@@ -284,24 +234,24 @@ export default function InvoiceReviewPage() {
 
         <button
 
+          className="primary-button"
+
+          disabled={
+            saving ||
+            invoices.length === 0
+          }
+
           onClick={
             approveInvoices
           }
 
-          disabled={
-            saving ||
-            invoices.length===0
-          }
-
-          className="primary-button"
-
         >
 
-          {saving
+          {
+            saving
             ? "Saving..."
             : `Approve ${invoices.length} invoices`
           }
-
 
         </button>
 
@@ -312,17 +262,16 @@ export default function InvoiceReviewPage() {
 
 
 
-
-
       {
-        message &&
+        message && (
 
-        <div className="notice">
+          <div className="notice">
 
-          {message}
+            {message}
 
-        </div>
+          </div>
 
+        )
       }
 
 
@@ -331,31 +280,23 @@ export default function InvoiceReviewPage() {
 
 
 
-
-
       {
-        invoices.length===0 &&
+        invoices.length === 0 && (
 
+          <div className="card">
 
-        <div className="card">
+            <h2>
+              No invoices found
+            </h2>
 
-          <h2>
-            No invoices found
-          </h2>
+            <p>
+              Upload and extract invoices first.
+            </p>
 
-          <p>
-            Upload and extract invoices first.
-          </p>
+          </div>
 
-
-        </div>
-
-
+        )
       }
-
-
-
-
 
 
 
@@ -365,231 +306,224 @@ export default function InvoiceReviewPage() {
       <div className="invoice-list">
 
 
-      {
-        invoices.map(
-          (invoice,index)=>(
+        {
+          invoices.map(
+            (invoice,index)=>(
 
 
-          <div
-            key={index}
-            className="card"
-          >
+              <div
+                key={index}
+                className="card"
+              >
 
 
-            <div className="invoice-title">
 
-              <span className="badge">
+                <div className="invoice-title">
 
-                INVOICE {index+1}
 
-              </span>
+                  <span className="badge">
 
+                    INVOICE {index + 1}
 
-              <h2>
+                  </span>
 
-                {
-                  invoice.supplier ||
-                  "Unknown supplier"
-                }
 
-              </h2>
+                  <h2>
 
+                    {
+                      invoice.supplier ||
+                      "Unknown supplier"
+                    }
 
-            </div>
+                  </h2>
 
 
+                </div>
 
 
 
 
 
-            <div className="invoice-meta">
+                <div className="invoice-meta">
 
 
-              <div>
+                  <div>
 
-                <small>
-                  Invoice number
-                </small>
+                    <small>
+                      Invoice number
+                    </small>
 
-                <strong>
 
-                  {
-                    invoice.invoiceNumber ||
-                    "-"
-                  }
+                    <strong>
 
-                </strong>
+                      {
+                        invoice.invoiceNumber ||
+                        "-"
+                      }
 
-              </div>
+                    </strong>
 
 
+                  </div>
 
 
 
-              <div>
 
-                <small>
-                  Date
-                </small>
 
+                  <div>
 
-                <strong>
+                    <small>
+                      Date
+                    </small>
 
-                  {
-                    invoice.invoiceDate ||
-                    "-"
-                  }
 
-                </strong>
+                    <strong>
 
+                      {
+                        invoice.invoiceDate ||
+                        "-"
+                      }
 
-              </div>
+                    </strong>
 
 
+                  </div>
 
 
 
 
-              <div>
 
-                <small>
-                  Total
-                </small>
+                  <div>
 
+                    <small>
+                      Total
+                    </small>
 
-                <strong>
 
-                  £
-                  {
-                    invoice.total ||
-                    0
-                  }
+                    <strong>
 
-
-                </strong>
-
-
-              </div>
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-
-            <table>
-
-
-              <thead>
-
-                <tr>
-
-                  <th>
-                    Product
-                  </th>
-
-
-                  <th>
-                    Pack
-                  </th>
-
-
-                  <th>
-                    Qty
-                  </th>
-
-
-                  <th>
-                    Price
-                  </th>
-
-
-                  <th>
-                    Total
-                  </th>
-
-
-                </tr>
-
-              </thead>
-
-
-
-
-              <tbody>
-
-
-              {
-                invoice.lineItems?.map(
-                  (
-                    item:any,
-                    i:number
-                  )=>(
-
-
-                  <tr key={i}>
-
-
-                    <td>
-                      {item.product}
-                    </td>
-
-
-                    <td>
-                      {item.pack || "-"}
-                    </td>
-
-
-                    <td>
-                      {item.quantity || "-"}
-                    </td>
-
-
-                    <td>
                       £
-                      {item.unitPrice || "-"}
-                    </td>
+                      {
+                        Number(
+                          invoice.total || 0
+                        ).toFixed(2)
+                      }
+
+                    </strong>
 
 
-                    <td>
-                      £
-                      {item.total || "-"}
-                    </td>
-
-
-                  </tr>
-
-
-                  )
-
-                )
-
-              }
-
-
-              </tbody>
+                  </div>
 
 
 
-            </table>
+                </div>
 
 
 
-          </div>
 
+
+
+
+                <table>
+
+
+                  <thead>
+
+                    <tr>
+
+                      <th>
+                        Product
+                      </th>
+
+                      <th>
+                        Pack
+                      </th>
+
+                      <th>
+                        Qty
+                      </th>
+
+                      <th>
+                        Price
+                      </th>
+
+                      <th>
+                        Total
+                      </th>
+
+                    </tr>
+
+                  </thead>
+
+
+
+                  <tbody>
+
+
+                    {
+                      (
+                        invoice.lineItems ||
+                        []
+                      ).map(
+                        (
+                          item:any,
+                          i:number
+                        )=>(
+
+
+                          <tr key={i}>
+
+
+                            <td>
+                              {item.product}
+                            </td>
+
+
+                            <td>
+                              {item.pack || "-"}
+                            </td>
+
+
+                            <td>
+                              {item.quantity || "-"}
+                            </td>
+
+
+                            <td>
+                              £
+                              {item.unitPrice || "-"}
+                            </td>
+
+
+                            <td>
+                              £
+                              {item.total || "-"}
+                            </td>
+
+
+                          </tr>
+
+
+                        )
+
+                      )
+                    }
+
+
+                  </tbody>
+
+
+                </table>
+
+
+
+              </div>
+
+
+            )
 
           )
-
-        )
-
-      }
+        }
 
 
       </div>
