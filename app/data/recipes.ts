@@ -326,6 +326,155 @@ export const recipes: Recipe[] = [
   },
 
   {
+    name: "Crisp Onions",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Corn flour", quantity: 200, unit: "g" },
+      { name: "Fine salt", quantity: 10, unit: "g" },
+      { name: "Chipotle powder", quantity: 5, unit: "g" },
+      { name: "White onions", quantity: null, unit: "as needed" },
+    ],
+    notes:
+      "Method: combine the corn flour, fine salt and chipotle powder. Halve and julienne the onions, toss with the flour mix and shake off excess using a steam tray. Deep-fry until golden; do not overcook. Dietary: vegan. The onion quantity is not shown on the source sheet.",
+  },
+
+  {
+    name: "Smoked Aubergine Prep",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Aubergine", quantity: 666, unit: "g" },
+      { name: "Garlic, grated", quantity: 40, unit: "g" },
+      { name: "Grapeseed oil", quantity: 110, unit: "g" },
+      { name: "Maldon salt", quantity: 20, unit: "g" },
+      { name: "Caster sugar", quantity: 10, unit: "g" },
+      { name: "Aubergine ash", quantity: 16, unit: "g" },
+    ],
+    notes:
+      "Method: burn the aubergine skin on the grill. Transfer the grilled aubergines to a tray, cover with cling film and steam until soft. Peel, reserving the skin. Dry the skins in the oven on low fan at 65°C, then blitz to a black powder for the aubergine ash. Whisk the aubergine flesh with the remaining ingredients. Dietary: vegan.",
+  },
+
+  {
+    name: "Churros",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Milk", quantity: 300, unit: "g" },
+      { name: "Water", quantity: 100, unit: "g" },
+      { name: "Butter", quantity: 100, unit: "g" },
+      { name: "Sugar", quantity: 70, unit: "g" },
+      { name: "Vanilla extract", quantity: 20, unit: "g" },
+      { name: "Plain flour", quantity: 400, unit: "g" },
+      { name: "Salt", quantity: 2, unit: "g" },
+      { name: "Cinnamon sugar", quantity: null, unit: "after frying" },
+    ],
+    notes:
+      "Method: in a pan combine the milk, water, salt, butter, sugar and vanilla and heat without boiling. Remove from the heat, add half the flour and whisk well. Return to the heat, add the remaining flour and cook with a spatula until the dough no longer sticks to the pan. Finish working the dough by hand while still hot. Cinnamon sugar mix: 3kg caster sugar + 90g cinnamon. Dietary: vegetarian. Allergens: dairy/milk, gluten.",
+  },
+
+  {
+    name: "Prawn Marinade",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Piquillo peppers", quantity: 800, unit: "g" },
+      { name: "Chipotle paste", quantity: 400, unit: "g" },
+      { name: "Coal oil", quantity: 100, unit: "g" },
+      { name: "Salt", quantity: 20, unit: "g" },
+    ],
+    notes:
+      "Method: add all ingredients to a blender and blitz until smooth. Dietary note on source sheet: vegan.",
+  },
+
+  {
+    name: "Black Eyed Beans Puree",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Black eye beans", quantity: 1500, unit: "g" },
+      { name: "Garlic oil", quantity: 200, unit: "g" },
+      { name: "Coriander with stem", quantity: 40, unit: "g" },
+      { name: "Salt", quantity: null, unit: "to taste" },
+      { name: "Black pepper", quantity: 10, unit: "g" },
+      { name: "Water", quantity: null, unit: "until smooth" },
+    ],
+    notes:
+      "Method: cook the beans until soft, then blend everything until smooth. Dietary: vegan. Kitchen note: contains onion/garlic.",
+  },
+
+  {
+    name: "Ceviche Sauce",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "ml",
+    ingredients: [
+      { name: "Tiger Milk", quantity: 1, unit: "L" },
+      { name: "Fish scraps, no skin or bones", quantity: 200, unit: "g" },
+    ],
+    notes: "Method: blend all ingredients in the Thermomix.",
+  },
+
+  {
+    name: "Chilli and Mezcal Jam",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Árbol chilli", quantity: 12, unit: "each" },
+      { name: "Caster sugar", quantity: 500, unit: "g" },
+      { name: "White vinegar", quantity: 15, unit: "g" },
+      { name: "Water", quantity: 800, unit: "g" },
+      { name: "Agar-agar", quantity: 30, unit: "g" },
+      { name: "Mezcal", quantity: 25, unit: "ml" },
+    ],
+    notes:
+      "Method: de-stem, chop and de-seed the chillies. Add the water, vinegar, sugar and chillies to a pot and reduce. Add the agar-agar, bring to the boil and chill. Add enough water to create a gel consistency, blend and bottle. Source sheet notes a 1 month shelf life. Dietary: vegan. Allergen note: sulphites. Contains alcohol.",
+  },
+
+  {
+    name: "Cindy's Peach Habanero",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Yellow peaches", quantity: null, unit: "cans" },
+      { name: "Piquillo peppers", quantity: null, unit: "g" },
+      { name: "Dried smoked habanero", quantity: null, unit: "g" },
+      { name: "Lime juice", quantity: 125, unit: "g" },
+      { name: "Coriander", quantity: 125, unit: "g" },
+      { name: "Jalapeño salt", quantity: 70, unit: "g" },
+      { name: "Sesame oil", quantity: 120, unit: "g" },
+      { name: "Brown sugar", quantity: 400, unit: "g" },
+    ],
+    notes:
+      "Method: dice the peaches. In a saucepan melt the brown sugar with the sesame oil, add the peaches and simmer over medium heat until soft and caramelised. Add the remaining ingredients to the Thermomix and blitz at speed 5.5 for 2 minutes. Dietary: vegan. Allergen: sesame. The quantities for yellow peaches, piquillo peppers and dried smoked habanero are obscured by glare on the source sheet, so they have been left unset rather than guessed.",
+  },
+
+  {
+    name: "House Hot Sauce",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Garlic", quantity: 16, unit: "g" },
+      { name: "Ginger", quantity: 135, unit: "g" },
+      { name: "Soy sauce tamari", quantity: 216, unit: "g" },
+      { name: "White vinegar", quantity: 175, unit: "g" },
+      { name: "Dried chilli árbol", quantity: 40, unit: "g" },
+      { name: "Caster sugar", quantity: 21, unit: "g" },
+      { name: "Mirin", quantity: null, unit: "quantity not shown" },
+    ],
+    notes:
+      "Method: place the ingredients in a blender and blend for 5 minutes, then strain and push all the pulp through the sieve. Mirin is handwritten on the source sheet but no quantity is shown, so it has been left unset.",
+  },
+
+  {
     name: "Tempura Batter",
     type: "Prep",
     yieldAmount: null,
@@ -516,7 +665,7 @@ export const recipes: Recipe[] = [
     yieldAmount: 1,
     yieldUnit: "portion",
     ingredients: [
-      { name: "Smoked aubergine", quantity: null, unit: "g" },
+      { name: "Smoked Aubergine Prep", quantity: null, unit: "g" },
       { name: "Butternut squash", quantity: null, unit: "g" },
       { name: "Vegan feta", quantity: null, unit: "g" },
       { name: "Pickled onion", quantity: null, unit: "g" },
