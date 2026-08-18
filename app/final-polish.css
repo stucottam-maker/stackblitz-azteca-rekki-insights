@@ -1,0 +1,236 @@
+/* Final structural polish for the authenticated app shell and new workflows. */
+
+.app-shell-root {
+  min-height: 100vh;
+}
+
+.main-content-root {
+  min-width: 0;
+}
+
+/* Older pages still contain their original shell wrappers. Flatten them so the
+   single root AppFrame remains the only layout shell while those pages are
+   progressively simplified. */
+.main-content-root > .app-shell {
+  display: block;
+  min-height: auto;
+}
+
+.main-content-root > .app-shell > .sidebar {
+  display: none !important;
+}
+
+.main-content-root > .app-shell > .main-content {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.auth-loading-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f5f4ef;
+}
+
+.auth-loading-card {
+  width: min(360px, 100%);
+  display: grid;
+  gap: 6px;
+  padding: 22px;
+  border: 1px solid rgba(31, 55, 43, 0.12);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 14px 40px rgba(26, 38, 31, 0.08);
+}
+
+.auth-loading-card strong {
+  font-size: 18px;
+}
+
+.auth-loading-card span {
+  opacity: 0.65;
+}
+
+.sidebar-footer {
+  display: grid;
+  gap: 10px;
+}
+
+.restaurant-card-copy {
+  min-width: 0;
+}
+
+.sidebar-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sidebar-logout:hover {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.sidebar-logout:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.matching-list,
+.catalogue-editor-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.matching-row,
+.catalogue-editor-row {
+  border: 1px solid rgba(31, 55, 43, 0.11);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.matching-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(260px, 1.7fr);
+  gap: 18px;
+  align-items: center;
+  padding: 14px 16px;
+}
+
+.matching-ingredient {
+  display: grid;
+  gap: 3px;
+}
+
+.matching-ingredient span,
+.catalogue-editor-heading span {
+  font-size: 13px;
+  opacity: 0.62;
+}
+
+.matching-row select,
+.catalogue-editor-fields input,
+.supplier-catalogue-page .invoice-toolbar input,
+.supplier-catalogue-page .invoice-toolbar select,
+.ingredient-matching-page .panel-header input,
+.reports-setup-page input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(31, 55, 43, 0.16);
+  border-radius: 10px;
+  padding: 9px 11px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.catalogue-editor-row {
+  padding: 15px;
+}
+
+.catalogue-editor-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.catalogue-editor-heading > div {
+  display: grid;
+  gap: 3px;
+}
+
+.catalogue-editor-heading label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.catalogue-editor-fields {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) minmax(110px, 0.8fr) minmax(90px, 0.6fr) minmax(110px, 0.7fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.catalogue-editor-fields label,
+.reports-setup-page .settings-field {
+  display: grid;
+  gap: 6px;
+}
+
+.catalogue-editor-fields label > span,
+.reports-setup-page .settings-field > span {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  opacity: 0.65;
+}
+
+.reports-setup-page .settings-field small {
+  opacity: 0.62;
+  line-height: 1.4;
+}
+
+.menu-dish-title-row a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu-dish-title-row a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .catalogue-editor-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .catalogue-editor-fields .primary-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .matching-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .catalogue-editor-heading {
+    align-items: center;
+  }
+
+  .catalogue-editor-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .supplier-catalogue-page .invoice-toolbar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .sidebar-logout {
+    flex: 0 0 auto;
+    width: auto;
+    min-height: 42px;
+    white-space: nowrap;
+  }
+}
