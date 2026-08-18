@@ -8,18 +8,6 @@ export const maxDuration = 120;
 
 
 
-const MAX_FILE_SIZE = 60 * 1024 * 1024;
-
-
-const ALLOWED_TYPES = [
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-];
-
-
-
 const invoiceSchema = {
 
   type: "object",
@@ -28,71 +16,69 @@ const invoiceSchema = {
 
   properties: {
 
-    supplier:{
-      type:["string","null"],
+    supplier: {
+      type: ["string", "null"],
     },
 
-    invoiceNumber:{
-      type:["string","null"],
+    invoiceNumber: {
+      type: ["string", "null"],
     },
 
-    invoiceDate:{
-      type:["string","null"],
+    invoiceDate: {
+      type: ["string", "null"],
     },
 
-    subtotal:{
-      type:["number","null"],
+    subtotal: {
+      type: ["number", "null"],
     },
 
-    vat:{
-      type:["number","null"],
+    vat: {
+      type: ["number", "null"],
     },
 
-    total:{
-      type:["number","null"],
+    total: {
+      type: ["number", "null"],
     },
 
+    lineItems: {
 
-    lineItems:{
+      type: "array",
 
-      type:"array",
+      items: {
 
-      items:{
+        type: "object",
 
-        type:"object",
+        additionalProperties: false,
 
-        additionalProperties:false,
+        properties: {
 
-        properties:{
-
-          product:{
-            type:"string",
+          product: {
+            type: "string",
           },
 
-          quantity:{
-            type:["number","null"],
+          quantity: {
+            type: ["number", "null"],
           },
 
-          pack:{
-            type:["string","null"],
+          pack: {
+            type: ["string", "null"],
           },
 
-          unitPrice:{
-            type:["number","null"],
+          unitPrice: {
+            type: ["number", "null"],
           },
 
-          total:{
-            type:["number","null"],
+          total: {
+            type: ["number", "null"],
           },
 
-          status:{
-            type:["string","null"],
+          status: {
+            type: ["string", "null"],
           },
 
         },
 
-
-        required:[
+        required: [
           "product",
           "quantity",
           "pack",
@@ -108,7 +94,7 @@ const invoiceSchema = {
   },
 
 
-  required:[
+  required: [
     "supplier",
     "invoiceNumber",
     "invoiceDate",
@@ -124,7 +110,7 @@ const invoiceSchema = {
 
 
 
-export async function POST(request:Request){
+export async function POST(request: Request) {
 
   try {
 
@@ -133,18 +119,21 @@ export async function POST(request:Request){
       process.env.OPENAI_API_KEY;
 
 
-    if(!apiKey){
+
+    if (!apiKey) {
 
       return NextResponse.json(
         {
-          error:"Missing OPENAI_API_KEY",
+          error:
+            "OpenAI API key missing",
         },
         {
-          status:500,
+          status: 500,
         }
       );
 
     }
+
 
 
 
@@ -156,31 +145,34 @@ export async function POST(request:Request){
 
 
 
+
     // -----------------------------
-    // RECEIVE FILE
+    // RECEIVE JSON FROM UPLOAD PAGE
     // -----------------------------
 
 
-    const formData =
-      await request.formData();
-
-
-    const file =
-      formData.get("file");
+    const body =
+      await request.json();
 
 
 
-    if(
-      !file ||
-      !(file instanceof File)
-    ){
+    const {
+      fileUrl,
+      fileName,
+      fileType,
+    } = body;
+
+
+
+    if (!fileUrl) {
 
       return NextResponse.json(
         {
-          error:"No invoice file received",
+          error:
+            "No invoice file URL received",
         },
         {
-          status:400,
+          status: 400,
         }
       );
 
@@ -188,129 +180,80 @@ export async function POST(request:Request){
 
 
 
-
     console.log(
-      "Invoice received:",
-      file.name,
-      file.type,
-      file.size
+      "Invoice URL received:",
+      fileName,
+      fileType,
+      fileUrl
     );
 
 
 
 
-    if(file.size > MAX_FILE_SIZE){
-
-      return NextResponse.json(
-        {
-          error:"File too large. Maximum 60MB",
-        },
-        {
-          status:400,
-        }
-      );
-
-    }
-
-
-
-
-    if(
-      !ALLOWED_TYPES.includes(
-        file.type
-      )
-    ){
-
-      return NextResponse.json(
-        {
-          error:"Unsupported file type",
-        },
-        {
-          status:400,
-        }
-      );
-
-    }
-
-
-
 
     // -----------------------------
-    // UPLOAD TO OPENAI
-    // -----------------------------
-
-
-    const uploaded =
-      await openai.files.create({
-
-        file,
-
-        purpose:"user_data",
-
-      });
-
-
-
-    console.log(
-      "OpenAI file:",
-      uploaded.id
-    );
-
-
-
-
-    // -----------------------------
-    // EXTRACT
+    // OPENAI EXTRACTION
     // -----------------------------
 
 
     const response =
       await openai.responses.create({
 
-        model:"gpt-5-mini",
+        model:
+          "gpt-5-mini",
 
 
-        input:[
+
+        input: [
 
           {
 
-            role:"user",
+            role:
+              "user",
 
-            content:[
 
+            content: [
 
               {
 
-                type:"input_text",
+                type:
+                  "input_text",
 
-                text:`
 
-Extract structured data from this UK restaurant supplier invoice.
+                text:
+`
+You are extracting structured data from a UK restaurant supplier invoice.
 
 Rules:
 
 - Do not invent values.
-- Return null if unknown.
-- Extract every invoice line.
-- Preserve product descriptions.
+- Return null when information is missing.
+- Extract every genuine invoice line.
+- Preserve supplier product descriptions exactly where possible.
+- Ignore delivery notes, terms and footer text.
 - Money values must be numbers only.
 - Quantity must be numeric where possible.
-- Pack must contain unit information.
-- Dates should use YYYY-MM-DD.
-
-              `.trim(),
+- Pack should contain pack/unit information.
+- unitPrice means the price charged per invoice unit.
+- total means the line total/net value.
+- Invoice totals must come from the totals section.
+- Dates should use YYYY-MM-DD where possible.
+`.trim(),
 
               },
+
 
 
               {
 
-                type:"input_file",
+                type:
+                  "input_file",
 
-                file_id:uploaded.id,
+
+                file_url:
+                  fileUrl,
 
               },
-
 
             ],
 
@@ -320,17 +263,25 @@ Rules:
 
 
 
-        text:{
 
-          format:{
+        text: {
 
-            type:"json_schema",
+          format: {
 
-            name:"restaurant_invoice",
+            type:
+              "json_schema",
 
-            strict:true,
 
-            schema:invoiceSchema,
+            name:
+              "restaurant_invoice",
+
+
+            strict:
+              true,
+
+
+            schema:
+              invoiceSchema,
 
           },
 
@@ -342,23 +293,24 @@ Rules:
 
 
 
-    const output =
+
+    const outputText =
       response.output_text;
 
 
 
     console.log(
-      "OpenAI response:",
-      output?.slice(0,300)
+      "OpenAI output:",
+      outputText?.slice(0,500)
     );
 
 
 
 
-    if(!output){
+    if (!outputText) {
 
       throw new Error(
-        "No output returned from OpenAI"
+        "No extraction result returned"
       );
 
     }
@@ -367,35 +319,133 @@ Rules:
 
 
     const invoice =
-      JSON.parse(output);
+      JSON.parse(outputText);
+
+
+
+
+
+    const cleanedInvoice = {
+
+
+      supplier:
+        invoice.supplier ?? null,
+
+
+      invoiceNumber:
+        invoice.invoiceNumber ?? null,
+
+
+      invoiceDate:
+        invoice.invoiceDate ?? null,
+
+
+      subtotal:
+        typeof invoice.subtotal === "number"
+        ? invoice.subtotal
+        : null,
+
+
+      vat:
+        typeof invoice.vat === "number"
+        ? invoice.vat
+        : null,
+
+
+      total:
+        typeof invoice.total === "number"
+        ? invoice.total
+        : null,
+
+
+
+      lineItems:
+
+        Array.isArray(invoice.lineItems)
+
+        ?
+
+        invoice.lineItems
+        .filter(
+          (item:any) =>
+            item?.product &&
+            item.product.trim()
+        )
+        .map(
+          (item:any)=>({
+
+            product:
+              item.product.trim(),
+
+            quantity:
+              typeof item.quantity === "number"
+              ? item.quantity
+              : null,
+
+            pack:
+              item.pack ?? null,
+
+            unitPrice:
+              typeof item.unitPrice === "number"
+              ? item.unitPrice
+              : null,
+
+            total:
+              typeof item.total === "number"
+              ? item.total
+              : null,
+
+            status:
+              item.status ?? null,
+
+          })
+        )
+
+        :
+
+        [],
+
+    };
+
+
+
+
+
+    console.log(
+      "Invoice extracted:",
+      cleanedInvoice.supplier,
+      cleanedInvoice.lineItems.length,
+      "lines"
+    );
 
 
 
 
 
     return NextResponse.json(
-      invoice
+      cleanedInvoice
     );
 
 
 
+  }
 
-  } catch(error:any){
+  catch(error:any) {
 
 
     console.error(
-      "FULL EXTRACTION ERROR:",
+      "FULL INVOICE EXTRACTION ERROR:",
       error
     );
 
 
 
     return NextResponse.json(
-
       {
 
         error:
           "Invoice extraction failed",
+
 
         details:
           error?.message ||
@@ -404,9 +454,7 @@ Rules:
       },
 
       {
-
         status:500,
-
       }
 
     );
