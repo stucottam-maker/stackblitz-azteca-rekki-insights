@@ -16,6 +16,8 @@ const ACCEPTED_TYPES = [
   "image/jpeg",
   "image/png",
   "image/webp",
+  "image/heic",
+  "image/heif",
 ];
 
 
@@ -53,18 +55,23 @@ export default function UploadInvoicePage() {
     setError("");
 
 
-    if (!selected) return;
+
+    if (!selected) {
+      return;
+    }
 
 
 
-    if(
+    if (
       !ACCEPTED_TYPES.includes(
         selected.type
       )
-    ){
+    ) {
 
       setError(
-        "Please upload a PDF, JPG, PNG or WEBP invoice."
+        `Unsupported file type: ${
+          selected.type || "unknown"
+        }. Please upload PDF, JPG, PNG, WEBP or HEIC.`
       );
 
       return;
@@ -73,9 +80,9 @@ export default function UploadInvoicePage() {
 
 
 
-    if(
+    if (
       selected.size > MAX_FILE_SIZE
-    ){
+    ) {
 
       setError(
         "File too large. Maximum size is 60MB."
@@ -97,19 +104,22 @@ export default function UploadInvoicePage() {
 
 
 
-  async function extractInvoice(){
+  async function extractInvoice() {
 
 
-    if(
+    if (
       !file ||
       uploading
-    ){
+    ) {
+
       return;
+
     }
 
 
 
     setUploading(true);
+
     setError("");
 
 
@@ -117,13 +127,21 @@ export default function UploadInvoicePage() {
     try {
 
 
-      /*
-        1. Upload PDF/image to Supabase Storage
-      */
+      // -----------------------------
+      // Upload to Supabase Storage
+      // -----------------------------
+
+
+      const safeName =
+        file.name
+          .replace(/\s+/g, "-")
+          .replace(/[^a-zA-Z0-9.-]/g, "");
+
 
 
       const filePath =
-        `invoices/${Date.now()}-${file.name}`;
+        `invoices/${Date.now()}-${safeName}`;
+
 
 
 
@@ -136,29 +154,26 @@ export default function UploadInvoicePage() {
           filePath,
           file,
           {
-            contentType:file.type,
+            contentType:
+              file.type ||
+              "application/octet-stream",
+
             upsert:false,
           }
         );
 
 
 
-      if(uploadError){
+      if (uploadError) {
 
         throw new Error(
-          uploadError.message
+          `Storage upload failed: ${uploadError.message}`
         );
 
       }
 
 
 
-
-
-
-      /*
-        2. Get public URL
-      */
 
 
       const {
@@ -177,11 +192,20 @@ export default function UploadInvoicePage() {
 
 
 
+      console.log(
+        "Stored invoice:",
+        fileUrl
+      );
 
 
-      /*
-        3. Send small JSON request
-      */
+
+
+
+
+
+      // -----------------------------
+      // Call extraction API
+      // -----------------------------
 
 
       const response =
@@ -196,7 +220,6 @@ export default function UploadInvoicePage() {
                 "application/json",
             },
 
-
             body:JSON.stringify({
 
               fileUrl,
@@ -205,7 +228,8 @@ export default function UploadInvoicePage() {
                 file.name,
 
               fileType:
-                file.type,
+                file.type ||
+                "application/octet-stream",
 
             }),
 
@@ -215,10 +239,6 @@ export default function UploadInvoicePage() {
 
 
 
-
-      /*
-        4. Read response safely
-      */
 
 
       const responseText =
@@ -240,7 +260,7 @@ export default function UploadInvoicePage() {
       catch {
 
         console.error(
-          "Non JSON API response:",
+          "Non JSON response:",
           responseText
         );
 
@@ -258,7 +278,7 @@ export default function UploadInvoicePage() {
 
 
       console.log(
-        "Extraction result:",
+        "Extraction:",
         result
       );
 
@@ -266,7 +286,8 @@ export default function UploadInvoicePage() {
 
 
 
-      if(!response.ok){
+
+      if (!response.ok) {
 
         throw new Error(
           result.details ||
@@ -278,6 +299,13 @@ export default function UploadInvoicePage() {
 
 
 
+
+
+
+
+      // -----------------------------
+      // Store extraction result
+      // -----------------------------
 
 
       sessionStorage.setItem(
@@ -301,6 +329,8 @@ export default function UploadInvoicePage() {
 
 
 
+
+
       router.push(
         "/invoices/review"
       );
@@ -309,25 +339,24 @@ export default function UploadInvoicePage() {
 
     }
 
-    catch(err:any){
+    catch(error:any) {
 
 
       console.error(
         "Invoice upload error:",
-        err
+        error
       );
 
 
       setError(
-        err.message ||
+        error.message ||
         "Invoice extraction failed"
       );
 
 
     }
 
-
-    finally{
+    finally {
 
       setUploading(false);
 
@@ -335,6 +364,7 @@ export default function UploadInvoicePage() {
 
 
   }
+
 
 
 
@@ -354,6 +384,7 @@ export default function UploadInvoicePage() {
       <section className="main-content">
 
 
+
         <header className="topbar">
 
           <div>
@@ -369,13 +400,15 @@ export default function UploadInvoicePage() {
 
 
             <p className="page-description">
-              Upload supplier invoices and extract products, quantities and prices.
+              Upload supplier invoices and extract products, quantities and pricing.
             </p>
 
 
           </div>
 
+
         </header>
+
 
 
 
@@ -384,21 +417,23 @@ export default function UploadInvoicePage() {
         <section className="panel">
 
 
+
           <div className="panel-header">
 
             <div>
 
               <p className="panel-kicker">
-                Invoice
+                Invoice capture
               </p>
 
 
               <h2>
-                Capture invoice
+                Add supplier invoice
               </h2>
 
 
             </div>
+
 
           </div>
 
@@ -419,6 +454,7 @@ export default function UploadInvoicePage() {
           >
 
 
+
             <input
 
               type="file"
@@ -427,9 +463,7 @@ export default function UploadInvoicePage() {
 
               accept="
                 application/pdf,
-                image/jpeg,
-                image/png,
-                image/webp
+                image/*
               "
 
               onChange={
@@ -451,6 +485,7 @@ export default function UploadInvoicePage() {
 
 
 
+
             <h3>
 
               {
@@ -458,7 +493,7 @@ export default function UploadInvoicePage() {
                 ?
                 file.name
                 :
-                "Add an invoice"
+                "Choose invoice file"
               }
 
             </h3>
@@ -466,20 +501,19 @@ export default function UploadInvoicePage() {
 
 
             <p>
-              Upload PDF or invoice image.
+              PDF or photo from your phone.
             </p>
 
 
 
             <p
               style={{
-                marginTop:"15px",
+                marginTop:"12px",
                 color:"#888",
               }}
             >
-              PDF · JPG · PNG · WEBP
+              PDF · JPG · PNG · WEBP · HEIC
             </p>
-
 
 
           </label>
@@ -501,13 +535,12 @@ export default function UploadInvoicePage() {
                   whiteSpace:"pre-wrap",
                 }}
               >
-
                 {error}
-
               </div>
 
             )
           }
+
 
 
 
@@ -539,7 +572,7 @@ export default function UploadInvoicePage() {
             {
               uploading
               ?
-              "Extracting invoice..."
+              "Processing invoice..."
               :
               "Extract invoice"
             }
@@ -552,6 +585,7 @@ export default function UploadInvoicePage() {
 
 
         </section>
+
 
 
       </section>
