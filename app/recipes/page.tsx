@@ -7,7 +7,7 @@ import {
   recipes,
   recipeSlug,
   type Recipe,
-} from "../data/recipes";
+} from "../data/allRecipes";
 
 function RecipeRow({
   recipe,
