@@ -1,66 +1,55 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-} from "react";
-
-import {
-  useRouter,
-} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Sidebar from "../../components/Sidebar";
 
 
 type LineItem = {
-  product:string;
-  quantity:number|null;
-  pack:string|null;
-  unitPrice:number|null;
-  total:number|null;
-  status:string|null;
+  product: string;
+  quantity: number | null;
+  pack: string | null;
+  unitPrice: number | null;
+  total: number | null;
+  status: string | null;
 };
 
 
 type Invoice = {
-
-  supplier:string|null;
-
-  invoiceNumber:string|null;
-
-  invoiceDate:string|null;
-
-  subtotal:number|null;
-
-  vat:number|null;
-
-  total:number|null;
-
-  lineItems:LineItem[];
-
+  supplier: string | null;
+  invoiceNumber: string | null;
+  invoiceDate: string | null;
+  subtotal: number | null;
+  vat: number | null;
+  total: number | null;
+  lineItems: LineItem[];
 };
 
 
+export default function InvoiceReviewPage() {
 
-export default function InvoiceReviewPage(){
 
   const router = useRouter();
 
 
-  const [invoices,setInvoices] =
+  const [invoices, setInvoices] =
     useState<Invoice[]>([]);
 
 
-  const [saving,setSaving] =
+  const [saving, setSaving] =
     useState(false);
 
 
-  const [error,setError] =
+  const [error, setError] =
     useState("");
 
 
 
-  useEffect(()=>{
+
+
+  useEffect(() => {
+
 
     const stored =
       sessionStorage.getItem(
@@ -79,20 +68,59 @@ export default function InvoiceReviewPage(){
     }
 
 
-    const parsed =
-      JSON.parse(stored);
+
+    try {
+
+
+      const data =
+        JSON.parse(stored);
 
 
 
-    if(
-      Array.isArray(parsed.invoices)
-    ){
+      /*
+        New batch format
+      */
 
-      setInvoices(
-        parsed.invoices
+
+      if(
+        Array.isArray(
+          data.invoices
+        )
+      ){
+
+        setInvoices(
+          data.invoices
+        );
+
+      }
+
+
+
+      /*
+        Backwards compatibility
+      */
+
+
+      else {
+
+        setInvoices([
+          data
+        ]);
+
+      }
+
+
+
+    }
+
+    catch(err){
+
+      setError(
+        "Could not read invoice data."
       );
 
     }
+
 
 
   },[router]);
@@ -100,32 +128,30 @@ export default function InvoiceReviewPage(){
 
 
 
-  function updateInvoice(
-    index:number,
-    field:keyof Invoice,
-    value:any
+
+
+
+  function money(
+    value:number|null
   ){
 
-    setInvoices(prev=>{
-
-      const copy =
-        [...prev];
-
-      copy[index] = {
-
-        ...copy[index],
-
-        [field]:
-          value,
-
-      };
+    if(value === null){
+      return "—";
+    }
 
 
-      return copy;
-
-    });
+    return new Intl.NumberFormat(
+      "en-GB",
+      {
+        style:"currency",
+        currency:"GBP",
+      }
+    ).format(value);
 
   }
+
+
+
 
 
 
@@ -134,55 +160,28 @@ export default function InvoiceReviewPage(){
 
 
     setSaving(true);
+
     setError("");
 
 
 
-    try{
+    try {
 
 
-      const response =
-        await fetch(
-          "/api/invoices/save",
-          {
+      /*
+        Temporary save step.
 
-            method:
-              "POST",
-
-            headers:{
-              "Content-Type":
-                "application/json",
-            },
-
-            body:
-              JSON.stringify({
-                invoices,
-              }),
-
-          }
-        );
+        This keeps the extracted
+        invoices ready for Supabase
+        insertion.
+      */
 
 
-
-      const result =
-        await response.json();
-
-
-
-      if(!response.ok){
-
-        throw new Error(
-          result.error ||
-          "Could not save invoices."
-        );
-
-      }
-
-
-
-      sessionStorage.removeItem(
-        "invoiceExtraction"
+      sessionStorage.setItem(
+        "approvedInvoices",
+        JSON.stringify(invoices)
       );
+
 
 
       router.push(
@@ -190,20 +189,23 @@ export default function InvoiceReviewPage(){
       );
 
 
-
     }
+
     catch(err:any){
 
       setError(
-        err.message
+        err.message ||
+        "Could not approve invoices."
       );
 
     }
+
     finally{
 
       setSaving(false);
 
     }
+
 
   }
 
@@ -211,328 +213,321 @@ export default function InvoiceReviewPage(){
 
 
 
-  return (
 
-    <div className="app-shell">
 
-      <Sidebar active="invoices"/>
 
+return (
 
-      <main className="main-content">
+<main className="app-shell">
 
 
-        <header className="topbar">
+<Sidebar active="invoices"/>
 
-          <div>
 
-            <p className="eyebrow">
-              Purchasing
-            </p>
 
+<section className="main-content">
 
-            <h1>
-              Review invoices
-            </h1>
 
 
-            <p className="page-description">
-              Check extracted invoices before saving them.
-            </p>
+<header className="topbar">
 
-          </div>
+<div>
 
-        </header>
+<p className="eyebrow">
+Purchasing
+</p>
 
 
+<h1>
+Review invoices
+</h1>
 
 
+<p className="page-description">
+Check extracted supplier invoices before saving.
+</p>
 
-        {
-          invoices.map(
-            (invoice,index)=>(
 
+</div>
 
-              <section
-                key={index}
-                className="panel"
-              >
 
+</header>
 
-                <div className="panel-header">
 
-                  <div>
 
-                    <p className="panel-kicker">
-                      Invoice {index+1}
-                    </p>
 
 
-                    <h2>
-                      {invoice.supplier ||
-                      "Unknown supplier"}
-                    </h2>
 
-                  </div>
 
-                </div>
+{
+error && (
 
+<div
+className="invoice-error"
+>
+{error}
+</div>
 
+)
 
+}
 
 
-                <div className="form-grid">
 
 
-                  <label>
 
-                    Supplier
 
-                    <input
 
-                      value={
-                        invoice.supplier ?? ""
-                      }
+{
+invoices.map(
+(invoice,index)=>(
 
-                      onChange={
-                        e=>
-                          updateInvoice(
-                            index,
-                            "supplier",
-                            e.target.value
-                          )
-                      }
 
-                    />
+<section
+key={index}
+className="panel"
+style={{
+marginBottom:"25px",
+}}
+>
 
-                  </label>
 
+<div className="panel-header">
 
+<div>
 
+<p className="panel-kicker">
+Invoice {index + 1}
+</p>
 
-                  <label>
 
-                    Invoice number
+<h2>
+{invoice.supplier || "Unknown supplier"}
+</h2>
 
-                    <input
 
-                      value={
-                        invoice.invoiceNumber ?? ""
-                      }
+</div>
 
-                      onChange={
-                        e=>
-                          updateInvoice(
-                            index,
-                            "invoiceNumber",
-                            e.target.value
-                          )
-                      }
+</div>
 
-                    />
 
-                  </label>
 
 
 
+<div
+className="stats-grid"
+>
 
-                  <label>
 
-                    Date
+<div className="stat-card">
 
-                    <input
+<p className="stat-label">
+Invoice number
+</p>
 
-                      value={
-                        invoice.invoiceDate ?? ""
-                      }
+<p className="stat-value">
+{invoice.invoiceNumber || "—"}
+</p>
 
-                      onChange={
-                        e=>
-                          updateInvoice(
-                            index,
-                            "invoiceDate",
-                            e.target.value
-                          )
-                      }
+</div>
 
-                    />
 
-                  </label>
 
 
+<div className="stat-card">
 
+<p className="stat-label">
+Date
+</p>
 
-                  <label>
+<p className="stat-value">
+{invoice.invoiceDate || "—"}
+</p>
 
-                    Total
+</div>
 
-                    <input
 
-                      value={
-                        invoice.total ?? ""
-                      }
 
-                      onChange={
-                        e=>
-                          updateInvoice(
-                            index,
-                            "total",
-                            Number(e.target.value)
-                          )
-                      }
 
-                    />
 
-                  </label>
+<div className="stat-card">
 
+<p className="stat-label">
+Total
+</p>
 
-                </div>
+<p className="stat-value">
+{money(invoice.total)}
+</p>
 
+</div>
 
 
+</div>
 
 
-                <h3>
-                  Line items ({invoice.lineItems.length})
-                </h3>
 
 
 
-                <div className="table-wrapper">
 
-                  <table>
 
-                    <thead>
+<div className="table-wrapper">
 
-                      <tr>
 
-                        <th>
-                          Product
-                        </th>
+<table
+className="invoice-history-table"
+>
 
-                        <th>
-                          Qty
-                        </th>
 
-                        <th>
-                          Pack
-                        </th>
+<thead>
 
-                        <th>
-                          Unit price
-                        </th>
+<tr>
 
-                        <th>
-                          Total
-                        </th>
+<th>
+Product
+</th>
 
-                      </tr>
+<th>
+Pack
+</th>
 
-                    </thead>
+<th>
+Qty
+</th>
 
+<th>
+Unit price
+</th>
 
-                    <tbody>
+<th>
+Total
+</th>
 
 
-                    {
-                      invoice.lineItems.map(
-                        (item,lineIndex)=>(
+</tr>
 
-                          <tr
-                            key={lineIndex}
-                          >
+</thead>
 
-                            <td>
-                              {item.product}
-                            </td>
 
-                            <td>
-                              {item.quantity ?? "-"}
-                            </td>
 
-                            <td>
-                              {item.pack ?? "-"}
-                            </td>
 
-                            <td>
-                              £{item.unitPrice ?? "-"}
-                            </td>
+<tbody>
 
-                            <td>
-                              £{item.total ?? "-"}
-                            </td>
 
+{
+invoice.lineItems.map(
+(item,lineIndex)=>(
 
-                          </tr>
 
-                        )
-                      )
-                    }
+<tr
+key={lineIndex}
+>
 
 
-                    </tbody>
+<td>
 
+<strong>
+{item.product}
+</strong>
 
-                  </table>
+</td>
 
-                </div>
 
+<td>
+{item.pack || "—"}
+</td>
 
-              </section>
 
+<td>
+{item.quantity ?? "—"}
+</td>
 
-            )
 
-          )
-        }
+<td>
+{money(item.unitPrice)}
+</td>
 
 
+<td>
+{money(item.total)}
+</td>
 
 
+</tr>
 
-        {
-          error &&
 
-          <div className="invoice-error">
+)
 
-            {error}
+)
 
-          </div>
+}
 
-        }
 
 
+</tbody>
 
 
+</table>
 
-        <button
 
-          className="primary-button"
+</div>
 
-          disabled={
-            saving ||
-            invoices.length===0
-          }
 
-          onClick={
-            approveInvoices
-          }
 
-        >
 
-          {
-            saving
-            ? "Saving..."
-            : `Approve ${invoices.length} invoice${invoices.length > 1 ? "s" : ""}`
-          }
+</section>
 
-        </button>
 
+)
 
+)
 
-      </main>
+}
 
-    </div>
 
-  );
+
+
+
+
+<button
+
+className="primary-button"
+
+disabled={
+saving ||
+invoices.length===0
+}
+
+onClick={
+approveInvoices
+}
+
+>
+
+{
+saving
+?
+"Saving..."
+:
+`Approve ${invoices.length} invoice${
+invoices.length > 1 ? "s" : ""
+}`
+}
+
+
+</button>
+
+
+
+
+
+</section>
+
+
+</main>
+
+
+);
+
 
 }
