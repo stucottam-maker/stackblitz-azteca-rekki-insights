@@ -1,494 +1,264 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { createClient } from "@supabase/supabase-js";
 
-import { useRouter } from "next/navigation";
-
-import Sidebar from "../components/Sidebar";
-import { supabase } from "../lib/supabase";
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 
-type InvoiceRow = {
+type Invoice = {
   id: string;
-  invoice_number: string | null;
-  invoice_date: string | null;
-  subtotal: number | null;
-  vat: number | null;
-  total: number | null;
-  status: string;
-  approved_at: string | null;
-  created_at: string;
-supplier:
-  | {
-      name: string;
-    }
-  | {
-      name: string;
-    }[]
-  | null;
-
-  invoice_lines?: {
-    id: string;
-  }[];
+  supplier: string;
+  invoice_number?: string | null;
+  invoice_date?: string | null;
+  subtotal?: number | null;
+  vat?: number | null;
+  total?: number | null;
+  line_items?: any[];
+  created_at?: string;
 };
-
-
-function money(
-  value: number | null | undefined
-) {
-  if (
-    value === null ||
-    value === undefined
-  ) {
-    return "—";
-  }
-
-  return new Intl.NumberFormat(
-    "en-GB",
-    {
-      style: "currency",
-      currency: "GBP",
-    }
-  ).format(value);
-}
-
-
-function formatDate(
-  value: string | null
-) {
-  if (!value) {
-    return "—";
-  }
-
-  return new Intl.DateTimeFormat(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }
-  ).format(
-    new Date(value)
-  );
-}
 
 
 export default function InvoicesPage() {
 
-  const router = useRouter();
-
-  const [
-    invoices,
-    setInvoices,
-  ] = useState<InvoiceRow[]>([]);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [loading, setLoading] = useState(true);
 
 
-  const [
-    loading,
-    setLoading,
-  ] = useState(true);
+  async function loadInvoices() {
+
+    setLoading(true);
+
+    const { data, error } = await supabase
+      .from("invoices")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
 
 
-  const [
-    error,
-    setError,
-  ] = useState("");
+    if (error) {
+      console.error(
+        "Invoice loading error:",
+        error
+      );
+      setInvoices([]);
+    } else {
+      setInvoices(data || []);
+    }
 
-
-  const loadInvoices =
-    useCallback(
-      async () => {
-
-        setLoading(true);
-        setError("");
-
-        try {
-
-          const {
-            data,
-            error,
-          } =
-            await supabase
-              .from("invoices")
-              .select(`
-                id,
-                invoice_number,
-                invoice_date,
-                subtotal,
-                vat,
-                total,
-                status,
-                approved_at,
-                created_at,
-
-                supplier:suppliers(
-                  name
-                ),
-
-                invoice_lines(
-                  id
-                )
-              `)
-              .order(
-                "created_at",
-                {
-                  ascending:false,
-                }
-              );
-
-
-          if (error) {
-            throw error;
-          }
-
-
-          setInvoices(
-            (data as InvoiceRow[]) ?? []
-          );
-
-
-        } catch(err) {
-
-          console.error(err);
-
-          setError(
-            err instanceof Error
-              ? err.message
-              : "Could not load invoices."
-          );
-
-        } finally {
-
-          setLoading(false);
-
-        }
-
-      },
-      []
-    );
+    setLoading(false);
+  }
 
 
   useEffect(() => {
-
-    void loadInvoices();
-
-  }, [loadInvoices]);
+    loadInvoices();
+  }, []);
 
 
 
   const totalSpend =
-    useMemo(
-      () =>
-        invoices.reduce(
-          (
-            total,
-            invoice
-          ) =>
-            total +
-            Number(
-              invoice.total ?? 0
-            ),
-          0
-        ),
-      [invoices]
+    invoices.reduce(
+      (sum, invoice) =>
+        sum +
+        Number(invoice.total || 0),
+      0
     );
 
 
-
- const suppliers =
-  useMemo(
-    () =>
+  const suppliers =
+    Array.from(
       new Set(
-        invoices
-          .map((invoice) =>
-            Array.isArray(invoice.supplier)
-              ? invoice.supplier[0]?.name
-              : invoice.supplier?.name
-          )
-          .filter(Boolean)
-      ).size,
-
-    [invoices]
-  );
+        invoices.map(
+          invoice =>
+            invoice.supplier
+        )
+      )
+    );
 
 
 
   return (
 
-    <div className="app-shell">
+    <main className="page">
+
+      <div className="page-header">
+
+        <div>
+          <p className="eyebrow">
+            PURCHASING
+          </p>
+
+          <h1>
+            Invoices
+          </h1>
+
+          <p className="subtitle">
+            Supplier invoice history and spend tracking.
+          </p>
+        </div>
 
 
-      <Sidebar active="invoices" />
+        <Link
+          href="/invoices/upload"
+          className="button"
+        >
+          + Upload invoice
+        </Link>
+
+      </div>
 
 
-      <main className="main-content">
+
+      <section className="stats-grid">
+
+        <div className="card">
+          <span>
+            Invoices
+          </span>
+
+          <strong>
+            {invoices.length}
+          </strong>
+        </div>
 
 
-        <header className="topbar">
+        <div className="card">
 
-          <div>
+          <span>
+            Recorded spend
+          </span>
 
-            <p className="eyebrow">
-              Purchasing
-            </p>
+          <strong>
+            £
+            {totalSpend.toFixed(2)}
+          </strong>
+
+        </div>
 
 
-            <h1>
-              Invoices
-            </h1>
+
+        <div className="card">
+
+          <span>
+            Suppliers
+          </span>
+
+          <strong>
+            {suppliers.length}
+          </strong>
+
+        </div>
+
+      </section>
 
 
-            <p className="page-description">
-              Supplier invoice history and spend tracking.
-            </p>
 
-          </div>
+
+      <section className="card invoice-history">
+
+        <div className="section-header">
+
+          <h2>
+            Invoice history
+          </h2>
 
 
           <button
-            className="primary-button"
-            onClick={() =>
-              router.push(
-                "/invoices/upload"
-              )
-            }
+            onClick={loadInvoices}
+            className="secondary-button"
           >
-            + Upload invoice
+            Refresh
           </button>
 
-
-        </header>
-
-
-
-        <section className="stats-grid">
-
-
-          <div className="stat-card">
-
-            <p className="stat-label">
-              Invoices
-            </p>
-
-            <p className="stat-value">
-              {invoices.length}
-            </p>
-
-          </div>
+        </div>
 
 
 
-          <div className="stat-card">
-
-            <p className="stat-label">
-              Recorded spend
-            </p>
-
-            <p className="stat-value">
-              {money(totalSpend)}
-            </p>
-
-          </div>
+        {loading && (
+          <p>
+            Loading invoices...
+          </p>
+        )}
 
 
 
-          <div className="stat-card">
+        {!loading &&
+          invoices.length === 0 && (
 
-            <p className="stat-label">
-              Suppliers
-            </p>
+          <div className="empty">
 
-            <p className="stat-value">
-              {suppliers}
-            </p>
-
-          </div>
-
-
-        </section>
-
-
-
-        <section className="panel">
-
-
-          <div className="panel-header">
-
-            <h2>
-              Invoice history
-            </h2>
-
-
-            <button
-              className="secondary-inline-button"
-              onClick={() =>
-                void loadInvoices()
-              }
-            >
-              Refresh
-            </button>
-
-          </div>
-
-
-
-          {error && (
-
-            <p className="invoice-error">
-              {error}
-            </p>
-
-          )}
-
-
-
-          {loading ? (
+            <h3>
+              No invoices yet
+            </h3>
 
             <p>
-              Loading invoices...
+              Upload your first supplier invoice.
             </p>
 
+          </div>
 
-          ) : invoices.length === 0 ? (
-
-            <div className="invoice-empty-state">
-
-              <h3>
-                No invoices yet
-              </h3>
-
-              <p>
-                Upload your first supplier invoice.
-              </p>
-
-            </div>
-
-
-          ) : (
-
-
-            <div className="table-wrapper">
-
-
-              <table className="invoice-history-table">
-
-
-                <thead>
-
-                  <tr>
-
-                    <th>
-                      Supplier
-                    </th>
-
-                    <th>
-                      Invoice
-                    </th>
-
-                    <th>
-                      Date
-                    </th>
-
-                    <th>
-                      Lines
-                    </th>
-
-                    <th>
-                      Total
-                    </th>
-
-                    <th>
-                      Status
-                    </th>
-
-                  </tr>
-
-                </thead>
+        )}
 
 
 
-                <tbody>
+
+        <div className="invoice-list">
+
+          {invoices.map(invoice => (
+
+            <div
+              key={invoice.id}
+              className="invoice-row"
+            >
+
+              <div>
+
+                <h3>
+                  {invoice.supplier}
+                </h3>
 
 
-                  {invoices.map(
-                    invoice => (
-
-                    <tr
-                      key={invoice.id}
-                    >
-
-                      <td>
-                       {
-  Array.isArray(invoice.supplier)
-    ? invoice.supplier[0]?.name ?? "Unknown"
-    : invoice.supplier?.name ?? "Unknown"
-}
-                      </td>
+                <p>
+                  {invoice.invoice_number ||
+                    "No invoice number"}
+                </p>
 
 
-                      <td>
-                        {invoice.invoice_number ??
-                          "—"}
-                      </td>
+                <p>
+                  {invoice.invoice_date ||
+                    ""}
+                </p>
+
+              </div>
 
 
-                      <td>
-                        {formatDate(
-                          invoice.invoice_date
-                        )}
-                      </td>
 
+              <div className="invoice-total">
 
-                      <td>
-                        {
-                          invoice.invoice_lines
-                            ?.length ?? 0
-                        }
-                      </td>
+                £
+                {Number(
+                  invoice.total || 0
+                ).toFixed(2)}
 
-
-                      <td>
-                        {money(
-                          invoice.total
-                        )}
-                      </td>
-
-
-                      <td>
-                        {invoice.status}
-                      </td>
-
-
-                    </tr>
-
-                  ))}
-
-
-                </tbody>
-
-
-              </table>
+              </div>
 
 
             </div>
 
+          ))}
 
-          )}
-
-
-        </section>
+        </div>
 
 
-      </main>
+      </section>
 
 
-    </div>
+    </main>
 
   );
-
 }
