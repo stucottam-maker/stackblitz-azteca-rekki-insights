@@ -1,104 +1,46 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-
-
-type Invoice = {
-  id?: string;
-  supplier?: string;
-  invoiceNumber?: string;
-  invoiceDate?: string;
-  total?: number;
-  lineItems?: any[];
-};
-
+import { useEffect, useState } from "react";
 
 
 export default function InvoicesPage() {
 
-
-  const [invoices,setInvoices] = useState<Invoice[]>([]);
-  const [loading,setLoading] = useState(true);
+  const [invoices, setInvoices] = useState<any[]>([]);
 
 
-
-  async function loadInvoices(){
+  useEffect(() => {
 
     try {
 
-      setLoading(true);
+      const stored =
+        localStorage.getItem("invoices");
 
+      if (stored) {
 
-      const response =
-        await fetch(
-          "/api/invoices",
-          {
-            cache:"no-store"
-          }
+        setInvoices(
+          JSON.parse(stored)
         );
 
-
-      const data =
-        await response.json();
-
-
-      console.log(
-        "INVOICE DATA",
-        data
-      );
-
-
-      if(Array.isArray(data)){
-
-        setInvoices(data);
-
-      }
-      else if(Array.isArray(data.invoices)){
-
-        setInvoices(data.invoices);
-
-      }
-      else {
-
-        setInvoices([]);
-
       }
 
-
-    }
-    catch(error){
+    } catch (error) {
 
       console.error(
         "Loading invoices failed",
         error
       );
 
-      setInvoices([]);
-
-    }
-    finally{
-
-      setLoading(false);
-
     }
 
-  }
-
-
-
-  useEffect(()=>{
-
-    loadInvoices();
-
-  },[]);
+  }, []);
 
 
 
 
-  const spend =
+  const totalSpend =
     invoices.reduce(
-      (sum,invoice)=>
+      (sum, invoice) =>
         sum + Number(invoice.total || 0),
       0
     );
@@ -107,9 +49,10 @@ export default function InvoicesPage() {
 
   const suppliers =
     new Set(
-      invoices
-      .map(i=>i.supplier)
-      .filter(Boolean)
+      invoices.map(
+        invoice =>
+          invoice.supplier
+      )
     ).size;
 
 
@@ -119,7 +62,7 @@ export default function InvoicesPage() {
     <div className="page">
 
 
-      <div className="page-header">
+      <div className="topbar">
 
 
         <div>
@@ -134,10 +77,9 @@ export default function InvoicesPage() {
           </h1>
 
 
-          <p>
+          <p className="page-description">
             Supplier invoice history and spend tracking.
           </p>
-
 
         </div>
 
@@ -147,9 +89,7 @@ export default function InvoicesPage() {
           href="/invoices/upload"
           className="primary-button"
         >
-
           + Upload invoice
-
         </Link>
 
 
@@ -159,37 +99,35 @@ export default function InvoicesPage() {
 
 
 
-      <div className="card-grid">
+      <div className="stats-grid invoice-stats">
 
 
         <div className="stat-card">
 
-          <span>
+          <p className="stat-label">
             Invoices
-          </span>
+          </p>
 
-
-          <strong>
+          <p className="stat-value">
             {invoices.length}
-          </strong>
+          </p>
 
         </div>
 
 
 
 
-
         <div className="stat-card">
 
-          <span>
+          <p className="stat-label">
             Recorded spend
-          </span>
+          </p>
 
 
-          <strong>
+          <p className="stat-value">
             £
-            {spend.toFixed(2)}
-          </strong>
+            {totalSpend.toFixed(2)}
+          </p>
 
         </div>
 
@@ -199,17 +137,38 @@ export default function InvoicesPage() {
 
         <div className="stat-card">
 
-          <span>
+          <p className="stat-label">
             Suppliers
-          </span>
+          </p>
 
 
-          <strong>
+          <p className="stat-value">
             {suppliers}
-          </strong>
+          </p>
+
 
         </div>
 
+
+
+        <div className="stat-card">
+
+          <p className="stat-label">
+            Status
+          </p>
+
+
+          <p className="stat-value">
+            —
+          </p>
+
+
+          <p className="stat-change neutral">
+            Tracking active
+          </p>
+
+
+        </div>
 
 
       </div>
@@ -218,12 +177,10 @@ export default function InvoicesPage() {
 
 
 
+      <div className="panel invoices-page-panel">
 
 
-      <div className="card invoice-history">
-
-
-        <div className="page-header">
+        <div className="invoice-toolbar">
 
 
           <div>
@@ -232,17 +189,18 @@ export default function InvoicesPage() {
               Invoice history
             </h2>
 
+
           </div>
 
 
 
           <button
             className="secondary-button"
-            onClick={loadInvoices}
+            onClick={() =>
+              window.location.reload()
+            }
           >
-
             Refresh
-
           </button>
 
 
@@ -252,150 +210,133 @@ export default function InvoicesPage() {
 
 
 
-
-
         {
-          loading &&
+          invoices.length === 0 ? (
 
-          <p>
-            Loading invoices...
-          </p>
+            <div
+              className="empty-extraction"
+            >
 
-        }
+              <p>
+                No invoices yet
+              </p>
 
-
-
-
-
-
-
-        {
-          !loading &&
-          invoices.length === 0 &&
-
-          <div
-            style={{
-              textAlign:"center",
-              padding:"50px"
-            }}
-          >
-
-            <h3>
-              No invoices yet
-            </h3>
+              <span>
+                Upload your first supplier invoice.
+              </span>
 
 
-            <p>
-              Upload your first supplier invoice.
-            </p>
+            </div>
 
 
-          </div>
-
-        }
+          ) : (
 
 
 
+            <div className="table-wrapper">
 
 
+              <table>
 
 
+                <thead>
 
-        {
-          invoices.length > 0 &&
+                  <tr>
 
-          <table>
+                    <th>
+                      Supplier
+                    </th>
 
+                    <th>
+                      Invoice number
+                    </th>
 
-            <thead>
+                    <th>
+                      Date
+                    </th>
 
-              <tr>
+                    <th>
+                      Total
+                    </th>
 
-                <th>
-                  Supplier
-                </th>
-
-                <th>
-                  Invoice
-                </th>
-
-                <th>
-                  Date
-                </th>
-
-                <th>
-                  Total
-                </th>
-
-              </tr>
-
-            </thead>
-
-
-
-            <tbody>
-
-
-            {
-              invoices.map(
-                (invoice,index)=>(
-
-
-                  <tr key={invoice.id || index}>
-
-
-                    <td>
-
-                      <strong>
-                        {invoice.supplier || "Unknown"}
-                      </strong>
-
-                    </td>
-
-
-                    <td>
-
-                      {invoice.invoiceNumber || "-"}
-
-                    </td>
-
-
-
-                    <td>
-
-                      {invoice.invoiceDate || "-"}
-
-                    </td>
-
-
-
-                    <td>
-
-                      £
-                      {Number(invoice.total || 0).toFixed(2)}
-
-                    </td>
-
+                    <th>
+                      Status
+                    </th>
 
                   </tr>
 
 
-                )
-              )
-            }
+                </thead>
 
 
-            </tbody>
+
+                <tbody>
 
 
-          </table>
+                {
+                  invoices.map(
+                    (invoice,index)=>(
+
+
+                      <tr
+                        key={index}
+                      >
+
+                        <td>
+                          <strong>
+                            {invoice.supplier || "Unknown"}
+                          </strong>
+                        </td>
+
+
+                        <td>
+                          {invoice.invoiceNumber || "-"}
+                        </td>
+
+
+                        <td>
+                          {invoice.invoiceDate || "-"}
+                        </td>
+
+
+                        <td>
+                          £
+                          {invoice.total || "0.00"}
+                        </td>
+
+
+                        <td>
+
+                          <span className="status-badge status-approved">
+                            Saved
+                          </span>
+
+                        </td>
+
+
+                      </tr>
+
+
+                    )
+                  )
+                }
+
+
+                </tbody>
+
+
+              </table>
+
+
+            </div>
+
+
+          )
 
         }
 
 
-
       </div>
-
 
 
     </div>
