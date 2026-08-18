@@ -1,6 +1,7 @@
 import "./globals.css";
 import "./ui-fixes.css";
 import "./mobile-nav-fix.css";
+import "./mobile-page-fixes.css";
 
 import Sidebar from "./components/Sidebar";
 
