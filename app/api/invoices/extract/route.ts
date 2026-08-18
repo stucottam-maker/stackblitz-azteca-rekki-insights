@@ -14,9 +14,7 @@ const invoiceSchema = {
 
   additionalProperties:false,
 
-
   properties:{
-
 
     invoices:{
 
@@ -28,112 +26,88 @@ const invoiceSchema = {
 
         additionalProperties:false,
 
-
         properties:{
-
 
           supplier:{
             type:["string","null"],
           },
 
-
           invoiceNumber:{
             type:["string","null"],
           },
-
 
           invoiceDate:{
             type:["string","null"],
           },
 
-
           subtotal:{
             type:["number","null"],
           },
-
 
           vat:{
             type:["number","null"],
           },
 
-
           total:{
             type:["number","null"],
           },
 
-
-
           lineItems:{
-
 
             type:"array",
 
-
             items:{
-
 
               type:"object",
 
               additionalProperties:false,
 
-
               properties:{
-
 
                 product:{
                   type:"string",
                 },
 
-
                 quantity:{
                   type:["number","null"],
                 },
-
 
                 pack:{
                   type:["string","null"],
                 },
 
-
                 unitPrice:{
                   type:["number","null"],
                 },
-
 
                 total:{
                   type:["number","null"],
                 },
 
-
                 status:{
                   type:["string","null"],
                 },
-
 
               },
 
 
               required:[
-
                 "product",
                 "quantity",
                 "pack",
                 "unitPrice",
                 "total",
                 "status",
-
               ],
 
             },
 
           },
 
-
         },
 
 
         required:[
-
           "supplier",
           "invoiceNumber",
           "invoiceDate",
@@ -141,22 +115,17 @@ const invoiceSchema = {
           "vat",
           "total",
           "lineItems",
-
         ],
-
 
       },
 
     },
 
-
   },
 
 
   required:[
-
     "invoices",
-
   ],
 
 };
@@ -178,13 +147,8 @@ process.env.OPENAI_API_KEY;
 
 if(!apiKey){
 
-return NextResponse.json(
-{
-error:"OpenAI API key missing"
-},
-{
-status:500
-}
+throw new Error(
+"Missing OPENAI_API_KEY"
 );
 
 }
@@ -193,16 +157,20 @@ status:500
 
 const openai =
 new OpenAI({
-apiKey
+apiKey,
 });
 
 
 
 
 
+// -------------------------
+// RECEIVE SUPABASE URL
+// -------------------------
+
+
 const body =
 await request.json();
-
 
 
 const {
@@ -217,7 +185,7 @@ if(!fileUrl){
 
 return NextResponse.json(
 {
-error:"No invoice URL received"
+error:"Missing file URL"
 },
 {
 status:400
@@ -228,11 +196,92 @@ status:400
 
 
 
-
 console.log(
-"Processing invoice:",
+"Downloading:",
 fileName,
 fileType
+);
+
+
+
+
+
+// -------------------------
+// DOWNLOAD FILE
+// -------------------------
+
+
+const fileResponse =
+await fetch(fileUrl);
+
+
+
+if(!fileResponse.ok){
+
+throw new Error(
+"Could not download invoice file"
+);
+
+}
+
+
+
+const fileBuffer =
+await fileResponse.arrayBuffer();
+
+
+
+
+
+const blob =
+new Blob(
+[
+fileBuffer
+],
+{
+type:fileType
+}
+);
+
+
+
+
+
+const file =
+new File(
+[
+blob
+],
+fileName,
+{
+type:fileType
+}
+);
+
+
+
+
+
+
+// -------------------------
+// SEND TO OPENAI
+// -------------------------
+
+
+const uploaded =
+await openai.files.create({
+
+file,
+
+purpose:"user_data",
+
+});
+
+
+
+console.log(
+"OpenAI file uploaded:",
+uploaded.id
 );
 
 
@@ -243,68 +292,60 @@ fileType
 const response =
 await openai.responses.create({
 
-
-model:"gpt-5-mini",
-
+model:"gpt-5",
 
 
 input:[
 
-
 {
 
-
 role:"user",
-
 
 content:[
 
 
 {
 
-
 type:"input_text",
-
 
 text:`
 
-You are processing a UK restaurant supplier invoice PDF.
+You are processing UK restaurant supplier invoices.
+
+This document may contain:
+- multiple pages
+- multiple invoices
+- invoice continuation pages
+
 
 IMPORTANT:
 
-This PDF may contain multiple invoices.
+Read the entire document.
 
-Read EVERY page.
-
-Do not stop after the first page.
-
-If the PDF contains multiple invoices:
-- create one object per invoice
-- keep each invoice number separate
-- keep each invoice date separate
-- keep each invoice total separate
-- combine all product lines belonging to that invoice
+If multiple invoices exist:
+- create one invoice object per invoice
+- keep invoice numbers separate
+- keep dates separate
+- keep totals separate
 
 
 Rules:
 
 - Extract every genuine invoice line.
-- Preserve supplier product descriptions exactly.
+- Do not stop after the first page.
+- Preserve product descriptions exactly.
 - Do not invent values.
-- Return null when information is missing.
-- Ignore delivery notes, payment terms, bank details and footer text.
+- Return null if unknown.
+- Ignore delivery notes and payment terms.
 - Money values must be numbers only.
 - Quantity must be numeric where possible.
-- Pack should contain pack/unit information.
-- unitPrice means price per invoiced unit.
-- total means line total/net value.
-- Dates should use YYYY-MM-DD.
+- Pack must contain unit information.
+- Dates should be YYYY-MM-DD.
 
-Before answering:
-Check every page has been reviewed.
+Before returning:
+Check that every page has been reviewed.
 
-`
-
+`.trim(),
 
 },
 
@@ -312,21 +353,16 @@ Check every page has been reviewed.
 
 {
 
-
 type:"input_file",
 
-
-file_url:fileUrl,
-
+file_id:uploaded.id,
 
 },
 
 
 ],
 
-
 },
-
 
 ],
 
@@ -334,29 +370,22 @@ file_url:fileUrl,
 
 text:{
 
-
 format:{
-
 
 type:"json_schema",
 
-
-name:"batch_restaurant_invoice",
-
+name:"batch_invoice",
 
 strict:true,
 
-
 schema:invoiceSchema,
 
+}
 
-},
-
-
-},
-
+}
 
 });
+
 
 
 
@@ -368,17 +397,10 @@ response.output_text;
 
 
 
-console.log(
-"Extraction output:",
-output?.slice(0,500)
-);
-
-
-
 if(!output){
 
 throw new Error(
-"No extraction output returned"
+"No OpenAI response"
 );
 
 }
@@ -386,16 +408,16 @@ throw new Error(
 
 
 
-
-const parsed =
-JSON.parse(output);
-
+console.log(
+"Extraction complete:",
+output.substring(0,300)
+);
 
 
 
 
 return NextResponse.json(
-parsed
+JSON.parse(output)
 );
 
 
@@ -406,7 +428,7 @@ catch(error:any){
 
 
 console.error(
-"FULL EXTRACTION ERROR:",
+"INVOICE EXTRACTION ERROR:",
 error
 );
 
@@ -419,10 +441,9 @@ return NextResponse.json(
 error:
 "Invoice extraction failed",
 
-
 details:
 error?.message ||
-String(error),
+String(error)
 
 },
 
@@ -434,6 +455,5 @@ status:500
 
 
 }
-
 
 }
