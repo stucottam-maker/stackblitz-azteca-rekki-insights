@@ -1,346 +1,181 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+type Invoice = {
+  id: string;
+  supplier: string;
+  invoiceNumber: string | null;
+  invoiceDate: string | null;
+  subtotal: number | string | null;
+  vat: number | string | null;
+  total: number | string | null;
+  status: string | null;
+  createdAt: string | null;
+};
 
 export default function InvoicesPage() {
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const [invoices, setInvoices] = useState<any[]>([]);
-
-
-  useEffect(() => {
-
+  const loadInvoices = useCallback(async () => {
     try {
+      setLoading(true);
+      setError("");
 
-      const stored =
-        localStorage.getItem("invoices");
+      const response = await fetch("/api/invoices", {
+        method: "GET",
+        cache: "no-store",
+      });
 
-      if (stored) {
+      const raw = await response.text();
+      let data: any;
 
-        setInvoices(
-          JSON.parse(stored)
-        );
-
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        throw new Error(raw || "Invalid server response");
       }
 
-    } catch (error) {
+      if (!response.ok) {
+        throw new Error(data.error || "Could not load invoices");
+      }
 
-      console.error(
-        "Loading invoices failed",
-        error
-      );
-
+      setInvoices(Array.isArray(data.invoices) ? data.invoices : []);
+    } catch (err: any) {
+      console.error("Loading invoices failed", err);
+      setError(err.message || "Could not load invoices");
+      setInvoices([]);
+    } finally {
+      setLoading(false);
     }
-
   }, []);
 
+  useEffect(() => {
+    loadInvoices();
+  }, [loadInvoices]);
 
+  const totalSpend = invoices.reduce(
+    (sum, invoice) => sum + Number(invoice.total || 0),
+    0
+  );
 
-
-  const totalSpend =
-    invoices.reduce(
-      (sum, invoice) =>
-        sum + Number(invoice.total || 0),
-      0
-    );
-
-
-
-  const suppliers =
-    new Set(
-      invoices.map(
-        invoice =>
-          invoice.supplier
-      )
-    ).size;
-
-
+  const suppliers = new Set(
+    invoices
+      .map((invoice) => invoice.supplier)
+      .filter(Boolean)
+  ).size;
 
   return (
-
     <div className="page">
-
-
       <div className="topbar">
-
-
         <div>
-
-          <p className="eyebrow">
-            Purchasing
-          </p>
-
-
-          <h1>
-            Invoices
-          </h1>
-
-
+          <p className="eyebrow">Purchasing</p>
+          <h1>Invoices</h1>
           <p className="page-description">
             Supplier invoice history and spend tracking.
           </p>
-
         </div>
 
-
-
-        <Link
-          href="/invoices/upload"
-          className="primary-button"
-        >
+        <Link href="/invoices/upload" className="primary-button">
           + Upload invoice
         </Link>
-
-
       </div>
-
-
-
-
 
       <div className="stats-grid invoice-stats">
-
-
         <div className="stat-card">
-
-          <p className="stat-label">
-            Invoices
-          </p>
-
-          <p className="stat-value">
-            {invoices.length}
-          </p>
-
+          <p className="stat-label">Invoices</p>
+          <p className="stat-value">{loading ? "—" : invoices.length}</p>
         </div>
 
-
-
-
         <div className="stat-card">
-
-          <p className="stat-label">
-            Recorded spend
-          </p>
-
-
+          <p className="stat-label">Recorded spend</p>
           <p className="stat-value">
-            £
-            {totalSpend.toFixed(2)}
+            {loading ? "—" : `£${totalSpend.toFixed(2)}`}
           </p>
-
         </div>
 
-
-
-
-
         <div className="stat-card">
-
-          <p className="stat-label">
-            Suppliers
-          </p>
-
-
-          <p className="stat-value">
-            {suppliers}
-          </p>
-
-
+          <p className="stat-label">Suppliers</p>
+          <p className="stat-value">{loading ? "—" : suppliers}</p>
         </div>
 
-
-
         <div className="stat-card">
-
-          <p className="stat-label">
-            Status
-          </p>
-
-
-          <p className="stat-value">
-            —
-          </p>
-
-
+          <p className="stat-label">Status</p>
+          <p className="stat-value">—</p>
           <p className="stat-change neutral">
-            Tracking active
+            {error ? "Load error" : loading ? "Loading" : "Tracking active"}
           </p>
-
-
         </div>
-
-
       </div>
 
-
-
-
-
       <div className="panel invoices-page-panel">
-
-
         <div className="invoice-toolbar">
-
-
           <div>
-
-            <h2>
-              Invoice history
-            </h2>
-
-
+            <h2>Invoice history</h2>
           </div>
-
-
 
           <button
             className="secondary-button"
-            onClick={() =>
-              window.location.reload()
-            }
+            onClick={loadInvoices}
+            disabled={loading}
           >
-            Refresh
+            {loading ? "Loading..." : "Refresh"}
           </button>
-
-
         </div>
 
+        {error && <div className="notice">{error}</div>}
 
+        {loading ? (
+          <div className="empty-extraction">
+            <p>Loading invoices...</p>
+            <span>Fetching records from Supabase.</span>
+          </div>
+        ) : invoices.length === 0 ? (
+          <div className="empty-extraction">
+            <p>No invoices yet</p>
+            <span>Upload your first supplier invoice.</span>
+          </div>
+        ) : (
+          <div className="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Supplier</th>
+                  <th>Invoice number</th>
+                  <th>Date</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
 
-
-
-        {
-          invoices.length === 0 ? (
-
-            <div
-              className="empty-extraction"
-            >
-
-              <p>
-                No invoices yet
-              </p>
-
-              <span>
-                Upload your first supplier invoice.
-              </span>
-
-
-            </div>
-
-
-          ) : (
-
-
-
-            <div className="table-wrapper">
-
-
-              <table>
-
-
-                <thead>
-
-                  <tr>
-
-                    <th>
-                      Supplier
-                    </th>
-
-                    <th>
-                      Invoice number
-                    </th>
-
-                    <th>
-                      Date
-                    </th>
-
-                    <th>
-                      Total
-                    </th>
-
-                    <th>
-                      Status
-                    </th>
-
+              <tbody>
+                {invoices.map((invoice) => (
+                  <tr key={invoice.id}>
+                    <td>
+                      <strong>{invoice.supplier || "Unknown"}</strong>
+                    </td>
+                    <td>{invoice.invoiceNumber || "-"}</td>
+                    <td>{invoice.invoiceDate || "-"}</td>
+                    <td>
+                      {invoice.total === null || invoice.total === undefined
+                        ? "—"
+                        : `£${Number(invoice.total).toFixed(2)}`}
+                    </td>
+                    <td>
+                      <span className="status-badge status-approved">
+                        {invoice.status || "Saved"}
+                      </span>
+                    </td>
                   </tr>
-
-
-                </thead>
-
-
-
-                <tbody>
-
-
-                {
-                  invoices.map(
-                    (invoice,index)=>(
-
-
-                      <tr
-                        key={index}
-                      >
-
-                        <td>
-                          <strong>
-                            {invoice.supplier || "Unknown"}
-                          </strong>
-                        </td>
-
-
-                        <td>
-                          {invoice.invoiceNumber || "-"}
-                        </td>
-
-
-                        <td>
-                          {invoice.invoiceDate || "-"}
-                        </td>
-
-
-                        <td>
-                          £
-                          {invoice.total || "0.00"}
-                        </td>
-
-
-                        <td>
-
-                          <span className="status-badge status-approved">
-                            Saved
-                          </span>
-
-                        </td>
-
-
-                      </tr>
-
-
-                    )
-                  )
-                }
-
-
-                </tbody>
-
-
-              </table>
-
-
-            </div>
-
-
-          )
-
-        }
-
-
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
-
-
     </div>
-
   );
-
 }
