@@ -2,263 +2,404 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 
 type Invoice = {
-  id: string;
-  supplier: string;
-  invoice_number?: string | null;
-  invoice_date?: string | null;
-  subtotal?: number | null;
-  vat?: number | null;
-  total?: number | null;
-  line_items?: any[];
-  created_at?: string;
+  id?: string;
+  supplier?: string;
+  invoiceNumber?: string;
+  invoiceDate?: string;
+  total?: number;
+  lineItems?: any[];
 };
+
 
 
 export default function InvoicesPage() {
 
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [loading, setLoading] = useState(true);
+
+  const [invoices,setInvoices] = useState<Invoice[]>([]);
+  const [loading,setLoading] = useState(true);
 
 
-  async function loadInvoices() {
 
-    setLoading(true);
+  async function loadInvoices(){
 
-    const { data, error } = await supabase
-      .from("invoices")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
+    try {
+
+      setLoading(true);
 
 
-    if (error) {
+      const response =
+        await fetch(
+          "/api/invoices",
+          {
+            cache:"no-store"
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      console.log(
+        "INVOICE DATA",
+        data
+      );
+
+
+      if(Array.isArray(data)){
+
+        setInvoices(data);
+
+      }
+      else if(Array.isArray(data.invoices)){
+
+        setInvoices(data.invoices);
+
+      }
+      else {
+
+        setInvoices([]);
+
+      }
+
+
+    }
+    catch(error){
+
       console.error(
-        "Invoice loading error:",
+        "Loading invoices failed",
         error
       );
+
       setInvoices([]);
-    } else {
-      setInvoices(data || []);
+
+    }
+    finally{
+
+      setLoading(false);
+
     }
 
-    setLoading(false);
   }
 
 
-  useEffect(() => {
+
+  useEffect(()=>{
+
     loadInvoices();
-  }, []);
+
+  },[]);
 
 
 
-  const totalSpend =
+
+  const spend =
     invoices.reduce(
-      (sum, invoice) =>
-        sum +
-        Number(invoice.total || 0),
+      (sum,invoice)=>
+        sum + Number(invoice.total || 0),
       0
     );
 
 
+
   const suppliers =
-    Array.from(
-      new Set(
-        invoices.map(
-          invoice =>
-            invoice.supplier
-        )
-      )
-    );
+    new Set(
+      invoices
+      .map(i=>i.supplier)
+      .filter(Boolean)
+    ).size;
 
 
 
   return (
 
-    <main className="page">
+    <div className="page">
+
 
       <div className="page-header">
 
+
         <div>
+
           <p className="eyebrow">
-            PURCHASING
+            Purchasing
           </p>
+
 
           <h1>
             Invoices
           </h1>
 
-          <p className="subtitle">
+
+          <p>
             Supplier invoice history and spend tracking.
           </p>
+
+
         </div>
+
 
 
         <Link
           href="/invoices/upload"
-          className="button"
+          className="primary-button"
         >
+
           + Upload invoice
+
         </Link>
+
 
       </div>
 
 
 
-      <section className="stats-grid">
 
-        <div className="card">
+
+      <div className="card-grid">
+
+
+        <div className="stat-card">
+
           <span>
             Invoices
           </span>
 
+
           <strong>
             {invoices.length}
           </strong>
+
         </div>
 
 
-        <div className="card">
+
+
+
+        <div className="stat-card">
 
           <span>
             Recorded spend
           </span>
 
+
           <strong>
             £
-            {totalSpend.toFixed(2)}
+            {spend.toFixed(2)}
           </strong>
 
         </div>
 
 
 
-        <div className="card">
+
+
+        <div className="stat-card">
 
           <span>
             Suppliers
           </span>
 
+
           <strong>
-            {suppliers.length}
+            {suppliers}
           </strong>
 
         </div>
 
-      </section>
+
+
+      </div>
 
 
 
 
-      <section className="card invoice-history">
 
-        <div className="section-header">
 
-          <h2>
-            Invoice history
-          </h2>
+
+      <div className="card invoice-history">
+
+
+        <div className="page-header">
+
+
+          <div>
+
+            <h2>
+              Invoice history
+            </h2>
+
+          </div>
+
 
 
           <button
-            onClick={loadInvoices}
             className="secondary-button"
+            onClick={loadInvoices}
           >
+
             Refresh
+
           </button>
+
 
         </div>
 
 
 
-        {loading && (
+
+
+
+
+        {
+          loading &&
+
           <p>
             Loading invoices...
           </p>
-        )}
+
+        }
 
 
 
-        {!loading &&
-          invoices.length === 0 && (
 
-          <div className="empty">
+
+
+
+        {
+          !loading &&
+          invoices.length === 0 &&
+
+          <div
+            style={{
+              textAlign:"center",
+              padding:"50px"
+            }}
+          >
 
             <h3>
               No invoices yet
             </h3>
 
+
             <p>
               Upload your first supplier invoice.
             </p>
 
+
           </div>
 
-        )}
+        }
 
 
 
 
-        <div className="invoice-list">
-
-          {invoices.map(invoice => (
-
-            <div
-              key={invoice.id}
-              className="invoice-row"
-            >
-
-              <div>
-
-                <h3>
-                  {invoice.supplier}
-                </h3>
-
-
-                <p>
-                  {invoice.invoice_number ||
-                    "No invoice number"}
-                </p>
-
-
-                <p>
-                  {invoice.invoice_date ||
-                    ""}
-                </p>
-
-              </div>
 
 
 
-              <div className="invoice-total">
 
-                £
-                {Number(
-                  invoice.total || 0
-                ).toFixed(2)}
+        {
+          invoices.length > 0 &&
 
-              </div>
+          <table>
 
 
-            </div>
+            <thead>
 
-          ))}
+              <tr>
 
-        </div>
+                <th>
+                  Supplier
+                </th>
+
+                <th>
+                  Invoice
+                </th>
+
+                <th>
+                  Date
+                </th>
+
+                <th>
+                  Total
+                </th>
+
+              </tr>
+
+            </thead>
 
 
-      </section>
+
+            <tbody>
 
 
-    </main>
+            {
+              invoices.map(
+                (invoice,index)=>(
+
+
+                  <tr key={invoice.id || index}>
+
+
+                    <td>
+
+                      <strong>
+                        {invoice.supplier || "Unknown"}
+                      </strong>
+
+                    </td>
+
+
+                    <td>
+
+                      {invoice.invoiceNumber || "-"}
+
+                    </td>
+
+
+
+                    <td>
+
+                      {invoice.invoiceDate || "-"}
+
+                    </td>
+
+
+
+                    <td>
+
+                      £
+                      {Number(invoice.total || 0).toFixed(2)}
+
+                    </td>
+
+
+                  </tr>
+
+
+                )
+              )
+            }
+
+
+            </tbody>
+
+
+          </table>
+
+        }
+
+
+
+      </div>
+
+
+
+    </div>
 
   );
+
 }
