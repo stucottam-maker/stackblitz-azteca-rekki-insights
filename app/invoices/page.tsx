@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
+import { supabase } from "../lib/supabase";
+
 type Invoice = {
   id: string;
   supplier: string;
@@ -25,9 +27,20 @@ export default function InvoicesPage() {
       setLoading(true);
       setError("");
 
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session?.access_token) {
+        throw new Error("Please sign in again.");
+      }
+
       const response = await fetch("/api/invoices", {
         method: "GET",
         cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
       });
 
       const raw = await response.text();
@@ -54,7 +67,7 @@ export default function InvoicesPage() {
   }, []);
 
   useEffect(() => {
-    loadInvoices();
+    void loadInvoices();
   }, [loadInvoices]);
 
   const totalSpend = invoices.reduce(
@@ -63,9 +76,7 @@ export default function InvoicesPage() {
   );
 
   const suppliers = new Set(
-    invoices
-      .map((invoice) => invoice.supplier)
-      .filter(Boolean)
+    invoices.map((invoice) => invoice.supplier).filter(Boolean)
   ).size;
 
   return (
@@ -119,7 +130,7 @@ export default function InvoicesPage() {
 
           <button
             className="secondary-button"
-            onClick={loadInvoices}
+            onClick={() => void loadInvoices()}
             disabled={loading}
           >
             {loading ? "Loading..." : "Refresh"}
