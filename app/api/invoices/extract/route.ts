@@ -356,29 +356,3 @@ return NextResponse.json(invoice);
 
 }
 catch(error:any){
-
-console.error(
-"========== INVOICE EXTRACTION ERROR =========="
-);
-
-console.error(error);
-
-
-return NextResponse.json(
-{
-error:"Invoice extraction failed",
-
-details:
-error?.message ??
-JSON.stringify(error),
-
-},
-
-{
-status:500,
-    }
-  );
-
-}
-
-}
