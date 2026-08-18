@@ -1,7 +1,10 @@
 import Link from "next/link";
 
+type SidebarProps = {
+  active?: string;
+};
 
-export default function Sidebar() {
+export default function Sidebar({ active }: SidebarProps) {
 
 const links = [
   ["⌂","Dashboard","/"],
@@ -58,7 +61,11 @@ links.map(
 <Link
 key={name}
 href={url}
-className="nav-link"
+className={`nav-link ${
+  active === name.toLowerCase()
+    ? "nav-link-active"
+    : ""
+}`}
 >
 
 <span className="nav-icon">
