@@ -16,6 +16,7 @@ const links = [
   ["+", "Orders", "/orders"],
   ["▤", "Invoices", "/invoices"],
   ["◯", "Suppliers", "/suppliers"],
+  ["≡", "Catalogue", "/suppliers/catalogue"],
   ["▣", "Ingredients", "/ingredients"],
   ["↔", "Matching", "/ingredients/matching"],
   ["◇", "Recipes", "/recipes"],
@@ -35,6 +36,7 @@ export default function Sidebar({ active }: SidebarProps) {
   function isActive(name: string, url: string) {
     if (active) return active.toLowerCase() === name.toLowerCase();
     if (url === "/") return pathname === "/";
+    if (url === "/suppliers") return pathname === "/suppliers";
     if (url === "/ingredients") return pathname === "/ingredients";
     if (url === "/reports") return pathname === "/reports";
     return pathname === url || pathname.startsWith(`${url}/`);
