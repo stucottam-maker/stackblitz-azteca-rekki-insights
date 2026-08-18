@@ -96,8 +96,10 @@ export default function IngredientMatchingPage() {
     setMappings(next);
     try {
       await persistWorkspaceState("invoiceProductMappings", JSON.stringify(next));
-      setMessage(`${ingredient} mapping saved.`);
-      window.dispatchEvent(new CustomEvent("kitchen-insights:ingredient-prices-updated"));
+      setMessage(`${ingredient} mapping saved. Refreshing recipe prices…`);
+      window.dispatchEvent(
+        new CustomEvent("kitchen-insights:ingredient-mappings-updated")
+      );
     } catch (error: any) {
       setMessage(error?.message || "Could not save mapping");
     } finally {
