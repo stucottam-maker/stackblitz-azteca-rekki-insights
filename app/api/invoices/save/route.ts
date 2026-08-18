@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+
+import {
+  authErrorResponse,
+  requireOrganisation,
+  serviceSupabase,
+} from "../../../lib/serverAuth";
 
 export const runtime = "nodejs";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 function normaliseName(value: string) {
   return value
@@ -28,46 +28,22 @@ function toNumberOrNull(value: unknown) {
 
 export async function POST(req: Request) {
   try {
+    const { organisationId, siteId } = await requireOrganisation(req);
     const body = await req.json();
     const invoices = Array.isArray(body.invoices) ? body.invoices : [];
 
     if (invoices.length === 0) {
-      return NextResponse.json(
-        { error: "No invoices supplied" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "No invoices supplied" }, { status: 400 });
     }
 
-    let organisationId = body.organisation_id || null;
-    let siteId = body.site_id || null;
-
-    if (!organisationId || !siteId) {
-      const { data: site, error: siteError } = await supabase
-        .from("sites")
-        .select("id, organisation_id")
-        .order("created_at", { ascending: true })
-        .limit(1)
-        .single();
-
-      if (siteError || !site) {
-        throw new Error(siteError?.message || "No site is configured");
-      }
-
-      organisationId = organisationId || site.organisation_id;
-      siteId = siteId || site.id;
-    }
-
-    const { data: supplierRows, error: supplierError } = await supabase
+    const { data: supplierRows, error: supplierError } = await serviceSupabase
       .from("suppliers")
       .select("id, name")
       .eq("organisation_id", organisationId);
 
-    if (supplierError) {
-      throw new Error(supplierError.message);
-    }
+    if (supplierError) throw supplierError;
 
     const supplierMap = new Map<string, { id: string; name: string }>();
-
     for (const supplier of supplierRows || []) {
       supplierMap.set(normaliseName(supplier.name), supplier);
     }
@@ -81,14 +57,12 @@ export async function POST(req: Request) {
       let supplier = supplierMap.get(supplierKey);
 
       if (!supplier) {
-        const { data: createdSupplier, error: createSupplierError } = await supabase
-          .from("suppliers")
-          .insert({
-            organisation_id: organisationId,
-            name: supplierName,
-          })
-          .select("id, name")
-          .single();
+        const { data: createdSupplier, error: createSupplierError } =
+          await serviceSupabase
+            .from("suppliers")
+            .insert({ organisation_id: organisationId, name: supplierName })
+            .select("id, name")
+            .single();
 
         if (createSupplierError || !createdSupplier) {
           throw new Error(
@@ -103,17 +77,16 @@ export async function POST(req: Request) {
       const invoiceNumber = invoice.invoiceNumber || null;
 
       if (invoiceNumber) {
-        const { data: existing, error: existingError } = await supabase
+        const { data: existing, error: existingError } = await serviceSupabase
           .from("invoices")
           .select("id")
+          .eq("organisation_id", organisationId)
           .eq("site_id", siteId)
           .eq("supplier_id", supplier.id)
           .eq("invoice_number", invoiceNumber)
           .limit(1);
 
-        if (existingError) {
-          throw new Error(existingError.message);
-        }
+        if (existingError) throw existingError;
 
         if (existing && existing.length > 0) {
           skipped += 1;
@@ -121,7 +94,7 @@ export async function POST(req: Request) {
         }
       }
 
-      const { data: savedInvoice, error: invoiceError } = await supabase
+      const { data: savedInvoice, error: invoiceError } = await serviceSupabase
         .from("invoices")
         .insert({
           organisation_id: organisationId,
@@ -148,10 +121,7 @@ export async function POST(req: Request) {
         const lineRows = lineItems.map((item: any) => ({
           invoice_id: savedInvoice.id,
           product_name:
-            item.product ||
-            item.productName ||
-            item.description ||
-            "Unknown product",
+            item.product || item.productName || item.description || "Unknown product",
           quantity: toNumberOrNull(item.quantity),
           pack: item.pack || item.unit || null,
           unit_price: toNumberOrNull(item.unitPrice),
@@ -159,14 +129,11 @@ export async function POST(req: Request) {
           price_unit: item.priceUnit || null,
         }));
 
-        const { error: lineError } = await supabase
+        const { error: lineError } = await serviceSupabase
           .from("invoice_lines")
           .insert(lineRows);
 
-        if (lineError) {
-          console.error("INVOICE LINE SAVE ERROR", lineError);
-          throw new Error(lineError.message);
-        }
+        if (lineError) throw lineError;
       }
 
       savedInvoices.push(savedInvoice);
@@ -178,12 +145,13 @@ export async function POST(req: Request) {
       skipped,
       invoices: savedInvoices,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("SAVE ERROR", error);
+    const response = authErrorResponse(error);
 
     return NextResponse.json(
-      { error: error.message || "Could not save invoices" },
-      { status: 500 }
+      { error: response.message },
+      { status: response.status }
     );
   }
 }
