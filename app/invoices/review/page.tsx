@@ -3,30 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Sidebar from "../../components/Sidebar";
-
-
-type LineItem = {
-  product: string;
-  quantity: number | null;
-  pack: string | null;
-  unitPrice: number | null;
-  total: number | null;
-  status?: string | null;
-};
-
-
-type Invoice = {
-  supplier?: string | null;
-  invoiceNumber?: string | null;
-  invoiceDate?: string | null;
-  subtotal?: number | null;
-  vat?: number | null;
-  total?: number | null;
-  lineItems: LineItem[];
-};
-
-
 
 export default function InvoiceReviewPage() {
 
@@ -34,163 +10,87 @@ export default function InvoiceReviewPage() {
   const router = useRouter();
 
 
-  const [invoices, setInvoices] =
-    useState<Invoice[]>([]);
+  const [invoices,setInvoices] =
+    useState<any[]>([]);
 
 
-  const [error, setError] =
+  const [loading,setLoading] =
+    useState(true);
+
+
+  const [saving,setSaving] =
+    useState(false);
+
+
+  const [message,setMessage] =
     useState("");
 
 
 
-  const [saving, setSaving] =
-    useState(false);
 
 
-
-
-
-  useEffect(() => {
-
-
-    const stored =
-      sessionStorage.getItem(
-        "invoiceExtraction"
-      );
-
-
-    console.log(
-      "REVIEW DATA:",
-      stored
-    );
-
-
-
-    if(!stored){
-
-      setError(
-        "No invoice extraction found."
-      );
-
-      return;
-
-    }
-
-
+  useEffect(()=>{
 
 
     try {
 
 
-      const data =
-        JSON.parse(stored);
+      const stored =
+        sessionStorage.getItem(
+          "extractedInvoices"
+        );
 
 
+      if(stored){
 
-      let extracted: Invoice[] = [];
-
-
-
-
-
-      // New batch format
-
-      if(
-        Array.isArray(
-          data.invoices
-        )
-      ){
-
-        extracted =
-          data.invoices;
-
-      }
+        const parsed =
+          JSON.parse(stored);
 
 
-
-
-
-      // If API returned array directly
-
-      else if(
-        Array.isArray(data)
-      ){
-
-        extracted =
-          data;
-
-      }
-
-
-
-
-
-      // Old single invoice format
-
-      else if(
-        data.supplier ||
-        data.lineItems
-      ){
-
-        extracted =
-          [
-            data
-          ];
-
-      }
-
-
-
-
-
-      extracted =
-        extracted.map(
-          (invoice)=>({
-
-            ...invoice,
-
-            lineItems:
-              Array.isArray(
-                invoice.lineItems
-              )
-              ?
-              invoice.lineItems
-              :
-              [],
-
-          })
+        console.log(
+          "REVIEW DATA:",
+          parsed
         );
 
 
 
+        if(
+          Array.isArray(parsed)
+        ){
 
-      console.log(
-        "NORMALISED INVOICES:",
-        extracted
-      );
+          setInvoices(parsed);
 
+        }
 
+        else if(
+          Array.isArray(
+            parsed.invoices
+          )
+        ){
 
-      setInvoices(
-        extracted
-      );
+          setInvoices(
+            parsed.invoices
+          );
+
+        }
+
+      }
 
 
 
     }
 
-    catch(err){
+    catch(error){
 
       console.error(
-        err
-      );
-
-      setError(
-        "Could not read invoice extraction."
+        "Loading review failed",
+        error
       );
 
     }
 
+
+    setLoading(false);
 
 
   },[]);
@@ -201,75 +101,124 @@ export default function InvoiceReviewPage() {
 
 
 
-  function money(
-    value:number|null|undefined
-  ){
 
-    if(
-      value === null ||
-      value === undefined
-    ){
-
-      return "—";
-
-    }
-
-
-    return new Intl.NumberFormat(
-      "en-GB",
-      {
-        style:"currency",
-        currency:"GBP",
-      }
-    ).format(value);
-
-  }
-
-
-
-
-
-
-
-  async function approve(){
-
-
-    setSaving(true);
+  async function approveInvoices(){
 
 
     try {
 
 
-      /*
-        Temporary storage.
-        Next step:
-        connect to Supabase invoices table.
-      */
+      setSaving(true);
+
+      setMessage("");
 
 
-      sessionStorage.setItem(
-        "approvedInvoices",
-        JSON.stringify(invoices)
+
+      const response =
+        await fetch(
+          "/api/invoices/save",
+          {
+
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json",
+            },
+
+
+            body:
+              JSON.stringify({
+
+                invoices,
+
+                /*
+                  temporary
+                  replace with real
+                  organisation id
+                  once auth is connected
+                */
+
+                organisation_id:
+                  "00000000-0000-0000-0000-000000000000"
+
+
+              })
+
+          }
+        );
+
+
+
+
+
+      const data =
+        await response.json();
+
+
+
+
+      if(!response.ok){
+
+        throw new Error(
+          data.error ||
+          "Failed saving invoices"
+        );
+
+      }
+
+
+
+
+
+      console.log(
+        "SAVED:",
+        data
       );
 
 
 
-      router.push(
-        "/invoices"
+      setMessage(
+        `Saved ${data.saved} invoices successfully`
       );
+
+
+
+      sessionStorage.removeItem(
+        "extractedInvoices"
+      );
+
+
+
+      setTimeout(()=>{
+
+        router.push(
+          "/invoices"
+        );
+
+      },1200);
+
 
 
 
     }
 
-    catch(err:any){
 
-      setError(
-        err.message ||
-        "Could not approve invoices."
+    catch(error:any){
+
+
+      console.error(
+        error
       );
 
+
+      setMessage(
+        error.message
+      );
+
+
     }
+
 
     finally{
 
@@ -286,337 +235,369 @@ export default function InvoiceReviewPage() {
 
 
 
-return (
 
-<main className="app-shell">
+  if(loading){
 
+    return(
 
-<Sidebar active="invoices"/>
+      <div className="page">
 
+        Loading invoices...
 
+      </div>
 
-<section className="main-content">
+    );
 
+  }
 
-<header className="topbar">
 
-<div>
 
-<p className="eyebrow">
-Purchasing
-</p>
 
 
-<h1>
-Review invoices
-</h1>
 
+  return (
 
-<p className="page-description">
-Check extracted supplier invoices before approval.
-</p>
+    <div className="page">
 
-</div>
 
-</header>
+      <div className="page-header">
 
+        <div>
 
+          <p className="eyebrow">
+            Purchasing
+          </p>
 
 
+          <h1>
+            Review invoices
+          </h1>
 
 
-{
-error && (
+          <p>
+            Check extracted supplier invoices before approval.
+          </p>
 
-<div
-className="invoice-error"
->
-{error}
-</div>
+        </div>
 
-)
 
-}
 
+        <button
 
+          onClick={
+            approveInvoices
+          }
 
+          disabled={
+            saving ||
+            invoices.length===0
+          }
 
+          className="primary-button"
 
+        >
 
+          {saving
+            ? "Saving..."
+            : `Approve ${invoices.length} invoices`
+          }
 
-{
-invoices.length === 0
-?
 
-<div className="panel">
+        </button>
 
-<h2>
-No invoices found
-</h2>
 
-<p>
-The extraction completed but no invoice records were returned.
-</p>
+      </div>
 
-</div>
 
 
-:
 
 
-invoices.map(
-(invoice,index)=>(
 
 
-<section
-className="panel"
-key={index}
-style={{
-marginBottom:"25px",
-}}
->
+      {
+        message &&
 
+        <div className="notice">
 
-<div className="panel-header">
+          {message}
 
-<div>
+        </div>
 
-<p className="panel-kicker">
-Invoice {index + 1}
-</p>
+      }
 
 
-<h2>
-{
-invoice.supplier ||
-"Unknown supplier"
-}
-</h2>
 
-</div>
 
 
-</div>
 
 
 
 
+      {
+        invoices.length===0 &&
 
 
-<div className="stats-grid">
+        <div className="card">
 
+          <h2>
+            No invoices found
+          </h2>
 
-<div className="stat-card">
+          <p>
+            Upload and extract invoices first.
+          </p>
 
-<p className="stat-label">
-Invoice number
-</p>
 
-<p className="stat-value">
-{
-invoice.invoiceNumber ||
-"—"
-}
-</p>
+        </div>
 
-</div>
 
+      }
 
 
 
-<div className="stat-card">
 
-<p className="stat-label">
-Date
-</p>
 
-<p className="stat-value">
-{
-invoice.invoiceDate ||
-"—"
-}
-</p>
 
-</div>
 
 
 
 
-<div className="stat-card">
+      <div className="invoice-list">
 
-<p className="stat-label">
-Total
-</p>
 
-<p className="stat-value">
-{
-money(invoice.total)
-}
-</p>
+      {
+        invoices.map(
+          (invoice,index)=>(
 
-</div>
 
+          <div
+            key={index}
+            className="card"
+          >
 
-</div>
 
+            <div className="invoice-title">
 
+              <span className="badge">
 
+                INVOICE {index+1}
 
+              </span>
 
 
+              <h2>
 
-<div className="table-wrapper">
+                {
+                  invoice.supplier ||
+                  "Unknown supplier"
+                }
 
+              </h2>
 
-<table className="invoice-history-table">
 
+            </div>
 
-<thead>
 
-<tr>
 
-<th>
-Product
-</th>
 
-<th>
-Pack
-</th>
 
-<th>
-Qty
-</th>
 
-<th>
-Unit
-</th>
 
-<th>
-Total
-</th>
+            <div className="invoice-meta">
 
-</tr>
 
-</thead>
+              <div>
 
+                <small>
+                  Invoice number
+                </small>
 
+                <strong>
 
+                  {
+                    invoice.invoiceNumber ||
+                    "-"
+                  }
 
-<tbody>
+                </strong>
 
+              </div>
 
-{
-invoice.lineItems.map(
-(item,line)=>(
 
 
-<tr
-key={line}
->
 
 
-<td>
-<strong>
-{item.product}
-</strong>
-</td>
+              <div>
 
+                <small>
+                  Date
+                </small>
 
-<td>
-{item.pack || "—"}
-</td>
 
+                <strong>
 
-<td>
-{item.quantity ?? "—"}
-</td>
+                  {
+                    invoice.invoiceDate ||
+                    "-"
+                  }
 
+                </strong>
 
-<td>
-{money(item.unitPrice)}
-</td>
 
+              </div>
 
-<td>
-{money(item.total)}
-</td>
 
 
-</tr>
 
 
-)
 
-)
+              <div>
 
-}
+                <small>
+                  Total
+                </small>
 
 
+                <strong>
 
-</tbody>
+                  £
+                  {
+                    invoice.total ||
+                    0
+                  }
 
 
-</table>
+                </strong>
 
 
-</div>
+              </div>
 
 
 
+            </div>
 
 
-</section>
 
 
-)
 
-)
 
-}
 
 
 
+            <table>
 
 
+              <thead>
 
+                <tr>
 
-{
-invoices.length > 0 && (
+                  <th>
+                    Product
+                  </th>
 
-<button
 
-className="primary-button"
+                  <th>
+                    Pack
+                  </th>
 
-disabled={saving}
 
-onClick={approve}
+                  <th>
+                    Qty
+                  </th>
 
->
 
-{
-saving
-?
-"Saving..."
-:
-`Approve ${invoices.length} invoice${
-invoices.length > 1 ? "s" : ""
-}`
-}
+                  <th>
+                    Price
+                  </th>
 
-</button>
 
-)
+                  <th>
+                    Total
+                  </th>
 
-}
 
+                </tr>
 
+              </thead>
 
 
-</section>
 
 
-</main>
+              <tbody>
 
-);
+
+              {
+                invoice.lineItems?.map(
+                  (
+                    item:any,
+                    i:number
+                  )=>(
+
+
+                  <tr key={i}>
+
+
+                    <td>
+                      {item.product}
+                    </td>
+
+
+                    <td>
+                      {item.pack || "-"}
+                    </td>
+
+
+                    <td>
+                      {item.quantity || "-"}
+                    </td>
+
+
+                    <td>
+                      £
+                      {item.unitPrice || "-"}
+                    </td>
+
+
+                    <td>
+                      £
+                      {item.total || "-"}
+                    </td>
+
+
+                  </tr>
+
+
+                  )
+
+                )
+
+              }
+
+
+              </tbody>
+
+
+
+            </table>
+
+
+
+          </div>
+
+
+          )
+
+        )
+
+      }
+
+
+      </div>
+
+
+    </div>
+
+  );
+
 
 }
