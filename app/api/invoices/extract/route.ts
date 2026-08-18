@@ -357,20 +357,20 @@ return NextResponse.json(invoice);
 }
 catch(error:any){
 
-
 console.error(
-"FULL EXTRACTION ERROR:",
-error
+"========== INVOICE EXTRACTION ERROR =========="
 );
 
+console.error(error);
 
 
 return NextResponse.json(
 {
-
 error:"Invoice extraction failed",
 
-details:error?.message || String(error),
+details:
+error?.message ??
+JSON.stringify(error),
 
 },
 
@@ -378,8 +378,5 @@ details:error?.message || String(error),
 status:500
 }
 );
-
-
-}
 
 }
