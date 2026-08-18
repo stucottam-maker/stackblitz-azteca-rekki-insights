@@ -2,9 +2,9 @@ import "./globals.css";
 import "./ui-fixes.css";
 import "./mobile-nav-fix.css";
 import "./mobile-page-fixes.css";
+import "./final-polish.css";
 
-import InvoicePriceSync from "./components/InvoicePriceSync";
-import Sidebar from "./components/Sidebar";
+import AppFrame from "./components/AppFrame";
 
 export const metadata = {
   title: "Kitchen Insights",
@@ -19,15 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <InvoicePriceSync />
-
-        <div className="app-shell">
-          <Sidebar />
-
-          <main className="main-content">
-            {children}
-          </main>
-        </div>
+        <AppFrame>{children}</AppFrame>
       </body>
     </html>
   );
