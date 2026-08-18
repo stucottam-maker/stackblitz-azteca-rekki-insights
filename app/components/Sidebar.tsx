@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
+import { supabase } from "../lib/supabase";
 
 type SidebarProps = {
   active?: string;
@@ -24,7 +26,9 @@ const links = [
 
 export default function Sidebar({ active }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const navRef = useRef<HTMLElement>(null);
+  const [signingOut, setSigningOut] = useState(false);
 
   function isActive(name: string, url: string) {
     if (active) {
@@ -36,6 +40,19 @@ export default function Sidebar({ active }: SidebarProps) {
     }
 
     return pathname === url || pathname.startsWith(`${url}/`);
+  }
+
+  async function logout() {
+    if (signingOut) return;
+    setSigningOut(true);
+
+    try {
+      await supabase.auth.signOut();
+    } finally {
+      router.replace("/login");
+      router.refresh();
+      setSigningOut(false);
+    }
   }
 
   useEffect(() => {
@@ -97,11 +114,21 @@ export default function Sidebar({ active }: SidebarProps) {
         <div className="restaurant-card">
           <div className="restaurant-avatar">AL</div>
 
-          <div>
+          <div className="restaurant-card-copy">
             <div className="restaurant-name">Azteca London</div>
             <div className="restaurant-location">Kitchen workspace</div>
           </div>
         </div>
+
+        <button
+          type="button"
+          className="sidebar-logout"
+          onClick={logout}
+          disabled={signingOut}
+        >
+          <span aria-hidden="true">↪</span>
+          <span>{signingOut ? "Signing out…" : "Log out"}</span>
+        </button>
       </div>
     </aside>
   );
