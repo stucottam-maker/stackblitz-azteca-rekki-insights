@@ -1,141 +1,115 @@
-"use client";
-
 import Link from "next/link";
 
-export type SidebarPage =
-  | "dashboard"
-  | "insights"
-  | "orders"
-  | "invoices"
-  | "suppliers"
-  | "ingredients"
-  | "recipes"
-  | "menu"
-  | "stock"
-  | "reports"
-  | "settings";
 
-type SidebarProps = {
-  active: SidebarPage;
-};
+export default function Sidebar() {
 
-const navItems: {
-  key: SidebarPage;
-  label: string;
-  href: string;
-  icon: string;
-}[] = [
-  {
-    key: "dashboard",
-    label: "Dashboard",
-    href: "/",
-    icon: "⌂",
-  },
-  {
-    key: "insights",
-    label: "Insights",
-    href: "/insights",
-    icon: "✦",
-  },
-  {
-    key: "orders",
-    label: "Orders",
-    href: "/orders",
-    icon: "+",
-  },
-  {
-    key: "invoices",
-    label: "Invoices",
-    href: "/invoices",
-    icon: "▤",
-  },
-  {
-    key: "suppliers",
-    label: "Suppliers",
-    href: "/suppliers",
-    icon: "◎",
-  },
-  {
-    key: "ingredients",
-    label: "Ingredients",
-    href: "/ingredients",
-    icon: "◫",
-  },
-  {
-    key: "recipes",
-    label: "Recipes",
-    href: "/recipes",
-    icon: "◇",
-  },
-  {
-    key: "menu",
-    label: "Menu",
-    href: "/menu",
-    icon: "≡",
-  },
-  {
-    key: "stock",
-    label: "Stock",
-    href: "/stock",
-    icon: "□",
-  },
-  {
-    key: "reports",
-    label: "Reports",
-    href: "/reports",
-    icon: "↗",
-  },
-  {
-    key: "settings",
-    label: "Settings",
-    href: "/settings",
-    icon: "⚙",
-  },
+const links = [
+  ["⌂","Dashboard","/"],
+  ["✦","Insights","/insights"],
+  ["+","Orders","/orders"],
+  ["▤","Invoices","/invoices"],
+  ["◯","Suppliers","/suppliers"],
+  ["▣","Ingredients","/ingredients"],
+  ["◇","Recipes","/recipes"],
+  ["☰","Menu","/menu"],
+  ["□","Stock","/stock"],
+  ["↗","Reports","/reports"],
+  ["⚙","Settings","/settings"],
 ];
 
-export default function Sidebar({ active }: SidebarProps) {
-  return (
-    <aside className="sidebar">
-      <div className="sidebar-brand">
-        <Link href="/" className="sidebar-brand-link">
-          <div className="sidebar-logo">KI</div>
 
-          <div className="sidebar-brand-copy">
-            <strong>Kitchen Insights</strong>
-            <span>Cost control & operations</span>
-          </div>
-        </Link>
-      </div>
+return (
 
-      <nav className="sidebar-nav">
-        {navItems.map((item) => {
-          const isActive = item.key === active;
+<aside className="sidebar">
 
-          return (
-            <Link
-              key={item.key}
-              href={item.href}
-              className={`nav-link ${
-                isActive ? "nav-link-active" : ""
-              }`}
-            >
-              <span className="nav-icon">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
-            </Link>
-          );
-        })}
-      </nav>
 
-      <div className="sidebar-footer">
-        <div className="sidebar-footer-status">
-          <span className="sidebar-status-dot" />
+<div className="brand">
 
-          <div>
-            <strong>Azteca London</strong>
-            <span>Kitchen workspace</span>
-          </div>
-        </div>
-      </div>
-    </aside>
-  );
+<div className="brand-mark">
+KI
+</div>
+
+
+<div>
+
+<div className="brand-name">
+Kitchen Insights
+</div>
+
+<div className="brand-subtitle">
+Cost control & operations
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+<nav className="sidebar-nav">
+
+
+{
+links.map(
+([icon,name,url]) => (
+
+<Link
+key={name}
+href={url}
+className="nav-link"
+>
+
+<span className="nav-icon">
+{icon}
+</span>
+
+{name}
+
+</Link>
+
+)
+)
+}
+
+
+</nav>
+
+
+
+<div className="sidebar-footer">
+
+
+<div className="restaurant-card">
+
+<div className="restaurant-avatar">
+AL
+</div>
+
+
+<div>
+
+<div className="restaurant-name">
+Azteca London
+</div>
+
+<div className="restaurant-location">
+Kitchen workspace
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</aside>
+
+);
+
 }
