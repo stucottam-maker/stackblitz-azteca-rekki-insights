@@ -11,7 +11,7 @@ import {
   recipeSlug,
   type Recipe,
   type RecipeIngredient,
-} from "../../data/recipes";
+} from "../../data/allRecipes";
 
 type IngredientPrice = {
   price?: number;
