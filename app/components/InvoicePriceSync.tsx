@@ -34,10 +34,32 @@ function normalise(value?: string) {
 
 function unitFamily(unit?: string): UnitFamily {
   const value = normalise(unit);
-  if (["g", "kg"].includes(value)) return "mass";
-  if (["ml", "l", "ltr", "litre"].includes(value)) return "volume";
-  if (["each", "ea", "unit", "head", "can", "piece", "pieces", "unt"].includes(value)) return "count";
-  if (value === "bunch") return "bunch";
+  if (["g", "gram", "grams", "kg", "kilogram", "kilograms"].includes(value)) {
+    return "mass";
+  }
+  if (["ml", "millilitre", "millilitres", "l", "ltr", "litre", "litres"].includes(value)) {
+    return "volume";
+  }
+  if (
+    [
+      "each",
+      "ea",
+      "unit",
+      "units",
+      "head",
+      "heads",
+      "can",
+      "cans",
+      "piece",
+      "pieces",
+      "portion",
+      "portions",
+      "unt",
+    ].includes(value)
+  ) {
+    return "count";
+  }
+  if (["bunch", "bunches"].includes(value)) return "bunch";
   return "other";
 }
 
@@ -115,8 +137,12 @@ function comparablePrice(value?: IngredientPrice) {
 export default function InvoicePriceSync() {
   useEffect(() => {
     let cancelled = false;
+    let syncing = false;
 
     async function syncPrices() {
+      if (syncing) return;
+      syncing = true;
+
       try {
         const {
           data: { session },
@@ -186,7 +212,7 @@ export default function InvoicePriceSync() {
 
         if (typeof window !== "undefined") {
           window.dispatchEvent(
-            new CustomEvent("kitchen-insights:ingredient-prices-updated")
+            new CustomEvent("kitchen-insights:ingredient-prices-synced")
           );
 
           // A recipe editor may already have loaded the old price snapshot.
@@ -197,6 +223,8 @@ export default function InvoicePriceSync() {
         }
       } catch (error) {
         console.error("Invoice price sync failed", error);
+      } finally {
+        syncing = false;
       }
     }
 
@@ -208,9 +236,13 @@ export default function InvoicePriceSync() {
       }
     });
 
+    const resync = () => void syncPrices();
+    window.addEventListener("kitchen-insights:ingredient-mappings-updated", resync);
+
     return () => {
       cancelled = true;
       authListener.subscription.unsubscribe();
+      window.removeEventListener("kitchen-insights:ingredient-mappings-updated", resync);
     };
   }, []);
 
