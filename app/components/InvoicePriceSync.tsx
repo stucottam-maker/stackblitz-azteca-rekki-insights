@@ -22,19 +22,32 @@ type IngredientPrice = {
   confidence?: number;
   rawPriceUnit?: string | null;
   rawPack?: string | null;
+  conversionAssumption?: string;
 };
 
 type IngredientPrices = Record<string, IngredientPrice>;
+type UnitFamily = "mass" | "volume" | "count" | "bunch" | "other";
 
 function normalise(value?: string) {
   return (value ?? "").trim().toLowerCase();
 }
 
-function buildIngredientList() {
-  const recipeNames = new Set(
-    recipes.map((recipe) => normalise(recipe.name))
-  );
-  const names = new Map<string, string>();
+function unitFamily(unit?: string): UnitFamily {
+  const value = normalise(unit);
+  if (["g", "kg"].includes(value)) return "mass";
+  if (["ml", "l", "ltr", "litre"].includes(value)) return "volume";
+  if (["each", "ea", "unit", "head", "can", "piece", "pieces", "unt"].includes(value)) return "count";
+  if (value === "bunch") return "bunch";
+  return "other";
+}
+
+function isLiquidLike(name: string) {
+  return /\b(juice|oil|sauce|vinegar|cream|milk|mayo|mayonnaise|syrup|stock|mirin|tequila|mezcal)\b/i.test(name);
+}
+
+function buildIngredientUsage() {
+  const recipeNames = new Set(recipes.map((recipe) => normalise(recipe.name)));
+  const names = new Map<string, { name: string; families: Set<UnitFamily> }>();
 
   for (const recipe of recipes) {
     for (const ingredient of recipe.ingredients) {
@@ -43,11 +56,44 @@ function buildIngredientList() {
 
       const key = normalise(name);
       if (recipeNames.has(key)) continue;
-      if (!names.has(key)) names.set(key, name);
+
+      const current = names.get(key) ?? { name, families: new Set<UnitFamily>() };
+      current.families.add(unitFamily(ingredient.unit));
+      names.set(key, current);
     }
   }
 
-  return Array.from(names.values());
+  return names;
+}
+
+function makeCompatiblePrice(
+  ingredient: string,
+  price: IngredientPrice,
+  families: Set<UnitFamily>
+): IngredientPrice | null {
+  const sourceFamily = unitFamily(price.unit);
+
+  if (families.has(sourceFamily)) return price;
+
+  // Many kitchen recipes weigh liquids even when suppliers sell them by litre.
+  // Until a density table is added, use the standard costing approximation 1 L ≈ 1 kg.
+  if (isLiquidLike(ingredient) && sourceFamily === "volume" && families.has("mass")) {
+    return {
+      ...price,
+      unit: "kg",
+      conversionAssumption: "1 L ≈ 1 kg for recipe costing",
+    };
+  }
+
+  if (isLiquidLike(ingredient) && sourceFamily === "mass" && families.has("volume")) {
+    return {
+      ...price,
+      unit: "L",
+      conversionAssumption: "1 kg ≈ 1 L for recipe costing",
+    };
+  }
+
+  return null;
 }
 
 function comparablePrice(value?: IngredientPrice) {
@@ -62,6 +108,7 @@ function comparablePrice(value?: IngredientPrice) {
     source: value?.source ?? null,
     matchType: value?.matchType ?? null,
     confidence: value?.confidence ?? null,
+    conversionAssumption: value?.conversionAssumption ?? null,
   });
 }
 
@@ -77,7 +124,8 @@ export default function InvoicePriceSync() {
 
         if (!session?.access_token) return;
 
-        const ingredientNames = buildIngredientList();
+        const usage = buildIngredientUsage();
+        const ingredientNames = Array.from(usage.values()).map((item) => item.name);
         if (ingredientNames.length === 0) return;
 
         const response = await fetch("/api/ingredient-prices", {
@@ -93,23 +141,27 @@ export default function InvoicePriceSync() {
           throw new Error(`Invoice price sync failed (${response.status})`);
         }
 
-        const payload = (await response.json()) as {
-          prices?: IngredientPrices;
-        };
+        const payload = (await response.json()) as { prices?: IngredientPrices };
         const invoicePrices = payload.prices ?? {};
 
         if (cancelled || Object.keys(invoicePrices).length === 0) return;
 
-        const current = await readWorkspaceState<IngredientPrices>(
-          "ingredientPrices",
-          {}
-        );
-
+        const current = await readWorkspaceState<IngredientPrices>("ingredientPrices", {});
         const previous = { ...current };
         const merged: IngredientPrices = { ...current };
         let changed = false;
 
-        for (const [ingredient, price] of Object.entries(invoicePrices)) {
+        for (const [ingredient, rawPrice] of Object.entries(invoicePrices)) {
+          const usageEntry = usage.get(normalise(ingredient));
+          if (!usageEntry) continue;
+
+          const price = makeCompatiblePrice(
+            ingredient,
+            rawPrice,
+            usageEntry.families
+          );
+          if (!price) continue;
+
           const existingKey = Object.keys(merged).find(
             (key) => normalise(key) === normalise(ingredient)
           );
@@ -136,6 +188,12 @@ export default function InvoicePriceSync() {
           window.dispatchEvent(
             new CustomEvent("kitchen-insights:ingredient-prices-updated")
           );
+
+          // A recipe editor may already have loaded the old price snapshot.
+          // Reload it once after a genuine price change; the next sync is unchanged.
+          if (window.location.pathname.startsWith("/recipes/")) {
+            window.location.reload();
+          }
         }
       } catch (error) {
         console.error("Invoice price sync failed", error);
