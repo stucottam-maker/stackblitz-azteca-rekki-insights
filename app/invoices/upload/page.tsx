@@ -3,218 +3,366 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Sidebar from "../../components/Sidebar";
-import { supabase } from "../../lib/supabase";
 
-const MAX_FILE_SIZE = 60 * 1024 * 1024;
+export default function InvoiceUploadPage() {
 
-const ACCEPTED_TYPES = [
-  "application/pdf",
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
-const ACCEPTED_EXTENSIONS = /\.(pdf|jpe?g|png|webp)$/i;
-
-export default function UploadInvoicePage() {
   const router = useRouter();
 
-  const [file, setFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState("");
+  const [file,setFile] = useState<File | null>(null);
+
+  const [uploading,setUploading] = useState(false);
+
+  const [error,setError] = useState("");
+
+
 
   function handleFileChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
-    const selected = event.target.files?.[0];
+    e: React.ChangeEvent<HTMLInputElement>
+  ){
+
     setError("");
 
-    if (!selected) return;
+    const selected =
+      e.target.files?.[0];
 
-    const supportedMime = ACCEPTED_TYPES.includes(selected.type);
-    const supportedName = ACCEPTED_EXTENSIONS.test(selected.name);
 
-    if (!supportedMime && !supportedName) {
-      setFile(null);
+    if(!selected){
+      return;
+    }
+
+
+    const allowed = [
+      "application/pdf",
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ];
+
+
+    if(
+      !allowed.includes(selected.type)
+    ){
+
       setError(
-        `Unsupported file type: ${selected.type || selected.name || "unknown"}. Please upload PDF, JPG, PNG or WEBP.`
+        "Please upload a PDF, JPG, PNG or WEBP file."
       );
+
       return;
+
     }
 
-    if (selected.size > MAX_FILE_SIZE) {
-      setFile(null);
-      setError("File too large. Maximum size is 60MB.");
-      return;
-    }
 
     setFile(selected);
+
   }
 
-  async function extractInvoice() {
-    if (!file || uploading) return;
 
-    setUploading(true);
-    setError("");
 
-    try {
-      const safeName = file.name
-        .replace(/\s+/g, "-")
-        .replace(/[^a-zA-Z0-9.-]/g, "");
 
-      const filePath = `invoices/${Date.now()}-${safeName}`;
 
-      const { error: uploadError } = await supabase.storage
-        .from("invoice-files")
-        .upload(filePath, file, {
-          contentType: file.type || "application/octet-stream",
-          upsert: false,
-        });
+  async function extractInvoice(){
 
-      if (uploadError) {
-        throw new Error(`Storage upload failed: ${uploadError.message}`);
-      }
 
-      const { data: urlData } = supabase.storage
-        .from("invoice-files")
-        .getPublicUrl(filePath);
+    if(!file){
 
-      const fileUrl = urlData.publicUrl;
-
-      const response = await fetch("/api/invoices/extract", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fileUrl,
-          fileName: file.name,
-          fileType: file.type || "application/octet-stream",
-        }),
-      });
-
-      const responseText = await response.text();
-      let result: any;
-
-      try {
-        result = JSON.parse(responseText);
-      } catch {
-        console.error("Non JSON response:", responseText);
-        throw new Error(responseText || "Unknown extraction error");
-      }
-
-      if (!response.ok) {
-        throw new Error(
-          result.details || result.error || "Invoice extraction failed"
-        );
-      }
-
-      sessionStorage.setItem(
-        "invoiceExtraction",
-        JSON.stringify(result)
+      setError(
+        "Please choose an invoice first."
       );
 
-      sessionStorage.setItem("invoiceFileName", file.name);
-      sessionStorage.setItem("invoiceFileUrl", fileUrl);
+      return;
 
-      router.push("/invoices/review");
-    } catch (error: any) {
-      console.error("Invoice upload error:", error);
-      setError(error.message || "Invoice extraction failed");
-    } finally {
-      setUploading(false);
     }
+
+
+
+    try {
+
+
+      setUploading(true);
+
+      setError("");
+
+
+
+      const formData =
+        new FormData();
+
+
+      formData.append(
+        "file",
+        file
+      );
+
+
+
+
+      const response =
+        await fetch(
+          "/api/invoices/extract",
+          {
+            method:"POST",
+            body:formData
+          }
+        );
+
+
+
+
+
+      const text =
+        await response.text();
+
+
+
+      let data:any;
+
+
+      try {
+
+        data =
+          JSON.parse(text);
+
+      }
+      catch {
+
+        throw new Error(
+          text ||
+          "Invalid server response"
+        );
+
+      }
+
+
+
+
+
+      if(!response.ok){
+
+        throw new Error(
+          data.error ||
+          "Invoice extraction failed"
+        );
+
+      }
+
+
+
+
+
+      console.log(
+        "EXTRACT RESULT",
+        data
+      );
+
+
+
+
+
+      const invoices =
+        Array.isArray(data)
+          ? data
+          : data.invoices;
+
+
+
+      if(
+        !Array.isArray(invoices) ||
+        invoices.length === 0
+      ){
+
+        throw new Error(
+          "No invoices were extracted"
+        );
+
+      }
+
+
+
+
+      sessionStorage.setItem(
+        "extractedInvoices",
+        JSON.stringify(invoices)
+      );
+
+
+
+      router.push(
+        "/invoices/review"
+      );
+
+
+
+    }
+
+
+    catch(err:any){
+
+
+      console.error(
+        "UPLOAD ERROR",
+        err
+      );
+
+
+      setError(
+        err.message ||
+        "Invoice extraction failed"
+      );
+
+
+    }
+
+
+    finally{
+
+      setUploading(false);
+
+    }
+
   }
 
+
+
+
+
   return (
-    <main className="app-shell">
-      <Sidebar active="invoices" />
 
-      <section className="main-content">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">Purchasing</p>
-            <h1>Upload invoice</h1>
-            <p className="page-description">
-              Upload supplier invoices and extract products, quantities and pricing.
-            </p>
+    <div className="page">
+
+
+      <div className="page-header">
+
+
+        <div>
+
+          <p className="eyebrow">
+            Purchasing
+          </p>
+
+
+          <h1>
+            Upload invoice
+          </h1>
+
+
+          <p>
+            Upload supplier invoices. Kitchen Insights extracts products,
+            quantities and pricing.
+          </p>
+
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+      <div className="card">
+
+
+        <h2>
+          Capture invoice
+        </h2>
+
+
+
+        <label
+          style={{
+            display:"block",
+            marginTop:30,
+            border:"2px dashed #ddd",
+            borderRadius:20,
+            padding:50,
+            textAlign:"center",
+            cursor:"pointer"
+          }}
+        >
+
+
+          <input
+            type="file"
+            hidden
+            accept="
+              application/pdf,
+              image/jpeg,
+              image/png,
+              image/webp
+            "
+            onChange={handleFileChange}
+          />
+
+
+
+          <strong>
+
+            {
+              file
+              ? file.name
+              : "Choose invoice file"
+            }
+
+          </strong>
+
+
+
+          <p>
+            PDF · JPG · PNG · WEBP
+          </p>
+
+
+
+        </label>
+
+
+
+
+
+
+        {
+          error &&
+
+          <div className="notice">
+
+            {error}
+
           </div>
-        </header>
 
-        <section className="panel">
-          <div className="panel-header">
-            <div>
-              <p className="panel-kicker">Invoice capture</p>
-              <h2>Add supplier invoice</h2>
-            </div>
-          </div>
+        }
 
-          <label
-            style={{
-              display: "block",
-              border: "2px dashed #ddd",
-              borderRadius: "18px",
-              padding: "50px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-          >
-            <input
-              type="file"
-              hidden
-              accept="application/pdf,image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp,.pdf"
-              onChange={handleFileChange}
-            />
 
-            <div
-              style={{
-                fontSize: "42px",
-                marginBottom: "15px",
-              }}
-            >
-              ↑
-            </div>
 
-            <h3>{file ? file.name : "Choose invoice file"}</h3>
 
-            <p>PDF or photo from your phone.</p>
 
-            <p
-              style={{
-                marginTop: "12px",
-                color: "#888",
-              }}
-            >
-              PDF · JPG · PNG · WEBP
-            </p>
-          </label>
 
-          {error && (
-            <div
-              style={{
-                marginTop: "20px",
-                color: "#a43e32",
-                fontWeight: 600,
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {error}
-            </div>
-          )}
+        <button
+          className="primary-button"
+          style={{
+            marginTop:25
+          }}
+          onClick={extractInvoice}
+          disabled={uploading}
+        >
 
-          <button
-            type="button"
-            className="primary-button"
-            style={{ marginTop: "25px" }}
-            disabled={!file || uploading}
-            onClick={extractInvoice}
-          >
-            {uploading ? "Processing invoice..." : "Extract invoice"}
-          </button>
-        </section>
-      </section>
-    </main>
+          {
+            uploading
+            ? "Extracting..."
+            : "Extract invoice"
+          }
+
+        </button>
+
+
+
+      </div>
+
+
+
+    </div>
+
   );
+
 }
