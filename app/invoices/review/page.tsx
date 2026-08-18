@@ -12,19 +12,20 @@ type LineItem = {
   pack: string | null;
   unitPrice: number | null;
   total: number | null;
-  status: string | null;
+  status?: string | null;
 };
 
 
 type Invoice = {
-  supplier: string | null;
-  invoiceNumber: string | null;
-  invoiceDate: string | null;
-  subtotal: number | null;
-  vat: number | null;
-  total: number | null;
+  supplier?: string | null;
+  invoiceNumber?: string | null;
+  invoiceDate?: string | null;
+  subtotal?: number | null;
+  vat?: number | null;
+  total?: number | null;
   lineItems: LineItem[];
 };
+
 
 
 export default function InvoiceReviewPage() {
@@ -37,12 +38,13 @@ export default function InvoiceReviewPage() {
     useState<Invoice[]>([]);
 
 
-  const [saving, setSaving] =
-    useState(false);
-
-
   const [error, setError] =
     useState("");
+
+
+
+  const [saving, setSaving] =
+    useState(false);
 
 
 
@@ -57,15 +59,23 @@ export default function InvoiceReviewPage() {
       );
 
 
+    console.log(
+      "REVIEW DATA:",
+      stored
+    );
+
+
+
     if(!stored){
 
-      router.push(
-        "/invoices/upload"
+      setError(
+        "No invoice extraction found."
       );
 
       return;
 
     }
+
 
 
 
@@ -77,10 +87,13 @@ export default function InvoiceReviewPage() {
 
 
 
-      /*
-        New batch format
-      */
+      let extracted: Invoice[] = [];
 
+
+
+
+
+      // New batch format
 
       if(
         Array.isArray(
@@ -88,26 +101,79 @@ export default function InvoiceReviewPage() {
         )
       ){
 
-        setInvoices(
-          data.invoices
+        extracted =
+          data.invoices;
+
+      }
+
+
+
+
+
+      // If API returned array directly
+
+      else if(
+        Array.isArray(data)
+      ){
+
+        extracted =
+          data;
+
+      }
+
+
+
+
+
+      // Old single invoice format
+
+      else if(
+        data.supplier ||
+        data.lineItems
+      ){
+
+        extracted =
+          [
+            data
+          ];
+
+      }
+
+
+
+
+
+      extracted =
+        extracted.map(
+          (invoice)=>({
+
+            ...invoice,
+
+            lineItems:
+              Array.isArray(
+                invoice.lineItems
+              )
+              ?
+              invoice.lineItems
+              :
+              [],
+
+          })
         );
 
-      }
 
 
 
-      /*
-        Backwards compatibility
-      */
+      console.log(
+        "NORMALISED INVOICES:",
+        extracted
+      );
 
 
-      else {
 
-        setInvoices([
-          data
-        ]);
-
-      }
+      setInvoices(
+        extracted
+      );
 
 
 
@@ -115,15 +181,19 @@ export default function InvoiceReviewPage() {
 
     catch(err){
 
+      console.error(
+        err
+      );
+
       setError(
-        "Could not read invoice data."
+        "Could not read invoice extraction."
       );
 
     }
 
 
 
-  },[router]);
+  },[]);
 
 
 
@@ -132,11 +202,16 @@ export default function InvoiceReviewPage() {
 
 
   function money(
-    value:number|null
+    value:number|null|undefined
   ){
 
-    if(value === null){
+    if(
+      value === null ||
+      value === undefined
+    ){
+
       return "—";
+
     }
 
 
@@ -156,24 +231,19 @@ export default function InvoiceReviewPage() {
 
 
 
-  async function approveInvoices(){
+  async function approve(){
 
 
     setSaving(true);
-
-    setError("");
-
 
 
     try {
 
 
       /*
-        Temporary save step.
-
-        This keeps the extracted
-        invoices ready for Supabase
-        insertion.
+        Temporary storage.
+        Next step:
+        connect to Supabase invoices table.
       */
 
 
@@ -187,6 +257,7 @@ export default function InvoiceReviewPage() {
       router.push(
         "/invoices"
       );
+
 
 
     }
@@ -215,7 +286,6 @@ export default function InvoiceReviewPage() {
 
 
 
-
 return (
 
 <main className="app-shell">
@@ -226,7 +296,6 @@ return (
 
 
 <section className="main-content">
-
 
 
 <header className="topbar">
@@ -244,15 +313,12 @@ Review invoices
 
 
 <p className="page-description">
-Check extracted supplier invoices before saving.
+Check extracted supplier invoices before approval.
 </p>
-
 
 </div>
 
-
 </header>
-
 
 
 
@@ -279,13 +345,32 @@ className="invoice-error"
 
 
 {
+invoices.length === 0
+?
+
+<div className="panel">
+
+<h2>
+No invoices found
+</h2>
+
+<p>
+The extraction completed but no invoice records were returned.
+</p>
+
+</div>
+
+
+:
+
+
 invoices.map(
 (invoice,index)=>(
 
 
 <section
-key={index}
 className="panel"
+key={index}
 style={{
 marginBottom:"25px",
 }}
@@ -302,21 +387,23 @@ Invoice {index + 1}
 
 
 <h2>
-{invoice.supplier || "Unknown supplier"}
+{
+invoice.supplier ||
+"Unknown supplier"
+}
 </h2>
 
-
-</div>
-
 </div>
 
 
+</div>
 
 
 
-<div
-className="stats-grid"
->
+
+
+
+<div className="stats-grid">
 
 
 <div className="stat-card">
@@ -326,7 +413,10 @@ Invoice number
 </p>
 
 <p className="stat-value">
-{invoice.invoiceNumber || "—"}
+{
+invoice.invoiceNumber ||
+"—"
+}
 </p>
 
 </div>
@@ -341,11 +431,13 @@ Date
 </p>
 
 <p className="stat-value">
-{invoice.invoiceDate || "—"}
+{
+invoice.invoiceDate ||
+"—"
+}
 </p>
 
 </div>
-
 
 
 
@@ -357,7 +449,9 @@ Total
 </p>
 
 <p className="stat-value">
-{money(invoice.total)}
+{
+money(invoice.total)
+}
 </p>
 
 </div>
@@ -374,9 +468,7 @@ Total
 <div className="table-wrapper">
 
 
-<table
-className="invoice-history-table"
->
+<table className="invoice-history-table">
 
 
 <thead>
@@ -396,13 +488,12 @@ Qty
 </th>
 
 <th>
-Unit price
+Unit
 </th>
 
 <th>
 Total
 </th>
-
 
 </tr>
 
@@ -416,20 +507,18 @@ Total
 
 {
 invoice.lineItems.map(
-(item,lineIndex)=>(
+(item,line)=>(
 
 
 <tr
-key={lineIndex}
+key={line}
 >
 
 
 <td>
-
 <strong>
 {item.product}
 </strong>
-
 </td>
 
 
@@ -475,6 +564,7 @@ key={lineIndex}
 
 
 
+
 </section>
 
 
@@ -489,18 +579,17 @@ key={lineIndex}
 
 
 
+
+{
+invoices.length > 0 && (
+
 <button
 
 className="primary-button"
 
-disabled={
-saving ||
-invoices.length===0
-}
+disabled={saving}
 
-onClick={
-approveInvoices
-}
+onClick={approve}
 
 >
 
@@ -514,9 +603,11 @@ invoices.length > 1 ? "s" : ""
 }`
 }
 
-
 </button>
 
+)
+
+}
 
 
 
@@ -526,8 +617,6 @@ invoices.length > 1 ? "s" : ""
 
 </main>
 
-
 );
-
 
 }
