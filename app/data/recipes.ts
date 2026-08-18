@@ -206,6 +206,126 @@ export const recipes: Recipe[] = [
   },
 
   {
+    name: "Lime Gel",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Lime juice", quantity: 200, unit: "g" },
+      { name: "Water", quantity: 100, unit: "g" },
+      { name: "Caster sugar", quantity: 50, unit: "g" },
+      { name: "Agar-agar", quantity: 10, unit: "g" },
+      { name: "Water (to finish)", quantity: 200, unit: "g" },
+    ],
+    notes:
+      "Method: bring the lime juice, 100g water and caster sugar to the boil. Whisk in the agar-agar for around 4 minutes. Chill the mixture. Once solid, add the remaining 200g water and blend. Dietary: vegan.",
+  },
+
+  {
+    name: "Crumble",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Brown butter", quantity: 500, unit: "g" },
+      { name: "Caster sugar", quantity: 250, unit: "g" },
+      { name: "Plain flour", quantity: 600, unit: "g" },
+    ],
+    notes:
+      "Method: mix all ingredients, bake at 180°C for 15 minutes, mix, then bake for 12 minutes more. Dietary: vegetarian. Allergens: dairy/milk, gluten.",
+  },
+
+  {
+    name: "Camote",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Orange sweet potato", quantity: 7, unit: "kg" },
+    ],
+    notes:
+      "Method: cut the sweet potatoes in half and bake at 175°C for 45 minutes. While still hot and easy to handle, transfer to the Thermomix and blend until smooth. Place in vacuum-pack bags and chill; close the bags only once completely cold. Dietary: vegan.",
+  },
+
+  {
+    name: "Margarita Cheesecake",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Soft cheese", quantity: 500, unit: "g" },
+      { name: "Caster sugar", quantity: 250, unit: "g" },
+      { name: "Double cream", quantity: 600, unit: "g" },
+      { name: "Tequila", quantity: null, unit: "g" },
+    ],
+    notes:
+      "Method: mix the soft cheese and caster sugar in the mixer until smooth. Add the tequila and double cream and mix together, then place in piping bags. The tequila quantity is obscured on the source sheet and has been left unset. Allergens noted on source: dairy, sulphites.",
+  },
+
+  {
+    name: "Tuile",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Oil", quantity: 70, unit: "g" },
+      { name: "Water", quantity: 60, unit: "g" },
+      { name: "Plain flour", quantity: 15, unit: "g" },
+      { name: "Red food colour", quantity: 2, unit: "g" },
+    ],
+    notes:
+      "Method: mix everything and transfer to a squeeze bottle. Heat a non-stick pan and add a small amount in the centre. Wait until small holes appear, then gently remove with a spatula and drain on a cloth-lined tray. While still warm, sprinkle Tajín on top. Dietary: vegan. Allergen: gluten.",
+  },
+
+  {
+    name: "Vegan Aji Amarillo Mayo",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Vegan mayo", quantity: 1, unit: "kg" },
+      { name: "Ají amarillo", quantity: 120, unit: "g" },
+      { name: "Lime juice", quantity: 20, unit: "g" },
+    ],
+    notes: "Method: combine all ingredients in a bowl and whisk. Dietary: vegan.",
+  },
+
+  {
+    name: "Trout Salt",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Fine salt", quantity: 400, unit: "g" },
+      { name: "Caster sugar", quantity: 600, unit: "g" },
+      { name: "Beetroot powder", quantity: 100, unit: "g" },
+      { name: "Fennel seeds", quantity: 10, unit: "g" },
+      { name: "Black pepper", quantity: 10, unit: "g" },
+      { name: "Coriander seeds", quantity: 100, unit: "g" },
+    ],
+    notes:
+      "Method: toast all the seeds in a pan, then grind them. Mix all ingredients together.",
+  },
+
+  {
+    name: "Wild Mushroom Mix",
+    type: "Prep",
+    yieldAmount: null,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Wild mushrooms", quantity: 2, unit: "trays" },
+      { name: "Romero peppers", quantity: 1, unit: "kg" },
+      { name: "White onions", quantity: 7, unit: "each" },
+      { name: "Garlic", quantity: 10, unit: "cloves" },
+      { name: "Garlic oil", quantity: 80, unit: "g" },
+      { name: "Soya sauce", quantity: 175, unit: "g" },
+      { name: "Chipotle salt", quantity: null, unit: "to taste" },
+    ],
+    notes:
+      "Method: cut the mushrooms into equal pieces. Julienne the Romero peppers and slice the onions and garlic. Add the garlic oil to a pot and cook the onions and peppers until soft. Add the garlic, then the mushrooms, and cook until soft. Add the soya sauce and adjust the chipotle salt to taste.",
+  },
+
+  {
     name: "Tempura Batter",
     type: "Prep",
     yieldAmount: null,
