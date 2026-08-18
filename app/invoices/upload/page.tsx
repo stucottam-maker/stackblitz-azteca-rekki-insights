@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import Sidebar from "../../components/Sidebar";
+import { supabase } from "../../lib/supabase";
 
 
-const MAX_FILE_SIZE = 60 * 1024 * 1024;
+const MAX_FILE_SIZE =
+  60 * 1024 * 1024;
 
 
 const ACCEPTED_TYPES = [
@@ -14,6 +17,7 @@ const ACCEPTED_TYPES = [
   "image/png",
   "image/webp",
 ];
+
 
 
 export default function UploadInvoicePage() {
@@ -35,30 +39,34 @@ export default function UploadInvoicePage() {
 
 
 
+
+
   function handleFileChange(
-    e: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>
   ) {
 
 
     const selected =
-      e.target.files?.[0];
+      event.target.files?.[0];
 
 
     setError("");
 
 
-    if (!selected) return;
+    if (!selected) {
+      return;
+    }
 
 
 
-    if (
+    if(
       !ACCEPTED_TYPES.includes(
         selected.type
       )
     ){
 
       setError(
-        "Please upload a PDF, JPG, PNG or WEBP invoice."
+        "Please upload PDF, JPG, PNG or WEBP files only."
       );
 
       return;
@@ -89,10 +97,15 @@ export default function UploadInvoicePage() {
 
 
 
+
+
   async function extractInvoice(){
 
 
-    if(!file || uploading){
+    if(
+      !file ||
+      uploading
+    ){
       return;
     }
 
@@ -107,25 +120,102 @@ export default function UploadInvoicePage() {
     try {
 
 
-      const formData =
-        new FormData();
+
+      /*
+        1. Upload invoice to Supabase Storage
+      */
 
 
-      formData.append(
-        "file",
-        file
-      );
+      const filePath =
+        `invoices/${Date.now()}-${file.name}`;
 
+
+
+      const {
+        error: uploadError
+      } =
+      await supabase.storage
+        .from("invoice-files")
+        .upload(
+          filePath,
+          file,
+          {
+            contentType:file.type,
+            upsert:false,
+          }
+        );
+
+
+
+      if(uploadError){
+
+        throw new Error(
+          uploadError.message
+        );
+
+      }
+
+
+
+
+
+      /*
+        2. Get public URL
+      */
+
+
+      const {
+        data:urlData
+      } =
+      supabase.storage
+        .from("invoice-files")
+        .getPublicUrl(
+          filePath
+        );
+
+
+
+      const fileUrl =
+        urlData.publicUrl;
+
+
+
+
+
+      /*
+        3. Send only JSON to API
+      */
 
 
       const response =
         await fetch(
           "/api/invoices/extract",
           {
+
             method:"POST",
-            body:formData,
+
+            headers:{
+              "Content-Type":
+                "application/json",
+            },
+
+
+            body:JSON.stringify({
+
+              fileUrl,
+
+              fileName:
+                file.name,
+
+              fileType:
+                file.type,
+
+            }),
+
           }
         );
+
+
 
 
 
@@ -134,22 +224,24 @@ export default function UploadInvoicePage() {
 
 
 
+
+
       console.log(
-        "Extraction response:",
+        "Extraction result:",
         result
       );
 
 
 
-      if(!response.ok){
 
+
+      if(!response.ok){
 
         throw new Error(
           result.details ||
           result.error ||
-          "Invoice extraction failed"
+          "Invoice extraction failed."
         );
-
 
       }
 
@@ -163,9 +255,17 @@ export default function UploadInvoicePage() {
       );
 
 
+
       sessionStorage.setItem(
         "invoiceFileName",
         file.name
+      );
+
+
+
+      sessionStorage.setItem(
+        "invoiceFileUrl",
+        fileUrl
       );
 
 
@@ -176,26 +276,26 @@ export default function UploadInvoicePage() {
 
 
 
-    } catch(err:any){
+    }
+    catch(err:any){
 
 
       console.error(
-        "Upload error:",
+        "Invoice upload error:",
         err
       );
 
 
       setError(
         err.message ||
-        "Invoice extraction failed"
+        "Invoice extraction failed."
       );
 
 
-    } finally {
-
+    }
+    finally{
 
       setUploading(false);
-
 
     }
 
@@ -208,223 +308,219 @@ export default function UploadInvoicePage() {
 
 
 
-return (
+  return (
 
-<main className="app-shell">
+    <main className="app-shell">
 
 
-<Sidebar active="invoices" />
+      <Sidebar active="invoices" />
 
 
 
-<section className="main-content">
+      <section className="main-content">
 
 
-<header className="topbar">
 
-<div>
+        <header className="topbar">
 
-<p className="eyebrow">
-Purchasing
-</p>
+          <div>
 
+            <p className="eyebrow">
+              Purchasing
+            </p>
 
-<h1>
-Upload invoice
-</h1>
 
+            <h1>
+              Upload invoice
+            </h1>
 
-<p className="page-description">
-Upload a supplier invoice and Kitchen Insights will extract products, quantities and prices.
-</p>
 
+            <p className="page-description">
+              Upload supplier invoices and extract products, prices and quantities.
+            </p>
 
-</div>
 
+          </div>
 
-</header>
+        </header>
 
 
 
 
 
-<section className="panel">
 
+        <section className="panel">
 
-<div className="panel-header">
 
-<div>
 
-<p className="panel-kicker">
-Invoice
-</p>
+          <div className="panel-header">
 
+            <div>
 
-<h2>
-Capture invoice
-</h2>
+              <p className="panel-kicker">
+                Invoice
+              </p>
 
-</div>
 
-</div>
+              <h2>
+                Capture invoice
+              </h2>
 
+            </div>
 
+          </div>
 
 
 
-<label
-style={{
-display:"block",
-border:"2px dashed #ddd",
-borderRadius:"18px",
-padding:"50px",
-textAlign:"center",
-cursor:"pointer",
-}}
->
 
 
-<input
 
-type="file"
+          <label
+            style={{
+              display:"block",
+              border:"2px dashed #ddd",
+              borderRadius:"18px",
+              padding:"50px",
+              textAlign:"center",
+              cursor:"pointer",
+            }}
+          >
 
-hidden
 
-accept="
-application/pdf,
-image/jpeg,
-image/png,
-image/webp
-"
+            <input
 
-onChange={handleFileChange}
+              type="file"
 
-/>
+              hidden
 
+              accept="
+                application/pdf,
+                image/jpeg,
+                image/png,
+                image/webp
+              "
 
+              onChange={
+                handleFileChange
+              }
 
-<div
-style={{
-fontSize:"42px",
-marginBottom:"15px",
-}}
->
-↑
-</div>
+            />
 
 
 
-<h3>
+            <div
+              style={{
+                fontSize:"42px",
+                marginBottom:"15px",
+              }}
+            >
+              ↑
+            </div>
 
-{
-file
-?
-file.name
-:
-"Add an invoice"
-}
 
-</h3>
 
+            <h3>
 
+              {
+                file
+                ? file.name
+                : "Add an invoice"
+              }
 
-<p>
-Upload PDF or photograph a paper invoice.
-</p>
+            </h3>
 
 
 
-<p
-style={{
-marginTop:"15px",
-color:"#888",
-}}
->
-PDF · JPG · PNG · WEBP
-</p>
+            <p>
+              Upload PDF or invoice image.
+            </p>
 
 
 
-</label>
+            <p
+              style={{
+                color:"#888",
+                marginTop:"12px",
+              }}
+            >
+              PDF · JPG · PNG · WEBP
+            </p>
 
 
 
+          </label>
 
 
-{
-error && (
 
-<div
-style={{
-marginTop:"20px",
-color:"#a43e32",
-fontWeight:600,
-whiteSpace:"pre-wrap",
-}}
->
 
-{error}
 
-</div>
+          {
+            error && (
 
-)
+              <div
+                style={{
+                  marginTop:"20px",
+                  color:"#a43e32",
+                  fontWeight:600,
+                  whiteSpace:"pre-wrap",
+                }}
+              >
+                {error}
+              </div>
 
-}
+            )
+          }
 
 
 
 
 
 
-<button
+          <button
 
-type="button"
+            type="button"
 
-className="primary-button"
+            className="primary-button"
 
-style={{
-marginTop:"25px",
-}}
+            disabled={
+              !file ||
+              uploading
+            }
 
-disabled={
-!file ||
-uploading
-}
+            onClick={
+              extractInvoice
+            }
 
-onClick={extractInvoice}
+            style={{
+              marginTop:"25px",
+            }}
 
->
+          >
 
-{
+            {
+              uploading
+              ?
+              "Uploading invoice..."
+              :
+              "Extract invoice"
+            }
 
-uploading
 
-?
+          </button>
 
-"Extracting invoice..."
 
-:
 
-"Extract invoice"
 
-}
 
+        </section>
 
-</button>
 
 
+      </section>
 
 
+    </main>
 
-</section>
-
-
-</section>
-
-
-</main>
-
-);
-
+  );
 
 }
