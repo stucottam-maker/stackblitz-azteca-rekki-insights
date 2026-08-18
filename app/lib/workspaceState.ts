@@ -5,12 +5,14 @@ export const WORKSPACE_STATE_KEYS = [
   "approvedInvoices",
   "currentStockTake",
   "ingredientPrices",
+  "invoiceProductMappings",
   "organisationSettings",
   "previousIngredientPrices",
   "purchaseOrders",
   "recipeCostSummaries",
   "salesThisPeriod",
   "stockTakeHistory",
+  "supplierCatalogueOverrides",
   "theoreticalFoodCostPercent",
 ] as const;
 
@@ -40,8 +42,8 @@ async function getWorkspaceIdentity() {
         .eq("user_id", user.id)
         .limit(1)
         .maybeSingle();
-        if (error) throw error;
-        return data?.organisation_id ?? null;
+      if (error) throw error;
+      return data?.organisation_id ?? null;
     })();
   }
 
@@ -136,13 +138,15 @@ async function performLegacyWorkspaceMigration() {
   const missing = Array.from(localKeys).flatMap((key) => {
     const value = localStorage.getItem(key);
     return value !== null && !remote.has(key)
-      ? [{
-          organisation_id: identity.organisationId,
-          state_key: key,
-          state_value: parseStoredValue(value),
-          updated_by: identity.userId,
-          updated_at: new Date().toISOString(),
-        }]
+      ? [
+          {
+            organisation_id: identity.organisationId,
+            state_key: key,
+            state_value: parseStoredValue(value),
+            updated_by: identity.userId,
+            updated_at: new Date().toISOString(),
+          },
+        ]
       : [];
   });
 
