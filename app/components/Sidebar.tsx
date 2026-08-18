@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -23,6 +24,7 @@ const links = [
 
 export default function Sidebar({ active }: SidebarProps) {
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement>(null);
 
   function isActive(name: string, url: string) {
     if (active) {
@@ -36,6 +38,33 @@ export default function Sidebar({ active }: SidebarProps) {
     return pathname === url || pathname.startsWith(`${url}/`);
   }
 
+  useEffect(() => {
+    const nav = navRef.current;
+
+    if (!nav || !window.matchMedia("(max-width: 640px)").matches) {
+      return;
+    }
+
+    const activeLink = nav.querySelector<HTMLElement>(".nav-link-active");
+
+    if (!activeLink) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      const left =
+        activeLink.offsetLeft -
+        (nav.clientWidth - activeLink.clientWidth) / 2;
+
+      nav.scrollTo({
+        left: Math.max(0, left),
+        behavior: "smooth",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, active]);
+
   return (
     <aside className="sidebar">
       <div className="brand">
@@ -47,7 +76,7 @@ export default function Sidebar({ active }: SidebarProps) {
         </div>
       </div>
 
-      <nav className="sidebar-nav" aria-label="Main navigation">
+      <nav ref={navRef} className="sidebar-nav" aria-label="Main navigation">
         {links.map(([icon, name, url]) => (
           <Link
             key={name}
