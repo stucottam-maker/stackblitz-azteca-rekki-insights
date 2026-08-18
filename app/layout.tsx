@@ -1,59 +1,45 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
 import "./globals.css";
-import "./order-ui.css";
 
-import PWARegister from "./components/PWARegister";
-import WorkspaceStateSync from "./components/WorkspaceStateSync";
+import Sidebar from "./components/Sidebar";
 
-const inter = Inter({
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: {
-    default: "Kitchen Insights",
-    template: "%s | Kitchen Insights",
-  },
-
-  description:
-    "Kitchen cost control, purchasing, stock, recipes and reporting.",
-
-  applicationName: "Kitchen Insights",
-
-  icons: {
-    icon: "/icon",
-  },
-
-  openGraph: {
-    title: "Kitchen Insights",
-    description:
-      "Kitchen cost control, purchasing, stock, recipes and reporting.",
-    type: "website",
-    siteName: "Kitchen Insights",
-  },
-
-  twitter: {
-    card: "summary",
-    title: "Kitchen Insights",
-    description:
-      "Kitchen cost control, purchasing, stock, recipes and reporting.",
-  },
+export const metadata = {
+  title: "Kitchen Insights",
+  description: "Cost control & operations",
 };
+
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+
   return (
+
     <html lang="en">
-      <body className={inter.className}>
-        <PWARegister />
-        <WorkspaceStateSync />
-        {children}
+
+      <body>
+
+        <div className="app-shell">
+
+
+          <Sidebar />
+
+
+          <main className="main-content">
+
+            {children}
+
+          </main>
+
+
+        </div>
+
+
       </body>
+
     </html>
+
   );
+
 }
