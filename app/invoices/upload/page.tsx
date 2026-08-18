@@ -8,48 +8,37 @@ const STORAGE_BUCKET = "invoice-files";
 const MAX_SOURCE_SIZE = 30 * 1024 * 1024;
 const MAX_IMAGE_EDGE = 2400;
 
-const DIRECT_IMAGE_TYPES = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-]);
+const DIRECT_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
 function inferFileType(file: File) {
   if (file.type) return file.type.toLowerCase();
-
   const extension = file.name.split(".").pop()?.toLowerCase();
-
   if (extension === "pdf") return "application/pdf";
   if (extension === "jpg" || extension === "jpeg") return "image/jpeg";
   if (extension === "png") return "image/png";
   if (extension === "webp") return "image/webp";
   if (extension === "heic") return "image/heic";
   if (extension === "heif") return "image/heif";
-
   return "";
 }
 
 function isAcceptedFile(file: File) {
   const type = inferFileType(file);
-  return (
-    type === "application/pdf" ||
-    type.startsWith("image/")
-  );
+  return type === "application/pdf" || type.startsWith("image/");
 }
 
 function safeFileName(name: string) {
-  return name
-    .normalize("NFKD")
-    .replace(/[^a-zA-Z0-9._-]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "") || "invoice";
+  return (
+    name
+      .normalize("NFKD")
+      .replace(/[^a-zA-Z0-9._-]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "") || "invoice"
+  );
 }
 
 function formatFileSize(bytes: number) {
-  if (bytes < 1024 * 1024) {
-    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
-  }
-
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
@@ -57,17 +46,14 @@ function loadBrowserImage(file: File) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const image = new Image();
-
     image.onload = () => {
       URL.revokeObjectURL(url);
       resolve(image);
     };
-
     image.onerror = () => {
       URL.revokeObjectURL(url);
       reject(new Error("This photo format could not be prepared on this device."));
     };
-
     image.src = url;
   });
 }
@@ -75,20 +61,14 @@ function loadBrowserImage(file: File) {
 async function prepareImageForUpload(file: File) {
   const originalType = inferFileType(file);
 
-  if (
-    DIRECT_IMAGE_TYPES.has(originalType) &&
-    file.size <= 2.5 * 1024 * 1024
-  ) {
+  if (DIRECT_IMAGE_TYPES.has(originalType) && file.size <= 2.5 * 1024 * 1024) {
     return file;
   }
 
   try {
     const image = await loadBrowserImage(file);
     const largestEdge = Math.max(image.naturalWidth, image.naturalHeight);
-    const scale = largestEdge > MAX_IMAGE_EDGE
-      ? MAX_IMAGE_EDGE / largestEdge
-      : 1;
-
+    const scale = largestEdge > MAX_IMAGE_EDGE ? MAX_IMAGE_EDGE / largestEdge : 1;
     const width = Math.max(1, Math.round(image.naturalWidth * scale));
     const height = Math.max(1, Math.round(image.naturalHeight * scale));
 
@@ -97,9 +77,7 @@ async function prepareImageForUpload(file: File) {
     canvas.height = height;
 
     const context = canvas.getContext("2d");
-    if (!context) {
-      throw new Error("Could not prepare this photo.");
-    }
+    if (!context) throw new Error("Could not prepare this photo.");
 
     context.fillStyle = "#ffffff";
     context.fillRect(0, 0, width, height);
@@ -109,12 +87,9 @@ async function prepareImageForUpload(file: File) {
       canvas.toBlob(resolve, "image/jpeg", 0.9);
     });
 
-    if (!blob) {
-      throw new Error("Could not prepare this photo.");
-    }
+    if (!blob) throw new Error("Could not prepare this photo.");
 
     const stem = file.name.replace(/\.[^.]+$/, "") || "invoice-photo";
-
     return new File([blob], `${stem}.jpg`, {
       type: "image/jpeg",
       lastModified: Date.now(),
@@ -123,7 +98,6 @@ async function prepareImageForUpload(file: File) {
     if (DIRECT_IMAGE_TYPES.has(originalType) && file.size <= 8 * 1024 * 1024) {
       return file;
     }
-
     throw error;
   }
 }
@@ -142,7 +116,6 @@ export default function InvoiceUploadPage() {
 
     const selected = event.target.files?.[0];
     event.target.value = "";
-
     if (!selected) return;
 
     if (!isAcceptedFile(selected)) {
@@ -163,7 +136,6 @@ export default function InvoiceUploadPage() {
 
       let prepared = selected;
       const type = inferFileType(selected);
-
       if (type.startsWith("image/")) {
         prepared = await prepareImageForUpload(selected);
       } else if (!selected.type && type) {
@@ -175,12 +147,12 @@ export default function InvoiceUploadPage() {
 
       setFile(prepared);
       setStage("");
-    } catch (err: any) {
+    } catch (err) {
       console.error("PHOTO PREP ERROR", err);
       setFile(null);
       setStage("");
       setError(
-        "This photo could not be prepared. Try the Take photo button, or choose a JPG, PNG, WEBP or PDF."
+        "This photo could not be prepared. Try Take photo, or choose a JPG, PNG, WEBP or PDF."
       );
     } finally {
       setPreparing(false);
@@ -196,6 +168,16 @@ export default function InvoiceUploadPage() {
     try {
       setUploading(true);
       setError("");
+      setStage("Checking session…");
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session?.access_token || !session.user) {
+        throw new Error("Your session has expired. Please sign in again.");
+      }
+
       setStage("Uploading invoice…");
 
       const fileType = inferFileType(file) || "application/octet-stream";
@@ -204,7 +186,7 @@ export default function InvoiceUploadPage() {
         typeof crypto !== "undefined" && "randomUUID" in crypto
           ? crypto.randomUUID()
           : Math.random().toString(36).slice(2);
-      const storagePath = `uploads/${dateFolder}/${Date.now()}-${randomPart}-${safeFileName(file.name)}`;
+      const storagePath = `uploads/${session.user.id}/${dateFolder}/${Date.now()}-${randomPart}-${safeFileName(file.name)}`;
 
       const { error: uploadError } = await supabase.storage
         .from(STORAGE_BUCKET)
@@ -214,18 +196,16 @@ export default function InvoiceUploadPage() {
           upsert: false,
         });
 
-      if (uploadError) {
-        throw new Error(`Upload failed: ${uploadError.message}`);
-      }
+      if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
 
-      const { data: publicUrlData } = supabase.storage
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from(STORAGE_BUCKET)
-        .getPublicUrl(storagePath);
+        .createSignedUrl(storagePath, 60 * 15);
 
-      const fileUrl = publicUrlData.publicUrl;
-
-      if (!fileUrl) {
-        throw new Error("The uploaded invoice could not be opened.");
+      if (signedUrlError || !signedUrlData?.signedUrl) {
+        throw new Error(
+          signedUrlError?.message || "The uploaded invoice could not be opened."
+        );
       }
 
       setStage("Reading invoice…");
@@ -234,9 +214,10 @@ export default function InvoiceUploadPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({
-          fileUrl,
+          fileUrl: signedUrlData.signedUrl,
           fileType,
           fileName: file.name,
         }),
@@ -252,15 +233,10 @@ export default function InvoiceUploadPage() {
       }
 
       if (!response.ok) {
-        throw new Error(
-          data.details ||
-          data.error ||
-          "Invoice extraction failed"
-        );
+        throw new Error(data.details || data.error || "Invoice extraction failed");
       }
 
       const invoices = Array.isArray(data) ? data : data.invoices;
-
       if (!Array.isArray(invoices) || invoices.length === 0) {
         throw new Error("No invoices were extracted from this file.");
       }
@@ -272,7 +248,6 @@ export default function InvoiceUploadPage() {
           fileName: file.name,
           fileType,
           filePath: storagePath,
-          fileUrl,
         })
       );
 
@@ -302,29 +277,11 @@ export default function InvoiceUploadPage() {
         </div>
       </div>
 
-      <div className="card" style={{ maxWidth: 760 }}>
+      <div className="card invoice-upload-card">
         <h2>Capture invoice</h2>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
-            gap: 12,
-            marginTop: 24,
-          }}
-        >
-          <label
-            className="primary-button"
-            style={{
-              minHeight: 54,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              cursor: busy ? "default" : "pointer",
-              opacity: busy ? 0.6 : 1,
-            }}
-          >
+        <div className="invoice-capture-actions">
+          <label className={`primary-button invoice-capture-button ${busy ? "is-disabled" : ""}`}>
             <input
               type="file"
               hidden
@@ -336,22 +293,7 @@ export default function InvoiceUploadPage() {
             📷 Take photo
           </label>
 
-          <label
-            style={{
-              minHeight: 54,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              border: "1px solid #d7d7d2",
-              borderRadius: 12,
-              padding: "12px 18px",
-              fontWeight: 700,
-              textAlign: "center",
-              cursor: busy ? "default" : "pointer",
-              opacity: busy ? 0.6 : 1,
-              background: "#fff",
-            }}
-          >
+          <label className={`invoice-file-button ${busy ? "is-disabled" : ""}`}>
             <input
               type="file"
               hidden
@@ -363,59 +305,35 @@ export default function InvoiceUploadPage() {
           </label>
         </div>
 
-        <div
-          style={{
-            marginTop: 18,
-            border: "2px dashed #ddd",
-            borderRadius: 16,
-            padding: 20,
-            minHeight: 92,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
+        <div className="invoice-selected-file">
           {file ? (
             <>
-              <strong style={{ overflowWrap: "anywhere" }}>{file.name}</strong>
-              <span style={{ marginTop: 5, opacity: 0.7 }}>
+              <strong>{file.name}</strong>
+              <span>
                 {formatFileSize(file.size)} · {inferFileType(file) || "file"}
               </span>
             </>
           ) : (
             <>
               <strong>No invoice selected</strong>
-              <span style={{ marginTop: 5, opacity: 0.7 }}>
-                PDF · JPG · PNG · WEBP · iPhone/Android camera
-              </span>
+              <span>PDF · JPG · PNG · WEBP · iPhone/Android camera</span>
             </>
           )}
         </div>
 
-        {stage && (
-          <div className="notice" style={{ marginTop: 16 }}>
-            {stage}
-          </div>
-        )}
-
-        {error && (
-          <div className="notice" style={{ marginTop: 16 }}>
-            {error}
-          </div>
-        )}
+        {stage && <div className="notice invoice-upload-notice">{stage}</div>}
+        {error && <div className="notice invoice-upload-notice">{error}</div>}
 
         <button
-          className="primary-button"
-          style={{ marginTop: 20, minHeight: 52 }}
-          onClick={extractInvoice}
+          className="primary-button invoice-extract-button"
+          onClick={() => void extractInvoice()}
           disabled={busy || !file}
         >
           {uploading ? "Working…" : "Extract invoice"}
         </button>
 
-        <p style={{ marginTop: 14, opacity: 0.68, fontSize: 14 }}>
-          For best results, fill the frame with the invoice, keep all four corners
-          visible and avoid glare or heavy shadows.
+        <p className="invoice-photo-tip">
+          For best results, fill the frame with the invoice, keep all four corners visible and avoid glare or heavy shadows.
         </p>
       </div>
     </div>
