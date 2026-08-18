@@ -17,6 +17,7 @@ const links = [
   ["▤", "Invoices", "/invoices"],
   ["◯", "Suppliers", "/suppliers"],
   ["▣", "Ingredients", "/ingredients"],
+  ["↔", "Matching", "/ingredients/matching"],
   ["◇", "Recipes", "/recipes"],
   ["☰", "Menu", "/menu"],
   ["□", "Stock", "/stock"],
@@ -35,10 +36,8 @@ export default function Sidebar({ active }: SidebarProps) {
       return active.toLowerCase() === name.toLowerCase();
     }
 
-    if (url === "/") {
-      return pathname === "/";
-    }
-
+    if (url === "/") return pathname === "/";
+    if (url === "/ingredients") return pathname === "/ingredients";
     return pathname === url || pathname.startsWith(`${url}/`);
   }
 
@@ -57,26 +56,14 @@ export default function Sidebar({ active }: SidebarProps) {
 
   useEffect(() => {
     const nav = navRef.current;
-
-    if (!nav || !window.matchMedia("(max-width: 640px)").matches) {
-      return;
-    }
+    if (!nav || !window.matchMedia("(max-width: 640px)").matches) return;
 
     const activeLink = nav.querySelector<HTMLElement>(".nav-link-active");
-
-    if (!activeLink) {
-      return;
-    }
+    if (!activeLink) return;
 
     const frame = window.requestAnimationFrame(() => {
-      const left =
-        activeLink.offsetLeft -
-        (nav.clientWidth - activeLink.clientWidth) / 2;
-
-      nav.scrollTo({
-        left: Math.max(0, left),
-        behavior: "smooth",
-      });
+      const left = activeLink.offsetLeft - (nav.clientWidth - activeLink.clientWidth) / 2;
+      nav.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
     });
 
     return () => window.cancelAnimationFrame(frame);
@@ -86,7 +73,6 @@ export default function Sidebar({ active }: SidebarProps) {
     <aside className="sidebar">
       <div className="brand">
         <div className="brand-mark">KI</div>
-
         <div className="sidebar-brand-copy">
           <div className="brand-name">Kitchen Insights</div>
           <div className="brand-subtitle">Cost control & operations</div>
@@ -98,13 +84,9 @@ export default function Sidebar({ active }: SidebarProps) {
           <Link
             key={name}
             href={url}
-            className={`nav-link ${
-              isActive(name, url) ? "nav-link-active" : ""
-            }`}
+            className={`nav-link ${isActive(name, url) ? "nav-link-active" : ""}`}
           >
-            <span className="nav-icon" aria-hidden="true">
-              {icon}
-            </span>
+            <span className="nav-icon" aria-hidden="true">{icon}</span>
             <span>{name}</span>
           </Link>
         ))}
@@ -113,7 +95,6 @@ export default function Sidebar({ active }: SidebarProps) {
       <div className="sidebar-footer">
         <div className="restaurant-card">
           <div className="restaurant-avatar">AL</div>
-
           <div className="restaurant-card-copy">
             <div className="restaurant-name">Azteca London</div>
             <div className="restaurant-location">Kitchen workspace</div>
