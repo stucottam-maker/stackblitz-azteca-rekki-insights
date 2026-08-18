@@ -1,20 +1,13 @@
 "use client";
 
-import {
-  useState,
-} from "react";
-
-import {
-  useRouter,
-} from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Sidebar from "../../components/Sidebar";
 import { supabase } from "../../lib/supabase";
 
 
-const MAX_FILE_SIZE =
-  60 * 1024 * 1024;
-
+const MAX_FILE_SIZE = 60 * 1024 * 1024;
 
 const ACCEPTED_TYPES = [
   "application/pdf",
@@ -28,54 +21,35 @@ export default function UploadInvoicePage() {
 
   const router = useRouter();
 
+  const [file, setFile] = useState<File | null>(null);
 
-  const [file, setFile] =
-    useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
 
-
-  const [uploading, setUploading] =
-    useState(false);
-
-
-  const [error, setError] =
-    useState("");
-
+  const [error, setError] = useState("");
 
 
   function handleFileChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
 
-    const selected =
-      event.target.files?.[0];
-
+    const selected = event.target.files?.[0];
 
     setError("");
 
-
-    if (!selected) {
-      return;
-    }
+    if (!selected) return;
 
 
-    if (
-      !ACCEPTED_TYPES.includes(
-        selected.type
-      )
-    ) {
+    if (!ACCEPTED_TYPES.includes(selected.type)) {
 
       setError(
-        "Please upload PDF, JPG, PNG or WEBP."
+        "Please upload PDF, JPG, PNG or WEBP files only."
       );
 
       return;
     }
 
 
-    if (
-      selected.size >
-      MAX_FILE_SIZE
-    ) {
+    if (selected.size > MAX_FILE_SIZE) {
 
       setError(
         "File too large. Maximum size is 60MB."
@@ -86,19 +60,13 @@ export default function UploadInvoicePage() {
 
 
     setFile(selected);
-
   }
 
 
 
   async function extractInvoice() {
 
-    if (
-      !file ||
-      uploading
-    ) {
-      return;
-    }
+    if (!file || uploading) return;
 
 
     setUploading(true);
@@ -107,69 +75,62 @@ export default function UploadInvoicePage() {
 
     try {
 
-
       /*
-       ---------------------------------
-       1. Upload original invoice
-       to Supabase Storage
-       ---------------------------------
+        1. Upload file to Supabase Storage
       */
 
 
-      const safeName =
-        file.name
-          .replace(/\s+/g, "-")
-          .toLowerCase();
-
-
       const filePath =
-        `invoices/${Date.now()}-${safeName}`;
+        `invoices/${Date.now()}-${file.name}`;
 
 
-
-      const { data, error } = await supabase.storage
-  .from("invoice-files")
-  .upload(
-    filePath,
-    file
-  );
+      const {
+        error: uploadError,
+      } = await supabase.storage
+        .from("invoice-files")
+        .upload(
+          filePath,
+          file,
+          {
+            cacheControl: "3600",
+            upsert: false,
+          }
+        );
 
 
       if (uploadError) {
-        throw uploadError;
+
+        console.error(
+          "Storage upload error:",
+          uploadError
+        );
+
+        throw new Error(
+          uploadError.message
+        );
       }
 
 
 
       /*
-       ---------------------------------
-       2. Create temporary signed URL
-       ---------------------------------
+        2. Get public URL
       */
 
 
       const {
-        data: signedData,
-        error: signedError,
-      } =
-        await supabase.storage
-          .from("invoice-files")
-          .createSignedUrl(
-            uploadData.path,
-            600
-          );
+        data: urlData,
+      } = supabase.storage
+        .from("invoice-files")
+        .getPublicUrl(filePath);
 
 
-      if (signedError) {
-        throw signedError;
-      }
+      const fileUrl =
+        urlData.publicUrl;
 
 
 
       /*
-       ---------------------------------
-       3. Send only URL to API
-       ---------------------------------
+        3. Send URL to extraction API
       */
 
 
@@ -177,17 +138,15 @@ export default function UploadInvoicePage() {
         await fetch(
           "/api/invoices/extract",
           {
-            method:"POST",
+            method: "POST",
 
-            headers:{
-              "Content-Type":
-                "application/json",
+            headers: {
+              "Content-Type": "application/json",
             },
 
-            body:JSON.stringify({
+            body: JSON.stringify({
 
-              fileUrl:
-                signedData.signedUrl,
+              fileUrl,
 
               fileName:
                 file.name,
@@ -212,9 +171,13 @@ export default function UploadInvoicePage() {
           result.error ||
           "Invoice extraction failed."
         );
-
       }
 
+
+
+      /*
+        4. Store result temporarily
+      */
 
 
       sessionStorage.setItem(
@@ -229,29 +192,35 @@ export default function UploadInvoicePage() {
       );
 
 
+      sessionStorage.setItem(
+        "invoiceFileUrl",
+        fileUrl
+      );
+
+
 
       router.push(
         "/invoices/review"
       );
 
 
-    } catch(err:any) {
 
+    } catch (err:any) {
 
-      console.error(err);
+      console.error(
+        err
+      );
 
 
       setError(
         err.message ||
-        "Could not process invoice."
+        "Invoice upload failed."
       );
 
 
     } finally {
 
-
       setUploading(false);
-
 
     }
 
@@ -261,14 +230,12 @@ export default function UploadInvoicePage() {
 
   return (
 
-    <div className="app-shell">
-
+    <main className="app-shell">
 
       <Sidebar active="invoices" />
 
 
-
-      <main className="main-content invoices-page">
+      <section className="main-content">
 
 
         <header className="topbar">
@@ -286,16 +253,14 @@ export default function UploadInvoicePage() {
 
 
             <p className="page-description">
-              Upload supplier invoices.
-              Kitchen Insights extracts products,
-              quantities and pricing.
+              Upload a supplier invoice and
+              Kitchen Insights will extract
+              products, quantities and prices.
             </p>
 
           </div>
 
-
         </header>
-
 
 
 
@@ -310,17 +275,13 @@ export default function UploadInvoicePage() {
                 Invoice
               </p>
 
-
               <h2>
                 Capture invoice
               </h2>
 
             </div>
 
-
           </div>
-
-
 
 
 
@@ -337,19 +298,23 @@ export default function UploadInvoicePage() {
 
 
             <input
+
               type="file"
+
               hidden
+
               accept="
                 application/pdf,
                 image/jpeg,
                 image/png,
                 image/webp
               "
+
               onChange={
                 handleFileChange
               }
-            />
 
+            />
 
 
             <div
@@ -359,7 +324,6 @@ export default function UploadInvoicePage() {
             >
               ↑
             </div>
-
 
 
             <h3>
@@ -373,21 +337,22 @@ export default function UploadInvoicePage() {
             </h3>
 
 
-
             <p>
-              Upload PDF or invoice photo.
+              Upload PDF or photograph a paper invoice.
             </p>
 
 
-
-            <small>
+            <p
+              style={{
+                color:"#888",
+                marginTop:"12px",
+              }}
+            >
               PDF · JPG · PNG · WEBP
-            </small>
-
+            </p>
 
 
           </label>
-
 
 
 
@@ -396,7 +361,7 @@ export default function UploadInvoicePage() {
 
               <p
                 style={{
-                  color:"#b33",
+                  color:"#b42318",
                   marginTop:"20px",
                   fontWeight:600,
                 }}
@@ -409,15 +374,9 @@ export default function UploadInvoicePage() {
 
 
 
-
-
           <button
 
             className="primary-button"
-
-            style={{
-              marginTop:"25px",
-            }}
 
             disabled={
               !file ||
@@ -428,11 +387,15 @@ export default function UploadInvoicePage() {
               extractInvoice
             }
 
+            style={{
+              marginTop:"25px",
+            }}
+
           >
 
             {
               uploading
-              ? "Uploading & extracting..."
+              ? "Uploading invoice..."
               : "Extract invoice"
             }
 
@@ -441,16 +404,13 @@ export default function UploadInvoicePage() {
 
 
 
-
         </section>
 
 
-
-      </main>
-
+      </section>
 
 
-    </div>
+    </main>
 
   );
 
