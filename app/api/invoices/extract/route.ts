@@ -1,7 +1,6 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
-
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -10,7 +9,7 @@ export const maxDuration = 120;
 const MAX_FILE_SIZE = 60 * 1024 * 1024;
 
 
-const SUPPORTED_FILE_TYPES = [
+const ALLOWED_TYPES = [
   "application/pdf",
   "image/jpeg",
   "image/png",
@@ -18,51 +17,47 @@ const SUPPORTED_FILE_TYPES = [
 ];
 
 
-
 const invoiceSchema = {
-
   type: "object",
-
   additionalProperties: false,
 
   properties: {
 
     supplier: {
-      type: ["string", "null"],
+      type:["string","null"],
     },
 
-    invoiceNumber: {
-      type: ["string", "null"],
+    invoiceNumber:{
+      type:["string","null"],
     },
 
-    invoiceDate: {
-      type: ["string", "null"],
+    invoiceDate:{
+      type:["string","null"],
     },
 
-    subtotal: {
-      type: ["number", "null"],
+    subtotal:{
+      type:["number","null"],
     },
 
-    vat: {
-      type: ["number", "null"],
+    vat:{
+      type:["number","null"],
     },
 
-    total: {
-      type: ["number", "null"],
+    total:{
+      type:["number","null"],
     },
 
-
-    lineItems: {
+    lineItems:{
 
       type:"array",
 
-      items: {
+      items:{
 
         type:"object",
 
         additionalProperties:false,
 
-        properties: {
+        properties:{
 
           product:{
             type:"string",
@@ -90,7 +85,6 @@ const invoiceSchema = {
 
         },
 
-
         required:[
           "product",
           "quantity",
@@ -99,11 +93,8 @@ const invoiceSchema = {
           "total",
           "status",
         ],
-
       },
-
     },
-
   },
 
 
@@ -116,37 +107,7 @@ const invoiceSchema = {
     "total",
     "lineItems",
   ],
-
 };
-
-
-
-
-
-const extractionPrompt = `
-
-You are extracting structured data from a UK restaurant supplier invoice.
-
-Read the invoice carefully.
-
-Rules:
-
-- Do not invent values.
-- Return null when information is missing.
-- Extract every genuine invoice line.
-- Preserve supplier product descriptions.
-- Ignore delivery notes and payment terms.
-- Money values must be numbers only.
-- Quantity must be numeric where possible.
-- Pack should contain pack/unit information.
-- unitPrice means the price charged per invoice unit.
-- total means the invoice line total.
-- Invoice totals must come from the totals section.
-- Dates should use YYYY-MM-DD format where possible.
-
-`;
-
-
 
 
 
@@ -162,7 +123,7 @@ if(!apiKey){
 
 return NextResponse.json(
 {
-error:"OpenAI API key missing"
+error:"Missing OPENAI_API_KEY"
 },
 {
 status:500
@@ -174,35 +135,55 @@ status:500
 
 
 const openai = new OpenAI({
-apiKey,
+apiKey
 });
 
 
 
-
-
-// ===============================
-// GET FILE FROM UPLOAD FORM
-// ===============================
+// =============================
+// RECEIVE UPLOAD
+// =============================
 
 
 const formData =
 await request.formData();
 
 
-const uploadedFile =
+const file =
 formData.get("file");
 
 
 
-if(
-!uploadedFile ||
-!(uploadedFile instanceof File)
-){
+if(!file || !(file instanceof File)){
 
 return NextResponse.json(
 {
-error:"No invoice file uploaded"
+error:"No file received"
+},
+{
+status:400
+}
+);
+
+}
+
+
+
+console.log(
+"Invoice upload:",
+file.name,
+file.type,
+file.size
+);
+
+
+
+
+if(file.size > MAX_FILE_SIZE){
+
+return NextResponse.json(
+{
+error:"File exceeds 60MB limit"
 },
 {
 status:400
@@ -214,45 +195,7 @@ status:400
 
 
 
-
-if(uploadedFile.size === 0){
-
-return NextResponse.json(
-{
-error:"File is empty"
-},
-{
-status:400
-}
-);
-
-}
-
-
-
-
-if(uploadedFile.size > MAX_FILE_SIZE){
-
-return NextResponse.json(
-{
-error:"File too large. Maximum 60MB."
-},
-{
-status:400
-}
-);
-
-}
-
-
-
-
-
-if(
-!SUPPORTED_FILE_TYPES.includes(
-uploadedFile.type
-)
-){
+if(!ALLOWED_TYPES.includes(file.type)){
 
 return NextResponse.json(
 {
@@ -268,90 +211,33 @@ status:400
 
 
 
+// =============================
+// UPLOAD FILE TO OPENAI
+// =============================
+
+
+const openaiFile =
+await openai.files.create({
+
+file,
+
+purpose:"user_data",
+
+});
+
+
 
 console.log(
-"Invoice received:",
-uploadedFile.name,
-uploadedFile.type,
-uploadedFile.size
+"OpenAI file:",
+openaiFile.id
 );
 
 
 
 
-
-// ===============================
-// CONVERT FILE
-// ===============================
-
-
-const bytes =
-await uploadedFile.arrayBuffer();
-
-
-const buffer =
-Buffer.from(bytes);
-
-
-const base64 =
-buffer.toString("base64");
-
-
-
-const dataUrl =
-`data:${uploadedFile.type};base64,${base64}`;
-
-
-
-
-
-
-// ===============================
-// OPENAI FILE CONTENT
-// ===============================
-
-
-const fileContent =
-
-uploadedFile.type === "application/pdf"
-
-?
-
-{
-
-type:"input_file" as const,
-
-filename:
-uploadedFile.name,
-
-file_data:
-dataUrl,
-
-}
-
-:
-
-{
-
-type:"input_image" as const,
-
-image_url:
-dataUrl,
-
-detail:"high" as const,
-
-};
-
-
-
-
-
-
-
-// ===============================
-// EXTRACTION
-// ===============================
-
+// =============================
+// EXTRACT
+// =============================
 
 
 const response =
@@ -373,12 +259,34 @@ content:[
 
 type:"input_text",
 
-text:extractionPrompt,
+text:`
+
+You are extracting data from a UK restaurant supplier invoice.
+
+Rules:
+
+- Extract every invoice line.
+- Do not invent values.
+- Return null if unknown.
+- Keep product names exactly as written.
+- Money values must be numbers only.
+- Quantity must be numeric where possible.
+- Pack must contain unit information.
+- Dates should be YYYY-MM-DD.
+
+`,
 
 },
 
 
-fileContent,
+
+{
+
+type:"input_file",
+
+file_id:openaiFile.id,
+
+},
 
 
 ],
@@ -386,7 +294,6 @@ fileContent,
 },
 
 ],
-
 
 
 
@@ -413,199 +320,63 @@ schema:invoiceSchema,
 
 
 
-const outputText =
+const result =
 response.output_text;
 
 
 
-if(!outputText){
+if(!result){
 
-return NextResponse.json(
-{
-error:"No extraction result returned"
-},
-{
-status:502
-}
+throw new Error(
+"No output returned from OpenAI"
 );
 
 }
-
-
-
-
-
-let invoice;
-
-
-
-try{
-
-invoice =
-JSON.parse(outputText);
-
-}
-
-catch(error){
-
-console.error(
-"JSON parse failed",
-outputText
-);
-
-
-return NextResponse.json(
-{
-error:"Invalid JSON returned"
-},
-{
-status:502
-}
-);
-
-}
-
-
-
-
-
-// ===============================
-// CLEAN RESULT
-// ===============================
-
-
-
-const cleaned = {
-
-
-supplier:
-invoice.supplier ?? null,
-
-
-invoiceNumber:
-invoice.invoiceNumber ?? null,
-
-
-invoiceDate:
-invoice.invoiceDate ?? null,
-
-
-subtotal:
-typeof invoice.subtotal === "number"
-? invoice.subtotal
-: null,
-
-
-vat:
-typeof invoice.vat === "number"
-? invoice.vat
-: null,
-
-
-total:
-typeof invoice.total === "number"
-? invoice.total
-: null,
-
-
-
-lineItems:
-
-Array.isArray(invoice.lineItems)
-
-?
-
-invoice.lineItems
-
-.filter(
-(item:any)=>
-item.product &&
-item.product.trim()
-)
-
-.map(
-(item:any)=>({
-
-product:item.product.trim(),
-
-quantity:
-typeof item.quantity==="number"
-? item.quantity
-: null,
-
-pack:
-item.pack ?? null,
-
-unitPrice:
-typeof item.unitPrice==="number"
-? item.unitPrice
-: null,
-
-total:
-typeof item.total==="number"
-? item.total
-: null,
-
-status:
-item.status ?? null,
-
-})
-)
-
-:
-
-[],
-
-};
-
 
 
 
 
 console.log(
-"Invoice extracted:",
-cleaned.supplier,
-cleaned.lineItems.length,
-"lines"
+"RAW RESULT:",
+result.slice(0,500)
 );
 
 
 
+const invoice =
+JSON.parse(result);
 
 
-return NextResponse.json(cleaned);
+
+
+
+return NextResponse.json(invoice);
 
 
 
 }
-
 catch(error:any){
 
+
 console.error(
-"Invoice extraction error:",
+"FULL EXTRACTION ERROR:",
 error
 );
 
 
-return NextResponse.json(
 
+return NextResponse.json(
 {
 
-error:"Invoice extraction failed.",
+error:"Invoice extraction failed",
 
-details:
-process.env.NODE_ENV==="development"
-?
-error.message
-:
-undefined,
+details:error?.message || String(error),
 
 },
 
 {
 status:500
 }
-
 );
 
 
