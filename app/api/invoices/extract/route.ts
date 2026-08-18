@@ -12,96 +12,151 @@ const invoiceSchema = {
 
   type: "object",
 
-  additionalProperties: false,
+  additionalProperties:false,
 
-  properties: {
 
-    supplier: {
-      type: ["string", "null"],
-    },
+  properties:{
 
-    invoiceNumber: {
-      type: ["string", "null"],
-    },
 
-    invoiceDate: {
-      type: ["string", "null"],
-    },
+    invoices:{
 
-    subtotal: {
-      type: ["number", "null"],
-    },
+      type:"array",
 
-    vat: {
-      type: ["number", "null"],
-    },
+      items:{
 
-    total: {
-      type: ["number", "null"],
-    },
+        type:"object",
 
-    lineItems: {
+        additionalProperties:false,
 
-      type: "array",
 
-      items: {
+        properties:{
 
-        type: "object",
 
-        additionalProperties: false,
-
-        properties: {
-
-          product: {
-            type: "string",
+          supplier:{
+            type:["string","null"],
           },
 
-          quantity: {
-            type: ["number", "null"],
+
+          invoiceNumber:{
+            type:["string","null"],
           },
 
-          pack: {
-            type: ["string", "null"],
+
+          invoiceDate:{
+            type:["string","null"],
           },
 
-          unitPrice: {
-            type: ["number", "null"],
+
+          subtotal:{
+            type:["number","null"],
           },
 
-          total: {
-            type: ["number", "null"],
+
+          vat:{
+            type:["number","null"],
           },
 
-          status: {
-            type: ["string", "null"],
+
+          total:{
+            type:["number","null"],
           },
+
+
+
+          lineItems:{
+
+
+            type:"array",
+
+
+            items:{
+
+
+              type:"object",
+
+              additionalProperties:false,
+
+
+              properties:{
+
+
+                product:{
+                  type:"string",
+                },
+
+
+                quantity:{
+                  type:["number","null"],
+                },
+
+
+                pack:{
+                  type:["string","null"],
+                },
+
+
+                unitPrice:{
+                  type:["number","null"],
+                },
+
+
+                total:{
+                  type:["number","null"],
+                },
+
+
+                status:{
+                  type:["string","null"],
+                },
+
+
+              },
+
+
+              required:[
+
+                "product",
+                "quantity",
+                "pack",
+                "unitPrice",
+                "total",
+                "status",
+
+              ],
+
+            },
+
+          },
+
 
         },
 
-        required: [
-          "product",
-          "quantity",
-          "pack",
-          "unitPrice",
+
+        required:[
+
+          "supplier",
+          "invoiceNumber",
+          "invoiceDate",
+          "subtotal",
+          "vat",
           "total",
-          "status",
+          "lineItems",
+
         ],
+
 
       },
 
     },
 
+
   },
 
 
-  required: [
-    "supplier",
-    "invoiceNumber",
-    "invoiceDate",
-    "subtotal",
-    "vat",
-    "total",
-    "lineItems",
+  required:[
+
+    "invoices",
+
   ],
 
 };
@@ -110,356 +165,275 @@ const invoiceSchema = {
 
 
 
-export async function POST(request: Request) {
-
-  try {
+export async function POST(request:Request){
 
 
-    const apiKey =
-      process.env.OPENAI_API_KEY;
+try{
 
 
-
-    if (!apiKey) {
-
-      return NextResponse.json(
-        {
-          error:
-            "OpenAI API key missing",
-        },
-        {
-          status: 500,
-        }
-      );
-
-    }
+const apiKey =
+process.env.OPENAI_API_KEY;
 
 
 
+if(!apiKey){
 
-    const openai =
-      new OpenAI({
-        apiKey,
-      });
+return NextResponse.json(
+{
+error:"OpenAI API key missing"
+},
+{
+status:500
+}
+);
 
-
-
-
-
-    // -----------------------------
-    // RECEIVE JSON FROM UPLOAD PAGE
-    // -----------------------------
-
-
-    const body =
-      await request.json();
+}
 
 
 
-    const {
-      fileUrl,
-      fileName,
-      fileType,
-    } = body;
-
-
-
-    if (!fileUrl) {
-
-      return NextResponse.json(
-        {
-          error:
-            "No invoice file URL received",
-        },
-        {
-          status: 400,
-        }
-      );
-
-    }
-
-
-
-    console.log(
-      "Invoice URL received:",
-      fileName,
-      fileType,
-      fileUrl
-    );
+const openai =
+new OpenAI({
+apiKey
+});
 
 
 
 
 
-    // -----------------------------
-    // OPENAI EXTRACTION
-    // -----------------------------
-
-
-    const response =
-      await openai.responses.create({
-
-        model:
-          "gpt-5-mini",
+const body =
+await request.json();
 
 
 
-        input: [
-
-          {
-
-            role:
-              "user",
-
-
-            content: [
-
-              {
-
-                type:
-                  "input_text",
+const {
+fileUrl,
+fileName,
+fileType
+}=body;
 
 
-                text:
-`
-You are extracting structured data from a UK restaurant supplier invoice.
+
+if(!fileUrl){
+
+return NextResponse.json(
+{
+error:"No invoice URL received"
+},
+{
+status:400
+}
+);
+
+}
+
+
+
+
+console.log(
+"Processing invoice:",
+fileName,
+fileType
+);
+
+
+
+
+
+
+const response =
+await openai.responses.create({
+
+
+model:"gpt-5-mini",
+
+
+
+input:[
+
+
+{
+
+
+role:"user",
+
+
+content:[
+
+
+{
+
+
+type:"input_text",
+
+
+text:`
+
+You are processing a UK restaurant supplier invoice PDF.
+
+IMPORTANT:
+
+This PDF may contain multiple invoices.
+
+Read EVERY page.
+
+Do not stop after the first page.
+
+If the PDF contains multiple invoices:
+- create one object per invoice
+- keep each invoice number separate
+- keep each invoice date separate
+- keep each invoice total separate
+- combine all product lines belonging to that invoice
+
 
 Rules:
 
+- Extract every genuine invoice line.
+- Preserve supplier product descriptions exactly.
 - Do not invent values.
 - Return null when information is missing.
-- Extract every genuine invoice line.
-- Preserve supplier product descriptions exactly where possible.
-- Ignore delivery notes, terms and footer text.
+- Ignore delivery notes, payment terms, bank details and footer text.
 - Money values must be numbers only.
 - Quantity must be numeric where possible.
 - Pack should contain pack/unit information.
-- unitPrice means the price charged per invoice unit.
-- total means the line total/net value.
-- Invoice totals must come from the totals section.
-- Dates should use YYYY-MM-DD where possible.
-`.trim(),
+- unitPrice means price per invoiced unit.
+- total means line total/net value.
+- Dates should use YYYY-MM-DD.
 
-              },
+Before answering:
+Check every page has been reviewed.
 
+`
 
 
-              {
+},
 
-                type:
-                  "input_file",
 
 
-                file_url:
-                  fileUrl,
+{
 
-              },
 
-            ],
+type:"input_file",
 
-          },
 
-        ],
+file_url:fileUrl,
 
 
+},
 
 
-        text: {
+],
 
-          format: {
 
-            type:
-              "json_schema",
+},
 
 
-            name:
-              "restaurant_invoice",
+],
 
 
-            strict:
-              true,
 
+text:{
 
-            schema:
-              invoiceSchema,
 
-          },
+format:{
 
-        },
 
-      });
+type:"json_schema",
 
 
+name:"batch_restaurant_invoice",
 
 
+strict:true,
 
 
-    const outputText =
-      response.output_text;
+schema:invoiceSchema,
 
 
+},
 
-    console.log(
-      "OpenAI output:",
-      outputText?.slice(0,500)
-    );
 
+},
 
 
+});
 
-    if (!outputText) {
 
-      throw new Error(
-        "No extraction result returned"
-      );
 
-    }
 
 
 
+const output =
+response.output_text;
 
-    const invoice =
-      JSON.parse(outputText);
 
 
+console.log(
+"Extraction output:",
+output?.slice(0,500)
+);
 
 
 
-    const cleanedInvoice = {
+if(!output){
 
+throw new Error(
+"No extraction output returned"
+);
 
-      supplier:
-        invoice.supplier ?? null,
+}
 
 
-      invoiceNumber:
-        invoice.invoiceNumber ?? null,
 
 
-      invoiceDate:
-        invoice.invoiceDate ?? null,
 
+const parsed =
+JSON.parse(output);
 
-      subtotal:
-        typeof invoice.subtotal === "number"
-        ? invoice.subtotal
-        : null,
 
 
-      vat:
-        typeof invoice.vat === "number"
-        ? invoice.vat
-        : null,
 
 
-      total:
-        typeof invoice.total === "number"
-        ? invoice.total
-        : null,
+return NextResponse.json(
+parsed
+);
 
 
 
-      lineItems:
+}
 
-        Array.isArray(invoice.lineItems)
+catch(error:any){
 
-        ?
 
-        invoice.lineItems
-        .filter(
-          (item:any) =>
-            item?.product &&
-            item.product.trim()
-        )
-        .map(
-          (item:any)=>({
+console.error(
+"FULL EXTRACTION ERROR:",
+error
+);
 
-            product:
-              item.product.trim(),
 
-            quantity:
-              typeof item.quantity === "number"
-              ? item.quantity
-              : null,
 
-            pack:
-              item.pack ?? null,
+return NextResponse.json(
 
-            unitPrice:
-              typeof item.unitPrice === "number"
-              ? item.unitPrice
-              : null,
+{
 
-            total:
-              typeof item.total === "number"
-              ? item.total
-              : null,
+error:
+"Invoice extraction failed",
 
-            status:
-              item.status ?? null,
 
-          })
-        )
+details:
+error?.message ||
+String(error),
 
-        :
+},
 
-        [],
+{
+status:500
+}
 
-    };
+);
 
 
+}
 
-
-
-    console.log(
-      "Invoice extracted:",
-      cleanedInvoice.supplier,
-      cleanedInvoice.lineItems.length,
-      "lines"
-    );
-
-
-
-
-
-    return NextResponse.json(
-      cleanedInvoice
-    );
-
-
-
-  }
-
-  catch(error:any) {
-
-
-    console.error(
-      "FULL INVOICE EXTRACTION ERROR:",
-      error
-    );
-
-
-
-    return NextResponse.json(
-      {
-
-        error:
-          "Invoice extraction failed",
-
-
-        details:
-          error?.message ||
-          String(error),
-
-      },
-
-      {
-        status:500,
-      }
-
-    );
-
-
-  }
 
 }
