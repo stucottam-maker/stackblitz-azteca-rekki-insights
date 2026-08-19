@@ -1,0 +1,294 @@
+/* Orders mobile polish — compact, touch-friendly ordering without changing the workflow. */
+
+.quick-order-page .quick-order-product {
+  min-width: 0;
+}
+
+.quick-order-page .quick-order-product-title strong,
+.quick-order-page .quick-order-product > span {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .quick-order-page {
+    padding-bottom: 118px;
+  }
+
+  .quick-order-page .quick-order-toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    margin: 10px 0 8px;
+  }
+
+  .quick-order-page .ingredient-search {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .quick-order-page .ingredient-search input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 13px;
+    border: 1px solid #dcd8d0;
+    border-radius: 12px;
+    background: #fff;
+    color: #252622;
+    font-size: 14px;
+  }
+
+  .quick-order-page .quick-order-toolbar > .cancel-button,
+  .quick-order-page .quick-order-toolbar > .secondary-inline-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    margin: 0;
+    padding: 0 10px;
+    border-radius: 11px;
+    font-size: 13px;
+  }
+
+  .quick-order-page .purchasing-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    width: 100%;
+    margin: 9px 0 10px;
+    padding: 4px;
+    overflow: visible;
+    border: 1px solid #e4e1da;
+    border-radius: 12px;
+    background: #efeee9;
+  }
+
+  .quick-order-page .purchasing-tabs button {
+    min-width: 0;
+    padding: 8px 4px;
+    border-radius: 9px;
+    color: #686b65;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
+  .quick-order-page .purchasing-tabs .purchasing-tab-active {
+    color: #1d4638;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(25, 45, 34, 0.09);
+  }
+
+  .quick-order-page .quick-order-panel {
+    overflow: hidden;
+    padding: 0;
+    border-radius: 16px;
+  }
+
+  .quick-order-page .quick-order-column-headings {
+    display: none;
+  }
+
+  .quick-order-page .quick-order-lines {
+    display: block;
+  }
+
+  .quick-order-page .quick-order-line {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "product stock"
+      "quantity quantity";
+    gap: 10px 12px;
+    min-height: 0;
+    padding: 14px;
+    align-items: start;
+    border-bottom: 1px solid #ebe8e1;
+    background: #fff;
+  }
+
+  .quick-order-page .quick-order-line:last-child {
+    border-bottom: 0;
+  }
+
+  .quick-order-page .quick-order-line-active {
+    background: #f5faf7;
+    box-shadow: inset 3px 0 0 #31725e;
+  }
+
+  .quick-order-page .quick-order-product {
+    grid-area: product;
+    display: grid;
+    gap: 4px;
+  }
+
+  .quick-order-page .quick-order-product-title {
+    gap: 6px;
+  }
+
+  .quick-order-page .quick-order-product-title strong {
+    font-size: 15px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .quick-order-page .quick-order-product > span {
+    color: #777b74;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .quick-order-page .quick-order-sku {
+    padding: 3px 6px;
+    font-size: 9px;
+  }
+
+  .quick-order-page .quick-order-price-note {
+    margin-top: 0;
+    color: #5f665f !important;
+    font-size: 12px !important;
+    font-weight: 650;
+  }
+
+  .quick-order-page .quick-order-stock {
+    grid-area: stock;
+    display: grid;
+    justify-items: end;
+    align-content: start;
+    min-width: 0;
+    gap: 2px;
+    padding-top: 2px;
+  }
+
+  .quick-order-page .quick-order-stock::before {
+    content: "Stock";
+    color: #9a9d96;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .quick-order-page .quick-order-stock strong {
+    color: #4f544f;
+    font-size: 12px;
+    line-height: 1.1;
+  }
+
+  .quick-order-page .quick-order-stock span {
+    color: #92968f;
+    font-size: 9px;
+  }
+
+  .quick-order-page .quick-order-quantity {
+    grid-area: quantity;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) 42px auto;
+    width: 100%;
+    gap: 6px;
+    align-items: center;
+    justify-self: stretch;
+  }
+
+  .quick-order-page .quick-order-quantity button {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #d8d4cb;
+    border-radius: 11px !important;
+    background: #faf9f6;
+    color: #24513f;
+    font-size: 20px;
+  }
+
+  .quick-order-page .quick-order-quantity select {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    border: 1px solid #d8d4cb;
+    border-radius: 11px;
+    background-color: #fff;
+    font-size: 15px;
+  }
+
+  .quick-order-page .quick-order-quantity > span {
+    margin-left: 0;
+    padding: 0 3px;
+    background: transparent;
+    color: #777b74;
+    font-size: 11px;
+  }
+
+  .quick-order-page .quick-suggestion {
+    width: fit-content;
+    margin-top: 3px;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: #eef3ef;
+    color: #315d4b;
+    font-size: 10px;
+    font-weight: 750;
+  }
+
+  .quick-order-page .quick-order-footer {
+    position: fixed;
+    z-index: 80;
+    right: 13px;
+    bottom: 10px;
+    left: 13px;
+    width: auto;
+    min-height: 72px;
+    margin: 0;
+    padding: 10px 11px;
+    border: 1px solid rgba(32, 61, 47, .14);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .97);
+    box-shadow: 0 10px 32px rgba(25, 45, 34, .16);
+    backdrop-filter: blur(10px);
+  }
+
+  .quick-order-page .quick-order-footer > div {
+    min-width: 88px;
+  }
+
+  .quick-order-page .quick-order-footer > div > span {
+    font-size: 10px;
+  }
+
+  .quick-order-page .quick-order-footer > div > strong {
+    font-size: 22px;
+  }
+
+  .quick-order-page .quick-review-button {
+    min-height: 48px;
+    border-radius: 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 390px) {
+  .quick-order-page .purchasing-tabs button {
+    font-size: 11px;
+  }
+
+  .quick-order-page .quick-order-line {
+    padding: 12px;
+  }
+
+  .quick-order-page .quick-order-quantity {
+    grid-template-columns: 40px minmax(0, 1fr) 40px auto;
+    gap: 5px;
+  }
+
+  .quick-order-page .quick-order-quantity button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .quick-order-page .quick-order-quantity select {
+    height: 40px;
+  }
+}
