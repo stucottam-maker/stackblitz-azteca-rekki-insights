@@ -8,6 +8,7 @@ import "./login-polish.css";
 import "./reports-polish.css";
 import "./ap-polish.css";
 import "./pwa-polish.css";
+import "./invoice-mobile-fix.css";
 
 import AppFrame from "./components/AppFrame";
 
