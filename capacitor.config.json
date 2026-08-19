@@ -1,0 +1,17 @@
+{
+  "appId": "uk.kitcheninsights.app",
+  "appName": "Kitchen Insights",
+  "webDir": "capacitor-shell",
+  "loggingBehavior": "debug",
+  "appendUserAgent": " KitchenInsightsAndroid/0.1",
+  "backgroundColor": "#f4f3ef",
+  "server": {
+    "url": "https://azteca.kitcheninsights.uk",
+    "cleartext": false
+  },
+  "android": {
+    "backgroundColor": "#f4f3ef",
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": true
+  }
+}
