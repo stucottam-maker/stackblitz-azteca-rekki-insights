@@ -70,6 +70,35 @@
 .order-v2-history-row { display: grid; grid-template-columns: minmax(220px,1.4fr) auto auto minmax(190px,auto); gap: 14px; align-items: center; padding: 13px 14px; border: 1px solid rgba(31,55,43,.1); border-radius: 13px; background: #fff; }
 .order-v2-actions { display: flex; justify-content: flex-end; gap: 7px; flex-wrap: wrap; }
 
+/* Restored quick-order interaction: supplier cards/logos + tap-friendly quantity picker. */
+.quick-order-page .supplier-choice-card small { color: #8a857c; font-size: 11px; line-height: 1.3; overflow-wrap: anywhere; }
+.quick-order-page .quick-order-quantity select {
+  width: 84px;
+  height: 38px;
+  border: 1px solid #cfc9be;
+  border-radius: 9px;
+  background: #fff;
+  padding: 0 26px 0 10px;
+  text-align: center;
+  font: inherit;
+  font-weight: 800;
+  color: #24231f;
+  cursor: pointer;
+}
+.quick-order-page .quick-order-quantity select:focus { outline: 2px solid rgba(49,87,70,.16); outline-offset: 2px; }
+.quick-order-history-row-actions { grid-template-columns: minmax(220px,1.4fr) 80px 110px auto minmax(220px,auto); }
+.quick-order-history-actions { display: flex; align-items: center; justify-content: flex-end; gap: 7px; flex-wrap: wrap; }
+.quick-order-history-actions .primary-button,
+.quick-order-history-actions .secondary-inline-button { min-height: 36px; padding-top: 7px; padding-bottom: 7px; white-space: nowrap; }
+.quick-order-page .quick-order-product-title { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+.quick-order-page .quick-order-product-title strong { margin-right: 2px; }
+.quick-order-page .quick-order-sku { display: inline-flex; width: auto; margin-top: 0; padding: 3px 6px; border-radius: 999px; background: #f0eee8; color: #6f6a62; font-size: 10px; font-weight: 800; }
+.quick-order-page .order-review-recipient { display: grid; gap: 3px; text-align: right; }
+.quick-order-page .order-review-recipient span { font-size: 11px; opacity: .62; }
+.quick-order-page .order-notes-field { display: grid; gap: 7px; margin-top: 18px; }
+.quick-order-page .order-notes-field > span { font-size: 12px; font-weight: 800; opacity: .68; }
+.quick-order-page .order-notes-field textarea { width: 100%; min-height: 88px; resize: vertical; border: 1px solid rgba(31,55,43,.16); border-radius: 10px; padding: 10px 12px; background: #fff; color: inherit; font: inherit; }
+
 .recipe-v2-page .recipe-editor-title-input { border: 0; background: transparent; padding: 0; min-height: auto; border-radius: 0; font-size: clamp(30px,4vw,48px); line-height: 1.05; font-weight: 800; max-width: 720px; }
 .recipe-v2-page .recipe-editor-title-input:focus { outline: 2px solid rgba(31,55,43,.18); outline-offset: 5px; }
 .recipe-v2-yield-fields { display: grid; grid-template-columns: minmax(140px,.5fr) minmax(180px,1fr); gap: 12px; max-width: 520px; }
@@ -99,6 +128,9 @@
   .recipe-v2-line { grid-template-columns: minmax(170px,1fr) 90px 80px; }
   .recipe-v2-price-source { grid-column: 1 / -2; }
   .recipe-v2-bottom-grid { grid-template-columns: 1fr; }
+  .quick-order-history-row-actions { grid-template-columns: 1fr auto auto; }
+  .quick-order-history-row-actions .quick-order-history-supplier { grid-column: 1 / -1; }
+  .quick-order-history-actions { grid-column: 1 / -1; justify-content: flex-start; }
 }
 
 @media (max-width: 640px) {
@@ -114,4 +146,15 @@
   .recipe-v2-line .cancel-button { width: 100%; }
   .recipe-v2-allergens { grid-template-columns: 1fr; }
   .sidebar-logout { flex: 0 0 auto; width: auto; min-height: 42px; white-space: nowrap; }
+
+  .quick-order-page .quick-order-quantity { display: grid; grid-template-columns: 42px minmax(90px,1fr) 42px auto; width: 100%; }
+  .quick-order-page .quick-order-quantity button { width: 42px; height: 42px; }
+  .quick-order-page .quick-order-quantity select { width: 100%; height: 42px; }
+  .quick-order-history-row-actions { grid-template-columns: 1fr; gap: 8px; }
+  .quick-order-history-row-actions .quick-order-history-supplier,
+  .quick-order-history-actions { grid-column: auto; }
+  .quick-order-history-actions { display: grid; grid-template-columns: 1fr; width: 100%; }
+  .quick-order-history-actions .primary-button,
+  .quick-order-history-actions .secondary-inline-button { width: 100%; }
+  .quick-order-page .order-review-recipient { text-align: left; margin-top: 10px; }
 }
