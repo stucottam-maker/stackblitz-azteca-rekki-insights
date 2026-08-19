@@ -23,6 +23,12 @@ export async function GET(request: Request) {
         vat,
         total,
         status,
+        due_date,
+        payment_terms,
+        payment_status,
+        paid_at,
+        match_status,
+        discrepancy_amount,
         created_at,
         suppliers (
           name
@@ -52,6 +58,12 @@ export async function GET(request: Request) {
         vat: invoice.vat,
         total: invoice.total,
         status: invoice.status,
+        dueDate: invoice.due_date,
+        paymentTerms: invoice.payment_terms,
+        paymentStatus: invoice.payment_status,
+        paidAt: invoice.paid_at,
+        matchStatus: invoice.match_status,
+        discrepancyAmount: invoice.discrepancy_amount,
         createdAt: invoice.created_at,
       };
     });
@@ -65,5 +77,39 @@ export async function GET(request: Request) {
       { error: response.message },
       { status: response.status }
     );
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    const { organisationId, siteId } = await requireOrganisation(request);
+    const body = await request.json();
+    const invoiceId = String(body.invoiceId || "");
+    const paymentStatus = String(body.paymentStatus || "");
+    const allowed = new Set(["unpaid", "scheduled", "paid", "disputed"]);
+
+    if (!invoiceId || !allowed.has(paymentStatus)) {
+      return NextResponse.json({ error: "Invalid payment update" }, { status: 400 });
+    }
+
+    const { data, error } = await serviceSupabase
+      .from("invoices")
+      .update({
+        payment_status: paymentStatus,
+        paid_at: paymentStatus === "paid" ? new Date().toISOString() : null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", invoiceId)
+      .eq("organisation_id", organisationId)
+      .eq("site_id", siteId)
+      .select("id, payment_status, paid_at")
+      .single();
+
+    if (error) throw error;
+    return NextResponse.json({ invoice: data });
+  } catch (error) {
+    console.error("INVOICE PAYMENT UPDATE FAILED", error);
+    const response = authErrorResponse(error);
+    return NextResponse.json({ error: response.message }, { status: response.status });
   }
 }

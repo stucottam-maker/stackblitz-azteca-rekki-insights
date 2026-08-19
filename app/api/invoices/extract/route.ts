@@ -44,6 +44,8 @@ const invoiceSchema = {
           supplier: { type: ["string", "null"] },
           invoiceNumber: { type: ["string", "null"] },
           invoiceDate: { type: ["string", "null"] },
+          dueDate: { type: ["string", "null"] },
+          paymentTerms: { type: ["string", "null"] },
           subtotal: { type: ["number", "null"] },
           vat: { type: ["number", "null"] },
           total: { type: ["number", "null"] },
@@ -75,6 +77,8 @@ const invoiceSchema = {
           "supplier",
           "invoiceNumber",
           "invoiceDate",
+          "dueDate",
+          "paymentTerms",
           "subtotal",
           "vat",
           "total",
@@ -97,13 +101,14 @@ Rules:
 - Extract every genuine product line.
 - Do not return empty lineItems when products are visible.
 - Preserve supplier product descriptions exactly.
-- Ignore delivery notes, payment terms and account summaries.
+- Ignore delivery notes and account summaries.
+- Extract the due date and payment terms when printed. Do not calculate them.
 - Do not invent information. Use null if unknown.
 - Money values must be numbers.
 - Quantity must be numeric where possible.
 - Dates must be YYYY-MM-DD.
 
-For every invoice return supplier, invoice number, invoice date, subtotal, VAT and total.
+For every invoice return supplier, invoice number, invoice date, due date, payment terms, subtotal, VAT and total.
 For every line return product, quantity, pack, unit price and line total.
 `;
 

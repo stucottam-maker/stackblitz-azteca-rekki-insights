@@ -6,6 +6,7 @@ import "./final-polish.css";
 import "./orders-polish.css";
 import "./login-polish.css";
 import "./reports-polish.css";
+import "./ap-polish.css";
 
 import AppFrame from "./components/AppFrame";
 

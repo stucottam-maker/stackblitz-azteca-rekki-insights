@@ -32,6 +32,14 @@ function normaliseInvoiceNumber(value: unknown) {
     .replace(/[^a-z0-9]/g, "");
 }
 
+function defaultDueDate(invoiceDate: unknown) {
+  if (typeof invoiceDate !== "string" || !invoiceDate) return null;
+  const date = new Date(`${invoiceDate}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return null;
+  date.setDate(date.getDate() + 30);
+  return date.toISOString().slice(0, 10);
+}
+
 export async function POST(req: Request) {
   try {
     const { organisationId, siteId } = await requireOrganisation(req);
@@ -113,6 +121,9 @@ export async function POST(req: Request) {
           supplier_id: supplier.id,
           invoice_number: invoiceNumber,
           invoice_date: invoice.invoiceDate || null,
+          due_date: invoice.dueDate || defaultDueDate(invoice.invoiceDate),
+          payment_terms: invoice.paymentTerms || "30 days",
+          payment_status: "unpaid",
           subtotal: toNumberOrNull(invoice.subtotal),
           vat: toNumberOrNull(invoice.vat),
           total: toNumberOrNull(invoice.total),
