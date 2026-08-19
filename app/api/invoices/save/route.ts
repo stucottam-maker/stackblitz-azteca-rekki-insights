@@ -131,16 +131,86 @@ export async function POST(req: Request) {
       const lineItems = Array.isArray(invoice.lineItems) ? invoice.lineItems : [];
 
       if (lineItems.length > 0) {
-        const lineRows = lineItems.map((item: any) => ({
-          invoice_id: savedInvoice.id,
-          product_name:
-            item.product || item.productName || item.description || "Unknown product",
-          quantity: toNumberOrNull(item.quantity),
-          pack: item.pack || item.unit || null,
-          unit_price: toNumberOrNull(item.unitPrice),
-          line_total: toNumberOrNull(item.total),
-          price_unit: item.priceUnit || null,
-        }));
+        const { data: existingProducts, error: productLoadError } =
+          await serviceSupabase
+            .from("supplier_products")
+            .select("id, ingredient_id, supplier_product_name")
+            .eq("organisation_id", organisationId)
+            .eq("supplier_id", supplier.id)
+            .limit(5000);
+
+        if (productLoadError) throw productLoadError;
+
+        const productMap = new Map(
+          (existingProducts ?? []).map((product) => [
+            normaliseName(product.supplier_product_name),
+            product,
+          ])
+        );
+        const lineRows: Record<string, unknown>[] = [];
+
+        for (const item of lineItems) {
+          const productName = String(
+            item.product || item.productName || item.description || "Unknown product"
+          ).trim();
+          const productKey = normaliseName(productName);
+          const unitPrice = toNumberOrNull(item.unitPrice);
+          const quantity = toNumberOrNull(item.quantity);
+          const lineTotal = toNumberOrNull(item.total);
+          const latestPrice = unitPrice ?? (
+            lineTotal !== null && quantity !== null && quantity > 0
+              ? lineTotal / quantity
+              : null
+          );
+          let supplierProduct = productMap.get(productKey);
+
+          if (!supplierProduct) {
+            const { data: createdProduct, error: createProductError } =
+              await serviceSupabase
+                .from("supplier_products")
+                .insert({
+                  organisation_id: organisationId,
+                  supplier_id: supplier.id,
+                  supplier_product_name: productName,
+                  price_unit: item.priceUnit || item.pack || item.unit || null,
+                  latest_price: latestPrice,
+                })
+                .select("id, ingredient_id, supplier_product_name")
+                .single();
+
+            if (createProductError || !createdProduct) {
+              throw new Error(
+                createProductError?.message || `Could not catalogue ${productName}`
+              );
+            }
+
+            supplierProduct = createdProduct;
+            productMap.set(productKey, createdProduct);
+          } else if (latestPrice !== null) {
+            const { error: updateProductError } = await serviceSupabase
+              .from("supplier_products")
+              .update({
+                latest_price: latestPrice,
+                price_unit: item.priceUnit || item.pack || item.unit || null,
+                updated_at: new Date().toISOString(),
+              })
+              .eq("id", supplierProduct.id);
+
+            if (updateProductError) throw updateProductError;
+          }
+
+          lineRows.push({
+            invoice_id: savedInvoice.id,
+            supplier_product_id: supplierProduct.id,
+            ingredient_id: supplierProduct.ingredient_id,
+            product_name: productName,
+            quantity,
+            pack: item.pack || item.unit || null,
+            unit_price: unitPrice,
+            line_total: lineTotal,
+            price_unit: item.priceUnit || null,
+          });
+        }
 
         const { error: lineError } = await serviceSupabase
           .from("invoice_lines")

@@ -2074,6 +2074,29 @@ td strong {
   font: inherit;
 }
 
+.automatic-match-result {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.automatic-match-result strong,
+.automatic-match-result span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.automatic-match-result span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.automatic-match-result .secondary-inline-button {
+  justify-self: start;
+  margin-top: 6px;
+}
+
 .compare-arrow {
   padding-bottom: 11px;
   color: #8a857c;

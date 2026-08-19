@@ -10,12 +10,13 @@ import {
   readWorkspaceState,
 } from "../../lib/workspaceState";
 
-type ProductOption = {
+type AutomaticMatch = {
+  price?: number;
+  unit?: string;
   supplier: string;
-  productName: string;
-  pack?: string | null;
-  priceUnit?: string | null;
-  invoiceDate?: string | null;
+  product: string;
+  confidence?: number;
+  matchType?: string;
 };
 
 type Mapping = { supplier?: string; productName?: string };
@@ -26,9 +27,10 @@ function normalise(value: string) {
 }
 
 export default function IngredientMatchingPage() {
-  const [products, setProducts] = useState<ProductOption[]>([]);
+  const [automaticMatches, setAutomaticMatches] = useState<Record<string, AutomaticMatch>>({});
   const [mappings, setMappings] = useState<MappingMap>({});
   const [loading, setLoading] = useState(true);
+  const [catalogueCount, setCatalogueCount] = useState(0);
   const [saving, setSaving] = useState("");
   const [search, setSearch] = useState("");
   const [message, setMessage] = useState("");
@@ -57,16 +59,34 @@ export default function IngredientMatchingPage() {
         } = await supabase.auth.getSession();
         if (!session?.access_token) return;
 
-        const response = await fetch("/api/ingredient-match-options", {
-          headers: { Authorization: `Bearer ${session.access_token}` },
-          cache: "no-store",
-        });
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || "Could not load invoice products");
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        };
+        const [mappingResponse, priceResponse] = await Promise.all([
+          fetch("/api/ingredient-match-options", { headers, cache: "no-store" }),
+          fetch("/api/ingredient-prices", {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ ingredients: ingredientNames }),
+            cache: "no-store",
+          }),
+        ]);
+        const [mappingData, priceData] = await Promise.all([
+          mappingResponse.json(),
+          priceResponse.json(),
+        ]);
+        if (!mappingResponse.ok) {
+          throw new Error(mappingData.error || "Could not load matching data");
+        }
+        if (!priceResponse.ok) {
+          throw new Error(priceData.error || "Could not automate ingredient matching");
+        }
 
         const stored = await readWorkspaceState<MappingMap>("invoiceProductMappings", {});
-        setProducts(Array.isArray(data.products) ? data.products : []);
-        setMappings({ ...(data.mappings ?? {}), ...stored });
+        setMappings({ ...(mappingData.mappings ?? {}), ...stored });
+        setCatalogueCount(Number(mappingData.catalogueCount ?? 0));
+        setAutomaticMatches(priceData.prices ?? {});
       } catch (error: any) {
         setMessage(error?.message || "Could not load matching data");
       } finally {
@@ -75,28 +95,22 @@ export default function IngredientMatchingPage() {
     }
 
     void load();
-  }, []);
+  }, [ingredientNames]);
 
   const filteredIngredients = ingredientNames.filter((name) =>
     name.toLowerCase().includes(search.trim().toLowerCase())
   );
 
-  async function saveMapping(ingredient: string, selection: string) {
+  async function removeManualMapping(ingredient: string) {
     const key = normalise(ingredient);
     const next = { ...mappings };
-
-    if (!selection) {
-      delete next[key];
-    } else {
-      const [supplier, productName] = selection.split("|||", 2);
-      next[key] = { supplier, productName };
-    }
+    delete next[key];
 
     setSaving(ingredient);
     setMappings(next);
     try {
       await persistWorkspaceState("invoiceProductMappings", JSON.stringify(next));
-      setMessage(`${ingredient} mapping saved. Refreshing recipe prices…`);
+      setMessage(`${ingredient} returned to automatic matching.`);
       window.dispatchEvent(
         new CustomEvent("kitchen-insights:ingredient-mappings-updated")
       );
@@ -115,7 +129,7 @@ export default function IngredientMatchingPage() {
           <h1>Ingredient matching</h1>
           <p className="page-description">
             Confirm which supplier invoice product belongs to each recipe ingredient.
-            Saved mappings override automatic matching on future invoices.
+            Matches are selected automatically from approved invoices and refreshed as prices change.
           </p>
         </div>
         <Link href="/ingredients" className="secondary-inline-button">← Ingredients</Link>
@@ -126,6 +140,7 @@ export default function IngredientMatchingPage() {
           <div>
             <p className="panel-kicker">Review</p>
             <h2>Recipe ingredients</h2>
+            <p>{catalogueCount} supplier products checked automatically.</p>
           </div>
           <input
             type="search"
@@ -144,33 +159,44 @@ export default function IngredientMatchingPage() {
           <div className="matching-list">
             {filteredIngredients.map((ingredient) => {
               const mapping = mappings[normalise(ingredient)];
-              const currentValue = mapping?.productName
-                ? `${mapping.supplier ?? ""}|||${mapping.productName}`
-                : "";
+              const automatic = automaticMatches[ingredient];
+              const matchedProduct = mapping?.productName ?? automatic?.product;
+              const matchedSupplier = mapping?.supplier ?? automatic?.supplier;
+              const confidence = mapping?.productName ? 100 : automatic?.confidence;
 
               return (
                 <div className="matching-row" key={ingredient}>
                   <div className="matching-ingredient">
                     <strong>{ingredient}</strong>
-                    <span>{mapping?.productName ? "Manual match" : "Automatic / unmatched"}</span>
+                    <span>
+                      {mapping?.productName
+                        ? "Manual override"
+                        : matchedProduct
+                          ? `Automatic match · ${confidence ?? 0}% confidence`
+                          : "Needs more invoice data"}
+                    </span>
                   </div>
 
-                  <select
-                    value={currentValue}
-                    onChange={(event) => void saveMapping(ingredient, event.target.value)}
-                    disabled={saving === ingredient}
-                  >
-                    <option value="">Use automatic matching</option>
-                    {products.map((product) => {
-                      const value = `${product.supplier}|||${product.productName}`;
-                      return (
-                        <option key={value} value={value}>
-                          {product.supplier} — {product.productName}
-                          {product.pack ? ` · ${product.pack}` : ""}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  <div className="automatic-match-result">
+                    {matchedProduct ? (
+                      <>
+                        <strong>{matchedProduct}</strong>
+                        <span>{matchedSupplier || "Unknown supplier"}</span>
+                      </>
+                    ) : (
+                      <span>No reliable product match yet</span>
+                    )}
+                    {mapping?.productName && (
+                      <button
+                        type="button"
+                        className="secondary-inline-button"
+                        onClick={() => void removeManualMapping(ingredient)}
+                        disabled={saving === ingredient}
+                      >
+                        Use automation
+                      </button>
+                    )}
+                  </div>
                 </div>
               );
             })}

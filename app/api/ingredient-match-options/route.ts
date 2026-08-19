@@ -90,7 +90,7 @@ export async function GET(request: Request) {
     );
 
     return NextResponse.json({
-      products,
+      catalogueCount: products.length,
       mappings: mappingResult.data?.state_value ?? {},
     });
   } catch (error) {
