@@ -7,12 +7,24 @@ import "./orders-polish.css";
 import "./login-polish.css";
 import "./reports-polish.css";
 import "./ap-polish.css";
+import "./pwa-polish.css";
 
 import AppFrame from "./components/AppFrame";
 
 export const metadata = {
   title: "Kitchen Insights",
   description: "Cost control & operations",
+  applicationName: "Kitchen Insights",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Kitchen Insights",
+  },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -22,6 +34,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <meta name="theme-color" content="#214f3d" />
+        <meta name="mobile-web-app-capable" content="yes" />
+      </head>
       <body>
         <AppFrame>{children}</AppFrame>
       </body>
