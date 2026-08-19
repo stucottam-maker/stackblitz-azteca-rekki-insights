@@ -8,6 +8,7 @@ on:
     paths:
       - "capacitor.config.json"
       - "capacitor-shell/**"
+      - "public/native-camera-bridge.js"
       - ".github/workflows/android-debug.yml"
 
 permissions:
@@ -34,12 +35,12 @@ jobs:
           java-version: "21"
 
       - name: Install Capacitor tooling
-        run: npm install --no-save --ignore-scripts @capacitor/core@8 @capacitor/cli@8 @capacitor/android@8
+        run: npm install --no-save --ignore-scripts @capacitor/core@8 @capacitor/cli@8 @capacitor/android@8 @capacitor/camera@8
 
       - name: Generate Android project
         run: npx cap add android
 
-      - name: Sync web shell
+      - name: Sync web shell and native plugins
         run: npx cap sync android
 
       - name: Build debug APK
@@ -67,10 +68,10 @@ jobs:
             gh release upload android-debug-latest Kitchen-Insights-debug.apk --clobber
             gh release edit android-debug-latest \
               --title "Kitchen Insights Android Test" \
-              --notes "Unsigned/debug Android test build of Kitchen Insights. For internal testing only; not the Google Play production build."
+              --notes "Android test build of Kitchen Insights with native camera support for invoice capture. Internal testing only; not the Google Play production build."
           else
             gh release create android-debug-latest Kitchen-Insights-debug.apk \
               --title "Kitchen Insights Android Test" \
-              --notes "Unsigned/debug Android test build of Kitchen Insights. For internal testing only; not the Google Play production build." \
+              --notes "Android test build of Kitchen Insights with native camera support for invoice capture. Internal testing only; not the Google Play production build." \
               --prerelease
           fi
