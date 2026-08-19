@@ -11,6 +11,25 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const supportedFileTypes = new Set([
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+]);
+
+function isTrustedInvoiceUrl(value: unknown) {
+  if (typeof value !== "string") return false;
+
+  try {
+    const fileUrl = new URL(value);
+    const supabaseUrl = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL || "");
+    return fileUrl.protocol === "https:" && fileUrl.hostname === supabaseUrl.hostname;
+  } catch {
+    return false;
+  }
+}
+
 const invoiceSchema = {
   type: "object",
   additionalProperties: false,
@@ -92,19 +111,40 @@ export async function POST(request: Request) {
   try {
     await requireOrganisation(request);
 
-    const body = await request.json();
-    const { fileUrl, fileType, fileName } = body;
+    if (!request.headers.get("content-type")?.includes("application/json")) {
+      return NextResponse.json(
+        { error: "Invoice extraction expects a JSON upload request." },
+        { status: 415 }
+      );
+    }
+
+    let body: Record<string, unknown>;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: "The invoice upload request was incomplete. Please try again." },
+        { status: 400 }
+      );
+    }
+
+    const { fileUrl, fileType } = body;
 
     if (!fileUrl) {
       return NextResponse.json({ error: "Missing file URL" }, { status: 400 });
     }
 
     if (
-      typeof fileUrl !== "string" ||
-      !/^https:\/\//i.test(fileUrl) ||
-      !fileUrl.includes("supabase")
+      !isTrustedInvoiceUrl(fileUrl)
     ) {
       return NextResponse.json({ error: "Invalid invoice file URL" }, { status: 400 });
+    }
+
+    if (typeof fileType !== "string" || !supportedFileTypes.has(fileType)) {
+      return NextResponse.json(
+        { error: "Upload a PDF, JPG, PNG or WebP invoice." },
+        { status: 415 }
+      );
     }
 
     const content: any[] = [];
@@ -134,11 +174,24 @@ export async function POST(request: Request) {
       },
     });
 
-    const output = response.output_text;
-    if (!output) throw new Error("No response from OpenAI");
+    const output = response.output_text?.trim();
+    if (!output) throw new Error("The invoice reader returned no data.");
 
-    const parsed = JSON.parse(output);
-    return NextResponse.json({ invoices: parsed.invoices || [] });
+    let parsed: { invoices?: unknown[] };
+    try {
+      parsed = JSON.parse(output);
+    } catch {
+      throw new Error("The invoice reader returned an incomplete result. Please try again.");
+    }
+
+    if (!Array.isArray(parsed.invoices) || parsed.invoices.length === 0) {
+      return NextResponse.json(
+        { error: "No invoices could be read from this file." },
+        { status: 422 }
+      );
+    }
+
+    return NextResponse.json({ invoices: parsed.invoices });
   } catch (error: any) {
     console.error("Invoice extraction error:", error);
     const response = authErrorResponse(error);

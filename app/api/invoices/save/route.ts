@@ -26,11 +26,18 @@ function toNumberOrNull(value: unknown) {
   return Number.isFinite(number) ? number : null;
 }
 
+function normaliseInvoiceNumber(value: unknown) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
 export async function POST(req: Request) {
   try {
     const { organisationId, siteId } = await requireOrganisation(req);
     const body = await req.json();
     const invoices = Array.isArray(body.invoices) ? body.invoices : [];
+    const source = body.source && typeof body.source === "object" ? body.source : null;
 
     if (invoices.length === 0) {
       return NextResponse.json({ error: "No invoices supplied" }, { status: 400 });
@@ -74,21 +81,25 @@ export async function POST(req: Request) {
         supplierMap.set(supplierKey, createdSupplier);
       }
 
-      const invoiceNumber = invoice.invoiceNumber || null;
+      const invoiceNumber = String(invoice.invoiceNumber || "").trim() || null;
 
       if (invoiceNumber) {
         const { data: existing, error: existingError } = await serviceSupabase
           .from("invoices")
-          .select("id")
+          .select("id, invoice_number")
           .eq("organisation_id", organisationId)
           .eq("site_id", siteId)
           .eq("supplier_id", supplier.id)
-          .eq("invoice_number", invoiceNumber)
-          .limit(1);
+          .limit(1000);
 
         if (existingError) throw existingError;
 
-        if (existing && existing.length > 0) {
+        const invoiceKey = normaliseInvoiceNumber(invoiceNumber);
+        if (
+          existing?.some(
+            (row) => normaliseInvoiceNumber(row.invoice_number) === invoiceKey
+          )
+        ) {
           skipped += 1;
           continue;
         }
@@ -105,6 +116,8 @@ export async function POST(req: Request) {
           subtotal: toNumberOrNull(invoice.subtotal),
           vat: toNumberOrNull(invoice.vat),
           total: toNumberOrNull(invoice.total),
+          file_name: typeof source?.fileName === "string" ? source.fileName : null,
+          file_path: typeof source?.filePath === "string" ? source.filePath : null,
           status: "approved",
           approved_at: new Date().toISOString(),
         })
@@ -133,7 +146,10 @@ export async function POST(req: Request) {
           .from("invoice_lines")
           .insert(lineRows);
 
-        if (lineError) throw lineError;
+        if (lineError) {
+          await serviceSupabase.from("invoices").delete().eq("id", savedInvoice.id);
+          throw lineError;
+        }
       }
 
       savedInvoices.push(savedInvoice);

@@ -40,13 +40,23 @@ export default function InvoiceReviewPage() {
         throw new Error("Your session has expired. Please sign in again.");
       }
 
+      let source: Record<string, unknown> | null = null;
+      const storedSource = sessionStorage.getItem("extractedInvoiceSource");
+      if (storedSource) {
+        try {
+          source = JSON.parse(storedSource);
+        } catch {
+          source = null;
+        }
+      }
+
       const response = await fetch("/api/invoices/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ invoices }),
+        body: JSON.stringify({ invoices, source }),
       });
 
       const raw = await response.text();

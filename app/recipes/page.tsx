@@ -153,7 +153,6 @@ export default function RecipesPage() {
             Build prep and menu recipes and calculate live costs from approved invoices.
           </p>
         </div>
-        <Link href="/recipes/new" className="primary-button">+ Add recipe</Link>
       </header>
 
       <section className="stats-grid">

@@ -166,9 +166,15 @@ export default function InvoicesPage() {
                 {invoices.map((invoice) => (
                   <tr key={invoice.id}>
                     <td>
-                      <strong>{invoice.supplier || "Unknown"}</strong>
+                      <Link href={`/invoices/${invoice.id}`} className="invoice-detail-link">
+                        <strong>{invoice.supplier || "Unknown"}</strong>
+                      </Link>
                     </td>
-                    <td>{invoice.invoiceNumber || "-"}</td>
+                    <td>
+                      <Link href={`/invoices/${invoice.id}`} className="invoice-detail-link">
+                        {invoice.invoiceNumber || "-"}
+                      </Link>
+                    </td>
                     <td>{invoice.invoiceDate || "-"}</td>
                     <td>
                       {invoice.total === null || invoice.total === undefined

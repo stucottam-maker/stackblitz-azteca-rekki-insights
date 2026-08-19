@@ -8,8 +8,8 @@ import {
   useParams,
   useRouter,
 } from "next/navigation";
+import Image from "next/image";
 
-import Sidebar from "../../components/Sidebar";
 import { supabase } from "../../lib/supabase";
 
 type SupplierRelation =
@@ -248,21 +248,7 @@ export default function InvoiceDetailPage() {
   ]);
 
   if (loading) {
-    return (
-      <main className="app-shell">
-        <Sidebar active="invoices" />
-
-        <section className="main-content">
-          <div
-            style={{
-              padding: "40px",
-            }}
-          >
-            Loading invoice...
-          </div>
-        </section>
-      </main>
-    );
+    return <div className="page">Loading invoice…</div>;
   }
 
   if (
@@ -270,26 +256,12 @@ export default function InvoiceDetailPage() {
     !invoice
   ) {
     return (
-      <main className="app-shell">
-        <Sidebar active="invoices" />
-
-        <section className="main-content">
-          <div
-            style={{
-              padding: "40px",
-            }}
-          >
-            <strong>
-              Unable to load invoice
-            </strong>
-
-            <p>
-              {error ||
-                "Invoice not found."}
-            </p>
-          </div>
-        </section>
-      </main>
+      <div className="page">
+        <div className="notice">
+          <strong>Unable to load invoice</strong>
+          <p>{error || "Invoice not found."}</p>
+        </div>
+      </div>
     );
   }
 
@@ -299,10 +271,7 @@ export default function InvoiceDetailPage() {
     );
 
   return (
-    <main className="app-shell">
-      <Sidebar active="invoices" />
-
-      <section className="main-content">
+    <div className="page invoice-detail-page">
         <header className="topbar">
           <div>
             <button
@@ -425,11 +394,14 @@ export default function InvoiceDetailPage() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img
+                <Image
                   src={
                     invoiceImageUrl
                   }
                   alt="Original supplier invoice"
+                  width={1200}
+                  height={1600}
+                  unoptimized
                   style={{
                     display:
                       "block",
@@ -600,7 +572,6 @@ export default function InvoiceDetailPage() {
             )}
           </p>
         </section>
-      </section>
-    </main>
+    </div>
   );
 }
