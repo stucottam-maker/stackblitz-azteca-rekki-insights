@@ -1,21 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
 
 const STORAGE_BUCKET = "invoice-files";
 const MAX_SOURCE_SIZE = 30 * 1024 * 1024;
-const MAX_IMAGE_EDGE = 2400;
 const MAX_PHOTO_PAGES = 12;
-const MAX_TOTAL_PREPARED_SIZE = 36 * 1024 * 1024;
+const MAX_TOTAL_UPLOAD_SIZE = 50 * 1024 * 1024;
+const MAX_PREVIEW_SIZE = 3 * 1024 * 1024;
 
-const DIRECT_IMAGE_TYPES = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-]);
+const DIRECT_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
 type SelectedInvoiceFile = {
   id: string;
@@ -71,87 +66,24 @@ function sleep(ms: number) {
   return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
 
-function loadBrowserImage(file: File) {
-  return new Promise<HTMLImageElement>((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const image = new window.Image();
-    image.onload = () => {
-      URL.revokeObjectURL(url);
-      resolve(image);
-    };
-    image.onerror = () => {
-      URL.revokeObjectURL(url);
-      reject(new Error("This photo format could not be prepared on this device."));
-    };
-    image.src = url;
-  });
-}
+function normaliseFile(file: File) {
+  const type = inferFileType(file);
 
-async function prepareImageForUpload(file: File) {
-  const originalType = inferFileType(file);
-
-  if (DIRECT_IMAGE_TYPES.has(originalType) && file.size <= 2.5 * 1024 * 1024) {
-    return file;
+  // Important for mobile: do not decode/re-size normal phone photos in the browser.
+  // A modern 12–50MP photo can require tens or hundreds of MB of RAM once decoded,
+  // which is enough to crash Chrome/Safari even though the JPEG itself is only a few MB.
+  if (DIRECT_IMAGE_TYPES.has(type) || type === "application/pdf") {
+    if (file.type || !type) return file;
+    return new File([file], file.name, { type, lastModified: file.lastModified });
   }
 
-  try {
-    let imageSource: CanvasImageSource;
-    let widthSource = 0;
-    let heightSource = 0;
-    let closeImage: (() => void) | null = null;
-
-    if (typeof createImageBitmap === "function") {
-      try {
-        const bitmap = await createImageBitmap(file);
-        imageSource = bitmap;
-        widthSource = bitmap.width;
-        heightSource = bitmap.height;
-        closeImage = () => bitmap.close();
-      } catch {
-        const image = await loadBrowserImage(file);
-        imageSource = image;
-        widthSource = image.naturalWidth;
-        heightSource = image.naturalHeight;
-      }
-    } else {
-      const image = await loadBrowserImage(file);
-      imageSource = image;
-      widthSource = image.naturalWidth;
-      heightSource = image.naturalHeight;
-    }
-
-    const largestEdge = Math.max(widthSource, heightSource);
-    const scale = largestEdge > MAX_IMAGE_EDGE ? MAX_IMAGE_EDGE / largestEdge : 1;
-    const width = Math.max(1, Math.round(widthSource * scale));
-    const height = Math.max(1, Math.round(heightSource * scale));
-
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    const context = canvas.getContext("2d");
-    if (!context) throw new Error("Could not prepare this photo.");
-
-    context.fillStyle = "#ffffff";
-    context.fillRect(0, 0, width, height);
-    context.drawImage(imageSource, 0, 0, width, height);
-    closeImage?.();
-
-    const blob = await new Promise<Blob | null>((resolve) => {
-      canvas.toBlob(resolve, "image/jpeg", 0.9);
-    });
-    if (!blob) throw new Error("Could not prepare this photo.");
-
-    const stem = file.name.replace(/\.[^.]+$/, "") || "invoice-photo";
-    return new File([blob], `${stem}.jpg`, {
-      type: "image/jpeg",
-      lastModified: Date.now(),
-    });
-  } catch (error) {
-    if (DIRECT_IMAGE_TYPES.has(originalType) && file.size <= 8 * 1024 * 1024) {
-      return file;
-    }
-    throw error;
+  if (type === "image/heic" || type === "image/heif") {
+    throw new Error(
+      "This photo is HEIC/HEIF. Use Take photo so the phone supplies a camera-compatible JPEG, or choose a JPG/PNG/PDF."
+    );
   }
+
+  throw new Error("That image format is not supported yet. Please use JPG, PNG, WEBP or PDF.");
 }
 
 function PhotoPreview({
@@ -165,12 +97,13 @@ function PhotoPreview({
   onRemove: (id: string) => void;
   disabled: boolean;
 }) {
-  const [previewUrl, setPreviewUrl] = useState("");
   const type = inferFileType(entry.file);
   const isImage = type.startsWith("image/");
+  const canPreview = isImage && entry.file.size <= MAX_PREVIEW_SIZE;
+  const [previewUrl, setPreviewUrl] = useState("");
 
   useEffect(() => {
-    if (!isImage) {
+    if (!canPreview) {
       setPreviewUrl("");
       return;
     }
@@ -178,7 +111,7 @@ function PhotoPreview({
     const url = URL.createObjectURL(entry.file);
     setPreviewUrl(url);
     return () => URL.revokeObjectURL(url);
-  }, [entry.file, isImage]);
+  }, [entry.file, canPreview]);
 
   return (
     <article
@@ -191,7 +124,7 @@ function PhotoPreview({
     >
       <div
         style={{
-          aspectRatio: "4 / 5",
+          minHeight: 116,
           borderRadius: 10,
           overflow: "hidden",
           background: "#f5f2ec",
@@ -201,25 +134,28 @@ function PhotoPreview({
         }}
       >
         {previewUrl ? (
-          <Image
+          <img
             src={previewUrl}
             alt={`Invoice page ${index + 1}`}
-            width={320}
-            height={400}
-            unoptimized
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            loading="lazy"
+            style={{ width: "100%", height: 150, objectFit: "contain" }}
           />
         ) : (
           <div style={{ textAlign: "center", padding: 16 }}>
-            <div style={{ fontSize: 32 }}>📄</div>
-            <strong>PDF invoice</strong>
+            <div style={{ fontSize: 32 }}>{isImage ? "📷" : "📄"}</div>
+            <strong>{isImage ? `Page ${index + 1}` : "PDF invoice"}</strong>
+            {isImage && entry.file.size > MAX_PREVIEW_SIZE && (
+              <span style={{ display: "block", marginTop: 4, fontSize: 11, opacity: 0.6 }}>
+                Preview skipped to save phone memory
+              </span>
+            )}
           </div>
         )}
       </div>
 
       <div style={{ marginTop: 9, minWidth: 0 }}>
         <strong style={{ display: "block", overflowWrap: "anywhere" }}>
-          {isImage ? `Page ${index + 1}` : entry.file.name}
+          {isImage ? `Invoice page ${index + 1}` : entry.file.name}
         </strong>
         <span style={{ display: "block", marginTop: 3, opacity: 0.65, fontSize: 12 }}>
           {formatFileSize(entry.file.size)}
@@ -246,7 +182,7 @@ export default function InvoiceUploadPage() {
   const [stage, setStage] = useState("");
   const [error, setError] = useState("");
 
-  const totalPreparedSize = useMemo(
+  const totalSize = useMemo(
     () => files.reduce((sum, entry) => sum + entry.file.size, 0),
     [files]
   );
@@ -277,6 +213,7 @@ export default function InvoiceUploadPage() {
     const selectedPdfs = selectedFiles.filter(
       (selected) => inferFileType(selected) === "application/pdf"
     );
+
     if (selectedPdfs.length > 0 && selectedFiles.length > 1) {
       setError("Please upload one PDF on its own, or use photos for a multi-page invoice.");
       return;
@@ -285,6 +222,7 @@ export default function InvoiceUploadPage() {
     const existingImageCount = files.filter(
       (entry) => inferFileType(entry.file) !== "application/pdf"
     ).length;
+
     if (
       selectedPdfs.length === 0 &&
       (mode === "append" ? existingImageCount : 0) + selectedFiles.length > MAX_PHOTO_PAGES
@@ -297,36 +235,19 @@ export default function InvoiceUploadPage() {
       setPreparing(true);
       setStage(selectedPdfs.length ? "Preparing PDF…" : "Preparing photo…");
 
-      const preparedEntries: SelectedInvoiceFile[] = [];
-      for (let index = 0; index < selectedFiles.length; index += 1) {
-        const selected = selectedFiles[index];
-        const type = inferFileType(selected);
-        setStage(
-          type.startsWith("image/")
-            ? `Preparing photo ${index + 1} of ${selectedFiles.length}…`
-            : "Preparing PDF…"
-        );
-
-        let prepared = selected;
-        if (type.startsWith("image/")) {
-          prepared = await prepareImageForUpload(selected);
-        } else if (!selected.type && type) {
-          prepared = new File([selected], selected.name, {
-            type,
-            lastModified: selected.lastModified,
-          });
-        }
-
-        preparedEntries.push({ id: randomId(), file: prepared });
-      }
+      const preparedEntries = selectedFiles.map((selected) => ({
+        id: randomId(),
+        file: normaliseFile(selected),
+      }));
 
       const currentBase =
         mode === "append" && !hasPdf && selectedPdfs.length === 0 ? files : [];
       const nextFiles = [...currentBase, ...preparedEntries];
       const nextSize = nextFiles.reduce((sum, entry) => sum + entry.file.size, 0);
-      if (nextSize > MAX_TOTAL_PREPARED_SIZE) {
+
+      if (nextSize > MAX_TOTAL_UPLOAD_SIZE) {
         throw new Error(
-          "Those photos are still too large together. Remove a page or retake it slightly further back."
+          "Those pages are over 50 MB together. Upload this invoice in fewer photos or retake the pages at normal camera quality."
         );
       }
 
@@ -372,10 +293,7 @@ export default function InvoiceUploadPage() {
       if (!uploadError) return;
       lastMessage = uploadError.message;
 
-      if (attempt > 0 && /already exists|duplicate/i.test(uploadError.message)) {
-        return;
-      }
-
+      if (attempt > 0 && /already exists|duplicate/i.test(uploadError.message)) return;
       if (attempt < 2) await sleep(500 * (attempt + 1));
     }
 
@@ -414,6 +332,7 @@ export default function InvoiceUploadPage() {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+
       if (!session?.access_token || !session.user?.id) {
         router.replace("/login");
         return;
@@ -425,8 +344,7 @@ export default function InvoiceUploadPage() {
       for (let index = 0; index < files.length; index += 1) {
         const selected = files[index].file;
         const fileType = inferFileType(selected) || "application/octet-stream";
-        const randomPart = randomId();
-        const storagePath = `uploads/${session.user.id}/${dateFolder}/${Date.now()}-${randomPart}-${safeFileName(
+        const storagePath = `uploads/${session.user.id}/${dateFolder}/${Date.now()}-${randomId()}-${safeFileName(
           selected.name
         )}`;
 
@@ -449,6 +367,7 @@ export default function InvoiceUploadPage() {
       }
 
       setStage(files.length === 1 ? "Reading invoice…" : "Reading all invoice pages…");
+
       const response = await fetch("/api/invoices/extract", {
         method: "POST",
         headers: {
@@ -471,6 +390,7 @@ export default function InvoiceUploadPage() {
       } catch {
         throw new Error(text || "Invalid server response");
       }
+
       if (!response.ok) {
         throw new Error(data.details || data.error || "Invoice extraction failed");
       }
@@ -485,9 +405,7 @@ export default function InvoiceUploadPage() {
         "extractedInvoiceSource",
         JSON.stringify({
           fileName:
-            uploaded.length === 1
-              ? uploaded[0].fileName
-              : `${uploaded.length} camera photos`,
+            uploaded.length === 1 ? uploaded[0].fileName : `${uploaded.length} camera photos`,
           fileType: uploaded.length === 1 ? uploaded[0].fileType : "image/jpeg",
           filePath:
             uploaded.length === 1
@@ -543,7 +461,7 @@ export default function InvoiceUploadPage() {
             <div style={{ textAlign: "right" }}>
               <strong>{hasPdf ? "1 PDF" : `${files.length} page${files.length === 1 ? "" : "s"}`}</strong>
               <span style={{ display: "block", marginTop: 3, opacity: 0.62, fontSize: 12 }}>
-                {formatFileSize(totalPreparedSize)} prepared
+                {formatFileSize(totalSize)} ready
               </span>
             </div>
           )}
@@ -572,7 +490,7 @@ export default function InvoiceUploadPage() {
             <input
               type="file"
               hidden
-              accept="image/*"
+              accept="image/jpeg,image/png,image/webp"
               capture="environment"
               onChange={(event) => void handleFileChange(event, "append")}
               disabled={busy || hasPdf || files.length >= MAX_PHOTO_PAGES}
@@ -600,7 +518,7 @@ export default function InvoiceUploadPage() {
               type="file"
               hidden
               multiple
-              accept="application/pdf,image/*,.pdf,.jpg,.jpeg,.png,.webp,.heic,.heif"
+              accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp"
               onChange={(event) => void handleFileChange(event, "replace")}
               disabled={busy}
             />
@@ -624,7 +542,7 @@ export default function InvoiceUploadPage() {
           >
             <strong>No invoice captured yet</strong>
             <span style={{ marginTop: 5, opacity: 0.7 }}>
-              iPhone · Android · JPG · PNG · WEBP · HEIC/HEIF where the browser can decode it · PDF
+              Android · iPhone · JPG · PNG · WEBP · PDF
             </span>
           </div>
         ) : (
@@ -677,7 +595,7 @@ export default function InvoiceUploadPage() {
           }}
         >
           <span>✓ Rear camera requested automatically</span>
-          <span>✓ Large photos compressed before upload</span>
+          <span>✓ Full camera file uploads without RAM-heavy resizing</span>
           <span>✓ Up to {MAX_PHOTO_PAGES} pages per invoice</span>
           <span>✓ Upload retries on weak mobile signal</span>
         </div>
