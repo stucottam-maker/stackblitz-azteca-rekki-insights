@@ -40,12 +40,48 @@ function defaultDueDate(invoiceDate: unknown) {
   return date.toISOString().slice(0, 10);
 }
 
+function sourceFiles(source: Record<string, unknown> | null) {
+  if (!source || !Array.isArray(source.files)) return [];
+
+  return source.files.flatMap((value) => {
+    if (!value || typeof value !== "object") return [];
+    const file = value as Record<string, unknown>;
+    const filePath = typeof file.filePath === "string" ? file.filePath : "";
+    if (!filePath) return [];
+
+    return [
+      {
+        fileName: typeof file.fileName === "string" ? file.fileName : "",
+        fileType: typeof file.fileType === "string" ? file.fileType : "",
+        filePath,
+      },
+    ];
+  });
+}
+
+function sourceFileName(source: Record<string, unknown> | null) {
+  const files = sourceFiles(source);
+  if (files.length > 1) return `${files.length} camera photos`;
+  if (files.length === 1 && files[0].fileName) return files[0].fileName;
+  return typeof source?.fileName === "string" ? source.fileName : null;
+}
+
+function sourceFilePath(source: Record<string, unknown> | null) {
+  const files = sourceFiles(source);
+  if (files.length > 1) return JSON.stringify(files.map((file) => file.filePath));
+  if (files.length === 1) return files[0].filePath;
+  return typeof source?.filePath === "string" ? source.filePath : null;
+}
+
 export async function POST(req: Request) {
   try {
     const { organisationId, siteId } = await requireOrganisation(req);
     const body = await req.json();
     const invoices = Array.isArray(body.invoices) ? body.invoices : [];
-    const source = body.source && typeof body.source === "object" ? body.source : null;
+    const source =
+      body.source && typeof body.source === "object"
+        ? (body.source as Record<string, unknown>)
+        : null;
 
     if (invoices.length === 0) {
       return NextResponse.json({ error: "No invoices supplied" }, { status: 400 });
@@ -127,8 +163,8 @@ export async function POST(req: Request) {
           subtotal: toNumberOrNull(invoice.subtotal),
           vat: toNumberOrNull(invoice.vat),
           total: toNumberOrNull(invoice.total),
-          file_name: typeof source?.fileName === "string" ? source.fileName : null,
-          file_path: typeof source?.filePath === "string" ? source.filePath : null,
+          file_name: sourceFileName(source),
+          file_path: sourceFilePath(source),
           status: "approved",
           approved_at: new Date().toISOString(),
         })
@@ -168,11 +204,11 @@ export async function POST(req: Request) {
           const unitPrice = toNumberOrNull(item.unitPrice);
           const quantity = toNumberOrNull(item.quantity);
           const lineTotal = toNumberOrNull(item.total);
-          const latestPrice = unitPrice ?? (
-            lineTotal !== null && quantity !== null && quantity > 0
+          const latestPrice =
+            unitPrice ??
+            (lineTotal !== null && quantity !== null && quantity > 0
               ? lineTotal / quantity
-              : null
-          );
+              : null);
           let supplierProduct = productMap.get(productKey);
 
           if (!supplierProduct) {
