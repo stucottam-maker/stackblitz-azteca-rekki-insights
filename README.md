@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Inbound invoice email
+
+The production app accepts Resend `email.received` webhooks at:
+
+`/api/webhooks/resend/inbound`
+
+Configure these server-only Vercel environment variables (never prefix them with
+`NEXT_PUBLIC_`):
+
+- `RESEND_API_KEY`
+- `RESEND_WEBHOOK_SECRET`
+
+In Resend, create an `email.received` webhook pointing to the production URL.
+Incoming PDF, JPG, PNG and WebP attachments are stored in the private
+`invoice-files` Supabase bucket, extracted, deduplicated and saved with `review`
+status for approval in the invoice inbox.

@@ -7,7 +7,6 @@ import {
 } from "react";
 import Link from "next/link";
 
-import Sidebar from "../components/Sidebar";
 import { loadInsightWorkspaceData } from "../lib/insightWorkspaceData";
 import { getSupplier, suppliers as supplierDirectory } from "../data/suppliers";
 
@@ -418,10 +417,7 @@ export default function SuppliersPage() {
     );
 
   return (
-    <div className="app-shell">
-      <Sidebar active="suppliers" />
-
-      <main className="main-content suppliers-page">
+    <div className="suppliers-page page">
         <header className="topbar">
           <div>
             <p className="eyebrow">
@@ -904,7 +900,6 @@ export default function SuppliersPage() {
             )}
           </aside>
         </section>
-      </main>
     </div>
   );
 }

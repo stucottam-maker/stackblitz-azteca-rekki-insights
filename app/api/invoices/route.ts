@@ -82,14 +82,33 @@ export async function GET(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
-    const { organisationId, siteId } = await requireOrganisation(request);
+    const { organisationId, siteId, user } = await requireOrganisation(request);
     const body = await request.json();
     const invoiceId = String(body.invoiceId || "");
+    const invoiceStatus = String(body.invoiceStatus || "");
     const paymentStatus = String(body.paymentStatus || "");
     const allowed = new Set(["unpaid", "scheduled", "paid", "disputed"]);
 
-    if (!invoiceId || !allowed.has(paymentStatus)) {
+    if (!invoiceId || (!allowed.has(paymentStatus) && !["review", "approved"].includes(invoiceStatus))) {
       return NextResponse.json({ error: "Invalid payment update" }, { status: 400 });
+    }
+
+    if (["review", "approved"].includes(invoiceStatus)) {
+      const { data, error } = await serviceSupabase
+        .from("invoices")
+        .update({
+          status: invoiceStatus,
+          approved_by: invoiceStatus === "approved" ? user.id : null,
+          approved_at: invoiceStatus === "approved" ? new Date().toISOString() : null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", invoiceId)
+        .eq("organisation_id", organisationId)
+        .eq("site_id", siteId)
+        .select("id,status,approved_at")
+        .single();
+      if (error) throw error;
+      return NextResponse.json({ invoice: data });
     }
 
     const { data, error } = await serviceSupabase

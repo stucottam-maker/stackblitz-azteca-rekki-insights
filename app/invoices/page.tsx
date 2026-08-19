@@ -133,6 +133,26 @@ export default function InvoicesPage() {
     }
   }
 
+  async function approveInvoice(invoiceId: string) {
+    try {
+      setUpdatingId(invoiceId);
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) throw new Error("Please sign in again.");
+      const response = await fetch("/api/invoices", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify({ invoiceId, invoiceStatus: "approved" }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Could not approve invoice");
+      setInvoices((current) => current.map((invoice) => invoice.id === invoiceId ? { ...invoice, status: "approved" } : invoice));
+    } catch (err: any) {
+      setError(err.message || "Could not approve invoice");
+    } finally {
+      setUpdatingId("");
+    }
+  }
+
   function exportAccountingCsv() {
     const escape = (value: unknown) => `"${String(value ?? "").replace(/"/g, '""')}"`;
     const rows = [
@@ -230,6 +250,7 @@ export default function InvoicesPage() {
                   <th>Date</th>
                   <th>Due</th>
                   <th>Total</th>
+                  <th>Approval</th>
                   <th>Order match</th>
                   <th>Payment</th>
                 </tr>
@@ -259,6 +280,15 @@ export default function InvoicesPage() {
                       {invoice.total === null || invoice.total === undefined
                         ? "—"
                         : `£${Number(invoice.total).toFixed(2)}`}
+                    </td>
+                    <td>
+                      {invoice.status === "review" ? (
+                        <button className="secondary-inline-button" disabled={updatingId === invoice.id} onClick={() => void approveInvoice(invoice.id)}>
+                          {updatingId === invoice.id ? "Approving…" : "Approve"}
+                        </button>
+                      ) : (
+                        <span className="ap-match-badge matched">Approved</span>
+                      )}
                     </td>
                     <td><span className={`ap-match-badge ${invoice.matchStatus}`}>{invoice.matchStatus || "unmatched"}</span></td>
                     <td>

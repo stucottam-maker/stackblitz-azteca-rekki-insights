@@ -8,7 +8,6 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 
-import Sidebar from "../components/Sidebar";
 import { supabase } from "../lib/supabase";
 
 type IngredientRelation =
@@ -369,10 +368,7 @@ export default function IngredientsPage() {
     ).size;
 
   return (
-    <div className="app-shell">
-      <Sidebar active="ingredients" />
-
-      <main className="main-content ingredients-page">
+    <div className="ingredients-page page">
         <header className="topbar">
           <div>
             <p className="eyebrow">
@@ -652,7 +648,6 @@ export default function IngredientsPage() {
             </p>
           </div>
         </section>
-      </main>
     </div>
   );
 }
