@@ -1,48 +1,71 @@
-const CACHE_NAME = "kitchen-insights-v1";
-
-const APP_SHELL = [
-  "/",
-  "/login",
-];
+const CACHE_NAME = "kitchen-insights-static-v2";
+const OFFLINE_URL = "/offline.html";
+const STATIC_BOOTSTRAP = [OFFLINE_URL, "/pwa-icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(APP_SHELL);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_BOOTSTRAP))
   );
-
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
-      )
-    )
+    Promise.all([
+      caches
+        .keys()
+        .then((keys) =>
+          Promise.all(
+            keys
+              .filter((key) => key.startsWith("kitchen-insights-") && key !== CACHE_NAME)
+              .map((key) => caches.delete(key))
+          )
+        ),
+      self.clients.claim(),
+    ])
   );
-
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET") {
+  const request = event.request;
+
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  // Never cache API responses or authenticated page HTML. This keeps supplier,
+  // invoice and stock data live and prevents another signed-in session from
+  // receiving stale workspace content from the service worker cache.
+  if (url.pathname.startsWith("/api/")) return;
+
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request).catch(async () => {
+        const fallback = await caches.match(OFFLINE_URL);
+        return fallback || Response.error();
+      })
+    );
     return;
   }
 
-  const url = new URL(event.request.url);
+  const isStaticAsset =
+    url.pathname.startsWith("/_next/static/") ||
+    /\.(?:css|js|woff2?|png|jpe?g|svg|webp|ico)$/i.test(url.pathname);
 
-  if (url.origin !== self.location.origin) {
-    return;
-  }
+  if (!isStaticAsset) return;
 
   event.respondWith(
-    fetch(event.request).catch(() =>
-      caches.match(event.request)
-    )
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+
+      return fetch(request).then((response) => {
+        if (response.ok && response.type === "basic") {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+        }
+        return response;
+      });
+    })
   );
 });
