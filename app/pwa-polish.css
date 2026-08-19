@@ -1,0 +1,78 @@
+/* Installable-app polish. Keep authenticated data network-first; this file is UI only. */
+.sidebar-install {
+  width: 100%;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px;
+  background: rgba(255,255,255,.1);
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sidebar-install:hover { background: rgba(255,255,255,.16); }
+.sidebar-install:disabled { opacity: .55; cursor: wait; }
+
+.pwa-settings-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.pwa-settings-card > div:first-child { display: grid; gap: 6px; }
+.pwa-settings-install {
+  min-width: 150px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.pwa-installed-note {
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+@media (display-mode: standalone) {
+  html { background: var(--green); }
+  body {
+    min-height: 100dvh;
+    overscroll-behavior-y: none;
+  }
+  .sidebar {
+    padding-top: calc(16px + env(safe-area-inset-top));
+  }
+  .main-content-root {
+    min-height: 100dvh;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@media (max-width: 640px) {
+  /* The mobile header already uses the footer area for Log out. Keep Install app
+     in Settings so the top bar stays uncluttered. */
+  body > .app-shell > .sidebar .sidebar-install { display: none !important; }
+  .pwa-settings-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .pwa-settings-install { width: 100%; }
+
+  @media (display-mode: standalone) {
+    .sidebar {
+      padding-top: calc(10px + env(safe-area-inset-top));
+    }
+  }
+}
