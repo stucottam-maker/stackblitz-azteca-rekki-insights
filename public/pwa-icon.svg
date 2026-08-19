@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Kitchen Insights">
+  <rect width="512" height="512" rx="112" fill="#214f3d"/>
+  <rect x="118" y="118" width="276" height="276" rx="72" fill="#bd5f31"/>
+  <text x="256" y="302" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="138" font-weight="700" fill="#ffffff">KI</text>
+</svg>
