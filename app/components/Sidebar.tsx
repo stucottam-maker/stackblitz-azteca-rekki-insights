@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { supabase } from "../lib/supabase";
+import PwaInstallButton from "./PwaInstallButton";
 
 type SidebarProps = {
   active?: string;
@@ -99,6 +100,8 @@ export default function Sidebar({ active }: SidebarProps) {
             <div className="restaurant-location">Kitchen workspace</div>
           </div>
         </div>
+
+        <PwaInstallButton className="sidebar-install" compact />
 
         <button
           type="button"
