@@ -232,6 +232,40 @@ export default function ReportsPage() {
       0
     );
 
+  const monthlySpend = useMemo(() => {
+    const totals = new Map<string, number>();
+
+    invoices.forEach((invoice) => {
+      if (!invoice.invoiceDate) return;
+      const date = new Date(invoice.invoiceDate);
+      if (Number.isNaN(date.getTime())) return;
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+      totals.set(key, (totals.get(key) ?? 0) + (invoice.total ?? invoice.subtotal ?? 0));
+    });
+
+    return Array.from(totals.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-6)
+      .map(([month, total]) => ({
+        month,
+        label: new Intl.DateTimeFormat("en-GB", { month: "short" }).format(
+          new Date(`${month}-01T12:00:00`)
+        ),
+        total,
+      }));
+  }, [invoices]);
+
+  const supplierChartRows = supplierRows.slice(0, 6);
+  const supplierChartMax = Math.max(...supplierChartRows.map((row) => row.total), 1);
+  const priceChartRows = priceChanges.slice(0, 6);
+  const priceChartMax = Math.max(...priceChartRows.map((row) => Math.abs(row.change)), 1);
+  const trendChartMax = Math.max(...monthlySpend.map((row) => row.total), 1);
+  const trendPoints = monthlySpend.map((row, index) => {
+    const x = monthlySpend.length === 1 ? 50 : (index / (monthlySpend.length - 1)) * 100;
+    const y = 92 - (row.total / trendChartMax) * 76;
+    return { ...row, x, y };
+  });
+
   const reportTabs: [
     ReportView,
     string
@@ -456,6 +490,105 @@ export default function ReportsPage() {
                   Actual vs
                   theoretical
                 </p>
+              </article>
+            </section>
+
+            <section className="report-chart-grid" aria-label="Purchasing charts">
+              <article className="panel report-chart-card">
+                <div className="report-chart-heading">
+                  <div>
+                    <p className="panel-kicker">Purchasing mix</p>
+                    <h2>Spend by supplier</h2>
+                  </div>
+                  <span>Top {supplierChartRows.length}</span>
+                </div>
+
+                {supplierChartRows.length === 0 ? (
+                  <p className="report-chart-empty">Approve invoices to build this chart.</p>
+                ) : (
+                  <div className="report-bar-chart">
+                    {supplierChartRows.map((supplier) => (
+                      <div className="report-bar-row" key={supplier.supplier}>
+                        <div className="report-bar-label">
+                          <span title={supplier.supplier}>{supplier.supplier}</span>
+                          <strong>{formatCurrency(supplier.total)}</strong>
+                        </div>
+                        <div className="report-bar-track" aria-hidden="true">
+                          <span style={{ width: `${(supplier.total / supplierChartMax) * 100}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </article>
+
+              <article className="panel report-chart-card">
+                <div className="report-chart-heading">
+                  <div>
+                    <p className="panel-kicker">Invoice history</p>
+                    <h2>Spend over time</h2>
+                  </div>
+                  <span>Last 6 months</span>
+                </div>
+
+                {trendPoints.length === 0 ? (
+                  <p className="report-chart-empty">Invoice dates will create this trend automatically.</p>
+                ) : (
+                  <div className="report-line-chart">
+                    <svg viewBox="0 0 100 100" role="img" aria-label="Monthly purchasing spend trend" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="spend-area" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#2f7255" stopOpacity=".26" />
+                          <stop offset="100%" stopColor="#2f7255" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      {[24, 50, 76].map((y) => <line key={y} x1="0" x2="100" y1={y} y2={y} className="report-chart-gridline" />)}
+                      {trendPoints.length > 1 && (
+                        <>
+                          <polygon points={`0,92 ${trendPoints.map((point) => `${point.x},${point.y}`).join(" ")} 100,92`} fill="url(#spend-area)" />
+                          <polyline points={trendPoints.map((point) => `${point.x},${point.y}`).join(" ")} className="report-chart-line" />
+                        </>
+                      )}
+                      {trendPoints.map((point) => <circle key={point.month} cx={point.x} cy={point.y} r="2.2" className="report-chart-dot" />)}
+                    </svg>
+                    <div className="report-line-labels">
+                      {trendPoints.map((point) => (
+                        <div key={point.month}>
+                          <strong>{formatCurrency(point.total)}</strong>
+                          <span>{point.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </article>
+
+              <article className="panel report-chart-card">
+                <div className="report-chart-heading">
+                  <div>
+                    <p className="panel-kicker">Cost movement</p>
+                    <h2>Largest price changes</h2>
+                  </div>
+                  <button type="button" onClick={() => setActiveView("prices")}>View all →</button>
+                </div>
+
+                {priceChartRows.length === 0 ? (
+                  <p className="report-chart-empty">A second price period is needed for comparison.</p>
+                ) : (
+                  <div className="report-change-chart">
+                    {priceChartRows.map((item) => (
+                      <div className="report-change-row" key={`${item.supplier}-${item.ingredient}`}>
+                        <span title={item.ingredient}>{item.ingredient}</span>
+                        <div className="report-change-track" aria-hidden="true">
+                          <span className={item.change >= 0 ? "increase" : "decrease"} style={{ width: `${(Math.abs(item.change) / priceChartMax) * 100}%` }} />
+                        </div>
+                        <strong className={item.change >= 0 ? "increase-text" : "decrease-text"}>
+                          {item.change >= 0 ? "+" : ""}{item.change.toFixed(1)}%
+                        </strong>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </article>
             </section>
 
