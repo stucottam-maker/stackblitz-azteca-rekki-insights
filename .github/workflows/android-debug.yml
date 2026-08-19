@@ -11,7 +11,7 @@ on:
       - ".github/workflows/android-debug.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-android-debug:
@@ -58,3 +58,19 @@ jobs:
           path: Kitchen-Insights-debug.apk
           if-no-files-found: error
           retention-days: 14
+
+      - name: Publish rolling Android test release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view android-debug-latest >/dev/null 2>&1; then
+            gh release upload android-debug-latest Kitchen-Insights-debug.apk --clobber
+            gh release edit android-debug-latest \
+              --title "Kitchen Insights Android Test" \
+              --notes "Unsigned/debug Android test build of Kitchen Insights. For internal testing only; not the Google Play production build."
+          else
+            gh release create android-debug-latest Kitchen-Insights-debug.apk \
+              --title "Kitchen Insights Android Test" \
+              --notes "Unsigned/debug Android test build of Kitchen Insights. For internal testing only; not the Google Play production build." \
+              --prerelease
+          fi
