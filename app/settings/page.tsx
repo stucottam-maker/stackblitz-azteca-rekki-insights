@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import PwaInstallButton from "../components/PwaInstallButton";
 import {
   ORGANISATION_SETTINGS_KEY,
   defaultOrganisationSettings,
@@ -58,6 +59,17 @@ export default function SettingsPage() {
             </p>
           </div>
         </header>
+
+        <section className="panel pwa-settings-card">
+          <div>
+            <p className="panel-kicker">Mobile app</p>
+            <h2>Install Kitchen Insights</h2>
+            <p className="page-description">
+              Install the current Kitchen Insights web app on Android so it launches from your home screen in its own app window.
+            </p>
+          </div>
+          <PwaInstallButton className="primary-button pwa-settings-install" />
+        </section>
 
         <form className="panel organisation-settings" onSubmit={submit}>
           <div className="panel-header">
