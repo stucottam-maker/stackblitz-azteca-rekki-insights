@@ -8,7 +8,6 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const supportedTypes = new Set([
   "application/pdf",
   "image/jpeg",
@@ -165,7 +164,9 @@ export async function POST(request: Request) {
   const rawBody = await request.text();
   let event: any;
   try {
+    if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY is not configured");
     if (!process.env.RESEND_WEBHOOK_SECRET) throw new Error("RESEND_WEBHOOK_SECRET is not configured");
+    const resend = new Resend(process.env.RESEND_API_KEY);
     event = resend.webhooks.verify({
       payload: rawBody,
       headers: {
@@ -183,6 +184,7 @@ export async function POST(request: Request) {
   if (event.type !== "email.received") return NextResponse.json({ accepted: true });
 
   const data = event.data;
+  const resend = new Resend(process.env.RESEND_API_KEY!);
   const recipients = Array.isArray(data.to) ? data.to.map((value: string) => value.toLowerCase()) : [];
   const { data: routes, error: routeError } = await serviceSupabase
     .from("inbound_invoice_routes")
