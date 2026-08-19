@@ -11,12 +11,19 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const MAX_INPUT_FILES = 12;
 const supportedFileTypes = new Set([
   "application/pdf",
   "image/jpeg",
   "image/png",
   "image/webp",
 ]);
+
+type InvoiceInputFile = {
+  fileUrl: string;
+  fileType: string;
+  fileName?: string;
+};
 
 function isTrustedInvoiceUrl(value: unknown) {
   if (typeof value !== "string") return false;
@@ -28,6 +35,30 @@ function isTrustedInvoiceUrl(value: unknown) {
   } catch {
     return false;
   }
+}
+
+function invoiceFilesFromBody(body: Record<string, unknown>) {
+  if (Array.isArray(body.files)) {
+    return body.files
+      .filter((value): value is Record<string, unknown> => Boolean(value && typeof value === "object"))
+      .map((value) => ({
+        fileUrl: typeof value.fileUrl === "string" ? value.fileUrl : "",
+        fileType: typeof value.fileType === "string" ? value.fileType : "",
+        fileName: typeof value.fileName === "string" ? value.fileName : undefined,
+      }));
+  }
+
+  if (typeof body.fileUrl === "string" || typeof body.fileType === "string") {
+    return [
+      {
+        fileUrl: typeof body.fileUrl === "string" ? body.fileUrl : "",
+        fileType: typeof body.fileType === "string" ? body.fileType : "",
+        fileName: typeof body.fileName === "string" ? body.fileName : undefined,
+      },
+    ];
+  }
+
+  return [];
 }
 
 const invoiceSchema = {
@@ -58,6 +89,7 @@ const invoiceSchema = {
                 product: { type: "string" },
                 quantity: { type: ["number", "null"] },
                 pack: { type: ["string", "null"] },
+                priceUnit: { type: ["string", "null"] },
                 unitPrice: { type: ["number", "null"] },
                 total: { type: ["number", "null"] },
                 status: { type: ["string", "null"] },
@@ -66,6 +98,7 @@ const invoiceSchema = {
                 "product",
                 "quantity",
                 "pack",
+                "priceUnit",
                 "unitPrice",
                 "total",
                 "status",
@@ -92,24 +125,27 @@ const invoiceSchema = {
 
 const prompt = `
 You extract structured data from UK restaurant supplier invoices.
-The uploaded file may contain multiple invoices.
-Read every page.
+The uploaded input may be one PDF or several phone-camera photos.
+When there are several photos, treat them as consecutive pages in the order supplied unless the document clearly starts a new invoice.
+Read every page and every visible product line.
 
 Rules:
 - Extract every invoice separately.
-- Do not merge invoices.
+- Do not merge separate invoice numbers.
+- Do combine consecutive photos that are clearly pages of the same invoice.
 - Extract every genuine product line.
 - Do not return empty lineItems when products are visible.
-- Preserve supplier product descriptions exactly.
-- Ignore delivery notes and account summaries.
+- Preserve supplier product descriptions exactly as printed. Do not join text from neighbouring rows.
+- Ignore delivery notes, page headers repeated as line items, account summaries, delivery windows and unrelated footer text.
 - Extract the due date and payment terms when printed. Do not calculate them.
 - Do not invent information. Use null if unknown.
 - Money values must be numbers.
 - Quantity must be numeric where possible.
 - Dates must be YYYY-MM-DD.
+- priceUnit is the printed pricing basis when clear, for example kg, each, case, bag, 1.4kg, 5L or 100pk. Do not infer a price unit from unrelated text.
 
 For every invoice return supplier, invoice number, invoice date, due date, payment terms, subtotal, VAT and total.
-For every line return product, quantity, pack, unit price and line total.
+For every line return product, quantity, pack, priceUnit, unit price and line total.
 `;
 
 export async function POST(request: Request) {
@@ -133,36 +169,49 @@ export async function POST(request: Request) {
       );
     }
 
-    const { fileUrl, fileType } = body;
-
-    if (!fileUrl) {
-      return NextResponse.json({ error: "Missing file URL" }, { status: 400 });
+    const files = invoiceFilesFromBody(body);
+    if (files.length === 0) {
+      return NextResponse.json({ error: "Missing invoice file" }, { status: 400 });
     }
-
-    if (
-      !isTrustedInvoiceUrl(fileUrl)
-    ) {
-      return NextResponse.json({ error: "Invalid invoice file URL" }, { status: 400 });
-    }
-
-    if (typeof fileType !== "string" || !supportedFileTypes.has(fileType)) {
+    if (files.length > MAX_INPUT_FILES) {
       return NextResponse.json(
-        { error: "Upload a PDF, JPG, PNG or WebP invoice." },
-        { status: 415 }
+        { error: `Upload up to ${MAX_INPUT_FILES} invoice pages at once.` },
+        { status: 413 }
       );
+    }
+
+    for (const file of files) {
+      if (!isTrustedInvoiceUrl(file.fileUrl)) {
+        return NextResponse.json({ error: "Invalid invoice file URL" }, { status: 400 });
+      }
+      if (!supportedFileTypes.has(file.fileType)) {
+        return NextResponse.json(
+          { error: "Upload a PDF, JPG, PNG or WebP invoice." },
+          { status: 415 }
+        );
+      }
     }
 
     const content: any[] = [];
 
-    if (fileType === "application/pdf") {
-      content.push({ type: "input_file", file_url: fileUrl } as any);
-    } else {
-      content.push({
-        type: "input_image",
-        image_url: fileUrl,
-        detail: "high",
-      } as any);
-    }
+    files.forEach((file: InvoiceInputFile, index) => {
+      if (files.length > 1) {
+        content.push({
+          type: "input_text",
+          text: `Invoice source page ${index + 1}${file.fileName ? `: ${file.fileName}` : ""}`,
+        });
+      }
+
+      if (file.fileType === "application/pdf") {
+        content.push({ type: "input_file", file_url: file.fileUrl } as any);
+      } else {
+        content.push({
+          type: "input_image",
+          image_url: file.fileUrl,
+          detail: "high",
+        } as any);
+      }
+    });
 
     content.push({ type: "input_text", text: prompt });
 
