@@ -1,0 +1,185 @@
+.login-forgot-link {
+  justify-self: end;
+  margin-top: -8px;
+  padding: 2px 0;
+  border: 0;
+  color: var(--green);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.login-forgot-link:hover {
+  text-decoration: underline;
+}
+
+.account-auth-status {
+  margin-top: 28px;
+  padding: 15px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-soft);
+  background: var(--surface-soft);
+  font-size: 13px;
+}
+
+.account-auth-expired {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.account-auth-link {
+  margin-top: 26px;
+  text-decoration: none;
+}
+
+.account-auth-expired .account-auth-link {
+  margin-top: 0;
+}
+
+.account-security-page {
+  width: 100%;
+  max-width: 980px;
+}
+
+.account-profile-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.account-profile-card h2 {
+  overflow-wrap: anywhere;
+}
+
+.account-security-card {
+  max-width: 720px;
+}
+
+.account-security-form {
+  display: grid;
+  gap: 17px;
+  max-width: 520px;
+}
+
+.account-field {
+  display: grid;
+  gap: 7px;
+}
+
+.account-field > span {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.account-field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.account-field input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(33, 79, 61, .1);
+}
+
+.account-password-visibility {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.account-password-visibility input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green);
+}
+
+.account-security-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+.account-security-actions button:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.account-reset-email-button {
+  padding: 10px 0;
+  color: var(--green);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.account-reset-email-button:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.sidebar-account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 11px;
+  border-radius: 9px;
+  color: rgba(255, 255, 255, .72);
+  font-size: 12px;
+  font-weight: 700;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.sidebar-account:hover,
+.sidebar-account-active {
+  color: #fff;
+  background: rgba(255, 255, 255, .09);
+}
+
+.sidebar-account-icon {
+  display: grid;
+  place-items: center;
+  width: 18px;
+}
+
+@media (max-width: 640px) {
+  .account-security-page {
+    max-width: none;
+  }
+
+  .account-profile-card,
+  .account-security-card {
+    max-width: none;
+  }
+
+  .account-security-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .account-security-actions .primary-button,
+  .account-reset-email-button {
+    width: 100%;
+  }
+}
