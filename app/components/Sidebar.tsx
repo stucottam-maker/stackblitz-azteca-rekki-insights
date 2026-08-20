@@ -27,6 +27,7 @@ const links = [
   ["↗", "Reports", "/reports"],
   ["£", "COGS Setup", "/reports/setup"],
   ["⚙", "Settings", "/settings"],
+  ["◉", "Account", "/account"],
 ] as const;
 
 function initials(name: string) {
@@ -192,14 +193,6 @@ export default function Sidebar({ active }: SidebarProps) {
             </div>
           </div>
         </div>
-
-        <Link
-          href="/account"
-          className={`sidebar-account ${pathname === "/account" ? "sidebar-account-active" : ""}`}
-        >
-          <span className="sidebar-account-icon" aria-hidden="true">◉</span>
-          <span>Account & password</span>
-        </Link>
 
         <PwaInstallButton className="sidebar-install" compact />
 
