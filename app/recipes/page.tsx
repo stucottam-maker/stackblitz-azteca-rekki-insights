@@ -3,11 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
+import { useWorkspace } from "../components/WorkspaceProvider";
 import {
-  recipes,
+  recipes as legacyRecipes,
   recipeSlug,
   type Recipe,
 } from "../data/allRecipes";
+import { usesAztecaLegacyCatalogue } from "../lib/workspaceCatalogues";
 import { readWorkspaceStates } from "../lib/workspaceState";
 
 type StoredRecipePayload = {
@@ -101,11 +103,27 @@ function RecipeRow({ view }: { view: RecipeView }) {
 }
 
 export default function RecipesPage() {
+  const { activeWorkspace } = useWorkspace();
+  const recipes = useMemo(
+    () =>
+      usesAztecaLegacyCatalogue(activeWorkspace?.organisationId)
+        ? legacyRecipes
+        : [],
+    [activeWorkspace?.organisationId]
+  );
   const [stored, setStored] = useState<Record<string, StoredRecipePayload>>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setStored({});
+    setLoading(true);
+
     const keys = recipes.map((recipe) => `recipe:${recipeSlug(recipe.name)}`);
+    if (!keys.length) {
+      setLoading(false);
+      return;
+    }
+
     readWorkspaceStates(keys)
       .then((state) => {
         setStored(
@@ -119,7 +137,7 @@ export default function RecipesPage() {
       })
       .catch((error) => console.error("Recipes cloud load failed", error))
       .finally(() => setLoading(false));
-  }, []);
+  }, [recipes]);
 
   const views = useMemo<RecipeView[]>(() => {
     return recipes.map((baseRecipe) => {
@@ -134,7 +152,7 @@ export default function RecipesPage() {
         missingLineCount: payload?.summary?.missingLineCount ?? recipe.ingredients.length,
       };
     });
-  }, [stored]);
+  }, [recipes, stored]);
 
   const prepRecipes = views.filter((view) => view.recipe.type === "Prep");
   const menuRecipes = views.filter((view) => view.recipe.type === "Menu");
@@ -142,6 +160,7 @@ export default function RecipesPage() {
   const fullyCosted = views.filter(
     (view) => view.totalCost !== null && view.missingLineCount === 0
   ).length;
+  const hasRecipes = recipes.length > 0;
 
   return (
     <div className="recipes-page page">
@@ -150,7 +169,9 @@ export default function RecipesPage() {
           <p className="eyebrow">Recipe costing</p>
           <h1>Recipes</h1>
           <p className="page-description">
-            Build prep and menu recipes and calculate live costs from approved invoices.
+            {hasRecipes
+              ? "Build prep and menu recipes and calculate live costs from approved invoices."
+              : `${activeWorkspace?.organisationName ?? "This restaurant"} has a clean recipe library with no recipes yet.`}
           </p>
         </div>
       </header>
@@ -174,39 +195,53 @@ export default function RecipesPage() {
         <article className="stat-card">
           <p className="stat-label">Needs attention</p>
           <p className="stat-value">{loading ? "—" : recipes.length - Math.min(withYield, fullyCosted)}</p>
-          <p className="stat-change warning">Yield or pricing still incomplete</p>
+          <p className="stat-change warning">{hasRecipes ? "Yield or pricing still incomplete" : "Starts clean"}</p>
         </article>
       </section>
 
-      <section className="recipes-overview-grid">
-        <article className="panel recipes-overview-panel">
+      {!hasRecipes ? (
+        <section className="panel recipes-overview-panel">
           <div className="panel-header recipes-overview-header">
             <div>
-              <p className="panel-kicker">Batch recipes</p>
-              <h2>Prep recipes</h2>
-              <p>Sauces, marinades, dressings and prep batches.</p>
+              <p className="panel-kicker">Clean workspace</p>
+              <h2>No recipes yet</h2>
+              <p>
+                Add Beaufort House recipes here when you are ready. Azteca recipes remain only in the Azteca workspace.
+              </p>
             </div>
-            <span className="recipes-section-count">{prepRecipes.length}</span>
           </div>
-          <div className="recipes-overview-list">
-            {prepRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />)}
-          </div>
-        </article>
+        </section>
+      ) : (
+        <section className="recipes-overview-grid">
+          <article className="panel recipes-overview-panel">
+            <div className="panel-header recipes-overview-header">
+              <div>
+                <p className="panel-kicker">Batch recipes</p>
+                <h2>Prep recipes</h2>
+                <p>Sauces, marinades, dressings and prep batches.</p>
+              </div>
+              <span className="recipes-section-count">{prepRecipes.length}</span>
+            </div>
+            <div className="recipes-overview-list">
+              {prepRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />)}
+            </div>
+          </article>
 
-        <article className="panel recipes-overview-panel">
-          <div className="panel-header recipes-overview-header">
-            <div>
-              <p className="panel-kicker">Menu dishes</p>
-              <h2>Menu recipes</h2>
-              <p>Finished dishes linked to selling prices and menu costing.</p>
+          <article className="panel recipes-overview-panel">
+            <div className="panel-header recipes-overview-header">
+              <div>
+                <p className="panel-kicker">Menu dishes</p>
+                <h2>Menu recipes</h2>
+                <p>Finished dishes linked to selling prices and menu costing.</p>
+              </div>
+              <span className="recipes-section-count">{menuRecipes.length}</span>
             </div>
-            <span className="recipes-section-count">{menuRecipes.length}</span>
-          </div>
-          <div className="recipes-overview-list">
-            {menuRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />)}
-          </div>
-        </article>
-      </section>
+            <div className="recipes-overview-list">
+              {menuRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />)}
+            </div>
+          </article>
+        </section>
+      )}
     </div>
   );
 }
