@@ -25,7 +25,7 @@ export const metadata = {
     title: "Kitchen Insights",
   },
   icons: {
-    icon: "/icon.png",
+    icon: "/pwa-icon.svg",
     apple: "/apple-icon.png",
   },
 };
