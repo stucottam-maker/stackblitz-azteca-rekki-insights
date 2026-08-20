@@ -59,7 +59,7 @@ function readSelection() {
   }
 }
 
-export function persistActiveWorkspace(organisationId: string, siteId: string) {
+function persistSelectionLocally(organisationId: string, siteId: string) {
   if (typeof window === "undefined") return;
 
   localStorage.setItem(
@@ -71,6 +71,29 @@ export function persistActiveWorkspace(organisationId: string, siteId: string) {
   document.cookie = `${ACTIVE_WORKSPACE_COOKIE}=${encodeURIComponent(
     `${organisationId}.${siteId}`
   )}; Path=/; Max-Age=31536000; SameSite=Lax${secure}`;
+}
+
+export async function persistActiveWorkspace(organisationId: string, siteId: string) {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) throw userError;
+  if (!user) throw new Error("You must be signed in to select a workspace.");
+
+  const { error } = await supabase.from("user_workspace_selection").upsert(
+    {
+      user_id: user.id,
+      organisation_id: organisationId,
+      site_id: siteId,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "user_id" }
+  );
+
+  if (error) throw error;
+  persistSelectionLocally(organisationId, siteId);
 }
 
 export async function listAvailableWorkspaces(): Promise<WorkspaceAccess[]> {
@@ -151,7 +174,7 @@ export async function resolveActiveWorkspace(): Promise<ActiveWorkspace | null> 
 
   if (!site) site = organisation.sites[0];
 
-  persistActiveWorkspace(organisation.organisationId, site.id);
+  await persistActiveWorkspace(organisation.organisationId, site.id);
 
   return {
     userId: user.id,
