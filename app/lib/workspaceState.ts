@@ -1,3 +1,4 @@
+import { resolveActiveWorkspace } from "./clientWorkspace";
 import { supabase } from "./supabase";
 
 export const WORKSPACE_STATE_KEYS = [
@@ -16,7 +17,11 @@ export const WORKSPACE_STATE_KEYS = [
   "theoreticalFoodCostPercent",
 ] as const;
 
-let organisationIdPromise: Promise<string | null> | null = null;
+let workspaceIdentityPromise: Promise<{
+  organisationId: string;
+  siteId: string;
+  userId: string;
+} | null> | null = null;
 let legacyMigrationPromise: Promise<void> | null = null;
 
 function parseStoredValue(value: string) {
@@ -28,27 +33,19 @@ function parseStoredValue(value: string) {
 }
 
 async function getWorkspaceIdentity() {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) return null;
-
-  if (!organisationIdPromise) {
-    organisationIdPromise = (async () => {
-      const { data, error } = await supabase
-        .from("organisation_members")
-        .select("organisation_id")
-        .eq("user_id", user.id)
-        .limit(1)
-        .maybeSingle();
-      if (error) throw error;
-      return data?.organisation_id ?? null;
-    })();
+  if (!workspaceIdentityPromise) {
+    workspaceIdentityPromise = resolveActiveWorkspace().then((workspace) =>
+      workspace
+        ? {
+            organisationId: workspace.organisationId,
+            siteId: workspace.siteId,
+            userId: workspace.userId,
+          }
+        : null
+    );
   }
 
-  const organisationId = await organisationIdPromise;
-  return organisationId ? { organisationId, userId: user.id } : null;
+  return workspaceIdentityPromise;
 }
 
 export async function persistWorkspaceState(key: string, value: string) {
