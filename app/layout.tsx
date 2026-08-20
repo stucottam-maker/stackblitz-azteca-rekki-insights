@@ -9,6 +9,7 @@ import "./reports-polish.css";
 import "./ap-polish.css";
 import "./pwa-polish.css";
 import "./invoice-mobile-fix.css";
+import "./workspace-polish.css";
 
 import Script from "next/script";
 import AppFrame from "./components/AppFrame";
