@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
-import { recipes } from "../data/allRecipes";
+import { recipes as legacyRecipes } from "../data/allRecipes";
+import { usesAztecaLegacyCatalogue } from "../lib/workspaceCatalogues";
 import { supabase } from "../lib/supabase";
 import {
   persistWorkspaceState,
   readWorkspaceState,
 } from "../lib/workspaceState";
+import { useWorkspace } from "./WorkspaceProvider";
 
 type IngredientPrice = {
   price?: number;
@@ -67,7 +69,7 @@ function isLiquidLike(name: string) {
   return /\b(juice|oil|sauce|vinegar|cream|milk|mayo|mayonnaise|syrup|stock|mirin|tequila|mezcal)\b/i.test(name);
 }
 
-function buildIngredientUsage() {
+function buildIngredientUsage(recipes: typeof legacyRecipes) {
   const recipeNames = new Set(recipes.map((recipe) => normalise(recipe.name)));
   const names = new Map<string, { name: string; families: Set<UnitFamily> }>();
 
@@ -135,6 +137,15 @@ function comparablePrice(value?: IngredientPrice) {
 }
 
 export default function InvoicePriceSync() {
+  const { activeWorkspace } = useWorkspace();
+  const recipes = useMemo(
+    () =>
+      usesAztecaLegacyCatalogue(activeWorkspace?.organisationId)
+        ? legacyRecipes
+        : [],
+    [activeWorkspace?.organisationId]
+  );
+
   useEffect(() => {
     let cancelled = false;
     let syncing = false;
@@ -144,15 +155,15 @@ export default function InvoicePriceSync() {
       syncing = true;
 
       try {
+        const usage = buildIngredientUsage(recipes);
+        const ingredientNames = Array.from(usage.values()).map((item) => item.name);
+        if (ingredientNames.length === 0) return;
+
         const {
           data: { session },
         } = await supabase.auth.getSession();
 
         if (!session?.access_token) return;
-
-        const usage = buildIngredientUsage();
-        const ingredientNames = Array.from(usage.values()).map((item) => item.name);
-        if (ingredientNames.length === 0) return;
 
         const response = await fetch("/api/ingredient-prices", {
           method: "POST",
@@ -244,7 +255,7 @@ export default function InvoicePriceSync() {
       authListener.subscription.unsubscribe();
       window.removeEventListener("kitchen-insights:ingredient-mappings-updated", resync);
     };
-  }, []);
+  }, [recipes]);
 
   return null;
 }
