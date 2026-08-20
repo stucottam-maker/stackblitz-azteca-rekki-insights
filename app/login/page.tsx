@@ -81,11 +81,11 @@ export default function LoginPage() {
         </div>
 
         <div className="login-workspace-card">
-          <div className="login-workspace-mark">AZ</div>
+          <div className="login-workspace-mark">KI</div>
           <div className="login-workspace-copy">
-            <span>Workspace</span>
-            <strong>Azteca</strong>
-            <small>Battersea, London</small>
+            <span>Secure workspace</span>
+            <strong>Your restaurant</strong>
+            <small>Only the sites you can access load after sign in</small>
           </div>
         </div>
 
