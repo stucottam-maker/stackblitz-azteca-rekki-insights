@@ -1,0 +1,33 @@
+.workspace-switcher-card {
+  gap: 10px;
+}
+
+.workspace-switcher-copy {
+  min-width: 0;
+}
+
+.workspace-switcher-select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: 0 20px 0 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 750;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.workspace-switcher-select:focus {
+  outline: 2px solid rgba(255, 255, 255, .24);
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+
+@media (max-width: 640px) {
+  .sidebar .workspace-switcher-card {
+    display: none;
+  }
+}
