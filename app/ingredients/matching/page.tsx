@@ -3,7 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
-import { recipes } from "../../data/allRecipes";
+import { useWorkspace } from "../../components/WorkspaceProvider";
+import { recipes as legacyRecipes } from "../../data/allRecipes";
+import { usesAztecaLegacyCatalogue } from "../../lib/workspaceCatalogues";
 import { supabase } from "../../lib/supabase";
 import {
   persistWorkspaceState,
@@ -27,6 +29,15 @@ function normalise(value: string) {
 }
 
 export default function IngredientMatchingPage() {
+  const { activeWorkspace } = useWorkspace();
+  const recipes = useMemo(
+    () =>
+      usesAztecaLegacyCatalogue(activeWorkspace?.organisationId)
+        ? legacyRecipes
+        : [],
+    [activeWorkspace?.organisationId]
+  );
+
   const [automaticMatches, setAutomaticMatches] = useState<Record<string, AutomaticMatch>>({});
   const [mappings, setMappings] = useState<MappingMap>({});
   const [loading, setLoading] = useState(true);
@@ -48,12 +59,21 @@ export default function IngredientMatchingPage() {
     });
 
     return Array.from(names.values()).sort((a, b) => a.localeCompare(b));
-  }, []);
+  }, [recipes]);
 
   useEffect(() => {
     async function load() {
       try {
         setLoading(true);
+
+        if (!ingredientNames.length) {
+          setAutomaticMatches({});
+          setMappings({});
+          setCatalogueCount(0);
+          setMessage("");
+          return;
+        }
+
         const {
           data: { session },
         } = await supabase.auth.getSession();
@@ -140,21 +160,33 @@ export default function IngredientMatchingPage() {
           <div>
             <p className="panel-kicker">Review</p>
             <h2>Recipe ingredients</h2>
-            <p>{catalogueCount} supplier products checked automatically.</p>
+            <p>
+              {ingredientNames.length
+                ? `${catalogueCount} supplier products checked automatically.`
+                : `No recipe ingredients in ${activeWorkspace?.organisationName ?? "this workspace"} yet.`}
+            </p>
           </div>
-          <input
-            type="search"
-            placeholder="Search ingredients…"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            style={{ minWidth: 220 }}
-          />
+          {ingredientNames.length > 0 && (
+            <input
+              type="search"
+              placeholder="Search ingredients…"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              style={{ minWidth: 220 }}
+            />
+          )}
         </div>
 
         {message && <div className="notice">{message}</div>}
 
         {loading ? (
           <div className="empty-table-message">Loading invoice products…</div>
+        ) : filteredIngredients.length === 0 ? (
+          <div className="empty-table-message">
+            {ingredientNames.length
+              ? "No ingredients match your search."
+              : "Add recipes to this restaurant before matching recipe ingredients to invoice products."}
+          </div>
         ) : (
           <div className="matching-list">
             {filteredIngredients.map((ingredient) => {
