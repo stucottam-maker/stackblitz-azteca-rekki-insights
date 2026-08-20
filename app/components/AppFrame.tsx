@@ -9,8 +9,9 @@ import WorkspaceProvider from "./WorkspaceProvider";
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isAuthScreen = pathname === "/login" || pathname === "/reset-password";
 
-  if (pathname === "/login") {
+  if (isAuthScreen) {
     return <AuthGate>{children}</AuthGate>;
   }
 
