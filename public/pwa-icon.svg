@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Kitchen Insights">
   <rect width="512" height="512" rx="112" fill="#214f3d"/>
-  <rect x="118" y="118" width="276" height="276" rx="72" fill="#bd5f31"/>
-  <text x="256" y="302" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="138" font-weight="700" fill="#ffffff">KI</text>
+  <rect x="104" y="104" width="304" height="304" rx="72" fill="#bd5f31"/>
+  <path fill="#fff" d="M170 170h34v172h-34zm34 81 62-81h43l-72 86 77 86h-44l-66-76zm127-81h34v172h-34z"/>
 </svg>
