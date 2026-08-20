@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { supabase } from "../lib/supabase";
 import PwaInstallButton from "./PwaInstallButton";
+import { useWorkspace } from "./WorkspaceProvider";
 
 type SidebarProps = {
   active?: string;
@@ -28,11 +29,38 @@ const links = [
   ["⚙", "Settings", "/settings"],
 ] as const;
 
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+}
+
 export default function Sidebar({ active }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const navRef = useRef<HTMLElement>(null);
   const [signingOut, setSigningOut] = useState(false);
+  const { activeWorkspace, availableWorkspaces, loading, switchWorkspace } = useWorkspace();
+
+  const workspaceOptions = useMemo(
+    () =>
+      availableWorkspaces.flatMap((organisation) =>
+        organisation.sites.map((site) => ({
+          value: `${organisation.organisationId}.${site.id}`,
+          organisationId: organisation.organisationId,
+          siteId: site.id,
+          label:
+            organisation.sites.length > 1
+              ? `${organisation.organisationName} · ${site.name}`
+              : site.name,
+        }))
+      ),
+    [availableWorkspaces]
+  );
 
   function isActive(name: string, url: string) {
     if (active) return active.toLowerCase() === name.toLowerCase();
@@ -69,6 +97,10 @@ export default function Sidebar({ active }: SidebarProps) {
     return () => window.cancelAnimationFrame(frame);
   }, [pathname, active]);
 
+  const selectedValue = activeWorkspace
+    ? `${activeWorkspace.organisationId}.${activeWorkspace.siteId}`
+    : "";
+
   return (
     <aside className="sidebar">
       <div className="brand">
@@ -93,11 +125,46 @@ export default function Sidebar({ active }: SidebarProps) {
       </nav>
 
       <div className="sidebar-footer">
-        <div className="restaurant-card">
-          <div className="restaurant-avatar">AL</div>
-          <div className="restaurant-card-copy">
-            <div className="restaurant-name">Azteca London</div>
-            <div className="restaurant-location">Kitchen workspace</div>
+        <div className="restaurant-card workspace-switcher-card">
+          <div className="restaurant-avatar">
+            {activeWorkspace ? initials(activeWorkspace.siteName) : "KI"}
+          </div>
+          <div className="restaurant-card-copy workspace-switcher-copy">
+            {loading ? (
+              <div className="restaurant-name">Loading workspace…</div>
+            ) : workspaceOptions.length > 1 ? (
+              <select
+                className="workspace-switcher-select"
+                value={selectedValue}
+                aria-label="Active restaurant or site"
+                onChange={(event) => {
+                  const option = workspaceOptions.find(
+                    (item) => item.value === event.target.value
+                  );
+                  if (option) switchWorkspace(option.organisationId, option.siteId);
+                }}
+              >
+                {workspaceOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <div className="restaurant-name">
+                {activeWorkspace?.siteName ?? "No restaurant selected"}
+              </div>
+            )}
+            <div className="restaurant-location">
+              {activeWorkspace
+                ? [
+                    activeWorkspace.siteLocation,
+                    activeWorkspace.organisationName,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")
+                : "Kitchen workspace"}
+            </div>
           </div>
         </div>
 
