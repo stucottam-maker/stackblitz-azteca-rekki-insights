@@ -10,16 +10,23 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { supabase } from "../lib/supabase";
 
+type LoginMode = "signin" | "activate";
+
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("");
+  const requestedPath = searchParams.get("next");
+  const requestedEmail = searchParams.get("email") ?? "";
+  const requestedMode = searchParams.get("activate") === "1" ? "activate" : "signin";
+
+  const [mode, setMode] = useState<LoginMode>(requestedMode);
+  const [email, setEmail] = useState(requestedEmail);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const requestedPath = searchParams.get("next");
   const nextPath =
     requestedPath && requestedPath.startsWith("/") && !requestedPath.startsWith("//")
       ? requestedPath
@@ -34,18 +41,45 @@ export default function LoginPage() {
     });
   }, [nextPath, router]);
 
-  async function handleLogin(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     setError("");
+    setMessage("");
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (mode === "activate") {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: normalizedEmail,
+        password,
+      });
+
+      if (signUpError) {
+        setError(signUpError.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data.session) {
+        router.replace(nextPath);
+        router.refresh();
+        return;
+      }
+
+      setMessage("Account created. Check your email to confirm it, then sign in.");
+      setMode("signin");
+      setLoading(false);
+      return;
+    }
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: normalizedEmail,
       password,
     });
 
-    if (error) {
-      setError(error.message);
+    if (signInError) {
+      setError(signInError.message);
       setLoading(false);
       return;
     }
@@ -95,12 +129,16 @@ export default function LoginPage() {
       <section className="login-panel">
         <div className="login-shell">
           <div className="login-heading">
-            <p className="eyebrow">Welcome back</p>
-            <h2>Sign in to your workspace</h2>
-            <p>Enter your details to continue to Kitchen Insights.</p>
+            <p className="eyebrow">{mode === "activate" ? "First-time access" : "Welcome back"}</p>
+            <h2>{mode === "activate" ? "Activate your workspace" : "Sign in to your workspace"}</h2>
+            <p>
+              {mode === "activate"
+                ? "Use the invited email address and temporary password provided by your administrator."
+                : "Enter your details to continue to Kitchen Insights."}
+            </p>
           </div>
 
-          <form onSubmit={handleLogin} className="login-form">
+          <form onSubmit={handleSubmit} className="login-form">
             <label className="login-field">
               <span>Email address</span>
               <input
@@ -115,15 +153,15 @@ export default function LoginPage() {
             </label>
 
             <label className="login-field">
-              <span>Password</span>
+              <span>{mode === "activate" ? "Temporary password" : "Password"}</span>
               <div className="login-password-field">
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Enter your password"
+                  placeholder={mode === "activate" ? "Enter temporary password" : "Enter your password"}
                   required
-                  autoComplete="current-password"
+                  autoComplete={mode === "activate" ? "new-password" : "current-password"}
                 />
                 <button
                   type="button"
@@ -137,6 +175,7 @@ export default function LoginPage() {
             </label>
 
             {error && <div className="login-error" role="alert">{error}</div>}
+            {message && <div className="login-success" role="status">{message}</div>}
 
             <button
               type="submit"
@@ -144,9 +183,29 @@ export default function LoginPage() {
               disabled={loading}
               aria-busy={loading}
             >
-              {loading ? "Signing in…" : "Sign in"}
+              {loading
+                ? mode === "activate"
+                  ? "Activating…"
+                  : "Signing in…"
+                : mode === "activate"
+                  ? "Activate account"
+                  : "Sign in"}
             </button>
           </form>
+
+          <button
+            type="button"
+            className="login-mode-switch"
+            onClick={() => {
+              setMode((current) => (current === "signin" ? "activate" : "signin"));
+              setError("");
+              setMessage("");
+            }}
+          >
+            {mode === "signin"
+              ? "First time here? Activate account"
+              : "Already activated? Sign in"}
+          </button>
 
           <p className="login-help">Need access? Contact your Kitchen Insights administrator.</p>
         </div>
