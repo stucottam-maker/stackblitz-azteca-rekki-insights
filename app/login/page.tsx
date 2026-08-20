@@ -60,7 +60,7 @@ export default function LoginPage() {
         <div className="login-brand-row">
           <div className="login-brand-icon">
             <Image
-              src="/icon.png"
+              src="/pwa-icon.svg"
               alt="Kitchen Insights"
               width={42}
               height={42}
@@ -80,12 +80,12 @@ export default function LoginPage() {
           <p>Purchasing, invoices, recipe costs and stock in one clear workspace.</p>
         </div>
 
-        <div className="login-workspace-card">
-          <div className="login-workspace-mark">AZ</div>
+        <div className="login-workspace-card" aria-label="Secure multi-site access">
+          <div className="login-workspace-mark">KI</div>
           <div className="login-workspace-copy">
-            <span>Workspace</span>
-            <strong>Azteca</strong>
-            <small>Battersea, London</small>
+            <span>Your workspace</span>
+            <strong>One login. Every permitted kitchen.</strong>
+            <small>Restaurant details load securely after sign-in.</small>
           </div>
         </div>
 
