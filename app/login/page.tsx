@@ -60,7 +60,7 @@ export default function LoginPage() {
         <div className="login-brand-row">
           <div className="login-brand-icon">
             <Image
-              src="/icon.png"
+              src="/pwa-icon.svg"
               alt="Kitchen Insights"
               width={42}
               height={42}
