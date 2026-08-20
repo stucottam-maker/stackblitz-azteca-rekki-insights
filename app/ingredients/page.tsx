@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { resolveActiveWorkspace } from "../lib/clientWorkspace";
 import { supabase } from "../lib/supabase";
 
 type IngredientRelation =
@@ -77,33 +78,10 @@ export default function IngredientsPage() {
     setError("");
 
     try {
-      const { data: userData, error: userError } = await supabase.auth.getUser();
-      if (userError || !userData.user) {
+      const workspace = await resolveActiveWorkspace();
+      if (!workspace) {
         router.replace("/login");
         return;
-      }
-
-      const { data: membership, error: membershipError } = await supabase
-        .from("organisation_members")
-        .select("organisation_id")
-        .eq("user_id", userData.user.id)
-        .limit(1)
-        .maybeSingle();
-
-      if (membershipError || !membership) {
-        throw new Error("No organisation membership found for this user.");
-      }
-
-      const organisationId = membership.organisation_id;
-      const { data: site, error: siteError } = await supabase
-        .from("sites")
-        .select("id")
-        .eq("organisation_id", organisationId)
-        .limit(1)
-        .maybeSingle();
-
-      if (siteError || !site) {
-        throw new Error("No site found for this organisation.");
       }
 
       const { data, error: ingredientError } = await supabase
@@ -125,8 +103,8 @@ export default function IngredientsPage() {
             name
           )
         `)
-        .eq("organisation_id", organisationId)
-        .eq("site_id", site.id)
+        .eq("organisation_id", workspace.organisationId)
+        .eq("site_id", workspace.siteId)
         .order("updated_at", { ascending: false });
 
       if (ingredientError) throw ingredientError;
@@ -137,9 +115,6 @@ export default function IngredientsPage() {
         const supplier = relationFirst(row.supplier);
 
         if (!ingredient) return [];
-
-        // Historical imports created hundreds of OCR/raw invoice descriptions as
-        // ingredients. Those belong in Catalogue/Matching, not the ingredient master.
         if (ingredient.category === RAW_INVOICE_CATEGORY) return [];
 
         return [{
@@ -272,7 +247,7 @@ export default function IngredientsPage() {
           <div className="ingredients-empty-state">
             <div className="ingredients-empty-icon">↻</div>
             <h3>Loading ingredient prices</h3>
-            <p>Fetching the latest matched pricing from the shared database.</p>
+            <p>Fetching the latest matched pricing from the selected restaurant.</p>
           </div>
         ) : filtered.length === 0 ? (
           <div className="ingredients-empty-state">
