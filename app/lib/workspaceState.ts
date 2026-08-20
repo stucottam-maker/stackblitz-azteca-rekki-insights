@@ -55,12 +55,13 @@ export async function persistWorkspaceState(key: string, value: string) {
   const { error } = await supabase.from("workspace_state").upsert(
     {
       organisation_id: identity.organisationId,
+      site_id: identity.siteId,
       state_key: key,
       state_value: parseStoredValue(value),
       updated_by: identity.userId,
       updated_at: new Date().toISOString(),
     },
-    { onConflict: "organisation_id,state_key" }
+    { onConflict: "organisation_id,site_id,state_key" }
   );
 
   if (error) throw error;
@@ -74,6 +75,7 @@ export async function removeWorkspaceState(key: string) {
     .from("workspace_state")
     .delete()
     .eq("organisation_id", identity.organisationId)
+    .eq("site_id", identity.siteId)
     .eq("state_key", key);
 
   if (error) throw error;
@@ -88,6 +90,7 @@ export async function readWorkspaceState<T>(key: string, fallback: T): Promise<T
     .from("workspace_state")
     .select("state_value")
     .eq("organisation_id", identity.organisationId)
+    .eq("site_id", identity.siteId)
     .eq("state_key", key)
     .maybeSingle();
 
@@ -104,6 +107,7 @@ export async function readWorkspaceStates(keys: readonly string[]) {
     .from("workspace_state")
     .select("state_key,state_value")
     .eq("organisation_id", identity.organisationId)
+    .eq("site_id", identity.siteId)
     .in("state_key", [...keys]);
 
   if (error) throw error;
@@ -117,7 +121,8 @@ async function performLegacyWorkspaceMigration() {
   const { data, error } = await supabase
     .from("workspace_state")
     .select("state_key,state_value")
-    .eq("organisation_id", identity.organisationId);
+    .eq("organisation_id", identity.organisationId)
+    .eq("site_id", identity.siteId);
 
   if (error) throw error;
 
@@ -138,6 +143,7 @@ async function performLegacyWorkspaceMigration() {
       ? [
           {
             organisation_id: identity.organisationId,
+            site_id: identity.siteId,
             state_key: key,
             state_value: parseStoredValue(value),
             updated_by: identity.userId,
@@ -150,7 +156,7 @@ async function performLegacyWorkspaceMigration() {
   if (missing.length) {
     const { error: uploadError } = await supabase
       .from("workspace_state")
-      .upsert(missing, { onConflict: "organisation_id,state_key" });
+      .upsert(missing, { onConflict: "organisation_id,site_id,state_key" });
     if (uploadError) throw uploadError;
   }
 
