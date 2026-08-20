@@ -44,7 +44,13 @@ export default function Sidebar({ active }: SidebarProps) {
   const router = useRouter();
   const navRef = useRef<HTMLElement>(null);
   const [signingOut, setSigningOut] = useState(false);
-  const { activeWorkspace, availableWorkspaces, loading, switchWorkspace } = useWorkspace();
+  const {
+    activeWorkspace,
+    availableWorkspaces,
+    loading,
+    switching,
+    switchWorkspace,
+  } = useWorkspace();
 
   const workspaceOptions = useMemo(
     () =>
@@ -53,10 +59,7 @@ export default function Sidebar({ active }: SidebarProps) {
           value: `${organisation.organisationId}.${site.id}`,
           organisationId: organisation.organisationId,
           siteId: site.id,
-          label:
-            organisation.sites.length > 1
-              ? `${organisation.organisationName} · ${site.name}`
-              : site.name,
+          label: `${organisation.organisationName} · ${site.name}`,
         }))
       ),
     [availableWorkspaces]
@@ -80,6 +83,13 @@ export default function Sidebar({ active }: SidebarProps) {
       router.replace("/login");
       router.refresh();
       setSigningOut(false);
+    }
+  }
+
+  function handleWorkspaceChange(value: string) {
+    const option = workspaceOptions.find((item) => item.value === value);
+    if (option) {
+      void switchWorkspace(option.organisationId, option.siteId);
     }
   }
 
@@ -108,6 +118,26 @@ export default function Sidebar({ active }: SidebarProps) {
         <div className="sidebar-brand-copy">
           <div className="brand-name">Kitchen Insights</div>
           <div className="brand-subtitle">Cost control & operations</div>
+          <div className="mobile-workspace-control">
+            {loading ? (
+              <span>Loading restaurant…</span>
+            ) : workspaceOptions.length ? (
+              <select
+                value={selectedValue}
+                aria-label="Active restaurant or site"
+                disabled={switching || workspaceOptions.length === 1}
+                onChange={(event) => handleWorkspaceChange(event.target.value)}
+              >
+                {workspaceOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <span>No restaurant selected</span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -137,12 +167,8 @@ export default function Sidebar({ active }: SidebarProps) {
                 className="workspace-switcher-select"
                 value={selectedValue}
                 aria-label="Active restaurant or site"
-                onChange={(event) => {
-                  const option = workspaceOptions.find(
-                    (item) => item.value === event.target.value
-                  );
-                  if (option) switchWorkspace(option.organisationId, option.siteId);
-                }}
+                disabled={switching}
+                onChange={(event) => handleWorkspaceChange(event.target.value)}
               >
                 {workspaceOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -152,15 +178,14 @@ export default function Sidebar({ active }: SidebarProps) {
               </select>
             ) : (
               <div className="restaurant-name">
-                {activeWorkspace?.siteName ?? "No restaurant selected"}
+                {activeWorkspace
+                  ? `${activeWorkspace.organisationName} · ${activeWorkspace.siteName}`
+                  : "No restaurant selected"}
               </div>
             )}
             <div className="restaurant-location">
               {activeWorkspace
-                ? [
-                    activeWorkspace.siteLocation,
-                    activeWorkspace.organisationName,
-                  ]
+                ? [activeWorkspace.siteLocation, activeWorkspace.role]
                     .filter(Boolean)
                     .join(" · ")
                 : "Kitchen workspace"}
