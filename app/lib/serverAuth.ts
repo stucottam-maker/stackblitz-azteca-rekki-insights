@@ -13,6 +13,12 @@ export const serviceSupabase = createClient(
 
 const ACTIVE_WORKSPACE_COOKIE = "ki_workspace";
 
+type Relation<T> = T | T[] | null;
+
+function first<T>(value: Relation<T>): T | null {
+  return Array.isArray(value) ? value[0] ?? null : value;
+}
+
 function requestedWorkspace(request: Request) {
   const cookieHeader = request.headers.get("cookie") || "";
   const entry = cookieHeader
@@ -29,6 +35,34 @@ function requestedWorkspace(request: Request) {
   } catch {
     return null;
   }
+}
+
+async function canUseSite(userId: string, organisationId: string, siteId: string, role: string) {
+  if (role === "owner" || role === "admin") return true;
+
+  const { data, error } = await serviceSupabase
+    .from("site_memberships")
+    .select("site_id,site:sites(id,organisation_id)")
+    .eq("user_id", userId);
+
+  if (error) throw error;
+
+  const rows = (data ?? []) as unknown as Array<{
+    site_id: string;
+    site: Relation<{ id: string; organisation_id: string }>;
+  }>;
+
+  const assignedInOrganisation = rows.filter(
+    (row) => first(row.site)?.organisation_id === organisationId
+  );
+
+  // Backwards-compatible default: a normal member with no explicit site assignment
+  // can access all sites in their organisation. Once assignments exist, only those
+  // sites are valid.
+  return (
+    assignedInOrganisation.length === 0 ||
+    assignedInOrganisation.some((row) => row.site_id === siteId)
+  );
 }
 
 export async function requireOrganisation(request: Request) {
@@ -103,6 +137,19 @@ export async function requireOrganisation(request: Request) {
       ),
       { status: 403 }
     );
+  }
+
+  const allowed = await canUseSite(
+    authData.user.id,
+    membership.organisation_id as string,
+    site.id as string,
+    membership.role as string
+  );
+
+  if (!allowed) {
+    throw Object.assign(new Error("You do not have access to the selected site"), {
+      status: 403,
+    });
   }
 
   return {
