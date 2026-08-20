@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
-import { mexgrocerCatalogue } from "../data/mexgrocerCatalogue";
 import { suppliers as supplierDirectory, type Supplier } from "../data/suppliers";
+import { resolveActiveWorkspace } from "../lib/clientWorkspace";
 import {
   defaultOrganisationSettings,
   getRegularOrderItems,
@@ -45,7 +45,7 @@ type Product = {
   unit: string;
   price: number | null;
   preferred: boolean;
-  source?: "live" | "compiled";
+  source?: "live";
 };
 
 type StockItem = {
@@ -95,10 +95,6 @@ function normalise(value: string) {
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
-}
-
-function productKey(product: Pick<Product, "supplier" | "supplierProduct">) {
-  return `${normalise(product.supplier)}::${normalise(product.supplierProduct)}`;
 }
 
 function supplierInitials(name: string) {
@@ -196,42 +192,8 @@ function quantityOptions(unit: string, current: number) {
   return Array.from(values).sort((a, b) => a - b);
 }
 
-function compiledMexgrocerProducts(): Product[] {
-  return mexgrocerCatalogue.map((item, index) => ({
-    id: `mexgrocer-compiled-${item.itemId ?? index}`,
-    supplier: "Mexgrocer",
-    ingredient: item.title,
-    supplierProduct: item.title,
-    sku: item.itemId === null ? "" : String(item.itemId),
-    unit: "each",
-    price: item.price,
-    preferred: false,
-    source: "compiled",
-  }));
-}
-
-function mergeProducts(liveProducts: Product[]) {
-  // Start with the full curated Mexgrocer catalogue we already compiled.
-  // Live Supabase rows are then layered over it so invoice/catalogue edits win.
-  const merged = new Map<string, Product>();
-
-  for (const product of compiledMexgrocerProducts()) {
-    merged.set(productKey(product), product);
-  }
-
-  for (const product of liveProducts) {
-    const key = productKey(product);
-    const fallback = merged.get(key);
-    merged.set(key, {
-      ...fallback,
-      ...product,
-      source: "live",
-      price: product.price ?? fallback?.price ?? null,
-      sku: product.sku || fallback?.sku || "",
-    });
-  }
-
-  return Array.from(merged.values()).sort(
+function sortProducts(liveProducts: Product[]) {
+  return [...liveProducts].sort(
     (a, b) =>
       a.supplier.localeCompare(b.supplier) ||
       Number(b.preferred) - Number(a.preferred) ||
@@ -260,6 +222,9 @@ export default function OrdersPage() {
       try {
         setLoading(true);
 
+        const activeWorkspace = await resolveActiveWorkspace();
+        if (!activeWorkspace) throw new Error("No active restaurant workspace");
+
         const [productResult, workspace] = await Promise.all([
           supabase
             .from("supplier_products")
@@ -273,6 +238,7 @@ export default function OrdersPage() {
               supplier:suppliers(id,name),
               ingredient:ingredients(id,name)
             `)
+            .eq("organisation_id", activeWorkspace.organisationId)
             .order("preferred", { ascending: false })
             .order("supplier_product_name", { ascending: true })
             .limit(1000),
@@ -310,7 +276,7 @@ export default function OrdersPage() {
           ];
         });
 
-        setProducts(mergeProducts(liveProducts));
+        setProducts(sortProducts(liveProducts));
 
         setOrders((workspace.get("purchaseOrders") ?? []) as PurchaseOrder[]);
         const stockTake = (workspace.get("currentStockTake") ?? {

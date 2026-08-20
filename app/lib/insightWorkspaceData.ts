@@ -5,10 +5,7 @@ import type {
   RecipeCostSummary,
   StockTake,
 } from "../data/insights";
-import {
-  observedApprovedInvoices,
-  observedIngredientPrices,
-} from "../data/invoiceOrderHistory";
+import { supabase } from "./supabase";
 import { readWorkspaceStates } from "./workspaceState";
 
 const INSIGHT_KEYS = [
@@ -30,59 +27,35 @@ function invoiceKey(invoice: ApprovedInvoice) {
     .trim();
 }
 
-function mergeInvoices(
-  workspaceInvoices: ApprovedInvoice[],
-  singleInvoice: ApprovedInvoice | null
-) {
+function mergeInvoices(...sources: Array<ApprovedInvoice[] | null>) {
   const merged = new Map<string, ApprovedInvoice>();
 
-  observedApprovedInvoices.forEach((invoice) => {
-    merged.set(invoiceKey(invoice), invoice as ApprovedInvoice);
-  });
-
-  workspaceInvoices.forEach((invoice) => {
-    merged.set(invoiceKey(invoice), invoice);
-  });
-
-  if (singleInvoice) {
-    merged.set(invoiceKey(singleInvoice), singleInvoice);
-  }
+  sources.forEach((source) =>
+    source?.forEach((invoice) => merged.set(invoiceKey(invoice), invoice))
+  );
 
   return Array.from(merged.values());
 }
 
-function mergeIngredientPrices(
-  workspacePrices: Record<string, IngredientPriceRecord>
-) {
-  const merged: Record<string, IngredientPriceRecord> = {
-    ...observedIngredientPrices,
-  };
+async function loadRelationalInvoices(): Promise<ApprovedInvoice[]> {
+  const { data } = await supabase.auth.getSession();
+  const token = data.session?.access_token;
+  if (!token) return [];
 
-  Object.entries(workspacePrices).forEach(([ingredient, price]) => {
-    const observed = merged[ingredient];
-
-    if (!observed) {
-      merged[ingredient] = price;
-      return;
-    }
-
-    const observedDate = new Date(observed.updatedAt ?? 0).getTime();
-    const workspaceDate = new Date(price.updatedAt ?? 0).getTime();
-
-    if (
-      !Number.isFinite(observedDate) ||
-      !Number.isFinite(workspaceDate) ||
-      workspaceDate >= observedDate
-    ) {
-      merged[ingredient] = price;
-    }
+  const response = await fetch("/api/invoices", {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
   });
-
-  return merged;
+  if (!response.ok) throw new Error("Could not load tenant invoices");
+  const payload = (await response.json()) as { invoices?: ApprovedInvoice[] };
+  return payload.invoices ?? [];
 }
 
 export async function loadInsightWorkspaceData() {
-  const state = await readWorkspaceStates(INSIGHT_KEYS);
+  const [state, relationalInvoices] = await Promise.all([
+    readWorkspaceStates(INSIGHT_KEYS),
+    loadRelationalInvoices(),
+  ]);
   const invoiceHistory = (state.get("approvedInvoices") ?? []) as ApprovedInvoice[];
   const singleInvoice = (state.get("approvedInvoiceDraft") ?? null) as
     | ApprovedInvoice
@@ -103,13 +76,17 @@ export async function loadInsightWorkspaceData() {
   >;
 
   return {
-    ingredientPrices: mergeIngredientPrices(workspaceIngredientPrices),
+    ingredientPrices: workspaceIngredientPrices,
     previousIngredientPrices: (state.get("previousIngredientPrices") ?? {}) as Record<
       string,
       IngredientPriceRecord
     >,
     purchaseOrders: (state.get("purchaseOrders") ?? []) as PurchaseOrder[],
-    invoices: mergeInvoices(invoiceHistory, singleInvoice),
+    invoices: mergeInvoices(
+      relationalInvoices,
+      invoiceHistory,
+      singleInvoice ? [singleInvoice] : null
+    ),
     stockTakes,
     recipeCosts: (state.get("recipeCostSummaries") ?? []) as RecipeCostSummary[],
     salesThisPeriod: Number.isFinite(sales) && sales > 0 ? sales : null,

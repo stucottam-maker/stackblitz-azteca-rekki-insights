@@ -22,8 +22,6 @@ let workspaceIdentityPromise: Promise<{
   siteId: string;
   userId: string;
 } | null> | null = null;
-let legacyMigrationPromise: Promise<void> | null = null;
-
 function parseStoredValue(value: string) {
   try {
     return JSON.parse(value) as unknown;
@@ -82,7 +80,6 @@ export async function removeWorkspaceState(key: string) {
 }
 
 export async function readWorkspaceState<T>(key: string, fallback: T): Promise<T> {
-  await migrateLegacyWorkspaceState();
   const identity = await getWorkspaceIdentity();
   if (!identity) return fallback;
 
@@ -99,7 +96,6 @@ export async function readWorkspaceState<T>(key: string, fallback: T): Promise<T
 }
 
 export async function readWorkspaceStates(keys: readonly string[]) {
-  await migrateLegacyWorkspaceState();
   const identity = await getWorkspaceIdentity();
   if (!identity) return new Map<string, unknown>();
 
@@ -114,59 +110,9 @@ export async function readWorkspaceStates(keys: readonly string[]) {
   return new Map((data ?? []).map((row) => [row.state_key, row.state_value]));
 }
 
-async function performLegacyWorkspaceMigration() {
-  const identity = await getWorkspaceIdentity();
-  if (!identity || typeof window === "undefined") return;
-
-  const { data, error } = await supabase
-    .from("workspace_state")
-    .select("state_key,state_value")
-    .eq("organisation_id", identity.organisationId)
-    .eq("site_id", identity.siteId);
-
-  if (error) throw error;
-
-  const remote = new Map(
-    (data ?? []).map((row) => [row.state_key, row.state_value] as const)
-  );
-  const localKeys = new Set<string>(WORKSPACE_STATE_KEYS);
-  for (let index = 0; index < localStorage.length; index += 1) {
-    const key = localStorage.key(index);
-    if (key?.startsWith("recipe:") || key?.startsWith("recipeCost:")) {
-      localKeys.add(key);
-    }
-  }
-
-  const missing = Array.from(localKeys).flatMap((key) => {
-    const value = localStorage.getItem(key);
-    return value !== null && !remote.has(key)
-      ? [
-          {
-            organisation_id: identity.organisationId,
-            site_id: identity.siteId,
-            state_key: key,
-            state_value: parseStoredValue(value),
-            updated_by: identity.userId,
-            updated_at: new Date().toISOString(),
-          },
-        ]
-      : [];
-  });
-
-  if (missing.length) {
-    const { error: uploadError } = await supabase
-      .from("workspace_state")
-      .upsert(missing, { onConflict: "organisation_id,site_id,state_key" });
-    if (uploadError) throw uploadError;
-  }
-
-  localKeys.forEach((key) => localStorage.removeItem(key));
-}
-
 export function migrateLegacyWorkspaceState() {
-  if (typeof window === "undefined") return Promise.resolve();
-  if (!legacyMigrationPromise) {
-    legacyMigrationPromise = performLegacyWorkspaceMigration();
-  }
-  return legacyMigrationPromise;
+  // Legacy browser data was migrated before multi-restaurant access existed.
+  // Re-uploading unscoped localStorage values after a workspace switch can copy
+  // one restaurant's data into another, so migration is intentionally retired.
+  return Promise.resolve();
 }

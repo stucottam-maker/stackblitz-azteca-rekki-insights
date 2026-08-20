@@ -8,13 +8,8 @@ import {
 import Link from "next/link";
 
 import { loadInsightWorkspaceData } from "../lib/insightWorkspaceData";
-import { getSupplier, suppliers as supplierDirectory } from "../data/suppliers";
-
-import {
-  supplierCatalogue,
-  supplierContacts,
-  type CatalogueItem,
-} from "../data/supplierCatalogue";
+import { resolveActiveWorkspace } from "../lib/clientWorkspace";
+import { supabase } from "../lib/supabase";
 
 import {
   generateInsights,
@@ -39,6 +34,31 @@ type SupplierSummary = {
   invoiceCount: number;
   lastInvoiceDate?: string;
 };
+
+type LiveSupplier = {
+  id: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  order_method: string | null;
+};
+
+type LiveCatalogueItem = {
+  id: string;
+  ingredient: string;
+  supplier: string;
+  supplierProduct: string;
+  unit: string;
+  fallbackPrice: number | null;
+  preferred: boolean;
+  category: string;
+};
+
+type Relation<T> = T | T[] | null;
+
+function first<T>(value: Relation<T>): T | null {
+  return Array.isArray(value) ? value[0] ?? null : value;
+}
 
 function formatDate(
   value?: string
@@ -124,6 +144,9 @@ export default function SuppliersPage() {
       RecipeCostSummary[]
     >([]);
 
+  const [liveSuppliers, setLiveSuppliers] = useState<LiveSupplier[]>([]);
+  const [liveCatalogue, setLiveCatalogue] = useState<LiveCatalogueItem[]>([]);
+
   const [search, setSearch] =
     useState("");
 
@@ -135,15 +158,71 @@ export default function SuppliersPage() {
   >(null);
 
   useEffect(() => {
-    loadInsightWorkspaceData()
-      .then((data) => {
+    async function load() {
+      try {
+        const workspace = await resolveActiveWorkspace();
+        if (!workspace) throw new Error("No active restaurant workspace");
+
+        const [data, supplierResult, productResult] = await Promise.all([
+          loadInsightWorkspaceData(),
+          supabase
+            .from("suppliers")
+            .select("id,name,email,phone,order_method")
+            .eq("organisation_id", workspace.organisationId)
+            .order("name"),
+          supabase
+            .from("supplier_products")
+            .select(`
+              id,
+              supplier_product_name,
+              price_unit,
+              latest_price,
+              preferred,
+              supplier:suppliers(id,name),
+              ingredient:ingredients(id,name,category)
+            `)
+            .eq("organisation_id", workspace.organisationId)
+            .order("supplier_product_name")
+            .limit(5000),
+        ]);
+
+        if (supplierResult.error) throw supplierResult.error;
+        if (productResult.error) throw productResult.error;
+
         setIngredientPrices(data.ingredientPrices);
         setPurchaseOrders(data.purchaseOrders);
         setInvoices(data.invoices);
         setStockTakes(data.stockTakes);
         setRecipeCosts(data.recipeCosts);
-      })
-      .catch((error) => console.error("Suppliers cloud load failed", error));
+        setLiveSuppliers((supplierResult.data ?? []) as LiveSupplier[]);
+        setLiveCatalogue(
+          (productResult.data ?? []).flatMap((row: any) => {
+            const supplier = first(row.supplier as Relation<{ id: string; name: string }>);
+            const ingredient = first(
+              row.ingredient as Relation<{ id: string; name: string; category: string | null }>
+            );
+            if (!supplier) return [];
+            return [{
+              id: row.id,
+              ingredient: ingredient?.name ?? row.supplier_product_name,
+              supplier: supplier.name,
+              supplierProduct: row.supplier_product_name,
+              unit: row.price_unit ?? "each",
+              fallbackPrice:
+                row.latest_price === null || row.latest_price === undefined
+                  ? null
+                  : Number(row.latest_price),
+              preferred: Boolean(row.preferred),
+              category: ingredient?.category ?? "Other",
+            } satisfies LiveCatalogueItem];
+          })
+        );
+      } catch (error) {
+        console.error("Suppliers cloud load failed", error);
+      }
+    }
+
+    void load();
   }, []);
 
   const insightData =
@@ -172,16 +251,9 @@ export default function SuppliersPage() {
       const names =
         new Set<string>();
 
-      supplierContacts.forEach(
-        (supplier) =>
-          names.add(
-            supplier.name
-          )
-      );
+      liveSuppliers.forEach((supplier) => names.add(supplier.name));
 
-      Object.keys(supplierDirectory).forEach((name) => names.add(name));
-
-      supplierCatalogue.forEach(
+      liveCatalogue.forEach(
         (item) =>
           names.add(
             item.supplier
@@ -202,17 +274,10 @@ export default function SuppliersPage() {
 
       return Array.from(names)
         .map((name) => {
-          const contact =
-            supplierContacts.find(
-              (supplier) =>
-                supplier.name ===
-                name
-            );
-
-          const supplierProfile = getSupplier(name);
+          const supplierProfile = liveSuppliers.find((supplier) => supplier.name === name);
 
           const products =
-            supplierCatalogue.filter(
+            liveCatalogue.filter(
               (item) =>
                 item.supplier ===
                 name
@@ -271,13 +336,11 @@ export default function SuppliersPage() {
           return {
             name,
             email:
-              supplierProfile?.email ?? contact?.email,
+              supplierProfile?.email ?? undefined,
 
-            phone: supplierProfile?.phone,
+            phone: supplierProfile?.phone ?? undefined,
 
-            orderMethod: supplierProfile?.orderMethod,
-
-            deliveryDays: supplierProfile?.deliveryDays,
+            orderMethod: supplierProfile?.order_method ?? undefined,
 
             productCount:
               products.length,
@@ -319,6 +382,8 @@ export default function SuppliersPage() {
     }, [
       invoices,
       insightData.supplierSpend,
+      liveCatalogue,
+      liveSuppliers,
     ]);
 
   const filteredSuppliers =
@@ -353,7 +418,7 @@ export default function SuppliersPage() {
 
   const selectedProducts =
     useMemo<
-      CatalogueItem[]
+      LiveCatalogueItem[]
     >(() => {
       if (
         !selectedSupplier
@@ -361,7 +426,7 @@ export default function SuppliersPage() {
         return [];
       }
 
-      return supplierCatalogue
+      return liveCatalogue
         .filter(
           (item) =>
             item.supplier ===
@@ -388,6 +453,7 @@ export default function SuppliersPage() {
         });
     }, [
       selectedSupplier,
+      liveCatalogue,
     ]);
 
   const selectedSummary =
@@ -400,10 +466,10 @@ export default function SuppliersPage() {
       : null;
 
   const totalCatalogueProducts =
-    supplierCatalogue.length;
+    liveCatalogue.length;
 
   const totalPreferred =
-    supplierCatalogue.filter(
+    liveCatalogue.filter(
       (item) =>
         item.preferred
     ).length;
