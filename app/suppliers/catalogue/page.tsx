@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
+import { resolveActiveWorkspace } from "../../lib/clientWorkspace";
 import { supabase } from "../../lib/supabase";
 
 type Relation<T> = T | T[] | null;
@@ -45,6 +46,9 @@ export default function SupplierCataloguePage() {
     setLoading(true);
     setMessage("");
     try {
+      const workspace = await resolveActiveWorkspace();
+      if (!workspace) throw new Error("No active restaurant workspace");
+
       const { data, error } = await supabase
         .from("supplier_products")
         .select(`
@@ -57,6 +61,7 @@ export default function SupplierCataloguePage() {
           supplier:suppliers(id,name),
           ingredient:ingredients(id,name,category)
         `)
+        .eq("organisation_id", workspace.organisationId)
         .order("updated_at", { ascending: false })
         .limit(1000);
 
@@ -120,6 +125,9 @@ export default function SupplierCataloguePage() {
     setSaving(product.id);
     setMessage("");
     try {
+      const workspace = await resolveActiveWorkspace();
+      if (!workspace) throw new Error("No active restaurant workspace");
+
       const { error } = await supabase
         .from("supplier_products")
         .update({
@@ -130,6 +138,7 @@ export default function SupplierCataloguePage() {
           preferred: product.preferred,
           updated_at: new Date().toISOString(),
         })
+        .eq("organisation_id", workspace.organisationId)
         .eq("id", product.id);
       if (error) throw error;
       setMessage(`${product.name} saved.`);
@@ -147,7 +156,7 @@ export default function SupplierCataloguePage() {
           <p className="eyebrow">Purchasing data</p>
           <h1>Supplier catalogue</h1>
           <p className="page-description">
-            Edit the live supplier product catalogue stored in Supabase instead of changing code.
+            Edit the live supplier product catalogue for the selected restaurant organisation.
           </p>
         </div>
         <Link href="/suppliers" className="secondary-inline-button">← Suppliers</Link>
