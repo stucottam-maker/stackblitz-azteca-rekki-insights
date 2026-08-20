@@ -5,10 +5,15 @@ on:
   push:
     branches:
       - main
+      - "codex/**"
     paths:
       - "capacitor.config.json"
       - "capacitor-shell/**"
+      - "app/icon.png"
+      - "app/apple-icon.png"
+      - "public/pwa-icon.svg"
       - "public/native-camera-bridge.js"
+      - "scripts/apply-android-branding.sh"
       - ".github/workflows/android-debug.yml"
 
 permissions:
@@ -44,124 +49,31 @@ jobs:
         run: npx cap sync android
 
       - name: Apply Kitchen Insights Android branding
-        run: |
-          set -euo pipefail
-          RES="android/app/src/main/res"
-          mkdir -p "$RES/values" "$RES/drawable" "$RES/mipmap-anydpi" "$RES/mipmap-anydpi-v26" "$RES/mipmap-anydpi-v33"
-
-          cat > "$RES/values/ki_colors.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <resources>
-              <color name="ki_green">#214F3D</color>
-              <color name="ki_orange">#BD5F31</color>
-              <color name="ki_white">#FFFFFF</color>
-          </resources>
-          EOF
-
-          cat > "$RES/drawable/ki_launcher_foreground.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <vector xmlns:android="http://schemas.android.com/apk/res/android"
-              android:width="108dp"
-              android:height="108dp"
-              android:viewportWidth="108"
-              android:viewportHeight="108">
-              <path
-                  android:fillColor="#BD5F31"
-                  android:pathData="M30,18 H78 C84.627,18 90,23.373 90,30 V78 C90,84.627 84.627,90 78,90 H30 C23.373,90 18,84.627 18,78 V30 C18,23.373 23.373,18 30,18 Z" />
-              <path
-                  android:fillColor="#FFFFFF"
-                  android:pathData="M39,37 H45 V71 H39 Z M45,53 L58,37 H65 L51,54 L66,71 H58 L45,56 Z M69,37 H75 V71 H69 Z" />
-          </vector>
-          EOF
-
-          cat > "$RES/drawable/ki_launcher_monochrome.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <vector xmlns:android="http://schemas.android.com/apk/res/android"
-              android:width="108dp"
-              android:height="108dp"
-              android:viewportWidth="108"
-              android:viewportHeight="108">
-              <path
-                  android:fillColor="#FFFFFFFF"
-                  android:pathData="M30,18 H78 C84.627,18 90,23.373 90,30 V78 C90,84.627 84.627,90 78,90 H30 C23.373,90 18,84.627 18,78 V30 C18,23.373 23.373,18 30,18 Z" />
-          </vector>
-          EOF
-
-          cat > "$RES/mipmap-anydpi/ic_launcher.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-              <item>
-                  <shape android:shape="rectangle">
-                      <solid android:color="@color/ki_green" />
-                  </shape>
-              </item>
-              <item
-                  android:width="72dp"
-                  android:height="72dp"
-                  android:gravity="center"
-                  android:drawable="@drawable/ki_launcher_foreground" />
-          </layer-list>
-          EOF
-          cp "$RES/mipmap-anydpi/ic_launcher.xml" "$RES/mipmap-anydpi/ic_launcher_round.xml"
-
-          cat > "$RES/mipmap-anydpi-v26/ic_launcher.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-              <background android:drawable="@color/ki_green" />
-              <foreground android:drawable="@drawable/ki_launcher_foreground" />
-          </adaptive-icon>
-          EOF
-          cp "$RES/mipmap-anydpi-v26/ic_launcher.xml" "$RES/mipmap-anydpi-v26/ic_launcher_round.xml"
-
-          cat > "$RES/mipmap-anydpi-v33/ic_launcher.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-              <background android:drawable="@color/ki_green" />
-              <foreground android:drawable="@drawable/ki_launcher_foreground" />
-              <monochrome android:drawable="@drawable/ki_launcher_monochrome" />
-          </adaptive-icon>
-          EOF
-          cp "$RES/mipmap-anydpi-v33/ic_launcher.xml" "$RES/mipmap-anydpi-v33/ic_launcher_round.xml"
-
-          cat > "$RES/drawable/ki_splash.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-              <item>
-                  <shape android:shape="rectangle">
-                      <solid android:color="@color/ki_green" />
-                  </shape>
-              </item>
-              <item
-                  android:width="144dp"
-                  android:height="144dp"
-                  android:gravity="center"
-                  android:drawable="@drawable/ki_launcher_foreground" />
-          </layer-list>
-          EOF
-
-          python - <<'PY'
-          from pathlib import Path
-
-          res = Path("android/app/src/main/res")
-          for styles in res.glob("values*/styles.xml"):
-              text = styles.read_text()
-              text = text.replace("@drawable/splash", "@drawable/ki_splash")
-              text = text.replace(
-                  '<item name="android:windowSplashScreenBackground">@color/colorPrimary</item>',
-                  '<item name="android:windowSplashScreenBackground">@color/ki_green</item>',
-              )
-              text = text.replace(
-                  '<item name="android:statusBarColor">@color/colorPrimaryDark</item>',
-                  '<item name="android:statusBarColor">@color/ki_green</item>',
-              )
-              styles.write_text(text)
-          PY
+        run: scripts/apply-android-branding.sh
 
       - name: Build debug APK
         working-directory: android
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
+
+      - name: Verify APK identity and compiled branding
+        run: |
+          set -euo pipefail
+          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          AAPT="$(find "${ANDROID_HOME}/build-tools" -type f -name aapt | sort -V | tail -n 1)"
+          test -s "$APK"
+          test -x "$AAPT"
+          "$AAPT" dump badging "$APK" | grep -F "package: name='uk.kitcheninsights.app'"
+          "$AAPT" dump badging "$APK" | grep -F "application-label:'Kitchen Insights'"
+          "$AAPT" dump resources "$APK" > /tmp/kitchen-insights-apk-resources.txt
+          grep -F "ki_launcher_foreground" /tmp/kitchen-insights-apk-resources.txt
+          grep -F "ki_launcher_monochrome" /tmp/kitchen-insights-apk-resources.txt
+          grep -F "ki_splash" /tmp/kitchen-insights-apk-resources.txt
+          if grep -i "azteca" /tmp/kitchen-insights-apk-resources.txt; then
+            echo "Restaurant-specific branding leaked into compiled Android resources" >&2
+            exit 1
+          fi
 
       - name: Rename APK
         run: cp android/app/build/outputs/apk/debug/app-debug.apk Kitchen-Insights-debug.apk
