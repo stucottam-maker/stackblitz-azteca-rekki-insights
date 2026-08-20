@@ -283,7 +283,7 @@ function historicalToStockTake(
   return {
     id: take.id,
     date: take.date,
-    completedAt: `${take.date}T23:59:59.999Z`,
+    completedAt: `${take.date}T12:00:00.000Z`,
     items: take.items.map((item) => {
       const parsed = parseHistoricalQuantity(item);
 
