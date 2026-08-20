@@ -266,6 +266,50 @@ export default function ReportsPage() {
     return { ...row, x, y };
   });
 
+  const actualCogs =
+    insightData.metrics.actualCogs;
+
+  const actualFoodCostPercent =
+    insightData.metrics.actualFoodCostPercent;
+
+  const theoreticalFoodCost =
+    insightData.metrics.theoreticalFoodCostPercent;
+
+  const actualGrossProfit =
+    salesThisPeriod !== null &&
+    actualCogs !== null
+      ? salesThisPeriod - actualCogs
+      : null;
+
+  const actualGrossProfitPercent =
+    salesThisPeriod !== null &&
+    salesThisPeriod > 0 &&
+    actualGrossProfit !== null
+      ? (actualGrossProfit /
+          salesThisPeriod) *
+        100
+      : null;
+
+  const theoreticalGrossProfitPercent =
+    theoreticalFoodCost !== null
+      ? 100 - theoreticalFoodCost
+      : null;
+
+  const theoreticalGrossProfit =
+    salesThisPeriod !== null &&
+    theoreticalGrossProfitPercent !== null
+      ? salesThisPeriod *
+        (theoreticalGrossProfitPercent /
+          100)
+      : null;
+
+  const grossProfitVariancePercent =
+    actualGrossProfitPercent !== null &&
+    theoreticalGrossProfitPercent !== null
+      ? actualGrossProfitPercent -
+        theoreticalGrossProfitPercent
+      : null;
+
   const reportTabs: [
     ReportView,
     string
@@ -1002,65 +1046,80 @@ export default function ReportsPage() {
 
               <article className="stat-card">
                 <p className="stat-label">
-                  Actual food cost
+                  Actual GP
                 </p>
 
                 <p className="stat-value">
-                  {formatPercent(
-                    insightData
-                      .metrics
-                      .actualFoodCostPercent
+                  {formatCurrency(
+                    actualGrossProfit
                   )}
                 </p>
 
                 <p className="stat-change neutral">
-                  Based on COGS
+                  {actualGrossProfitPercent ===
+                  null
+                    ? "Waiting for actual COGS"
+                    : `${formatPercent(
+                        actualGrossProfitPercent
+                      )} GP · ${formatPercent(
+                        actualFoodCostPercent
+                      )} food cost`}
                 </p>
               </article>
 
               <article className="stat-card">
                 <p className="stat-label">
-                  Theoretical
+                  Theoretical GP
                 </p>
 
                 <p className="stat-value">
                   {formatPercent(
-                    insightData
-                      .metrics
-                      .theoreticalFoodCostPercent
+                    theoreticalGrossProfitPercent
                   )}
                 </p>
 
                 <p className="stat-change neutral">
-                  Recipe-based
+                  {theoreticalGrossProfit ===
+                  null
+                    ? "Recipe-based target"
+                    : `${formatCurrency(
+                        theoreticalGrossProfit
+                      )} · ${formatPercent(
+                        theoreticalFoodCost
+                      )} food cost`}
                 </p>
               </article>
 
               <article className="stat-card">
                 <p className="stat-label">
-                  Variance
+                  GP variance
                 </p>
 
-                <p className="stat-value">
-                  {insightData
-                    .metrics
-                    .foodCostVariancePercent ===
+                <p
+                  className={`stat-value ${
+                    grossProfitVariancePercent !==
+                      null &&
+                    grossProfitVariancePercent <
+                      0
+                      ? "report-value-negative"
+                      : ""
+                  }`}
+                >
+                  {grossProfitVariancePercent ===
                   null
                     ? "—"
                     : `${
-                        insightData
-                          .metrics
-                          .foodCostVariancePercent >=
+                        grossProfitVariancePercent >=
                         0
                           ? "+"
                           : ""
-                      }${insightData.metrics.foodCostVariancePercent.toFixed(
+                      }${grossProfitVariancePercent.toFixed(
                         1
                       )} pts`}
                 </p>
 
                 <p className="stat-change neutral">
-                  Actual vs target
+                  Actual vs theoretical
                 </p>
               </article>
             </section>
