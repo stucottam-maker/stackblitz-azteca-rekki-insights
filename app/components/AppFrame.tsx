@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import AuthGate from "./AuthGate";
 import InvoicePriceSync from "./InvoicePriceSync";
 import Sidebar from "./Sidebar";
+import WorkspaceProvider from "./WorkspaceProvider";
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -15,11 +16,13 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthGate>
-      <InvoicePriceSync />
-      <div className="app-shell app-shell-root">
-        <Sidebar />
-        <main className="main-content main-content-root">{children}</main>
-      </div>
+      <WorkspaceProvider>
+        <InvoicePriceSync />
+        <div className="app-shell app-shell-root">
+          <Sidebar />
+          <main className="main-content main-content-root">{children}</main>
+        </div>
+      </WorkspaceProvider>
     </AuthGate>
   );
 }
