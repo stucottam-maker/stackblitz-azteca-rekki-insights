@@ -139,6 +139,52 @@
 .report-table-clean tbody tr:hover { background: #faf9f6; }
 .report-table-clean th:not(:first-child), .report-table-clean td:not(:first-child) { text-align: right; }
 
+.report-period-selector {
+  display: grid;
+  grid-template-columns: minmax(220px,1fr) auto;
+  gap: 14px 20px;
+  align-items: end;
+  margin-bottom: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+}
+.report-period-copy { display: grid; gap: 4px; }
+.report-period-copy strong { color: var(--text); font-size: 13px; }
+.report-period-copy span { max-width: 620px; color: var(--text-soft); font-size: 11px; line-height: 1.45; }
+.report-period-controls { display: flex; align-items: end; gap: 8px; }
+.report-period-controls label { display: grid; gap: 5px; }
+.report-period-controls label > span { color: var(--text-soft); font-size: 10px; font-weight: 750; }
+.report-period-controls select {
+  min-width: 178px;
+  height: 40px;
+  padding: 0 34px 0 11px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--text);
+  background: var(--surface-soft);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 750;
+  outline: none;
+}
+.report-period-controls select:focus { border-color: rgba(36,81,63,.45); box-shadow: 0 0 0 3px rgba(36,81,63,.08); }
+.report-period-arrow { display: grid; place-items: center; height: 40px; padding: 0 2px; color: var(--green); font-weight: 850; }
+.report-period-summary {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+}
+.report-period-summary span { color: var(--text-soft); }
+.report-period-summary strong { color: var(--green-dark); font-variant-numeric: tabular-nums; }
+.report-period-empty { margin-bottom: 16px; padding: 14px 16px; border-radius: 12px; color: var(--text-soft); background: var(--surface-soft); font-size: 11px; }
+
 .report-cogs-formula-clean { display: grid; grid-template-columns: repeat(7,auto); align-items: center; justify-content: start; gap: 12px; padding: 18px; border-radius: 14px; background: var(--surface-soft); }
 .report-cogs-formula-clean > div { display: grid; gap: 4px; }
 .report-cogs-formula-clean span { color: var(--text-soft); font-size: 10px; }
@@ -155,6 +201,8 @@
   .report-chart-grid { grid-template-columns: 1fr 1fr; }
   .report-chart-card:last-child { grid-column: 1 / -1; }
   .reports-overview-grid-clean { grid-template-columns: 1fr; }
+  .report-period-selector { grid-template-columns: 1fr; align-items: stretch; }
+  .report-period-controls { justify-content: start; }
   .report-cogs-formula-clean { grid-template-columns: 1fr; }
   .report-formula-symbol { display: none; }
   .report-formula-result-clean { padding: 10px 0 0; border-top: 2px solid var(--green); border-left: 0; }
@@ -168,6 +216,11 @@
   .report-chart-grid { grid-template-columns: 1fr; }
   .report-chart-card, .report-chart-card:last-child { grid-column: auto; min-height: 0; padding: 16px; }
   .report-overview-panel, .report-main-panel { padding: 14px; }
+  .report-period-selector { padding: 14px; }
+  .report-period-controls { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; }
+  .report-period-controls label { min-width: 0; }
+  .report-period-controls select { width: 100%; min-width: 0; }
+  .report-period-summary { align-items: flex-start; flex-direction: column; gap: 4px; }
   .report-table-clean { min-width: 620px; }
   .table-wrapper { overflow-x: auto; }
 }
