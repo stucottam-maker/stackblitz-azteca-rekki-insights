@@ -5,16 +5,21 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { supabase } from "../lib/supabase";
 
+function isPublicAuthPath(pathname: string) {
+  return pathname === "/login" || pathname === "/reset-password";
+}
+
 export default function AuthGate({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [ready, setReady] = useState(pathname === "/login");
+  const publicAuthPath = isPublicAuthPath(pathname);
+  const [ready, setReady] = useState(publicAuthPath);
 
   useEffect(() => {
     let mounted = true;
 
     async function checkSession() {
-      if (pathname === "/login") {
+      if (isPublicAuthPath(pathname)) {
         if (mounted) setReady(true);
         return;
       }
@@ -39,7 +44,15 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!mounted || pathname === "/login") return;
+      if (!mounted) return;
+
+      if (event === "PASSWORD_RECOVERY") {
+        setReady(true);
+        router.replace("/reset-password");
+        return;
+      }
+
+      if (isPublicAuthPath(pathname)) return;
 
       if (event === "SIGNED_OUT" || !session) {
         setReady(false);
@@ -55,7 +68,7 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
     };
   }, [pathname, router]);
 
-  if (!ready && pathname !== "/login") {
+  if (!ready && !publicAuthPath) {
     return (
       <div className="auth-loading-screen" role="status" aria-live="polite">
         <div className="auth-loading-card">
