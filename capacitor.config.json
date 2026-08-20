@@ -3,14 +3,14 @@
   "appName": "Kitchen Insights",
   "webDir": "capacitor-shell",
   "loggingBehavior": "debug",
-  "appendUserAgent": " KitchenInsightsAndroid/0.1",
-  "backgroundColor": "#f4f3ef",
+  "appendUserAgent": " KitchenInsightsAndroid/0.2",
+  "backgroundColor": "#214f3d",
   "server": {
-    "url": "https://azteca.kitcheninsights.uk",
+    "url": "https://www.kitcheninsights.uk",
     "cleartext": false
   },
   "android": {
-    "backgroundColor": "#f4f3ef",
+    "backgroundColor": "#214f3d",
     "allowMixedContent": false,
     "webContentsDebuggingEnabled": true
   }
