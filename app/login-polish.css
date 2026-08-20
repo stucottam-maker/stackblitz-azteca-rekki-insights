@@ -215,14 +215,24 @@
 
 .login-password-toggle:hover { background: var(--green-soft); }
 
-.login-error {
+.login-error,
+.login-success {
   padding: 12px 14px;
-  border: 1px solid rgba(182, 74, 67, .18);
   border-radius: 12px;
-  color: #943b35;
-  background: var(--red-soft);
   font-size: 13px;
   line-height: 1.45;
+}
+
+.login-error {
+  border: 1px solid rgba(182, 74, 67, .18);
+  color: #943b35;
+  background: var(--red-soft);
+}
+
+.login-success {
+  border: 1px solid rgba(33, 79, 61, .18);
+  color: var(--green);
+  background: var(--green-soft);
 }
 
 .login-button {
@@ -234,8 +244,24 @@
 
 .login-button:disabled { cursor: wait; opacity: .68; }
 
+.login-mode-switch {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 6px 0;
+  border: 0;
+  color: var(--green);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+}
+
+.login-mode-switch:hover { text-decoration: underline; }
+
 .login-help {
-  margin-top: 24px;
+  margin-top: 18px;
   color: var(--text-light);
   font-size: 12px;
   line-height: 1.5;
