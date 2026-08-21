@@ -88,7 +88,8 @@ export async function DELETE(request: Request) {
     const { user } = await requireOrganisation(request);
     const body = await request.json();
     const prefix = `uploads/${user.id}/`;
-    const paths = (Array.isArray(body.paths) ? body.paths : []).filter(
+    const rawPaths: unknown[] = Array.isArray(body.paths) ? body.paths : [];
+    const paths = rawPaths.filter(
       (path): path is string => typeof path === "string" && path.startsWith(prefix)
     );
 
