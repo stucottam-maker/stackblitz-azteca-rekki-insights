@@ -87,10 +87,51 @@ export async function PATCH(request: Request) {
     const invoiceId = String(body.invoiceId || "");
     const invoiceStatus = String(body.invoiceStatus || "");
     const paymentStatus = String(body.paymentStatus || "");
+    const filePath = typeof body.filePath === "string" ? body.filePath.trim() : "";
+    const fileName = typeof body.fileName === "string" ? body.fileName.trim() : "";
     const allowed = new Set(["unpaid", "scheduled", "paid", "disputed"]);
+    const hasAttachmentUpdate = Boolean(filePath || fileName);
 
-    if (!invoiceId || (!allowed.has(paymentStatus) && !["review", "approved"].includes(invoiceStatus))) {
-      return NextResponse.json({ error: "Invalid payment update" }, { status: 400 });
+    if (
+      !invoiceId ||
+      (!hasAttachmentUpdate &&
+        !allowed.has(paymentStatus) &&
+        !["review", "approved"].includes(invoiceStatus))
+    ) {
+      return NextResponse.json({ error: "Invalid invoice update" }, { status: 400 });
+    }
+
+    if (hasAttachmentUpdate) {
+      if (!filePath || !fileName) {
+        return NextResponse.json(
+          { error: "Both filePath and fileName are required" },
+          { status: 400 }
+        );
+      }
+
+      const requiredPrefix = `uploads/${user.id}/`;
+      if (!filePath.startsWith(requiredPrefix)) {
+        return NextResponse.json(
+          { error: "Invoice attachment path is not valid for this user" },
+          { status: 400 }
+        );
+      }
+
+      const { data, error } = await serviceSupabase
+        .from("invoices")
+        .update({
+          file_name: fileName,
+          file_path: filePath,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", invoiceId)
+        .eq("organisation_id", organisationId)
+        .eq("site_id", siteId)
+        .select("id,file_name,file_path")
+        .single();
+
+      if (error) throw error;
+      return NextResponse.json({ invoice: data });
     }
 
     if (["review", "approved"].includes(invoiceStatus)) {
@@ -127,7 +168,7 @@ export async function PATCH(request: Request) {
     if (error) throw error;
     return NextResponse.json({ invoice: data });
   } catch (error) {
-    console.error("INVOICE PAYMENT UPDATE FAILED", error);
+    console.error("INVOICE UPDATE FAILED", error);
     const response = authErrorResponse(error);
     return NextResponse.json({ error: response.message }, { status: response.status });
   }
