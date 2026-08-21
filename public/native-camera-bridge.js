@@ -1,8 +1,7 @@
 (() => {
-  const CAMERA_SELECTOR = 'input[type="file"][capture="environment"]';
+  const CAMERA_TRIGGER = '[data-ki-camera-trigger="true"]';
   const MAX_NATIVE_EDGE = 2200;
   const CAMERA_QUALITY = 82;
-  const WEB_CAMERA_QUALITY = 0.88;
 
   function getCapacitor() {
     const capacitor = window.Capacitor;
@@ -18,14 +17,6 @@
 
   function getNativeCamera() {
     return getCapacitor()?.Plugins?.Camera || null;
-  }
-
-  function supportsBrowserCamera() {
-    return Boolean(
-      window.isSecureContext &&
-        navigator.mediaDevices &&
-        typeof navigator.mediaDevices.getUserMedia === "function"
-    );
   }
 
   function formatInfo(format) {
@@ -49,13 +40,6 @@
       type: mime,
       lastModified: Date.now(),
     });
-  }
-
-  function assignFileToInput(input, file) {
-    const transfer = new DataTransfer();
-    transfer.items.add(file);
-    input.files = transfer.files;
-    input.dispatchEvent(new Event("change", { bubbles: true }));
   }
 
   async function mediaResultToFile(result) {
@@ -90,12 +74,12 @@
       }
     }
 
-    if (result?.thumbnail) {
-      return base64ToFile(result.thumbnail, format);
-    }
-
     if (result?.base64String) {
       return base64ToFile(result.base64String, format);
+    }
+
+    if (result?.thumbnail) {
+      return base64ToFile(result.thumbnail, format);
     }
 
     throw new Error("The camera did not return an invoice photo.");
@@ -108,18 +92,6 @@
   }
 
   async function capturePhoto(Camera) {
-    if (typeof Camera.takePhoto === "function") {
-      return Camera.takePhoto({
-        quality: CAMERA_QUALITY,
-        targetWidth: MAX_NATIVE_EDGE,
-        targetHeight: MAX_NATIVE_EDGE,
-        correctOrientation: true,
-        saveToGallery: false,
-        editable: "no",
-        includeMetadata: true,
-      });
-    }
-
     return Camera.getPhoto({
       quality: CAMERA_QUALITY,
       width: MAX_NATIVE_EDGE,
@@ -133,203 +105,41 @@
     });
   }
 
-  async function takeNativeInvoicePhoto(input) {
-    const Camera = getNativeCamera();
-    if (!Camera) return false;
-
+  async function takeInvoicePhoto(Camera) {
     try {
+      const permissions =
+        typeof Camera.checkPermissions === "function"
+          ? await Camera.checkPermissions()
+          : null;
+
+      if (
+        permissions?.camera !== "granted" &&
+        typeof Camera.requestPermissions === "function"
+      ) {
+        const requested = await Camera.requestPermissions({ permissions: ["camera"] });
+        if (requested?.camera !== "granted") {
+          window.alert(
+            "Camera permission is blocked. Allow Camera for Kitchen Insights in your phone settings, then try again."
+          );
+          return;
+        }
+      }
+
       const result = await capturePhoto(Camera);
       const file = await mediaResultToFile(result);
-      assignFileToInput(input, file);
-      return true;
+
+      window.dispatchEvent(
+        new CustomEvent("ki:invoice-camera-file", {
+          detail: { file },
+        })
+      );
     } catch (error) {
-      if (!isCancellation(error)) {
-        console.error("Kitchen Insights native camera error", error);
-        window.alert(
-          "Kitchen Insights could not capture that invoice photo. Try again, or check Camera permission in your phone settings."
-        );
-      }
-      return true;
-    }
-  }
+      if (isCancellation(error)) return;
 
-  function stopStream(stream) {
-    try {
-      stream?.getTracks?.().forEach((track) => track.stop());
-    } catch (error) {
-      console.warn("Could not stop camera stream", error);
-    }
-  }
-
-  function createCameraOverlay(stream, input) {
-    return new Promise((resolve) => {
-      const previousOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-
-      const overlay = document.createElement("div");
-      overlay.setAttribute("role", "dialog");
-      overlay.setAttribute("aria-label", "Take invoice photo");
-      overlay.style.cssText = [
-        "position:fixed",
-        "inset:0",
-        "z-index:2147483647",
-        "background:#111",
-        "display:flex",
-        "flex-direction:column",
-        "align-items:stretch",
-        "justify-content:space-between",
-        "padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)",
-      ].join(";");
-
-      const header = document.createElement("div");
-      header.style.cssText =
-        "display:flex;align-items:center;justify-content:space-between;padding:14px 16px;color:#fff;gap:12px";
-
-      const title = document.createElement("strong");
-      title.textContent = "Photograph invoice";
-      title.style.fontSize = "16px";
-
-      const cancel = document.createElement("button");
-      cancel.type = "button";
-      cancel.textContent = "Cancel";
-      cancel.style.cssText =
-        "border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:10px 14px;font-weight:700";
-
-      header.append(title, cancel);
-
-      const viewport = document.createElement("div");
-      viewport.style.cssText =
-        "position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000";
-
-      const video = document.createElement("video");
-      video.autoplay = true;
-      video.muted = true;
-      video.playsInline = true;
-      video.style.cssText = "width:100%;height:100%;object-fit:contain;background:#000";
-      video.srcObject = stream;
-
-      const guide = document.createElement("div");
-      guide.style.cssText =
-        "position:absolute;left:7%;right:7%;top:9%;bottom:9%;border:2px solid rgba(255,255,255,.8);border-radius:12px;box-shadow:0 0 0 9999px rgba(0,0,0,.12);pointer-events:none";
-
-      viewport.append(video, guide);
-
-      const footer = document.createElement("div");
-      footer.style.cssText =
-        "padding:14px 16px 18px;background:#111;color:#fff;display:flex;flex-direction:column;gap:10px";
-
-      const hint = document.createElement("div");
-      hint.textContent = "Keep all four corners visible and avoid glare.";
-      hint.style.cssText = "text-align:center;font-size:13px;opacity:.78";
-
-      const capture = document.createElement("button");
-      capture.type = "button";
-      capture.textContent = "Take photo";
-      capture.style.cssText =
-        "width:100%;min-height:54px;border:0;border-radius:14px;background:#fff;color:#173d31;font-weight:800;font-size:16px";
-
-      footer.append(hint, capture);
-      overlay.append(header, viewport, footer);
-      document.body.appendChild(overlay);
-
-      let finished = false;
-
-      function cleanup() {
-        if (finished) return;
-        finished = true;
-        stopStream(stream);
-        overlay.remove();
-        document.body.style.overflow = previousOverflow;
-      }
-
-      function finish(value) {
-        cleanup();
-        resolve(value);
-      }
-
-      cancel.addEventListener("click", () => finish(false));
-
-      capture.addEventListener("click", async () => {
-        try {
-          capture.disabled = true;
-          capture.textContent = "Capturing…";
-
-          const sourceWidth = video.videoWidth || 1920;
-          const sourceHeight = video.videoHeight || 1080;
-          const scale = Math.min(1, MAX_NATIVE_EDGE / Math.max(sourceWidth, sourceHeight));
-          const width = Math.max(1, Math.round(sourceWidth * scale));
-          const height = Math.max(1, Math.round(sourceHeight * scale));
-
-          const canvas = document.createElement("canvas");
-          canvas.width = width;
-          canvas.height = height;
-          const context = canvas.getContext("2d");
-          if (!context) throw new Error("Could not prepare camera image.");
-          context.drawImage(video, 0, 0, width, height);
-
-          const blob = await new Promise((resolveBlob) =>
-            canvas.toBlob(resolveBlob, "image/jpeg", WEB_CAMERA_QUALITY)
-          );
-
-          if (!(blob instanceof Blob)) {
-            throw new Error("The camera did not return a photo.");
-          }
-
-          const file = new File([blob], `invoice-${Date.now()}.jpg`, {
-            type: "image/jpeg",
-            lastModified: Date.now(),
-          });
-
-          assignFileToInput(input, file);
-          finish(true);
-        } catch (error) {
-          console.error("Kitchen Insights browser camera capture error", error);
-          capture.disabled = false;
-          capture.textContent = "Take photo";
-          window.alert("Could not capture that photo. Please try again.");
-        }
-      });
-
-      video.play().catch(() => {});
-    });
-  }
-
-  async function takeBrowserInvoicePhoto(input) {
-    if (!supportsBrowserCamera()) return false;
-
-    let stream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: {
-          facingMode: { ideal: "environment" },
-          width: { ideal: 1920 },
-          height: { ideal: 1080 },
-        },
-      });
-
-      await createCameraOverlay(stream, input);
-      return true;
-    } catch (error) {
-      stopStream(stream);
-      const name = String(error?.name || "");
-      const message = String(error?.message || error || "");
-
-      if (name === "NotAllowedError" || /permission|denied/i.test(message)) {
-        window.alert(
-          "Camera access is blocked. Allow Camera permission for Kitchen Insights, then tap Take photo again. You can still use ‘Choose photos or PDF’ instead."
-        );
-        return true;
-      }
-
-      if (name === "NotFoundError" || /not found|no camera/i.test(message)) {
-        window.alert("No camera was found on this device. Use ‘Choose photos or PDF’ instead.");
-        return true;
-      }
-
-      console.error("Kitchen Insights browser camera error", error);
-      window.alert("Kitchen Insights could not open the camera. Use ‘Choose photos or PDF’ instead.");
-      return true;
+      console.error("Kitchen Insights native camera error", error);
+      window.alert(
+        "Kitchen Insights could not take that invoice photo. Please check Camera permission, or use Choose photos or PDF instead."
+      );
     }
   }
 
@@ -339,23 +149,15 @@
       const target = event.target;
       if (!(target instanceof Element)) return;
 
-      const label = target.closest("label");
-      const directInput = target.matches?.(CAMERA_SELECTOR) ? target : null;
-      const input = directInput || label?.querySelector?.(CAMERA_SELECTOR);
-      if (!(input instanceof HTMLInputElement) || input.disabled) return;
+      const trigger = target.closest(CAMERA_TRIGGER);
+      if (!(trigger instanceof HTMLElement)) return;
 
-      if (getNativeCamera()) {
-        event.preventDefault();
-        event.stopPropagation();
-        void takeNativeInvoicePhoto(input);
-        return;
-      }
+      const Camera = getNativeCamera();
+      if (!Camera) return;
 
-      if (supportsBrowserCamera()) {
-        event.preventDefault();
-        event.stopPropagation();
-        void takeBrowserInvoicePhoto(input);
-      }
+      event.preventDefault();
+      event.stopPropagation();
+      void takeInvoicePhoto(Camera);
     },
     true
   );
