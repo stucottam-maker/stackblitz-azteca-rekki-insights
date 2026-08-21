@@ -1,6 +1,13 @@
 "use client";
 
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
 
@@ -9,7 +16,6 @@ const MAX_SOURCE_SIZE = 30 * 1024 * 1024;
 const MAX_PHOTO_PAGES = 12;
 const MAX_TOTAL_UPLOAD_SIZE = 50 * 1024 * 1024;
 const MAX_PREVIEW_SIZE = 3 * 1024 * 1024;
-
 const DIRECT_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
 type SelectedInvoiceFile = {
@@ -38,7 +44,7 @@ function inferFileType(file: File) {
 
 function isAcceptedFile(file: File) {
   const type = inferFileType(file);
-  return type === "application/pdf" || type.startsWith("image/");
+  return type === "application/pdf" || DIRECT_IMAGE_TYPES.has(type);
 }
 
 function safeFileName(name: string) {
@@ -52,7 +58,9 @@ function safeFileName(name: string) {
 }
 
 function formatFileSize(bytes: number) {
-  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  if (bytes < 1024 * 1024) {
+    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  }
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
@@ -69,21 +77,21 @@ function sleep(ms: number) {
 function normaliseFile(file: File) {
   const type = inferFileType(file);
 
-  // Important for mobile: do not decode/re-size normal phone photos in the browser.
-  // A modern 12–50MP photo can require tens or hundreds of MB of RAM once decoded,
-  // which is enough to crash Chrome/Safari even though the JPEG itself is only a few MB.
   if (DIRECT_IMAGE_TYPES.has(type) || type === "application/pdf") {
     if (file.type || !type) return file;
-    return new File([file], file.name, { type, lastModified: file.lastModified });
+    return new File([file], file.name, {
+      type,
+      lastModified: file.lastModified,
+    });
   }
 
   if (type === "image/heic" || type === "image/heif") {
     throw new Error(
-      "This photo is HEIC/HEIF. Use Take photo so the phone supplies a camera-compatible JPEG, or choose a JPG/PNG/PDF."
+      "That photo is HEIC/HEIF. Please use Take photo, or choose a JPG, PNG, WEBP or PDF."
     );
   }
 
-  throw new Error("That image format is not supported yet. Please use JPG, PNG, WEBP or PDF.");
+  throw new Error("Please use a JPG, PNG, WEBP or PDF invoice.");
 }
 
 function PhotoPreview({
@@ -145,7 +153,14 @@ function PhotoPreview({
             <div style={{ fontSize: 32 }}>{isImage ? "📷" : "📄"}</div>
             <strong>{isImage ? `Page ${index + 1}` : "PDF invoice"}</strong>
             {isImage && entry.file.size > MAX_PREVIEW_SIZE && (
-              <span style={{ display: "block", marginTop: 4, fontSize: 11, opacity: 0.6 }}>
+              <span
+                style={{
+                  display: "block",
+                  marginTop: 4,
+                  fontSize: 11,
+                  opacity: 0.6,
+                }}
+              >
                 Preview skipped to save phone memory
               </span>
             )}
@@ -157,7 +172,9 @@ function PhotoPreview({
         <strong style={{ display: "block", overflowWrap: "anywhere" }}>
           {isImage ? `Invoice page ${index + 1}` : entry.file.name}
         </strong>
-        <span style={{ display: "block", marginTop: 3, opacity: 0.65, fontSize: 12 }}>
+        <span
+          style={{ display: "block", marginTop: 3, opacity: 0.65, fontSize: 12 }}
+        >
           {formatFileSize(entry.file.size)}
         </span>
         <button
@@ -176,6 +193,9 @@ function PhotoPreview({
 
 export default function InvoiceUploadPage() {
   const router = useRouter();
+  const cameraInputRef = useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const [files, setFiles] = useState<SelectedInvoiceFile[]>([]);
   const [preparing, setPreparing] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -187,89 +207,128 @@ export default function InvoiceUploadPage() {
     [files]
   );
 
-  const hasPdf = files.some((entry) => inferFileType(entry.file) === "application/pdf");
+  const hasPdf = files.some(
+    (entry) => inferFileType(entry.file) === "application/pdf"
+  );
   const busy = preparing || uploading;
 
-  async function handleFileChange(
+  const processSelectedFiles = useCallback(
+    async (selectedFiles: File[], mode: "append" | "replace") => {
+      setError("");
+      setStage("");
+
+      if (selectedFiles.length === 0) return;
+
+      if (selectedFiles.some((selected) => !isAcceptedFile(selected))) {
+        const hasHeic = selectedFiles.some((selected) => {
+          const type = inferFileType(selected);
+          return type === "image/heic" || type === "image/heif";
+        });
+        setError(
+          hasHeic
+            ? "That photo is HEIC/HEIF. Please use Take photo, or choose a JPG, PNG, WEBP or PDF."
+            : "Please choose invoice photos or one PDF."
+        );
+        return;
+      }
+
+      if (selectedFiles.some((selected) => selected.size > MAX_SOURCE_SIZE)) {
+        setError(
+          "One of those files is over 30 MB. Please take another photo or choose a smaller file."
+        );
+        return;
+      }
+
+      const selectedPdfs = selectedFiles.filter(
+        (selected) => inferFileType(selected) === "application/pdf"
+      );
+
+      if (selectedPdfs.length > 0 && selectedFiles.length > 1) {
+        setError(
+          "Please upload one PDF on its own, or use photos for a multi-page invoice."
+        );
+        return;
+      }
+
+      const existingImageCount = files.filter(
+        (entry) => inferFileType(entry.file) !== "application/pdf"
+      ).length;
+
+      if (
+        selectedPdfs.length === 0 &&
+        (mode === "append" ? existingImageCount : 0) + selectedFiles.length >
+          MAX_PHOTO_PAGES
+      ) {
+        setError(`You can capture up to ${MAX_PHOTO_PAGES} invoice pages at once.`);
+        return;
+      }
+
+      try {
+        setPreparing(true);
+        setStage(selectedPdfs.length ? "Preparing PDF…" : "Preparing photo…");
+
+        const preparedEntries = selectedFiles.map((selected) => ({
+          id: randomId(),
+          file: normaliseFile(selected),
+        }));
+
+        const currentBase =
+          mode === "append" && !hasPdf && selectedPdfs.length === 0 ? files : [];
+        const nextFiles = [...currentBase, ...preparedEntries];
+        const nextSize = nextFiles.reduce(
+          (sum, entry) => sum + entry.file.size,
+          0
+        );
+
+        if (nextSize > MAX_TOTAL_UPLOAD_SIZE) {
+          throw new Error(
+            "Those pages are over 50 MB together. Upload fewer photos or retake them at normal camera quality."
+          );
+        }
+
+        setFiles(nextFiles);
+        setStage(
+          selectedPdfs.length
+            ? "PDF ready to extract."
+            : nextFiles.length === 1
+              ? "Photo ready — add another page if needed."
+              : `${nextFiles.length} pages ready.`
+        );
+      } catch (err) {
+        console.error("PHOTO PREP ERROR", err);
+        setStage("");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "This invoice could not be prepared. Please try again."
+        );
+      } finally {
+        setPreparing(false);
+      }
+    },
+    [files, hasPdf]
+  );
+
+  useEffect(() => {
+    function onNativeCameraFile(event: Event) {
+      const detail = (event as CustomEvent<{ file?: File }>).detail;
+      if (detail?.file instanceof File) {
+        void processSelectedFiles([detail.file], "append");
+      }
+    }
+
+    window.addEventListener("ki:invoice-camera-file", onNativeCameraFile);
+    return () =>
+      window.removeEventListener("ki:invoice-camera-file", onNativeCameraFile);
+  }, [processSelectedFiles]);
+
+  async function handleInputChange(
     event: ChangeEvent<HTMLInputElement>,
     mode: "append" | "replace"
   ) {
-    setError("");
-    setStage("");
-    const selectedFiles = Array.from(event.target.files ?? []);
-    event.target.value = "";
-    if (selectedFiles.length === 0) return;
-
-    if (selectedFiles.some((selected) => !isAcceptedFile(selected))) {
-      setError("Please choose invoice photos or one PDF.");
-      return;
-    }
-
-    if (selectedFiles.some((selected) => selected.size > MAX_SOURCE_SIZE)) {
-      setError("One of those files is over 30 MB. Please take another photo or choose a smaller file.");
-      return;
-    }
-
-    const selectedPdfs = selectedFiles.filter(
-      (selected) => inferFileType(selected) === "application/pdf"
-    );
-
-    if (selectedPdfs.length > 0 && selectedFiles.length > 1) {
-      setError("Please upload one PDF on its own, or use photos for a multi-page invoice.");
-      return;
-    }
-
-    const existingImageCount = files.filter(
-      (entry) => inferFileType(entry.file) !== "application/pdf"
-    ).length;
-
-    if (
-      selectedPdfs.length === 0 &&
-      (mode === "append" ? existingImageCount : 0) + selectedFiles.length > MAX_PHOTO_PAGES
-    ) {
-      setError(`You can capture up to ${MAX_PHOTO_PAGES} invoice pages at once.`);
-      return;
-    }
-
-    try {
-      setPreparing(true);
-      setStage(selectedPdfs.length ? "Preparing PDF…" : "Preparing photo…");
-
-      const preparedEntries = selectedFiles.map((selected) => ({
-        id: randomId(),
-        file: normaliseFile(selected),
-      }));
-
-      const currentBase =
-        mode === "append" && !hasPdf && selectedPdfs.length === 0 ? files : [];
-      const nextFiles = [...currentBase, ...preparedEntries];
-      const nextSize = nextFiles.reduce((sum, entry) => sum + entry.file.size, 0);
-
-      if (nextSize > MAX_TOTAL_UPLOAD_SIZE) {
-        throw new Error(
-          "Those pages are over 50 MB together. Upload this invoice in fewer photos or retake the pages at normal camera quality."
-        );
-      }
-
-      setFiles(nextFiles);
-      setStage(
-        selectedPdfs.length
-          ? "PDF ready to extract."
-          : nextFiles.length === 1
-            ? "Photo ready — add another page if needed."
-            : `${nextFiles.length} pages ready.`
-      );
-    } catch (err) {
-      console.error("PHOTO PREP ERROR", err);
-      setStage("");
-      setError(
-        err instanceof Error
-          ? err.message
-          : "This photo could not be prepared. Try taking the photo again."
-      );
-    } finally {
-      setPreparing(false);
-    }
+    const selectedFiles = Array.from(event.currentTarget.files ?? []);
+    event.currentTarget.value = "";
+    await processSelectedFiles(selectedFiles, mode);
   }
 
   function removeFile(id: string) {
@@ -293,7 +352,9 @@ export default function InvoiceUploadPage() {
       if (!uploadError) return;
       lastMessage = uploadError.message;
 
-      if (attempt > 0 && /already exists|duplicate/i.test(uploadError.message)) return;
+      if (attempt > 0 && /already exists|duplicate/i.test(uploadError.message)) {
+        return;
+      }
       if (attempt < 2) await sleep(500 * (attempt + 1));
     }
 
@@ -316,6 +377,23 @@ export default function InvoiceUploadPage() {
     throw new Error(lastMessage);
   }
 
+  async function getFreshSession() {
+    const {
+      data: { session: existingSession },
+    } = await supabase.auth.getSession();
+
+    if (!existingSession) return null;
+
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+    if (!userError && userData.user) return existingSession;
+
+    const { data: refreshed, error: refreshError } =
+      await supabase.auth.refreshSession();
+
+    if (refreshError || !refreshed.session) return null;
+    return refreshed.session;
+  }
+
   async function extractInvoice() {
     if (files.length === 0) {
       setError("Please take a photo or choose an invoice first.");
@@ -327,13 +405,11 @@ export default function InvoiceUploadPage() {
     try {
       setUploading(true);
       setError("");
-      setStage("Starting secure upload…");
+      setStage("Checking your session…");
 
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
+      const session = await getFreshSession();
       if (!session?.access_token || !session.user?.id) {
+        setError("Your session has expired. Please sign in again.");
         router.replace("/login");
         return;
       }
@@ -366,7 +442,9 @@ export default function InvoiceUploadPage() {
         });
       }
 
-      setStage(files.length === 1 ? "Reading invoice…" : "Reading all invoice pages…");
+      setStage(
+        files.length === 1 ? "Reading invoice…" : "Reading all invoice pages…"
+      );
 
       const response = await fetch("/api/invoices/extract", {
         method: "POST",
@@ -405,8 +483,11 @@ export default function InvoiceUploadPage() {
         "extractedInvoiceSource",
         JSON.stringify({
           fileName:
-            uploaded.length === 1 ? uploaded[0].fileName : `${uploaded.length} camera photos`,
-          fileType: uploaded.length === 1 ? uploaded[0].fileType : "image/jpeg",
+            uploaded.length === 1
+              ? uploaded[0].fileName
+              : `${uploaded.length} camera photos`,
+          fileType:
+            uploaded.length === 1 ? uploaded[0].fileType : "image/jpeg",
           filePath:
             uploaded.length === 1
               ? uploaded[0].filePath
@@ -424,7 +505,7 @@ export default function InvoiceUploadPage() {
     } catch (err: any) {
       console.error("UPLOAD ERROR", err);
       setStage("");
-      setError(err.message || "Invoice extraction failed");
+      setError(err?.message || "Invoice extraction failed");
 
       if (uploadedPaths.length > 0) {
         try {
@@ -440,27 +521,58 @@ export default function InvoiceUploadPage() {
 
   return (
     <div className="page">
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        capture="environment"
+        onChange={(event) => void handleInputChange(event, "append")}
+        style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }}
+        tabIndex={-1}
+      />
+      <input
+        ref={fileInputRef}
+        type="file"
+        multiple
+        accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp"
+        onChange={(event) => void handleInputChange(event, "replace")}
+        style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }}
+        tabIndex={-1}
+      />
+
       <div className="page-header">
         <div>
           <p className="eyebrow">Purchasing</p>
           <h1>Upload invoice</h1>
           <p>
-            Use your phone camera as the scanner. Take page one, add any extra pages,
-            then Kitchen Insights uploads, reads and opens the invoice for approval.
+            Take a photo of the invoice, or choose an existing photo or PDF from
+            your device. We will upload it securely and extract the invoice for
+            review.
           </p>
         </div>
       </div>
 
       <div className="card" style={{ maxWidth: 820 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: 16,
+            flexWrap: "wrap",
+          }}
+        >
           <div>
-            <p className="eyebrow">Camera-first upload</p>
-            <h2 style={{ marginTop: 0 }}>Capture invoice</h2>
+            <p className="eyebrow">Invoice source</p>
+            <h2 style={{ marginTop: 0 }}>Add invoice</h2>
           </div>
           {files.length > 0 && (
             <div style={{ textAlign: "right" }}>
-              <strong>{hasPdf ? "1 PDF" : `${files.length} page${files.length === 1 ? "" : "s"}`}</strong>
-              <span style={{ display: "block", marginTop: 3, opacity: 0.62, fontSize: 12 }}>
+              <strong>
+                {hasPdf ? "1 PDF" : `${files.length} page${files.length === 1 ? "" : "s"}`}
+              </strong>
+              <span
+                style={{ display: "block", marginTop: 3, opacity: 0.62, fontSize: 12 }}
+              >
                 {formatFileSize(totalSize)} ready
               </span>
             </div>
@@ -475,55 +587,26 @@ export default function InvoiceUploadPage() {
             marginTop: 20,
           }}
         >
-          <label
+          <button
+            type="button"
             className="primary-button"
-            style={{
-              minHeight: 58,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              cursor: busy ? "default" : "pointer",
-              opacity: busy ? 0.6 : 1,
-            }}
+            data-ki-camera-trigger="true"
+            style={{ minHeight: 58 }}
+            disabled={busy || hasPdf || files.length >= MAX_PHOTO_PAGES}
+            onClick={() => cameraInputRef.current?.click()}
           >
-            <input
-              type="file"
-              hidden
-              accept="image/jpeg,image/png,image/webp"
-              capture="environment"
-              onChange={(event) => void handleFileChange(event, "append")}
-              disabled={busy || hasPdf || files.length >= MAX_PHOTO_PAGES}
-            />
-            📷 {files.length > 0 && !hasPdf ? "Add another page" : "Take photo"}
-          </label>
+            📷 {files.length > 0 && !hasPdf ? "Add another photo" : "Take photo"}
+          </button>
 
-          <label
-            style={{
-              minHeight: 58,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              border: "1px solid #d7d7d2",
-              borderRadius: 12,
-              padding: "12px 18px",
-              fontWeight: 700,
-              textAlign: "center",
-              cursor: busy ? "default" : "pointer",
-              opacity: busy ? 0.6 : 1,
-              background: "#fff",
-            }}
+          <button
+            type="button"
+            className="secondary-inline-button"
+            style={{ minHeight: 58 }}
+            disabled={busy}
+            onClick={() => fileInputRef.current?.click()}
           >
-            <input
-              type="file"
-              hidden
-              multiple
-              accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp"
-              onChange={(event) => void handleFileChange(event, "replace")}
-              disabled={busy}
-            />
-            Choose photos or PDF
-          </label>
+            📁 Choose photos or PDF
+          </button>
         </div>
 
         {files.length === 0 ? (
@@ -540,9 +623,9 @@ export default function InvoiceUploadPage() {
               textAlign: "center",
             }}
           >
-            <strong>No invoice captured yet</strong>
+            <strong>No invoice selected yet</strong>
             <span style={{ marginTop: 5, opacity: 0.7 }}>
-              Android · iPhone · JPG · PNG · WEBP · PDF
+              Camera · JPG · PNG · WEBP · PDF
             </span>
           </div>
         ) : (
@@ -566,10 +649,20 @@ export default function InvoiceUploadPage() {
           </div>
         )}
 
-        {stage && <div className="notice" style={{ marginTop: 16 }}>{stage}</div>}
-        {error && <div className="notice" style={{ marginTop: 16 }}>{error}</div>}
+        {stage && (
+          <div className="notice" style={{ marginTop: 16 }}>
+            {stage}
+          </div>
+        )}
+        {error && (
+          <div className="notice" style={{ marginTop: 16 }}>
+            <strong>Invoice upload problem</strong>
+            <div style={{ marginTop: 4 }}>{error}</div>
+          </div>
+        )}
 
         <button
+          type="button"
           className="primary-button"
           style={{ marginTop: 20, minHeight: 54, width: "100%" }}
           onClick={() => void extractInvoice()}
@@ -578,30 +671,15 @@ export default function InvoiceUploadPage() {
           {uploading
             ? "Working…"
             : hasPdf
-              ? "Extract PDF invoice"
+              ? "Upload and read PDF"
               : files.length > 1
-                ? `Extract ${files.length} invoice pages`
-                : "Extract invoice photo"}
+                ? `Upload and read ${files.length} pages`
+                : "Upload and read invoice"}
         </button>
 
-        <div
-          style={{
-            marginTop: 16,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-            gap: 10,
-            fontSize: 13,
-            opacity: 0.72,
-          }}
-        >
-          <span>✓ Rear camera requested automatically</span>
-          <span>✓ Full camera file uploads without RAM-heavy resizing</span>
-          <span>✓ Up to {MAX_PHOTO_PAGES} pages per invoice</span>
-          <span>✓ Upload retries on weak mobile signal</span>
-        </div>
-
         <p style={{ marginTop: 16, opacity: 0.68, fontSize: 14 }}>
-          Best result: fill the frame, keep all four corners visible, hold the phone directly above the invoice and avoid glare. If the invoice continues onto another page, use Add another page before extracting.
+          For photos, keep all four corners of the invoice visible and avoid glare.
+          For a multi-page invoice, take each page before pressing Upload and read.
         </p>
       </div>
     </div>
