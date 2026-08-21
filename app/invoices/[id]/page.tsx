@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -97,6 +97,26 @@ function isPdfPath(path: string) {
   return /\.pdf(?:$|\?)/i.test(path);
 }
 
+function safeFileName(name: string) {
+  return (
+    name
+      .normalize("NFKD")
+      .replace(/[^a-zA-Z0-9._-]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "") || "invoice"
+  );
+}
+
+function acceptedAttachment(file: File) {
+  const type = (file.type || "").toLowerCase();
+  const extension = file.name.split(".").pop()?.toLowerCase();
+  return (
+    type === "application/pdf" ||
+    type.startsWith("image/") ||
+    ["pdf", "jpg", "jpeg", "png", "webp"].includes(extension || "")
+  );
+}
+
 export default function InvoiceDetailPage() {
   const router = useRouter();
   const params = useParams();
@@ -106,6 +126,8 @@ export default function InvoiceDetailPage() {
   const [invoiceSources, setInvoiceSources] = useState<InvoiceSource[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [attaching, setAttaching] = useState(false);
+  const [attachmentError, setAttachmentError] = useState("");
 
   useEffect(() => {
     async function loadInvoice() {
@@ -176,6 +198,8 @@ export default function InvoiceDetailPage() {
           setInvoiceSources(
             signedSources.filter((source): source is InvoiceSource => source !== null)
           );
+        } else {
+          setInvoiceSources([]);
         }
       } catch (err) {
         console.error(err);
@@ -187,6 +211,112 @@ export default function InvoiceDetailPage() {
 
     if (invoiceId) void loadInvoice();
   }, [invoiceId, router]);
+
+  async function attachOriginal(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file || !invoice) return;
+
+    setAttachmentError("");
+
+    if (!acceptedAttachment(file)) {
+      setAttachmentError("Please attach a PDF, JPG, PNG or WEBP invoice file.");
+      return;
+    }
+
+    if (file.size > 30 * 1024 * 1024) {
+      setAttachmentError("That file is over 30 MB. Please choose a smaller invoice file.");
+      return;
+    }
+
+    let storagePath = "";
+
+    try {
+      setAttaching(true);
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session?.access_token || !session.user?.id) {
+        router.replace("/login");
+        return;
+      }
+
+      const dateFolder = new Date().toISOString().slice(0, 10);
+      storagePath = `uploads/${session.user.id}/${dateFolder}/${Date.now()}-backfill-${safeFileName(file.name)}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("invoice-files")
+        .upload(storagePath, file, {
+          contentType: file.type || undefined,
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (uploadError) throw uploadError;
+
+      const response = await fetch("/api/invoices", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          invoiceId,
+          filePath: storagePath,
+          fileName: file.name,
+        }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || "Could not attach invoice file.");
+      }
+
+      const { data: signedData, error: signedError } = await supabase.storage
+        .from("invoice-files")
+        .createSignedUrl(storagePath, 60 * 60);
+
+      if (signedError || !signedData?.signedUrl) {
+        throw signedError || new Error("Could not open the attached invoice file.");
+      }
+
+      setInvoice((current) =>
+        current
+          ? {
+              ...current,
+              file_name: file.name,
+              file_path: storagePath,
+            }
+          : current
+      );
+
+      setInvoiceSources([
+        {
+          path: storagePath,
+          url: signedData.signedUrl,
+          isPdf: file.type === "application/pdf" || /\.pdf$/i.test(file.name),
+          label: "Original invoice",
+        },
+      ]);
+    } catch (err) {
+      console.error("Attaching invoice source failed", err);
+      setAttachmentError(
+        err instanceof Error ? err.message : "Could not attach invoice file."
+      );
+
+      if (storagePath) {
+        try {
+          await supabase.storage.from("invoice-files").remove([storagePath]);
+        } catch (cleanupError) {
+          console.error("Invoice attachment cleanup failed", cleanupError);
+        }
+      }
+    } finally {
+      setAttaching(false);
+    }
+  }
 
   if (loading) return <div className="page">Loading invoice…</div>;
 
@@ -202,6 +332,7 @@ export default function InvoiceDetailPage() {
   }
 
   const supplierName = getSupplierName(invoice.supplier);
+  const showOriginalPanel = invoiceSources.length > 0 || !invoice.file_path;
 
   return (
     <div className="page invoice-detail-page">
@@ -253,15 +384,14 @@ export default function InvoiceDetailPage() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns:
-            invoiceSources.length > 0
-              ? "minmax(300px, 0.8fr) minmax(500px, 1.2fr)"
-              : "1fr",
+          gridTemplateColumns: showOriginalPanel
+            ? "minmax(300px, 0.8fr) minmax(500px, 1.2fr)"
+            : "1fr",
           gap: "24px",
           alignItems: "start",
         }}
       >
-        {invoiceSources.length > 0 && (
+        {invoiceSources.length > 0 ? (
           <section className="panel">
             <div className="panel-header">
               <div>
@@ -326,7 +456,57 @@ export default function InvoiceDetailPage() {
               </p>
             )}
           </section>
-        )}
+        ) : !invoice.file_path ? (
+          <section className="panel">
+            <div className="panel-header">
+              <div>
+                <p className="panel-kicker">Original</p>
+                <h2>Invoice file</h2>
+              </div>
+            </div>
+
+            <div
+              style={{
+                minHeight: 190,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 10,
+                padding: 22,
+                borderRadius: 12,
+                background: "#f5f2ec",
+                textAlign: "center",
+              }}
+            >
+              <span style={{ fontSize: 38 }}>📎</span>
+              <strong>Original file not attached</strong>
+              <span style={{ opacity: 0.68, fontSize: 13 }}>
+                Add the supplier PDF or invoice photo without reprocessing the invoice.
+              </span>
+
+              <label
+                className="primary-button"
+                style={{ marginTop: 6, cursor: attaching ? "default" : "pointer" }}
+              >
+                <input
+                  type="file"
+                  hidden
+                  accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp"
+                  onChange={(event) => void attachOriginal(event)}
+                  disabled={attaching}
+                />
+                {attaching ? "Attaching…" : "Attach original"}
+              </label>
+            </div>
+
+            {attachmentError && (
+              <div className="notice" style={{ marginTop: 12 }}>
+                {attachmentError}
+              </div>
+            )}
+          </section>
+        ) : null}
 
         <section className="panel">
           <div className="panel-header">
