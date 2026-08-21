@@ -18,6 +18,34 @@ type SiteRow = {
   location: string | null;
 };
 
+type WorkspaceHostnameHint = {
+  organisationName: string;
+  siteName?: string;
+};
+
+const WORKSPACE_HOSTNAME_HINTS: Record<string, WorkspaceHostnameHint> = {
+  azteca: {
+    organisationName: "Azteca London",
+    siteName: "Battersea",
+  },
+  max: {
+    organisationName: "MAXIMILLIAN GREEN",
+    siteName: "Main Site",
+  },
+  beauforthouse: {
+    organisationName: "BEAUFORT HOUSE",
+    siteName: "BEAUFORT HOUSE",
+  },
+  benditosmexicali: {
+    organisationName: "BENDITOS MEXICALI",
+    siteName: "Mexicali",
+  },
+  demo: {
+    organisationName: "Kitchen Insights Test Restaurant",
+    siteName: "Isolation Test Kitchen",
+  },
+};
+
 export type WorkspaceSite = {
   id: string;
   name: string;
@@ -43,6 +71,22 @@ export type ActiveWorkspace = {
 
 function first<T>(value: Relation<T>): T | null {
   return Array.isArray(value) ? value[0] ?? null : value;
+}
+
+function normalizeWorkspaceName(value: string) {
+  return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function readHostnameHint(): WorkspaceHostnameHint | null {
+  if (typeof window === "undefined") return null;
+
+  const hostname = window.location.hostname.toLowerCase().replace(/\.$/, "");
+  const rootDomain = "kitcheninsights.uk";
+
+  if (!hostname.endsWith(`.${rootDomain}`)) return null;
+
+  const subdomain = hostname.slice(0, -(rootDomain.length + 1)).split(".")[0];
+  return WORKSPACE_HOSTNAME_HINTS[subdomain] ?? null;
 }
 
 function readSelection() {
@@ -161,16 +205,33 @@ export async function resolveActiveWorkspace(): Promise<ActiveWorkspace | null> 
   if (!available.length) return null;
 
   const stored = readSelection();
-  let organisation = stored
-    ? available.find((item) => item.organisationId === stored.organisationId)
+  const hostnameHint = readHostnameHint();
+
+  let organisation = hostnameHint
+    ? available.find(
+        (item) =>
+          normalizeWorkspaceName(item.organisationName) ===
+          normalizeWorkspaceName(hostnameHint.organisationName)
+      )
     : undefined;
+
+  if (!organisation && stored) {
+    organisation = available.find((item) => item.organisationId === stored.organisationId);
+  }
 
   if (!organisation) organisation = available[0];
   if (!organisation.sites.length) return null;
 
-  let site = stored
-    ? organisation.sites.find((item) => item.id === stored.siteId)
+  let site = hostnameHint?.siteName
+    ? organisation.sites.find(
+        (item) =>
+          normalizeWorkspaceName(item.name) === normalizeWorkspaceName(hostnameHint.siteName ?? "")
+      )
     : undefined;
+
+  if (!site && stored && organisation.organisationId === stored.organisationId) {
+    site = organisation.sites.find((item) => item.id === stored.siteId);
+  }
 
   if (!site) site = organisation.sites[0];
 
