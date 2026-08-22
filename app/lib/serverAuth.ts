@@ -1,12 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
-type ServiceSupabase = ReturnType<typeof createClient>;
-
-let cachedServiceSupabase: ServiceSupabase | null = null;
-
-function getServiceSupabase(): ServiceSupabase {
-  if (cachedServiceSupabase) return cachedServiceSupabase;
-
+function buildServiceSupabase() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -17,13 +11,20 @@ function getServiceSupabase(): ServiceSupabase {
     );
   }
 
-  cachedServiceSupabase = createClient(supabaseUrl, serviceRoleKey, {
+  return createClient(supabaseUrl, serviceRoleKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
     },
   });
+}
 
+type ServiceSupabase = ReturnType<typeof buildServiceSupabase>;
+
+let cachedServiceSupabase: ServiceSupabase | null = null;
+
+function getServiceSupabase(): ServiceSupabase {
+  if (!cachedServiceSupabase) cachedServiceSupabase = buildServiceSupabase();
   return cachedServiceSupabase;
 }
 
@@ -83,9 +84,6 @@ async function canUseSite(userId: string, organisationId: string, siteId: string
     (row) => first(row.site)?.organisation_id === organisationId
   );
 
-  // Backwards-compatible default: a normal member with no explicit site assignment
-  // can access all sites in their organisation. Once assignments exist, only those
-  // sites are valid.
   return (
     assignedInOrganisation.length === 0 ||
     assignedInOrganisation.some((row) => row.site_id === siteId)
