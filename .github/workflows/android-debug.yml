@@ -43,6 +43,32 @@ jobs:
       - name: Sync web shell and native plugins
         run: npx cap sync android
 
+      - name: Declare Android camera permission
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          manifest = Path("android/app/src/main/AndroidManifest.xml")
+          text = manifest.read_text()
+          additions = []
+
+          if "android.permission.CAMERA" not in text:
+              additions.append('    <uses-permission android:name="android.permission.CAMERA" />')
+
+          if "android.hardware.camera.any" not in text:
+              additions.append('    <uses-feature android:name="android.hardware.camera.any" android:required="false" />')
+
+          if additions:
+              marker = "    <application"
+              if marker not in text:
+                  raise SystemExit("Could not locate <application> in AndroidManifest.xml")
+              text = text.replace(marker, "\n".join(additions) + "\n\n" + marker, 1)
+              manifest.write_text(text)
+
+          print(manifest.read_text())
+          PY
+
       - name: Apply Kitchen Insights Android branding
         run: |
           set -euo pipefail
@@ -182,10 +208,10 @@ jobs:
             gh release upload android-debug-latest Kitchen-Insights-debug.apk --clobber
             gh release edit android-debug-latest \
               --title "Kitchen Insights Android Test" \
-              --notes "Neutral Kitchen Insights Android test build with branded launcher icon, splash screen and native camera support. Internal testing only; not the Google Play production build."
+              --notes "Neutral Kitchen Insights Android test build with branded launcher icon, splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build."
           else
             gh release create android-debug-latest Kitchen-Insights-debug.apk \
               --title "Kitchen Insights Android Test" \
-              --notes "Neutral Kitchen Insights Android test build with branded launcher icon, splash screen and native camera support. Internal testing only; not the Google Play production build." \
+              --notes "Neutral Kitchen Insights Android test build with branded launcher icon, splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build." \
               --prerelease
           fi
