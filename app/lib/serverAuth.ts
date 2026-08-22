@@ -1,15 +1,42 @@
 import { createClient } from "@supabase/supabase-js";
 
-export const serviceSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
+type ServiceSupabase = ReturnType<typeof createClient>;
+
+let cachedServiceSupabase: ServiceSupabase | null = null;
+
+function getServiceSupabase(): ServiceSupabase {
+  if (cachedServiceSupabase) return cachedServiceSupabase;
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw Object.assign(
+      new Error("Supabase server environment is not configured for this deployment."),
+      { status: 503 }
+    );
+  }
+
+  cachedServiceSupabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
     },
-  }
-);
+  });
+
+  return cachedServiceSupabase;
+}
+
+// Keep the existing serviceSupabase API while avoiding construction at module-load
+// time. This lets Next.js collect route metadata during preview builds even when
+// server-only secrets are intentionally unavailable in that environment.
+export const serviceSupabase = new Proxy({} as ServiceSupabase, {
+  get(_target, property) {
+    const client = getServiceSupabase();
+    const value = Reflect.get(client as object, property);
+    return typeof value === "function" ? value.bind(client) : value;
+  },
+});
 
 const ACTIVE_WORKSPACE_COOKIE = "ki_workspace";
 
