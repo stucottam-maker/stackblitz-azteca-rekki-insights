@@ -23,6 +23,13 @@ type WorkspaceHostnameHint = {
   siteName?: string;
 };
 
+type StoredWorkspaceSelection = {
+  organisationId: string;
+  siteId: string;
+  hostname?: string;
+  explicit?: boolean;
+};
+
 const WORKSPACE_HOSTNAME_HINTS: Record<string, WorkspaceHostnameHint> = {
   azteca: {
     organisationName: "Azteca London",
@@ -77,10 +84,15 @@ function normalizeWorkspaceName(value: string) {
   return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
+function readCurrentHostname() {
+  if (typeof window === "undefined") return "";
+  return window.location.hostname.toLowerCase().replace(/\.$/, "");
+}
+
 function readHostnameHint(): WorkspaceHostnameHint | null {
   if (typeof window === "undefined") return null;
 
-  const hostname = window.location.hostname.toLowerCase().replace(/\.$/, "");
+  const hostname = readCurrentHostname();
   const rootDomain = "kitcheninsights.uk";
 
   if (!hostname.endsWith(`.${rootDomain}`)) return null;
@@ -89,26 +101,42 @@ function readHostnameHint(): WorkspaceHostnameHint | null {
   return WORKSPACE_HOSTNAME_HINTS[subdomain] ?? null;
 }
 
-function readSelection() {
+function readSelection(): StoredWorkspaceSelection | null {
   if (typeof window === "undefined") return null;
+
   try {
     const raw = localStorage.getItem(ACTIVE_WORKSPACE_STORAGE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as { organisationId?: string; siteId?: string };
-    return parsed.organisationId && parsed.siteId
-      ? { organisationId: parsed.organisationId, siteId: parsed.siteId }
-      : null;
+
+    const parsed = JSON.parse(raw) as Partial<StoredWorkspaceSelection>;
+    if (!parsed.organisationId || !parsed.siteId) return null;
+
+    return {
+      organisationId: parsed.organisationId,
+      siteId: parsed.siteId,
+      hostname: parsed.hostname,
+      explicit: parsed.explicit === true,
+    };
   } catch {
     return null;
   }
 }
 
-function persistSelectionLocally(organisationId: string, siteId: string) {
+function persistSelectionLocally(
+  organisationId: string,
+  siteId: string,
+  explicitSelection: boolean
+) {
   if (typeof window === "undefined") return;
 
   localStorage.setItem(
     ACTIVE_WORKSPACE_STORAGE_KEY,
-    JSON.stringify({ organisationId, siteId })
+    JSON.stringify({
+      organisationId,
+      siteId,
+      hostname: readCurrentHostname(),
+      explicit: explicitSelection,
+    })
   );
 
   const secure = window.location.protocol === "https:" ? "; Secure" : "";
@@ -117,7 +145,11 @@ function persistSelectionLocally(organisationId: string, siteId: string) {
   )}; Path=/; Max-Age=31536000; SameSite=Lax${secure}`;
 }
 
-export async function persistActiveWorkspace(organisationId: string, siteId: string) {
+export async function persistActiveWorkspace(
+  organisationId: string,
+  siteId: string,
+  explicitSelection = true
+) {
   const {
     data: { user },
     error: userError,
@@ -137,7 +169,7 @@ export async function persistActiveWorkspace(organisationId: string, siteId: str
   );
 
   if (error) throw error;
-  persistSelectionLocally(organisationId, siteId);
+  persistSelectionLocally(organisationId, siteId, explicitSelection);
 }
 
 export async function listAvailableWorkspaces(): Promise<WorkspaceAccess[]> {
@@ -205,15 +237,23 @@ export async function resolveActiveWorkspace(): Promise<ActiveWorkspace | null> 
   if (!available.length) return null;
 
   const stored = readSelection();
+  const currentHostname = readCurrentHostname();
   const hostnameHint = readHostnameHint();
+  const useExplicitStoredSelection = Boolean(
+    stored?.explicit && stored.hostname && stored.hostname === currentHostname
+  );
 
-  let organisation = hostnameHint
-    ? available.find(
-        (item) =>
-          normalizeWorkspaceName(item.organisationName) ===
-          normalizeWorkspaceName(hostnameHint.organisationName)
-      )
+  let organisation = useExplicitStoredSelection
+    ? available.find((item) => item.organisationId === stored?.organisationId)
     : undefined;
+
+  if (!organisation && hostnameHint) {
+    organisation = available.find(
+      (item) =>
+        normalizeWorkspaceName(item.organisationName) ===
+        normalizeWorkspaceName(hostnameHint.organisationName)
+    );
+  }
 
   if (!organisation && stored) {
     organisation = available.find((item) => item.organisationId === stored.organisationId);
@@ -222,12 +262,17 @@ export async function resolveActiveWorkspace(): Promise<ActiveWorkspace | null> 
   if (!organisation) organisation = available[0];
   if (!organisation.sites.length) return null;
 
-  let site = hostnameHint?.siteName
-    ? organisation.sites.find(
-        (item) =>
-          normalizeWorkspaceName(item.name) === normalizeWorkspaceName(hostnameHint.siteName ?? "")
-      )
-    : undefined;
+  let site =
+    useExplicitStoredSelection && organisation.organisationId === stored?.organisationId
+      ? organisation.sites.find((item) => item.id === stored.siteId)
+      : undefined;
+
+  if (!site && hostnameHint && !useExplicitStoredSelection && hostnameHint.siteName) {
+    site = organisation.sites.find(
+      (item) =>
+        normalizeWorkspaceName(item.name) === normalizeWorkspaceName(hostnameHint.siteName ?? "")
+    );
+  }
 
   if (!site && stored && organisation.organisationId === stored.organisationId) {
     site = organisation.sites.find((item) => item.id === stored.siteId);
@@ -235,7 +280,7 @@ export async function resolveActiveWorkspace(): Promise<ActiveWorkspace | null> 
 
   if (!site) site = organisation.sites[0];
 
-  await persistActiveWorkspace(organisation.organisationId, site.id);
+  await persistActiveWorkspace(organisation.organisationId, site.id, useExplicitStoredSelection);
 
   return {
     userId: user.id,
