@@ -23,18 +23,24 @@ export type PurchaseOrderLine = {
   priceMode?: "default" | "split" | "case";
   brand?: string;
   woodsId?: number;
+  receivedQty?: number | null;
 };
 
 export type PurchaseOrder = {
   id: string;
   supplier: string;
+  supplierId?: string;
+  supplierEmail?: string;
   createdAt: string;
   sentAt?: string;
   sentTo?: string;
   copiedTo?: string[];
+  receivedAt?: string;
+  completedAt?: string;
   status: OrderStatus;
   lines: PurchaseOrderLine[];
   estimatedTotal: number;
+  receivedTotal?: number | null;
   notes?: string;
 };
 
@@ -48,16 +54,21 @@ export type OrganisationSettings = {
 };
 
 export const defaultOrganisationSettings: OrganisationSettings = {
-  name: "Azteca London",
-  internalOrderEmails: [
-    "kitchen@aztecalondon.com",
-    "carloosperez30@gmail.com",
-  ],
+  name: "Kitchen Insights",
+  internalOrderEmails: [],
   sendInternalCopy: true,
   sendSupplierEmail: true,
   attachPurchaseOrder: true,
   includeOrderNotes: true,
 };
+
+export function organisationSettingsDefaults(name?: string | null): OrganisationSettings {
+  return {
+    ...defaultOrganisationSettings,
+    name: name?.trim() || defaultOrganisationSettings.name,
+    internalOrderEmails: [],
+  };
+}
 
 export function orderEmailBody(order: PurchaseOrder, organisationName: string) {
   const lines = order.lines.map(
@@ -160,14 +171,9 @@ export function getRegularOrderItems(
       }))
     );
 
-  const calculatedIngredients = new Set(
-    calculated.map((item) => item.ingredient.toLowerCase())
-  );
-
+  const calculatedIngredients = new Set(calculated.map((item) => item.ingredient.toLowerCase()));
   return [
     ...calculated,
-    ...observed.filter(
-      (item) => !calculatedIngredients.has(item.ingredient.toLowerCase())
-    ),
+    ...observed.filter((item) => !calculatedIngredients.has(item.ingredient.toLowerCase())),
   ];
 }

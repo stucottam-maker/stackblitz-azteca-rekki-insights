@@ -1,3 +1,3 @@
-import InvoiceUploadV2 from "./InvoiceUploadV2";
+import InvoiceUploadV3 from "./InvoiceUploadV3";
 
-export default InvoiceUploadV2;
+export default InvoiceUploadV3;
