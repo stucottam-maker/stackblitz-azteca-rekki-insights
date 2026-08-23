@@ -12,11 +12,13 @@ import "./pwa-polish.css";
 import "./invoice-mobile-fix.css";
 import "./workspace-polish.css";
 import "./chef-ui.css";
+import "./blue-finish.css";
 
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import AppFrame from "./components/AppFrame";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Kitchen Insights",
   description: "Cost control & operations",
   applicationName: "Kitchen Insights",
@@ -28,18 +30,21 @@ export const metadata = {
   },
   icons: {
     icon: "/pwa-icon.svg",
+    shortcut: "/pwa-icon.svg",
     apple: "/pwa-icon.svg",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#172554",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#172554" />
-        <meta name="mobile-web-app-capable" content="yes" />
-      </head>
       <body>
         <AppFrame>{children}</AppFrame>
         <Script src="/native-camera-bridge.js" strategy="afterInteractive" />
