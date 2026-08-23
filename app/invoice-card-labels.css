@@ -1,0 +1,22 @@
+@media (max-width: 720px) {
+  .invoices-page-panel tbody td::before {
+    content: "";
+  }
+  .invoices-page-panel tbody td:nth-child(1)::before { content: "Supplier"; }
+  .invoices-page-panel tbody td:nth-child(2)::before { content: "Invoice number"; }
+  .invoices-page-panel tbody td:nth-child(3)::before { content: "Date"; }
+  .invoices-page-panel tbody td:nth-child(4)::before { content: "Due"; }
+  .invoices-page-panel tbody td:nth-child(5)::before { content: "Total"; }
+  .invoices-page-panel tbody td:nth-child(6)::before { content: "Approval"; }
+  .invoices-page-panel tbody td:nth-child(7)::before { content: "Order match"; }
+  .invoices-page-panel tbody td:nth-child(8)::before { content: "Payment"; }
+
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(1)::before { content: "Proveedor"; }
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(2)::before { content: "Número de factura"; }
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(3)::before { content: "Fecha"; }
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(4)::before { content: "Vence"; }
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(5)::before { content: "Total"; }
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(6)::before { content: "Aprobación"; }
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(7)::before { content: "Coincidencia"; }
+  html[data-locale="es-MX"] .invoices-page-panel tbody td:nth-child(8)::before { content: "Pago"; }
+}

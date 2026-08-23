@@ -15,6 +15,8 @@ import "./chef-ui.css";
 import "./blue-finish.css";
 import "./metro-dashboard.css";
 import "./mobile-header-polish.css";
+import "./chef-workflows.css";
+import "./invoice-card-labels.css";
 
 import type { Metadata } from "next";
 import Script from "next/script";

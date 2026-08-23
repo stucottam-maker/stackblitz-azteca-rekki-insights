@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import AuthGate from "./AuthGate";
 import InvoicePriceSync from "./InvoicePriceSync";
 import Sidebar from "./Sidebar";
-import { HostTenantLocaleBridge, WorkspaceTenantLocaleBridge } from "./TenantLocaleBridge";
+import { HostTenantLocaleBridge, WorkspaceTenantLocaleBridge } from "./TenantLocaleBridgeV2";
 import WorkspaceProvider from "./WorkspaceProvider";
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
