@@ -1,15 +1,43 @@
 import { createClient } from "@supabase/supabase-js";
 
-export const serviceSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
+function buildServiceSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw Object.assign(
+      new Error("Supabase server environment is not configured for this deployment."),
+      { status: 503 }
+    );
+  }
+
+  return createClient(supabaseUrl, serviceRoleKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
     },
-  }
-);
+  });
+}
+
+type ServiceSupabase = ReturnType<typeof buildServiceSupabase>;
+
+let cachedServiceSupabase: ServiceSupabase | null = null;
+
+function getServiceSupabase(): ServiceSupabase {
+  if (!cachedServiceSupabase) cachedServiceSupabase = buildServiceSupabase();
+  return cachedServiceSupabase;
+}
+
+// Keep the existing serviceSupabase API while avoiding construction at module-load
+// time. This lets Next.js collect route metadata during preview builds even when
+// server-only secrets are intentionally unavailable in that environment.
+export const serviceSupabase = new Proxy({} as ServiceSupabase, {
+  get(_target, property) {
+    const client = getServiceSupabase();
+    const value = Reflect.get(client as object, property);
+    return typeof value === "function" ? value.bind(client) : value;
+  },
+});
 
 const ACTIVE_WORKSPACE_COOKIE = "ki_workspace";
 
@@ -56,9 +84,6 @@ async function canUseSite(userId: string, organisationId: string, siteId: string
     (row) => first(row.site)?.organisation_id === organisationId
   );
 
-  // Backwards-compatible default: a normal member with no explicit site assignment
-  // can access all sites in their organisation. Once assignments exist, only those
-  // sites are valid.
   return (
     assignedInOrganisation.length === 0 ||
     assignedInOrganisation.some((row) => row.site_id === siteId)

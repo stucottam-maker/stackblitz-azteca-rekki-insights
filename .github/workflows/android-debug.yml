@@ -78,8 +78,8 @@ jobs:
           cat > "$RES/values/ki_colors.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
-              <color name="ki_green">#214F3D</color>
-              <color name="ki_orange">#BD5F31</color>
+              <color name="ki_navy">#172554</color>
+              <color name="ki_blue">#2563EB</color>
               <color name="ki_white">#FFFFFF</color>
           </resources>
           EOF
@@ -92,7 +92,7 @@ jobs:
               android:viewportWidth="108"
               android:viewportHeight="108">
               <path
-                  android:fillColor="#BD5F31"
+                  android:fillColor="#2563EB"
                   android:pathData="M30,18 H78 C84.627,18 90,23.373 90,30 V78 C90,84.627 84.627,90 78,90 H30 C23.373,90 18,84.627 18,78 V30 C18,23.373 23.373,18 30,18 Z" />
               <path
                   android:fillColor="#FFFFFF"
@@ -118,7 +118,7 @@ jobs:
           <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
               <item>
                   <shape android:shape="rectangle">
-                      <solid android:color="@color/ki_green" />
+                      <solid android:color="@color/ki_navy" />
                   </shape>
               </item>
               <item
@@ -133,7 +133,7 @@ jobs:
           cat > "$RES/mipmap-anydpi-v26/ic_launcher.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-              <background android:drawable="@color/ki_green" />
+              <background android:drawable="@color/ki_navy" />
               <foreground android:drawable="@drawable/ki_launcher_foreground" />
           </adaptive-icon>
           EOF
@@ -142,7 +142,7 @@ jobs:
           cat > "$RES/mipmap-anydpi-v33/ic_launcher.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-              <background android:drawable="@color/ki_green" />
+              <background android:drawable="@color/ki_navy" />
               <foreground android:drawable="@drawable/ki_launcher_foreground" />
               <monochrome android:drawable="@drawable/ki_launcher_monochrome" />
           </adaptive-icon>
@@ -154,7 +154,7 @@ jobs:
           <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
               <item>
                   <shape android:shape="rectangle">
-                      <solid android:color="@color/ki_green" />
+                      <solid android:color="@color/ki_navy" />
                   </shape>
               </item>
               <item
@@ -174,11 +174,11 @@ jobs:
               text = text.replace("@drawable/splash", "@drawable/ki_splash")
               text = text.replace(
                   '<item name="android:windowSplashScreenBackground">@color/colorPrimary</item>',
-                  '<item name="android:windowSplashScreenBackground">@color/ki_green</item>',
+                  '<item name="android:windowSplashScreenBackground">@color/ki_navy</item>',
               )
               text = text.replace(
                   '<item name="android:statusBarColor">@color/colorPrimaryDark</item>',
-                  '<item name="android:statusBarColor">@color/ki_green</item>',
+                  '<item name="android:statusBarColor">@color/ki_navy</item>',
               )
               styles.write_text(text)
           PY
@@ -208,10 +208,10 @@ jobs:
             gh release upload android-debug-latest Kitchen-Insights-debug.apk --clobber
             gh release edit android-debug-latest \
               --title "Kitchen Insights Android Test" \
-              --notes "Neutral Kitchen Insights Android test build with branded launcher icon, splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build."
+              --notes "Kitchen Insights Android test build with blue launcher icon and splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build."
           else
             gh release create android-debug-latest Kitchen-Insights-debug.apk \
               --title "Kitchen Insights Android Test" \
-              --notes "Neutral Kitchen Insights Android test build with branded launcher icon, splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build." \
+              --notes "Kitchen Insights Android test build with blue launcher icon and splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build." \
               --prerelease
           fi

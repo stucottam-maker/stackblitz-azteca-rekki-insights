@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-import { extractInvoicesFromFiles } from "../../../../lib/invoiceExtraction";
+import {
+  createInvoiceExtractionJob,
+  extractionErrorMessage,
+  markInvoiceExtractionJobSaved,
+  runInvoiceExtractionJob,
+} from "../../../../lib/invoiceJobs";
+import { matchInvoiceToPurchaseOrder } from "../../../../lib/orderMatching";
 import { serviceSupabase } from "../../../../lib/serverAuth";
 
 export const runtime = "nodejs";
@@ -52,9 +58,7 @@ async function saveForReview(
     .eq("organisation_id", context.organisationId);
   if (supplierLoadError) throw supplierLoadError;
 
-  let supplier = (supplierRows || []).find(
-    (row) => normaliseName(row.name) === normaliseName(supplierName)
-  );
+  let supplier = (supplierRows || []).find((row) => normaliseName(row.name) === normaliseName(supplierName));
   if (!supplier) {
     const { data, error } = await serviceSupabase
       .from("suppliers")
@@ -75,10 +79,18 @@ async function saveForReview(
       .eq("supplier_id", supplier.id);
     if (error) throw error;
     const key = normaliseInvoiceNumber(invoiceNumber);
-    if (existing?.some((row) => normaliseInvoiceNumber(row.invoice_number) === key)) {
-      return { duplicate: true as const, invoiceId: existing.find((row) => normaliseInvoiceNumber(row.invoice_number) === key)?.id };
-    }
+    const duplicate = existing?.find((row) => normaliseInvoiceNumber(row.invoice_number) === key);
+    if (duplicate) return { duplicate: true as const, invoiceId: duplicate.id };
   }
+
+  const total = numberOrNull(invoice.total);
+  const orderMatch = await matchInvoiceToPurchaseOrder({
+    organisationId: context.organisationId,
+    siteId: context.siteId,
+    supplierName,
+    invoiceTotal: total,
+    invoiceDate: invoice.invoiceDate || null,
+  });
 
   const { data: savedInvoice, error: invoiceError } = await serviceSupabase
     .from("invoices")
@@ -93,11 +105,14 @@ async function saveForReview(
       payment_status: "unpaid",
       subtotal: numberOrNull(invoice.subtotal),
       vat: numberOrNull(invoice.vat),
-      total: numberOrNull(invoice.total),
+      total,
       file_name: context.fileName,
       file_path: context.filePath,
       status: "review",
       approved_at: null,
+      match_status: orderMatch.matchStatus,
+      discrepancy_amount: orderMatch.discrepancyAmount,
+      matched_order_ref: orderMatch.matchedOrderRef,
     })
     .select("id")
     .single();
@@ -110,7 +125,8 @@ async function saveForReview(
     .eq("supplier_id", supplier.id)
     .limit(5000);
   if (productsError) throw productsError;
-  const productMap = new Map((products || []).map((product) => [normaliseName(product.supplier_product_name), product]));
+
+  const productMap = new Map<string, any>((products || []).map((product) => [normaliseName(product.supplier_product_name), product]));
   const lineRows: Record<string, unknown>[] = [];
 
   for (const item of Array.isArray(invoice.lineItems) ? invoice.lineItems : []) {
@@ -121,6 +137,7 @@ async function saveForReview(
     const lineTotal = numberOrNull(item.total);
     const latestPrice = unitPrice ?? (lineTotal !== null && quantity !== null && quantity > 0 ? lineTotal / quantity : null);
     let product = productMap.get(key);
+
     if (!product) {
       const { data, error } = await serviceSupabase
         .from("supplier_products")
@@ -136,7 +153,14 @@ async function saveForReview(
       if (error || !data) throw error || new Error("Could not create supplier product");
       product = data;
       productMap.set(key, data);
+    } else if (latestPrice !== null) {
+      const { error } = await serviceSupabase
+        .from("supplier_products")
+        .update({ latest_price: latestPrice, price_unit: item.priceUnit || item.pack || null, updated_at: new Date().toISOString() })
+        .eq("id", product.id);
+      if (error) throw error;
     }
+
     lineRows.push({
       invoice_id: savedInvoice.id,
       supplier_product_id: product.id,
@@ -157,12 +181,14 @@ async function saveForReview(
       throw error;
     }
   }
+
   return { duplicate: false as const, invoiceId: savedInvoice.id };
 }
 
 export async function POST(request: Request) {
   const rawBody = await request.text();
   let event: any;
+
   try {
     if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY is not configured");
     if (!process.env.RESEND_WEBHOOK_SECRET) throw new Error("RESEND_WEBHOOK_SECRET is not configured");
@@ -217,6 +243,7 @@ export async function POST(request: Request) {
     received_at: data.created_at || new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };
+
   const { data: emailRow, error: emailError } = await serviceSupabase
     .from("inbound_invoice_emails")
     .upsert(emailPayload, { onConflict: "resend_email_id" })
@@ -224,34 +251,77 @@ export async function POST(request: Request) {
     .single();
   if (emailError || !emailRow) throw emailError || new Error("Could not queue inbound email");
 
-  try {
-    const attachments = (Array.isArray(data.attachments) ? data.attachments : []).filter((item: any) => supportedTypes.has(item.content_type));
-    if (!attachments.length) {
-      await serviceSupabase.from("inbound_invoice_emails").update({ status: "ignored", error_message: "No supported PDF or image attachment", processed_at: new Date().toISOString() }).eq("id", emailRow.id);
-      return NextResponse.json({ accepted: true, ignored: "No invoice attachment" });
-    }
+  const attachments = (Array.isArray(data.attachments) ? data.attachments : []).filter((item: any) => supportedTypes.has(item.content_type));
+  if (!attachments.length) {
+    await serviceSupabase.from("inbound_invoice_emails").update({
+      status: "ignored",
+      error_message: "No supported PDF or image attachment",
+      processed_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }).eq("id", emailRow.id);
+    return NextResponse.json({ accepted: true, ignored: "No invoice attachment" });
+  }
 
-    let saved = 0;
-    let duplicates = 0;
-    for (const attachment of attachments) {
-      let attachmentSaved = 0;
-      let attachmentDuplicates = 0;
+  let saved = 0;
+  let duplicates = 0;
+  let failed = 0;
+  const failures: string[] = [];
+
+  for (const attachment of attachments) {
+    let storagePath = "";
+    let jobId = "";
+    try {
       const result = await resend.emails.receiving.attachments.get({ emailId: data.email_id, id: attachment.id });
       if (result.error || !result.data?.download_url) throw new Error(result.error?.message || "Could not download attachment");
       const download = await fetch(result.data.download_url);
       if (!download.ok) throw new Error(`Attachment download failed (${download.status})`);
       const bytes = Buffer.from(await download.arrayBuffer());
       const fileName = safeFileName(attachment.filename || `invoice-${attachment.id}`);
-      const storagePath = `${route.organisation_id}/email/${data.email_id}/${attachment.id}-${fileName}`;
-      const { error: uploadError } = await serviceSupabase.storage.from("invoice-files").upload(storagePath, bytes, { contentType: attachment.content_type, upsert: true });
+      storagePath = `${route.organisation_id}/email/${data.email_id}/${attachment.id}-${fileName}`;
+
+      const { error: uploadError } = await serviceSupabase.storage
+        .from("invoice-files")
+        .upload(storagePath, bytes, { contentType: attachment.content_type, upsert: true });
       if (uploadError) throw uploadError;
 
-      const { data: signed, error: signedError } = await serviceSupabase.storage.from("invoice-files").createSignedUrl(storagePath, 900);
-      if (signedError || !signed?.signedUrl) throw signedError || new Error("Could not create extraction URL");
-      const invoices = await extractInvoicesFromFiles([{ fileUrl: signed.signedUrl, fileType: attachment.content_type, fileName }]);
+      const job = await createInvoiceExtractionJob({
+        organisationId: route.organisation_id,
+        siteId: route.site_id,
+        sourceType: "email",
+        sourceRef: `${data.email_id}:${attachment.id}`,
+        files: [{ fileName, fileType: attachment.content_type, filePath: storagePath }],
+      });
+      jobId = job.id;
+
+      await serviceSupabase.from("inbound_invoice_attachments").upsert({
+        inbound_email_id: emailRow.id,
+        resend_attachment_id: attachment.id,
+        extraction_job_id: job.id,
+        invoice_id: null,
+        file_name: fileName,
+        content_type: attachment.content_type,
+        size_bytes: result.data.size || bytes.length,
+        storage_path: storagePath,
+        status: "stored",
+        error_message: null,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "inbound_email_id,resend_attachment_id" });
+
+      const extraction = await runInvoiceExtractionJob(job.id, {
+        organisationId: route.organisation_id,
+        siteId: route.site_id,
+      });
+
+      let attachmentSaved = 0;
+      let attachmentDuplicates = 0;
       let firstInvoiceId: string | null = null;
-      for (const invoice of invoices) {
-        const outcome = await saveForReview(invoice, { organisationId: route.organisation_id, siteId: route.site_id, fileName, filePath: storagePath });
+      for (const invoice of extraction.invoices) {
+        const outcome = await saveForReview(invoice, {
+          organisationId: route.organisation_id,
+          siteId: route.site_id,
+          fileName,
+          filePath: storagePath,
+        });
         firstInvoiceId ||= outcome.invoiceId || null;
         if (outcome.duplicate) {
           duplicates += 1;
@@ -261,29 +331,42 @@ export async function POST(request: Request) {
           attachmentSaved += 1;
         }
       }
+
+      await markInvoiceExtractionJobSaved(job.id);
+      await serviceSupabase.from("inbound_invoice_attachments").update({
+        invoice_id: firstInvoiceId,
+        status: attachmentSaved > 0 ? "extracted" : attachmentDuplicates > 0 ? "duplicate" : "stored",
+        error_message: null,
+        updated_at: new Date().toISOString(),
+      }).eq("inbound_email_id", emailRow.id).eq("resend_attachment_id", attachment.id);
+    } catch (error) {
+      failed += 1;
+      const message = extractionErrorMessage(error);
+      failures.push(message);
+      console.error("Inbound invoice attachment processing failed", error);
       await serviceSupabase.from("inbound_invoice_attachments").upsert({
         inbound_email_id: emailRow.id,
         resend_attachment_id: attachment.id,
-        invoice_id: firstInvoiceId,
-        file_name: fileName,
+        extraction_job_id: jobId || null,
+        file_name: safeFileName(attachment.filename || `invoice-${attachment.id}`),
         content_type: attachment.content_type,
-        size_bytes: result.data.size || bytes.length,
-        storage_path: storagePath,
-        status: attachmentSaved > 0 ? "extracted" : attachmentDuplicates > 0 ? "duplicate" : "failed",
-        error_message: null,
+        storage_path: storagePath || null,
+        status: "failed",
+        error_message: message,
         updated_at: new Date().toISOString(),
       }, { onConflict: "inbound_email_id,resend_attachment_id" });
     }
-
-    await serviceSupabase.from("inbound_invoice_emails").update({
-      status: saved > 0 ? "needs_review" : "duplicate",
-      processed_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    }).eq("id", emailRow.id);
-    return NextResponse.json({ accepted: true, saved, duplicates });
-  } catch (error: any) {
-    console.error("Inbound invoice processing failed", error);
-    await serviceSupabase.from("inbound_invoice_emails").update({ status: "failed", error_message: error?.message || "Invoice processing failed", updated_at: new Date().toISOString() }).eq("id", emailRow.id);
-    return NextResponse.json({ error: "Invoice processing failed" }, { status: 500 });
   }
+
+  const finalStatus = saved > 0 ? "needs_review" : failed > 0 ? "failed" : "duplicate";
+  await serviceSupabase.from("inbound_invoice_emails").update({
+    status: finalStatus,
+    error_message: failures.length ? failures.join(" | ").slice(0, 2000) : null,
+    processed_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  }).eq("id", emailRow.id);
+
+  // Return 202 even when extraction is temporarily unavailable: the attachment is
+  // already stored in our durable retry queue, so Resend does not need to redeliver it.
+  return NextResponse.json({ accepted: true, saved, duplicates, failed, queuedForRetry: failed }, { status: failed ? 202 : 200 });
 }

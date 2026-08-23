@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  type FormEvent,
-  useEffect,
-  useState,
-} from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -63,9 +59,7 @@ export default function LoginPage() {
       if (resetError) {
         setError(resetError.message);
       } else {
-        setMessage(
-          "If that email belongs to a Kitchen Insights account, a secure password reset link has been sent."
-        );
+        setMessage("If that email belongs to a Kitchen Insights account, we’ve sent a password reset link.");
       }
 
       setLoading(false);
@@ -111,25 +105,24 @@ export default function LoginPage() {
     router.refresh();
   }
 
-  const eyebrow =
-    mode === "activate" ? "First-time access" : mode === "forgot" ? "Account recovery" : "Welcome back";
   const heading =
     mode === "activate"
-      ? "Activate your workspace"
+      ? "Activate your account"
       : mode === "forgot"
         ? "Reset your password"
-        : "Sign in to your workspace";
+        : "Sign in";
+
   const description =
     mode === "activate"
-      ? "Use the invited email address and temporary password provided by your administrator."
+      ? "Use the email and temporary password you were given."
       : mode === "forgot"
-        ? "Enter your account email and we’ll send you a secure reset link."
-        : "Enter your details to continue to Kitchen Insights.";
+        ? "Enter your email and we’ll send you a reset link."
+        : "Welcome back to Kitchen Insights.";
 
   return (
     <main className="login-page">
-      <section className="login-intro" aria-label="Kitchen Insights introduction">
-        <div className="login-brand-row">
+      <section className="login-simple-shell">
+        <div className="login-brand-row login-simple-brand">
           <div className="login-brand-icon">
             <Image
               src="/pwa-icon.svg"
@@ -139,42 +132,24 @@ export default function LoginPage() {
               priority
             />
           </div>
-
           <div className="login-brand-copy">
             <strong>Kitchen Insights</strong>
-            <span>Cost control & operations</span>
+            <span>Kitchen operations, connected</span>
           </div>
         </div>
 
-        <div className="login-intro-copy">
-          <p className="login-kicker">Kitchen operations, connected</p>
-          <h1>Know what your kitchen costs—before it costs you.</h1>
-          <p>Purchasing, invoices, recipe costs and stock in one clear workspace.</p>
-        </div>
-
-        <div className="login-workspace-card">
-          <div className="login-workspace-mark">KI</div>
-          <div className="login-workspace-copy">
-            <span>Secure workspace</span>
-            <strong>Your restaurant</strong>
-            <small>Only the sites you can access load after sign in</small>
-          </div>
-        </div>
-
-        <p className="login-intro-footer">Secure cloud workspace · Live invoice intelligence</p>
-      </section>
-
-      <section className="login-panel">
         <div className="login-shell">
           <div className="login-heading">
-            <p className="eyebrow">{eyebrow}</p>
-            <h2>{heading}</h2>
+            {mode !== "signin" && (
+              <p className="eyebrow">{mode === "forgot" ? "Account recovery" : "First-time access"}</p>
+            )}
+            <h1>{heading}</h1>
             <p>{description}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">
             <label className="login-field">
-              <span>Email address</span>
+              <span>Email</span>
               <input
                 type="email"
                 value={email}
@@ -194,7 +169,7 @@ export default function LoginPage() {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
-                    placeholder={mode === "activate" ? "Enter temporary password" : "Enter your password"}
+                    placeholder={mode === "activate" ? "Temporary password" : "Your password"}
                     required
                     autoComplete={mode === "activate" ? "new-password" : "current-password"}
                   />
@@ -216,7 +191,7 @@ export default function LoginPage() {
                 className="login-forgot-link"
                 onClick={() => switchMode("forgot")}
               >
-                Forgot your password?
+                Forgot password?
               </button>
             )}
 
@@ -233,7 +208,7 @@ export default function LoginPage() {
                 ? mode === "activate"
                   ? "Activating…"
                   : mode === "forgot"
-                    ? "Sending reset link…"
+                    ? "Sending…"
                     : "Signing in…"
                 : mode === "activate"
                   ? "Activate account"
@@ -253,14 +228,14 @@ export default function LoginPage() {
             }}
           >
             {mode === "forgot"
-              ? "Back to sign in"
+              ? "← Back to sign in"
               : mode === "signin"
                 ? "First time here? Activate account"
                 : "Already activated? Sign in"}
           </button>
-
-          <p className="login-help">Need access? Contact your Kitchen Insights administrator.</p>
         </div>
+
+        <p className="login-simple-footer">Orders · invoices · stock · recipe costs</p>
       </section>
     </main>
   );

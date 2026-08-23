@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+
+import {
+  authErrorResponse,
+  requireOrganisation,
+  serviceSupabase,
+} from "../../lib/serverAuth";
 
 export const runtime = "nodejs";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+export const dynamic = "force-dynamic";
 
 type Line = {
   id: string;
@@ -203,26 +204,7 @@ function mappingMatches(mapping: Mapping, supplier: string, product: string) {
 
 export async function POST(req: Request) {
   try {
-    const token = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
-    if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const { data: authData, error: authError } = await supabase.auth.getUser(token);
-    if (authError || !authData.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const { data: membership, error: membershipError } = await supabase
-      .from("organisation_members")
-      .select("organisation_id")
-      .eq("user_id", authData.user.id)
-      .limit(1)
-      .maybeSingle();
-
-    if (membershipError) throw new Error(membershipError.message);
-    if (!membership?.organisation_id) {
-      return NextResponse.json({ error: "No organisation" }, { status: 403 });
-    }
-
+    const { organisationId } = await requireOrganisation(req);
     const body = await req.json();
     const ingredientNames: string[] = Array.from(
       new Set<string>(
@@ -236,8 +218,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ prices: {}, matched: 0, requested: 0 });
     }
 
-    const organisationId = membership.organisation_id;
-    const { data: invoices, error: invoiceError } = await supabase
+    const { data: invoices, error: invoiceError } = await serviceSupabase
       .from("invoices")
       .select("id,supplier_id,invoice_number,invoice_date")
       .eq("organisation_id", organisationId)
@@ -247,20 +228,20 @@ export async function POST(req: Request) {
 
     if (invoiceError) throw new Error(invoiceError.message);
 
-    const invoiceRows = (invoices ?? []) as Invoice[];
+    const invoiceRows = (invoices ?? []) as unknown as Invoice[];
     const invoiceIds = invoiceRows.map((invoice) => invoice.id);
     if (!invoiceIds.length) {
       return NextResponse.json({ prices: {}, matched: 0, requested: ingredientNames.length });
     }
 
     const [suppliersResult, linesResult, mappingResult] = await Promise.all([
-      supabase.from("suppliers").select("id,name").eq("organisation_id", organisationId).limit(1000),
-      supabase
+      serviceSupabase.from("suppliers").select("id,name").eq("organisation_id", organisationId).limit(1000),
+      serviceSupabase
         .from("invoice_lines")
         .select("id,invoice_id,product_name,quantity,pack,unit_price,line_total,price_unit,created_at")
         .in("invoice_id", invoiceIds)
         .range(0, 4999),
-      supabase
+      serviceSupabase
         .from("workspace_state")
         .select("state_value")
         .eq("organisation_id", organisationId)
@@ -270,14 +251,18 @@ export async function POST(req: Request) {
 
     if (suppliersResult.error) throw new Error(suppliersResult.error.message);
     if (linesResult.error) throw new Error(linesResult.error.message);
+    if (mappingResult.error) throw new Error(mappingResult.error.message);
 
     const supplierById = new Map<string, string>(
-      (suppliersResult.data ?? []).map((supplier) => [supplier.id, supplier.name])
+      ((suppliersResult.data ?? []) as unknown as Array<{ id: string; name: string }>).map((supplier) => [
+        supplier.id,
+        supplier.name,
+      ])
     );
     const invoiceById = new Map(invoiceRows.map((invoice) => [invoice.id, invoice]));
     const mappings = (mappingResult.data?.state_value ?? {}) as Record<string, Mapping>;
 
-    const candidates = ((linesResult.data ?? []) as Line[])
+    const candidates = ((linesResult.data ?? []) as unknown as Line[])
       .flatMap((line) => {
         const invoice = invoiceById.get(line.invoice_id);
         const normalised = normalisePrice(line);
@@ -334,11 +319,12 @@ export async function POST(req: Request) {
       matched: Object.keys(prices).length,
       requested: ingredientNames.length,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("INGREDIENT PRICE ERROR", error);
+    const response = authErrorResponse(error);
     return NextResponse.json(
-      { error: error?.message || "Could not derive invoice ingredient prices" },
-      { status: 500 }
+      { error: response.message },
+      { status: response.status }
     );
   }
 }

@@ -72,8 +72,12 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
     return (
       <div className="auth-loading-screen" role="status" aria-live="polite">
         <div className="auth-loading-card">
-          <strong>Kitchen Insights</strong>
-          <span>Checking your session…</span>
+          <div className="auth-loading-mark" aria-hidden="true">KI</div>
+          <div className="auth-loading-copy">
+            <strong>Kitchen Insights</strong>
+            <span>Preparing your workspace…</span>
+          </div>
+          <span className="auth-loading-spinner" aria-hidden="true" />
         </div>
       </div>
     );

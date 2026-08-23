@@ -11,6 +11,7 @@ import "./ap-polish.css";
 import "./pwa-polish.css";
 import "./invoice-mobile-fix.css";
 import "./workspace-polish.css";
+import "./chef-ui.css";
 
 import Script from "next/script";
 import AppFrame from "./components/AppFrame";
@@ -31,19 +32,12 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, viewport-fit=cover"
-        />
-        <meta name="theme-color" content="#214f3d" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#172554" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body>

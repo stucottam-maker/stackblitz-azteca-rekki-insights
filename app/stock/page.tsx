@@ -2,36 +2,32 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import Sidebar from "../components/Sidebar";
+import { resolveActiveWorkspace } from "../lib/clientWorkspace";
+import { supabase } from "../lib/supabase";
 import {
   persistWorkspaceState,
-  readWorkspaceState,
   readWorkspaceStates,
   removeWorkspaceState,
 } from "../lib/workspaceState";
-
-import {
-  HistoricalStockItem,
-  historicalStockTakes,
-  latestHistoricalStockTake,
-} from "../data/stockHistory";
 
 type IngredientPrice = {
   price: number;
   unit: string;
   supplier: string;
   product: string;
-  updatedAt: string;
+  updatedAt?: string;
 };
 
-type StockItem = Omit<
-  HistoricalStockItem,
-  "quantity"
-> & {
+type StockItem = {
+  id: string;
+  name: string;
+  category: string;
   quantity: number | null;
+  unit: string;
   price: number | null;
   priceUnit: string;
   supplier: string;
+  notes?: string;
 };
 
 type SavedStockTake = {
@@ -40,48 +36,14 @@ type SavedStockTake = {
   items: StockItem[];
 };
 
-type PageTab =
-  | "current"
-  | "history"
-  | "compare";
+type Relation<T> = T | T[] | null;
 
-type ComparisonRow = {
-  name: string;
-  category: string;
-  unit: string;
-  opening: number | null;
-  closing: number | null;
-  movement: number | null;
-  percentage: number | null;
-  price: number | null;
-  valueMovement: number | null;
-};
-
-const ingredientAliases: Record<string, string> = {
-  tuna: "Tuna loin",
-  "black cod": "Black cod",
-  cod: "Cod",
-  "26/30 prawn": "26/30 prawn",
-  "king prawn": "King prawn",
-  ribeye: "Ribeye",
-  "short rib": "Short rib",
-  "pork belly chicharron": "Pork belly",
-  "chicken thigh pastor marinade": "Chicken thigh",
-  birria: "Birria beef",
-  "carnitas service": "Carnitas pork",
-};
-
-function normalise(value: string) {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/[’']/g, "")
-    .replace(/\s+/g, " ");
+function first<T>(value: Relation<T>): T | null {
+  return Array.isArray(value) ? value[0] ?? null : value;
 }
 
-function ingredientPriceKey(name: string) {
-  const key = normalise(name);
-  return ingredientAliases[key] ?? name;
+function normalise(value: string) {
+  return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
 function money(value: number) {
@@ -91,15 +53,9 @@ function money(value: number) {
   }).format(value);
 }
 
-function formatDateTime(value: string) {
-  if (!value) return "—";
-
+function formatDate(value: string) {
   const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) {
-    return value;
-  }
-
+  if (Number.isNaN(date.getTime())) return value;
   return new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "short",
@@ -109,1846 +65,427 @@ function formatDateTime(value: string) {
   }).format(date);
 }
 
-function canonicalUnit(value: string) {
-  const unit = value.trim().toLowerCase();
+function stockValue(item: StockItem) {
+  if (item.quantity === null || item.price === null) return 0;
 
-  if (
-    unit === "l" ||
-    unit === "litre" ||
-    unit === "liter"
-  ) {
-    return "L";
-  }
+  const quantity = Number(item.quantity);
+  const price = Number(item.price);
+  if (!Number.isFinite(quantity) || !Number.isFinite(price)) return 0;
 
-  if (unit === "kg") return "kg";
-  if (unit === "g") return "g";
-  if (unit === "ml") return "ml";
-  if (unit === "each") return "each";
+  const unit = item.unit.toLowerCase();
+  const priceUnit = item.priceUnit.toLowerCase();
 
-  return value || "kg";
-}
-
-function numericQuantity(
-  value: number | string | null
-) {
-  if (typeof value === "number") {
-    return value;
-  }
-
-  if (value === null || value === "") {
-    return null;
-  }
-
-  const parsed = Number(value);
-
-  return Number.isNaN(parsed)
-    ? null
-    : parsed;
-}
-
-function calculateStockValue(
-  item: StockItem
-) {
-  if (
-    item.quantity === null ||
-    item.price === null
-  ) {
-    return 0;
-  }
-
-  const quantity = Number(
-    item.quantity
-  );
-
-  const price = Number(
-    item.price
-  );
-
-  if (
-    Number.isNaN(quantity) ||
-    Number.isNaN(price)
-  ) {
-    return 0;
-  }
-
-  const stockUnit =
-    canonicalUnit(item.unit);
-
-  const priceUnit =
-    canonicalUnit(
-      item.priceUnit
-    );
-
-  if (
-    stockUnit === "g" &&
-    priceUnit === "kg"
-  ) {
-    return (
-      (quantity / 1000) *
-      price
-    );
-  }
-
-  if (
-    stockUnit === "kg" &&
-    priceUnit === "g"
-  ) {
-    return (
-      quantity *
-      1000 *
-      price
-    );
-  }
-
-  if (
-    stockUnit === "ml" &&
-    priceUnit === "L"
-  ) {
-    return (
-      (quantity / 1000) *
-      price
-    );
-  }
-
-  if (
-    stockUnit === "L" &&
-    priceUnit === "ml"
-  ) {
-    return (
-      quantity *
-      1000 *
-      price
-    );
-  }
-
-  if (
-    stockUnit === priceUnit
-  ) {
-    return quantity * price;
+  if (unit === priceUnit) return quantity * price;
+  if (unit === "g" && priceUnit === "kg") return (quantity / 1000) * price;
+  if (unit === "ml" && ["l", "ltr", "litre"].includes(priceUnit)) {
+    return (quantity / 1000) * price;
   }
 
   return 0;
 }
 
-function buildCurrentStockItems(
-  prices: Record<
-    string,
-    IngredientPrice
-  >
-): StockItem[] {
-  return latestHistoricalStockTake.items.map(
-    (item) => {
-      const priceKey =
-        ingredientPriceKey(
-          item.name
-        );
-
-      const storedPrice =
-        prices[priceKey] ??
-        prices[item.name];
-
-      return {
-        ...item,
-
-        quantity:
-          numericQuantity(
-            item.quantity
-          ),
-
-        unit:
-          canonicalUnit(
-            item.unit
-          ),
-
-        price:
-          storedPrice?.price ??
-          null,
-
-        priceUnit:
-          storedPrice?.unit ??
-          "",
-
-        supplier:
-          storedPrice?.supplier ??
-          "",
-      };
-    }
+function preferredPrice(
+  name: string,
+  ingredientPrices: Record<string, IngredientPrice>,
+  fallbackPrice: number | null,
+  fallbackUnit: string,
+  fallbackSupplier: string
+) {
+  const key = Object.keys(ingredientPrices).find(
+    (candidate) => normalise(candidate) === normalise(name)
   );
-}
+  const stored = key ? ingredientPrices[key] : null;
 
-function buildComparison(
-  fromId: string,
-  toId: string,
-  prices: Record<
-    string,
-    IngredientPrice
-  >
-): ComparisonRow[] {
-  const fromTake =
-    historicalStockTakes.find(
-      (take) =>
-        take.id === fromId
-    );
-
-  const toTake =
-    historicalStockTakes.find(
-      (take) =>
-        take.id === toId
-    );
-
-  if (!fromTake || !toTake) {
-    return [];
-  }
-
-  const names = Array.from(
-    new Set([
-      ...fromTake.items.map(
-        (item) =>
-          normalise(item.name)
-      ),
-      ...toTake.items.map(
-        (item) =>
-          normalise(item.name)
-      ),
-    ])
-  );
-
-  return names.map(
-    (nameKey) => {
-      const fromItem =
-        fromTake.items.find(
-          (item) =>
-            normalise(
-              item.name
-            ) === nameKey
-        );
-
-      const toItem =
-        toTake.items.find(
-          (item) =>
-            normalise(
-              item.name
-            ) === nameKey
-        );
-
-      const sourceItem =
-        toItem ?? fromItem!;
-
-      const opening =
-        fromItem
-          ? numericQuantity(
-              fromItem.quantity
-            )
-          : null;
-
-      const closing =
-        toItem
-          ? numericQuantity(
-              toItem.quantity
-            )
-          : null;
-
-      let movement:
-        | number
-        | null = null;
-
-      if (
-        opening !== null &&
-        closing !== null
-      ) {
-        movement =
-          closing - opening;
-      }
-
-      let percentage:
-        | number
-        | null = null;
-
-      if (
-        movement !== null &&
-        opening !== null &&
-        opening !== 0
-      ) {
-        percentage =
-          (movement /
-            opening) *
-          100;
-      }
-
-      const priceKey =
-        ingredientPriceKey(
-          sourceItem.name
-        );
-
-      const storedPrice =
-        prices[priceKey] ??
-        prices[
-          sourceItem.name
-        ];
-
-      let valueMovement:
-        | number
-        | null = null;
-
-      if (
-        movement !== null &&
-        storedPrice
-      ) {
-        const stockUnit =
-          canonicalUnit(
-            sourceItem.unit
-          );
-
-        const priceUnit =
-          canonicalUnit(
-            storedPrice.unit
-          );
-
-        if (
-          stockUnit ===
-          priceUnit
-        ) {
-          valueMovement =
-            movement *
-            storedPrice.price;
-        } else if (
-          stockUnit === "g" &&
-          priceUnit === "kg"
-        ) {
-          valueMovement =
-            (movement / 1000) *
-            storedPrice.price;
-        } else if (
-          stockUnit === "ml" &&
-          priceUnit === "L"
-        ) {
-          valueMovement =
-            (movement / 1000) *
-            storedPrice.price;
-        }
-      }
-
-      return {
-        name: sourceItem.name,
-        category:
-          sourceItem.category,
-        unit:
-          sourceItem.unit,
-        opening,
-        closing,
-        movement,
-        percentage,
-        price:
-          storedPrice?.price ??
-          null,
-        valueMovement,
-      };
-    }
-  );
+  return {
+    price: stored?.price ?? fallbackPrice,
+    priceUnit: stored?.unit ?? fallbackUnit,
+    supplier: stored?.supplier ?? fallbackSupplier,
+  };
 }
 
 export default function StockPage() {
-  const [tab, setTab] =
-    useState<PageTab>(
-      "current"
-    );
-
-  const [items, setItems] =
-    useState<StockItem[]>([]);
-
-  const [search, setSearch] =
-    useState("");
-
-  const [
-    categoryFilter,
-    setCategoryFilter,
-  ] = useState("All");
-
-  const [
-    lastSaved,
-    setLastSaved,
-  ] = useState("");
-
-  const [
-    selectedHistoryId,
-    setSelectedHistoryId,
-  ] = useState(
-    latestHistoricalStockTake.id
-  );
-
-  const [
-    ingredientPrices,
-    setIngredientPrices,
-  ] = useState<
-    Record<
-      string,
-      IngredientPrice
-    >
-  >({});
-
-  const [
-    compareFromId,
-    setCompareFromId,
-  ] = useState(
-    historicalStockTakes[
-      Math.max(
-        historicalStockTakes.length -
-          2,
-        0
-      )
-    ].id
-  );
-
-  const [
-    compareToId,
-    setCompareToId,
-  ] = useState(
-    latestHistoricalStockTake.id
-  );
+  const [tab, setTab] = useState<"count" | "history">("count");
+  const [items, setItems] = useState<StockItem[]>([]);
+  const [history, setHistory] = useState<SavedStockTake[]>([]);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
+  const [lastSaved, setLastSaved] = useState("");
 
   useEffect(() => {
-    readWorkspaceStates(["ingredientPrices", "currentStockTake"])
-      .then((state) => {
-        const storedPrices = (state.get("ingredientPrices") ?? {}) as Record<
+    async function load() {
+      try {
+        setLoading(true);
+        setMessage("");
+
+        const workspace = await resolveActiveWorkspace();
+        if (!workspace) throw new Error("No active restaurant workspace.");
+
+        const [state, catalogueResult] = await Promise.all([
+          readWorkspaceStates([
+            "ingredientPrices",
+            "currentStockTake",
+            "stockTakeHistory",
+          ]),
+          supabase
+            .from("supplier_products")
+            .select(`
+              id,
+              supplier_product_name,
+              price_unit,
+              latest_price,
+              preferred,
+              supplier:suppliers(name),
+              ingredient:ingredients(id,name,category,base_unit)
+            `)
+            .eq("organisation_id", workspace.organisationId)
+            .order("preferred", { ascending: false })
+            .order("supplier_product_name")
+            .limit(5000),
+        ]);
+
+        if (catalogueResult.error) throw catalogueResult.error;
+
+        const ingredientPrices = (state.get("ingredientPrices") ?? {}) as Record<
           string,
           IngredientPrice
         >;
-        const savedDraft = (state.get("currentStockTake") ?? null) as
-          | SavedStockTake
-          | null;
-        setIngredientPrices(storedPrices);
-        if (savedDraft) {
-          setItems(savedDraft.items ?? []);
-          setLastSaved(savedDraft.createdAt ?? "");
-        } else {
-          setItems(buildCurrentStockItems(storedPrices));
+        const savedDraft = (state.get("currentStockTake") ?? null) as SavedStockTake | null;
+        const savedHistory = (state.get("stockTakeHistory") ?? []) as SavedStockTake[];
+
+        setHistory(Array.isArray(savedHistory) ? savedHistory : []);
+
+        if (savedDraft?.items?.length) {
+          setItems(savedDraft.items);
+          setLastSaved(savedDraft.createdAt || "");
+          return;
         }
-      })
-      .catch((error) => console.error("Stock cloud load failed", error));
+
+        const byIngredient = new Map<string, StockItem>();
+
+        for (const row of catalogueResult.data ?? []) {
+          const supplier = first(row.supplier as Relation<{ name: string }>);
+          const ingredient = first(
+            row.ingredient as Relation<{
+              id: string;
+              name: string;
+              category: string | null;
+              base_unit: string | null;
+            }>
+          );
+
+          const name = ingredient?.name || row.supplier_product_name;
+          const id = ingredient?.id || `product-${row.id}`;
+          const key = ingredient?.id || normalise(name);
+          const current = byIngredient.get(key);
+
+          // Preferred supplier products are returned first, so keep the first row.
+          if (current) continue;
+
+          const price = preferredPrice(
+            name,
+            ingredientPrices,
+            row.latest_price == null ? null : Number(row.latest_price),
+            row.price_unit || ingredient?.base_unit || "each",
+            supplier?.name || ""
+          );
+
+          byIngredient.set(key, {
+            id,
+            name,
+            category: ingredient?.category || "Other",
+            quantity: null,
+            unit: ingredient?.base_unit || row.price_unit || "each",
+            price: price.price,
+            priceUnit: price.priceUnit,
+            supplier: price.supplier,
+          });
+        }
+
+        setItems(
+          Array.from(byIngredient.values()).sort((a, b) =>
+            `${a.category}-${a.name}`.localeCompare(`${b.category}-${b.name}`)
+          )
+        );
+      } catch (error) {
+        console.error("Stock load failed", error);
+        setMessage(error instanceof Error ? error.message : "Could not load stock.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    void load();
   }, []);
 
-  const categories =
-    useMemo(() => {
-      const source =
-        tab === "current"
-          ? items
-          : historicalStockTakes.flatMap(
-              (take) =>
-                take.items
-            );
+  const categories = useMemo(
+    () => [
+      "All",
+      ...Array.from(new Set(items.map((item) => item.category).filter(Boolean))).sort(),
+    ],
+    [items]
+  );
 
-      return [
-        "All",
-        ...Array.from(
-          new Set(
-            source
-              .map(
-                (item) =>
-                  item.category
-              )
-              .filter(Boolean)
-          )
-        ).sort(),
-      ];
-    }, [items, tab]);
+  const visibleItems = useMemo(() => {
+    const query = normalise(search);
+    return items.filter((item) => {
+      const matchesCategory = category === "All" || item.category === category;
+      const matchesSearch =
+        !query ||
+        normalise(item.name).includes(query) ||
+        normalise(item.category).includes(query) ||
+        normalise(item.supplier).includes(query);
+      return matchesCategory && matchesSearch;
+    });
+  }, [items, search, category]);
 
-  const filteredItems =
-    useMemo(() => {
-      const query =
-        search
-          .trim()
-          .toLowerCase();
+  const counted = items.filter((item) => item.quantity !== null).length;
+  const missingPrices = items.filter((item) => item.price === null).length;
+  const totalValue = items.reduce((sum, item) => sum + stockValue(item), 0);
 
-      return items.filter(
-        (item) => {
-          const matchesSearch =
-            !query ||
-            item.name
-              .toLowerCase()
-              .includes(query) ||
-            item.category
-              .toLowerCase()
-              .includes(query) ||
-            item.storage
-              .toLowerCase()
-              .includes(query) ||
-            item.supplier
-              .toLowerCase()
-              .includes(query);
-
-          const matchesCategory =
-            categoryFilter ===
-              "All" ||
-            item.category ===
-              categoryFilter;
-
-          return (
-            matchesSearch &&
-            matchesCategory
-          );
-        }
-      );
-    }, [
-      items,
-      search,
-      categoryFilter,
-    ]);
-
-  const selectedHistory =
-    useMemo(() => {
-      return (
-        historicalStockTakes.find(
-          (take) =>
-            take.id ===
-            selectedHistoryId
-        ) ??
-        latestHistoricalStockTake
-      );
-    }, [
-      selectedHistoryId,
-    ]);
-
-  const filteredHistoryItems =
-    useMemo(() => {
-      const query =
-        search
-          .trim()
-          .toLowerCase();
-
-      return selectedHistory.items.filter(
-        (item) => {
-          const matchesSearch =
-            !query ||
-            item.name
-              .toLowerCase()
-              .includes(query) ||
-            item.category
-              .toLowerCase()
-              .includes(query) ||
-            item.storage
-              .toLowerCase()
-              .includes(query) ||
-            item.notes
-              .toLowerCase()
-              .includes(query);
-
-          const matchesCategory =
-            categoryFilter ===
-              "All" ||
-            item.category ===
-              categoryFilter;
-
-          return (
-            matchesSearch &&
-            matchesCategory
-          );
-        }
-      );
-    }, [
-      selectedHistory,
-      search,
-      categoryFilter,
-    ]);
-
-  const totalStockValue =
-    useMemo(() => {
-      return items.reduce(
-        (total, item) =>
-          total +
-          calculateStockValue(
-            item
-          ),
-        0
-      );
-    }, [items]);
-
-  const countedCount =
-    items.filter(
-      (item) =>
-        item.quantity !==
-        null
-    ).length;
-
-  const pricedCount =
-    items.filter(
-      (item) =>
-        item.price !== null
-    ).length;
-
-  const missingPriceCount =
-    items.length -
-    pricedCount;
-
-  const comparison =
-    useMemo(() => {
-      return buildComparison(
-        compareFromId,
-        compareToId,
-        ingredientPrices
-      );
-    }, [
-      compareFromId,
-      compareToId,
-      ingredientPrices,
-    ]);
-
-  const filteredComparison =
-    useMemo(() => {
-      const query =
-        search
-          .trim()
-          .toLowerCase();
-
-      return comparison.filter(
-        (row) => {
-          const matchesSearch =
-            !query ||
-            row.name
-              .toLowerCase()
-              .includes(query) ||
-            row.category
-              .toLowerCase()
-              .includes(query);
-
-          const matchesCategory =
-            categoryFilter ===
-              "All" ||
-            row.category ===
-              categoryFilter;
-
-          return (
-            matchesSearch &&
-            matchesCategory
-          );
-        }
-      );
-    }, [
-      comparison,
-      search,
-      categoryFilter,
-    ]);
-
-  const biggestIncrease =
-    useMemo(() => {
-      return [...comparison]
-        .filter(
-          (row) =>
-            row.movement !==
-            null
-        )
-        .sort(
-          (a, b) =>
-            (b.movement ?? 0) -
-            (a.movement ?? 0)
-        )[0];
-    }, [comparison]);
-
-  const biggestDecrease =
-    useMemo(() => {
-      return [...comparison]
-        .filter(
-          (row) =>
-            row.movement !==
-            null
-        )
-        .sort(
-          (a, b) =>
-            (a.movement ?? 0) -
-            (b.movement ?? 0)
-        )[0];
-    }, [comparison]);
-
-  const totalValueMovement =
-    comparison.reduce(
-      (total, row) =>
-        total +
-        (row.valueMovement ??
-          0),
-      0
-    );
-
-  function updateItem(
-    index: number,
-    field:
-      | "quantity"
-      | "unit",
-    value: string
-  ) {
+  function updateQuantity(id: string, value: string) {
     setItems((current) =>
-      current.map(
-        (
-          item,
-          itemIndex
-        ) => {
-          if (
-            itemIndex !==
-            index
-          ) {
-            return item;
-          }
-
-          if (
-            field ===
-            "quantity"
-          ) {
-            return {
+      current.map((item) =>
+        item.id === id
+          ? {
               ...item,
-              quantity:
-                value === ""
-                  ? null
-                  : Number(
-                      value
-                    ),
-            };
-          }
-
-          return {
-            ...item,
-            unit: value,
-          };
-        }
+              quantity: value === "" ? null : Number(value),
+            }
+          : item
       )
     );
   }
 
-  function saveDraft() {
-    const now =
-      new Date().toISOString();
+  function bumpQuantity(id: string, direction: -1 | 1) {
+    setItems((current) =>
+      current.map((item) => {
+        if (item.id !== id) return item;
+        const unit = item.unit.toLowerCase();
+        const step = ["kg", "l", "ltr", "litre"].includes(unit) ? 0.5 : 1;
+        const next = Math.max(0, Number(item.quantity ?? 0) + step * direction);
+        return { ...item, quantity: Math.round(next * 100) / 100 };
+      })
+    );
+  }
 
-    const stockTake: SavedStockTake =
-      {
+  async function saveDraft() {
+    try {
+      setSaving(true);
+      const now = new Date().toISOString();
+      const draft: SavedStockTake = {
         id: "current",
         createdAt: now,
         items,
       };
-
-    void persistWorkspaceState(
-      "currentStockTake",
-      JSON.stringify(
-        stockTake
-      )
-    ).catch((error) => console.error("Stock cloud save failed", error));
-
-    setLastSaved(now);
-
-    alert(
-      "Stock count saved."
-    );
+      await persistWorkspaceState("currentStockTake", JSON.stringify(draft));
+      setLastSaved(now);
+      setMessage("Stock count saved.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not save stock count.");
+    } finally {
+      setSaving(false);
+    }
   }
 
-  async function completeStockTake() {
-    const now =
-      new Date().toISOString();
+  async function completeCount() {
+    const confirmed = window.confirm(
+      `Complete this stock take? ${counted} of ${items.length} lines have been counted.`
+    );
+    if (!confirmed) return;
 
-    const stockTake: SavedStockTake =
-      {
+    try {
+      setSaving(true);
+      const now = new Date().toISOString();
+      const completed: SavedStockTake = {
         id: `stock-${Date.now()}`,
         createdAt: now,
         items,
       };
+      const nextHistory = [completed, ...history].slice(0, 100);
 
-    const history = await readWorkspaceState<SavedStockTake[]>(
-      "stockTakeHistory",
-      []
-    );
+      await persistWorkspaceState("stockTakeHistory", JSON.stringify(nextHistory));
+      await removeWorkspaceState("currentStockTake");
 
-    history.unshift(
-      stockTake
-    );
-
-    await persistWorkspaceState(
-      "stockTakeHistory",
-      JSON.stringify(
-        history
-      )
-    );
-
-    await removeWorkspaceState(
-      "currentStockTake"
-    );
-
-    setLastSaved(now);
-
-    alert(
-      `Stock take completed. Current priced stock value: ${money(
-        totalStockValue
-      )}`
-    );
+      setHistory(nextHistory);
+      setLastSaved("");
+      setMessage(`Stock take completed · ${money(totalValue)} counted value.`);
+      setItems((current) => current.map((item) => ({ ...item, quantity: null })));
+      setTab("history");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not complete stock take.");
+    } finally {
+      setSaving(false);
+    }
   }
 
-  function startFreshCount() {
-    const confirmed =
-      window.confirm(
-        "Start a fresh count using the latest stock list? This clears the current quantities."
-      );
+  async function startFreshCount() {
+    const hasCounts = items.some((item) => item.quantity !== null);
+    if (
+      hasCounts &&
+      !window.confirm("Start a fresh count? The current draft quantities will be cleared.")
+    ) {
+      return;
+    }
 
-    if (!confirmed) return;
-
-    const fresh =
-      buildCurrentStockItems(
-        ingredientPrices
-      ).map((item) => ({
-        ...item,
-        quantity: null,
-      }));
-
-    setItems(fresh);
-
-    void removeWorkspaceState(
-      "currentStockTake"
-    ).catch((error) => console.error("Stock cloud clear failed", error));
-
+    await removeWorkspaceState("currentStockTake");
+    setItems((current) => current.map((item) => ({ ...item, quantity: null })));
     setLastSaved("");
-  }
-
-  function restoreLatestCount() {
-    setItems(
-      buildCurrentStockItems(
-        ingredientPrices
-      )
-    );
-
-    void removeWorkspaceState(
-      "currentStockTake"
-    ).catch((error) => console.error("Stock cloud clear failed", error));
-
-    setLastSaved("");
-  }
-
-  function switchTab(
-    nextTab: PageTab
-  ) {
-    setTab(nextTab);
-    setSearch("");
-    setCategoryFilter("All");
+    setMessage("Fresh stock count ready.");
   }
 
   return (
-    <div className="app-shell">
-      <Sidebar active="stock" />
-
-      <main className="main-content stock-page">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">
-              Inventory control
-            </p>
-
-            <h1>
-              Stock counts
-            </h1>
-
-            <p className="page-description">
-              Count current BOH
-              stock, review history
-              and compare inventory
-              movement between stock
-              takes.
-            </p>
-
-            {tab ===
-              "current" &&
-              lastSaved && (
-                <p className="stock-last-saved">
-                  Last saved{" "}
-                  {formatDateTime(
-                    lastSaved
-                  )}
-                </p>
-              )}
-          </div>
-
-          {tab ===
-            "current" && (
-            <div className="stock-header-actions">
-              <button
-                className="secondary-inline-button"
-                type="button"
-                onClick={
-                  startFreshCount
-                }
-              >
-                New count
-              </button>
-
-              <button
-                className="secondary-inline-button"
-                type="button"
-                onClick={
-                  saveDraft
-                }
-              >
-                Save draft
-              </button>
-
-              <button
-                className="primary-button"
-                type="button"
-                onClick={
-                  completeStockTake
-                }
-              >
-                Complete stock take
-              </button>
-            </div>
-          )}
-        </header>
-
-        <div className="stock-tabs">
-          <button
-            className={`stock-tab ${
-              tab === "current"
-                ? "stock-tab-active"
-                : ""
-            }`}
-            type="button"
-            onClick={() =>
-              switchTab(
-                "current"
-              )
-            }
-          >
-            Current count
-          </button>
-
-          <button
-            className={`stock-tab ${
-              tab === "history"
-                ? "stock-tab-active"
-                : ""
-            }`}
-            type="button"
-            onClick={() =>
-              switchTab(
-                "history"
-              )
-            }
-          >
-            History
-
-            <span>
-              {
-                historicalStockTakes.length
-              }
-            </span>
-          </button>
-
-          <button
-            className={`stock-tab ${
-              tab === "compare"
-                ? "stock-tab-active"
-                : ""
-            }`}
-            type="button"
-            onClick={() =>
-              switchTab(
-                "compare"
-              )
-            }
-          >
-            Compare
-          </button>
+    <div className="page stock-page chef-stock-page">
+      <header className="topbar">
+        <div>
+          <p className="eyebrow">Inventory</p>
+          <h1>Stock</h1>
+          <p className="page-description">
+            Count what is actually in the kitchen. The list comes only from this restaurant&apos;s catalogue.
+          </p>
+          {lastSaved && <p className="stock-last-saved">Draft saved {formatDate(lastSaved)}</p>}
         </div>
 
-        {tab === "current" && (
-          <>
-            <section className="stats-grid">
-              <article className="stat-card">
-                <p className="stat-label">
-                  Stock value
-                </p>
-
-                <p className="stat-value">
-                  {money(
-                    totalStockValue
-                  )}
-                </p>
-
-                <p className="stat-change neutral">
-                  Priced lines only
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Counted
-                </p>
-
-                <p className="stat-value">
-                  {countedCount}
-                </p>
-
-                <p className="stat-change neutral">
-                  of {items.length} lines
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Priced
-                </p>
-
-                <p className="stat-value">
-                  {pricedCount}
-                </p>
-
-                <p className="stat-change neutral">
-                  Linked to invoices
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Missing prices
-                </p>
-
-                <p className="stat-value">
-                  {missingPriceCount}
-                </p>
-
-                <p className="stat-change warning">
-                  Costs still needed
-                </p>
-              </article>
-            </section>
-
-            <section className="panel stock-source-banner">
-              <div>
-                <p className="panel-kicker">
-                  Count template
-                </p>
-
-                <h2>
-                  Based on latest BOH
-                  stock take
-                </h2>
-
-                <p>
-                  {latestHistoricalStockTake.label} ·{" "}
-                  {latestHistoricalStockTake.items.length} lines
-                </p>
-              </div>
-
-              <button
-                className="secondary-inline-button"
-                type="button"
-                onClick={
-                  restoreLatestCount
-                }
-              >
-                Restore latest
-                quantities
-              </button>
-            </section>
-
-            <section className="panel stock-main-panel">
-              <div className="panel-header">
-                <div>
-                  <p className="panel-kicker">
-                    Current count
-                  </p>
-
-                  <h2>
-                    Kitchen inventory
-                  </h2>
-                </div>
-
-                <span className="stock-result-count">
-                  {
-                    filteredItems.length
-                  }{" "}
-                  lines
-                </span>
-              </div>
-
-              <div className="stock-toolbar">
-                <div className="stock-search">
-                  <input
-                    type="search"
-                    placeholder="Search stock..."
-                    value={search}
-                    onChange={(
-                      event
-                    ) =>
-                      setSearch(
-                        event.target
-                          .value
-                      )
-                    }
-                  />
-                </div>
-
-                <div className="stock-filter">
-                  <select
-                    value={
-                      categoryFilter
-                    }
-                    onChange={(
-                      event
-                    ) =>
-                      setCategoryFilter(
-                        event.target
-                          .value
-                      )
-                    }
-                  >
-                    {categories.map(
-                      (
-                        category
-                      ) => (
-                        <option
-                          key={
-                            category
-                          }
-                          value={
-                            category
-                          }
-                        >
-                          {
-                            category
-                          }
-                        </option>
-                      )
-                    )}
-                  </select>
-                </div>
-              </div>
-
-              <div className="table-wrapper">
-                <table className="stock-table">
-                  <thead>
-                    <tr>
-                      <th>
-                        Category
-                      </th>
-
-                      <th>
-                        Storage
-                      </th>
-
-                      <th>
-                        Item
-                      </th>
-
-                      <th>
-                        Count
-                      </th>
-
-                      <th>
-                        Unit
-                      </th>
-
-                      <th>
-                        Current cost
-                      </th>
-
-                      <th>
-                        Supplier
-                      </th>
-
-                      <th>
-                        Value
-                      </th>
-
-                      <th>
-                        Notes
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {filteredItems.map(
-                      (item) => {
-                        const originalIndex =
-                          items.findIndex(
-                            (
-                              candidate
-                            ) =>
-                              candidate ===
-                              item
-                          );
-
-                        const value =
-                          calculateStockValue(
-                            item
-                          );
-
-                        return (
-                          <tr
-                            key={`${item.category}-${item.name}-${originalIndex}`}
-                          >
-                            <td>
-                              <span className="stock-category-badge">
-                                {
-                                  item.category
-                                }
-                              </span>
-                            </td>
-
-                            <td>
-                              {item.storage ||
-                                "—"}
-                            </td>
-
-                            <td>
-                              <strong className="stock-item-name">
-                                {
-                                  item.name
-                                }
-                              </strong>
-                            </td>
-
-                            <td>
-                              <input
-                                className="stock-count-input"
-                                inputMode="decimal"
-                                placeholder="0"
-                                value={
-                                  item.quantity ??
-                                  ""
-                                }
-                                onChange={(
-                                  event
-                                ) =>
-                                  updateItem(
-                                    originalIndex,
-                                    "quantity",
-                                    event
-                                      .target
-                                      .value
-                                  )
-                                }
-                              />
-                            </td>
-
-                            <td>
-                              <input
-                                className="stock-unit-input"
-                                value={
-                                  item.unit
-                                }
-                                onChange={(
-                                  event
-                                ) =>
-                                  updateItem(
-                                    originalIndex,
-                                    "unit",
-                                    event
-                                      .target
-                                      .value
-                                  )
-                                }
-                              />
-                            </td>
-
-                            <td>
-                              {item.price !==
-                              null ? (
-                                <div className="stock-price-cell">
-                                  <strong>
-                                    {money(
-                                      item.price
-                                    )}
-                                  </strong>
-
-                                  <span>
-                                    /
-                                    {item.priceUnit ||
-                                      "unit"}
-                                  </span>
-                                </div>
-                              ) : (
-                                <span className="stock-missing-price">
-                                  No price
-                                </span>
-                              )}
-                            </td>
-
-                            <td>
-                              {item.supplier ||
-                                "—"}
-                            </td>
-
-                            <td>
-                              <strong className="stock-line-value">
-                                {item.quantity !==
-                                  null &&
-                                item.price !==
-                                  null &&
-                                value > 0
-                                  ? money(
-                                      value
-                                    )
-                                  : "—"}
-                              </strong>
-                            </td>
-
-                            <td className="stock-notes-cell">
-                              {item.notes ||
-                                "—"}
-                            </td>
-                          </tr>
-                        );
-                      }
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </>
+        {tab === "count" && (
+          <div className="stock-header-actions">
+            <button type="button" className="secondary-inline-button" onClick={() => void startFreshCount()}>
+              New count
+            </button>
+            <button type="button" className="secondary-inline-button" disabled={saving} onClick={() => void saveDraft()}>
+              {saving ? "Saving…" : "Save draft"}
+            </button>
+            <button type="button" className="primary-button" disabled={saving || !items.length} onClick={() => void completeCount()}>
+              Complete count
+            </button>
+          </div>
         )}
+      </header>
 
-        {tab === "history" && (
-          <>
-            <section className="stock-history-cards">
-              {[...historicalStockTakes]
-                .reverse()
-                .map((take) => (
-                  <button
-                    className={`stock-history-card ${
-                      selectedHistoryId ===
-                      take.id
-                        ? "stock-history-card-active"
-                        : ""
-                    }`}
-                    key={take.id}
-                    type="button"
-                    onClick={() =>
-                      setSelectedHistoryId(
-                        take.id
-                      )
-                    }
-                  >
-                    <span className="stock-history-date">
-                      {
-                        take.label
-                      }
-                    </span>
+      {message && <div className="notice">{message}</div>}
 
-                    <strong>
-                      {
-                        take.items
-                          .length
-                      }
+      <div className="stock-tabs chef-stock-tabs">
+        <button type="button" className={`stock-tab ${tab === "count" ? "stock-tab-active" : ""}`} onClick={() => setTab("count")}>
+          Count now
+        </button>
+        <button type="button" className={`stock-tab ${tab === "history" ? "stock-tab-active" : ""}`} onClick={() => setTab("history")}>
+          History <span>{history.length}</span>
+        </button>
+      </div>
+
+      {tab === "count" && (
+        <>
+          <section className="stats-grid chef-stock-stats">
+            <article className="stat-card">
+              <p className="stat-label">Counted</p>
+              <p className="stat-value">{loading ? "—" : `${counted}/${items.length}`}</p>
+            </article>
+            <article className="stat-card">
+              <p className="stat-label">Current value</p>
+              <p className="stat-value">{loading ? "—" : money(totalValue)}</p>
+            </article>
+            <article className="stat-card">
+              <p className="stat-label">Missing prices</p>
+              <p className="stat-value">{loading ? "—" : missingPrices}</p>
+            </article>
+          </section>
+
+          <section className="panel chef-stock-panel">
+            <div className="stock-toolbar chef-stock-toolbar">
+              <div className="ingredient-search">
+                <input
+                  type="search"
+                  placeholder="Search ingredient or supplier…"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                />
+              </div>
+              <div className="ingredient-filter">
+                <select value={category} onChange={(event) => setCategory(event.target.value)}>
+                  {categories.map((value) => (
+                    <option key={value} value={value}>{value}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {loading ? (
+              <div className="empty-table-message">Loading this restaurant&apos;s stock list…</div>
+            ) : items.length === 0 ? (
+              <div className="empty-extraction">
+                <p>No stock items yet</p>
+                <span>Upload supplier invoices first. Products will then appear here automatically.</span>
+              </div>
+            ) : (
+              <div className="chef-stock-list">
+                {visibleItems.map((item) => (
+                  <article className={`chef-stock-row ${item.quantity !== null ? "chef-stock-row-counted" : ""}`} key={item.id}>
+                    <div className="chef-stock-copy">
+                      <span className="ingredient-category-badge">{item.category}</span>
+                      <strong>{item.name}</strong>
+                      <small>
+                        {item.supplier || "No supplier"}
+                        {item.price !== null ? ` · ${money(item.price)}/${item.priceUnit || item.unit}` : " · price needed"}
+                      </small>
+                    </div>
+
+                    <div className="chef-stock-counter" aria-label={`Count ${item.name}`}>
+                      <button type="button" onClick={() => bumpQuantity(item.id, -1)} aria-label={`Decrease ${item.name}`}>−</button>
+                      <input
+                        inputMode="decimal"
+                        value={item.quantity ?? ""}
+                        placeholder="0"
+                        onChange={(event) => updateQuantity(item.id, event.target.value)}
+                        aria-label={`${item.name} quantity`}
+                      />
+                      <span>{item.unit}</span>
+                      <button type="button" onClick={() => bumpQuantity(item.id, 1)} aria-label={`Increase ${item.name}`}>+</button>
+                    </div>
+
+                    <strong className="chef-stock-value">
+                      {item.quantity !== null && item.price !== null ? money(stockValue(item)) : "—"}
                     </strong>
-
-                    <span className="stock-history-lines">
-                      stock lines
-                    </span>
-
-                    <span className="stock-history-view">
-                      View stock take
-                      →
-                    </span>
-                  </button>
+                  </article>
                 ))}
-            </section>
-
-            <section className="panel stock-main-panel">
-              <div className="panel-header">
-                <div>
-                  <p className="panel-kicker">
-                    Historic stock
-                    take
-                  </p>
-
-                  <h2>
-                    {
-                      selectedHistory.label
-                    }
-                  </h2>
-                </div>
-
-                <span className="stock-result-count">
-                  {
-                    filteredHistoryItems.length
-                  }{" "}
-                  lines
-                </span>
               </div>
+            )}
+          </section>
+        </>
+      )}
 
-              <div className="stock-toolbar">
-                <div className="stock-search">
-                  <input
-                    type="search"
-                    placeholder="Search historic stock..."
-                    value={search}
-                    onChange={(
-                      event
-                    ) =>
-                      setSearch(
-                        event.target
-                          .value
-                      )
-                    }
-                  />
-                </div>
-              </div>
+      {tab === "history" && (
+        <section className="panel chef-stock-history-panel">
+          <div className="panel-header">
+            <div>
+              <p className="panel-kicker">Completed counts</p>
+              <h2>Stock history</h2>
+            </div>
+          </div>
 
-              <div className="table-wrapper">
-                <table className="stock-table">
-                  <thead>
-                    <tr>
-                      <th>
-                        Category
-                      </th>
-
-                      <th>
-                        Storage
-                      </th>
-
-                      <th>
-                        Item
-                      </th>
-
-                      <th>
-                        Quantity
-                      </th>
-
-                      <th>
-                        Unit
-                      </th>
-
-                      <th>
-                        Notes
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {filteredHistoryItems.map(
-                      (
-                        item,
-                        index
-                      ) => (
-                        <tr
-                          key={`${item.name}-${index}`}
-                        >
-                          <td>
-                            <span className="stock-category-badge">
-                              {
-                                item.category
-                              }
-                            </span>
-                          </td>
-
-                          <td>
-                            {item.storage ||
-                              "—"}
-                          </td>
-
-                          <td>
-                            <strong className="stock-item-name">
-                              {
-                                item.name
-                              }
-                            </strong>
-                          </td>
-
-                          <td>
-                            {item.quantity ??
-                              "—"}
-                          </td>
-
-                          <td>
-                            {item.unit ||
-                              "—"}
-                          </td>
-
-                          <td className="stock-notes-cell">
-                            {item.notes ||
-                              "—"}
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </>
-        )}
-
-        {tab === "compare" && (
-          <>
-            <section className="panel stock-compare-controls">
-              <div>
-                <p className="panel-kicker">
-                  Comparison period
-                </p>
-
-                <h2>
-                  Compare stock
-                  takes
-                </h2>
-              </div>
-
-              <div className="compare-selects">
-                <div className="form-field">
-                  <label>
-                    From
-                  </label>
-
-                  <select
-                    value={
-                      compareFromId
-                    }
-                    onChange={(
-                      event
-                    ) =>
-                      setCompareFromId(
-                        event.target
-                          .value
-                      )
-                    }
-                  >
-                    {historicalStockTakes.map(
-                      (
-                        take
-                      ) => (
-                        <option
-                          key={
-                            take.id
-                          }
-                          value={
-                            take.id
-                          }
-                        >
-                          {
-                            take.label
-                          }
-                        </option>
-                      )
-                    )}
-                  </select>
-                </div>
-
-                <div className="compare-arrow">
-                  →
-                </div>
-
-                <div className="form-field">
-                  <label>
-                    To
-                  </label>
-
-                  <select
-                    value={
-                      compareToId
-                    }
-                    onChange={(
-                      event
-                    ) =>
-                      setCompareToId(
-                        event.target
-                          .value
-                      )
-                    }
-                  >
-                    {historicalStockTakes.map(
-                      (
-                        take
-                      ) => (
-                        <option
-                          key={
-                            take.id
-                          }
-                          value={
-                            take.id
-                          }
-                        >
-                          {
-                            take.label
-                          }
-                        </option>
-                      )
-                    )}
-                  </select>
-                </div>
-              </div>
-            </section>
-
-            <section className="stats-grid">
-              <article className="stat-card">
-                <p className="stat-label">
-                  Compared items
-                </p>
-
-                <p className="stat-value">
-                  {
-                    comparison.length
-                  }
-                </p>
-
-                <p className="stat-change neutral">
-                  Across both counts
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Biggest increase
-                </p>
-
-                <p className="stat-value stock-compare-stat">
-                  {biggestIncrease?.name ??
-                    "—"}
-                </p>
-
-                <p className="stat-change neutral">
-                  {biggestIncrease?.movement !==
-                  null
-                    ? `+${
-                        biggestIncrease?.movement ??
-                        0
-                      } ${
-                        biggestIncrease?.unit ??
-                        ""
-                      }`
-                    : "—"}
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Biggest decrease
-                </p>
-
-                <p className="stat-value stock-compare-stat">
-                  {biggestDecrease?.name ??
-                    "—"}
-                </p>
-
-                <p className="stat-change warning">
-                  {biggestDecrease?.movement !==
-                  null
-                    ? `${biggestDecrease?.movement ??
-                        0} ${
-                        biggestDecrease?.unit ??
-                        ""
-                      }`
-                    : "—"}
-                </p>
-              </article>
-
-              <article className="stat-card">
-                <p className="stat-label">
-                  Value movement
-                </p>
-
-                <p className="stat-value">
-                  {money(
-                    totalValueMovement
-                  )}
-                </p>
-
-                <p className="stat-change neutral">
-                  Priced matches
-                  only
-                </p>
-              </article>
-            </section>
-
-            <section className="panel stock-main-panel">
-              <div className="panel-header">
-                <div>
-                  <p className="panel-kicker">
-                    Stock movement
-                  </p>
-
-                  <h2>
-                    Item comparison
-                  </h2>
-                </div>
-
-                <span className="stock-result-count">
-                  {
-                    filteredComparison.length
-                  }{" "}
-                  items
-                </span>
-              </div>
-
-              <div className="stock-toolbar">
-                <div className="stock-search">
-                  <input
-                    type="search"
-                    placeholder="Search comparison..."
-                    value={search}
-                    onChange={(
-                      event
-                    ) =>
-                      setSearch(
-                        event.target
-                          .value
-                      )
-                    }
-                  />
-                </div>
-
-                <div className="stock-filter">
-                  <select
-                    value={
-                      categoryFilter
-                    }
-                    onChange={(
-                      event
-                    ) =>
-                      setCategoryFilter(
-                        event.target
-                          .value
-                      )
-                    }
-                  >
-                    {categories.map(
-                      (
-                        category
-                      ) => (
-                        <option
-                          key={
-                            category
-                          }
-                          value={
-                            category
-                          }
-                        >
-                          {
-                            category
-                          }
-                        </option>
-                      )
-                    )}
-                  </select>
-                </div>
-              </div>
-
-              <div className="table-wrapper">
-                <table className="stock-table compare-table">
-                  <thead>
-                    <tr>
-                      <th>
-                        Item
-                      </th>
-
-                      <th>
-                        Category
-                      </th>
-
-                      <th>
-                        Opening
-                      </th>
-
-                      <th>
-                        Closing
-                      </th>
-
-                      <th>
-                        Movement
-                      </th>
-
-                      <th>
-                        % change
-                      </th>
-
-                      <th>
-                        Value movement
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {filteredComparison.map(
-                      (row) => (
-                        <tr
-                          key={
-                            row.name
-                          }
-                        >
-                          <td>
-                            <strong className="stock-item-name">
-                              {
-                                row.name
-                              }
-                            </strong>
-                          </td>
-
-                          <td>
-                            <span className="stock-category-badge">
-                              {
-                                row.category
-                              }
-                            </span>
-                          </td>
-
-                          <td>
-                            {row.opening ??
-                              "—"}{" "}
-                            {row.unit}
-                          </td>
-
-                          <td>
-                            {row.closing ??
-                              "—"}{" "}
-                            {row.unit}
-                          </td>
-
-                          <td>
-                            {row.movement !==
-                            null ? (
-                              <span
-                                className={
-                                  row.movement >
-                                  0
-                                    ? "movement-positive"
-                                    : row.movement <
-                                      0
-                                    ? "movement-negative"
-                                    : "movement-neutral"
-                                }
-                              >
-                                {row.movement >
-                                0
-                                  ? "+"
-                                  : ""}
-                                {row.movement.toFixed(
-                                  2
-                                )}{" "}
-                                {
-                                  row.unit
-                                }
-                              </span>
-                            ) : (
-                              "—"
-                            )}
-                          </td>
-
-                          <td>
-                            {row.percentage !==
-                            null
-                              ? `${row.percentage.toFixed(
-                                  1
-                                )}%`
-                              : "—"}
-                          </td>
-
-                          <td>
-                            {row.valueMovement !==
-                            null
-                              ? money(
-                                  row.valueMovement
-                                )
-                              : "—"}
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </>
-        )}
-      </main>
+          {history.length === 0 ? (
+            <div className="empty-extraction">
+              <p>No completed stock counts yet</p>
+              <span>Your first completed count will appear here.</span>
+            </div>
+          ) : (
+            <div className="chef-stock-history-list">
+              {history.map((take) => {
+                const countedLines = take.items.filter((item) => item.quantity !== null).length;
+                const value = take.items.reduce((sum, item) => sum + stockValue(item), 0);
+                return (
+                  <article className="chef-stock-history-row" key={take.id}>
+                    <div>
+                      <strong>{formatDate(take.createdAt)}</strong>
+                      <span>{countedLines} counted lines</span>
+                    </div>
+                    <strong>{money(value)}</strong>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </section>
+      )}
     </div>
   );
 }
