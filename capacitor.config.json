@@ -4,13 +4,13 @@
   "webDir": "capacitor-shell",
   "loggingBehavior": "debug",
   "appendUserAgent": " KitchenInsightsAndroid/0.2",
-  "backgroundColor": "#214f3d",
+  "backgroundColor": "#172554",
   "server": {
     "url": "https://www.kitcheninsights.uk",
     "cleartext": false
   },
   "android": {
-    "backgroundColor": "#214f3d",
+    "backgroundColor": "#172554",
     "allowMixedContent": false,
     "webContentsDebuggingEnabled": true
   }
