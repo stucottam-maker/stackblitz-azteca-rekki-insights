@@ -27,6 +27,7 @@ const links: readonly NavLink[] = [
 ] as const;
 
 const mobilePrimaryNames = new Set(["Dashboard", "Orders", "Invoices", "Stock", "Recipes"]);
+const mobileMoreNames = ["Settings", "Suppliers", "Ingredients", "Menu", "Reports", "Insights"] as const;
 
 function initials(name: string) {
   return name
@@ -106,7 +107,10 @@ export default function Sidebar({ active }: SidebarProps) {
     ? `${activeWorkspace.organisationId}.${activeWorkspace.siteId}`
     : "";
 
-  const secondaryLinks = links.filter(([, name]) => !mobilePrimaryNames.has(name));
+  const mobileMoreLinks = mobileMoreNames.flatMap((name) => {
+    const match = links.find(([, linkName]) => linkName === name);
+    return match ? [match] : [];
+  });
 
   return (
     <aside className="sidebar chef-sidebar">
@@ -141,11 +145,10 @@ export default function Sidebar({ active }: SidebarProps) {
           className={`mobile-header-more ${mobileMoreOpen || moreIsActive ? "active" : ""}`}
           aria-expanded={mobileMoreOpen}
           aria-controls="mobile-more-menu"
-          aria-label="Open account and more navigation"
+          aria-label="Open more navigation and account options"
           onClick={() => setMobileMoreOpen((open) => !open)}
         >
           <span aria-hidden="true">•••</span>
-          <small>More</small>
         </button>
       </div>
 
@@ -168,16 +171,17 @@ export default function Sidebar({ active }: SidebarProps) {
 
       {mobileMoreOpen && (
         <div className="mobile-more-menu" id="mobile-more-menu">
-          {secondaryLinks.map(([icon, name, url]) => (
+          <Link href="/account" className={pathname === "/account" ? "active" : ""}>
+            <span aria-hidden="true">◎</span>
+            <span>Account</span>
+          </Link>
+          {mobileMoreLinks.map(([icon, name, url]) => (
             <Link key={name} href={url} className={isActive(name, url) ? "active" : ""}>
               <span aria-hidden="true">{icon}</span>
               <span>{name}</span>
             </Link>
           ))}
-          <Link href="/account" className={pathname === "/account" ? "active" : ""}>
-            <span aria-hidden="true">◎</span>
-            <span>Account</span>
-          </Link>
+          <PwaInstallButton className="mobile-more-install" compact />
           <button type="button" className="mobile-more-danger" onClick={() => void logout()} disabled={signingOut}>
             <span aria-hidden="true">↪</span>
             <span>{signingOut ? "Signing out…" : "Log out"}</span>
