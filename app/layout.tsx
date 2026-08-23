@@ -14,7 +14,7 @@ import "./workspace-polish.css";
 import "./chef-ui.css";
 import "./blue-finish.css";
 
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import Script from "next/script";
 import AppFrame from "./components/AppFrame";
 
@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   description: "Cost control & operations",
   applicationName: "Kitchen Insights",
   manifest: "/manifest.webmanifest",
+  viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
+  themeColor: "#172554",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -33,13 +35,6 @@ export const metadata: Metadata = {
     shortcut: "/pwa-icon.svg",
     apple: "/pwa-icon.svg",
   },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
-  themeColor: "#172554",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
