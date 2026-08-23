@@ -7,6 +7,12 @@ import { authErrorResponse, requireOrganisation, serviceSupabase } from "../../.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+type OrderLocale = {
+  locale: "en-GB" | "es-MX";
+  currency: "GBP" | "MXN";
+  spanish: boolean;
+};
+
 function escapeHtml(value: unknown) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -16,36 +22,71 @@ function escapeHtml(value: unknown) {
     .replace(/'/g, "&#039;");
 }
 
-function money(value: number) {
-  return new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(value);
+function orderLocale(organisationName: string): OrderLocale {
+  const spanish = organisationName.trim().toLowerCase() === "benditos mexicali";
+  return spanish
+    ? { locale: "es-MX", currency: "MXN", spanish: true }
+    : { locale: "en-GB", currency: "GBP", spanish: false };
+}
+
+function money(value: number, config: OrderLocale) {
+  return new Intl.NumberFormat(config.locale, {
+    style: "currency",
+    currency: config.currency,
+  }).format(value);
 }
 
 function pdfEscape(value: string) {
   return value.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 }
 
-function buildSimplePurchaseOrderPdf(order: PurchaseOrder, organisationName: string) {
-  const rawLines = [
-    "KITCHEN INSIGHTS - PURCHASE ORDER",
-    "",
-    `From: ${organisationName}`,
-    `PO: ${order.id}`,
-    `Supplier: ${order.supplier}`,
-    `Created: ${new Date(order.createdAt).toLocaleString("en-GB")}`,
-    "",
-    "ITEM                                      QTY       EST. PRICE",
-    ...order.lines.map((line) => {
-      const name = (line.supplierProduct || line.ingredient).slice(0, 40).padEnd(40, " ");
-      const qty = `${line.orderQty} ${line.orderUnit}`.slice(0, 10).padEnd(10, " ");
-      const price = line.unitPrice === null ? "-" : money(line.orderQty * line.unitPrice);
-      return `${name} ${qty} ${price}`;
-    }),
-    "",
-    `Estimated total: ${money(order.estimatedTotal)}`,
-    order.notes ? `Notes: ${order.notes}` : "",
-  ].filter((line) => line !== undefined);
+function buildSimplePurchaseOrderPdf(
+  order: PurchaseOrder,
+  organisationName: string,
+  config: OrderLocale
+) {
+  const rawLines = config.spanish
+    ? [
+        "KITCHEN INSIGHTS - ORDEN DE COMPRA",
+        "",
+        `De: ${organisationName}`,
+        `OC: ${order.id}`,
+        `Proveedor: ${order.supplier}`,
+        `Creada: ${new Date(order.createdAt).toLocaleString(config.locale)}`,
+        "",
+        "ARTICULO                                  CANT.     PRECIO EST.",
+        ...order.lines.map((line) => {
+          const name = (line.supplierProduct || line.ingredient).slice(0, 40).padEnd(40, " ");
+          const qty = `${line.orderQty} ${line.orderUnit}`.slice(0, 10).padEnd(10, " ");
+          const price = line.unitPrice === null ? "-" : money(line.orderQty * line.unitPrice, config);
+          return `${name} ${qty} ${price}`;
+        }),
+        "",
+        `Total estimado: ${money(order.estimatedTotal, config)}`,
+        order.notes ? `Notas: ${order.notes}` : "",
+      ]
+    : [
+        "KITCHEN INSIGHTS - PURCHASE ORDER",
+        "",
+        `From: ${organisationName}`,
+        `PO: ${order.id}`,
+        `Supplier: ${order.supplier}`,
+        `Created: ${new Date(order.createdAt).toLocaleString(config.locale)}`,
+        "",
+        "ITEM                                      QTY       EST. PRICE",
+        ...order.lines.map((line) => {
+          const name = (line.supplierProduct || line.ingredient).slice(0, 40).padEnd(40, " ");
+          const qty = `${line.orderQty} ${line.orderUnit}`.slice(0, 10).padEnd(10, " ");
+          const price = line.unitPrice === null ? "-" : money(line.orderQty * line.unitPrice, config);
+          return `${name} ${qty} ${price}`;
+        }),
+        "",
+        `Estimated total: ${money(order.estimatedTotal, config)}`,
+        order.notes ? `Notes: ${order.notes}` : "",
+      ];
 
   const content = rawLines
+    .filter((line) => line !== undefined)
     .flatMap((line) => {
       const text = String(line);
       if (text.length <= 88) return [text];
@@ -80,17 +121,28 @@ function buildSimplePurchaseOrderPdf(order: PurchaseOrder, organisationName: str
   return Buffer.from(pdf, "utf8");
 }
 
-function orderHtml(order: PurchaseOrder, organisationName: string) {
+function orderHtml(order: PurchaseOrder, organisationName: string, config: OrderLocale) {
   const rows = order.lines.map((line) => {
-    const lineTotal = line.unitPrice === null ? "—" : money(line.orderQty * line.unitPrice);
+    const lineTotal = line.unitPrice === null ? "—" : money(line.orderQty * line.unitPrice, config);
     return `<tr><td style="padding:9px 8px;border-bottom:1px solid #e5e7eb">${escapeHtml(line.supplierProduct || line.ingredient)}</td><td style="padding:9px 8px;border-bottom:1px solid #e5e7eb">${escapeHtml(`${line.orderQty} ${line.orderUnit}`)}</td><td style="padding:9px 8px;border-bottom:1px solid #e5e7eb;text-align:right">${escapeHtml(lineTotal)}</td></tr>`;
   }).join("");
+
+  if (config.spanish) {
+    return `<div style="font-family:Arial,sans-serif;color:#172033;max-width:720px">
+      <h2 style="margin:0 0 4px">Orden de compra ${escapeHtml(order.id)}</h2>
+      <p style="margin:0 0 20px;color:#64748b">${escapeHtml(organisationName)} → ${escapeHtml(order.supplier)}</p>
+      <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px">Artículo</th><th style="text-align:left;padding:8px">Cantidad</th><th style="text-align:right;padding:8px">Total est.</th></tr></thead><tbody>${rows}</tbody></table>
+      <p style="font-size:18px;font-weight:700;text-align:right;margin:18px 0">Total estimado: ${escapeHtml(money(order.estimatedTotal, config))}</p>
+      ${order.notes ? `<div style="padding:12px;background:#f8fafc;border-radius:8px"><strong>Notas de entrega</strong><br>${escapeHtml(order.notes)}</div>` : ""}
+      <p style="margin-top:22px;color:#64748b;font-size:12px">Enviado desde Kitchen Insights.</p>
+    </div>`;
+  }
 
   return `<div style="font-family:Arial,sans-serif;color:#172033;max-width:720px">
     <h2 style="margin:0 0 4px">Purchase order ${escapeHtml(order.id)}</h2>
     <p style="margin:0 0 20px;color:#64748b">${escapeHtml(organisationName)} → ${escapeHtml(order.supplier)}</p>
     <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px">Item</th><th style="text-align:left;padding:8px">Quantity</th><th style="text-align:right;padding:8px">Est. line total</th></tr></thead><tbody>${rows}</tbody></table>
-    <p style="font-size:18px;font-weight:700;text-align:right;margin:18px 0">Estimated total: ${escapeHtml(money(order.estimatedTotal))}</p>
+    <p style="font-size:18px;font-weight:700;text-align:right;margin:18px 0">Estimated total: ${escapeHtml(money(order.estimatedTotal, config))}</p>
     ${order.notes ? `<div style="padding:12px;background:#f8fafc;border-radius:8px"><strong>Delivery notes</strong><br>${escapeHtml(order.notes)}</div>` : ""}
     <p style="margin-top:22px;color:#64748b;font-size:12px">Sent from Kitchen Insights.</p>
   </div>`;
@@ -104,11 +156,25 @@ export async function POST(request: Request) {
     const settings = (body.settings ?? {}) as Partial<OrganisationSettings>;
     const suppliedEmail = String(body.supplierEmail || "").trim();
 
+    const { data: organisation } = await serviceSupabase
+      .from("organisations")
+      .select("name")
+      .eq("id", organisationId)
+      .maybeSingle();
+    const organisationName = String(settings.name || organisation?.name || "Kitchen Insights");
+    const config = orderLocale(organisationName);
+
     if (!order?.id || !order?.supplier || !Array.isArray(order.lines) || !order.lines.length) {
-      return NextResponse.json({ error: "This purchase order has no items." }, { status: 400 });
+      return NextResponse.json({
+        error: config.spanish ? "Esta orden de compra no tiene artículos." : "This purchase order has no items.",
+      }, { status: 400 });
     }
     if (!process.env.RESEND_API_KEY) {
-      return NextResponse.json({ error: "Order email is not configured yet (missing RESEND_API_KEY)." }, { status: 503 });
+      return NextResponse.json({
+        error: config.spanish
+          ? "El correo de pedidos aún no está configurado (falta RESEND_API_KEY)."
+          : "Order email is not configured yet (missing RESEND_API_KEY).",
+      }, { status: 503 });
     }
 
     const { data: suppliers, error: supplierError } = await serviceSupabase
@@ -123,7 +189,9 @@ export async function POST(request: Request) {
     const to = suppliedEmail || supplier?.email || order.supplierEmail || order.sentTo || "";
     if (!to) {
       return NextResponse.json({
-        error: `Add an order email for ${order.supplier} before sending.`,
+        error: config.spanish
+          ? `Agrega un correo de pedidos para ${order.supplier} antes de enviar.`
+          : `Add an order email for ${order.supplier} before sending.`,
         needsSupplierEmail: true,
       }, { status: 400 });
     }
@@ -137,12 +205,6 @@ export async function POST(request: Request) {
       if (error) throw error;
     }
 
-    const { data: organisation } = await serviceSupabase
-      .from("organisations")
-      .select("name")
-      .eq("id", organisationId)
-      .maybeSingle();
-    const organisationName = String(settings.name || organisation?.name || "Kitchen Insights");
     const cc = settings.sendInternalCopy === false
       ? []
       : Array.isArray(settings.internalOrderEmails)
@@ -153,15 +215,17 @@ export async function POST(request: Request) {
     const from = process.env.ORDER_FROM_EMAIL || "Kitchen Insights <orders@kitcheninsights.uk>";
     const attachments = settings.attachPurchaseOrder === false
       ? undefined
-      : [{ filename: `${order.id}.pdf`, content: buildSimplePurchaseOrderPdf(order, organisationName) }];
+      : [{ filename: `${order.id}.pdf`, content: buildSimplePurchaseOrderPdf(order, organisationName, config) }];
 
     const { data, error } = await resend.emails.send({
       from,
       to: [to],
       cc: cc.length ? cc : undefined,
       replyTo: cc[0] || undefined,
-      subject: `Purchase Order ${order.id} - ${organisationName}`,
-      html: orderHtml(order, organisationName),
+      subject: config.spanish
+        ? `Orden de compra ${order.id} - ${organisationName}`
+        : `Purchase Order ${order.id} - ${organisationName}`,
+      html: orderHtml(order, organisationName, config),
       attachments,
     });
 
@@ -173,6 +237,8 @@ export async function POST(request: Request) {
       sentTo: to,
       copiedTo: cc,
       siteId,
+      currency: config.currency,
+      locale: config.locale,
     });
   } catch (error) {
     console.error("PURCHASE ORDER SEND FAILED", error);
