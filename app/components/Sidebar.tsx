@@ -27,7 +27,7 @@ const links: readonly NavLink[] = [
 ] as const;
 
 const mobilePrimaryNames = new Set(["Dashboard", "Orders", "Invoices", "Stock", "Recipes"]);
-const mobileMoreNames = ["Settings", "Suppliers", "Ingredients", "Menu", "Reports", "Insights"] as const;
+const mobileMoreNames = ["Suppliers", "Ingredients", "Menu", "Reports", "Insights"] as const;
 
 function initials(name: string) {
   return name
@@ -145,10 +145,11 @@ export default function Sidebar({ active }: SidebarProps) {
           className={`mobile-header-more ${mobileMoreOpen || moreIsActive ? "active" : ""}`}
           aria-expanded={mobileMoreOpen}
           aria-controls="mobile-more-menu"
-          aria-label="Open more navigation and account options"
+          aria-label="Open settings, account and more navigation"
           onClick={() => setMobileMoreOpen((open) => !open)}
         >
           <span aria-hidden="true">•••</span>
+          <small>More</small>
         </button>
       </div>
 
@@ -171,7 +172,15 @@ export default function Sidebar({ active }: SidebarProps) {
 
       {mobileMoreOpen && (
         <div className="mobile-more-menu" id="mobile-more-menu">
-          <Link href="/account" className={pathname === "/account" ? "active" : ""}>
+          <div className="mobile-more-heading">
+            <strong>More</strong>
+            <span>Settings, account and tools</span>
+          </div>
+          <Link href="/settings" className={`mobile-more-primary ${pathname === "/settings" ? "active" : ""}`}>
+            <span aria-hidden="true">⚙</span>
+            <span>Settings</span>
+          </Link>
+          <Link href="/account" className={`mobile-more-primary ${pathname === "/account" ? "active" : ""}`}>
             <span aria-hidden="true">◎</span>
             <span>Account</span>
           </Link>
