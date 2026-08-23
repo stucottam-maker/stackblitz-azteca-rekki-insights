@@ -13,6 +13,7 @@ import "./invoice-mobile-fix.css";
 import "./workspace-polish.css";
 import "./chef-ui.css";
 import "./blue-finish.css";
+import "./metro-dashboard.css";
 
 import type { Metadata } from "next";
 import Script from "next/script";
