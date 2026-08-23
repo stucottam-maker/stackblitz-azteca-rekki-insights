@@ -14,6 +14,7 @@ import "./workspace-polish.css";
 import "./chef-ui.css";
 import "./blue-finish.css";
 import "./metro-dashboard.css";
+import "./mobile-header-polish.css";
 
 import type { Metadata } from "next";
 import Script from "next/script";
