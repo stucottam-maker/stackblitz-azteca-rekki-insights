@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 
 import AuthGate from "./AuthGate";
+import BenditosSpanishPolish from "./BenditosSpanishPolish";
 import InvoicePriceSync from "./InvoicePriceSync";
 import Sidebar from "./Sidebar";
 import { HostTenantLocaleBridge, WorkspaceTenantLocaleBridge } from "./TenantLocaleBridgeV2";
@@ -25,6 +26,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
     <AuthGate>
       <WorkspaceProvider>
         <WorkspaceTenantLocaleBridge />
+        <BenditosSpanishPolish />
         <InvoicePriceSync />
         <div className="app-shell app-shell-root">
           <Sidebar />
