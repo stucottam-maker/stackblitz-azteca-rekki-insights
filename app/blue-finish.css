@@ -1,0 +1,218 @@
+/* Final blue chef-first pass. Loaded last so it deliberately overrides legacy green styling. */
+
+:root {
+  --background: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #f7f9fc;
+  --border: #dce3ee;
+  --text: #172033;
+  --text-soft: #667085;
+  --text-light: #8a96a8;
+  --green: #2563eb;
+  --green-dark: #172554;
+  --green-soft: #e8f0ff;
+}
+
+html, body { background: var(--background); }
+
+::selection { background: #dbeafe; color: #172554; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .22) !important;
+  outline-offset: 2px;
+}
+
+/* Loading and splash states */
+.workspace-loading-screen,
+.auth-loading-screen {
+  background: linear-gradient(150deg, #172554 0%, #0f2f68 55%, #0b1d45 100%) !important;
+}
+.workspace-loading-screen .brand-mark,
+.auth-loading-mark {
+  background: #2563eb !important;
+  color: #fff !important;
+  box-shadow: 0 14px 34px rgba(3, 12, 38, .28) !important;
+}
+
+/* Orders: remove leftover green presentation. Success statuses may remain green semantically. */
+.quick-order-page .quick-order-line-active {
+  background: #eef5ff !important;
+  box-shadow: inset 3px 0 0 #2563eb !important;
+}
+.quick-order-page .purchasing-tabs .purchasing-tab-active,
+.quick-order-page .purchasing-tab-active {
+  color: #1d4ed8 !important;
+  background: #fff !important;
+}
+.quick-order-page .quick-suggestion,
+.quick-order-page .regular-order-row > strong:last-child {
+  color: #1d4ed8 !important;
+  background: #e8f0ff !important;
+}
+.quick-order-page .quick-order-quantity button,
+.quick-order-page .quick-order-back,
+.quick-order-page .supplier-choice-arrow,
+.quick-order-page .order-review-recipient strong {
+  color: #1d4ed8 !important;
+}
+.quick-order-page .quick-order-footer {
+  border-color: rgba(37, 99, 235, .16) !important;
+  box-shadow: 0 12px 34px rgba(23, 37, 84, .14) !important;
+}
+.quick-order-page .quick-order-sku {
+  color: #1d4ed8 !important;
+  background: #eff6ff !important;
+}
+
+/* Reports: blue is the neutral data colour. Green/red are reserved for good/bad movement. */
+.report-bar-track span { background: linear-gradient(90deg, #2563eb, #60a5fa) !important; }
+.report-chart-line { stroke: #2563eb !important; }
+.report-chart-dot { stroke: #2563eb !important; }
+.report-chart-heading button,
+.report-text-button,
+.report-text-link,
+.report-period-arrow,
+.report-empty-icon { color: #1d4ed8 !important; }
+.report-formula-result-clean { border-color: #2563eb !important; }
+
+/* Team management */
+.team-management-card { margin-top: 18px; }
+.team-management-card .panel-header { align-items: flex-start; }
+.team-loading,
+.team-permission-note,
+.team-error {
+  padding: 13px 14px;
+  border-radius: 11px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.team-loading,
+.team-permission-note { background: #f8fafc; color: #667085; }
+.team-error { background: #fef2f2; color: #9f3a36; }
+.team-form-grid { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.team-form-grid button { min-height: 44px; }
+.team-row { min-width: 0; }
+.team-row > div { min-width: 0; }
+.team-row strong { overflow-wrap: anywhere; }
+.team-row select { width: 100%; min-height: 40px; border: 1px solid var(--border); border-radius: 9px; background: #fff; padding: 0 9px; }
+.team-row-actions { display: flex; gap: 7px; justify-content: flex-end; }
+.team-row-actions button { min-height: 38px; }
+
+/* Receive orders */
+.receive-order-page { max-width: 980px; }
+.receive-order-summary { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.receive-order-summary strong { font-size: 22px; }
+.receive-order-difference { font-size: 11px; font-weight: 800; }
+.receive-order-difference.ok { color: #2d7152; }
+.receive-order-difference.warn { color: #a7463d; }
+.receive-order-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+
+/* Desktop only helpers */
+.mobile-more-toggle,
+.mobile-more-menu { display: none; }
+
+@media (max-width: 640px) {
+  /* Five obvious chef actions instead of an 11-item horizontal strip. */
+  body > .app-shell > .sidebar {
+    overflow: visible !important;
+    box-shadow: 0 7px 24px rgba(23, 37, 84, .2) !important;
+  }
+
+  body > .app-shell > .sidebar .sidebar-nav {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    height: auto !important;
+    min-height: 46px !important;
+    overflow: visible !important;
+  }
+
+  body > .app-shell > .sidebar .nav-link.mobile-secondary {
+    display: none !important;
+  }
+
+  body > .app-shell > .sidebar .nav-link.mobile-primary,
+  body > .app-shell > .sidebar .mobile-more-toggle {
+    display: flex !important;
+    min-width: 0 !important;
+    min-height: 46px !important;
+    padding: 7px 4px !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    border: 0;
+    border-radius: 10px !important;
+    color: rgba(255,255,255,.82);
+    background: transparent;
+    font-size: 10px !important;
+    font-weight: 750;
+    line-height: 1 !important;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body > .app-shell > .sidebar .nav-link.mobile-primary .nav-icon,
+  body > .app-shell > .sidebar .mobile-more-toggle .nav-icon {
+    font-size: 16px !important;
+    line-height: 1 !important;
+  }
+
+  body > .app-shell > .sidebar .nav-link-active,
+  body > .app-shell > .sidebar .mobile-more-toggle.active {
+    color: #fff !important;
+    background: rgba(96,165,250,.24) !important;
+    box-shadow: inset 0 0 0 1px rgba(147,197,253,.18);
+  }
+
+  .mobile-more-menu {
+    position: absolute;
+    z-index: 1200;
+    top: calc(100% - 2px);
+    right: 10px;
+    left: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    padding: 10px;
+    border: 1px solid #dbe4f2;
+    border-radius: 14px;
+    background: rgba(255,255,255,.98);
+    box-shadow: 0 18px 42px rgba(15,23,42,.24);
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-more-menu a,
+  .mobile-more-menu button {
+    display: flex;
+    min-height: 46px;
+    align-items: center;
+    gap: 9px;
+    padding: 0 11px;
+    border: 0;
+    border-radius: 10px;
+    color: #172033;
+    background: #f8fafc;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  .mobile-more-menu a.active { color: #1d4ed8; background: #e8f0ff; }
+  .mobile-more-menu .mobile-more-danger { color: #9f3a36; background: #fef2f2; }
+
+  .team-form-grid { grid-template-columns: 1fr !important; }
+  .team-row { grid-template-columns: 1fr !important; gap: 9px !important; padding: 14px 0; }
+  .team-row-actions { justify-content: stretch; }
+  .team-row-actions button { flex: 1; }
+
+  .receive-order-row { grid-template-columns: 1fr !important; gap: 9px !important; }
+  .receive-order-row input { width: 100% !important; }
+  .receive-order-actions { position: sticky; bottom: 8px; align-items: stretch; flex-direction: column; padding: 10px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(23,37,84,.14); }
+  .receive-order-actions button { width: 100%; }
+}
