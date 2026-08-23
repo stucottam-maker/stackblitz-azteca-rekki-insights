@@ -1,0 +1,304 @@
+/* Final mobile density pass: keep controls thumb-friendly without oversized cards. */
+@media (max-width: 720px) {
+  .chef-stock-page .stats-grid,
+  .page:has(.invoices-page-panel) .stats-grid,
+  .reports-page .stats-grid,
+  .recipes-page .stats-grid,
+  .ingredients-page .stats-grid,
+  .menu-page .stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .chef-stock-page .stat-card,
+  .page:has(.invoices-page-panel) .stat-card,
+  .reports-page .stat-card,
+  .recipes-page .stat-card,
+  .ingredients-page .stat-card,
+  .menu-page .stat-card {
+    min-height: 92px !important;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
+  }
+
+  .chef-stock-page .stat-label,
+  .page:has(.invoices-page-panel) .stat-label,
+  .reports-page .stat-label,
+  .recipes-page .stat-label,
+  .ingredients-page .stat-label,
+  .menu-page .stat-label {
+    font-size: 11px !important;
+  }
+
+  .chef-stock-page .stat-value,
+  .page:has(.invoices-page-panel) .stat-value,
+  .reports-page .stat-value,
+  .recipes-page .stat-value,
+  .ingredients-page .stat-value,
+  .menu-page .stat-value {
+    margin-top: 6px !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
+  }
+
+  .chef-stock-page .stat-change,
+  .page:has(.invoices-page-panel) .stat-change,
+  .reports-page .stat-change,
+  .recipes-page .stat-change,
+  .ingredients-page .stat-change,
+  .menu-page .stat-change {
+    margin-top: 6px !important;
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Orders */
+  .quick-order-toolbar {
+    padding-block: 6px !important;
+    gap: 6px !important;
+  }
+
+  .quick-order-toolbar input {
+    min-height: 44px !important;
+  }
+
+  .quick-order-line {
+    gap: 8px !important;
+    padding: 10px !important;
+    margin-bottom: 7px !important;
+  }
+
+  .quick-order-product-title strong {
+    font-size: 16px !important;
+  }
+
+  .quick-order-quantity button {
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+  }
+
+  .quick-order-quantity select {
+    height: 44px !important;
+    min-width: 64px !important;
+  }
+
+  .purchasing-tabs button {
+    min-height: 42px !important;
+  }
+
+  .quick-order-footer,
+  .order-review-footer,
+  .receive-order-actions {
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .quick-review-button,
+  .receive-order-actions .primary-button {
+    min-height: 46px !important;
+  }
+
+  /* Stock */
+  .chef-stock-panel {
+    padding: 10px !important;
+  }
+
+  .chef-stock-toolbar {
+    padding: 6px !important;
+    gap: 6px !important;
+  }
+
+  .chef-stock-toolbar input,
+  .chef-stock-toolbar select {
+    min-height: 44px !important;
+  }
+
+  .chef-stock-row {
+    gap: 8px !important;
+    padding: 10px !important;
+    margin-bottom: 7px !important;
+  }
+
+  .chef-stock-copy strong {
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+  }
+
+  .chef-stock-copy small {
+    font-size: 10px !important;
+  }
+
+  .chef-stock-counter {
+    grid-template-columns: 44px minmax(64px, 84px) auto 44px !important;
+    gap: 5px !important;
+    width: auto !important;
+  }
+
+  .chef-stock-counter button {
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+  }
+
+  .chef-stock-counter input {
+    min-width: 64px !important;
+    height: 44px !important;
+    font-size: 16px !important;
+  }
+
+  .chef-stock-value {
+    font-size: 14px !important;
+  }
+
+  /* Invoices: compact card, not a stretched grid. */
+  .invoices-page-panel tbody {
+    display: block !important;
+    padding: 0 8px 10px !important;
+  }
+
+  .invoices-page-panel tbody tr {
+    display: block !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 10px 12px !important;
+    margin: 8px 0 !important;
+    border-radius: 13px !important;
+    align-content: start !important;
+  }
+
+  .invoices-page-panel tbody td,
+  .invoices-page-panel tbody td:first-child,
+  .invoices-page-panel tbody td:last-child {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    grid-column: auto !important;
+    width: 100% !important;
+    min-height: 30px !important;
+    height: auto !important;
+    padding: 4px 0 !important;
+    gap: 10px !important;
+    font-size: 12px !important;
+    text-align: right !important;
+  }
+
+  .invoices-page-panel tbody td::before {
+    flex: 0 0 88px !important;
+    font-size: 9px !important;
+    text-align: left !important;
+  }
+
+  .invoices-page-panel .invoice-detail-link {
+    min-height: 0 !important;
+    font-size: 13px !important;
+  }
+
+  .invoices-page-panel .ap-status-select,
+  .invoices-page-panel .secondary-inline-button {
+    width: auto !important;
+    min-height: 38px !important;
+  }
+
+  /* Reports */
+  .reports-tabs-clean {
+    padding-block: 6px !important;
+    gap: 6px !important;
+  }
+
+  .reports-tab-clean {
+    min-height: 42px !important;
+    padding-inline: 13px !important;
+    font-size: 11px !important;
+  }
+
+  .reports-page .panel {
+    padding: 14px !important;
+    border-radius: 14px !important;
+  }
+
+  .reports-page .panel-header {
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .reports-page .panel-header h2 {
+    font-size: 22px !important;
+    line-height: 1.08 !important;
+  }
+
+  .report-period-empty,
+  .report-period-selector,
+  .report-cogs-formula-clean {
+    padding: 12px !important;
+    border-radius: 12px !important;
+  }
+
+  .report-cogs-formula-clean {
+    gap: 8px !important;
+  }
+
+  .reports-secondary-stats {
+    margin-top: 10px !important;
+  }
+
+  /* Recipes */
+  .recipe-overview-row {
+    min-height: 0 !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+    margin-bottom: 7px !important;
+  }
+
+  .recipe-overview-subtitle {
+    margin-top: 3px !important;
+  }
+
+  .recipe-overview-ingredients {
+    margin-top: 6px !important;
+  }
+
+  /* Ingredient and menu overview pages */
+  .ingredients-page .topbar,
+  .menu-page .topbar {
+    margin-bottom: 14px !important;
+  }
+
+  .ingredients-page .page-description,
+  .menu-page .page-description {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Benditos invoice-card labels need to follow the selected locale. */
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(1)::before { content: "Proveedor" !important; }
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(2)::before { content: "Factura" !important; }
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(3)::before { content: "Fecha" !important; }
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(4)::before { content: "Vence" !important; }
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(5)::before { content: "Total" !important; }
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(6)::before { content: "Aprobación" !important; }
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(7)::before { content: "Coincidencia" !important; }
+  html[data-locale="es-MX"] .invoices-page-panel td:nth-child(8)::before { content: "Pago" !important; }
+}
+
+@media (max-width: 420px) {
+  .chef-stock-page .stats-grid,
+  .page:has(.invoices-page-panel) .stats-grid,
+  .reports-page .stats-grid,
+  .recipes-page .stats-grid,
+  .ingredients-page .stats-grid,
+  .menu-page .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .chef-stock-counter {
+    grid-template-columns: 42px minmax(58px, 78px) auto 42px !important;
+  }
+
+  .chef-stock-counter button,
+  .chef-stock-counter input {
+    height: 42px !important;
+  }
+}
