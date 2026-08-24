@@ -28,7 +28,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         <WorkspaceTenantLocaleBridge />
         <BenditosSpanishPolish />
         <InvoicePriceSync />
-        <div className="app-shell app-shell-root">
+        <div className={`app-shell app-shell-root ${pathname === "/" ? "metro-app-shell" : ""}`}>
           <Sidebar />
           <main className="main-content main-content-root">{children}</main>
         </div>
