@@ -9,7 +9,12 @@ export default function PWARegister() {
       window.location.protocol === "https:"
     ) {
       navigator.serviceWorker
-        .register("/sw.js")
+        .register("/Sw.js", {
+          updateViaCache: "none",
+        })
+        .then((registration) =>
+          registration.update()
+        )
         .catch((error) => {
           console.error(
             "Service worker registration failed:",
