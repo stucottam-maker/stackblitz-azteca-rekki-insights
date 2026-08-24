@@ -91,7 +91,8 @@ export default function AuthGuard({
           alignItems: "center",
           justifyContent:
             "center",
-          background:\n            "linear-gradient(145deg, #172554 0%, #1e3a8a 58%, #2563eb 100%)",
+          background:
+            "linear-gradient(145deg, #172554 0%, #1e3a8a 58%, #2563eb 100%)",
           color: "#ffffff",
           fontWeight: 700,
         }}
