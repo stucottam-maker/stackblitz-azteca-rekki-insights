@@ -18,6 +18,7 @@ import "./mobile-header-polish.css";
 import "./chef-workflows.css";
 import "./invoice-card-labels.css";
 import "./compact-mobile.css";
+import "./mobile-width-guard.css";
 
 import type { Metadata } from "next";
 import Script from "next/script";
