@@ -261,10 +261,16 @@
       if (!(target instanceof Element)) return;
 
       if (nativeCameraButton(target)) {
-        event.preventDefault();
-        event.stopPropagation();
-        void takeNativeInvoicePhoto();
-        return;
+        // Only swallow the click when the native Camera plugin is actually
+        // available. Older Android wrappers expose Capacitor but not Camera;
+        // in that case let the page use getUserMedia instead of silently
+        // blocking the camera button.
+        if (getNativeCamera()) {
+          event.preventDefault();
+          event.stopPropagation();
+          void takeNativeInvoicePhoto();
+          return;
+        }
       }
 
       if (nativeUploadButton(target) && openNativeFilePicker()) {
