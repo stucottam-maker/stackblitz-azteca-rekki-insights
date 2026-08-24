@@ -1,38 +1,38 @@
 .metro-app-shell {
-  --background: #f3f0e8;
-  --surface: #fffdf8;
-  --surface-soft: #f7f3eb;
-  --border: #ded8cb;
-  --text: #20231f;
-  --text-soft: #6d7169;
-  --green: #214f3d;
-  --green-dark: #16372b;
-  --green-soft: #e7efe9;
-  --orange: #c26d42;
+  --background: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #f7f9fc;
+  --border: #dce3ee;
+  --text: #172033;
+  --text-soft: #667085;
+  --green: #2563eb;
+  --green-dark: #172554;
+  --green-soft: #e8f0ff;
+  --orange: #2563eb;
   background: var(--background);
 }
 
 .metro-app-shell .chef-sidebar {
   background:
-    radial-gradient(circle at 10% 0%, rgba(194,109,66,.24), transparent 25%),
-    linear-gradient(180deg, #173b2e 0%, #102c23 100%);
+    radial-gradient(circle at 10% 0%, rgba(96,165,250,.22), transparent 25%),
+    linear-gradient(180deg, #172554 0%, #1e3a8a 100%);
 }
 
 .metro-app-shell .brand-mark {
-  background: #f3ede2;
-  color: #214f3d;
-  box-shadow: 0 0 0 5px rgba(194,109,66,.78), inset 0 0 0 1px rgba(33,79,61,.12);
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
 }
 
 .metro-app-shell .nav-link-active {
-  background: rgba(243,237,226,.14);
-  box-shadow: inset 3px 0 0 #d27b4e;
+  background: rgba(96,165,250,.22);
+  box-shadow: inset 3px 0 0 #60a5fa;
 }
 
 .metro-app-shell .main-content-root {
   background:
-    radial-gradient(circle at 92% 5%, rgba(194,109,66,.08), transparent 24%),
-    #f3f0e8;
+    radial-gradient(circle at 92% 5%, rgba(37,99,235,.08), transparent 24%),
+    #f4f7fb;
 }
 
 .metro-dashboard-page {
@@ -51,42 +51,42 @@
   padding: 34px 36px;
   overflow: hidden;
   border-radius: 26px;
-  color: #fffdf8;
-  background: linear-gradient(135deg, #16372b 0%, #214f3d 62%, #285d48 100%);
-  box-shadow: 0 22px 54px rgba(25,58,45,.16);
+  color: #ffffff;
+  background: linear-gradient(135deg, #172554 0%, #1e3a8a 62%, #2563eb 100%);
+  box-shadow: 0 22px 54px rgba(23,37,84,.18);
 }
 
 .metro-dashboard-hero-copy { position: relative; z-index: 2; max-width: 690px; }
-.metro-dashboard-kicker { margin-bottom: 13px; color: #e3a17c; font-size: 11px; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+.metro-dashboard-kicker { margin-bottom: 13px; color: #bfdbfe; font-size: 11px; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
 .metro-dashboard-hero h1 { max-width: 680px; font-size: clamp(36px, 4.2vw, 60px); line-height: .98; letter-spacing: -.055em; }
-.metro-dashboard-hero-copy > p:last-child { max-width: 610px; margin-top: 18px; color: rgba(255,253,248,.7); font-size: 16px; line-height: 1.55; }
+.metro-dashboard-hero-copy > p:last-child { max-width: 610px; margin-top: 18px; color: rgba(219,234,254,.82); font-size: 16px; line-height: 1.55; }
 
 .metro-dashboard-actions { position: relative; z-index: 2; display: flex; flex: 0 0 auto; gap: 10px; }
 .metro-primary-action, .metro-secondary-action { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 18px; border-radius: 12px; font-size: 13px; font-weight: 800; }
-.metro-primary-action { color: #18382c; background: #f2c3a7; box-shadow: 0 8px 24px rgba(9,26,20,.18); }
+.metro-primary-action { color: #172554; background: #ffffff; box-shadow: 0 8px 24px rgba(15,23,42,.2); }
 .metro-secondary-action { color: #fff; border: 1px solid rgba(255,255,255,.26); background: rgba(255,255,255,.08); }
-.metro-primary-action:hover { background: #f6d1bb; }
+.metro-primary-action:hover { background: #eff6ff; }
 .metro-secondary-action:hover { background: rgba(255,255,255,.14); }
 
 .metro-dashboard-orbit { position: absolute; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; pointer-events: none; }
 .metro-dashboard-orbit-one { right: -70px; top: -145px; width: 390px; height: 390px; }
 .metro-dashboard-orbit-two { right: 105px; bottom: -270px; width: 470px; height: 470px; }
 
-.metro-sync-notice { display: flex; align-items: center; gap: 10px; margin: -4px 0 18px; padding: 11px 14px; border: 1px solid #e4d3c3; border-radius: 12px; color: #6f5544; background: #fbf2e9; font-size: 13px; }
-.metro-sync-notice span { color: #9a4f2d; font-size: 10px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.metro-sync-notice { display: flex; align-items: center; gap: 10px; margin: -4px 0 18px; padding: 11px 14px; border: 1px solid #cfe0fb; border-radius: 12px; color: #344767; background: #eff6ff; font-size: 13px; }
+.metro-sync-notice span { color: #1d4ed8; font-size: 10px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
 
 .metro-stats-grid { gap: 14px; margin-bottom: 18px; }
-.metro-stat-card { min-height: 146px; padding: 20px; border: 1px solid #ded8cb !important; border-radius: 18px; background: #fffdf8; box-shadow: 0 9px 26px rgba(44,48,42,.055) !important; }
+.metro-stat-card { min-height: 146px; padding: 20px; border: 1px solid #dce3ee !important; border-radius: 18px; background: #ffffff; box-shadow: 0 9px 26px rgba(23,32,51,.06) !important; }
 .metro-stat-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-.metro-stat-heading > span { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; color: #a75331; background: #f8e5d8; font-size: 13px; font-weight: 900; }
-.metro-stat-card .stat-label { color: #73766e; }
-.metro-stat-card .stat-value { margin-top: 15px; color: #1c3f32; font-size: 29px; letter-spacing: -.035em; }
-.metro-stat-card .stat-change { margin-top: 8px; color: #7b7e76; }
+.metro-stat-heading > span { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; color: #1d4ed8; background: #e8f0ff; font-size: 13px; font-weight: 900; }
+.metro-stat-card .stat-label { color: #667085; }
+.metro-stat-card .stat-value { margin-top: 15px; color: #172554; font-size: 29px; letter-spacing: -.035em; }
+.metro-stat-card .stat-change { margin-top: 8px; color: #667085; }
 
 .metro-dashboard-grid { gap: 16px; }
-.metro-dashboard-panel { min-height: 190px; padding: 22px; border: 1px solid #ded8cb !important; border-radius: 20px; background: #fffdf8; box-shadow: 0 9px 26px rgba(44,48,42,.05) !important; }
-.metro-dashboard-panel .panel-kicker { color: #b95f36; }
-.metro-dashboard-panel h2 { color: #1c3f32; }
+.metro-dashboard-panel { min-height: 190px; padding: 22px; border: 1px solid #dce3ee !important; border-radius: 20px; background: #ffffff; box-shadow: 0 9px 26px rgba(23,32,51,.055) !important; }
+.metro-dashboard-panel .panel-kicker { color: #2563eb; }
+.metro-dashboard-panel h2 { color: #172554; }
 
 @media (max-width: 980px) {
   .metro-dashboard-hero { align-items: flex-start; flex-direction: column; }
