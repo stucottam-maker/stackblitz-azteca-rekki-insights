@@ -1,225 +1,52 @@
 "use client";
-
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { formatCurrency, generateInsights } from "./data/insights";
 import { loadInsightWorkspaceData } from "./lib/insightWorkspaceData";
-
 type Input = Awaited<ReturnType<typeof loadInsightWorkspaceData>>;
-
-type ActionTile = {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-  tone: string;
-  wide?: boolean;
-};
-
-const actionTiles: ActionTile[] = [
-  {
-    href: "/orders",
-    icon: "+",
-    title: "Orders",
-    description: "Build and send purchase orders",
-    tone: "royal",
-  },
-  {
-    href: "/invoices",
-    icon: "▤",
-    title: "Invoices",
-    description: "Review supplier invoices",
-    tone: "blue",
-  },
-  {
-    href: "/stock",
-    icon: "□",
-    title: "Stock",
-    description: "Count stock and see movements",
-    tone: "cyan",
-  },
-  {
-    href: "/recipes",
-    icon: "◇",
-    title: "Recipes",
-    description: "Cost recipes and prep",
-    tone: "indigo",
-  },
-  {
-    href: "/insights",
-    icon: "✦",
-    title: "Insights",
-    description: "Spot cost and performance changes",
-    tone: "teal",
-  },
-  {
-    href: "/suppliers",
-    icon: "◯",
-    title: "Suppliers",
-    description: "Contacts, products and pricing",
-    tone: "orange",
-  },
-  {
-    href: "/reports",
-    icon: "↗",
-    title: "Reports",
-    description: "COGS, spend and GP reporting",
-    tone: "navy",
-    wide: true,
-  },
-  {
-    href: "/invoices/upload",
-    icon: "⇧",
-    title: "Upload invoice",
-    description: "Camera, gallery or file upload",
-    tone: "electric",
-    wide: true,
-  },
+const actionTiles = [
+  { href: "/orders", label: "Orders", icon: "+", tone: "royal" }, { href: "/invoices", label: "Invoices", icon: "▤", tone: "blue" },
+  { href: "/stock", label: "Stock", icon: "□", tone: "cyan" }, { href: "/recipes", label: "Recipes", icon: "◇", tone: "violet" },
+  { href: "/insights", label: "Insights", icon: "✦", tone: "teal" }, { href: "/suppliers", label: "Suppliers", icon: "○", tone: "orange" },
+  { href: "/reports", label: "Reports", icon: "↗", tone: "navy" }, { href: "/invoices/upload", label: "Upload invoice", icon: "⇧", tone: "royal-wide" },
 ];
-
 export default function DashboardPage() {
   const [data, setData] = useState<Input | null>(null);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    loadInsightWorkspaceData().then(setData).catch((reason) =>
-      setError(reason instanceof Error ? reason.message : "Could not load dashboard")
-    );
-  }, []);
-
+  useEffect(() => { loadInsightWorkspaceData().then(setData).catch(() => undefined); }, []);
   const result = useMemo(() => (data ? generateInsights(data) : null), [data]);
   const metrics = result?.metrics;
-  const urgent = result?.insights.filter((item) => item.severity === "high") ?? [];
-
-  return (
-    <div className="page metro-dashboard">
-      {error && <div className="notice">{error}</div>}
-
-      <section className="metro-metric-grid" aria-label="Kitchen performance at a glance">
-        <MetricTile
-          label="Spend this month"
-          value={metrics ? formatCurrency(metrics.spendThisMonth) : "—"}
-          note="Selected site invoices"
-          icon="£"
-          tone="spend"
-        />
-        <MetricTile
-          label="Stock value"
-          value={metrics?.currentStockValue == null ? "—" : formatCurrency(metrics.currentStockValue)}
-          note="Latest selected-site stock"
-          icon="□"
-          tone="stock"
-        />
-        <MetricTile
-          label="Actual COGS"
-          value={metrics?.actualCogs == null ? "—" : formatCurrency(metrics.actualCogs)}
-          note="Purchases and stock movement"
-          icon="▥"
-          tone="cogs"
-        />
-        <MetricTile
-          label="Food cost variance"
-          value={metrics?.foodCostVariancePercent == null ? "—" : `${metrics.foodCostVariancePercent.toFixed(1)}%`}
-          note="Actual versus theoretical"
-          icon="%"
-          tone="variance"
-        />
+  const spend = metrics ? formatCurrency(metrics.spendThisMonth) : "—";
+  const stock = metrics?.currentStockValue != null ? formatCurrency(metrics.currentStockValue) : "—";
+  const cogs = metrics?.actualCogs != null ? formatCurrency(metrics.actualCogs) : "—";
+  const variance = metrics?.foodCostVariancePercent;
+  const varianceLabel = variance != null ? `${variance > 0 ? "+" : ""}${variance.toFixed(1)}%` : "—";
+  const suppliers = result?.supplierSpend.slice(0, 4) ?? [];
+  const invoiceCount = metrics?.approvedInvoices;
+  const highPriorityIssues = result?.insights.filter((insight) => insight.severity === "high").length;
+  return <div className="page metro-tile-page">
+    <div className="metro-desktop-dashboard">
+      <header className="metro-desktop-heading"><div><p>Kitchen overview</p><h1>Your operating numbers, in one place.</h1></div><Link href="/reports">Open reports →</Link></header>
+      <section className="metro-desktop-stats" aria-label="Kitchen performance summary">
+        <DesktopKpi label="Spend this month" value={spend} note="Approved invoices" /><DesktopKpi label="Stock value" value={stock} note="Latest completed count" />
+        <DesktopKpi label="Actual COGS" value={cogs} note="Purchases and stock movement" /><DesktopKpi label="Food cost variance" value={varianceLabel} note="Actual versus theoretical" />
       </section>
-
-      <section className="metro-actions" aria-labelledby="metro-actions-title">
-        <div className="metro-section-heading">
-          <div>
-            <p className="eyebrow">Kitchen home</p>
-            <h1 id="metro-actions-title">What do you need to do?</h1>
-          </div>
-          <Link href="/insights" className="metro-text-link">View insights →</Link>
-        </div>
-
-        <div className="metro-tile-grid">
-          {actionTiles.map((tile) => (
-            <Link
-              href={tile.href}
-              key={tile.title}
-              className={`metro-action-tile metro-tone-${tile.tone} ${tile.wide ? "metro-action-wide" : ""}`}
-            >
-              <span className="metro-action-icon" aria-hidden="true">{tile.icon}</span>
-              <span className="metro-action-copy">
-                <strong>{tile.title}</strong>
-                <span>{tile.description}</span>
-              </span>
-              <span className="metro-action-arrow" aria-hidden="true">→</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="metro-attention-card">
-        <div className="metro-attention-heading">
-          <div>
-            <p className="panel-kicker">Needs attention</p>
-            <h2>{urgent.length} high-priority {urgent.length === 1 ? "issue" : "issues"}</h2>
-          </div>
-          <Link href="/insights">View all →</Link>
-        </div>
-
-        <div className="metro-alert-grid">
-          {urgent.length ? urgent.slice(0, 3).map((item) => (
-            <Link href="/insights" className="metro-alert-item" key={item.id}>
-              <span className="metro-alert-dot" aria-hidden="true" />
-              <span>
-                <strong>{item.title}</strong>
-                <small>{item.message}</small>
-              </span>
-            </Link>
-          )) : (
-            <div className="metro-empty-message">No high-priority issues in this workspace.</div>
-          )}
-        </div>
-      </section>
-
-      <section className="metro-supplier-strip">
-        <div className="metro-attention-heading">
-          <div>
-            <p className="panel-kicker">Purchasing</p>
-            <h2>Top supplier spend</h2>
-          </div>
-          <Link href="/reports">Reports →</Link>
-        </div>
-        <div className="metro-supplier-grid">
-          {result?.supplierSpend.length ? result.supplierSpend.slice(0, 4).map((supplier) => (
-            <div className="metro-supplier-item" key={supplier.supplier}>
-              <span>{supplier.supplier}</span>
-              <strong>{formatCurrency(supplier.total)}</strong>
-              <small>{supplier.invoiceCount} invoices</small>
-            </div>
-          )) : <div className="metro-empty-message">No supplier spend recorded for this workspace.</div>}
-        </div>
+      <section className="metro-desktop-tables">
+        <article className="metro-table-panel"><div className="metro-table-title"><div><p>Purchasing</p><h2>Supplier spend</h2></div><Link href="/invoices">View invoices →</Link></div>
+          <div className="metro-table"><div className="metro-table-row metro-table-head"><span>Supplier</span><span>Invoices</span><span>Spend</span></div>{suppliers.length ? suppliers.map((supplier) => <div className="metro-table-row" key={supplier.supplier}><strong>{supplier.supplier}</strong><span>{supplier.invoiceCount}</span><strong>{formatCurrency(supplier.total)}</strong></div>) : <div className="metro-table-row metro-table-empty"><span>No approved supplier invoices yet.</span></div>}</div>
+        </article>
+        <article className="metro-table-panel"><div className="metro-table-title"><div><p>Cost control</p><h2>Current signals</h2></div><Link href="/insights">View insights →</Link></div>
+          <div className="metro-table"><div className="metro-table-row metro-table-head"><span>Measure</span><span>Status</span><span>Value</span></div><div className="metro-table-row"><strong>Invoice coverage</strong><span className="metro-status-good">Current</span><strong>{invoiceCount != null ? `${invoiceCount} approved` : "—"}</strong></div><div className="metro-table-row"><strong>Stock position</strong><span className="metro-status-good">Counted</span><strong>{stock}</strong></div><div className="metro-table-row"><strong>Food cost variance</strong><span className="metro-status-watch">Review</span><strong>{varianceLabel}</strong></div><div className="metro-table-row"><strong>High-priority issues</strong><span className="metro-status-good">{highPriorityIssues ? "Action" : "Clear"}</span><strong>{highPriorityIssues ?? "—"}</strong></div></div>
+        </article>
       </section>
     </div>
-  );
+    <div className="metro-mobile-dashboard"><section className="metro-kpi-grid" aria-label="Kitchen performance summary">
+      <MetroKpi label="Spend this month" value={spend} icon="£" tone="royal" /><MetroKpi label="Stock value" value={stock} icon="□" tone="blue" />
+      <MetroKpi label="Actual COGS" value={cogs} icon="▥" tone="navy" /><MetroKpi label="Food cost variance" value={varianceLabel} icon="%" tone="cobalt" />
+    </section>
+    <section className="metro-home-section"><div className="metro-home-heading"><div><p>Kitchen home</p><h1>What do you need to do?</h1></div><Link href="/insights">View insights <span aria-hidden="true">→</span></Link></div>
+      <nav className="metro-action-grid" aria-label="Kitchen workflows">{actionTiles.map((tile) => <Link key={tile.href} href={tile.href} className={`metro-action-tile metro-action-${tile.tone}`}><span className="metro-action-icon" aria-hidden="true">{tile.icon}</span><strong>{tile.label}</strong><span className="metro-action-arrow" aria-hidden="true">→</span></Link>)}</nav>
+    </section></div>
+  </div>;
 }
-
-function MetricTile({
-  label,
-  value,
-  note,
-  icon,
-  tone,
-}: {
-  label: string;
-  value: string;
-  note: string;
-  icon: string;
-  tone: string;
-}) {
-  return (
-    <article className={`metro-metric-tile metro-metric-${tone}`}>
-      <div className="metro-metric-copy">
-        <p>{label}</p>
-        <strong>{value}</strong>
-        <span>{note}</span>
-      </div>
-      <span className="metro-metric-icon" aria-hidden="true">{icon}</span>
-    </article>
-  );
-}
+function MetroKpi({ label, value, icon, tone }: { label: string; value: string; icon: string; tone: string }) { return <article className={`metro-kpi metro-kpi-${tone}`}><p>{label}</p><strong>{value}</strong><span aria-hidden="true">{icon}</span></article>; }
+function DesktopKpi({ label, value, note }: { label: string; value: string; note: string }) { return <article className="metro-desktop-kpi"><p>{label}</p><strong>{value}</strong><span>{note}</span></article>; }
