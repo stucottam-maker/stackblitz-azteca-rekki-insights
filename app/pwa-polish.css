@@ -45,7 +45,7 @@
 }
 
 @media (display-mode: standalone) {
-  html { background: var(--green); }
+  html { background: #172554; }
   body {
     min-height: 100dvh;
     overscroll-behavior-y: none;
