@@ -1,0 +1,106 @@
+.metro-app-shell {
+  --background: #f3f0e8;
+  --surface: #fffdf8;
+  --surface-soft: #f7f3eb;
+  --border: #ded8cb;
+  --text: #20231f;
+  --text-soft: #6d7169;
+  --green: #214f3d;
+  --green-dark: #16372b;
+  --green-soft: #e7efe9;
+  --orange: #c26d42;
+  background: var(--background);
+}
+
+.metro-app-shell .chef-sidebar {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(194,109,66,.24), transparent 25%),
+    linear-gradient(180deg, #173b2e 0%, #102c23 100%);
+}
+
+.metro-app-shell .brand-mark {
+  background: #f3ede2;
+  color: #214f3d;
+  box-shadow: 0 0 0 5px rgba(194,109,66,.78), inset 0 0 0 1px rgba(33,79,61,.12);
+}
+
+.metro-app-shell .nav-link-active {
+  background: rgba(243,237,226,.14);
+  box-shadow: inset 3px 0 0 #d27b4e;
+}
+
+.metro-app-shell .main-content-root {
+  background:
+    radial-gradient(circle at 92% 5%, rgba(194,109,66,.08), transparent 24%),
+    #f3f0e8;
+}
+
+.metro-dashboard-page {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.metro-dashboard-hero {
+  position: relative;
+  display: flex;
+  min-height: 240px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 22px;
+  padding: 34px 36px;
+  overflow: hidden;
+  border-radius: 26px;
+  color: #fffdf8;
+  background: linear-gradient(135deg, #16372b 0%, #214f3d 62%, #285d48 100%);
+  box-shadow: 0 22px 54px rgba(25,58,45,.16);
+}
+
+.metro-dashboard-hero-copy { position: relative; z-index: 2; max-width: 690px; }
+.metro-dashboard-kicker { margin-bottom: 13px; color: #e3a17c; font-size: 11px; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+.metro-dashboard-hero h1 { max-width: 680px; font-size: clamp(36px, 4.2vw, 60px); line-height: .98; letter-spacing: -.055em; }
+.metro-dashboard-hero-copy > p:last-child { max-width: 610px; margin-top: 18px; color: rgba(255,253,248,.7); font-size: 16px; line-height: 1.55; }
+
+.metro-dashboard-actions { position: relative; z-index: 2; display: flex; flex: 0 0 auto; gap: 10px; }
+.metro-primary-action, .metro-secondary-action { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 18px; border-radius: 12px; font-size: 13px; font-weight: 800; }
+.metro-primary-action { color: #18382c; background: #f2c3a7; box-shadow: 0 8px 24px rgba(9,26,20,.18); }
+.metro-secondary-action { color: #fff; border: 1px solid rgba(255,255,255,.26); background: rgba(255,255,255,.08); }
+.metro-primary-action:hover { background: #f6d1bb; }
+.metro-secondary-action:hover { background: rgba(255,255,255,.14); }
+
+.metro-dashboard-orbit { position: absolute; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; pointer-events: none; }
+.metro-dashboard-orbit-one { right: -70px; top: -145px; width: 390px; height: 390px; }
+.metro-dashboard-orbit-two { right: 105px; bottom: -270px; width: 470px; height: 470px; }
+
+.metro-sync-notice { display: flex; align-items: center; gap: 10px; margin: -4px 0 18px; padding: 11px 14px; border: 1px solid #e4d3c3; border-radius: 12px; color: #6f5544; background: #fbf2e9; font-size: 13px; }
+.metro-sync-notice span { color: #9a4f2d; font-size: 10px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+
+.metro-stats-grid { gap: 14px; margin-bottom: 18px; }
+.metro-stat-card { min-height: 146px; padding: 20px; border: 1px solid #ded8cb !important; border-radius: 18px; background: #fffdf8; box-shadow: 0 9px 26px rgba(44,48,42,.055) !important; }
+.metro-stat-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.metro-stat-heading > span { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; color: #a75331; background: #f8e5d8; font-size: 13px; font-weight: 900; }
+.metro-stat-card .stat-label { color: #73766e; }
+.metro-stat-card .stat-value { margin-top: 15px; color: #1c3f32; font-size: 29px; letter-spacing: -.035em; }
+.metro-stat-card .stat-change { margin-top: 8px; color: #7b7e76; }
+
+.metro-dashboard-grid { gap: 16px; }
+.metro-dashboard-panel { min-height: 190px; padding: 22px; border: 1px solid #ded8cb !important; border-radius: 20px; background: #fffdf8; box-shadow: 0 9px 26px rgba(44,48,42,.05) !important; }
+.metro-dashboard-panel .panel-kicker { color: #b95f36; }
+.metro-dashboard-panel h2 { color: #1c3f32; }
+
+@media (max-width: 980px) {
+  .metro-dashboard-hero { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 640px) {
+  .metro-dashboard-page { width: 100%; }
+  .metro-dashboard-hero { min-height: 0; margin: -6px 0 16px; padding: 25px 20px 22px; border-radius: 20px; }
+  .metro-dashboard-hero h1 { font-size: 40px; }
+  .metro-dashboard-hero-copy > p:last-child { font-size: 14px; }
+  .metro-dashboard-actions { display: grid; width: 100%; grid-template-columns: 1fr 1fr; }
+  .metro-primary-action, .metro-secondary-action { width: 100%; padding: 0 12px; }
+  .metro-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+  .metro-stat-card { min-height: 142px; padding: 16px; }
+  .metro-stat-card .stat-value { font-size: 26px; }
+  .metro-dashboard-grid { grid-template-columns: 1fr !important; }
+}

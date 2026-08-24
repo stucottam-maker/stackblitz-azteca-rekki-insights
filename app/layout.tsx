@@ -12,6 +12,7 @@ import "./pwa-polish.css";
 import "./invoice-mobile-fix.css";
 import "./workspace-polish.css";
 import "./chef-ui.css";
+import "./metro-dashboard.css";
 
 import Script from "next/script";
 import AppFrame from "./components/AppFrame";
