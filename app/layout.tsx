@@ -28,8 +28,9 @@ export const metadata = {
     title: "Kitchen Insights",
   },
   icons: {
-    icon: "/pwa-icon.svg",
-    apple: "/pwa-icon.svg",
+    icon: "/favicon-blue.svg",
+    shortcut: "/favicon-blue.svg",
+    apple: "/favicon-blue.svg",
   },
 };
 
