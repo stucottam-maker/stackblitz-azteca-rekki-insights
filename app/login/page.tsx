@@ -1,7 +1,6 @@
 "use client";
 
 import { type FormEvent, useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { supabase } from "../lib/supabase";
@@ -123,15 +122,7 @@ export default function LoginPage() {
     <main className="login-page">
       <section className="login-simple-shell">
         <div className="login-brand-row login-simple-brand">
-          <div className="login-brand-icon">
-            <Image
-              src="/pwa-icon.svg"
-              alt="Kitchen Insights"
-              width={42}
-              height={42}
-              priority
-            />
-          </div>
+          <div className="login-brand-icon login-brand-icon-live" aria-label="Kitchen Insights">KI</div>
           <div className="login-brand-copy">
             <strong>Kitchen Insights</strong>
             <span>Kitchen operations, connected</span>
