@@ -1,4 +1,4 @@
-const CACHE_NAME = "kitchen-insights-static-v2";
+const CACHE_NAME = "kitchen-insights-static-v3";
 const OFFLINE_URL = "/offline.html";
 const STATIC_BOOTSTRAP = [OFFLINE_URL, "/pwa-icon.svg"];
 
@@ -49,9 +49,27 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  const isAppCode =
+    url.pathname.startsWith("/_next/static/") &&
+    /\.(?:css|js)$/i.test(url.pathname);
+
+  if (isAppCode) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok && response.type === "basic") {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
   const isStaticAsset =
-    url.pathname.startsWith("/_next/static/") ||
-    /\.(?:css|js|woff2?|png|jpe?g|svg|webp|ico)$/i.test(url.pathname);
+    /\.(?:woff2?|png|jpe?g|svg|webp|ico)$/i.test(url.pathname);
 
   if (!isStaticAsset) return;
 
