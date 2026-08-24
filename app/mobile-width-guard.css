@@ -88,3 +88,65 @@
     box-sizing: border-box !important;
   }
 }
+
+/* Stock phone hierarchy: product first, quantity second. */
+@media (max-width: 480px) {
+  .chef-stock-page .chef-stock-row {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 7px !important;
+    padding: 10px 11px !important;
+  }
+
+  .chef-stock-page .chef-stock-copy {
+    width: 100% !important;
+  }
+
+  .chef-stock-page .chef-stock-copy strong {
+    display: block !important;
+    font-size: 17px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+  }
+
+  .chef-stock-page .chef-stock-copy small {
+    margin-top: 3px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+  }
+
+  .chef-stock-page .chef-stock-counter {
+    width: 100% !important;
+    max-width: none !important;
+    justify-self: stretch !important;
+    grid-template-columns: 42px minmax(64px, 1fr) auto 42px !important;
+    gap: 5px !important;
+  }
+
+  .chef-stock-page .chef-stock-counter button {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+  }
+
+  .chef-stock-page .chef-stock-counter input {
+    height: 42px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    font-weight: 750 !important;
+    text-align: center !important;
+  }
+
+  .chef-stock-page .chef-stock-counter span {
+    font-size: 13px !important;
+  }
+
+  .chef-stock-page .chef-stock-value {
+    justify-self: end !important;
+    margin-top: -2px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+  }
+}
