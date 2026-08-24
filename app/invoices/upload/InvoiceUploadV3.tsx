@@ -9,6 +9,7 @@ const MAX_FILE_SIZE = 30 * 1024 * 1024;
 const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
 const MAX_PHOTO_PAGES = 12;
 const MAX_CAMERA_EDGE = 2200;
+const SERVER_UPLOAD_TARGET = 3 * 1024 * 1024;
 
 type SelectedFile = { id: string; file: File };
 type UploadedFile = { fileName: string; fileType: string; filePath: string };
@@ -20,7 +21,7 @@ function randomId() {
 }
 
 function inferFileType(file: File) {
-  if (file.type) return file.type.toLowerCase();
+  if (file.type && file.type !== "application/octet-stream") return file.type.toLowerCase();
   const extension = file.name.split(".").pop()?.toLowerCase();
   if (extension === "pdf") return "application/pdf";
   if (extension === "jpg" || extension === "jpeg") return "image/jpeg";
@@ -44,10 +45,112 @@ function stopStream(stream: MediaStream | null) {
   stream?.getTracks().forEach((track) => track.stop());
 }
 
+function jpgName(name: string) {
+  const base = name.replace(/\.[^.]+$/, "") || "invoice";
+  return `${base}.jpg`;
+}
+
+async function loadImage(file: File) {
+  const url = URL.createObjectURL(file);
+  try {
+    return await new Promise<HTMLImageElement>((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = () => reject(new Error("Could not prepare that photo for upload."));
+      image.src = url;
+    });
+  } finally {
+    // Revoked by the caller once the image has finished loading.
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  }
+}
+
+async function canvasBlob(canvas: HTMLCanvasElement, quality: number) {
+  return await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/jpeg", quality)
+  );
+}
+
+async function optimisePhotoForUpload(file: File) {
+  const fileType = inferFileType(file);
+  if (!fileType.startsWith("image/") || file.size <= SERVER_UPLOAD_TARGET) return file;
+
+  try {
+    const image = await loadImage(file);
+    const sourceWidth = image.naturalWidth || image.width;
+    const sourceHeight = image.naturalHeight || image.height;
+    if (!sourceWidth || !sourceHeight) return file;
+
+    let maxEdge = MAX_CAMERA_EDGE;
+    let quality = 0.86;
+    let best: Blob | null = null;
+
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      const scale = Math.min(1, maxEdge / Math.max(sourceWidth, sourceHeight));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(sourceWidth * scale));
+      canvas.height = Math.max(1, Math.round(sourceHeight * scale));
+      const context = canvas.getContext("2d");
+      if (!context) return file;
+
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const blob = await canvasBlob(canvas, quality);
+      if (!blob) return file;
+      best = blob;
+
+      if (blob.size <= SERVER_UPLOAD_TARGET) {
+        return new File([blob], jpgName(file.name), {
+          type: "image/jpeg",
+          lastModified: Date.now(),
+        });
+      }
+
+      maxEdge = Math.max(1400, Math.round(maxEdge * 0.82));
+      quality = Math.max(0.68, quality - 0.06);
+    }
+
+    if (best && best.size < file.size) {
+      return new File([best], jpgName(file.name), {
+        type: "image/jpeg",
+        lastModified: Date.now(),
+      });
+    }
+  } catch (photoError) {
+    console.warn("PHOTO OPTIMISATION FAILED", photoError);
+  }
+
+  return file;
+}
+
+function tryNativeCameraBridge() {
+  const nativeWindow = window as any;
+  const bridges = [
+    nativeWindow.KitchenInsightsAndroid,
+    nativeWindow.KitchenInsights,
+    nativeWindow.Android,
+  ].filter(Boolean);
+
+  const methodNames = ["openInvoiceCamera", "takeInvoicePhoto", "openCamera"];
+
+  for (const bridge of bridges) {
+    for (const methodName of methodNames) {
+      if (typeof bridge?.[methodName] === "function") {
+        try {
+          bridge[methodName]();
+          return true;
+        } catch (bridgeError) {
+          console.warn(`NATIVE CAMERA BRIDGE ${methodName} FAILED`, bridgeError);
+        }
+      }
+    }
+  }
+
+  return false;
+}
+
 export default function InvoiceUploadV3() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const cameraFallbackRef = useRef<HTMLInputElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const cameraStreamRef = useRef<MediaStream | null>(null);
   const filesRef = useRef<SelectedFile[]>([]);
@@ -119,7 +222,7 @@ export default function InvoiceUploadV3() {
       return;
     }
     setFiles(next);
-    setStage(pdfs.length ? "PDF ready." : next.length === 1 ? "Photo ready — add another page if needed." : `${next.length} photos ready.`);
+    setStage(pdfs.length ? "PDF ready." : next.length === 1 ? "Photo ready - add another page if needed." : `${next.length} photos ready.`);
   }
 
   function handleFileInput(event: ChangeEvent<HTMLInputElement>, mode: "append" | "replace") {
@@ -131,10 +234,14 @@ export default function InvoiceUploadV3() {
   async function openCamera() {
     setError("");
     if (busy || hasPdf || files.length >= MAX_PHOTO_PAGES) return;
+
+    if (tryNativeCameraBridge()) return;
+
     if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
-      cameraFallbackRef.current?.click();
+      setError("The camera is not available in this view. Use the Android camera permission or Choose photos or PDF.");
       return;
     }
+
     try {
       setCameraStarting(true);
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -145,8 +252,10 @@ export default function InvoiceUploadV3() {
       setCameraOpen(true);
     } catch (cameraError) {
       console.error("CAMERA OPEN FAILED", cameraError);
-      cameraFallbackRef.current?.click();
-    } finally { setCameraStarting(false); }
+      setError("Camera permission is blocked. Allow Camera for Kitchen Insights and tap Take photo again.");
+    } finally {
+      setCameraStarting(false);
+    }
   }
 
   async function capturePhoto() {
@@ -163,7 +272,7 @@ export default function InvoiceUploadV3() {
       const context = canvas.getContext("2d");
       if (!context) throw new Error("Could not prepare the camera image.");
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.9));
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.86));
       if (!blob) throw new Error("The camera did not return a photo.");
       const file = new File([blob], `invoice-${Date.now()}.jpg`, { type: "image/jpeg", lastModified: Date.now() });
       closeCamera();
@@ -194,14 +303,57 @@ export default function InvoiceUploadV3() {
     return data;
   }
 
-  async function uploadFile(file: File, token: string): Promise<UploadedFile> {
+  async function uploadViaServer(file: File, token: string): Promise<UploadedFile> {
+    const form = new FormData();
+    form.append("file", file, file.name);
+
+    const response = await fetch("/api/invoices/upload-file", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: form,
+    });
+
+    const text = await response.text();
+    let data: any = {};
+    try { data = text ? JSON.parse(text) : {}; }
+    catch { throw new Error(text || "Invalid upload response"); }
+    if (!response.ok) throw new Error(data.error || "Could not store invoice");
+
+    return {
+      fileName: String(data.fileName || file.name),
+      fileType: String(data.fileType || inferFileType(file)),
+      filePath: String(data.filePath || ""),
+    };
+  }
+
+  async function uploadViaSignedUrl(file: File, token: string): Promise<UploadedFile> {
     const fileType = inferFileType(file) || "application/octet-stream";
-    const ticket = await apiJson("/api/invoices/upload-ticket", token, { action: "prepare", fileName: file.name, fileType });
+    const ticket = await apiJson("/api/invoices/upload-ticket", token, {
+      action: "prepare",
+      fileName: file.name,
+      fileType,
+    });
+
     const { error: uploadError } = await supabase.storage
       .from(STORAGE_BUCKET)
       .uploadToSignedUrl(ticket.filePath, ticket.token, file, { contentType: fileType });
+
     if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
     return { fileName: file.name, fileType, filePath: ticket.filePath };
+  }
+
+  async function uploadFile(file: File, token: string): Promise<UploadedFile> {
+    const prepared = await optimisePhotoForUpload(file);
+
+    if (prepared.size <= SERVER_UPLOAD_TARGET) {
+      try {
+        return await uploadViaServer(prepared, token);
+      } catch (serverUploadError) {
+        console.warn("SERVER INVOICE UPLOAD FAILED, TRYING SIGNED STORAGE", serverUploadError);
+      }
+    }
+
+    return uploadViaSignedUrl(prepared, token);
   }
 
   async function extractInvoice() {
@@ -212,13 +364,13 @@ export default function InvoiceUploadV3() {
       setBusy(true);
       setError("");
       setSafeJobId("");
-      setStage("Checking your session…");
+      setStage("Checking your session...");
       const session = await getSession();
       if (!session?.access_token) { router.replace("/login"); return; }
 
       const uploaded: UploadedFile[] = [];
       for (let index = 0; index < files.length; index += 1) {
-        setStage(files.length === 1 ? "Safely storing invoice…" : `Safely storing page ${index + 1} of ${files.length}…`);
+        setStage(files.length === 1 ? "Safely storing invoice..." : `Safely storing page ${index + 1} of ${files.length}...`);
         uploaded.push(await uploadFile(files[index].file, session.access_token));
       }
 
@@ -226,7 +378,7 @@ export default function InvoiceUploadV3() {
       jobId = String(created.jobId || "");
       jobCreated = Boolean(jobId);
       setSafeJobId(jobId);
-      setStage("Reading invoice…");
+      setStage("Reading invoice...");
       const extracted = await apiJson("/api/invoices/jobs", session.access_token, { action: "extract", jobId });
       const invoices = Array.isArray(extracted.invoices) ? extracted.invoices : [];
       if (!invoices.length) throw new Error("No invoice was found in that file.");
@@ -239,20 +391,19 @@ export default function InvoiceUploadV3() {
         filePath: uploaded.length === 1 ? uploaded[0].filePath : JSON.stringify(uploaded.map((item) => item.filePath)),
         files: uploaded,
       }));
-      setStage("Opening review…");
+      setStage("Opening review...");
       router.push("/invoices/review");
     } catch (uploadError) {
       console.error("INVOICE UPLOAD FAILED", uploadError);
       setStage("");
       const message = uploadError instanceof Error ? uploadError.message : "Invoice upload failed.";
-      setError(jobCreated ? `${message} Your invoice is safely stored — retry it from the Invoice inbox without photographing it again.` : message);
+      setError(jobCreated ? `${message} Your invoice is safely stored - retry it from the Invoice inbox without photographing it again.` : message);
       if (jobId) setSafeJobId(jobId);
     } finally { setBusy(false); }
   }
 
   return (
     <div className="page invoice-upload-chef-page">
-      <input ref={cameraFallbackRef} type="file" accept="image/jpeg,image/png,image/webp" capture="environment" style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }} onChange={(event) => handleFileInput(event, "append")} tabIndex={-1} />
       <input ref={fileInputRef} type="file" multiple accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp" style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }} onChange={(event) => handleFileInput(event, "replace")} tabIndex={-1} />
 
       <header className="topbar"><div><p className="eyebrow">Invoices</p><h1>Scan an invoice</h1><p className="page-description">Take the photo, check the figures, approve. If extraction ever fails, the original is kept safely for retry.</p></div></header>
@@ -260,13 +411,13 @@ export default function InvoiceUploadV3() {
 
       <section className="panel chef-upload-panel">
         <div className="chef-upload-actions">
-          <button type="button" className="primary-button chef-big-action" data-ki-camera-trigger="true" disabled={busy || cameraStarting || hasPdf || files.length >= MAX_PHOTO_PAGES} onClick={() => void openCamera()}><span aria-hidden="true">📷</span><span>{cameraStarting ? "Opening camera…" : files.length && !hasPdf ? "Add another page" : "Take photo"}</span></button>
+          <button type="button" className="primary-button chef-big-action" data-ki-camera-trigger="true" disabled={busy || cameraStarting || hasPdf || files.length >= MAX_PHOTO_PAGES} onClick={() => void openCamera()}><span aria-hidden="true">📷</span><span>{cameraStarting ? "Opening camera..." : files.length && !hasPdf ? "Add another page" : "Take photo"}</span></button>
           <button type="button" className="secondary-inline-button chef-big-action" disabled={busy} onClick={() => fileInputRef.current?.click()}><span aria-hidden="true">▤</span><span>Choose photos or PDF</span></button>
         </div>
 
         {files.length > 0 && <div className="chef-file-stack">{files.map((item, index) => <div className="chef-file-row" key={item.id}><div><strong>{hasPdf ? "PDF invoice" : `Page ${index + 1}`}</strong><span>{item.file.name} · {formatFileSize(item.file.size)}</span></div><button type="button" className="text-button" disabled={busy} onClick={() => setFiles((current) => current.filter((file) => file.id !== item.id))}>Remove</button></div>)}</div>}
 
-        <div className="chef-upload-footer"><div><strong>{files.length ? `${files.length} file${files.length === 1 ? "" : "s"} ready` : "No invoice selected"}</strong><span>{files.length ? `${formatFileSize(totalSize)} total` : "Photo or PDF · up to 12 pages"}</span></div><button type="button" className="primary-button chef-review-action" disabled={busy || files.length === 0} onClick={() => void extractInvoice()}>{busy ? stage || "Working…" : "Read invoice →"}</button></div>
+        <div className="chef-upload-footer"><div><strong>{files.length ? `${files.length} file${files.length === 1 ? "" : "s"} ready` : "No invoice selected"}</strong><span>{files.length ? `${formatFileSize(totalSize)} total` : "Photo or PDF · up to 12 pages"}</span></div><button type="button" className="primary-button chef-review-action" disabled={busy || files.length === 0} onClick={() => void extractInvoice()}>{busy ? stage || "Working..." : "Read invoice →"}</button></div>
       </section>
 
       {cameraOpen && <div className="invoice-camera-overlay" role="dialog" aria-modal="true" aria-label="Invoice camera"><div className="invoice-camera-card"><video ref={videoRef} playsInline muted className="invoice-camera-video" /><div className="invoice-camera-actions"><button className="secondary-inline-button" type="button" onClick={closeCamera}>Cancel</button><button className="primary-button" type="button" onClick={() => void capturePhoto()}>Capture invoice</button></div></div></div>}
