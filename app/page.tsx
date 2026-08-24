@@ -15,33 +15,33 @@ export default function DashboardPage() {
   useEffect(() => { loadInsightWorkspaceData().then(setData).catch(() => undefined); }, []);
   const result = useMemo(() => (data ? generateInsights(data) : null), [data]);
   const metrics = result?.metrics;
-  const spend = metrics?.spendThisMonth && metrics.spendThisMonth > 0 ? metrics.spendThisMonth : 12840;
-  const stock = metrics?.currentStockValue && metrics.currentStockValue > 0 ? metrics.currentStockValue : 8460;
-  const cogs = metrics?.actualCogs && metrics.actualCogs > 0 ? metrics.actualCogs : 4380;
-  const variance = metrics?.foodCostVariancePercent ?? 2.4;
-  const suppliers = result?.supplierSpend.length ? result.supplierSpend.slice(0, 4) : [
-    { supplier: "Booker Wholesale", invoiceCount: 7, total: 4820 }, { supplier: "Woods Foodservice", invoiceCount: 5, total: 3260 },
-    { supplier: "Fresh Direct", invoiceCount: 4, total: 2740 }, { supplier: "Direct Seafoods", invoiceCount: 3, total: 2020 },
-  ];
+  const spend = metrics ? formatCurrency(metrics.spendThisMonth) : "—";
+  const stock = metrics?.currentStockValue != null ? formatCurrency(metrics.currentStockValue) : "—";
+  const cogs = metrics?.actualCogs != null ? formatCurrency(metrics.actualCogs) : "—";
+  const variance = metrics?.foodCostVariancePercent;
+  const varianceLabel = variance != null ? `${variance > 0 ? "+" : ""}${variance.toFixed(1)}%` : "—";
+  const suppliers = result?.supplierSpend.slice(0, 4) ?? [];
+  const invoiceCount = metrics?.approvedInvoices;
+  const highPriorityIssues = result?.insights.filter((insight) => insight.severity === "high").length;
   return <div className="page metro-tile-page">
     <div className="metro-desktop-dashboard">
       <header className="metro-desktop-heading"><div><p>Kitchen overview</p><h1>Your operating numbers, in one place.</h1></div><Link href="/reports">Open reports →</Link></header>
       <section className="metro-desktop-stats" aria-label="Kitchen performance summary">
-        <DesktopKpi label="Spend this month" value={formatCurrency(spend)} note="Approved invoices" /><DesktopKpi label="Stock value" value={formatCurrency(stock)} note="Latest completed count" />
-        <DesktopKpi label="Actual COGS" value={formatCurrency(cogs)} note="Purchases and stock movement" /><DesktopKpi label="Food cost variance" value={`${variance > 0 ? "+" : ""}${variance.toFixed(1)}%`} note="Actual versus theoretical" />
+        <DesktopKpi label="Spend this month" value={spend} note="Approved invoices" /><DesktopKpi label="Stock value" value={stock} note="Latest completed count" />
+        <DesktopKpi label="Actual COGS" value={cogs} note="Purchases and stock movement" /><DesktopKpi label="Food cost variance" value={varianceLabel} note="Actual versus theoretical" />
       </section>
       <section className="metro-desktop-tables">
         <article className="metro-table-panel"><div className="metro-table-title"><div><p>Purchasing</p><h2>Supplier spend</h2></div><Link href="/invoices">View invoices →</Link></div>
-          <div className="metro-table"><div className="metro-table-row metro-table-head"><span>Supplier</span><span>Invoices</span><span>Spend</span></div>{suppliers.map((supplier) => <div className="metro-table-row" key={supplier.supplier}><strong>{supplier.supplier}</strong><span>{supplier.invoiceCount}</span><strong>{formatCurrency(supplier.total)}</strong></div>)}</div>
+          <div className="metro-table"><div className="metro-table-row metro-table-head"><span>Supplier</span><span>Invoices</span><span>Spend</span></div>{suppliers.length ? suppliers.map((supplier) => <div className="metro-table-row" key={supplier.supplier}><strong>{supplier.supplier}</strong><span>{supplier.invoiceCount}</span><strong>{formatCurrency(supplier.total)}</strong></div>) : <div className="metro-table-row metro-table-empty"><span>No approved supplier invoices yet.</span></div>}</div>
         </article>
         <article className="metro-table-panel"><div className="metro-table-title"><div><p>Cost control</p><h2>Current signals</h2></div><Link href="/insights">View insights →</Link></div>
-          <div className="metro-table"><div className="metro-table-row metro-table-head"><span>Measure</span><span>Status</span><span>Value</span></div><div className="metro-table-row"><strong>Invoice coverage</strong><span className="metro-status-good">Current</span><strong>19 approved</strong></div><div className="metro-table-row"><strong>Stock position</strong><span className="metro-status-good">Counted</span><strong>{formatCurrency(stock)}</strong></div><div className="metro-table-row"><strong>Food cost variance</strong><span className="metro-status-watch">Review</span><strong>{variance.toFixed(1)}%</strong></div><div className="metro-table-row"><strong>High-priority issues</strong><span className="metro-status-good">Clear</span><strong>0</strong></div></div>
+          <div className="metro-table"><div className="metro-table-row metro-table-head"><span>Measure</span><span>Status</span><span>Value</span></div><div className="metro-table-row"><strong>Invoice coverage</strong><span className="metro-status-good">Current</span><strong>{invoiceCount != null ? `${invoiceCount} approved` : "—"}</strong></div><div className="metro-table-row"><strong>Stock position</strong><span className="metro-status-good">Counted</span><strong>{stock}</strong></div><div className="metro-table-row"><strong>Food cost variance</strong><span className="metro-status-watch">Review</span><strong>{varianceLabel}</strong></div><div className="metro-table-row"><strong>High-priority issues</strong><span className="metro-status-good">{highPriorityIssues ? "Action" : "Clear"}</span><strong>{highPriorityIssues ?? "—"}</strong></div></div>
         </article>
       </section>
     </div>
     <div className="metro-mobile-dashboard"><section className="metro-kpi-grid" aria-label="Kitchen performance summary">
-      <MetroKpi label="Spend this month" value={formatCurrency(spend)} icon="£" tone="royal" /><MetroKpi label="Stock value" value={formatCurrency(stock)} icon="□" tone="blue" />
-      <MetroKpi label="Actual COGS" value={formatCurrency(cogs)} icon="▥" tone="navy" /><MetroKpi label="Food cost variance" value={`${variance > 0 ? "+" : ""}${variance.toFixed(1)}%`} icon="%" tone="cobalt" />
+      <MetroKpi label="Spend this month" value={spend} icon="£" tone="royal" /><MetroKpi label="Stock value" value={stock} icon="□" tone="blue" />
+      <MetroKpi label="Actual COGS" value={cogs} icon="▥" tone="navy" /><MetroKpi label="Food cost variance" value={varianceLabel} icon="%" tone="cobalt" />
     </section>
     <section className="metro-home-section"><div className="metro-home-heading"><div><p>Kitchen home</p><h1>What do you need to do?</h1></div><Link href="/insights">View insights <span aria-hidden="true">→</span></Link></div>
       <nav className="metro-action-grid" aria-label="Kitchen workflows">{actionTiles.map((tile) => <Link key={tile.href} href={tile.href} className={`metro-action-tile metro-action-${tile.tone}`}><span className="metro-action-icon" aria-hidden="true">{tile.icon}</span><strong>{tile.label}</strong><span className="metro-action-arrow" aria-hidden="true">→</span></Link>)}</nav>
