@@ -150,3 +150,120 @@
     line-height: 1 !important;
   }
 }
+
+/* Stock count: compact, non-overlapping cards on phones. */
+@media (max-width: 640px) {
+  .chef-stock-page .chef-stock-panel {
+    min-height: 0 !important;
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+
+  .chef-stock-page .chef-stock-toolbar {
+    position: static !important;
+    inset: auto !important;
+    z-index: auto !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+    transform: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .chef-stock-page .ingredient-search,
+  .chef-stock-page .ingredient-filter {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  .chef-stock-page .ingredient-search input,
+  .chef-stock-page .ingredient-filter select {
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+
+  .chef-stock-page .chef-stock-list {
+    display: grid !important;
+    gap: 10px !important;
+  }
+
+  .chef-stock-page .chef-stock-row {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "copy value"
+      "counter counter" !important;
+    align-items: start !important;
+    gap: 12px 10px !important;
+    min-width: 0 !important;
+    padding: 14px !important;
+    border: 1px solid #dce3ee !important;
+    border-radius: 14px !important;
+    background: #fff !important;
+    box-shadow: 0 5px 15px rgba(23, 32, 51, .045) !important;
+  }
+
+  .chef-stock-page .chef-stock-copy {
+    grid-area: copy !important;
+    min-width: 0 !important;
+  }
+
+  .chef-stock-page .chef-stock-copy > strong {
+    display: block !important;
+    margin-top: 7px !important;
+    font-size: 16px !important;
+    line-height: 1.22 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .chef-stock-page .chef-stock-copy small {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+  }
+
+  .chef-stock-page .chef-stock-value {
+    grid-area: value !important;
+    align-self: start !important;
+    justify-self: end !important;
+    padding-top: 3px !important;
+    color: #667085 !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  .chef-stock-page .chef-stock-counter {
+    grid-area: counter !important;
+    display: grid !important;
+    grid-template-columns: 40px minmax(0, 1fr) auto 40px !important;
+    align-items: center !important;
+    gap: 7px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .chef-stock-page .chef-stock-counter button {
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 !important;
+  }
+
+  .chef-stock-page .chef-stock-counter input {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 42px !important;
+    min-height: 42px !important;
+  }
+
+  .chef-stock-page .chef-stock-counter > span {
+    min-width: 28px !important;
+    text-align: center !important;
+  }
+}
