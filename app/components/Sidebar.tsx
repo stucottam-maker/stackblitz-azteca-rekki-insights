@@ -165,7 +165,14 @@ export default function Sidebar({ active }: SidebarProps) {
             <span className="nav-icon" aria-hidden="true">
               {icon}
             </span>
-            <span>{name}</span>
+            {name === "Dashboard" ? (
+              <>
+                <span className="desktop-home-label">Home</span>
+                <span className="mobile-dashboard-label">Dashboard</span>
+              </>
+            ) : (
+              <span>{name}</span>
+            )}
           </Link>
         ))}
       </nav>

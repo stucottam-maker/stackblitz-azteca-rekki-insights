@@ -198,19 +198,32 @@
   tbody tr:hover { background: #f7faff; }
 
   /* Dashboard: compact finance dashboard, not oversized Metro tiles. */
+  .desktop-home-label { display: inline; }
+  .mobile-dashboard-label { display: none; }
   .metro-app-shell .main-content-root { background: #f4f6f8; }
   .metro-tile-page { width: min(1440px, 100%); padding: 0; }
-  .metro-desktop-heading { margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid #dfe5ec; }
-  .metro-desktop-heading h1 { font-size: 30px; }
+  .metro-desktop-heading { align-items: center; margin-bottom: 14px; padding-bottom: 13px; border-bottom: 1px solid #dfe5ec; }
+  .metro-desktop-heading h1 { font-size: 28px; }
+  .metro-desktop-heading div > span { display: block; margin-top: 3px; color: #667085; font-size: 12px; }
   .metro-desktop-heading p,
   .metro-table-title p { color: #2563eb; }
-  .metro-desktop-stats { gap: 12px; margin-bottom: 16px; }
+  .metro-desktop-stats { gap: 10px; margin-bottom: 12px; }
+  .home-control-room .metro-desktop-kpi { min-height: 98px; padding: 13px 15px; }
+  .home-control-room .metro-desktop-kpi strong { margin: 8px 0 4px; font-size: 24px; }
   .metro-desktop-tables { gap: 14px; }
-  .metro-table-panel { padding: 20px; }
-  .metro-table-title { margin-bottom: 13px; }
-  .metro-table-title h2 { color: #243047; font-size: 18px; }
-  .metro-table-row { min-height: 48px; border-bottom-color: #edf0f4; font-size: 12px; }
-  .metro-table-head { min-height: 34px; background: #f8fafc; }
+  .home-report-grid { align-items: start; gap: 12px; }
+  .home-report-grid .metro-table-panel { padding: 15px 17px; }
+  .home-report-grid .metro-table-title { margin-bottom: 9px; }
+  .home-report-grid .metro-table-title h2 { color: #243047; font-size: 17px; }
+  .home-report-grid .metro-table-row { min-height: 39px; border-bottom-color: #edf0f4; font-size: 11px; }
+  .home-report-grid .metro-table-head { min-height: 29px; background: #f8fafc; }
+  .home-report-grid .metro-table-empty { grid-template-columns: 1fr; color: #8490a2; }
+  .home-report-grid .metro-table-empty span { grid-column: 1 / -1; text-align: left; }
+  .home-period-table .metro-table-row { grid-template-columns: minmax(0, 1fr) .25fr .8fr; }
+  .home-change-table .metro-table-row { grid-template-columns: minmax(0, 1.35fr) minmax(0, .9fr) .55fr; }
+  .home-change-table .metro-table-row > span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .home-change-up { color: #b54708; }
+  .home-change-down { color: #027a48; }
 
   /* Orders */
   .supplier-choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
