@@ -34,9 +34,14 @@
     width: var(--sidebar-width);
     padding: 20px 14px 16px;
     border-right: 1px solid #dfe5ec;
-    background: #fff;
-    color: #243047;
+    background: #fff !important;
+    color: #243047 !important;
     box-shadow: none;
+  }
+
+  .app-shell-root.metro-app-shell .chef-sidebar {
+    background: #fff !important;
+    color: #243047 !important;
   }
 
   .app-shell-root .brand {
