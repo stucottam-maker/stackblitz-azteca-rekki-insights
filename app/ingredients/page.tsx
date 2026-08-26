@@ -39,10 +39,75 @@ type IngredientView = {
 };
 
 const RAW_INVOICE_CATEGORY = "Invoice observed";
-const HIDDEN_EXTRACTION_FRAGMENTS = new Set([") s o", "24", "250g"]);
+const HIDDEN_EXTRACTION_FRAGMENTS = new Set([
+  ") s o",
+  "24",
+  "250g",
+  "60x70gbridor pepperblack coarse ground",
+  "avocado ready to eat rawfresh corn on cob case of",
+  "coconut desiccated 1kg red lakeland unsaltedbutter",
+  "ginger freshroot peachhalvesinsyrup2.65kg",
+]);
+
+const INGREDIENT_PRESENTATION: Record<string, { name: string; category?: string }> = {
+  "500g flowersfresh-ediblepunnet": { name: "Fresh Edible Flowers (500g Punnet)" },
+  "applecidervinegar5% beaufor": { name: "Beaufor Apple Cider Vinegar (5%)" },
+  "applecidervinegar5%beaufor": { name: "Beaufor Apple Cider Vinegar (5%)" },
+  "butternut squash(appr 1kg)": { name: "Butternut Squash (Approx. 1kg)", category: "Produce" },
+  "cabbage-hispi": { name: "Hispi Cabbage" },
+  "cabbage-redapprx2.5kg": { name: "Red Cabbage (Approx. 2.5kg)" },
+  "chilli&garlicsaucelee kumkee": { name: "Lee Kum Kee Chilli & Garlic Sauce", category: "Dry goods" },
+  "edamame(soya)beansin podyutaka": { name: "Yutaka Edamame Beans in Pod" },
+  "edamamebeansshelled (withoutshell)soyayutaka": { name: "Yutaka Shelled Edamame Beans" },
+  "f peeledkoffmanpotatoes (prepped)-orderby10pm": { name: "Peeled Koffmann Potatoes (Prepped)" },
+  "fantaorangecans": { name: "Fanta Orange Cans" },
+  "flour potato(starch)": { name: "Potato Flour (Starch)", category: "Dry goods" },
+  "flourgram(chick pea flour)core": { name: "Gram Flour (Chickpea Flour)" },
+  "flowersfresh-ediblepunnet": { name: "Fresh Edible Flowers (Punnet)" },
+  "flowersfresh-ediblepunnet 30g": { name: "Fresh Edible Flowers (30g Punnet)" },
+  "flowersfreshpansies6g": { name: "Fresh Pansies (6g)" },
+  "garlic-peeled(1kg) 1peeled chippiespotato": { name: "Peeled Garlic (1kg)" },
+  "garlic(200g)": { name: "Garlic (200g)" },
+  "glovesbluevinylxlpwdfree x100": { name: "Blue Vinyl Gloves XL, Powder Free (100)" },
+  "gratedwhitemildcheddar 2kg": { name: "Grated Mild White Cheddar (2kg)" },
+};
+
+function normaliseIngredientName(name: string) {
+  return name.trim().replace(/\s+/g, " ").toLowerCase();
+}
 
 function isExtractionFragment(name: string) {
-  return HIDDEN_EXTRACTION_FRAGMENTS.has(name.trim().replace(/\s+/g, " ").toLowerCase());
+  return HIDDEN_EXTRACTION_FRAGMENTS.has(normaliseIngredientName(name));
+}
+
+function ingredientPresentation(name: string, category: string | null) {
+  const override = INGREDIENT_PRESENTATION[normaliseIngredientName(name)];
+  return {
+    name: override?.name ?? name,
+    category: override?.category ?? category ?? "Uncategorised",
+  };
+}
+
+function formatUnit(value: string | null | undefined) {
+  const unit = value?.trim().replace(/\.$/, "") ?? "";
+  if (!unit) return "";
+
+  const simpleUnits: Record<string, string> = {
+    each: "each",
+    unit: "unit",
+    bunch: "bunch",
+    case: "case",
+    packet: "packet",
+    punnet: "punnet",
+    box: "box",
+    bulk: "bulk",
+  };
+  const simple = simpleUnits[unit.toLowerCase()];
+  if (simple) return simple;
+
+  return unit.replace(/(\d(?:\.\d+)?)\s*(kg|g|ml|ltr|m)\b/gi, (_, amount, measure) =>
+    `${amount}${String(measure).toLowerCase()}`
+  );
 }
 
 function relationFirst<T>(relation: T | T[] | null | undefined): T | null {
@@ -123,14 +188,16 @@ export default function IngredientsPage() {
         if (ingredient.category === RAW_INVOICE_CATEGORY) return [];
         if (isExtractionFragment(ingredient.name)) return [];
 
+        const presentation = ingredientPresentation(ingredient.name, ingredient.category);
+
         return [{
           priceId: row.id,
           ingredientId: ingredient.id,
-          name: ingredient.name,
-          category: ingredient.category || "Uncategorised",
-          baseUnit: ingredient.base_unit || "",
+          name: presentation.name,
+          category: presentation.category,
+          baseUnit: formatUnit(ingredient.base_unit),
           price: row.price,
-          priceUnit: row.unit || ingredient.base_unit || "",
+          priceUnit: formatUnit(row.unit || ingredient.base_unit),
           supplier: supplier?.name || "Unknown supplier",
           effectiveDate: row.effective_date || "",
           updatedAt: row.updated_at || "",
