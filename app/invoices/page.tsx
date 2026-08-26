@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { supabase } from "../lib/supabase";
 
@@ -23,8 +24,18 @@ type Invoice = {
   createdAt: string | null;
 };
 
+type ExtractionJob = {
+  id: string;
+  files: Array<{ fileName?: string; fileType?: string; filePath?: string }> | null;
+  status: "queued" | "processing" | "needs_review" | "failed";
+  error_message: string | null;
+  created_at: string;
+};
+
 export default function InvoicesPage() {
+  const router = useRouter();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [extractionJobs, setExtractionJobs] = useState<ExtractionJob[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [filter, setFilter] = useState("open");
@@ -43,13 +54,11 @@ export default function InvoicesPage() {
         throw new Error("Please sign in again.");
       }
 
-      const response = await fetch("/api/invoices", {
-        method: "GET",
-        cache: "no-store",
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
+      const headers = { Authorization: `Bearer ${session.access_token}` };
+      const [response, jobsResponse] = await Promise.all([
+        fetch("/api/invoices", { method: "GET", cache: "no-store", headers }),
+        fetch("/api/invoices/jobs", { method: "GET", cache: "no-store", headers }),
+      ]);
 
       const raw = await response.text();
       let data: any;
@@ -65,6 +74,11 @@ export default function InvoicesPage() {
       }
 
       setInvoices(Array.isArray(data.invoices) ? data.invoices : []);
+
+      if (jobsResponse.ok) {
+        const jobsData = await jobsResponse.json();
+        setExtractionJobs(Array.isArray(jobsData.jobs) ? jobsData.jobs : []);
+      }
     } catch (err: any) {
       console.error("Loading invoices failed", err);
       setError(err.message || "Could not load invoices");
@@ -73,6 +87,45 @@ export default function InvoicesPage() {
       setLoading(false);
     }
   }, []);
+
+  async function updateExtractionJob(job: ExtractionJob, action: "retry" | "discard") {
+    try {
+      setUpdatingId(job.id);
+      setError("");
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) throw new Error("Please sign in again.");
+      const response = await fetch("/api/invoices/jobs", {
+        method: action === "discard" ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify({ action, jobId: job.id }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || `Could not ${action} invoice`);
+
+      if (action === "discard") {
+        setExtractionJobs((current) => current.filter((item) => item.id !== job.id));
+        return;
+      }
+
+      const extracted = Array.isArray(data.invoices) ? data.invoices : [];
+      if (!extracted.length) throw new Error("No invoice was found in the stored file.");
+      const files = Array.isArray(data.files) ? data.files : job.files || [];
+      sessionStorage.setItem("extractedInvoices", JSON.stringify(extracted));
+      sessionStorage.setItem("invoiceExtractionJobId", job.id);
+      sessionStorage.setItem("extractedInvoiceSource", JSON.stringify({
+        fileName: files.length === 1 ? files[0]?.fileName : `${files.length} stored files`,
+        fileType: files.length === 1 ? files[0]?.fileType : "application/pdf",
+        filePath: files.length === 1 ? files[0]?.filePath : JSON.stringify(files.map((item: any) => item.filePath)),
+        files,
+      }));
+      router.push("/invoices/review");
+    } catch (err: any) {
+      setError(err.message || `Could not ${action} invoice`);
+      await loadInvoices();
+    } finally {
+      setUpdatingId("");
+    }
+  }
 
   useEffect(() => {
     void loadInvoices();
@@ -229,6 +282,27 @@ export default function InvoicesPage() {
         </div>
 
         {error && <div className="notice">{error}</div>}
+
+        {extractionJobs.length > 0 && (
+          <section className="invoice-retry-queue" aria-labelledby="invoice-retry-heading">
+            <div>
+              <p className="panel-kicker">Stored uploads</p>
+              <h3 id="invoice-retry-heading">Invoices waiting to be read</h3>
+            </div>
+            {extractionJobs.map((job) => (
+              <article key={job.id} className="invoice-retry-row">
+                <div>
+                  <strong>{job.files?.[0]?.fileName || "Stored invoice"}</strong>
+                  <span>{job.error_message || (job.status === "processing" ? "Reading invoice…" : "Ready to retry")}</span>
+                </div>
+                <div className="ap-header-actions">
+                  <button type="button" className="secondary-inline-button" disabled={updatingId === job.id || job.status === "processing"} onClick={() => void updateExtractionJob(job, "discard")}>Dismiss</button>
+                  <button type="button" className="primary-button" disabled={updatingId === job.id || job.status === "processing"} onClick={() => void updateExtractionJob(job, "retry")}>{updatingId === job.id ? "Working…" : "Retry"}</button>
+                </div>
+              </article>
+            ))}
+          </section>
+        )}
 
         {loading ? (
           <div className="empty-extraction">
