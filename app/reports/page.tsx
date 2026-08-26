@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
-import Sidebar from "../components/Sidebar";
 import { loadInsightWorkspaceData } from "../lib/insightWorkspaceData";
 import {
   generateInsights,
@@ -362,10 +361,7 @@ export default function ReportsPage() {
   ];
 
   return (
-    <div className="app-shell">
-      <Sidebar active="reports" />
-
-      <main className="main-content reports-page">
+      <main className="page reports-page">
         <header className="topbar">
           <div>
             <p className="eyebrow">Analysis</p>
@@ -1121,6 +1117,5 @@ export default function ReportsPage() {
           </section>
         )}
       </main>
-    </div>
   );
 }

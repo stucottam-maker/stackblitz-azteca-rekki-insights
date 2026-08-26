@@ -1,0 +1,264 @@
+/* Desktop control-room theme. Everything is intentionally gated so the chef-first
+   phone experience below 1024px remains exactly on its existing styles. */
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-width: 232px;
+  }
+
+  body {
+    background: #f4f6f8;
+    color: #172033;
+  }
+
+  .app-shell-root {
+    --background: #f4f6f8;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --border: #dfe5ec;
+    --text: #172033;
+    --text-soft: #667085;
+    --text-light: #8b95a5;
+    --green: #2563eb;
+    --green-dark: #1d4ed8;
+    --green-soft: #eaf2ff;
+    --orange: #2563eb;
+    --orange-soft: #eaf2ff;
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, .05);
+    --shadow-md: 0 8px 24px rgba(16, 24, 40, .055);
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    background: #f4f6f8;
+  }
+
+  .app-shell-root .chef-sidebar {
+    z-index: 20;
+    width: var(--sidebar-width);
+    padding: 20px 14px 16px;
+    border-right: 1px solid #dfe5ec;
+    background: #fff;
+    color: #243047;
+    box-shadow: none;
+  }
+
+  .app-shell-root .brand {
+    gap: 11px;
+    min-height: 58px;
+    padding: 0 8px 18px;
+    border-bottom-color: #e7ebf0;
+  }
+
+  .app-shell-root .brand-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, .2);
+    font-size: 15px;
+  }
+
+  .app-shell-root .brand-name { color: #172033; font-size: 14px; }
+  .app-shell-root .brand-subtitle { color: #8490a2; font-size: 10px; }
+  .app-shell-root .sidebar-nav { gap: 2px; margin-top: 16px; }
+  .app-shell-root .mobile-header-more,
+  .app-shell-root .mobile-more-menu,
+  .app-shell-root .mobile-workspace-control { display: none !important; }
+  .app-shell-root .sidebar-nav .nav-link {
+    display: flex !important;
+  }
+  .app-shell-root .nav-link {
+    gap: 11px;
+    min-height: 40px;
+    padding: 9px 10px;
+    border-radius: 7px;
+    color: #526078;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  .app-shell-root .nav-link:hover { background: #f2f6fb; color: #1d4ed8; }
+  .app-shell-root .nav-link-active,
+  .metro-app-shell .nav-link-active {
+    background: #eaf2ff;
+    color: #1d4ed8;
+    box-shadow: inset 3px 0 0 #2563eb;
+  }
+  .app-shell-root .nav-icon {
+    width: 19px;
+    color: #7c8aa1;
+    font-size: 15px;
+  }
+  .app-shell-root .nav-link-active .nav-icon { color: #2563eb; }
+
+  .app-shell-root .sidebar-footer {
+    padding-top: 12px;
+    border-top-color: #e7ebf0;
+  }
+  .app-shell-root .restaurant-card { padding: 7px 6px; }
+  .app-shell-root .restaurant-avatar { background: #eaf2ff; color: #1d4ed8; }
+  .app-shell-root .restaurant-name,
+  .app-shell-root .workspace-switcher-select { color: #243047; }
+  .app-shell-root .restaurant-location { color: #8490a2; }
+  .app-shell-root .workspace-switcher-select {
+    max-width: 160px;
+    border-color: #dfe5ec;
+    background: #fff;
+  }
+  .app-shell-root .chef-sidebar-tools a,
+  .app-shell-root .sidebar-install,
+  .app-shell-root .sidebar-logout { color: #59677e; }
+  .app-shell-root .sidebar-logout:hover,
+  .app-shell-root .chef-sidebar-tools a:hover { background: #f2f6fb; color: #1d4ed8; }
+
+  .app-shell-root .main-content-root {
+    width: 100%;
+    max-width: none;
+    padding: 28px clamp(28px, 3vw, 52px) 56px;
+    background: #f4f6f8;
+  }
+  .app-shell-root .page { width: min(1440px, 100%); margin: 0 auto; }
+
+  .topbar {
+    align-items: center;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #dfe5ec;
+  }
+  .eyebrow,
+  .panel-kicker { color: #2563eb; }
+  h1 { color: #172033; font-size: 30px; letter-spacing: -.035em; }
+  .page-description { margin-top: 6px; color: #667085; font-size: 13px; }
+
+  .primary-button {
+    min-height: 38px;
+    padding: 0 15px;
+    border-radius: 6px;
+    background: #2563eb;
+    box-shadow: none;
+  }
+  .primary-button:hover { background: #1d4ed8; }
+  .secondary-inline-button,
+  .cancel-button {
+    min-height: 36px;
+    border-color: #d6dde6;
+    border-radius: 6px;
+    background: #fff;
+    color: #344054;
+  }
+  .secondary-inline-button:hover { border-color: #9db9e8; background: #f7faff; color: #1d4ed8; }
+
+  .stats-grid {
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .stat-card,
+  .metro-desktop-kpi {
+    min-height: 118px;
+    padding: 17px 18px;
+    border: 1px solid #dfe5ec;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .035);
+  }
+  .stat-label,
+  .metro-desktop-kpi p { color: #667085; font-size: 11px; font-weight: 700; }
+  .stat-value,
+  .metro-desktop-kpi strong {
+    margin: 13px 0 7px;
+    color: #172033;
+    font-size: 27px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.035em;
+  }
+  .stat-change,
+  .metro-desktop-kpi span { color: #8490a2; font-size: 11px; }
+
+  .panel,
+  .metro-table-panel {
+    border: 1px solid #dfe5ec;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, .04);
+  }
+  .panel-header { padding: 18px 20px; border-bottom-color: #e7ebf0; }
+  .panel h2 { color: #243047; font-size: 18px; }
+  .table-wrapper { border-radius: 0 0 8px 8px; }
+  table { font-size: 12px; }
+  th {
+    height: 38px;
+    background: #f8fafc;
+    color: #68758a;
+    font-size: 10px;
+    letter-spacing: .055em;
+  }
+  td { height: 50px; border-bottom-color: #edf0f4; }
+  tbody tr:hover { background: #f7faff; }
+
+  /* Dashboard: compact finance dashboard, not oversized Metro tiles. */
+  .metro-app-shell .main-content-root { background: #f4f6f8; }
+  .metro-tile-page { width: min(1440px, 100%); padding: 0; }
+  .metro-desktop-heading { margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid #dfe5ec; }
+  .metro-desktop-heading h1 { font-size: 30px; }
+  .metro-desktop-heading p,
+  .metro-table-title p { color: #2563eb; }
+  .metro-desktop-stats { gap: 12px; margin-bottom: 16px; }
+  .metro-desktop-tables { gap: 14px; }
+  .metro-table-panel { padding: 20px; }
+  .metro-table-title { margin-bottom: 13px; }
+  .metro-table-title h2 { color: #243047; font-size: 18px; }
+  .metro-table-row { min-height: 48px; border-bottom-color: #edf0f4; font-size: 12px; }
+  .metro-table-head { min-height: 34px; background: #f8fafc; }
+
+  /* Orders */
+  .supplier-choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .supplier-choice-card { min-height: 86px; border-radius: 7px; box-shadow: none; }
+  .supplier-choice-card:hover { border-color: #a9c2eb; background: #f7faff; transform: none; }
+  .quick-order-header { padding-bottom: 17px; border-bottom: 1px solid #dfe5ec; }
+  .quick-order-toolbar { top: 0; padding: 12px; border: 1px solid #dfe5ec; background: #fff; }
+  .quick-order-line { min-height: 68px; padding: 10px 18px; }
+  .quick-order-line-active { background: #f4f8ff; box-shadow: inset 3px 0 #2563eb; }
+  .quick-order-quantity button { border-radius: 5px !important; }
+
+  /* Stock */
+  .chef-stock-tabs,
+  .reports-tabs-clean { border-bottom: 1px solid #dfe5ec; }
+  .stock-tab,
+  .reports-tab-clean { border-radius: 0; }
+  .stock-tab-active,
+  .reports-tab-clean.active { color: #1d4ed8; box-shadow: inset 0 -2px #2563eb; }
+  .chef-stock-toolbar { padding: 12px 16px; border-bottom: 1px solid #e7ebf0; background: #f8fafc; }
+  .chef-stock-row {
+    min-height: 64px;
+    padding: 9px 18px;
+    border-bottom-color: #edf0f4;
+  }
+  .chef-stock-row-counted { background: #f7faff; }
+  .chef-stock-counter button { border-radius: 5px; color: #1d4ed8; }
+
+  /* Recipes */
+  .recipes-overview-grid { gap: 14px; }
+  .recipe-overview-row { min-height: 82px; padding: 12px 18px !important; }
+  .recipe-overview-row:hover { background: #f7faff; }
+  .recipe-overview-status,
+  .recipe-type-badge,
+  .status-badge,
+  .ap-match-badge { border-radius: 999px; }
+
+  /* Reports and settings */
+  .reports-page { width: min(1440px, 100%); margin: 0 auto; }
+  .reports-tabs-clean { margin-bottom: 18px; background: transparent; }
+  .report-chart-grid,
+  .reports-overview-grid-clean { gap: 14px; }
+  .report-chart-card,
+  .report-overview-panel,
+  .report-main-panel { border-radius: 8px; }
+  .report-bar-track,
+  .report-change-track { background: #edf2f7; }
+  .report-bar-fill,
+  .report-chart-line { color: #2563eb; }
+  .settings-page { max-width: 1120px; margin: 0 auto; }
+  .settings-page > .panel { margin-bottom: 14px; }
+  .settings-field input,
+  .settings-field select,
+  .team-form-grid input,
+  .team-form-grid select { border-radius: 6px; border-color: #d6dde6; }
+  .team-row { border-radius: 6px; background: #fbfcfe; }
+}
