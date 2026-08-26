@@ -59,6 +59,12 @@
   .app-shell-root .brand-name { color: #172033; font-size: 14px; }
   .app-shell-root .brand-subtitle { color: #8490a2; font-size: 10px; }
   .app-shell-root .sidebar-nav { gap: 2px; margin-top: 16px; }
+  .app-shell-root .mobile-header-more,
+  .app-shell-root .mobile-more-menu,
+  .app-shell-root .mobile-workspace-control { display: none !important; }
+  .app-shell-root .sidebar-nav .nav-link {
+    display: flex !important;
+  }
   .app-shell-root .nav-link {
     gap: 11px;
     min-height: 40px;
