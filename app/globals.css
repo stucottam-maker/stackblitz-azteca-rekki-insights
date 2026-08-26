@@ -2859,3 +2859,29 @@ td strong {
 .panel:has(.invoice-supplier-picker) {
   overflow: visible;
 }
+
+.invoice-retry-queue {
+  display: grid;
+  gap: 12px;
+  margin: 0 28px 24px;
+  padding: 20px;
+  border: 1px solid #d9e2f1;
+  border-radius: 14px;
+  background: #f8faff;
+}
+.invoice-retry-queue h3 { margin: 2px 0 0; }
+.invoice-retry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f2;
+}
+.invoice-retry-row > div:first-child { display: grid; gap: 4px; }
+.invoice-retry-row span { color: var(--muted); font-size: 14px; }
+@media (max-width: 760px) {
+  .invoice-retry-queue { margin: 0 14px 18px; padding: 16px; }
+  .invoice-retry-row { align-items: stretch; flex-direction: column; }
+  .invoice-retry-row .ap-header-actions { display: grid; grid-template-columns: 1fr 1fr; }
+}
