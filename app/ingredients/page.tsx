@@ -39,6 +39,11 @@ type IngredientView = {
 };
 
 const RAW_INVOICE_CATEGORY = "Invoice observed";
+const HIDDEN_EXTRACTION_FRAGMENTS = new Set([") s o", "24", "250g"]);
+
+function isExtractionFragment(name: string) {
+  return HIDDEN_EXTRACTION_FRAGMENTS.has(name.trim().replace(/\s+/g, " ").toLowerCase());
+}
 
 function relationFirst<T>(relation: T | T[] | null | undefined): T | null {
   if (!relation) return null;
@@ -116,6 +121,7 @@ export default function IngredientsPage() {
 
         if (!ingredient) return [];
         if (ingredient.category === RAW_INVOICE_CATEGORY) return [];
+        if (isExtractionFragment(ingredient.name)) return [];
 
         return [{
           priceId: row.id,
