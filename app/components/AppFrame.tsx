@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
+import AndroidWidgetSync from "./AndroidWidgetSync";
 import AuthGate from "./AuthGate";
 import BenditosSpanishPolish from "./BenditosSpanishPolish";
 import InvoicePriceSync from "./InvoicePriceSync";
@@ -28,6 +29,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         <WorkspaceTenantLocaleBridge />
         <BenditosSpanishPolish />
         <InvoicePriceSync />
+        <AndroidWidgetSync />
         <div className="app-shell app-shell-root metro-app-shell">
           <Sidebar />
           <main className="main-content main-content-root">{children}</main>
