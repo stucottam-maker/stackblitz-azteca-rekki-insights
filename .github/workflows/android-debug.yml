@@ -9,6 +9,7 @@ on:
       - "capacitor.config.json"
       - "capacitor-shell/**"
       - "public/native-camera-bridge.js"
+      - "scripts/android-widget-patch.py"
       - ".github/workflows/android-debug.yml"
 
 permissions:
@@ -183,6 +184,9 @@ jobs:
               styles.write_text(text)
           PY
 
+      - name: Add Kitchen Insights Android home widgets
+        run: python scripts/android-widget-patch.py
+
       - name: Build debug APK
         working-directory: android
         run: |
@@ -204,14 +208,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          NOTES="Kitchen Insights Android test build with blue launcher/splash, native invoice capture and three home-screen widgets: Quick Actions, Kitchen Today and Manager Overview. Widgets deep-link into the app and refresh their locally cached workspace metrics whenever Kitchen Insights is opened. Internal testing only; not the Google Play production build."
           if gh release view android-debug-latest >/dev/null 2>&1; then
             gh release upload android-debug-latest Kitchen-Insights-debug.apk --clobber
             gh release edit android-debug-latest \
               --title "Kitchen Insights Android Test" \
-              --notes "Kitchen Insights Android test build with blue launcher icon and splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build."
+              --notes "$NOTES"
           else
             gh release create android-debug-latest Kitchen-Insights-debug.apk \
               --title "Kitchen Insights Android Test" \
-              --notes "Kitchen Insights Android test build with blue launcher icon and splash screen, explicit Camera permission and native invoice capture. Internal testing only; not the Google Play production build." \
+              --notes "$NOTES" \
               --prerelease
           fi
