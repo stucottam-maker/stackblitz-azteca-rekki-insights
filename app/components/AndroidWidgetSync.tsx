@@ -45,6 +45,7 @@ export default function AndroidWidgetSync() {
   useEffect(() => {
     if (!isKitchenInsightsAndroid() || !activeWorkspace) return;
 
+    const workspace = activeWorkspace;
     let cancelled = false;
 
     async function sync() {
@@ -57,7 +58,7 @@ export default function AndroidWidgetSync() {
 
         const result = generateInsights(data);
         const { metrics, insights } = result;
-        const mexicanPesos = /benditos mexicali/i.test(activeWorkspace.organisationName);
+        const mexicanPesos = /benditos mexicali/i.test(workspace.organisationName);
         const locale = mexicanPesos ? "es" : "en";
         const now = new Date();
         const twoDaysAway = new Date(now);
@@ -85,7 +86,7 @@ export default function AndroidWidgetSync() {
 
         await plugin.update({
           locale,
-          workspace: `${activeWorkspace.organisationName} · ${activeWorkspace.siteName}`,
+          workspace: `${workspace.organisationName} · ${workspace.siteName}`,
           monthSpend: formatWidgetCurrency(metrics.spendThisMonth, mexicanPesos),
           stockValue: formatWidgetCurrency(metrics.currentStockValue, mexicanPesos),
           actualCogs: formatWidgetCurrency(metrics.actualCogs, mexicanPesos),
