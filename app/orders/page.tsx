@@ -24,6 +24,7 @@ import {
 type Relation<T> = T | T[] | null;
 type OrderStep = "start" | "order" | "review" | "receive";
 type SupplierTab = "catalogue" | "regular" | "history";
+const REGULAR_ORDER_PRODUCTS_KEY = "regularOrderProductIds";
 
 type ProductRow = {
   id: string;
@@ -172,6 +173,7 @@ export default function OrdersPage() {
   const [supplierTab, setSupplierTab] = useState<SupplierTab>("catalogue");
   const [products, setProducts] = useState<Product[]>([]);
   const [orders, setOrders] = useState<PurchaseOrder[]>([]);
+  const [regularProductIds, setRegularProductIds] = useState<string[]>([]);
   const [stock, setStock] = useState<StockItem[]>([]);
   const [settings, setSettings] = useState<OrganisationSettings>(defaultOrganisationSettings);
   const [selectedSupplier, setSelectedSupplier] = useState("");
@@ -208,7 +210,7 @@ export default function OrdersPage() {
             .order("preferred", { ascending: false })
             .order("supplier_product_name", { ascending: true })
             .limit(1000),
-          readWorkspaceStates(["purchaseOrders", "currentStockTake", ORGANISATION_SETTINGS_KEY]),
+          readWorkspaceStates(["purchaseOrders", "currentStockTake", REGULAR_ORDER_PRODUCTS_KEY, ORGANISATION_SETTINGS_KEY]),
         ]);
 
         if (productResult.error) throw productResult.error;
@@ -243,6 +245,7 @@ export default function OrdersPage() {
 
         setProducts(liveProducts);
         setOrders((workspace.get("purchaseOrders") ?? []) as PurchaseOrder[]);
+        setRegularProductIds((workspace.get(REGULAR_ORDER_PRODUCTS_KEY) ?? []) as string[]);
         const stockTake = (workspace.get("currentStockTake") ?? { items: [] }) as { items?: StockItem[] };
         setStock(stockTake.items ?? []);
         setSettings(
@@ -317,10 +320,34 @@ export default function OrdersPage() {
     [orders, selectedSupplier]
   );
 
-  const regularOrderItems = useMemo(
-    () => getRegularOrderItems(orders, selectedSupplier),
-    [orders, selectedSupplier]
-  );
+  const regularOrderItems = useMemo(() => {
+    const learned = getRegularOrderItems(orders, selectedSupplier);
+    const learnedProducts = new Set(
+      learned.flatMap((item) => [
+        normalise(item.ingredient),
+        normalise(item.supplierProduct),
+      ])
+    );
+    const saved = products
+      .filter(
+        (product) =>
+          product.supplier === selectedSupplier &&
+          regularProductIds.includes(product.id) &&
+          !learnedProducts.has(normalise(product.ingredient)) &&
+          !learnedProducts.has(normalise(product.supplierProduct))
+      )
+      .map((product) => ({
+        lineId: product.id,
+        ingredient: product.ingredient,
+        supplierProduct: product.supplierProduct,
+        orderUnit: product.unit,
+        averageQuantity: 1,
+        lastOrderedAt: "",
+        averageIntervalDays: null,
+        orderCount: 0,
+      }));
+    return [...learned, ...saved];
+  }, [orders, products, regularProductIds, selectedSupplier]);
 
   const receivingOrder = orders.find((order) => order.id === receivingOrderId) ?? null;
 
@@ -745,14 +772,14 @@ export default function OrdersPage() {
 
           {supplierTab === "regular" && (
             <section className="panel purchasing-list-panel">
-              <div className="panel-header"><div><p className="panel-kicker">Learned from history</p><h2>Regularly ordered</h2></div></div>
+              <div className="panel-header"><div><p className="panel-kicker">Saved regulars and order history</p><h2>Regularly ordered</h2></div></div>
               {regularOrderItems.length === 0 ? (
                 <div className="empty-table-message">Regular items appear after orders have been sent.</div>
               ) : regularOrderItems.map((item) => (
                 <article className="regular-order-row" key={item.lineId}>
                   <div><strong>{item.ingredient}</strong><span>{item.supplierProduct}</span></div>
-                  <span>Last {formatShortDate(item.lastOrderedAt)}</span>
-                  <span>{item.averageIntervalDays ? `Every ${item.averageIntervalDays} days` : "Ordered once"}</span>
+                  <span>{item.lastOrderedAt ? `Last ${formatShortDate(item.lastOrderedAt)}` : "Saved as a regular item"}</span>
+                  <span>{item.orderCount === 0 ? "Starting quantity" : item.averageIntervalDays ? `Every ${item.averageIntervalDays} days` : "Ordered once"}</span>
                   <strong>{item.averageQuantity} {item.orderUnit}</strong>
                 </article>
               ))}
