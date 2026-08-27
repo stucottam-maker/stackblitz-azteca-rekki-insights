@@ -50,6 +50,10 @@ function jpgName(name: string) {
   return `${base}.jpg`;
 }
 
+function isAndroidDevice() {
+  return typeof navigator !== "undefined" && /Android/i.test(navigator.userAgent || "");
+}
+
 async function loadImage(file: File) {
   const url = URL.createObjectURL(file);
   try {
@@ -60,7 +64,6 @@ async function loadImage(file: File) {
       image.src = url;
     });
   } finally {
-    // Revoked by the caller once the image has finished loading.
     window.setTimeout(() => URL.revokeObjectURL(url), 0);
   }
 }
@@ -150,6 +153,7 @@ function tryNativeCameraBridge() {
 
 export default function InvoiceUploadV3() {
   const router = useRouter();
+  const cameraInputRef = useRef<HTMLInputElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const cameraStreamRef = useRef<MediaStream | null>(null);
@@ -231,14 +235,32 @@ export default function InvoiceUploadV3() {
     addFiles(selected, mode);
   }
 
+  function openAndroidCameraIntent() {
+    const input = cameraInputRef.current;
+    if (!input) return false;
+    try {
+      input.click();
+      return true;
+    } catch (cameraIntentError) {
+      console.error("ANDROID CAMERA INTENT FAILED", cameraIntentError);
+      return false;
+    }
+  }
+
   async function openCamera() {
     setError("");
     if (busy || hasPdf || files.length >= MAX_PHOTO_PAGES) return;
 
+    // Android wrappers/PWAs may have no CAMERA runtime permission declared at all.
+    // A capture file input launches the system camera app instead, so it does not
+    // depend on Kitchen Insights owning the Android camera permission.
+    if (isAndroidDevice() && openAndroidCameraIntent()) return;
+
     if (tryNativeCameraBridge()) return;
 
     if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
-      setError("The camera is not available in this view. Use the Android camera permission or Choose photos or PDF.");
+      if (openAndroidCameraIntent()) return;
+      setError("Could not open the device camera. Use Choose photos or PDF instead.");
       return;
     }
 
@@ -252,7 +274,9 @@ export default function InvoiceUploadV3() {
       setCameraOpen(true);
     } catch (cameraError) {
       console.error("CAMERA OPEN FAILED", cameraError);
-      setError("Camera permission is blocked. Allow Camera for Kitchen Insights and tap Take photo again.");
+      if (!openAndroidCameraIntent()) {
+        setError("Could not open the device camera. Use Choose photos or PDF instead.");
+      }
     } finally {
       setCameraStarting(false);
     }
@@ -404,6 +428,15 @@ export default function InvoiceUploadV3() {
 
   return (
     <div className="page invoice-upload-chef-page">
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }}
+        onChange={(event) => handleFileInput(event, "append")}
+        tabIndex={-1}
+      />
       <input ref={fileInputRef} type="file" multiple accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp" style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }} onChange={(event) => handleFileInput(event, "replace")} tabIndex={-1} />
 
       <header className="topbar"><div><p className="eyebrow">Invoices</p><h1>Scan an invoice</h1><p className="page-description">Take the photo, check the figures, approve. If extraction ever fails, the original is kept safely for retry.</p></div></header>
