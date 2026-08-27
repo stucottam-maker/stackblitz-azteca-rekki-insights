@@ -2,6 +2,15 @@ name: Android Debug APK
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "capacitor.config.json"
+      - "capacitor-shell/**"
+      - "public/native-camera-bridge.js"
+      - "scripts/android-widget-patch.py"
+      - ".github/workflows/android-debug.yml"
   push:
     branches:
       - main
@@ -205,6 +214,7 @@ jobs:
           retention-days: 14
 
       - name: Publish rolling Android test release
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
