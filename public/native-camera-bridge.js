@@ -19,6 +19,10 @@
     return getCapacitor()?.Plugins?.Camera || null;
   }
 
+  function isAndroid() {
+    return /Android/i.test(String(navigator.userAgent || ""));
+  }
+
   function extensionOf(name) {
     return String(name || "").split(".").pop()?.toLowerCase() || "";
   }
@@ -120,26 +124,55 @@
   }
 
   function feedCameraFileIntoPage(file) {
-    const input = document.querySelector('input[type="file"][capture]');
-
-    if (input instanceof HTMLInputElement) {
-      try {
-        const transfer = new DataTransfer();
-        transfer.items.add(file);
-        input.files = transfer.files;
-        input.dispatchEvent(new Event("change", { bubbles: true }));
-        return true;
-      } catch (error) {
-        console.warn("Could not feed camera photo into invoice input", error);
-      }
-    }
-
     window.dispatchEvent(
       new CustomEvent("ki:invoice-camera-file", {
         detail: { file },
       })
     );
-    return false;
+    return true;
+  }
+
+  function openAndroidCaptureIntent() {
+    if (!isAndroid()) return false;
+
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.setAttribute("capture", "environment");
+    input.setAttribute("aria-hidden", "true");
+    input.tabIndex = -1;
+    input.style.position = "fixed";
+    input.style.left = "-9999px";
+    input.style.width = "1px";
+    input.style.height = "1px";
+    input.style.opacity = "0";
+
+    const cleanup = () => {
+      window.setTimeout(() => input.remove(), 0);
+    };
+
+    input.addEventListener(
+      "change",
+      () => {
+        const file = input.files?.[0];
+        if (file) feedCameraFileIntoPage(file);
+        cleanup();
+      },
+      { once: true }
+    );
+
+    input.addEventListener("cancel", cleanup, { once: true });
+    document.body.appendChild(input);
+
+    try {
+      if (typeof input.showPicker === "function") input.showPicker();
+      else input.click();
+      return true;
+    } catch (error) {
+      console.warn("Could not open Android camera capture intent", error);
+      input.remove();
+      return false;
+    }
   }
 
   function isCancellation(error) {
@@ -167,12 +200,7 @@
 
     try {
       const granted = await ensureCameraPermission(Camera);
-      if (!granted) {
-        window.alert(
-          "Camera permission is not allowed. Open Android Settings → Apps → Kitchen Insights → Permissions → Camera, allow it, then try again."
-        );
-        return true;
-      }
+      if (!granted) return false;
 
       const result = await Camera.getPhoto({
         quality: CAMERA_QUALITY,
@@ -192,9 +220,6 @@
     } catch (error) {
       if (!isCancellation(error)) {
         console.error("Kitchen Insights native camera error", error);
-        window.alert(
-          "Kitchen Insights could not open the native camera. Check Camera permission in Android Settings, then try again."
-        );
       }
       return true;
     } finally {
@@ -215,7 +240,7 @@
     const explicit = target.closest('[data-ki-camera-trigger="true"]');
     if (explicit instanceof HTMLElement && !explicit.matches(":disabled")) return explicit;
 
-    return invoiceUploadButton(target, /take photo|add another photo|opening camera/i);
+    return invoiceUploadButton(target, /take photo|add another photo|add another page|opening camera/i);
   }
 
   function nativeUploadButton(target) {
@@ -255,16 +280,18 @@
   document.addEventListener(
     "click",
     (event) => {
-      if (!getCapacitor()) return;
-
       const target = event.target;
       if (!(target instanceof Element)) return;
 
       if (nativeCameraButton(target)) {
-        // Only swallow the click when the native Camera plugin is actually
-        // available. Older Android wrappers expose Capacitor but not Camera;
-        // in that case let the page use getUserMedia instead of silently
-        // blocking the camera button.
+        // Android's external camera capture does not require Kitchen Insights
+        // itself to declare CAMERA. The system camera returns the image as a file.
+        if (openAndroidCaptureIntent()) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
         if (getNativeCamera()) {
           event.preventDefault();
           event.stopPropagation();
@@ -273,7 +300,7 @@
         }
       }
 
-      if (nativeUploadButton(target) && openNativeFilePicker()) {
+      if (getCapacitor() && nativeUploadButton(target) && openNativeFilePicker()) {
         event.preventDefault();
         event.stopPropagation();
       }
