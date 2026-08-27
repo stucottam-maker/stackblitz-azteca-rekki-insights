@@ -289,7 +289,7 @@ export default function ReportsPage() {
       }));
   }, [invoices]);
 
-  const supplierChartRows = supplierRows.slice(0, 6);
+  const supplierChartRows = supplierRows.slice(0, 10);
   const supplierChartMax = Math.max(
     ...supplierChartRows.map((row) => row.total),
     1
@@ -634,7 +634,7 @@ export default function ReportsPage() {
                   </div>
                 ) : (
                   <div className="report-supplier-list-clean">
-                    {supplierRows.slice(0, 6).map((supplier) => (
+                    {supplierRows.slice(0, 10).map((supplier) => (
                       <div
                         className="report-supplier-row-clean"
                         key={supplier.supplier}
