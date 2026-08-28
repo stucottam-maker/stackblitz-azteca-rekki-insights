@@ -47,6 +47,15 @@ function round2(value: number) {
   return Math.round(value * 100) / 100;
 }
 
+function median(values: number[]) {
+  if (!values.length) return 1;
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 1
+    ? sorted[middle]
+    : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
 export async function GET(request: Request) {
   try {
     const { organisationId, siteId } = await requireOrganisation(request);
@@ -152,9 +161,9 @@ export async function GET(request: Request) {
         productId: product.id,
         supplier: supplier.name,
         supplierProduct: product.supplier_product_name,
-        averageQuantity: quantities.length
-          ? round2(quantities.reduce((sum, quantity) => sum + quantity, 0) / quantities.length)
-          : 1,
+        // A median is a better "usual order" than a mean for case/punnet ordering.
+        // It avoids nonsense such as 4.43 punnets while staying robust to one-off big orders.
+        averageQuantity: quantities.length ? round2(median(quantities)) : 1,
         orderUnit: product.price_unit || latestEntry.entry.priceUnit || "each",
         invoiceCount: dated.length,
         lastOrderedAt: latestEntry.date,
