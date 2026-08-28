@@ -46,6 +46,12 @@ type StockItem = {
   unit: string;
 };
 
+type StockTakeSnapshot = {
+  id?: string;
+  createdAt?: string;
+  items?: StockItem[];
+};
+
 type SuggestedItem = {
   productId: string;
   supplier: string;
@@ -117,8 +123,54 @@ type UnitInfo = {
   label: string;
 };
 
+const COUNT_ALIASES: Record<string, string> = {
+  each: "each",
+  ea: "each",
+  unit: "each",
+  units: "each",
+  piece: "each",
+  pieces: "each",
+  pc: "each",
+  pcs: "each",
+  bunch: "bunch",
+  bunches: "bunch",
+  punnet: "punnet",
+  punnets: "punnet",
+  pack: "pack",
+  packs: "pack",
+  box: "case",
+  boxes: "case",
+  case: "case",
+  cases: "case",
+  bag: "bag",
+  bags: "bag",
+  bottle: "bottle",
+  bottles: "bottle",
+  jar: "jar",
+  jars: "jar",
+  tin: "tin",
+  tins: "tin",
+  tub: "tub",
+  tubs: "tub",
+  roll: "roll",
+  rolls: "roll",
+};
+
 function parseUnit(value: string): UnitInfo | null {
-  const compact = value.toLowerCase().replace(/\s+/g, "").replace(/litres?/g, "l").replace(/ltr/g, "l");
+  const words = normalise(value).split(" ").filter(Boolean);
+
+  // Prefer the container/count unit when a pack size is embedded in the unit,
+  // e.g. "25g punnet" or "case 18".
+  for (const word of words) {
+    const alias = COUNT_ALIASES[word];
+    if (alias) return { family: "count", basePerOrderUnit: 1, label: alias };
+  }
+
+  const compact = value
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/litres?/g, "l")
+    .replace(/ltr/g, "l");
 
   const weight = compact.match(/^(\d+(?:\.\d+)?)?(kg|g)$/);
   if (weight) {
@@ -134,37 +186,7 @@ function parseUnit(value: string): UnitInfo | null {
     return { family: "volume", basePerOrderUnit, label: "L" };
   }
 
-  const countAliases: Record<string, string> = {
-    each: "each",
-    ea: "each",
-    unit: "each",
-    units: "each",
-    piece: "each",
-    pieces: "each",
-    pc: "each",
-    pcs: "each",
-    bunch: "bunch",
-    bunches: "bunch",
-    punnet: "punnet",
-    punnets: "punnet",
-    pack: "pack",
-    packs: "pack",
-    box: "box",
-    boxes: "box",
-    case: "case",
-    cases: "case",
-    bag: "bag",
-    bags: "bag",
-    bottle: "bottle",
-    bottles: "bottle",
-    jar: "jar",
-    jars: "jar",
-    tin: "tin",
-    tins: "tin",
-    tub: "tub",
-    tubs: "tub",
-  };
-  const alias = countAliases[compact];
+  const alias = COUNT_ALIASES[compact];
   return alias ? { family: "count", basePerOrderUnit: 1, label: alias } : null;
 }
 
@@ -189,6 +211,49 @@ function roundSuggestion(value: number, orderUnit: string) {
     ? 0.5
     : 1;
   return Math.round(Math.ceil(value / step) * step * 100) / 100;
+}
+
+function prettyOrderQuantity(quantity: number, orderUnit: string) {
+  const unitInfo = parseUnit(orderUnit);
+  if (unitInfo?.family === "count") {
+    const label = quantity === 1 ? unitInfo.label : `${unitInfo.label}s`;
+    return `${quantity} ${label}`;
+  }
+
+  const compact = orderUnit
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/litres?/g, "l")
+    .replace(/ltr/g, "l");
+  const packaged = compact.match(/^(\d+(?:\.\d+)?)(kg|g|l|ml)$/);
+  if (packaged && Number(packaged[1]) !== 1) {
+    return `${quantity} × ${packaged[1]}${packaged[2] === "l" ? "L" : packaged[2]}`;
+  }
+
+  return `${quantity} ${orderUnit}`;
+}
+
+function priceUnitLabel(orderUnit: string) {
+  const unitInfo = parseUnit(orderUnit);
+  if (unitInfo?.family === "count") return unitInfo.label;
+  return orderUnit;
+}
+
+function latestStockItems(
+  currentStock: StockTakeSnapshot | null,
+  history: StockTakeSnapshot[]
+): StockItem[] {
+  if (currentStock?.items?.length) return currentStock.items;
+
+  const completed = [...history]
+    .filter((snapshot) => snapshot?.items?.length)
+    .sort((a, b) => {
+      const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return bTime - aTime;
+    });
+
+  return completed[0]?.items ?? [];
 }
 
 async function fetchFrequentProducts(): Promise<FrequentProduct[]> {
@@ -223,13 +288,12 @@ export default function SuggestedOrdersPage() {
 
         const [frequent, workspaceState] = await Promise.all([
           fetchFrequentProducts(),
-          readWorkspaceStates(["purchaseOrders", "currentStockTake"]),
+          readWorkspaceStates(["purchaseOrders", "currentStockTake", "stockTakeHistory"]),
         ]);
 
-        const currentStock = (workspaceState.get("currentStockTake") ?? { items: [] }) as {
-          items?: StockItem[];
-        };
-        const stock = currentStock.items ?? [];
+        const currentStock = (workspaceState.get("currentStockTake") ?? null) as StockTakeSnapshot | null;
+        const stockHistory = (workspaceState.get("stockTakeHistory") ?? []) as StockTakeSnapshot[];
+        const stock = latestStockItems(currentStock, Array.isArray(stockHistory) ? stockHistory : []);
         const purchaseOrders = (workspaceState.get("purchaseOrders") ?? []) as PurchaseOrder[];
         setOrders(purchaseOrders);
 
@@ -295,7 +359,7 @@ export default function SuggestedOrdersPage() {
           } else if (comparableStock !== null && suggestedQuantity === 0) {
             reason = "Current stock already covers the usual order quantity.";
           } else if (comparableStock !== null) {
-            reason = `Usual ${frequentItem.averageQuantity} ${orderUnit}, about ${Math.round(comparableStock * 100) / 100} ${orderUnit} in stock.`;
+            reason = `Usual ${prettyOrderQuantity(frequentItem.averageQuantity, orderUnit)}, about ${prettyOrderQuantity(Math.round(comparableStock * 100) / 100, orderUnit)} in stock.`;
           } else if (stockItem) {
             reason = `Stock is recorded as ${stockItem.quantity ?? "?"} ${stockItem.unit}, but the units are not safely comparable, so the usual quantity is used.`;
           } else {
@@ -476,7 +540,7 @@ export default function SuggestedOrdersPage() {
                         <span className={styles.tag}>{item.invoiceCount} invoices · last {formatShortDate(item.lastOrderedAt)}</span>
                       </div>
                       <div className={styles.meta}>
-                        <strong>Usual {item.usualQuantity} {item.orderUnit}</strong>
+                        <strong>Usual {prettyOrderQuantity(item.usualQuantity, item.orderUnit)}</strong>
                         <span>{item.averageIntervalDays ? `About every ${item.averageIntervalDays} days` : "Frequent purchase"}</span>
                       </div>
                       <div className={styles.stock}>
@@ -485,8 +549,8 @@ export default function SuggestedOrdersPage() {
                       </div>
                       <div className={styles.quantity}>
                         <span>Suggest</span>
-                        <strong>{item.suggestedQuantity} {item.orderUnit}</strong>
-                        <span>{item.unitPrice === null ? "Price unavailable" : `${money(item.unitPrice)} / ${item.orderUnit}`}</span>
+                        <strong>{prettyOrderQuantity(item.suggestedQuantity, item.orderUnit)}</strong>
+                        <span>{item.unitPrice === null ? "Price unavailable" : `${money(item.unitPrice)} / ${priceUnitLabel(item.orderUnit)}`}</span>
                       </div>
                     </div>
                   ))}
