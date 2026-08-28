@@ -54,6 +54,31 @@ type StockItem = {
   unit: string;
 };
 
+type InvoiceRegularProduct = {
+  productId: string;
+  supplier: string;
+  supplierProduct: string;
+  averageQuantity: number;
+  orderUnit: string;
+  invoiceCount: number;
+  lastOrderedAt: string;
+  averageIntervalDays: number | null;
+  weightedScore: number;
+  latestUnitPrice: number | null;
+};
+
+type RegularDisplayItem = {
+  lineId: string;
+  ingredient: string;
+  supplierProduct: string;
+  orderUnit: string;
+  averageQuantity: number;
+  lastOrderedAt: string;
+  averageIntervalDays: number | null;
+  orderCount: number;
+  source: "invoice" | "order" | "saved";
+};
+
 function first<T>(value: Relation<T>): T | null {
   return Array.isArray(value) ? value[0] ?? null : value;
 }
@@ -168,10 +193,31 @@ async function accessToken() {
   return session.access_token;
 }
 
+async function fetchInvoiceRegularProducts(): Promise<InvoiceRegularProduct[]> {
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (!session?.access_token) return [];
+
+    const response = await fetch("/api/orders/frequent-products", {
+      headers: { Authorization: `Bearer ${session.access_token}` },
+      cache: "no-store",
+    });
+    if (!response.ok) return [];
+    const payload = await response.json();
+    return Array.isArray(payload.products) ? payload.products : [];
+  } catch (error) {
+    console.warn("Could not load invoice-derived regular products", error);
+    return [];
+  }
+}
+
 export default function OrdersPage() {
   const [step, setStep] = useState<OrderStep>("start");
   const [supplierTab, setSupplierTab] = useState<SupplierTab>("catalogue");
   const [products, setProducts] = useState<Product[]>([]);
+  const [invoiceRegulars, setInvoiceRegulars] = useState<InvoiceRegularProduct[]>([]);
   const [orders, setOrders] = useState<PurchaseOrder[]>([]);
   const [regularProductIds, setRegularProductIds] = useState<string[]>([]);
   const [stock, setStock] = useState<StockItem[]>([]);
@@ -193,7 +239,7 @@ export default function OrdersPage() {
         const activeWorkspace = await resolveActiveWorkspace();
         if (!activeWorkspace) throw new Error("No active restaurant workspace");
 
-        const [productResult, workspace] = await Promise.all([
+        const [productResult, workspace, learnedFromInvoices] = await Promise.all([
           supabase
             .from("supplier_products")
             .select(`
@@ -211,6 +257,7 @@ export default function OrdersPage() {
             .order("supplier_product_name", { ascending: true })
             .limit(1000),
           readWorkspaceStates(["purchaseOrders", "currentStockTake", REGULAR_ORDER_PRODUCTS_KEY, ORGANISATION_SETTINGS_KEY]),
+          fetchInvoiceRegularProducts(),
         ]);
 
         if (productResult.error) throw productResult.error;
@@ -244,6 +291,7 @@ export default function OrdersPage() {
           );
 
         setProducts(liveProducts);
+        setInvoiceRegulars(learnedFromInvoices);
         setOrders((workspace.get("purchaseOrders") ?? []) as PurchaseOrder[]);
         setRegularProductIds((workspace.get(REGULAR_ORDER_PRODUCTS_KEY) ?? []) as string[]);
         const stockTake = (workspace.get("currentStockTake") ?? { items: [] }) as { items?: StockItem[] };
@@ -260,6 +308,11 @@ export default function OrdersPage() {
     void load();
   }, []);
 
+  const invoiceRegularByProduct = useMemo(
+    () => new Map(invoiceRegulars.map((item) => [item.productId, item])),
+    [invoiceRegulars]
+  );
+
   const supplierNames = useMemo(
     () => Array.from(new Set(products.map((product) => product.supplier))).sort(),
     [products]
@@ -267,15 +320,29 @@ export default function OrdersPage() {
 
   const supplierProducts = useMemo(() => {
     const query = search.trim().toLowerCase();
-    return products.filter(
-      (product) =>
-        product.supplier === selectedSupplier &&
-        (!query ||
-          product.ingredient.toLowerCase().includes(query) ||
-          product.supplierProduct.toLowerCase().includes(query) ||
-          product.sku.toLowerCase().includes(query))
-    );
-  }, [products, selectedSupplier, search]);
+    return products
+      .filter(
+        (product) =>
+          product.supplier === selectedSupplier &&
+          (!query ||
+            product.ingredient.toLowerCase().includes(query) ||
+            product.supplierProduct.toLowerCase().includes(query) ||
+            product.sku.toLowerCase().includes(query))
+      )
+      .sort((a, b) => {
+        const aFrequent = invoiceRegularByProduct.get(a.id);
+        const bFrequent = invoiceRegularByProduct.get(b.id);
+        if (Boolean(aFrequent) !== Boolean(bFrequent)) return aFrequent ? -1 : 1;
+        if (aFrequent && bFrequent) {
+          return (
+            bFrequent.weightedScore - aFrequent.weightedScore ||
+            bFrequent.invoiceCount - aFrequent.invoiceCount ||
+            a.ingredient.localeCompare(b.ingredient)
+          );
+        }
+        return Number(b.preferred) - Number(a.preferred) || a.ingredient.localeCompare(b.ingredient);
+      });
+  }, [products, selectedSupplier, search, invoiceRegularByProduct]);
 
   const selectedLines = useMemo(() => {
     return products.flatMap((product) => {
@@ -320,14 +387,41 @@ export default function OrdersPage() {
     [orders, selectedSupplier]
   );
 
-  const regularOrderItems = useMemo(() => {
-    const learned = getRegularOrderItems(orders, selectedSupplier);
-    const learnedProducts = new Set(
-      learned.flatMap((item) => [
-        normalise(item.ingredient),
-        normalise(item.supplierProduct),
-      ])
+  const regularOrderItems = useMemo<RegularDisplayItem[]>(() => {
+    const live = invoiceRegulars
+      .filter((item) => item.supplier === selectedSupplier)
+      .flatMap((item) => {
+        const product = products.find((candidate) => candidate.id === item.productId);
+        if (!product) return [];
+        return [{
+          lineId: product.id,
+          ingredient: product.ingredient,
+          supplierProduct: product.supplierProduct,
+          orderUnit: product.unit || item.orderUnit,
+          averageQuantity: item.averageQuantity,
+          lastOrderedAt: item.lastOrderedAt,
+          averageIntervalDays: item.averageIntervalDays,
+          orderCount: item.invoiceCount,
+          source: "invoice" as const,
+        }];
+      });
+
+    const liveProducts = new Set(
+      live.flatMap((item) => [normalise(item.ingredient), normalise(item.supplierProduct)])
     );
+
+    const learned = getRegularOrderItems(orders, selectedSupplier)
+      .filter(
+        (item) =>
+          !liveProducts.has(normalise(item.ingredient)) &&
+          !liveProducts.has(normalise(item.supplierProduct))
+      )
+      .map((item) => ({ ...item, source: "order" as const }));
+
+    const learnedProducts = new Set(
+      [...live, ...learned].flatMap((item) => [normalise(item.ingredient), normalise(item.supplierProduct)])
+    );
+
     const saved = products
       .filter(
         (product) =>
@@ -345,9 +439,11 @@ export default function OrdersPage() {
         lastOrderedAt: "",
         averageIntervalDays: null,
         orderCount: 0,
+        source: "saved" as const,
       }));
-    return [...learned, ...saved];
-  }, [orders, products, regularProductIds, selectedSupplier]);
+
+    return [...live, ...learned, ...saved];
+  }, [invoiceRegulars, orders, products, regularProductIds, selectedSupplier]);
 
   const receivingOrder = orders.find((order) => order.id === receivingOrderId) ?? null;
 
@@ -383,6 +479,9 @@ export default function OrdersPage() {
   }
 
   function previousAverage(product: Product) {
+    const invoiceAverage = invoiceRegularByProduct.get(product.id);
+    if (invoiceAverage) return invoiceAverage.averageQuantity;
+
     const values = orders
       .filter((order) => order.supplier === product.supplier && order.status !== "Draft")
       .flatMap((order) =>
@@ -617,13 +716,17 @@ export default function OrdersPage() {
               <div className="supplier-choice-grid">
                 {supplierNames.map((supplier) => {
                   const count = products.filter((product) => product.supplier === supplier).length;
+                  const frequentCount = invoiceRegulars.filter((item) => item.supplier === supplier).length;
                   const profile = supplierProfile(supplier);
                   return (
                     <button type="button" className="supplier-choice-card" key={supplier} onClick={() => chooseSupplier(supplier)}>
                       <SupplierLogo supplier={supplier} />
                       <div className="supplier-choice-copy">
                         <strong>{supplier}</strong>
-                        <span>{count} {count === 1 ? "product" : "products"}</span>
+                        <span>
+                          {count} {count === 1 ? "product" : "products"}
+                          {frequentCount > 0 ? ` · ${frequentCount} frequent` : ""}
+                        </span>
                         {(profile?.email || profile?.orderMethod) && (
                           <small>{profile?.orderMethod ?? "Email"}{profile?.email ? ` · ${profile.email}` : ""}</small>
                         )}
@@ -737,13 +840,15 @@ export default function OrdersPage() {
                 {supplierProducts.map((product) => {
                   const stockItem = stock.find((item) => normalise(item.name) === normalise(product.ingredient));
                   const currentQty = Number(quantities[product.id] ?? 0);
+                  const frequent = invoiceRegularByProduct.get(product.id);
                   const average = previousAverage(product);
                   return (
                     <article className={`quick-order-line ${currentQty > 0 ? "quick-order-line-active" : ""}`} key={product.id}>
                       <div className="quick-order-product">
                         <div className="quick-order-product-title">
                           <strong>{product.ingredient}</strong>
-                          {product.preferred && <span className="quick-order-sku">Preferred</span>}
+                          {frequent && <span className="quick-order-sku">Frequent · {frequent.invoiceCount} invoices</span>}
+                          {!frequent && product.preferred && <span className="quick-order-sku">Preferred</span>}
                           {product.sku && <span className="quick-order-sku">SKU {product.sku}</span>}
                         </div>
                         {product.supplierProduct !== product.ingredient && <span>{product.supplierProduct}</span>}
@@ -772,14 +877,35 @@ export default function OrdersPage() {
 
           {supplierTab === "regular" && (
             <section className="panel purchasing-list-panel">
-              <div className="panel-header"><div><p className="panel-kicker">Saved regulars and order history</p><h2>Regularly ordered</h2></div></div>
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">Learned from invoices and order history</p>
+                  <h2>Regularly ordered</h2>
+                </div>
+              </div>
               {regularOrderItems.length === 0 ? (
-                <div className="empty-table-message">Regular items appear after orders have been sent.</div>
+                <div className="empty-table-message">Frequent items appear automatically after they show on 3 approved invoices within 90 days.</div>
               ) : regularOrderItems.map((item) => (
-                <article className="regular-order-row" key={item.lineId}>
+                <article className="regular-order-row" key={`${item.source}-${item.lineId}`}>
                   <div><strong>{item.ingredient}</strong><span>{item.supplierProduct}</span></div>
-                  <span>{item.lastOrderedAt ? `Last ${formatShortDate(item.lastOrderedAt)}` : "Saved as a regular item"}</span>
-                  <span>{item.orderCount === 0 ? "Starting quantity" : item.averageIntervalDays ? `Every ${item.averageIntervalDays} days` : "Ordered once"}</span>
+                  <span>
+                    {item.source === "invoice"
+                      ? `Last ${formatShortDate(item.lastOrderedAt)} · ${item.orderCount} invoices`
+                      : item.lastOrderedAt
+                        ? `Last ${formatShortDate(item.lastOrderedAt)}`
+                        : "Saved as a regular item"}
+                  </span>
+                  <span>
+                    {item.source === "invoice"
+                      ? item.averageIntervalDays
+                        ? `Usually every ${item.averageIntervalDays} days`
+                        : "Frequent from invoices"
+                      : item.orderCount === 0
+                        ? "Starting quantity"
+                        : item.averageIntervalDays
+                          ? `Every ${item.averageIntervalDays} days`
+                          : "Ordered once"}
+                  </span>
                   <strong>{item.averageQuantity} {item.orderUnit}</strong>
                 </article>
               ))}
