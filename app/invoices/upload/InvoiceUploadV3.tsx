@@ -251,9 +251,6 @@ export default function InvoiceUploadV3() {
     setError("");
     if (busy || hasPdf || files.length >= MAX_PHOTO_PAGES) return;
 
-    // Android wrappers/PWAs may have no CAMERA runtime permission declared at all.
-    // A capture file input launches the system camera app instead, so it does not
-    // depend on Kitchen Insights owning the Android camera permission.
     if (isAndroidDevice() && openAndroidCameraIntent()) return;
 
     if (tryNativeCameraBridge()) return;
@@ -392,11 +389,10 @@ export default function InvoiceUploadV3() {
       const session = await getSession();
       if (!session?.access_token) { router.replace("/login"); return; }
 
-      const uploaded: UploadedFile[] = [];
-      for (let index = 0; index < files.length; index += 1) {
-        setStage(files.length === 1 ? "Safely storing invoice..." : `Safely storing page ${index + 1} of ${files.length}...`);
-        uploaded.push(await uploadFile(files[index].file, session.access_token));
-      }
+      setStage(files.length === 1 ? "Safely storing invoice..." : `Safely storing ${files.length} pages together...`);
+      const uploaded = await Promise.all(
+        files.map((item) => uploadFile(item.file, session.access_token))
+      );
 
       const created = await apiJson("/api/invoices/jobs", session.access_token, { action: "create", files: uploaded });
       jobId = String(created.jobId || "");
