@@ -109,7 +109,69 @@ For every invoice return supplier, invoice number, invoice date, due date, payme
 For every line return product, quantity, pack, priceUnit, unit price and line total.
 `;
 
-export async function extractInvoicesFromFiles(files: InvoiceInputFile[]) {
+const FAST_MODEL = process.env.INVOICE_FAST_MODEL || "gpt-5.6-luna";
+const FALLBACK_MODEL = process.env.INVOICE_FALLBACK_MODEL || "gpt-5.6-terra";
+const MONEY_TOLERANCE = 0.08;
+
+function moneyClose(left: number, right: number) {
+  const difference = Math.abs(left - right);
+  const tolerance = Math.max(MONEY_TOLERANCE, Math.abs(right) * 0.0025);
+  return difference <= tolerance;
+}
+
+function numberOrNull(value: unknown) {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function validateInvoice(invoice: ExtractedInvoice) {
+  const reasons: string[] = [];
+  const lines = Array.isArray(invoice.lineItems) ? invoice.lineItems : [];
+
+  if (!String(invoice.supplier || "").trim()) reasons.push("missing supplier");
+  if (!String(invoice.invoiceNumber || "").trim()) reasons.push("missing invoice number");
+  if (!String(invoice.invoiceDate || "").trim()) reasons.push("missing invoice date");
+  if (!lines.length) reasons.push("no line items");
+
+  const subtotal = numberOrNull(invoice.subtotal);
+  const vat = numberOrNull(invoice.vat);
+  const total = numberOrNull(invoice.total);
+  const lineTotals = lines
+    .map((line) => numberOrNull((line as Record<string, unknown>).total))
+    .filter((value): value is number => value !== null);
+
+  if (subtotal !== null && lineTotals.length === lines.length && lineTotals.length > 0) {
+    const summedLines = lineTotals.reduce((sum, value) => sum + value, 0);
+    if (!moneyClose(summedLines, subtotal)) reasons.push("line totals do not match subtotal");
+  }
+
+  if (subtotal !== null && vat !== null && total !== null && !moneyClose(subtotal + vat, total)) {
+    reasons.push("subtotal plus VAT does not match total");
+  }
+
+  if (total !== null && total < 0) reasons.push("negative total");
+  if (subtotal !== null && subtotal < 0) reasons.push("negative subtotal");
+
+  const suspiciousLines = lines.filter((line) => {
+    const product = String((line as Record<string, unknown>).product || "").trim();
+    return !product || product.length > 220;
+  });
+  if (suspiciousLines.length) reasons.push("suspicious product rows");
+
+  return { valid: reasons.length === 0, reasons };
+}
+
+function validateBatch(invoices: ExtractedInvoice[]) {
+  if (!Array.isArray(invoices) || invoices.length === 0) {
+    return { valid: false, reasons: ["no invoices returned"] };
+  }
+
+  const reasons = invoices.flatMap((invoice, index) =>
+    validateInvoice(invoice).reasons.map((reason) => `invoice ${index + 1}: ${reason}`)
+  );
+  return { valid: reasons.length === 0, reasons };
+}
+
+function buildContent(files: InvoiceInputFile[], detail: "auto" | "high") {
   const content: any[] = [];
 
   files.forEach((file, index) => {
@@ -126,16 +188,23 @@ export async function extractInvoicesFromFiles(files: InvoiceInputFile[]) {
       content.push({
         type: "input_image",
         image_url: file.fileUrl,
-        detail: "high",
+        detail,
       } as any);
     }
   });
 
   content.push({ type: "input_text", text: prompt });
+  return content;
+}
 
+async function runExtraction(
+  files: InvoiceInputFile[],
+  options: { model: string; detail: "auto" | "high"; effort: "none" | "low" }
+) {
   const response = await openai.responses.create({
-    model: "gpt-5",
-    input: [{ role: "user", content }],
+    model: options.model,
+    reasoning: { effort: options.effort },
+    input: [{ role: "user", content: buildContent(files, options.detail) }],
     text: {
       format: {
         type: "json_schema",
@@ -163,4 +232,47 @@ export async function extractInvoicesFromFiles(files: InvoiceInputFile[]) {
   }
 
   return parsed.invoices;
+}
+
+export async function extractInvoicesFromFiles(files: InvoiceInputFile[]) {
+  const startedAt = Date.now();
+
+  try {
+    const fastInvoices = await runExtraction(files, {
+      model: FAST_MODEL,
+      detail: "auto",
+      effort: "none",
+    });
+    const validation = validateBatch(fastInvoices);
+
+    console.info("INVOICE FAST PASS", {
+      model: FAST_MODEL,
+      files: files.length,
+      invoices: fastInvoices.length,
+      valid: validation.valid,
+      reasons: validation.reasons,
+      elapsedMs: Date.now() - startedAt,
+    });
+
+    if (validation.valid) return fastInvoices;
+  } catch (fastError) {
+    console.warn("INVOICE FAST PASS FAILED", fastError);
+  }
+
+  const fallbackStartedAt = Date.now();
+  const fallbackInvoices = await runExtraction(files, {
+    model: FALLBACK_MODEL,
+    detail: "high",
+    effort: "low",
+  });
+
+  console.info("INVOICE FALLBACK PASS", {
+    model: FALLBACK_MODEL,
+    files: files.length,
+    invoices: fallbackInvoices.length,
+    elapsedMs: Date.now() - fallbackStartedAt,
+    totalElapsedMs: Date.now() - startedAt,
+  });
+
+  return fallbackInvoices;
 }
