@@ -103,6 +103,17 @@ function preferredPrice(
   };
 }
 
+function mergeMissingStockItems(existing: StockItem[], extras: StockItem[]) {
+  const existingIds = new Set(existing.map((item) => item.id));
+  const existingNames = new Set(existing.map((item) => normalise(item.name)));
+  return [
+    ...existing,
+    ...extras.filter(
+      (item) => !existingIds.has(item.id) && !existingNames.has(normalise(item.name))
+    ),
+  ].sort((a, b) => `${a.category}-${a.name}`.localeCompare(`${b.category}-${b.name}`));
+}
+
 export default function StockPage() {
   const [tab, setTab] = useState<"count" | "history">("count");
   const [items, setItems] = useState<StockItem[]>([]);
@@ -123,7 +134,7 @@ export default function StockPage() {
         const workspace = await resolveActiveWorkspace();
         if (!workspace) throw new Error("No active restaurant workspace.");
 
-        const [state, catalogueResult] = await Promise.all([
+        const [state, catalogueResult, prepResult] = await Promise.all([
           readWorkspaceStates([
             "ingredientPrices",
             "currentStockTake",
@@ -144,9 +155,16 @@ export default function StockPage() {
             .order("preferred", { ascending: false })
             .order("supplier_product_name")
             .limit(5000),
+          supabase
+            .from("ingredients")
+            .select("id,name,category,base_unit")
+            .eq("organisation_id", workspace.organisationId)
+            .eq("category", "Prepared batches")
+            .order("name"),
         ]);
 
         if (catalogueResult.error) throw catalogueResult.error;
+        if (prepResult.error) throw prepResult.error;
 
         const ingredientPrices = (state.get("ingredientPrices") ?? {}) as Record<
           string,
@@ -155,10 +173,21 @@ export default function StockPage() {
         const savedDraft = (state.get("currentStockTake") ?? null) as SavedStockTake | null;
         const savedHistory = (state.get("stockTakeHistory") ?? []) as SavedStockTake[];
 
+        const prepItems: StockItem[] = (prepResult.data ?? []).map((row) => ({
+          id: row.id,
+          name: row.name,
+          category: row.category || "Prepared batches",
+          quantity: null,
+          unit: row.base_unit || "kg",
+          price: null,
+          priceUnit: row.base_unit || "kg",
+          supplier: "Kitchen prep",
+        }));
+
         setHistory(Array.isArray(savedHistory) ? savedHistory : []);
 
         if (savedDraft?.items?.length) {
-          setItems(savedDraft.items);
+          setItems(mergeMissingStockItems(savedDraft.items, prepItems));
           setLastSaved(savedDraft.createdAt || "");
           return;
         }
@@ -204,6 +233,10 @@ export default function StockPage() {
           });
         }
 
+        for (const prepItem of prepItems) {
+          if (!byIngredient.has(prepItem.id)) byIngredient.set(prepItem.id, prepItem);
+        }
+
         setItems(
           Array.from(byIngredient.values()).sort((a, b) =>
             `${a.category}-${a.name}`.localeCompare(`${b.category}-${b.name}`)
@@ -242,7 +275,9 @@ export default function StockPage() {
   }, [items, search, category]);
 
   const counted = items.filter((item) => item.quantity !== null).length;
-  const missingPrices = items.filter((item) => item.price === null).length;
+  const missingPrices = items.filter(
+    (item) => item.price === null && item.category !== "Prepared batches"
+  ).length;
   const totalValue = items.reduce((sum, item) => sum + stockValue(item), 0);
 
   function updateQuantity(id: string, value: string) {
@@ -342,7 +377,7 @@ export default function StockPage() {
           <p className="eyebrow">Inventory</p>
           <h1>Stock</h1>
           <p className="page-description">
-            Count what is actually in the kitchen. The list comes only from this restaurant&apos;s catalogue.
+            Count what is actually in the kitchen, including bought-in products and prepared batches.
           </p>
           {lastSaved && <p className="stock-last-saved">Draft saved {formatDate(lastSaved)}</p>}
         </div>
@@ -395,7 +430,7 @@ export default function StockPage() {
               <div className="ingredient-search">
                 <input
                   type="search"
-                  placeholder="Search ingredient or supplier…"
+                  placeholder="Search ingredient, batch or supplier…"
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                 />
@@ -424,8 +459,12 @@ export default function StockPage() {
                       <span className="ingredient-category-badge">{item.category}</span>
                       <strong>{item.name}</strong>
                       <small>
-                        {item.supplier || "No supplier"}
-                        {item.price !== null ? ` · ${money(item.price)}/${item.priceUnit || item.unit}` : " · price needed"}
+                        {item.category === "Prepared batches" && item.price === null
+                          ? "Kitchen prep · recipe cost pending"
+                          : <>
+                              {item.supplier || "No supplier"}
+                              {item.price !== null ? ` · ${money(item.price)}/${item.priceUnit || item.unit}` : " · price needed"}
+                            </>}
                       </small>
                     </div>
 
