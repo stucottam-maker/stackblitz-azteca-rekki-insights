@@ -12,7 +12,6 @@ import "./pwa-polish.css";
 import "./invoice-mobile-fix.css";
 import "./workspace-polish.css";
 import "./chef-ui.css";
-import "./blue-finish.css";
 import "./metro-dashboard.css";
 import "./mobile-header-polish.css";
 import "./chef-workflows.css";
@@ -20,6 +19,7 @@ import "./invoice-card-labels.css";
 import "./compact-mobile.css";
 import "./mobile-width-guard.css";
 import "./desktop-control-room.css";
+import "./blue-finish.css";
 
 import type { Metadata } from "next";
 import Script from "next/script";
