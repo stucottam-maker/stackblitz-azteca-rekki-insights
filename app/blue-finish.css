@@ -1,4 +1,4 @@
-/* Final blue chef-first pass. Loaded last so it deliberately overrides legacy green styling. */
+/* Canonical blue chef-first theme. Keep this stylesheet loaded last. */
 
 :root {
   --background: #f4f7fb;
@@ -8,6 +8,7 @@
   --text: #172033;
   --text-soft: #667085;
   --text-light: #8a96a8;
+  /* Legacy variable names are retained for compatibility, but now point to blue. */
   --green: #2563eb;
   --green-dark: #172554;
   --green-soft: #e8f0ff;
@@ -215,4 +216,122 @@ textarea:focus-visible {
   .receive-order-row input { width: 100% !important; }
   .receive-order-actions { position: sticky; bottom: 8px; align-items: stretch; flex-direction: column; padding: 10px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(23,37,84,.14); }
   .receive-order-actions button { width: 100%; }
+}
+
+/* =========================================================
+   BLUE THEME LOCK
+   This is deliberately broad and lives at the very end of the
+   global cascade so old green rules cannot reappear on routes.
+   ========================================================= */
+
+:root,
+.metro-app-shell,
+.app-shell-root {
+  --background: #f4f7fb !important;
+  --surface: #ffffff !important;
+  --surface-soft: #f7f9fc !important;
+  --border: #dce3ee !important;
+  --text: #172033 !important;
+  --text-soft: #667085 !important;
+  --text-light: #8a96a8 !important;
+  --green: #2563eb !important;
+  --green-dark: #172554 !important;
+  --green-soft: #e8f0ff !important;
+}
+
+body > .app-shell > .sidebar,
+.app-shell-root > .chef-sidebar,
+.metro-app-shell .chef-sidebar,
+.sidebar.chef-sidebar {
+  background: linear-gradient(180deg, #172554 0%, #1e3a8a 100%) !important;
+  box-shadow: 1px 0 0 rgba(255,255,255,.05), 0 8px 28px rgba(23,37,84,.16) !important;
+}
+
+body > .app-shell > .sidebar .brand-mark,
+.app-shell-root .brand-mark,
+.metro-app-shell .brand-mark,
+.brand-mark {
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
+body > .app-shell > .sidebar .nav-link-active,
+.app-shell-root .nav-link-active,
+.metro-app-shell .nav-link-active {
+  color: #fff !important;
+  background: rgba(96,165,250,.22) !important;
+  box-shadow: inset 3px 0 0 #60a5fa !important;
+}
+
+@media (max-width: 640px) {
+  body > .app-shell > .sidebar .nav-link.mobile-primary.nav-link-active,
+  .app-shell-root .nav-link.mobile-primary.nav-link-active,
+  .metro-app-shell .nav-link.mobile-primary.nav-link-active {
+    background: rgba(37,99,235,.20) !important;
+    box-shadow: inset 0 -3px 0 #60a5fa !important;
+  }
+}
+
+.primary-button,
+button.primary-button,
+a.primary-button,
+.quick-review-button,
+.receive-order-actions .primary-button {
+  border-color: #2563eb !important;
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
+.primary-button:hover,
+button.primary-button:hover,
+a.primary-button:hover,
+.quick-review-button:hover {
+  background: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+  color: #fff !important;
+}
+
+.secondary-inline-button,
+.report-text-button,
+.report-text-link,
+.invoice-detail-link,
+.quick-order-back,
+.supplier-choice-arrow {
+  color: #1d4ed8 !important;
+}
+
+.stock-tab-active,
+.chef-stock-tabs .stock-tab-active,
+.purchasing-tab-active,
+.reports-tab-clean-active {
+  color: #1d4ed8 !important;
+}
+
+.chef-stock-row-counted {
+  border-color: #bfdbfe !important;
+  background: #f8fbff !important;
+  box-shadow: inset 3px 0 0 #2563eb !important;
+}
+
+.quick-order-line-active {
+  border-color: #bfdbfe !important;
+  background: #eef5ff !important;
+  box-shadow: inset 3px 0 0 #2563eb !important;
+}
+
+.notice:not(.error),
+.pwa-installed-note,
+.team-permission-note {
+  border-color: #bfdbfe !important;
+  background: #eff6ff !important;
+  color: #1e40af !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.ingredient-search input:focus,
+.supplier-search input:focus {
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.14) !important;
 }
