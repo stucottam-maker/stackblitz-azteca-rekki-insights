@@ -845,6 +845,9 @@ export default function ReportsPage() {
                         periodInsightData.metrics.purchasesBetweenCounts
                       )}
                     </strong>
+                    <Link href="/reports/setup" className="report-text-link">
+                      Enter net food sales →
+                    </Link>
                   </div>
                 </div>
               ) : (
