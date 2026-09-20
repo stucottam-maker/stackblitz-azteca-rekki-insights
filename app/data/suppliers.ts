@@ -26,6 +26,13 @@ export const suppliers: Record<string, Supplier> = {
     orderMethod: "Email",
   },
 
+  "Brakes": {
+    name: "Brakes",
+    logo: "",
+    phone: "0344 800 4900",
+    orderMethod: "Portal",
+  },
+
   "Crazy Dan's House of Meat": {
     name: "Crazy Dan's House of Meat",
     logo: "/suppliers/crazy-dans.png",
