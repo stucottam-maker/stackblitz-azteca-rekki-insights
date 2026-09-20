@@ -139,9 +139,12 @@ const supplierAliases: Record<string, string> = {
   "crazy dans": "Crazy Dan's House of Meat",
   "fin flounder": "Fin and Flounder",
   "fin and flounder": "Fin and Flounder",
+  "fin and flounder wholesale ltd": "Fin and Flounder",
   "james knight": "James Knight of Mayfair",
+  "james knight of mayfair limited": "James Knight of Mayfair",
   "woods fine foods": "Woods Foodservice",
   "woods foodservice": "Woods Foodservice",
+  "woods foodservice limited": "Woods Foodservice",
   "spitalfields fruit veg": "Spitalfields Fruit & Veg",
 };
 
@@ -155,6 +158,15 @@ function supplierProfile(name: string): Supplier | null {
     Object.values(supplierDirectory).find((supplier) => normalise(supplier.name) === key) ??
     null
   );
+}
+
+function supplierOrderMethod(name: string) {
+  return supplierProfile(name)?.orderMethod ?? "Email";
+}
+
+function requiresManualSend(name: string) {
+  const method = supplierOrderMethod(name);
+  return method === "Portal" || method === "Phone";
 }
 
 function SupplierLogo({ supplier, size = "normal" }: { supplier: string; size?: "normal" | "small" }) {
@@ -633,6 +645,11 @@ export default function OrdersPage() {
     setNotes("");
     setStep("start");
 
+    if (requiresManualSend(selectedSupplier)) {
+      setMessage(`${order.id} saved as Draft. Place the order via ${supplierOrderMethod(selectedSupplier)}, then mark it Sent.`);
+      return;
+    }
+
     if (currentSettings.sendSupplierEmail === false) {
       setMessage(`${order.id} saved as Draft.`);
       return;
@@ -770,7 +787,7 @@ export default function OrdersPage() {
                           <button type="button" className="primary-button" disabled={sending} onClick={() => void sendOrder(order)}>
                             {sending ? "Sending…" : "Send now"}
                           </button>
-                          {supplierProfile(order.supplier)?.whatsapp && (
+                          {(supplierProfile(order.supplier)?.whatsapp || requiresManualSend(order.supplier)) && (
                             <button type="button" className="secondary-inline-button" onClick={() => void markDraftSent(order)}>Mark sent</button>
                           )}
                         </>
@@ -972,7 +989,13 @@ export default function OrdersPage() {
           <div className="quick-order-footer order-review-footer">
             <div><span>Estimated total</span><strong>{money(estimatedTotal)}</strong><span className="order-review-footer-count">{selectedLines.length} {selectedLines.length === 1 ? "item" : "items"}</span></div>
             <button type="button" className="primary-button quick-review-button" disabled={sending} onClick={() => void createOrder()}>
-              {sending ? "Sending…" : supplierProfile(selectedSupplier)?.whatsapp && String(supplierProfile(selectedSupplier)?.orderMethod || "").toLowerCase().includes("whatsapp") ? "Save & open WhatsApp" : "Send order"}
+              {sending
+                ? "Sending…"
+                : requiresManualSend(selectedSupplier)
+                  ? "Save order"
+                  : supplierProfile(selectedSupplier)?.whatsapp && String(supplierProfile(selectedSupplier)?.orderMethod || "").toLowerCase().includes("whatsapp")
+                    ? "Save & open WhatsApp"
+                    : "Send order"}
             </button>
           </div>
         </div>
