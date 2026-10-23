@@ -209,7 +209,7 @@
         allowEditing: false,
         correctOrientation: true,
         saveToGallery: false,
-        resultType: "base64",
+        resultType: "uri",
         source: "CAMERA",
         direction: "REAR",
       });
@@ -218,10 +218,9 @@
       feedCameraFileIntoPage(file);
       return true;
     } catch (error) {
-      if (!isCancellation(error)) {
-        console.error("Kitchen Insights native camera error", error);
-      }
-      return true;
+      if (isCancellation(error)) return true;
+      console.error("Kitchen Insights native camera error", error);
+      return false;
     } finally {
       openingNativeCamera = false;
     }
@@ -284,18 +283,23 @@
       if (!(target instanceof Element)) return;
 
       if (nativeCameraButton(target)) {
-        // Android's external camera capture does not require Kitchen Insights
-        // itself to declare CAMERA. The system camera returns the image as a file.
-        if (openAndroidCaptureIntent()) {
+        const Camera = getNativeCamera();
+
+        if (Camera) {
           event.preventDefault();
           event.stopPropagation();
+          void (async () => {
+            const captured = await takeNativeInvoicePhoto();
+            if (!captured) openAndroidCaptureIntent();
+          })();
           return;
         }
 
-        if (getNativeCamera()) {
+        // Browser/WebView fallback: let Android's system camera return a normal
+        // image file without requiring the web page to own a camera stream.
+        if (openAndroidCaptureIntent()) {
           event.preventDefault();
           event.stopPropagation();
-          void takeNativeInvoicePhoto();
           return;
         }
       }
