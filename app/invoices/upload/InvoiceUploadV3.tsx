@@ -390,9 +390,15 @@ export default function InvoiceUploadV3() {
       if (!session?.access_token) { router.replace("/login"); return; }
 
       setStage(files.length === 1 ? "Safely storing invoice..." : `Safely storing ${files.length} pages together...`);
-      const uploaded = await Promise.all(
-        files.map((item) => uploadFile(item.file, session.access_token))
-      );
+      const uploaded: UploadedFile[] = [];
+      for (let index = 0; index < files.length; index += 1) {
+        setStage(
+          files.length === 1
+            ? "Safely storing invoice..."
+            : `Safely storing page ${index + 1} of ${files.length}...`
+        );
+        uploaded.push(await uploadFile(files[index].file, session.access_token));
+      }
 
       const created = await apiJson("/api/invoices/jobs", session.access_token, { action: "create", files: uploaded });
       jobId = String(created.jobId || "");
