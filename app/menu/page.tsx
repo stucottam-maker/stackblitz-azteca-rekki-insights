@@ -225,7 +225,7 @@ export default function MenuPage() {
                   <thead>
                     <tr>
                       <th>Dish</th>
-                      <th>Selling price</th>
+                      <th>Menu price</th>
                       <th>Recipe cost</th>
                       <th>Food cost</th>
                       <th>GP</th>
@@ -246,6 +246,7 @@ export default function MenuPage() {
                               ) : (
                                 <strong>{item.name}</strong>
                               )}
+                              <span className="menu-inline-price">{formatMoney(item.price)}</span>
                               {item.dietary && <span className="menu-dietary-badge">{item.dietary}</span>}
                             </div>
                             {item.description && <p>{item.description}</p>}
