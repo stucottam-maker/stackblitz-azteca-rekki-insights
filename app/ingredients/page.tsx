@@ -142,6 +142,7 @@ export default function IngredientsPage() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [sortBy, setSortBy] = useState<"name" | "category" | "supplier" | "price">("name");
 
   const loadIngredients = useCallback(async () => {
     setLoading(true);
@@ -204,8 +205,17 @@ export default function IngredientsPage() {
         } satisfies IngredientView];
       });
 
-      mapped.sort((a, b) => a.name.localeCompare(b.name));
-      setIngredients(mapped);
+      const latestByIngredient = new Map<string, IngredientView>();
+      mapped.forEach((item) => {
+        if (!latestByIngredient.has(item.ingredientId)) {
+          latestByIngredient.set(item.ingredientId, item);
+        }
+      });
+
+      const current = Array.from(latestByIngredient.values()).sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setIngredients(current);
     } catch (err) {
       console.error(err);
       setError(err instanceof Error ? err.message : "Unable to load ingredients.");
@@ -225,7 +235,7 @@ export default function IngredientsPage() {
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
-    return ingredients.filter((ingredient) => {
+    const result = ingredients.filter((ingredient) => {
       const matchesSearch =
         !query ||
         ingredient.name.toLowerCase().includes(query) ||
@@ -235,9 +245,25 @@ export default function IngredientsPage() {
         categoryFilter === "All" || ingredient.category === categoryFilter;
       return matchesSearch && matchesCategory;
     });
-  }, [ingredients, search, categoryFilter]);
+
+    return result.sort((a, b) => {
+      if (sortBy === "category") {
+        return a.category.localeCompare(b.category) || a.name.localeCompare(b.name);
+      }
+      if (sortBy === "supplier") {
+        return a.supplier.localeCompare(b.supplier) || a.name.localeCompare(b.name);
+      }
+      if (sortBy === "price") {
+        if (a.price === null) return 1;
+        if (b.price === null) return -1;
+        return b.price - a.price || a.name.localeCompare(b.name);
+      }
+      return a.name.localeCompare(b.name);
+    });
+  }, [ingredients, search, categoryFilter, sortBy]);
 
   const pricedCount = ingredients.filter((ingredient) => ingredient.price !== null).length;
+  const unpricedCount = ingredients.length - pricedCount;
   const supplierCount = new Set(
     ingredients
       .map((ingredient) => ingredient.supplier)
@@ -251,7 +277,7 @@ export default function IngredientsPage() {
           <p className="eyebrow">Cost control</p>
           <h1>Ingredients</h1>
           <p className="page-description">
-            Matched ingredient pricing from approved supplier invoices. Raw invoice descriptions stay in Catalogue and Matching until they are confirmed.
+            Current matched ingredient costs from approved supplier invoices. One clean row per ingredient, using the latest confirmed price.
           </p>
         </div>
         <button
@@ -264,7 +290,7 @@ export default function IngredientsPage() {
         </button>
       </header>
 
-      <section className="stats-grid">
+      <section className="stats-grid ingredients-stats">
         <article className="stat-card">
           <p className="stat-label">Ingredients</p>
           <p className="stat-value">{ingredients.length}</p>
@@ -280,6 +306,13 @@ export default function IngredientsPage() {
           <p className="stat-value">{supplierCount}</p>
           <p className="stat-change neutral">Supplying matched ingredients</p>
         </article>
+        <article className="stat-card">
+          <p className="stat-label">Needs price</p>
+          <p className="stat-value">{unpricedCount}</p>
+          <p className={`stat-change ${unpricedCount ? "warning" : "neutral"}`}>
+            {unpricedCount ? "Review required" : "All priced"}
+          </p>
+        </article>
       </section>
 
       <section className="panel ingredients-main-panel">
@@ -294,15 +327,17 @@ export default function IngredientsPage() {
         </div>
 
         <div className="ingredient-toolbar">
-          <div className="ingredient-search">
+          <label className="ingredient-search">
+            <span className="ingredient-control-label">Search</span>
             <input
               type="search"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Search ingredients, suppliers or categories..."
+              placeholder="Ingredient or supplier..."
             />
-          </div>
-          <div className="ingredient-filter">
+          </label>
+          <label className="ingredient-filter">
+            <span className="ingredient-control-label">Category</span>
             <select
               value={categoryFilter}
               onChange={(event) => setCategoryFilter(event.target.value)}
@@ -311,7 +346,29 @@ export default function IngredientsPage() {
                 <option key={category} value={category}>{category}</option>
               ))}
             </select>
-          </div>
+          </label>
+          <label className="ingredient-sort">
+            <span className="ingredient-control-label">Sort by</span>
+            <select value={sortBy} onChange={(event) => setSortBy(event.target.value as typeof sortBy)}>
+              <option value="name">Ingredient name</option>
+              <option value="category">Category</option>
+              <option value="supplier">Supplier</option>
+              <option value="price">Highest price</option>
+            </select>
+          </label>
+          {(search || categoryFilter !== "All" || sortBy !== "name") && (
+            <button
+              type="button"
+              className="ingredient-clear-filters"
+              onClick={() => {
+                setSearch("");
+                setCategoryFilter("All");
+                setSortBy("name");
+              }}
+            >
+              Clear
+            </button>
+          )}
         </div>
 
         {error && <div className="ingredients-error">{error}</div>}
@@ -336,9 +393,9 @@ export default function IngredientsPage() {
                   <th>Ingredient</th>
                   <th>Category</th>
                   <th>Supplier</th>
-                  <th>Price</th>
+                  <th className="ingredients-price-column">Current price</th>
                   <th>Unit</th>
-                  <th>Effective</th>
+                  <th className="ingredients-date-column">Last updated</th>
                 </tr>
               </thead>
               <tbody>
@@ -347,9 +404,11 @@ export default function IngredientsPage() {
                     <td className="ingredient-name-cell"><strong>{ingredient.name}</strong></td>
                     <td><span className="ingredient-category-badge">{ingredient.category}</span></td>
                     <td>{ingredient.supplier}</td>
-                    <td><strong className="ingredient-price-value">{money(ingredient.price)}</strong></td>
+                    <td className="ingredients-price-column">
+                      <strong className="ingredient-price-value">{money(ingredient.price)}</strong>
+                    </td>
                     <td><span className="ingredient-unit">{ingredient.priceUnit || ingredient.baseUnit || "—"}</span></td>
-                    <td>{formatDate(ingredient.effectiveDate || ingredient.updatedAt)}</td>
+                    <td className="ingredients-date-column">{formatDate(ingredient.effectiveDate || ingredient.updatedAt)}</td>
                   </tr>
                 ))}
               </tbody>
