@@ -410,3 +410,44 @@ table td {
     display: none;
   }
 }
+
+
+/* Menu price visibility */
+.menu-inline-price {
+  display: none;
+}
+
+.menu-costing-table th:nth-child(2),
+.menu-costing-table td:nth-child(2) {
+  text-align: right;
+}
+
+.menu-selling-price {
+  color: #172554;
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+  .menu-inline-price {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: #e8f0ff;
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 850;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .menu-dish-title-row {
+    flex-wrap: wrap;
+  }
+
+  .menu-costing-table {
+    min-width: 720px;
+  }
+}
