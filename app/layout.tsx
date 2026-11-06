@@ -1,25 +1,5 @@
 import "./globals.css";
-import "./ui-fixes.css";
-import "./mobile-nav-fix.css";
-import "./mobile-page-fixes.css";
-import "./final-polish.css";
-import "./orders-polish.css";
-import "./login-polish.css";
-import "./account-auth-polish.css";
-import "./reports-polish.css";
-import "./ap-polish.css";
-import "./pwa-polish.css";
-import "./invoice-mobile-fix.css";
-import "./workspace-polish.css";
-import "./chef-ui.css";
-import "./metro-dashboard.css";
-import "./mobile-header-polish.css";
-import "./chef-workflows.css";
-import "./invoice-card-labels.css";
-import "./compact-mobile.css";
-import "./mobile-width-guard.css";
-import "./desktop-control-room.css";
-import "./blue-finish.css";
+import "./ui-system.css";
 
 import type { Metadata } from "next";
 import Script from "next/script";
