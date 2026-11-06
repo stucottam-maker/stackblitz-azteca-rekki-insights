@@ -1,0 +1,186 @@
+/*
+ * Kitchen Insights UI system
+ * Consolidates the historical global style layers into one explicit entry point.
+ * Import order intentionally matches the previous app/layout.tsx cascade.
+ */
+@import "./ui-fixes.css";
+@import "./mobile-nav-fix.css";
+@import "./mobile-page-fixes.css";
+@import "./final-polish.css";
+@import "./orders-polish.css";
+@import "./login-polish.css";
+@import "./account-auth-polish.css";
+@import "./reports-polish.css";
+@import "./ap-polish.css";
+@import "./pwa-polish.css";
+@import "./invoice-mobile-fix.css";
+@import "./workspace-polish.css";
+@import "./chef-ui.css";
+@import "./metro-dashboard.css";
+@import "./mobile-header-polish.css";
+@import "./chef-workflows.css";
+@import "./invoice-card-labels.css";
+@import "./compact-mobile.css";
+@import "./mobile-width-guard.css";
+@import "./desktop-control-room.css";
+@import "./blue-finish.css";
+
+/* Shared interaction and layout rules. Keep page-specific styling above this line. */
+:root {
+  --ki-radius-xs: 7px;
+  --ki-radius-sm: 10px;
+  --ki-radius-md: 14px;
+  --ki-radius-lg: 18px;
+  --ki-control-height: 42px;
+  --ki-touch-height: 44px;
+  --ki-content-max: 1440px;
+  --ki-focus: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+.main-content-root {
+  min-width: 0;
+}
+
+.page {
+  width: 100%;
+  max-width: var(--ki-content-max);
+  margin-inline: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+button:not(:disabled),
+select:not(:disabled),
+input[type="checkbox"]:not(:disabled),
+input[type="radio"]:not(:disabled) {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+input,
+select,
+textarea {
+  color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.primary-button,
+.secondary-button,
+.secondary-inline-button {
+  min-height: var(--ki-control-height);
+}
+
+.primary-button:active,
+.secondary-button:active,
+.secondary-inline-button:active,
+.text-button:active {
+  transform: translateY(0);
+}
+
+.panel,
+.stat-card,
+.metro-table-panel,
+.metro-desktop-kpi {
+  overflow: hidden;
+}
+
+.table-wrapper {
+  width: 100%;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+
+table th,
+table td {
+  vertical-align: middle;
+}
+
+.topbar > *,
+.panel-header > * {
+  min-width: 0;
+}
+
+.page-description,
+.muted-text {
+  max-width: 72ch;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    gap: 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --ki-control-height: 44px;
+  }
+
+  .main-content-root {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .page {
+    min-width: 0;
+  }
+
+  .topbar {
+    align-items: stretch;
+  }
+
+  .topbar .primary-button,
+  .topbar .secondary-inline-button {
+    min-height: var(--ki-touch-height);
+  }
+
+  .panel,
+  .stat-card {
+    border-radius: var(--ki-radius-md);
+  }
+
+  .table-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
