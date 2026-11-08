@@ -276,39 +276,13 @@
     true
   );
 
-  document.addEventListener(
-    "click",
-    (event) => {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
+  // The React invoice uploader is the only owner of the Take photo tap.
+  // Intercepting it in a capture-phase document listener could open a different
+  // file picker (or lose the Android user gesture) before React ran.
+  // Expose the native Capacitor camera as an explicit, opt-in bridge instead.
+  window.KitchenInsightsCamera = {
+    isAvailable: () => Boolean(getNativeCamera()),
+    takePhoto: () => takeNativeInvoicePhoto(),
+  };
 
-      if (nativeCameraButton(target)) {
-        const Camera = getNativeCamera();
-
-        if (Camera) {
-          event.preventDefault();
-          event.stopPropagation();
-          void (async () => {
-            const captured = await takeNativeInvoicePhoto();
-            if (!captured) openAndroidCaptureIntent();
-          })();
-          return;
-        }
-
-        // Browser/WebView fallback: let Android's system camera return a normal
-        // image file without requiring the web page to own a camera stream.
-        if (openAndroidCaptureIntent()) {
-          event.preventDefault();
-          event.stopPropagation();
-          return;
-        }
-      }
-
-      if (getCapacitor() && nativeUploadButton(target) && openNativeFilePicker()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    },
-    true
-  );
 })();
