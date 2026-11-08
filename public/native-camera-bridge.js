@@ -1,6 +1,8 @@
 (() => {
-  const MAX_NATIVE_EDGE = 2200;
-  const CAMERA_QUALITY = 82;
+  // Limit native camera images before they enter the WebView to avoid
+  // allocating full-resolution phone photographs in JavaScript memory.
+  const MAX_NATIVE_EDGE = 1600;
+  const CAMERA_QUALITY = 68;
   let openingNativeCamera = false;
 
   function getCapacitor() {
