@@ -125,32 +125,6 @@ async function optimisePhotoForUpload(file: File) {
   return file;
 }
 
-function tryNativeCameraBridge() {
-  const nativeWindow = window as any;
-  const bridges = [
-    nativeWindow.KitchenInsightsAndroid,
-    nativeWindow.KitchenInsights,
-    nativeWindow.Android,
-  ].filter(Boolean);
-
-  const methodNames = ["openInvoiceCamera", "takeInvoicePhoto", "openCamera"];
-
-  for (const bridge of bridges) {
-    for (const methodName of methodNames) {
-      if (typeof bridge?.[methodName] === "function") {
-        try {
-          bridge[methodName]();
-          return true;
-        } catch (bridgeError) {
-          console.warn(`NATIVE CAMERA BRIDGE ${methodName} FAILED`, bridgeError);
-        }
-      }
-    }
-  }
-
-  return false;
-}
-
 export default function InvoiceUploadV3() {
   const router = useRouter();
   const cameraInputRef = useRef<HTMLInputElement | null>(null);
@@ -251,9 +225,29 @@ export default function InvoiceUploadV3() {
     setError("");
     if (busy || hasPdf || files.length >= MAX_PHOTO_PAGES) return;
 
-    if (isAndroidDevice() && openAndroidCameraIntent()) return;
+    // Capacitor must be tried first in the Android app. Previously the file
+    // input's click() returned true even when WebView never opened the camera.
+    // That prevented a working native Camera plugin from being used.
+    const nativeCamera = (window as any).KitchenInsightsCamera;
+    if (nativeCamera?.isAvailable?.()) {
+      try {
+        setCameraStarting(true);
+        const captured = await nativeCamera.takePhoto();
+        if (!captured) {
+          setError("The native camera could not take a photo. Try Take photo again or choose an existing picture.");
+        }
+      } catch (nativeError) {
+        console.error("NATIVE INVOICE CAMERA FAILED", nativeError);
+        setError("The device camera could not open. Please check camera permission or choose an existing picture.");
+      } finally {
+        setCameraStarting(false);
+      }
+      return;
+    }
 
-    if (tryNativeCameraBridge()) return;
+    // Mobile browsers use the actual camera capture input directly from the
+    // tap handler, retaining Android's user activation for the camera intent.
+    if (isAndroidDevice() && openAndroidCameraIntent()) return;
 
     if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
       if (openAndroidCameraIntent()) return;
