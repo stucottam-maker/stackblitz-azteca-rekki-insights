@@ -50,10 +50,6 @@ function jpgName(name: string) {
   return `${base}.jpg`;
 }
 
-function isAndroidDevice() {
-  return typeof navigator !== "undefined" && /Android/i.test(navigator.userAgent || "");
-}
-
 async function loadImage(file: File) {
   const url = URL.createObjectURL(file);
   try {
@@ -127,7 +123,6 @@ async function optimisePhotoForUpload(file: File) {
 
 export default function InvoiceUploadV3() {
   const router = useRouter();
-  const cameraInputRef = useRef<HTMLInputElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const cameraStreamRef = useRef<MediaStream | null>(null);
@@ -209,18 +204,6 @@ export default function InvoiceUploadV3() {
     addFiles(selected, mode);
   }
 
-  function openAndroidCameraIntent() {
-    const input = cameraInputRef.current;
-    if (!input) return false;
-    try {
-      input.click();
-      return true;
-    } catch (cameraIntentError) {
-      console.error("ANDROID CAMERA INTENT FAILED", cameraIntentError);
-      return false;
-    }
-  }
-
   async function openCamera() {
     setError("");
     if (busy || hasPdf || files.length >= MAX_PHOTO_PAGES) return;
@@ -245,13 +228,11 @@ export default function InvoiceUploadV3() {
       return;
     }
 
-    // Mobile browsers use the actual camera capture input directly from the
-    // tap handler, retaining Android's user activation for the camera intent.
-    if (isAndroidDevice() && openAndroidCameraIntent()) return;
-
+    // Android browsers can display "Unable to complete previous operation due
+    // to low memory" when the external camera intent suspends or destroys the
+    // browser activity. Keep the camera inside this page with getUserMedia.
     if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
-      if (openAndroidCameraIntent()) return;
-      setError("Could not open the device camera. Use Choose photos or PDF instead.");
+      setError("The in-app camera is unavailable here. Try opening Kitchen Insights in Chrome, or choose an existing photo.");
       return;
     }
 
@@ -259,15 +240,13 @@ export default function InvoiceUploadV3() {
       setCameraStarting(true);
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: { facingMode: { ideal: "environment" }, width: { ideal: 1920 }, height: { ideal: 1440 } },
+        video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 960 } },
       });
       cameraStreamRef.current = stream;
       setCameraOpen(true);
     } catch (cameraError) {
       console.error("CAMERA OPEN FAILED", cameraError);
-      if (!openAndroidCameraIntent()) {
-        setError("Could not open the device camera. Use Choose photos or PDF instead.");
-      }
+      setError("Could not start the in-app camera. Check camera permission for Kitchen Insights, then retry. You can still choose an existing photo.");
     } finally {
       setCameraStarting(false);
     }
@@ -287,7 +266,7 @@ export default function InvoiceUploadV3() {
       const context = canvas.getContext("2d");
       if (!context) throw new Error("Could not prepare the camera image.");
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.86));
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.72));
       if (!blob) throw new Error("The camera did not return a photo.");
       const file = new File([blob], `invoice-${Date.now()}.jpg`, { type: "image/jpeg", lastModified: Date.now() });
       closeCamera();
@@ -424,15 +403,6 @@ export default function InvoiceUploadV3() {
 
   return (
     <div className="page invoice-upload-chef-page">
-      <input
-        ref={cameraInputRef}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }}
-        onChange={(event) => handleFileInput(event, "append")}
-        tabIndex={-1}
-      />
       <input ref={fileInputRef} type="file" multiple accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp" style={{ position: "fixed", left: "-9999px", width: 1, height: 1 }} onChange={(event) => handleFileInput(event, "replace")} tabIndex={-1} />
 
       <header className="topbar"><div><p className="eyebrow">Invoices</p><h1>Scan an invoice</h1><p className="page-description">Take the photo, check the figures, approve. If extraction ever fails, the original is kept safely for retry.</p></div></header>
