@@ -208,31 +208,13 @@ export default function InvoiceUploadV3() {
     setError("");
     if (busy || hasPdf || files.length >= MAX_PHOTO_PAGES) return;
 
-    // Capacitor must be tried first in the Android app. Previously the file
-    // input's click() returned true even when WebView never opened the camera.
-    // That prevented a working native Camera plugin from being used.
-    const nativeCamera = (window as any).KitchenInsightsCamera;
-    if (nativeCamera?.isAvailable?.()) {
-      try {
-        setCameraStarting(true);
-        const captured = await nativeCamera.takePhoto();
-        if (!captured) {
-          setError("The native camera could not take a photo. Try Take photo again or choose an existing picture.");
-        }
-      } catch (nativeError) {
-        console.error("NATIVE INVOICE CAMERA FAILED", nativeError);
-        setError("The device camera could not open. Please check camera permission or choose an existing picture.");
-      } finally {
-        setCameraStarting(false);
-      }
-      return;
-    }
-
-    // Android browsers can display "Unable to complete previous operation due
-    // to low memory" when the external camera intent suspends or destroys the
-    // browser activity. Keep the camera inside this page with getUserMedia.
+    // In an installed Capacitor Android app, Camera.getPhoto() hands off to
+    // a separate camera Activity. Android can kill the WebView while doing so
+    // and show "unable to complete ... due to low memory". Instead keep the
+    // preview in this same WebView, with a low-resolution MediaStream.
+    // Do not invoke the native camera plugin as an automatic fallback.
     if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
-      setError("The in-app camera is unavailable here. Try opening Kitchen Insights in Chrome, or choose an existing photo.");
+      setError("This version of Android cannot open the in-app camera. Use Choose photos or PDF to select a photo taken with your phone's Camera app.");
       return;
     }
 
@@ -246,7 +228,12 @@ export default function InvoiceUploadV3() {
       setCameraOpen(true);
     } catch (cameraError) {
       console.error("CAMERA OPEN FAILED", cameraError);
-      setError("Could not start the in-app camera. Check camera permission for Kitchen Insights, then retry. You can still choose an existing photo.");
+      const message = cameraError instanceof Error ? cameraError.name : "";
+      setError(
+        message === "NotAllowedError" || message === "PermissionDeniedError"
+          ? "Camera permission is blocked. In Android Settings, allow Camera permission for Kitchen Insights, then reopen the app."
+          : "Could not open the in-app camera. You can take a photo with the regular Camera app and select it with Choose photos or PDF."
+      );
     } finally {
       setCameraStarting(false);
     }
@@ -419,7 +406,7 @@ export default function InvoiceUploadV3() {
         <div className="chef-upload-footer"><div><strong>{files.length ? `${files.length} file${files.length === 1 ? "" : "s"} ready` : "No invoice selected"}</strong><span>{files.length ? `${formatFileSize(totalSize)} total` : "Photo or PDF · up to 12 pages"}</span></div><button type="button" className="primary-button chef-review-action" disabled={busy || files.length === 0} onClick={() => void extractInvoice()}>{busy ? stage || "Working..." : "Read invoice →"}</button></div>
       </section>
 
-      {cameraOpen && <div className="invoice-camera-overlay" role="dialog" aria-modal="true" aria-label="Invoice camera"><div className="invoice-camera-card"><video ref={videoRef} playsInline muted className="invoice-camera-video" /><div className="invoice-camera-actions"><button className="secondary-inline-button" type="button" onClick={closeCamera}>Cancel</button><button className="primary-button" type="button" onClick={() => void capturePhoto()}>Capture invoice</button></div></div></div>}
+      {cameraOpen && <div className="invoice-camera-overlay" role="dialog" aria-modal="true" aria-label="Invoice camera"><div className="invoice-camera-card"><video ref={videoRef} playsInline muted autoPlay className="invoice-camera-video" /><div className="invoice-camera-actions"><button className="secondary-inline-button" type="button" onClick={closeCamera}>Cancel</button><button className="primary-button" type="button" onClick={() => void capturePhoto()}>Capture invoice</button></div></div></div>}
     </div>
   );
 }
