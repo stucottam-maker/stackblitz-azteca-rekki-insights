@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { useWorkspace } from '../../components/WorkspaceProvider';
+import { useWorkspace } from '../../../components/WorkspaceProvider';
 
 type Answer = 'yes' | 'no' | 'na';
 type Response = { answer?: Answer; note?: string };
