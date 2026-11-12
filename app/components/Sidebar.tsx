@@ -22,12 +22,13 @@ const links: readonly NavLink[] = [
   ["◯", "Suppliers", "/suppliers"],
   ["▣", "Ingredients", "/ingredients"],
   ["↗", "Reports", "/reports"],
+  ["✓", "Compliance", "/compliance"],
   ["✦", "Insights", "/insights"],
   ["⚙", "Settings", "/settings"],
 ] as const;
 
 const mobilePrimaryNames = new Set(["Dashboard", "Orders", "Invoices", "Stock", "Recipes"]);
-const mobileMoreNames = ["Suppliers", "Ingredients", "Menu", "Reports", "Insights"] as const;
+const mobileMoreNames = ["Suppliers", "Ingredients", "Menu", "Reports", "Insights", "Compliance"] as const;
 
 function initials(name: string) {
   return name
