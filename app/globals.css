@@ -2885,3 +2885,7 @@ td strong {
   .invoice-retry-row { align-items: stretch; flex-direction: column; }
   .invoice-retry-row .ap-header-actions { display: grid; grid-template-columns: 1fr 1fr; }
 }
+
+
+/* Compliance screens use Tailwind utility classes. Keep the existing app CSS and avoid a global preflight reset. */
+@tailwind utilities;
