@@ -517,3 +517,39 @@ table td {
     z-index: 1301;
   }
 }
+
+/* Kitchen Insights V2: operational mobile home, real data and direct workflows. */
+@media (max-width: 640px) {
+  .ki-v2-mobile { padding: 4px 3px 30px; color: #17283b; }
+  .ki-v2-intro { margin: 7px 3px 20px; }
+  .ki-v2-eyebrow { color: #287667; text-transform: uppercase; font-size: 11px; font-weight: 800; letter-spacing: .09em; }
+  .ki-v2-intro h1 { margin: 5px 0 3px; font-size: clamp(24px, 6.5vw, 30px); line-height: 1.12; font-weight: 850; letter-spacing: -.035em; }
+  .ki-v2-intro > p:last-child { color: #718092; font-size: 14px; }
+  .ki-v2-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; margin-bottom: 18px; }
+  .ki-v2-metric { display: flex; position: relative; min-width: 0; min-height: 125px; align-items: flex-start; gap: 10px; padding: 17px 12px; border-radius: 19px; color: #18314a; text-decoration: none; box-shadow: 0 2px 8px rgba(22,42,62,.025); }
+  .ki-v2-blue { background: #e7f1fc; } .ki-v2-peach { background: #fff0df; } .ki-v2-green { background: #e5f4eb; } .ki-v2-lilac { background: #f0eafb; }
+  .ki-v2-metric-icon { display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 32px; font-size: 24px; color: #256e67; }
+  .ki-v2-metric > span:nth-child(2) { min-width: 0; font-size: 13px; font-weight: 750; line-height: 1.3; }
+  .ki-v2-metric strong { display: block; margin: 8px 0 2px; font-size: clamp(19px, 5vw, 26px); font-weight: 850; letter-spacing: -.04em; overflow-wrap: anywhere; }
+  .ki-v2-metric small { display: block; color: #65778a; font-size: 10px; font-weight: 600; }
+  .ki-v2-arrow { position: absolute; right: 11px; top: 11px; font-size: 23px; opacity: .65; }
+  .ki-v2-panel { margin-bottom: 15px; padding: 18px 16px; border: 1px solid #e4eaf0; border-radius: 20px; background: #fff; box-shadow: 0 3px 16px rgba(26,49,71,.04); }
+  .ki-v2-panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .ki-v2-panel-heading h2 { font-size: 19px; font-weight: 850; letter-spacing: -.025em; }
+  .ki-v2-panel-heading a { font-size: 12px; font-weight: 750; color: #247667; white-space: nowrap; }
+  .ki-v2-helper { color: #758497; font-size: 12px; margin: 3px 0 13px; }
+  .ki-v2-check { display: flex; align-items: center; gap: 10px; min-height: 51px; border-bottom: 1px solid #edf1f5; color: #263c4e; font-size: 13px; font-weight: 650; text-decoration: none; }
+  .ki-v2-check > span:nth-child(2) { flex: 1; }
+  .ki-v2-check > span:last-child { color: #94a2b1; font-size: 21px; }
+  .ki-v2-check-icon { font-size: 23px; color: #8ca29c; }
+  .ki-v2-check-cta { display: block; margin-top: 14px; padding: 13px; border-radius: 12px; background: #e2f2e8; color: #20644f; font-weight: 800; text-align: center; text-decoration: none; font-size: 13px; }
+  .ki-v2-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; margin-top: 13px; }
+  .ki-v2-actions a { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; min-height: 90px; border-radius: 14px; background: #edf5f1; color: #205a50; font-size: 23px; font-weight: 800; text-decoration: none; }
+  .ki-v2-actions a:nth-child(2) { background: #eaf2fc; color: #245b83; }
+  .ki-v2-actions a:nth-child(3) { background: #fff1e4; color: #80542b; }
+  .ki-v2-actions a:nth-child(4) { background: #f1ecfb; color: #64528a; }
+  .ki-v2-actions a span { font-size: 12px; }
+  .ki-v2-cost-row { display: flex; justify-content: space-between; gap: 12px; padding: 13px 0; border-bottom: 1px solid #edf1f5; font-size: 13px; color: #66778a; }
+  .ki-v2-cost-row strong { color: #21394d; font-size: 14px; }
+  .ki-v2-cost-row:last-child { border: 0; padding-bottom: 0; }
+}
