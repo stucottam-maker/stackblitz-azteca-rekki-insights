@@ -553,3 +553,66 @@ table td {
   .ki-v2-cost-row strong { color: #21394d; font-size: 14px; }
   .ki-v2-cost-row:last-child { border: 0; padding-bottom: 0; }
 }
+
+/* V2 shared visual language: all authenticated pages, desktop and mobile. */
+.metro-app-shell {
+  --ki-v2-ink: #20364a;
+  --ki-v2-muted: #708195;
+  --ki-v2-line: #e3eaf0;
+  --ki-v2-accent: #286f61;
+  --ki-v2-pale: #e7f5f0;
+}
+.metro-app-shell .main-content-root {
+  background: #f8faf9;
+  color: var(--ki-v2-ink);
+}
+.metro-app-shell .page:not(.metro-tile-page) {
+  max-width: 1440px;
+}
+.metro-app-shell :where(.panel,.stat-card,.metro-table-panel,.metro-desktop-kpi,.restaurant-card,.order-v2-row,.order-v2-history-row,.recipe-v2-line,.supplier-choice-card,.matching-row,.catalogue-editor-row) {
+  border-color: var(--ki-v2-line);
+  border-radius: 18px;
+  box-shadow: 0 3px 16px rgba(27,49,67,.045);
+}
+.metro-app-shell :where(.panel-header h2,.topbar h1,.metro-table-title h2) {
+  color: var(--ki-v2-ink);
+  letter-spacing: -.025em;
+}
+.metro-app-shell :where(.page-description,.muted-text,.stat-label) {
+  color: var(--ki-v2-muted);
+}
+.metro-app-shell :where(.primary-button,a.primary-button,button.primary-button) {
+  border-radius: 12px;
+  background: var(--ki-v2-accent) !important;
+  border-color: var(--ki-v2-accent) !important;
+  color: #fff !important;
+  font-weight: 750;
+}
+.metro-app-shell :where(.secondary-button,.secondary-inline-button) {
+  border-radius: 12px;
+  border-color: var(--ki-v2-line);
+}
+.metro-app-shell :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea) {
+  border-radius: 12px;
+  border-color: #dce6e9;
+}
+.metro-app-shell :where(a,button,input,select,textarea):focus-visible {
+  outline: 3px solid rgba(40,111,97,.25) !important;
+  outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .metro-app-shell .main-content-root {
+    padding-inline: 13px !important;
+  }
+  .metro-app-shell .page:not(.metro-tile-page) :where(.panel,.stat-card) {
+    border-radius: 17px;
+  }
+  .metro-app-shell .page:not(.metro-tile-page) :where(.topbar h1) {
+    font-size: clamp(23px,6vw,29px);
+    line-height: 1.15;
+  }
+  .metro-app-shell .page:not(.metro-tile-page) :where(.page-description) {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
