@@ -62,7 +62,7 @@ export default function CompliancePage() {
         {(['today','temperatures','deliveries'] as const).map(t => <button key={t} onClick={() => setTab(t)} className={`rounded-xl px-4 py-2 text-sm font-medium capitalize ${tab === t ? 'bg-teal-800 text-white' : 'bg-white text-slate-700'}`}>{t}</button>)}
       </nav>
       {tab === 'today' && <>
-        <section className="rounded-3xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Daily Checks</p><h2 className="mt-1 text-2xl font-bold">Today's food safety checks</h2><p className="mt-2 text-sm text-teal-50">Open scheduled tasks or start an extra check when needed. Checklist drafts are not official records.</p></section>
+        <section className="rounded-3xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Daily Checks</p><h2 className="mt-1 text-2xl font-bold">Today&apos;s food safety checks</h2><p className="mt-2 text-sm text-teal-50">Open scheduled tasks or start an extra check when needed. Checklist drafts are not official records.</p></section>
         <div role="tablist" aria-label="Check type" className="grid grid-cols-2 gap-2 rounded-2xl bg-white p-1">
           {(['scheduled','on-demand'] as const).map(v=><button role="tab" aria-selected={checkView===v} key={v} onClick={()=>setCheckView(v)} className={`min-h-12 rounded-xl px-3 font-semibold ${checkView===v?'bg-teal-800 text-white':'text-slate-700'}`}>{v==='scheduled'?'Scheduled':'On-demand'}</button>)}
         </div>
