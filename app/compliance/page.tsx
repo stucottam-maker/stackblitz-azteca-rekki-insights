@@ -44,7 +44,8 @@ export default function CompliancePage() {
   const [supplier, setSupplier] = useState('');
   const [deliveryTemp, setDeliveryTemp] = useState('');
   const [deliveries, setDeliveries] = useState<{supplier:string; temperature:number; at:string}[]>([]);
-  const completed = 0;
+  const [checkView,setCheckView] = useState<'scheduled'|'on-demand'>('scheduled');
+  const [round,setRound] = useState<'morning'|'afternoon'>('morning');
   const card = 'rounded-2xl border border-slate-200 bg-white p-4 shadow-sm';
   const field = 'w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900';
   const btn = 'rounded-xl bg-teal-800 px-4 py-3 font-semibold text-white disabled:opacity-40';
@@ -61,22 +62,36 @@ export default function CompliancePage() {
         {(['today','temperatures','deliveries'] as const).map(t => <button key={t} onClick={() => setTab(t)} className={`rounded-xl px-4 py-2 text-sm font-medium capitalize ${tab === t ? 'bg-teal-800 text-white' : 'bg-white text-slate-700'}`}>{t}</button>)}
       </nav>
       {tab === 'today' && <>
-        <section className="rounded-3xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Today's daily checks</p><h2 className="mt-1 text-3xl font-bold">6 check areas</h2><p className="mt-2 text-sm text-teal-50">Open each check below. Completed records and audit progress are not yet tracked in this overview.</p></section>
-        <section className="space-y-3" aria-label="Daily checks">
-          {[
+        <section className="rounded-3xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Daily Checks</p><h2 className="mt-1 text-2xl font-bold">Today's food safety checks</h2><p className="mt-2 text-sm text-teal-50">Open scheduled tasks or start an extra check when needed. Checklist drafts are not official records.</p></section>
+        <div role="tablist" aria-label="Check type" className="grid grid-cols-2 gap-2 rounded-2xl bg-white p-1">
+          {(['scheduled','on-demand'] as const).map(v=><button role="tab" aria-selected={checkView===v} key={v} onClick={()=>setCheckView(v)} className={`min-h-12 rounded-xl px-3 font-semibold ${checkView===v?'bg-teal-800 text-white':'text-slate-700'}`}>{v==='scheduled'?'Scheduled':'On-demand'}</button>)}
+        </div>
+        {checkView==='scheduled' && <div className="grid grid-cols-2 gap-2"><button onClick={()=>setRound('morning')} aria-pressed={round==='morning'} className={`rounded-xl px-4 py-3 font-semibold ${round==='morning'?'bg-teal-50 text-teal-900 ring-2 ring-teal-700':'bg-white text-slate-700'}`}>Morning</button><button onClick={()=>setRound('afternoon')} aria-pressed={round==='afternoon'} className={`rounded-xl px-4 py-3 font-semibold ${round==='afternoon'?'bg-teal-50 text-teal-900 ring-2 ring-teal-700':'bg-white text-slate-700'}`}>Afternoon / Closing</button></div>}
+        <section aria-label="Available checks" className="space-y-3">
+          {(checkView==='scheduled'?(round==='morning'?[
             {name:'Opening checks',desc:'Hygiene, surfaces and pest activity',when:'Before service',href:'/compliance/checklist/opening'},
-            {name:'Fridge & freezer temperatures',desc:'Individual equipment readings',when:'Morning',href:'/compliance?tab=temperatures'},
-            {name:'Cooking & hot holding',desc:'Food temperatures and safety',when:'During service',href:''},
-            {name:'Daily cleaning',desc:'Workstations, equipment and floors',when:'End of shift',href:'/compliance/checklist/cleaning'},
-            {name:'Delivery checks',desc:'Goods received and condition',when:'As required',href:'/compliance?tab=deliveries'},
+            {name:'Chiller & freezer temperatures',desc:'Individual equipment readings',when:'Morning round',href:'/compliance?tab=temperatures'},
+            {name:'Cooking & reheating',desc:'Core food temperature checks',when:'During preparation',href:''},
+            {name:'Delivery checks',desc:'Goods received and condition',when:'As deliveries arrive',href:'/compliance?tab=deliveries'}
+          ]:[
+            {name:'Afternoon temperatures',desc:'Fridges and freezers',when:'Afternoon round',href:'/compliance?tab=temperatures'},
+            {name:'Hot holding',desc:'Service temperature monitoring',when:'During service',href:''},
+            {name:'Kitchen cleaning',desc:'Equipment, surfaces and utensils',when:'End of shift',href:'/compliance/checklist/cleaning'},
             {name:'Closing checks',desc:'Storage, waste and security',when:'End of day',href:'/compliance/checklist/closing'}
-          ].map(item=><article key={item.name} className={card+' flex items-center gap-3'}>
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-xl text-teal-800" aria-hidden="true">○</span>
+          ]):[
+            {name:'Extra cleaning',desc:'Additional cleaning check',when:'When required',href:'/compliance/checklist/cleaning'},
+            {name:'Additional temperature round',desc:'Fridges and freezers',when:'When required',href:'/compliance?tab=temperatures'},
+            {name:'Delivery check',desc:'Extra delivery inspection',when:'When required',href:'/compliance?tab=deliveries'},
+            {name:'Food cooling',desc:'Food name, method and timings',when:'When required',href:''},
+            {name:'Fish freezing',desc:'Freezing process monitoring',when:'Where applicable',href:''},
+            {name:'Pickles & chutneys',desc:'Batch pH and water activity',when:'Where applicable',href:''}
+          ]).map(item=><article key={item.name} className={card+' flex items-center gap-3'}>
+            <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-xl text-teal-800">○</span>
             <div className="min-w-0 flex-1"><h2 className="font-semibold">{item.name}</h2><p className="text-sm text-slate-500">{item.desc}</p><p className="mt-1 text-xs text-slate-500">{item.when}</p></div>
             {item.href?<Link href={item.href} className="shrink-0 rounded-xl bg-teal-50 px-3 py-3 text-sm font-semibold text-teal-900">Open →</Link>:<span className="text-xs font-semibold text-slate-500">Coming soon</span>}
           </article>)}
         </section>
-        <p className="text-xs text-slate-500">Checklist answers are device-local drafts, not official compliance records. The circles above do not indicate completed checks.</p>
+        <p className="text-xs text-slate-500">Scheduling is a preview grouping, not yet automatic deadlines. Progress and staff sign-off will require permanent audit records. Specialist checks are not active until configured for the site.</p>
       </>}
       {tab === 'temperatures' && <section className={card}>
         <h2 className="mb-1 text-xl font-bold">Record temperatures</h2>
