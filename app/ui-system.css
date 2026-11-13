@@ -452,3 +452,68 @@ table td {
     min-width: 720px;
   }
 }
+
+
+/* Mobile thumb navigation: preserve desktop sidebar and the header's More menu. */
+@media (max-width: 640px) {
+  body .app-shell-root .chef-sidebar .sidebar-nav {
+    position: fixed !important;
+    z-index: 1200 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    height: calc(65px + env(safe-area-inset-bottom)) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 6px 8px calc(7px + env(safe-area-inset-bottom)) !important;
+    gap: 4px !important;
+    border-top: 1px solid #dbe5ee !important;
+    background: rgba(255,255,255,.97) !important;
+    box-shadow: 0 -8px 26px rgba(20,42,66,.09) !important;
+    backdrop-filter: blur(16px);
+    overflow: visible !important;
+  }
+  body .app-shell-root .chef-sidebar .sidebar-nav .nav-link.mobile-primary {
+    min-height: 48px !important;
+    border-radius: 12px !important;
+    color: #68798b !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 10px !important;
+    font-weight: 750 !important;
+    gap: 3px !important;
+    padding: 4px 2px !important;
+  }
+  body .app-shell-root .chef-sidebar .sidebar-nav .nav-link.mobile-primary .nav-icon {
+    color: inherit !important;
+    font-size: 19px !important;
+  }
+  body .app-shell-root .chef-sidebar .sidebar-nav .nav-link.mobile-primary.nav-link-active {
+    color: #246b62 !important;
+    background: #e7f5f0 !important;
+    box-shadow: none !important;
+  }
+  body .app-shell-root .chef-sidebar .sidebar-nav .nav-link.mobile-secondary {
+    display: none !important;
+  }
+  body .app-shell-root .main-content-root {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom)) !important;
+  }
+  body .app-shell-root .chef-sidebar .mobile-more-menu {
+    position: fixed !important;
+    top: auto !important;
+    bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+    left: 10px !important;
+    right: 10px !important;
+    max-height: min(65vh, 550px) !important;
+    z-index: 1300 !important;
+  }
+  body .app-shell-root .chef-sidebar .mobile-header-more {
+    position: relative;
+    z-index: 1301;
+  }
+}
