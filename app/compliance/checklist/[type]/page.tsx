@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { supabase } from '../../../lib/supabase';
 import { useWorkspace } from '../../../components/WorkspaceProvider';
 
 type Answer = 'yes' | 'no' | 'na';
@@ -38,6 +39,7 @@ export default function ChecklistPage({params}:{params:{type:string}}) {
   const [answers,setAnswers] = useState<Record<string,Response>>({});
   const [loaded,setLoaded] = useState(false);
   const [submitted,setSubmitted] = useState(false);
+  const [submitting,setSubmitting] = useState(false);
   const [note,setNote] = useState('');
   const key = activeWorkspace && template ? ['ki-compliance-draft',activeWorkspace.organisationId,activeWorkspace.siteId,params.type,new Date().toISOString().slice(0,10)].join(':') : '';
   useEffect(() => {
@@ -59,6 +61,22 @@ export default function ChecklistPage({params}:{params:{type:string}}) {
   const isPestQuestion = (question:string) => question.startsWith('Any sign of pests?');
   const isFailure = (question:string, answer?:Answer) => answer === (isPestQuestion(question) ? 'yes' : 'no');
   const failures=template?.questions.map((q,i)=>({q,i})).filter(({q,i})=>isFailure(q,answers[String(i)]?.answer)) ?? [];
+  async function submitChecklist(){
+    if(!activeWorkspace || !template || count!==total || failures.some(({i})=>!answers[String(i)]?.note?.trim()))return;
+    setSubmitting(true);setNote('');
+    try{
+      const {data:{user},error:authError}=await supabase.auth.getUser();
+      if(authError||!user)throw new Error('Sign in to submit this checklist.');
+      const {error}=await supabase.from('compliance_checklist_submissions').insert({
+        organisation_id:activeWorkspace.organisationId,site_id:activeWorkspace.siteId,
+        checklist_type:params.type,check_date:new Date().toLocaleDateString('en-CA'),
+        answers, failure_count:failures.length,submitted_by:user.id,status:'needs_review'
+      });
+      if(error)throw error;
+      setSubmitted(true);
+    }catch(error){setNote(error instanceof Error?error.message:'Could not submit checklist.');}
+    finally{setSubmitting(false);}
+  }
   if(!template) return <main className="p-6"><p>Checklist not found.</p><Link href="/compliance" className="text-teal-800 underline">Back to Compliance</Link></main>;
   return <main className="min-h-screen bg-slate-50 px-4 py-6 text-slate-900">
     <div className="mx-auto max-w-2xl space-y-5">
@@ -74,7 +92,7 @@ export default function ChecklistPage({params}:{params:{type:string}}) {
         </div>;
       })}</section>
       {failures.length>0 && <p className="rounded-xl bg-amber-50 p-4 text-sm text-amber-900">{failures.length} failed check(s) require corrective action. Escalate according to your site food-safety procedures.</p>}
-      <div className="rounded-2xl border border-slate-200 bg-white p-4"><p className="font-semibold">Checklist draft</p><p className="mt-1 text-sm text-slate-600">Answered: {count}/{total}. {failures.length} failed check(s).</p>{note && <p role="status" className="mt-2 text-sm text-rose-800">{note}</p>}<button type="button" disabled={count!==total || failures.some(({i})=>!answers[String(i)]?.note?.trim())} onClick={()=>setSubmitted(true)} className="mt-4 w-full rounded-xl bg-teal-800 p-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40">Review completed draft</button>{submitted && <p role="status" className="mt-3 text-sm text-teal-800">Draft complete. Permanent server-side submission and audit logging are not yet enabled.</p>}</div>
+      <div className="rounded-2xl border border-slate-200 bg-white p-4"><p className="font-semibold">Checklist draft</p><p className="mt-1 text-sm text-slate-600">Answered: {count}/{total}. {failures.length} failed check(s).</p>{note && <p role="status" className="mt-2 text-sm text-rose-800">{note}</p>}<button type="button" disabled={submitting || submitted || !activeWorkspace || count!==total || failures.some(({i})=>!answers[String(i)]?.note?.trim())} onClick={submitChecklist} className="mt-4 w-full rounded-xl bg-teal-800 p-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40">{submitting?'Submitting…':submitted?'Submitted for review':'Submit checklist for review'}</button>{submitted && <p role="status" className="mt-3 text-sm text-teal-800">Checklist saved to the server for manager review. Keep using your approved site food-safety procedures.</p>}</div>
     </div>
   </main>;
 }
