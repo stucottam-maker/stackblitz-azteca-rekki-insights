@@ -55,15 +55,15 @@ export default function CompliancePage() {
     <div className="mx-auto max-w-2xl space-y-5">
       <header className="flex items-center justify-between">
         <div><Link href="/" className="text-sm text-teal-800">← Kitchen Insights</Link><h1 className="mt-2 text-3xl font-bold">Compliance</h1><p className="text-slate-500">Daily kitchen checks</p></div>
-        <span className="rounded-xl bg-teal-50 px-3 py-2 text-sm font-medium text-teal-900">MVP preview</span>
+        <span className="rounded-xl bg-teal-50 px-3 py-2 text-sm font-medium text-teal-900">Live records</span>
       </header>
-      <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">Development preview: checklist ticks are temporary. Submitted measurements are marked for review and must not replace the site&apos;s approved food safety procedures.</p>{site && <p className="text-sm text-slate-600">Site: {site.name}</p>}{feedback && <p role="status" className="rounded-xl bg-slate-100 p-3 text-sm">{feedback}</p>}
+      <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">Submitted checklists and measurements are saved to your selected site for review. Follow your site&apos;s approved food safety procedures; automated limits and scheduling are not yet configured.</p>{site && <p className="text-sm text-slate-600">Site: {site.name}</p>}{feedback && <p role="status" className="rounded-xl bg-slate-100 p-3 text-sm">{feedback}</p>}
       <Link href="/compliance/review" className="block rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-semibold text-teal-900">Checklist records & manager review →</Link>
       <nav className="flex gap-2 overflow-x-auto">
         {(['today','temperatures','deliveries'] as const).map(t => <button key={t} onClick={() => setTab(t)} className={`rounded-xl px-4 py-2 text-sm font-medium capitalize ${tab === t ? 'bg-teal-800 text-white' : 'bg-white text-slate-700'}`}>{t}</button>)}
       </nav>
       {tab === 'today' && <>
-        <section className="rounded-3xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Daily Checks</p><h2 className="mt-1 text-2xl font-bold">Today&apos;s food safety checks</h2><p className="mt-2 text-sm text-teal-50">Open scheduled tasks or start an extra check when needed. Checklist drafts are not official records.</p></section>
+        <section className="rounded-3xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Daily Checks</p><h2 className="mt-1 text-2xl font-bold">Today&apos;s food safety checks</h2><p className="mt-2 text-sm text-teal-50">Open scheduled tasks or start an extra check when needed. Submitted checks are stored for manager review.</p></section>
         <div role="tablist" aria-label="Check type" className="grid grid-cols-2 gap-2 rounded-2xl bg-white p-1">
           {(['scheduled','on-demand'] as const).map(v=><button role="tab" aria-selected={checkView===v} key={v} onClick={()=>setCheckView(v)} className={`min-h-12 rounded-xl px-3 font-semibold ${checkView===v?'bg-teal-800 text-white':'text-slate-700'}`}>{v==='scheduled'?'Scheduled':'On-demand'}</button>)}
         </div>
