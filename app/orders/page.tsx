@@ -619,6 +619,23 @@ export default function OrdersPage() {
     }
   }
 
+  async function sendTestOrder(order: PurchaseOrder) {
+    if(sending)return;
+    setSending(true);setMessage('');
+    try {
+      const token=await accessToken();
+      const currentSettings=await readWorkspaceState<OrganisationSettings>(ORGANISATION_SETTINGS_KEY,settings);
+      const response=await fetch('/api/orders/send',{
+        method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},
+        body:JSON.stringify({order,settings:currentSettings,testMode:true})
+      });
+      const payload=await response.json();
+      if(!response.ok)throw new Error(payload.error||'Test email failed.');
+      setMessage(`TEST email sent to ${payload.sentTo}. This order remains a draft; no supplier was contacted.`);
+    }catch(error:any){setMessage(`Test not sent: ${error?.message||'Unknown error'}`);}
+    finally{setSending(false);}
+  }
+
   async function createOrder() {
     if (!selectedSupplier || selectedLines.length === 0) {
       setMessage("Add at least one item first.");
@@ -784,6 +801,7 @@ export default function OrdersPage() {
                       <button type="button" className="secondary-inline-button" onClick={() => applyPreviousOrder(order)}>Repeat</button>
                       {order.status === "Draft" && (
                         <>
+                          <button type="button" className="secondary-inline-button" disabled={sending} onClick={() => void sendTestOrder(order)}>Send TEST to my email</button>
                           <button type="button" className="primary-button" disabled={sending} onClick={() => void sendOrder(order)}>
                             {sending ? "Sending…" : "Send now"}
                           </button>
