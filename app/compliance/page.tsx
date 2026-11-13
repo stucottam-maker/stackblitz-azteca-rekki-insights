@@ -58,6 +58,7 @@ export default function CompliancePage() {
         <span className="rounded-xl bg-teal-50 px-3 py-2 text-sm font-medium text-teal-900">MVP preview</span>
       </header>
       <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">Development preview: checklist ticks are temporary. Submitted measurements are marked for review and must not replace the site&apos;s approved food safety procedures.</p>{site && <p className="text-sm text-slate-600">Site: {site.name}</p>}{feedback && <p role="status" className="rounded-xl bg-slate-100 p-3 text-sm">{feedback}</p>}
+      <Link href="/compliance/review" className="block rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-semibold text-teal-900">Checklist records & manager review →</Link>
       <nav className="flex gap-2 overflow-x-auto">
         {(['today','temperatures','deliveries'] as const).map(t => <button key={t} onClick={() => setTab(t)} className={`rounded-xl px-4 py-2 text-sm font-medium capitalize ${tab === t ? 'bg-teal-800 text-white' : 'bg-white text-slate-700'}`}>{t}</button>)}
       </nav>
