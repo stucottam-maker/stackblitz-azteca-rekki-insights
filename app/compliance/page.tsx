@@ -46,7 +46,7 @@ export default function CompliancePage() {
   const [deliveries, setDeliveries] = useState<{supplier:string; temperature:number; at:string}[]>([]);
   const [checkView,setCheckView] = useState<'scheduled'|'on-demand'>('scheduled');
   const [round,setRound] = useState<'morning'|'afternoon'>('morning');
-  const card = 'rounded-2xl border border-slate-200 bg-white p-4 shadow-sm';
+  const card = 'rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4';
   const field = 'w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900';
   const btn = 'rounded-xl bg-teal-800 px-4 py-3 font-semibold text-white disabled:opacity-40';
   const now = () => new Date().toLocaleString('en-GB');
@@ -86,10 +86,10 @@ export default function CompliancePage() {
             {name:'Food cooling',desc:'Food name, method and timings',when:'When required',href:'/compliance/food-temperatures'},
             {name:'Fish freezing',desc:'Freezing process monitoring',when:'Where applicable',href:''},
             {name:'Pickles & chutneys',desc:'Batch pH and water activity',when:'Where applicable',href:''}
-          ]).map(item=><article key={item.name} className={card+' flex items-center gap-3'}>
-            <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-xl text-teal-800">○</span>
-            <div className="min-w-0 flex-1"><h2 className="font-semibold">{item.name}</h2><p className="text-sm text-slate-500">{item.desc}</p><p className="mt-1 text-xs text-slate-500">{item.when}</p></div>
-            {item.href?<Link href={item.href} className="shrink-0 rounded-xl bg-teal-50 px-3 py-3 text-sm font-semibold text-teal-900">Open →</Link>:<span className="text-xs font-semibold text-slate-500">Coming soon</span>}
+          ]).map(item=><article key={item.name} className={card+' flex items-center gap-2.5 sm:gap-3'}>
+            <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-base text-teal-800 sm:h-11 sm:w-11">○</span>
+            <div className="min-w-0 flex-1"><h2 className="break-words text-[17px] font-semibold leading-snug sm:text-lg">{item.name}</h2><p className="mt-1 text-[13px] leading-snug text-slate-500 sm:text-sm">{item.desc}</p><p className="mt-1 text-xs leading-snug text-slate-500">{item.when}</p></div>
+            {item.href?<Link href={item.href} className="flex min-h-11 shrink-0 items-center rounded-xl bg-teal-50 px-2.5 py-2 text-[13px] font-semibold text-teal-900 sm:px-3 sm:text-sm">Open →</Link>:<span className="text-xs font-semibold text-slate-500">Coming soon</span>}
           </article>)}
         </section>
         <p className="text-xs text-slate-500">Scheduling is a preview grouping, not yet automatic deadlines. Progress and staff sign-off will require permanent audit records. Specialist checks are not active until configured for the site.</p>
