@@ -61,8 +61,22 @@ export default function CompliancePage() {
         {(['today','temperatures','deliveries'] as const).map(t => <button key={t} onClick={() => setTab(t)} className={`rounded-xl px-4 py-2 text-sm font-medium capitalize ${tab === t ? 'bg-teal-800 text-white' : 'bg-white text-slate-700'}`}>{t}</button>)}
       </nav>
       {tab === 'today' && <>
-        <section className="rounded-2xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Today&apos;s checks</p><div className="mt-1 text-3xl font-bold">{tasks.length} available</div><div className="mt-3 h-2 overflow-hidden rounded-full bg-white/20"><div className="h-full rounded-full bg-emerald-400" style={{width:'0%'}} /></div></section>
-        <section className="space-y-3">{tasks.map(t => <Link href={t.id === 'fridges' ? '/compliance?tab=temperatures' : t.id === 'deliveries' ? '/compliance?tab=deliveries' : '/compliance/checklist/' + t.id} key={t.id} className={`${card} flex items-center gap-4`}><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-xl text-teal-800">✓</span><span className="flex-1"><span className="block font-semibold">{t.label}</span><span className="text-sm text-slate-500">{t.detail}</span></span><span className="text-sm font-medium text-teal-800">Open →</span></Link>)}</section>
+        <section className="rounded-3xl bg-teal-900 p-5 text-white"><p className="text-sm opacity-80">Today's daily checks</p><h2 className="mt-1 text-3xl font-bold">6 check areas</h2><p className="mt-2 text-sm text-teal-50">Open each check below. Completed records and audit progress are not yet tracked in this overview.</p></section>
+        <section className="space-y-3" aria-label="Daily checks">
+          {[
+            {name:'Opening checks',desc:'Hygiene, surfaces and pest activity',when:'Before service',href:'/compliance/checklist/opening'},
+            {name:'Fridge & freezer temperatures',desc:'Individual equipment readings',when:'Morning',href:'/compliance?tab=temperatures'},
+            {name:'Cooking & hot holding',desc:'Food temperatures and safety',when:'During service',href:''},
+            {name:'Daily cleaning',desc:'Workstations, equipment and floors',when:'End of shift',href:'/compliance/checklist/cleaning'},
+            {name:'Delivery checks',desc:'Goods received and condition',when:'As required',href:'/compliance?tab=deliveries'},
+            {name:'Closing checks',desc:'Storage, waste and security',when:'End of day',href:'/compliance/checklist/closing'}
+          ].map(item=><article key={item.name} className={card+' flex items-center gap-3'}>
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-xl text-teal-800" aria-hidden="true">○</span>
+            <div className="min-w-0 flex-1"><h2 className="font-semibold">{item.name}</h2><p className="text-sm text-slate-500">{item.desc}</p><p className="mt-1 text-xs text-slate-500">{item.when}</p></div>
+            {item.href?<Link href={item.href} className="shrink-0 rounded-xl bg-teal-50 px-3 py-3 text-sm font-semibold text-teal-900">Open →</Link>:<span className="text-xs font-semibold text-slate-500">Coming soon</span>}
+          </article>)}
+        </section>
+        <p className="text-xs text-slate-500">Checklist answers are device-local drafts, not official compliance records. The circles above do not indicate completed checks.</p>
       </>}
       {tab === 'temperatures' && <section className={card}>
         <h2 className="mb-1 text-xl font-bold">Record temperatures</h2>
