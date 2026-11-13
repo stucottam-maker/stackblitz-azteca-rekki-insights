@@ -71,18 +71,18 @@ export default function CompliancePage() {
           {(checkView==='scheduled'?(round==='morning'?[
             {name:'Opening checks',desc:'Hygiene, surfaces and pest activity',when:'Before service',href:'/compliance/checklist/opening'},
             {name:'Chiller & freezer temperatures',desc:'Individual equipment readings',when:'Morning round',href:'/compliance?tab=temperatures'},
-            {name:'Cooking & reheating',desc:'Core food temperature checks',when:'During preparation',href:''},
+            {name:'Cooking & reheating',desc:'Core food temperature checks',when:'During preparation',href:'/compliance/food-temperatures'},
             {name:'Delivery checks',desc:'Goods received and condition',when:'As deliveries arrive',href:'/compliance?tab=deliveries'}
           ]:[
             {name:'Afternoon temperatures',desc:'Fridges and freezers',when:'Afternoon round',href:'/compliance?tab=temperatures'},
-            {name:'Hot holding',desc:'Service temperature monitoring',when:'During service',href:''},
+            {name:'Hot holding',desc:'Service temperature monitoring',when:'During service',href:'/compliance/food-temperatures'},
             {name:'Kitchen cleaning',desc:'Equipment, surfaces and utensils',when:'End of shift',href:'/compliance/checklist/cleaning'},
             {name:'Closing checks',desc:'Storage, waste and security',when:'End of day',href:'/compliance/checklist/closing'}
           ]):[
             {name:'Extra cleaning',desc:'Additional cleaning check',when:'When required',href:'/compliance/checklist/cleaning'},
             {name:'Additional temperature round',desc:'Fridges and freezers',when:'When required',href:'/compliance?tab=temperatures'},
             {name:'Delivery check',desc:'Extra delivery inspection',when:'When required',href:'/compliance?tab=deliveries'},
-            {name:'Food cooling',desc:'Food name, method and timings',when:'When required',href:''},
+            {name:'Food cooling',desc:'Food name, method and timings',when:'When required',href:'/compliance/food-temperatures'},
             {name:'Fish freezing',desc:'Freezing process monitoring',when:'Where applicable',href:''},
             {name:'Pickles & chutneys',desc:'Batch pH and water activity',when:'Where applicable',href:''}
           ]).map(item=><article key={item.name} className={card+' flex items-center gap-3'}>
