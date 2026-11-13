@@ -15,7 +15,7 @@ const actionTiles = [
   { href: "/recipes", label: "Recipes", icon: "◇", tone: "violet" },
   { href: "/insights", label: "Insights", icon: "✦", tone: "teal" },
   { href: "/suppliers", label: "Suppliers", icon: "○", tone: "orange" },
-  { href: "/reports", label: "Reports", icon: "↗", tone: "navy" },
+  { href: "/reports", label: "Reporting", icon: "▥", tone: "navy" },
   { href: "/invoices/upload", label: "Upload invoice", icon: "⇧", tone: "royal-wide" },
 ];
 
@@ -77,6 +77,7 @@ export default function DashboardPage() {
   return (
     <div className="page metro-tile-page">
       <div className="metro-desktop-dashboard home-control-room">
+        <Link href="/compliance" className="mb-4 flex items-center justify-between gap-4 rounded-2xl bg-emerald-800 px-6 py-5 text-white shadow-sm"><span><strong className="text-lg">✓ Compliance <small className="ml-2 rounded-full bg-white/20 px-2 py-1 text-xs">BETA</small></strong><span className="mt-1 block text-sm">Food safety checks, records and daily logs</span></span><span aria-hidden="true" className="text-2xl">›</span></Link>
         <header className="metro-desktop-heading">
           <div><p>Kitchen overview</p><h1>Home</h1><span>Your key numbers and reports at a glance.</span></div>
           <Link href="/reports">Open full reports →</Link>
@@ -137,6 +138,7 @@ export default function DashboardPage() {
         <MetroKpi label="Actual COGS" value={cogs} icon="▥" tone="navy" /><MetroKpi label="Food cost variance" value={varianceLabel} icon="%" tone="cobalt" />
       </section>
       <section className="metro-home-section"><div className="metro-home-heading"><div><p>Kitchen home</p><h1>What do you need to do?</h1></div><Link href="/insights">View insights <span aria-hidden="true">→</span></Link></div>
+        <Link href="/compliance" aria-label="Open Compliance beta" className="mb-4 flex min-h-28 items-center gap-4 rounded-3xl bg-emerald-800 px-5 py-5 text-white shadow-md transition-colors hover:bg-emerald-900"><span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-white/70 text-3xl" aria-hidden="true">✓</span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><strong className="text-xl">Compliance</strong><span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide">Beta</span></span><span className="mt-1 block text-sm text-emerald-50">Food safety checks, records and daily logs</span></span><span className="text-2xl" aria-hidden="true">›</span></Link>
         <nav className="metro-action-grid" aria-label="Kitchen workflows">{actionTiles.map((tile) => <Link key={tile.href} href={tile.href} className={`metro-action-tile metro-action-${tile.tone}`}><span className="metro-action-icon" aria-hidden="true">{tile.icon}</span><strong>{tile.label}</strong><span className="metro-action-arrow" aria-hidden="true">→</span></Link>)}</nav>
       </section></div>
     </div>
