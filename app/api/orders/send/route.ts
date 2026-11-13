@@ -150,11 +150,15 @@ function orderHtml(order: PurchaseOrder, organisationName: string, config: Order
 
 export async function POST(request: Request) {
   try {
-    const { organisationId, siteId } = await requireOrganisation(request);
+    const { organisationId, siteId, user } = await requireOrganisation(request);
     const body = await request.json();
     const order = body.order as PurchaseOrder;
     const settings = (body.settings ?? {}) as Partial<OrganisationSettings>;
     const suppliedEmail = String(body.supplierEmail || "").trim();
+    const testMode = body.testMode === true;
+    if (testMode && (!user.email || user.email.toLowerCase() !== 'stucottam@gmail.com')) {
+      return NextResponse.json({ error: 'Test sending is restricted to the authorised test inbox.' }, { status: 403 });
+    }
 
     const { data: organisation } = await serviceSupabase
       .from("organisations")
@@ -186,7 +190,7 @@ export async function POST(request: Request) {
     if (supplierError) throw supplierError;
 
     const supplier = suppliers?.find((row) => row.name.toLowerCase() === order.supplier.toLowerCase()) ?? suppliers?.[0];
-    const to = suppliedEmail || supplier?.email || order.supplierEmail || order.sentTo || "";
+    const to = testMode ? 'stucottam@gmail.com' : suppliedEmail || supplier?.email || order.supplierEmail || order.sentTo || "";
     if (!to) {
       return NextResponse.json({
         error: config.spanish
@@ -196,7 +200,7 @@ export async function POST(request: Request) {
       }, { status: 400 });
     }
 
-    if (supplier?.id && suppliedEmail && suppliedEmail !== supplier.email) {
+    if (!testMode && supplier?.id && suppliedEmail && suppliedEmail !== supplier.email) {
       const { error } = await serviceSupabase
         .from("suppliers")
         .update({ email: suppliedEmail, order_method: "Email", updated_at: new Date().toISOString() })
@@ -205,7 +209,7 @@ export async function POST(request: Request) {
       if (error) throw error;
     }
 
-    const cc = settings.sendInternalCopy === false
+    const cc = testMode ? [] : settings.sendInternalCopy === false
       ? []
       : Array.isArray(settings.internalOrderEmails)
         ? settings.internalOrderEmails.map((value) => String(value).trim()).filter(Boolean)
@@ -222,10 +226,10 @@ export async function POST(request: Request) {
       to: [to],
       cc: cc.length ? cc : undefined,
       replyTo: cc[0] || undefined,
-      subject: config.spanish
+      subject: testMode ? `[TEST ORDER - DO NOT FULFIL] Purchase Order ${order.id} - ${organisationName}` : config.spanish
         ? `Orden de compra ${order.id} - ${organisationName}`
         : `Purchase Order ${order.id} - ${organisationName}`,
-      html: orderHtml(order, organisationName, config),
+      html: testMode ? `<div style="padding:16px;background:#fff3cd;color:#713f12;font-weight:bold">TEST ORDER - DO NOT FULFIL. No goods should be dispatched.</div>` + orderHtml(order, organisationName, config) : orderHtml(order, organisationName, config),
       attachments,
     });
 
@@ -233,6 +237,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       sent: true,
+      testMode,
       messageId: data?.id ?? null,
       sentTo: to,
       copiedTo: cc,
