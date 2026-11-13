@@ -133,27 +133,40 @@ export default function DashboardPage() {
         </section>
       </div>
 
-      <div className="metro-mobile-dashboard">
-        <section className="mx-auto max-w-3xl space-y-5 px-1 pb-8">
-          <div className="flex items-center justify-between gap-3">
-            <div><p className="text-xs font-semibold uppercase tracking-wider text-emerald-700">Kitchen Insights</p><h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">Kitchen home</h1><p className="text-sm text-slate-500">Everything you need, in one place.</p></div>
-            <details className="relative shrink-0"><summary aria-label="More kitchen tools" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-2xl border border-slate-200 bg-white text-xl font-bold text-slate-700 shadow-sm">⋯</summary><nav className="absolute right-0 z-20 mt-2 grid w-52 gap-1 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl"><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/insights">Insights</Link><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/suppliers">Suppliers</Link><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/invoices/upload">Upload invoice</Link><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/reports">Full reports</Link></nav></details>
+      <div className="metro-mobile-dashboard ki-v2-mobile">
+        <div className="ki-v2-intro">
+          <p className="ki-v2-eyebrow">Kitchen overview</p>
+          <h1>Good to see you, Chef</h1>
+          <p>Your kitchen at a glance.</p>
+        </div>
+        <section className="ki-v2-metrics" aria-label="Kitchen performance">
+          <Link href="/invoices" className="ki-v2-metric ki-v2-blue"><span className="ki-v2-metric-icon" aria-hidden="true">▤</span><span>Invoices<strong>{invoiceCount ?? "—"}</strong><small>Approved</small></span><span className="ki-v2-arrow">›</span></Link>
+          <Link href="/orders" className="ki-v2-metric ki-v2-peach"><span className="ki-v2-metric-icon" aria-hidden="true">▣</span><span>Orders<strong>View</strong><small>Purchasing</small></span><span className="ki-v2-arrow">›</span></Link>
+          <Link href="/stock" className="ki-v2-metric ki-v2-green"><span className="ki-v2-metric-icon" aria-hidden="true">▦</span><span>Stock<strong>{stock}</strong><small>Latest count</small></span><span className="ki-v2-arrow">›</span></Link>
+          <Link href="/compliance" className="ki-v2-metric ki-v2-lilac"><span className="ki-v2-metric-icon" aria-hidden="true">✓</span><span>Compliance<strong>Checks</strong><small>Daily records</small></span><span className="ki-v2-arrow">›</span></Link>
+        </section>
+        <section className="ki-v2-panel" aria-label="Today's kitchen checks">
+          <div className="ki-v2-panel-heading"><h2>Today's checks</h2><Link href="/compliance">Open all ›</Link></div>
+          <p className="ki-v2-helper">Keep food safety records up to date.</p>
+          <Link href="/compliance" className="ki-v2-check"><span className="ki-v2-check-icon">◯</span><span>Fridge &amp; freezer temperatures</span><span>›</span></Link>
+          <Link href="/compliance" className="ki-v2-check"><span className="ki-v2-check-icon">◯</span><span>Daily cleaning checks</span><span>›</span></Link>
+          <Link href="/compliance" className="ki-v2-check"><span className="ki-v2-check-icon">◯</span><span>Opening &amp; closing checks</span><span>›</span></Link>
+          <Link href="/compliance" className="ki-v2-check-cta">Open compliance checks →</Link>
+        </section>
+        <section className="ki-v2-panel" aria-label="Quick actions">
+          <div className="ki-v2-panel-heading"><h2>Quick actions</h2></div>
+          <div className="ki-v2-actions">
+            <Link href="/orders">＋ <span>New order</span></Link>
+            <Link href="/invoices/upload">⇧ <span>Upload invoice</span></Link>
+            <Link href="/stock">▦ <span>Stock count</span></Link>
+            <Link href="/recipes">◇ <span>Recipes</span></Link>
           </div>
-          <nav aria-label="Kitchen workflows" className="grid grid-cols-2 gap-3">
-            {([
-              {href:"/invoices",title:"Invoices",desc:"Upload and manage invoices",icon:"▤",tone:"bg-emerald-50 text-emerald-900"},
-              {href:"/stock",title:"Stock",desc:"Inventory and stock value",icon:"▦",tone:"bg-indigo-50 text-indigo-950"},
-              {href:"/recipes",title:"Recipes",desc:"Costing and margins",icon:"◇",tone:"bg-amber-50 text-amber-950"},
-              {href:"/orders",title:"Ordering",desc:"Suppliers and orders",icon:"🛒",tone:"bg-sky-50 text-sky-950"},
-              {href:"/compliance",title:"Compliance",desc:"Food safety checks and logs",icon:"✓",tone:"bg-emerald-800 text-white",beta:true},
-              {href:"/reports",title:"Reporting",desc:"Reports and performance",icon:"▥",tone:"bg-teal-50 text-teal-950"}
-            ] as const).map(tile=><Link key={tile.href} href={tile.href} className={`flex min-h-40 flex-col justify-between rounded-3xl p-4 shadow-sm transition-transform active:scale-[0.98] ${tile.tone}`}><span className="flex items-start justify-between gap-2"><span className="text-3xl" aria-hidden="true">{tile.icon}</span>{'beta' in tile && <span className="rounded-full bg-white/20 px-2 py-1 text-[10px] font-bold uppercase">Beta</span>}</span><span><strong className="block text-lg leading-tight">{tile.title}</strong><span className="mt-1 block text-xs leading-snug opacity-80">{tile.desc}</span></span></Link>)}
-          </nav>
-          <section className="rounded-3xl border border-slate-100 bg-white p-4 shadow-sm" aria-label="Kitchen snapshot">
-            <div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-bold text-slate-900">Kitchen snapshot</h2><Link href="/reports" className="text-sm font-semibold text-emerald-700">View all</Link></div>
-            <div className="grid grid-cols-2 gap-3"><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Spend this month</p><strong className="mt-1 block text-lg text-slate-900">{spend}</strong></div><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Stock value</p><strong className="mt-1 block text-lg text-slate-900">{stock}</strong></div><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Actual COGS</p><strong className="mt-1 block text-lg text-slate-900">{cogs}</strong></div><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Food cost variance</p><strong className="mt-1 block text-lg text-slate-900">{varianceLabel}</strong></div></div>
-          </section>
-          <div className="flex flex-wrap gap-2"><Link href="/insights" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">Insights</Link><Link href="/suppliers" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">Suppliers</Link><Link href="/invoices/upload" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">Upload invoice</Link></div>
+        </section>
+        <section className="ki-v2-panel" aria-label="Cost overview">
+          <div className="ki-v2-panel-heading"><h2>Cost overview</h2><Link href="/reports">Reports ›</Link></div>
+          <div className="ki-v2-cost-row"><span>Spend this month</span><strong>{spend}</strong></div>
+          <div className="ki-v2-cost-row"><span>Actual COGS</span><strong>{cogs}</strong></div>
+          <div className="ki-v2-cost-row"><span>Food cost variance</span><strong>{varianceLabel}</strong></div>
         </section>
       </div>
     </div>
