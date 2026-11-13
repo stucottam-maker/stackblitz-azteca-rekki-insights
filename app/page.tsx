@@ -133,14 +133,29 @@ export default function DashboardPage() {
         </section>
       </div>
 
-      <div className="metro-mobile-dashboard"><section className="metro-kpi-grid" aria-label="Kitchen performance summary">
-        <MetroKpi label="Spend this month" value={spend} icon="£" tone="royal" /><MetroKpi label="Stock value" value={stock} icon="□" tone="blue" />
-        <MetroKpi label="Actual COGS" value={cogs} icon="▥" tone="navy" /><MetroKpi label="Food cost variance" value={varianceLabel} icon="%" tone="cobalt" />
-      </section>
-      <section className="metro-home-section"><div className="metro-home-heading"><div><p>Kitchen home</p><h1>What do you need to do?</h1></div><Link href="/insights">View insights <span aria-hidden="true">→</span></Link></div>
-        <Link href="/compliance" aria-label="Open Compliance beta" className="mb-4 flex min-h-28 items-center gap-4 rounded-3xl bg-emerald-800 px-5 py-5 text-white shadow-md transition-colors hover:bg-emerald-900"><span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-white/70 text-3xl" aria-hidden="true">✓</span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><strong className="text-xl">Compliance</strong><span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide">Beta</span></span><span className="mt-1 block text-sm text-emerald-50">Food safety checks, records and daily logs</span></span><span className="text-2xl" aria-hidden="true">›</span></Link>
-        <nav className="metro-action-grid" aria-label="Kitchen workflows">{actionTiles.map((tile) => <Link key={tile.href} href={tile.href} className={`metro-action-tile metro-action-${tile.tone}`}><span className="metro-action-icon" aria-hidden="true">{tile.icon}</span><strong>{tile.label}</strong><span className="metro-action-arrow" aria-hidden="true">→</span></Link>)}</nav>
-      </section></div>
+      <div className="metro-mobile-dashboard">
+        <section className="mx-auto max-w-3xl space-y-5 px-1 pb-8">
+          <div className="flex items-center justify-between gap-3">
+            <div><p className="text-xs font-semibold uppercase tracking-wider text-emerald-700">Kitchen Insights</p><h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">Kitchen home</h1><p className="text-sm text-slate-500">Everything you need, in one place.</p></div>
+            <details className="relative shrink-0"><summary aria-label="More kitchen tools" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-2xl border border-slate-200 bg-white text-xl font-bold text-slate-700 shadow-sm">⋯</summary><nav className="absolute right-0 z-20 mt-2 grid w-52 gap-1 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl"><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/insights">Insights</Link><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/suppliers">Suppliers</Link><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/invoices/upload">Upload invoice</Link><Link className="rounded-xl px-3 py-2 text-sm hover:bg-slate-50" href="/reports">Full reports</Link></nav></details>
+          </div>
+          <nav aria-label="Kitchen workflows" className="grid grid-cols-2 gap-3">
+            {([
+              {href:"/invoices",title:"Invoices",desc:"Upload and manage invoices",icon:"▤",tone:"bg-emerald-50 text-emerald-900"},
+              {href:"/stock",title:"Stock",desc:"Inventory and stock value",icon:"▦",tone:"bg-indigo-50 text-indigo-950"},
+              {href:"/recipes",title:"Recipes",desc:"Costing and margins",icon:"◇",tone:"bg-amber-50 text-amber-950"},
+              {href:"/orders",title:"Ordering",desc:"Suppliers and orders",icon:"🛒",tone:"bg-sky-50 text-sky-950"},
+              {href:"/compliance",title:"Compliance",desc:"Food safety checks and logs",icon:"✓",tone:"bg-emerald-800 text-white",beta:true},
+              {href:"/reports",title:"Reporting",desc:"Reports and performance",icon:"▥",tone:"bg-teal-50 text-teal-950"}
+            ] as const).map(tile=><Link key={tile.href} href={tile.href} className={`flex min-h-40 flex-col justify-between rounded-3xl p-4 shadow-sm transition-transform active:scale-[0.98] ${tile.tone}`}><span className="flex items-start justify-between gap-2"><span className="text-3xl" aria-hidden="true">{tile.icon}</span>{'beta' in tile && <span className="rounded-full bg-white/20 px-2 py-1 text-[10px] font-bold uppercase">Beta</span>}</span><span><strong className="block text-lg leading-tight">{tile.title}</strong><span className="mt-1 block text-xs leading-snug opacity-80">{tile.desc}</span></span></Link>)}
+          </nav>
+          <section className="rounded-3xl border border-slate-100 bg-white p-4 shadow-sm" aria-label="Kitchen snapshot">
+            <div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-bold text-slate-900">Kitchen snapshot</h2><Link href="/reports" className="text-sm font-semibold text-emerald-700">View all</Link></div>
+            <div className="grid grid-cols-2 gap-3"><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Spend this month</p><strong className="mt-1 block text-lg text-slate-900">{spend}</strong></div><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Stock value</p><strong className="mt-1 block text-lg text-slate-900">{stock}</strong></div><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Actual COGS</p><strong className="mt-1 block text-lg text-slate-900">{cogs}</strong></div><div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Food cost variance</p><strong className="mt-1 block text-lg text-slate-900">{varianceLabel}</strong></div></div>
+          </section>
+          <div className="flex flex-wrap gap-2"><Link href="/insights" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">Insights</Link><Link href="/suppliers" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">Suppliers</Link><Link href="/invoices/upload" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">Upload invoice</Link></div>
+        </section>
+      </div>
     </div>
   );
 }
