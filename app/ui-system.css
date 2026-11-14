@@ -876,3 +876,21 @@ body > .app-shell > .sidebar .brand-mark.ki-brand-image img,
   object-fit:contain!important;
   border-radius:15px!important;
 }
+
+/* Reports and ingredient empty-state finishing pass. */
+.app-shell-root .reports-page .reports-tab-clean[aria-current="page"],
+.metro-app-shell .reports-page .reports-tab-clean[aria-current="page"],
+.reports-page .reports-tab-clean.reports-tab-clean-active {
+  background:#356f60!important;
+  border-color:#356f60!important;
+  color:#fff!important;
+}
+.reports-page .reports-tab-clean.reports-tab-clean-active :where(span,small,strong) {color:inherit!important}
+.ingredients-page .ingredients-empty-state {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:30px 18px;min-height:200px}
+.ingredients-page .ingredients-empty-state h3 {margin:0;color:#24394b;font-size:20px;line-height:1.25}
+.ingredients-page .ingredients-empty-state p {margin:0;max-width:34ch;color:#687c88;font-size:14px;line-height:1.5}
+.ingredients-page .ingredients-empty-icon {display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:#e6f2ec;color:#356f60;font-size:25px}
+@media(max-width:640px){
+  .reports-page .reports-tab-clean.reports-tab-clean-active {color:#fff!important}
+  .ingredients-page .ingredients-empty-state {padding:26px 16px;min-height:180px}
+}
