@@ -894,3 +894,23 @@ body > .app-shell > .sidebar .brand-mark.ki-brand-image img,
   .reports-page .reports-tab-clean.reports-tab-clean-active {color:#fff!important}
   .ingredients-page .ingredients-empty-state {padding:26px 16px;min-height:180px}
 }
+
+/* Final auth polish: accessible contrast and unified sage interactions. */
+.login-page .login-simple-brand {color:#24394b!important}
+.login-page .login-brand-copy strong {color:#24394b!important}
+.login-page .login-brand-copy span {color:#667d88!important}
+.login-page .login-mode-switch,
+.login-page .login-forgot-link {color:#356f60!important;font-weight:750!important}
+.login-page .login-mode-switch:hover,
+.login-page .login-forgot-link:hover {color:#27584e!important}
+.login-page .login-password-toggle {color:#356f60!important;background:#e6f2ec!important}
+.login-page .login-field input:focus {border-color:#356f60!important;outline-color:#356f60!important;box-shadow:0 0 0 3px rgba(53,111,96,.12)!important}
+.login-page .login-heading .eyebrow {color:#356f60!important}
+.login-page .login-button {background:#356f60!important;color:#fff!important;border-color:#356f60!important}
+.login-page .login-button:hover {background:#27584e!important}
+.login-page .login-v2-logo-image {border-radius:15px!important}
+@media(max-width:640px){
+  .login-page .login-simple-brand {background:rgba(255,255,255,.75)!important;border-radius:16px!important;padding:10px 12px!important}
+  .login-page .login-brand-copy strong {color:#24394b!important}
+  .login-page .login-brand-copy span {color:#667d88!important}
+}
