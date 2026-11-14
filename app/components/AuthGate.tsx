@@ -70,14 +70,15 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
 
   if (!ready && !publicAuthPath) {
     return (
-      <div className="auth-loading-screen" role="status" aria-live="polite">
-        <div className="auth-loading-card">
+      <div className="auth-loading-screen ki-v2-splash" role="status" aria-live="polite">
+        <div className="auth-loading-card ki-v2-splash-card">
           <div className="auth-loading-mark" aria-hidden="true">KI</div>
           <div className="auth-loading-copy">
             <strong>Kitchen Insights</strong>
-            <span>Preparing your workspace…</span>
+            <span>Kitchen operations, connected</span>
           </div>
           <span className="auth-loading-spinner" aria-hidden="true" />
+          <p className="ki-v2-splash-status">Preparing your workspace…</p>
         </div>
       </div>
     );
