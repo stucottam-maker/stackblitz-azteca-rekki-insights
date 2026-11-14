@@ -788,9 +788,10 @@ export default function OrdersPage() {
                   <article className="chef-order-history-card" key={order.id}>
                     <div className="chef-order-meta">
                       <SupplierLogo supplier={order.supplier} size="small" />
-                      <div>
+                      <div className="ki-order-supplier-details">
                         <strong>{order.supplier}</strong>
-                        <span>{order.id} · {formatDate(order.createdAt)}</span>
+                        <span className="ki-order-reference">{order.id}</span>
+                        <span>{formatDate(order.createdAt)}</span>
                       </div>
                     </div>
                     <div>
