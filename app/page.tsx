@@ -168,6 +168,7 @@ export default function DashboardPage() {
           <div className="ki-v2-cost-row"><span>Actual COGS</span><strong>{cogs}</strong></div>
           <div className="ki-v2-cost-row"><span>Food cost variance</span><strong>{varianceLabel}</strong></div>
         </section>
+      </div>
     </div>
   );
 }
