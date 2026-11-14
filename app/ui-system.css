@@ -616,3 +616,26 @@ table td {
     line-height: 1.5;
   }
 }
+
+/* Mobile: fifth bottom tab is More; remove redundant header More control. */
+@media (max-width: 640px) {
+  body .app-shell-root .chef-sidebar .mobile-header-more { display: none !important; }
+  body .app-shell-root .chef-sidebar .brand { grid-template-columns: 40px minmax(0,1fr) !important; }
+  body .app-shell-root .chef-sidebar .sidebar-nav .mobile-bottom-more {
+    display: flex !important;
+    border: 0 !important;
+    font: inherit;
+    cursor: pointer;
+  }
+  body .app-shell-root .chef-sidebar .sidebar-nav .mobile-bottom-more .nav-icon {
+    font-size: 15px !important;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+  body .app-shell-root .chef-sidebar .mobile-more-menu {
+    bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+  }
+}
+@media (min-width: 641px) {
+  .mobile-bottom-more { display: none !important; }
+}
