@@ -146,7 +146,7 @@ export default function DashboardPage() {
           <Link href="/compliance" className="ki-v2-metric ki-v2-lilac"><span className="ki-v2-metric-icon" aria-hidden="true">✓</span><span>Compliance<strong>Checks</strong><small>Daily records</small></span><span className="ki-v2-arrow">›</span></Link>
         </section>
         <section className="ki-v2-panel" aria-label="Today's kitchen checks">
-          <div className="ki-v2-panel-heading"><h2>Today's checks</h2><Link href="/compliance">Open all ›</Link></div>
+          <div className="ki-v2-panel-heading"><h2>Today&apos;s checks</h2><Link href="/compliance">Open all ›</Link></div>
           <p className="ki-v2-helper">Keep food safety records up to date.</p>
           <Link href="/compliance" className="ki-v2-check"><span className="ki-v2-check-icon">◯</span><span>Fridge &amp; freezer temperatures</span><span>›</span></Link>
           <Link href="/compliance" className="ki-v2-check"><span className="ki-v2-check-icon">◯</span><span>Daily cleaning checks</span><span>›</span></Link>
