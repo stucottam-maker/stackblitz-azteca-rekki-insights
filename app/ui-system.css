@@ -677,3 +677,64 @@ table td {
   .metro-app-shell .ki-v2-compliance > div { gap: 15px; }
   .metro-app-shell .ki-v2-workflow :where(.topbar h1) { font-size: 26px; }
 }
+
+/* V2 launch splash and sign-in: same calm sage/navy identity as the app. */
+.auth-loading-screen.ki-v2-splash {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px;
+  background: radial-gradient(circle at 50% 35%, #edf8f2 0, #f8faf9 43%, #e9f0f4 100%) !important;
+  color: #20364a;
+}
+.ki-v2-splash .ki-v2-splash-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: min(100%, 370px);
+  padding: 40px 26px 30px;
+  border: 1px solid #e3ebe9;
+  border-radius: 28px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 20px 60px rgba(35,65,72,.08);
+  text-align: center;
+}
+.ki-v2-splash .auth-loading-mark {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 21px;
+  border-radius: 25px;
+  background: linear-gradient(145deg,#397b70,#245e58) !important;
+  color: white;
+  box-shadow: 0 12px 30px rgba(35,95,83,.2);
+  font-size: 29px;
+  font-weight: 850;
+  letter-spacing: -.05em;
+}
+.ki-v2-splash .auth-loading-copy { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.ki-v2-splash .auth-loading-copy strong { color: #20364a; font-size: 24px; line-height: 1.2; letter-spacing: -.04em; }
+.ki-v2-splash .auth-loading-copy span { color: #718293; font-size: 13px; font-weight: 550; }
+.ki-v2-splash .auth-loading-spinner {
+  display: block;
+  width: 25px;
+  height: 25px;
+  margin: 30px auto 12px;
+  border: 3px solid #dceee6;
+  border-top-color: #286f61;
+  border-radius: 50%;
+  animation: ki-v2-spin .9s linear infinite;
+}
+.ki-v2-splash-status { margin: 0; color: #708195; font-size: 12px; }
+@keyframes ki-v2-spin { to { transform: rotate(360deg); } }
+.login-page { background: radial-gradient(circle at 50% 0%, #eaf5ef 0%, #f8faf9 55%, #edf2f6 100%) !important; }
+.login-page .login-simple-shell { max-width: 480px; }
+.login-page .login-brand-icon-live { background: linear-gradient(145deg,#397b70,#245e58) !important; color: #fff !important; border-radius: 18px !important; }
+.login-page .login-shell { border-radius: 24px !important; border: 1px solid #e2eae8 !important; box-shadow: 0 15px 45px rgba(32,54,74,.07) !important; }
+.login-page .login-heading h1 { color: #20364a; letter-spacing: -.04em; }
+.login-page .login-heading p { color: #718293; }
+.login-page .login-button { background: #286f61 !important; border-color: #286f61 !important; border-radius: 12px !important; }
+@media (prefers-reduced-motion: reduce) { .ki-v2-splash .auth-loading-spinner { animation: none; } }
