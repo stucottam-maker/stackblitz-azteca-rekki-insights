@@ -387,6 +387,7 @@ export default function ReportsPage() {
             <button
               key={value}
               type="button"
+              aria-current={activeView === value ? "page" : undefined}
               className={`reports-tab-clean ${
                 activeView === value ? "reports-tab-clean-active" : ""
               }`}
