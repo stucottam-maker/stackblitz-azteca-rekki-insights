@@ -382,8 +382,8 @@ export default function IngredientsPage() {
         ) : filtered.length === 0 ? (
           <div className="ingredients-empty-state">
             <div className="ingredients-empty-icon">◇</div>
-            <h3>No ingredients found</h3>
-            <p>Try another search term or change the category filter.</p>
+            <h3>{ingredients.length === 0 ? "No ingredient prices yet" : "No matching ingredients"}</h3>
+            <p>{ingredients.length === 0 ? "Approved supplier invoices will populate ingredient prices here." : "Try another search term or change the category filter."}</p>
           </div>
         ) : (
           <div className="table-wrapper">
