@@ -1,5 +1,7 @@
 "use client";
 
+
+import KitchenLogo from "../components/KitchenLogo";
 import { type FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -122,7 +124,7 @@ export default function LoginPage() {
     <main className="login-page">
       <section className="login-simple-shell">
         <div className="login-brand-row login-simple-brand">
-          <div className="login-brand-icon login-brand-icon-live" aria-label="Kitchen Insights">KI</div>
+          <KitchenLogo size={54} className="login-v2-logo-image" />
           <div className="login-brand-copy">
             <strong>Kitchen Insights</strong>
             <span>Kitchen operations, connected</span>
