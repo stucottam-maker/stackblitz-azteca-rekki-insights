@@ -763,3 +763,52 @@ table td {
 .login-page .login-v2-logo-image { width:54px; height:54px; flex:none; box-shadow:0 6px 20px rgba(49,91,115,.12); }
 .app-shell-root .ki-brand-image { padding:0; overflow:hidden; background:transparent !important; box-shadow:none !important; }
 .app-shell-root .ki-brand-image img { width:100%; height:100%; }
+
+/* Mobile tidy-up, November 2026: shared layout rhythm and legibility. */
+.ki-order-supplier-details {min-width:0;display:flex;flex-direction:column;gap:4px}
+.ki-order-supplier-details strong {overflow-wrap:anywhere;line-height:1.3}
+.ki-order-reference {overflow-wrap:anywhere;font-size:12px;letter-spacing:.01em}
+.chef-order-history-card .chef-order-meta {min-width:0}
+.chef-order-history-card .chef-order-meta > div:last-child {min-width:0;flex:1}
+@media(max-width:640px){
+  .chef-sidebar .brand {display:grid!important;grid-template-columns:52px minmax(0,1fr)!important;align-items:center!important;gap:12px!important;padding-right:14px!important}
+  .chef-sidebar .brand .brand-mark {width:52px!important;height:52px!important;min-width:52px!important}
+  .chef-sidebar .brand .brand-mark img {width:52px!important;height:52px!important;object-fit:contain}
+  .chef-sidebar .sidebar-brand-copy {min-width:0!important;overflow:hidden}
+  .chef-sidebar .brand-name {font-size:17px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chef-sidebar .mobile-workspace-control {min-width:0!important;width:100%!important;max-width:100%!important}
+  .chef-sidebar .mobile-workspace-control select {display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;text-overflow:ellipsis!important;white-space:nowrap!important;overflow:hidden!important;padding-right:24px!important;font-size:12px!important}
+  .chef-sidebar .mobile-header-more {display:none!important}
+  .page :where(.topbar) {margin-bottom:20px!important}
+  .page :where(.topbar h1) {line-height:1.12!important;letter-spacing:-.035em}
+  .page :where(.page-description) {font-size:15px!important;line-height:1.5!important;max-width:42ch}
+  .page :where(.stats-grid) {gap:10px!important}
+  .page :where(.stat-card) {padding:16px!important;min-width:0}
+  .page :where(.stat-label) {font-size:13px!important}
+  .page :where(.stat-value) {font-size:29px!important;line-height:1.15!important}
+  .page :where(.stat-change) {font-size:12px!important;line-height:1.35!important}
+  .page :where(.panel) {border-radius:18px!important}
+  .page :where(.panel-header) {gap:10px!important}
+  .page :where(.panel-header h2) {line-height:1.2!important}
+  .chef-orders-page .chef-order-history-card {padding:16px!important;min-width:0;overflow:hidden}
+  .chef-orders-page .chef-order-meta {display:flex!important;align-items:flex-start!important;gap:12px!important}
+  .chef-orders-page .chef-order-history-card > div:nth-child(2) {display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:14px}
+  .chef-orders-page .chef-order-history-card > div:nth-child(2) strong {white-space:nowrap}
+  .chef-orders-page .chef-order-actions {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px!important;width:100%}
+  .chef-orders-page .chef-order-actions button {width:100%!important;min-width:0!important;white-space:normal!important;line-height:1.3!important;padding:12px 8px!important;min-height:48px}
+  .chef-orders-page .supplier-choice-card {min-width:0!important;gap:10px!important}
+  .chef-orders-page .supplier-choice-copy {min-width:0!important}
+  .chef-orders-page .supplier-choice-copy strong {overflow-wrap:anywhere}
+  .reports-page .reports-header-actions {display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+  .reports-page .reports-header-actions a {display:flex!important;justify-content:center!important;align-items:center!important;min-height:46px!important;width:100%!important}
+  .reports-page .reports-tabs-clean {display:flex!important;gap:8px!important;overflow-x:auto!important;scrollbar-width:none;max-width:100%;padding-bottom:5px}
+  .reports-page .reports-tabs-clean::-webkit-scrollbar {display:none}
+  .reports-page .reports-tab-clean {flex:0 0 auto!important;min-height:44px!important;padding:10px 14px!important;white-space:nowrap!important}
+  .reports-page .reports-tab-clean[class*="active"],.reports-page .reports-tab-clean[aria-selected="true"] {color:#fff!important;background:#356f60!important;border-color:#356f60!important}
+  .reports-page :where(.panel,.report-panel) {min-height:0!important}
+  .ingredients-page .ingredient-toolbar {gap:12px!important}
+  .ingredients-page .ingredients-main-panel {overflow:hidden}
+  .ingredients-page :where(.ingredient-search,.ingredient-filter,.ingredient-sort) {min-width:0!important}
+  .ingredients-page :where(input,select) {max-width:100%!important}
+  .recipes-page .stats-grid,.ingredients-page .stats-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
