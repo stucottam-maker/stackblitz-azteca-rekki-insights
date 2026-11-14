@@ -27,7 +27,7 @@ const links: readonly NavLink[] = [
   ["⚙", "Settings", "/settings"],
 ] as const;
 
-const mobilePrimaryNames = new Set(["Dashboard", "Orders", "Invoices", "Stock", "Recipes"]);
+const mobilePrimaryNames = new Set(["Dashboard", "Orders", "Invoices", "Stock"]);
 const mobileMoreNames = ["Suppliers", "Ingredients", "Menu", "Reports", "Insights", "Compliance"] as const;
 
 function initials(name: string) {
@@ -176,6 +176,7 @@ export default function Sidebar({ active }: SidebarProps) {
             )}
           </Link>
         ))}
+        <button type="button" className={`nav-link mobile-primary mobile-bottom-more ${mobileMoreOpen || moreIsActive ? "nav-link-active" : ""}`} aria-expanded={mobileMoreOpen} aria-controls="mobile-more-menu" aria-label="More tools and settings" onClick={() => setMobileMoreOpen((open) => !open)}><span className="nav-icon" aria-hidden="true">•••</span><span>More</span></button>
       </nav>
 
       {mobileMoreOpen && (
