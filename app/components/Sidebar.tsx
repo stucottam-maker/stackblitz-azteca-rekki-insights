@@ -1,5 +1,7 @@
 "use client";
 
+
+import KitchenLogo from "./KitchenLogo";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -116,7 +118,7 @@ export default function Sidebar({ active }: SidebarProps) {
   return (
     <aside className="sidebar chef-sidebar">
       <div className="brand">
-        <div className="brand-mark">KI</div>
+        <div className="brand-mark ki-brand-image"><KitchenLogo size={44} /></div>
         <div className="sidebar-brand-copy">
           <div className="brand-name">Kitchen Insights</div>
           <div className="brand-subtitle">Kitchen control, without the admin</div>
