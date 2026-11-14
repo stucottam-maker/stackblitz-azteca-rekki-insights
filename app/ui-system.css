@@ -1013,3 +1013,32 @@ body > .app-shell > .sidebar .brand-mark.ki-brand-image img,
 @media(prefers-reduced-motion:reduce){
   .ki-v2-splash .auth-loading-spinner {animation:none!important;border-top-color:#356f60!important;}
 }
+
+/* Subtle splash-only logo entrance: no motion on the dashboard or login. */
+.ki-v2-splash .ki-splash-emblem-wrap {
+  animation:ki-splash-reveal 720ms cubic-bezier(.2,.8,.2,1) both;
+  transform-origin:center;
+}
+.ki-v2-splash .ki-v2-logo-image {
+  animation:ki-splash-icon-settle 900ms cubic-bezier(.2,.8,.2,1) both;
+}
+.ki-v2-splash .auth-loading-copy {
+  animation:ki-splash-copy 650ms ease-out 160ms both;
+}
+@keyframes ki-splash-reveal {
+  from {opacity:0;transform:translateY(13px) scale(.9);}
+  to {opacity:1;transform:translateY(0) scale(1);}
+}
+@keyframes ki-splash-icon-settle {
+  from {transform:rotate(-7deg) scale(.92);}
+  to {transform:rotate(0) scale(1);}
+}
+@keyframes ki-splash-copy {
+  from {opacity:0;transform:translateY(7px);}
+  to {opacity:1;transform:translateY(0);}
+}
+@media(prefers-reduced-motion:reduce) {
+  .ki-v2-splash .ki-splash-emblem-wrap,
+  .ki-v2-splash .ki-v2-logo-image,
+  .ki-v2-splash .auth-loading-copy {animation:none!important;transform:none!important;opacity:1!important;}
+}
