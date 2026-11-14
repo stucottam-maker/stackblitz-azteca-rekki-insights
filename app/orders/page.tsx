@@ -722,7 +722,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="page quick-order-page chef-orders-page">
+    <div className="page quick-order-page chef-orders-page ki-v2-workflow ki-v2-orders">
       {message && <div className="notice">{message}</div>}
 
       {step === "start" && (
