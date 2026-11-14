@@ -1,5 +1,7 @@
 "use client";
 
+
+import KitchenLogo from "./KitchenLogo";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -72,7 +74,7 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
     return (
       <div className="auth-loading-screen ki-v2-splash" role="status" aria-live="polite">
         <div className="auth-loading-card ki-v2-splash-card">
-          <div className="auth-loading-mark" aria-hidden="true">KI</div>
+          <KitchenLogo size={84} className="ki-v2-logo-image" />
           <div className="auth-loading-copy">
             <strong>Kitchen Insights</strong>
             <span>Kitchen operations, connected</span>
