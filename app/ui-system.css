@@ -639,3 +639,41 @@ table td {
 @media (min-width: 641px) {
   .mobile-bottom-more { display: none !important; }
 }
+
+/* V2 workflow polish: ordering, invoices and compliance share one visual system. */
+.metro-app-shell .ki-v2-workflow {
+  --v2-ink: #20364a;
+  --v2-muted: #718293;
+  --v2-border: #e2e9ed;
+  --v2-sage: #286f61;
+  color: var(--v2-ink);
+}
+.metro-app-shell .ki-v2-workflow :where(.topbar,.panel-header) { gap: 12px; }
+.metro-app-shell .ki-v2-workflow :where(.topbar h1,.panel-header h2) { color: var(--v2-ink); letter-spacing: -.035em; }
+.metro-app-shell .ki-v2-workflow :where(.panel-kicker,.eyebrow) { color: var(--v2-sage); font-weight: 800; letter-spacing: .07em; }
+.metro-app-shell .ki-v2-workflow :where(.page-description) { color: var(--v2-muted); line-height: 1.5; }
+.metro-app-shell .ki-v2-workflow :where(.panel,.quick-order-line,.order-v2-row,.invoice-retry-queue) {
+  border: 1px solid var(--v2-border);
+  border-radius: 18px;
+  background-color: #fff;
+  box-shadow: 0 3px 16px rgba(27,49,67,.04);
+}
+.metro-app-shell .ki-v2-orders :where(.purchasing-tabs,.quick-order-toolbar) { border-radius: 15px; }
+.metro-app-shell .ki-v2-orders :where(.purchasing-tab-active,.quick-order-line-active) { border-color: #a8d5c5 !important; background-color: #e8f5ef !important; color: #245f53 !important; }
+.metro-app-shell .ki-v2-invoices :where(.invoices-page-panel) { overflow: hidden; }
+.metro-app-shell .ki-v2-invoices :where(.stat-card) { background: #edf5fa; border-color: #dcebf3; }
+.metro-app-shell .ki-v2-compliance { background: #f8faf9 !important; }
+.metro-app-shell .ki-v2-compliance > div { max-width: 960px; }
+.metro-app-shell .ki-v2-compliance :where(section.rounded-3xl,section.rounded-2xl,.rounded-2xl.bg-white,.rounded-xl.bg-white) {
+  border-radius: 18px;
+}
+.metro-app-shell .ki-v2-compliance :where(section.bg-teal-900) { background: #315e59 !important; }
+.metro-app-shell .ki-v2-compliance :where(.bg-teal-800) { background: #286f61 !important; }
+.metro-app-shell .ki-v2-compliance :where(.text-teal-900,.text-teal-800) { color: #286f61; }
+.metro-app-shell .ki-v2-compliance :where(button,input,select,textarea) { min-height: 44px; }
+@media (max-width: 640px) {
+  .metro-app-shell .ki-v2-workflow :where(.panel) { padding: 15px; }
+  .metro-app-shell .ki-v2-compliance { padding: 12px 0 24px !important; }
+  .metro-app-shell .ki-v2-compliance > div { gap: 15px; }
+  .metro-app-shell .ki-v2-workflow :where(.topbar h1) { font-size: 26px; }
+}
