@@ -848,3 +848,31 @@ table td {
 .app-shell-root :where(.page .stat-value,.page h1,.page h2) {color:var(--ki-navy);}
 .app-shell-root .chef-sidebar :where(.nav-link-active,.mobile-bottom-more.nav-link-active) {color:var(--ki-forest-dark)!important;}
 .app-shell-root .chef-sidebar :where(.nav-link-active .nav-icon,.mobile-bottom-more.nav-link-active .nav-icon) {color:var(--ki-forest-dark)!important;}
+
+/* Correct legacy blue logo container in actual app-shell DOM. */
+body > .app-shell > .sidebar .brand-mark.ki-brand-image,
+.app-shell-root .brand-mark.ki-brand-image,
+.metro-app-shell .brand-mark.ki-brand-image,
+.chef-sidebar .brand-mark.ki-brand-image {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:52px!important;
+  height:52px!important;
+  min-width:52px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:15px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+body > .app-shell > .sidebar .brand-mark.ki-brand-image img,
+.chef-sidebar .brand-mark.ki-brand-image img {
+  display:block!important;
+  width:52px!important;
+  height:52px!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  border-radius:15px!important;
+}
