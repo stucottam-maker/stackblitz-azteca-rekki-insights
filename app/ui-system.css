@@ -756,3 +756,10 @@ table td {
   background: radial-gradient(circle at 50% 0%, #eaf1f8 0%, #f7f9fc 55%, #edf1f5 100%) !important;
 }
 .login-page .login-button { background: #356f60 !important; border-color: #356f60 !important; }
+
+/* Shared connected-kitchen logo replaces KI lettering. */
+.ki-v2-logo-image,.login-v2-logo-image,.ki-brand-image img { display:block; object-fit:contain; border-radius:23%; }
+.ki-v2-splash .ki-v2-logo-image { width: 94px; height:94px; margin:0 auto 22px; box-shadow:0 10px 28px rgba(49,91,115,.12); }
+.login-page .login-v2-logo-image { width:54px; height:54px; flex:none; box-shadow:0 6px 20px rgba(49,91,115,.12); }
+.app-shell-root .ki-brand-image { padding:0; overflow:hidden; background:transparent !important; box-shadow:none !important; }
+.app-shell-root .ki-brand-image img { width:100%; height:100%; }
