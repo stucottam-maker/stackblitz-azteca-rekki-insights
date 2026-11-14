@@ -225,7 +225,7 @@ export default function InvoicesPage() {
   }
 
   return (
-    <div className="page">
+    <div className="page ki-v2-workflow ki-v2-invoices">
       <div className="topbar">
         <div>
           <p className="eyebrow">Purchasing</p>
