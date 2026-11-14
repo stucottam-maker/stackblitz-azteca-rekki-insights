@@ -74,7 +74,9 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
     return (
       <div className="auth-loading-screen ki-v2-splash" role="status" aria-live="polite">
         <div className="auth-loading-card ki-v2-splash-card">
-          <KitchenLogo size={84} className="ki-v2-logo-image" />
+          <div className="ki-splash-emblem-wrap">
+          <KitchenLogo size={92} className="ki-v2-logo-image" />
+          </div>
           <div className="auth-loading-copy">
             <strong>Kitchen Insights</strong>
             <span>Kitchen operations, connected</span>
