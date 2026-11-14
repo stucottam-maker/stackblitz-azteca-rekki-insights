@@ -738,3 +738,21 @@ table td {
 .login-page .login-heading p { color: #718293; }
 .login-page .login-button { background: #286f61 !important; border-color: #286f61 !important; border-radius: 12px !important; }
 @media (prefers-reduced-motion: reduce) { .ki-v2-splash .auth-loading-spinner { animation: none; } }
+
+/* V2 splash palette aligned with the actual app shell: slate navy, blue KI mark, sage accents. */
+.auth-loading-screen.ki-v2-splash {
+  background: radial-gradient(circle at 50% 25%, #edf3f8 0%, #f7f9fc 52%, #e9eef4 100%) !important;
+}
+.ki-v2-splash .auth-loading-mark,
+.login-page .login-brand-icon-live {
+  background: linear-gradient(145deg,#6f9dc4,#5c89b1) !important;
+  box-shadow: 0 12px 28px rgba(61,102,137,.18) !important;
+}
+.ki-v2-splash .auth-loading-spinner {
+  border-color: #dce7ef;
+  border-top-color: #356f60;
+}
+.login-page {
+  background: radial-gradient(circle at 50% 0%, #eaf1f8 0%, #f7f9fc 55%, #edf1f5 100%) !important;
+}
+.login-page .login-button { background: #356f60 !important; border-color: #356f60 !important; }
