@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   applicationName: "Kitchen Insights",
   manifest: "/manifest.webmanifest",
   viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
-  themeColor: "#172554",
+  themeColor: "#34465a",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
