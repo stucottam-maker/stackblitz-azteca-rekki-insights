@@ -812,3 +812,39 @@ table td {
   .ingredients-page :where(input,select) {max-width:100%!important}
   .recipes-page .stats-grid,.ingredients-page .stats-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+
+/* Brand colour correction: remove legacy electric blue from app controls. */
+:root {
+  --ki-forest:#356f60;
+  --ki-forest-dark:#27584e;
+  --ki-navy:#24394b;
+  --ki-sage-pale:#e6f2ec;
+  --ki-line:#dce6e3;
+}
+.app-shell-root :where(.page a:not(.nav-link):not(.primary-button),.page .secondary-inline-button) {color:var(--ki-forest);}
+.app-shell-root :where(.page .primary-button,.page button.primary-button,.page a.primary-button) {
+  background:var(--ki-forest)!important;
+  border-color:var(--ki-forest)!important;
+  color:#fff!important;
+}
+.app-shell-root :where(.page .primary-button,.page button.primary-button,.page a.primary-button):hover {
+  background:var(--ki-forest-dark)!important;
+  border-color:var(--ki-forest-dark)!important;
+}
+.app-shell-root :where(.page .secondary-inline-button,.page a.secondary-inline-button) {
+  color:var(--ki-forest)!important;
+  border-color:var(--ki-line)!important;
+  background:#f7faf9!important;
+}
+.app-shell-root :where(.page .eyebrow,.page .panel-kicker,.page .ingredient-control-label) {color:var(--ki-forest)!important;}
+.app-shell-root :where(.page input:focus,.page select:focus,.page textarea:focus) {outline-color:var(--ki-forest)!important;}
+.app-shell-root .reports-page .reports-tab-clean {color:var(--ki-navy)!important;background:#fff!important;border-color:var(--ki-line)!important;}
+.app-shell-root .reports-page .reports-tab-clean[class*="active"],
+.app-shell-root .reports-page .reports-tab-clean[aria-selected="true"] {color:#fff!important;background:var(--ki-forest)!important;border-color:var(--ki-forest)!important;}
+.app-shell-root .chef-orders-page :where(.purchasing-tab-active,.quick-order-line-active) {color:var(--ki-forest-dark)!important;background:var(--ki-sage-pale)!important;border-color:#a9cebc!important;}
+.app-shell-root .chef-orders-page :where(.purchasing-tab,.quick-order-tab,.quick-order-tab-active) {accent-color:var(--ki-forest);}
+.app-shell-root .chef-orders-page .chef-order-actions :where(button.secondary-inline-button) {color:var(--ki-forest)!important;}
+.app-shell-root .chef-orders-page .chef-order-actions :where(button.primary-button) {color:#fff!important;}
+.app-shell-root :where(.page .stat-value,.page h1,.page h2) {color:var(--ki-navy);}
+.app-shell-root .chef-sidebar :where(.nav-link-active,.mobile-bottom-more.nav-link-active) {color:var(--ki-forest-dark)!important;}
+.app-shell-root .chef-sidebar :where(.nav-link-active .nav-icon,.mobile-bottom-more.nav-link-active .nav-icon) {color:var(--ki-forest-dark)!important;}
