@@ -51,7 +51,7 @@ export default function CompliancePage() {
   const btn = 'rounded-xl bg-teal-800 px-4 py-3 font-semibold text-white disabled:opacity-40';
   const now = () => new Date().toLocaleString('en-GB');
 
-  return <main className="min-h-screen bg-slate-50 px-4 py-6 text-slate-900">
+  return <main className="ki-v2-workflow ki-v2-compliance min-h-screen bg-slate-50 px-4 py-6 text-slate-900">
     <div className="mx-auto max-w-2xl space-y-5">
       <header className="flex items-center justify-between">
         <div><Link href="/" className="text-sm text-teal-800">← Kitchen Insights</Link><h1 className="mt-2 text-3xl font-bold">Compliance</h1><p className="text-slate-500">Daily kitchen checks</p></div>
