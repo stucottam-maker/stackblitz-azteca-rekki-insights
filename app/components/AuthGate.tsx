@@ -78,7 +78,7 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
           <KitchenLogo size={92} className="ki-v2-logo-image" />
           </div>
           <div className="auth-loading-copy">
-            <strong>Kommee</strong>
+            <strong className="kommee-splash-wordmark">kommee<span>.</span></strong>
             <span>Your kitchen’s right hand.</span>
           </div>
           <span className="auth-loading-spinner" aria-hidden="true" />
