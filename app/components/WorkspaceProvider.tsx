@@ -87,7 +87,7 @@ export default function WorkspaceProvider({ children }: { children: React.ReactN
     return (
       <div className="workspace-loading-screen" role="status" aria-live="polite">
         <div className="brand-mark">KI</div>
-        <strong>Kitchen Insights</strong>
+        <strong>Kommee</strong>
         <span>Loading your restaurant workspace…</span>
       </div>
     );
