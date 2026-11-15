@@ -1,5 +1,7 @@
 "use client";
 
+import KitchenLogo from "./KitchenLogo";
+
 import {
   createContext,
   useContext,
@@ -85,10 +87,14 @@ export default function WorkspaceProvider({ children }: { children: React.ReactN
 
   if (loading) {
     return (
-      <div className="workspace-loading-screen" role="status" aria-live="polite">
-        <div className="brand-mark">KI</div>
-        <strong>Kommee</strong>
-        <span>Loading your restaurant workspace…</span>
+      <div className="workspace-loading-screen kommee-workspace-splash" role="status" aria-live="polite">
+        <div className="kommee-workspace-splash-content">
+          <KitchenLogo size={108} className="kommee-workspace-splash-icon" />
+          <strong className="kommee-splash-wordmark">kommee<span>.</span></strong>
+          <span className="kommee-workspace-tagline">Your kitchen’s right hand.</span>
+          <span className="kommee-workspace-spinner" aria-hidden="true" />
+          <small>Preparing your workspace…</small>
+        </div>
       </div>
     );
   }
