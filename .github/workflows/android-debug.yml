@@ -79,7 +79,7 @@ jobs:
           print(manifest.read_text())
           PY
 
-      - name: Apply Kitchen Insights Android branding
+      - name: Apply Kommee Android branding
         run: |
           set -euo pipefail
           RES="android/app/src/main/res"
@@ -88,9 +88,9 @@ jobs:
           cat > "$RES/values/ki_colors.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
-              <color name="ki_navy">#172554</color>
-              <color name="ki_blue">#2563EB</color>
-              <color name="ki_white">#FFFFFF</color>
+              <color name="ki_navy">#214534</color>
+              <color name="ki_blue">#F08C72</color>
+              <color name="ki_white">#F7F5ED</color>
           </resources>
           EOF
 
@@ -102,11 +102,11 @@ jobs:
               android:viewportWidth="108"
               android:viewportHeight="108">
               <path
-                  android:fillColor="#2563EB"
+                  android:fillColor="#214534"
                   android:pathData="M30,18 H78 C84.627,18 90,23.373 90,30 V78 C90,84.627 84.627,90 78,90 H30 C23.373,90 18,84.627 18,78 V30 C18,23.373 23.373,18 30,18 Z" />
               <path
-                  android:fillColor="#FFFFFF"
-                  android:pathData="M39,37 H45 V71 H39 Z M45,53 L58,37 H65 L51,54 L66,71 H58 L45,56 Z M69,37 H75 V71 H69 Z" />
+                  android:fillColor="#A9C9B4"
+                  android:pathData="M36,29 L44,29 L44,79 L36,79 Z M48,53 L69,30 L79,30 L57,54 L79,78 L68,78 Z" />
           </vector>
           EOF
 
@@ -193,7 +193,7 @@ jobs:
               styles.write_text(text)
           PY
 
-      - name: Add Kitchen Insights Android home widgets
+      - name: Add Kommee Android home widgets
         run: python scripts/android-widget-patch.py
 
       - name: Build debug APK
@@ -203,13 +203,13 @@ jobs:
           ./gradlew assembleDebug
 
       - name: Rename APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk Kitchen-Insights-debug.apk
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Kommee-debug.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kitchen-insights-android-debug
-          path: Kitchen-Insights-debug.apk
+          name: kommee-android-debug
+          path: Kommee-debug.apk
           if-no-files-found: error
           retention-days: 14
 
@@ -218,15 +218,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          NOTES="Kitchen Insights Android test build with blue launcher/splash, native invoice capture and three home-screen widgets: Quick Actions, Kitchen Today and Manager Overview. Widgets deep-link into the app and refresh their locally cached workspace metrics whenever Kitchen Insights is opened. Internal testing only; not the Google Play production build."
+          NOTES="Kommee Android test build with forest-green launcher/splash, native invoice capture and three home-screen widgets: Quick Actions, Kitchen Today and Manager Overview. Widgets deep-link into the app and refresh their locally cached workspace metrics whenever Kommee is opened. Internal testing only; not the Google Play production build."
           if gh release view android-debug-latest >/dev/null 2>&1; then
-            gh release upload android-debug-latest Kitchen-Insights-debug.apk --clobber
+            gh release upload android-debug-latest Kommee-debug.apk --clobber
             gh release edit android-debug-latest \
-              --title "Kitchen Insights Android Test" \
+              --title "Kommee Android Test" \
               --notes "$NOTES"
           else
-            gh release create android-debug-latest Kitchen-Insights-debug.apk \
-              --title "Kitchen Insights Android Test" \
+            gh release create android-debug-latest Kommee-debug.apk \
+              --title "Kommee Android Test" \
               --notes "$NOTES" \
               --prerelease
           fi
