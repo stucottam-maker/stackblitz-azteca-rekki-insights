@@ -48,7 +48,7 @@ export default function ReportsSetupPage() {
           <p className="eyebrow">Reporting setup</p>
           <h1>COGS period data</h1>
           <p className="page-description">
-            Add sales for the same period as your stock counts so Kitchen Insights can calculate actual food cost and variance.
+            Add sales for the same period as your stock counts so Kommee can calculate actual food cost and variance.
           </p>
         </div>
         <Link href="/reports" className="secondary-inline-button">← Reports</Link>
