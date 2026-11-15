@@ -54,7 +54,7 @@ export type OrganisationSettings = {
 };
 
 export const defaultOrganisationSettings: OrganisationSettings = {
-  name: "Kitchen Insights",
+  name: "Kommee",
   internalOrderEmails: [],
   sendInternalCopy: true,
   sendSupplierEmail: true,
