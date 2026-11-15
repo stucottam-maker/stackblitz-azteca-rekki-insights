@@ -60,7 +60,7 @@ export default function LoginPage() {
       if (resetError) {
         setError(resetError.message);
       } else {
-        setMessage("If that email belongs to a Kitchen Insights account, we’ve sent a password reset link.");
+        setMessage("If that email belongs to a Kommee account, we’ve sent a password reset link.");
       }
 
       setLoading(false);
@@ -118,7 +118,7 @@ export default function LoginPage() {
       ? "Use the email and temporary password you were given."
       : mode === "forgot"
         ? "Enter your email and we’ll send you a reset link."
-        : "Welcome back to Kitchen Insights.";
+        : "Welcome back to Kommee.";
 
   return (
     <main className="login-page">
@@ -126,8 +126,8 @@ export default function LoginPage() {
         <div className="login-brand-row login-simple-brand">
           <KitchenLogo size={54} className="login-v2-logo-image" />
           <div className="login-brand-copy">
-            <strong>Kitchen Insights</strong>
-            <span>Kitchen operations, connected</span>
+            <strong>Kommee</strong>
+            <span>Your kitchen’s right hand.</span>
           </div>
         </div>
 
