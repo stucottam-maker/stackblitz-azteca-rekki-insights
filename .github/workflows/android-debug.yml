@@ -62,9 +62,9 @@ jobs:
           root = Path("android/app/src/main/res")
           for path in root.glob("values*/strings.xml"):
               contents = path.read_text()
-              contents, count = re.subn(r'(<string name="app_name">).*?(</string>)', r'\\g<1>Kommee\\g<2>', contents)
+              contents, count = re.subn(r'(<string name="app_name">).*?(</string>)', r'\g<1>Kommee\g<2>', contents)
               if count == 0:
-                  contents = contents.replace("</resources>", '    <string name="app_name">Kommee</string>\\n</resources>')
+                  contents = contents.replace("</resources>", '    <string name="app_name">Kommee</string>\n</resources>')
               path.write_text(contents)
           manifest = Path("android/app/src/main/AndroidManifest.xml")
           contents = manifest.read_text()
