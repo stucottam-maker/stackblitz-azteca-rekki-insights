@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "Kommee",
   },
   icons: {
-    icon: "/kommee-icon.svg",
+    icon: [{ url: "/kommee-icon.svg", type: "image/svg+xml" }, { url: "/favicon.ico", sizes: "any" }],
     shortcut: "/kommee-icon.svg",
     apple: "/kommee-icon.svg",
   },
