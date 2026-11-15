@@ -123,7 +123,7 @@ const EXACT_TRANSLATIONS: Record<string, string> = {
   "Forgot password?": "¿Olvidaste tu contraseña?",
   "Welcome back": "Bienvenido de nuevo",
   "Sign in to your workspace": "Inicia sesión en tu espacio",
-  "Enter your details to continue to Kitchen Insights.": "Ingresa tus datos para continuar a Kitchen Insights.",
+  "Enter your details to continue to Kommee.": "Ingresa tus datos para continuar a Kommee.",
   "First time here?": "¿Primera vez aquí?",
   "Activate account": "Activar cuenta",
 };
