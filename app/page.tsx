@@ -75,11 +75,11 @@ export default function DashboardPage() {
   const highPriorityIssues = result?.insights.filter((insight) => insight.severity === "high").length;
 
   return (
-    <div className="page metro-tile-page">
+    <div className="page metro-tile-page kommee-dashboard">
       <div className="metro-desktop-dashboard home-control-room">
         <Link href="/compliance" className="mb-4 flex items-center justify-between gap-4 rounded-2xl bg-emerald-800 px-6 py-5 text-white shadow-sm"><span><strong className="text-lg">✓ Compliance <small className="ml-2 rounded-full bg-white/20 px-2 py-1 text-xs">BETA</small></strong><span className="mt-1 block text-sm">Food safety checks, records and daily logs</span></span><span aria-hidden="true" className="text-2xl">›</span></Link>
         <header className="metro-desktop-heading">
-          <div><p>Kitchen overview</p><h1>Home</h1><span>Your key numbers and reports at a glance.</span></div>
+          <div><p>YOUR KITCHEN, AT A GLANCE</p><h1>Good to see you, Chef.</h1><span>Less admin. More cooking.</span></div>
           <Link href="/reports">Open full reports →</Link>
         </header>
       <section className="metro-desktop-stats" aria-label="Kitchen performance summary">
@@ -135,9 +135,9 @@ export default function DashboardPage() {
 
       <div className="metro-mobile-dashboard ki-v2-mobile">
         <div className="ki-v2-intro">
-          <p className="ki-v2-eyebrow">Kitchen overview</p>
+          <p className="ki-v2-eyebrow">KOMMEE · YOUR KITCHEN</p>
           <h1>Good to see you, Chef</h1>
-          <p>Your kitchen at a glance.</p>
+          <p>Less admin. More cooking.</p>
         </div>
         <section className="ki-v2-metrics" aria-label="Kitchen performance">
           <Link href="/invoices" className="ki-v2-metric ki-v2-blue"><span className="ki-v2-metric-icon" aria-hidden="true">▤</span><span>Invoices<strong>{invoiceCount ?? "—"}</strong><small>Approved</small></span><span className="ki-v2-arrow">›</span></Link>
