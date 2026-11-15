@@ -17,3 +17,14 @@
 .ki-v2-splash .auth-loading-copy>span {color:#d9e8db;font-size:15px;}
 .ki-v2-splash .auth-loading-spinner {border-top-color:#F08C72;}
 @media(max-width:640px){.kommee-dashboard .ki-v2-intro {padding:19px 18px;}.kommee-dashboard .ki-v2-metric {min-height:112px;}}
+
+/* Post-login workspace loading screen, including old blue-theme overrides */
+html body .workspace-loading-screen.kommee-workspace-splash {position:fixed;inset:0;z-index:9999;min-height:100dvh;width:100%;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 50% 28%,#47765a 0%,#315C46 48%,#214534 100%) !important;color:#F7F5ED !important;}
+.kommee-workspace-splash-content {display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;max-width:340px;}
+.kommee-workspace-splash-icon {width:108px;height:108px;filter:drop-shadow(0 12px 26px rgba(0,0,0,.16));}
+.kommee-workspace-splash .kommee-splash-wordmark {font-size:clamp(38px,9vw,54px);font-weight:850;letter-spacing:-.06em;line-height:1;color:#fffdf8 !important;}
+.kommee-workspace-splash .kommee-workspace-tagline {font-size:16px;color:#d9e8db !important;}
+.kommee-workspace-splash .kommee-workspace-spinner {display:block;width:30px;height:30px;border:3px solid rgba(247,245,237,.3);border-top-color:#F08C72;border-radius:50%;animation:kommee-loading-spin .85s linear infinite;margin-top:12px;}
+.kommee-workspace-splash small {font-size:13px;color:#c7dccd !important;}
+@keyframes kommee-loading-spin {to {transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.kommee-workspace-splash .kommee-workspace-spinner {animation:none;}}
