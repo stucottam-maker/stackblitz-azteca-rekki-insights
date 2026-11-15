@@ -1,0 +1,53 @@
+/* Kommee visual system: presentation-only overrides. No data or route changes. */
+:root,.metro-app-shell {
+ --background:#F7F5ED !important; --surface:#fffdf8 !important;
+ --surface-soft:#f0f4ed !important; --border:#dce6dc !important;
+ --text:#24352D !important; --text-soft:#51675b !important;
+ --text-light:#657b70 !important; --green:#315C46 !important;
+ --green-dark:#214534 !important; --green-soft:#e5f0e8 !important;
+ --orange:#e9795e !important; --orange-soft:#fff0e9 !important;
+ --ki-radius-sm:14px; --ki-radius-md:18px; --ki-radius-lg:22px;
+ --ki-focus:0 0 0 3px rgba(240,140,114,.27);
+}
+body { background:#F7F5ED !important; color:#24352D; }
+.sidebar.chef-sidebar,.metro-app-shell .chef-sidebar,.app-shell-root>.chef-sidebar {
+ background:linear-gradient(170deg,#214534,#315C46) !important;
+ color:#fffdf8 !important;
+}
+.sidebar .brand-mark,.app-shell-root .brand-mark,.metro-app-shell .brand-mark {
+ background:#315C46 !important; box-shadow:none !important;
+}
+.sidebar .brand-name {font-weight:850;letter-spacing:-.045em;font-size:clamp(21px,2vw,27px);}
+.sidebar .brand-subtitle {color:#d3e5d7 !important;}
+.sidebar .nav-link {border-radius:13px !important;}
+.sidebar .nav-link-active,.app-shell-root .nav-link-active,.metro-app-shell .nav-link-active {
+ background:rgba(169,201,180,.25) !important;
+ box-shadow:inset 3px 0 0 #F08C72 !important;
+}
+.primary-button,button.primary-button,a.primary-button,.quick-review-button {
+ background:#315C46 !important;border-color:#315C46 !important;color:#fff !important;
+ border-radius:13px !important;
+}
+.primary-button:hover,button.primary-button:hover,a.primary-button:hover {background:#214534 !important;}
+.panel,.stat-card,.metro-table-panel,.metro-desktop-kpi,
+.matching-row,.catalogue-editor-row,.order-v2-row,.order-v2-history-row,
+.recipe-v2-line,.supplier-choice-card {
+ background:#fffdf8; border-color:#dce6dc; border-radius:20px !important;
+ box-shadow:0 5px 20px rgba(36,53,45,.055);
+}
+input:not([type=checkbox]):not([type=radio]),select,textarea {border-radius:13px !important;}
+:where(button,a,input,select,textarea):focus-visible {outline:2px solid #F08C72 !important;outline-offset:2px;}
+.metro-kpi,.metro-action-tile {border-radius:22px !important;}
+.metro-kpi-royal,.metro-action-royal {background:linear-gradient(145deg,#315C46,#4e866b) !important;}
+.metro-kpi-blue,.metro-action-blue,.metro-action-cyan {background:linear-gradient(145deg,#467968,#6da28a) !important;}
+.metro-kpi-navy,.metro-action-navy {background:linear-gradient(145deg,#24352D,#426454) !important;}
+.metro-kpi-cobalt,.metro-action-violet {background:linear-gradient(145deg,#bc735f,#F08C72) !important;}
+.metro-action-orange {background:linear-gradient(145deg,#cc7559,#F08C72) !important;}
+.metro-action-teal,.metro-action-royal-wide {background:linear-gradient(145deg,#315C46,#729e82) !important;}
+@media(max-width:640px) {
+ .sidebar .nav-link.mobile-primary.nav-link-active,.app-shell-root .nav-link.mobile-primary.nav-link-active {
+  box-shadow:inset 0 -3px 0 #F08C72 !important;
+ }
+ .panel,.stat-card,.metro-table-panel,.metro-desktop-kpi {border-radius:17px !important;}
+ button,select,input,textarea {min-height:44px;}
+}
