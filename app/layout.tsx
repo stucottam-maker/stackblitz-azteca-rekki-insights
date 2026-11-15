@@ -6,21 +6,21 @@ import Script from "next/script";
 import AppFrame from "./components/AppFrame";
 
 export const metadata: Metadata = {
-  title: "Kitchen Insights",
-  description: "Cost control & operations",
-  applicationName: "Kitchen Insights",
+  title: "Kommee",
+  description: "Your kitchen’s right hand. Less admin. More cooking.",
+  applicationName: "Kommee",
   manifest: "/manifest.webmanifest",
   viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
-  themeColor: "#34465a",
+  themeColor: "#315C46",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Kitchen Insights",
+    title: "Kommee",
   },
   icons: {
-    icon: "/pwa-icon.svg",
-    shortcut: "/pwa-icon.svg",
-    apple: "/pwa-icon.svg",
+    icon: "/kommee-icon.svg",
+    shortcut: "/kommee-icon.svg",
+    apple: "/kommee-icon.svg",
   },
 };
 
