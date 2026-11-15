@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Kommee",
     short_name: "Kommee",
-    description: "Kitchen cost control, purchasing, invoices, stock and recipe costing.",
+    description: "Your kitchen’s right hand. Less admin. More cooking.",
     start_url: "/",
     scope: "/",
     display: "standalone",
