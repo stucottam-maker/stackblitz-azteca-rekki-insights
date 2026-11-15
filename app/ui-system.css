@@ -26,6 +26,7 @@
 @import "./blue-finish.css";
 @import "./soft-theme.css";
 @import "./kommee-theme.css";
+@import "./kommee-dashboard.css";
 
 /* Shared interaction and layout rules. Keep page-specific styling above this line. */
 :root {
