@@ -48,7 +48,7 @@ const WORKSPACE_HOSTNAME_HINTS: Record<string, WorkspaceHostnameHint> = {
     siteName: "Mexicali",
   },
   demo: {
-    organisationName: "Kitchen Insights Test Restaurant",
+    organisationName: "Kommee Test Restaurant",
     siteName: "Isolation Test Kitchen",
   },
 };
