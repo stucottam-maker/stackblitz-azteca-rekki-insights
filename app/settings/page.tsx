@@ -260,9 +260,9 @@ export default function SettingsPage() {
       <section className="panel pwa-settings-card">
         <div>
           <p className="panel-kicker">Mobile app</p>
-          <h2>Install Kitchen Insights</h2>
+          <h2>Install Kommee</h2>
           <p className="page-description">
-            Add Kitchen Insights to the home screen so it opens like a kitchen app.
+            Add Kommee to the home screen so it opens like a kitchen app.
           </p>
         </div>
         <PwaInstallButton className="primary-button pwa-settings-install" />
