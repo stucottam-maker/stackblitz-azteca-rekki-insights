@@ -1,0 +1,19 @@
+
+/* Kommee dashboard and splash polish */
+.kommee-dot,.kommee-splash-wordmark span {color:#F08C72;}
+.kommee-dashboard .metro-desktop-heading {padding:24px 28px;border:1px solid #dce6dc;border-radius:24px;background:linear-gradient(115deg,#e6efe5,#F7F5ED);margin-bottom:20px;}
+.kommee-dashboard .metro-desktop-heading h1 {color:#24352D;font-size:clamp(27px,3.5vw,42px);letter-spacing:-.045em;}
+.kommee-dashboard .metro-desktop-heading p,.kommee-dashboard .ki-v2-eyebrow {color:#315C46;font-weight:850;letter-spacing:.11em;}
+.kommee-dashboard .metro-desktop-kpi {border:1px solid #dce6dc;background:#fffdf8;}
+.kommee-dashboard .metro-desktop-kpi strong {color:#315C46;}
+.kommee-dashboard .ki-v2-intro {padding:22px;border-radius:22px;background:linear-gradient(135deg,#e4efe5,#F7F5ED);}
+.kommee-dashboard .ki-v2-intro h1 {color:#24352D;letter-spacing:-.04em;}
+.kommee-dashboard .ki-v2-metric,.kommee-dashboard .ki-v2-panel {border-radius:19px;border-color:#dce6dc;background:#fffdf8;}
+.kommee-dashboard .ki-v2-blue {background:#e5f0e8;}.kommee-dashboard .ki-v2-peach {background:#fff0e9;}.kommee-dashboard .ki-v2-green {background:#eaf2e6;}.kommee-dashboard .ki-v2-lilac {background:#f4ebe4;}
+.auth-loading-screen.ki-v2-splash {background:radial-gradient(circle at 50% 30%,#426e54 0%,#315C46 46%,#214534 100%) !important;}
+.ki-v2-splash .auth-loading-card {background:transparent;border:0;box-shadow:none;display:flex;flex-direction:column;text-align:center;align-items:center;gap:16px;}
+.ki-v2-splash .auth-loading-copy {text-align:center;gap:9px;}
+.ki-v2-splash .kommee-splash-wordmark {font-size:clamp(36px,9vw,54px);letter-spacing:-.06em;line-height:1;}
+.ki-v2-splash .auth-loading-copy>span {color:#d9e8db;font-size:15px;}
+.ki-v2-splash .auth-loading-spinner {border-top-color:#F08C72;}
+@media(max-width:640px){.kommee-dashboard .ki-v2-intro {padding:19px 18px;}.kommee-dashboard .ki-v2-metric {min-height:112px;}}
