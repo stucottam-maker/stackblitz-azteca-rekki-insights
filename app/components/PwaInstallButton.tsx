@@ -68,7 +68,7 @@ export default function PwaInstallButton({
   if (installed) {
     return compact ? null : (
       <div className="pwa-installed-note" role="status">
-        ✓ Kitchen Insights is installed on this device
+        ✓ Kommee is installed on this device
       </div>
     );
   }
