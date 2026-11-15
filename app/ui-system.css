@@ -1098,3 +1098,30 @@ html,body{background:#F7F5ED !important;color:#24352D;}
   }
   .panel,.stat-card,.metro-table-panel,.metro-desktop-kpi{border-radius:17px !important;}
 }
+
+/* Ordering and mobile header: replace high-specificity legacy blue rules. */
+.quick-order-page .supplier-choice-arrow,
+.quick-order-page .quick-order-back,
+.quick-order-page .quick-order-quantity button,
+.quick-order-page .order-review-recipient strong,
+.quick-order-page .quick-order-sku,
+.quick-order-page .quick-suggestion,
+.quick-order-page .regular-order-row > strong:last-child {
+  color:#315C46 !important;
+}
+.quick-order-page .quick-order-sku,
+.quick-order-page .quick-suggestion,
+.quick-order-page .regular-order-row > strong:last-child{background:#e5f0e8 !important;}
+.quick-order-page .quick-order-line-active{background:#e5f0e8 !important;box-shadow:inset 3px 0 0 #F08C72 !important;}
+.quick-order-page .purchasing-tabs .purchasing-tab-active,
+.quick-order-page .purchasing-tab-active{color:#315C46 !important;background:#fffdf8 !important;}
+.quick-order-page .quick-order-footer{border-color:#dce6dc !important;box-shadow:0 12px 34px rgba(36,53,45,.1) !important;}
+.app-shell-root .sidebar.chef-sidebar,.metro-app-shell .sidebar.chef-sidebar,
+body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !important;}
+.app-shell-root .mobile-header-more.active,.app-shell-root .mobile-more-menu a.active{
+  color:#315C46 !important;background:#e5f0e8 !important;
+}
+@media(max-width:900px){
+  .app-shell-root .sidebar.chef-sidebar,.metro-app-shell .sidebar.chef-sidebar,
+  body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !important;}
+}
