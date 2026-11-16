@@ -31,10 +31,7 @@ type StoredWorkspaceSelection = {
 };
 
 const WORKSPACE_HOSTNAME_HINTS: Record<string, WorkspaceHostnameHint> = {
-  kommee: {
-    organisationName: "Kommee Test Restaurant",
-    siteName: "Isolation Test Kitchen",
-  },
+
 };
 
 export type WorkspaceSite = {
@@ -77,9 +74,7 @@ function readHostnameHint(): WorkspaceHostnameHint | null {
   if (typeof window === "undefined") return null;
 
   const hostname = readCurrentHostname();
-  if (hostname === "kommee.co.uk" || hostname === "www.kommee.co.uk") {
-    return WORKSPACE_HOSTNAME_HINTS.kommee;
-  }
+  // Kommee is a multi-restaurant platform: never force a test restaurant by hostname.
   return null;
 }
 
