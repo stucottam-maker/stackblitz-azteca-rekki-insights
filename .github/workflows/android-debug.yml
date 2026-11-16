@@ -2,6 +2,11 @@ name: Android Debug APK
 
 on:
   workflow_dispatch:
+    inputs:
+      preview_url:
+        description: 'Optional isolated HTTPS Vercel preview URL for test APK (never production)'
+        required: false
+        type: string
   pull_request:
     branches:
       - main
@@ -46,6 +51,26 @@ jobs:
 
       - name: Install Capacitor tooling
         run: npm install --no-save --ignore-scripts @capacitor/core@8 @capacitor/cli@8 @capacitor/android@8 @capacitor/camera@8 @capacitor/filesystem@8
+
+      - name: Select isolated Kommee preview for manual test build
+        if: github.event_name == 'workflow_dispatch' && inputs.preview_url != ''
+        env:
+          KOMMEE_PREVIEW_URL: ${{ inputs.preview_url }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from urllib.parse import urlparse
+          from pathlib import Path
+          url = os.environ["KOMMEE_PREVIEW_URL"].rstrip("/")
+          parsed = urlparse(url)
+          if parsed.scheme != "https" or parsed.port or parsed.username or parsed.password or parsed.query or parsed.fragment or parsed.path not in ("", "/") or not parsed.hostname or not parsed.hostname.endswith(".vercel.app"):
+              raise SystemExit("Only isolated HTTPS *.vercel.app deployment origins are allowed")
+          config_path = Path("capacitor.config.json")
+          config = json.loads(config_path.read_text())
+          config["server"]["url"] = url
+          config_path.write_text(json.dumps(config, indent=2) + "\\n")
+          print("Using isolated Vercel preview origin for Android test build")
+          PY
 
       - name: Generate Android project
         run: npx cap add android
