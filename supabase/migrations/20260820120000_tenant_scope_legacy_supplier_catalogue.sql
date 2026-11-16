@@ -9,7 +9,8 @@ begin
   where name = 'Azteca London';
 
   if target_organisation_id is null then
-    raise exception 'Azteca London organisation not found; refusing catalogue migration';
+    raise notice 'Azteca London organisation not found; skipping legacy catalogue migration';
+    return;
   end if;
 
   insert into public.suppliers (
