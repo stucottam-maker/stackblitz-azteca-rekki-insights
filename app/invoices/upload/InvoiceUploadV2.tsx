@@ -182,7 +182,7 @@ export default function InvoiceUploadV2() {
       const name = err instanceof DOMException ? err.name : "";
       if (name === "NotAllowedError") {
         setError(
-          "Camera permission is blocked. Allow Camera for Kitchen Insights in your browser settings, then try again."
+          "Camera permission is blocked. Allow Camera for Kommee in your browser settings, then try again."
         );
       } else {
         setError("The camera could not be opened. You can still use Upload from device.");

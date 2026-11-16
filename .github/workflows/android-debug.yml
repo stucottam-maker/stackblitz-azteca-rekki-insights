@@ -93,7 +93,7 @@ jobs:
               path.write_text(contents)
           manifest = Path("android/app/src/main/AndroidManifest.xml")
           contents = manifest.read_text()
-          contents = contents.replace('android:label="Kitchen Insights"', 'android:label="Kommee"')
+          contents = re.sub(r'android:label="[^"]*"', 'android:label="Kommee"', contents, count=1)
           manifest.write_text(contents)
           print("Kommee Android display name enforced")
           PY

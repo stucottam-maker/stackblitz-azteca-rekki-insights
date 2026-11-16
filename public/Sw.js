@@ -1,6 +1,6 @@
 const CACHE_NAME = "kitchen-insights-static-v2";
 const OFFLINE_URL = "/offline.html";
-const STATIC_BOOTSTRAP = [OFFLINE_URL, "/pwa-icon.svg"];
+const STATIC_BOOTSTRAP = [OFFLINE_URL, "/kommee-icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

@@ -1,12 +1,12 @@
 {
-  "appId": "uk.kitcheninsights.app",
+  "appId": "uk.co.kommee.app",
   "appName": "Kommee",
   "webDir": "capacitor-shell",
   "loggingBehavior": "debug",
   "appendUserAgent": " KommeeAndroid/0.3",
   "backgroundColor": "#214534",
   "server": {
-    "url": "https://www.kitcheninsights.uk",
+    "url": "https://kommee.co.uk",
     "cleartext": false
   },
   "android": {

@@ -1,14 +1,14 @@
 from pathlib import Path
 
 ROOT = Path("android/app/src/main")
-JAVA = ROOT / "java/uk/kitcheninsights/app"
+JAVA = ROOT / "java/uk/co/kommee/app"
 RES = ROOT / "res"
 
 for path in [JAVA, RES / "layout", RES / "drawable", RES / "xml"]:
     path.mkdir(parents=True, exist_ok=True)
 
 files = {
-    JAVA / "MainActivity.java": r'''package uk.kitcheninsights.app;
+    JAVA / "MainActivity.java": r'''package uk.co.kommee.app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +16,11 @@ import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
-    private static final String BASE_URL = "https://www.kitcheninsights.uk";
+    private static final String BASE_URL = "https://kommee.co.uk";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        registerPlugin(KitchenInsightsWidgetPlugin.class);
+        registerPlugin(KommeeWidgetPlugin.class);
         super.onCreate(savedInstanceState);
         routeWidgetIntent(getIntent());
     }
@@ -43,7 +43,7 @@ public class MainActivity extends BridgeActivity {
     }
 }
 ''',
-    JAVA / "KitchenInsightsWidgetPlugin.java": r'''package uk.kitcheninsights.app;
+    JAVA / "KommeeWidgetPlugin.java": r'''package uk.co.kommee.app;
 
 import android.content.SharedPreferences;
 
@@ -53,8 +53,8 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.PluginMethod;
 
-@CapacitorPlugin(name = "KitchenInsightsWidget")
-public class KitchenInsightsWidgetPlugin extends Plugin {
+@CapacitorPlugin(name = "KommeeWidget")
+public class KommeeWidgetPlugin extends Plugin {
     private static final String[] KEYS = new String[] {
         "locale", "workspace", "monthSpend", "stockValue", "actualCogs", "variance",
         "invoiceCount", "openOrders", "awaitingInvoice", "ordersDue", "stockAlerts",
@@ -74,7 +74,7 @@ public class KitchenInsightsWidgetPlugin extends Plugin {
     }
 }
 ''',
-    JAVA / "WidgetSupport.java": r'''package uk.kitcheninsights.app;
+    JAVA / "WidgetSupport.java": r'''package uk.co.kommee.app;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -101,7 +101,7 @@ public final class WidgetSupport {
 
     static PendingIntent open(Context context, String path, int requestCode) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.setAction("uk.kitcheninsights.app.widget." + requestCode + "." + path);
+        intent.setAction("uk.co.kommee.app.widget." + requestCode + "." + path);
         intent.putExtra("ki_path", path);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return PendingIntent.getActivity(
@@ -123,7 +123,7 @@ public final class WidgetSupport {
     }
 }
 ''',
-    JAVA / "QuickActionsWidget.java": r'''package uk.kitcheninsights.app;
+    JAVA / "QuickActionsWidget.java": r'''package uk.co.kommee.app;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -141,7 +141,7 @@ public class QuickActionsWidget extends AppWidgetProvider {
         SharedPreferences prefs = WidgetSupport.prefs(context);
         boolean es = WidgetSupport.spanish(prefs);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_quick_actions);
-        views.setTextViewText(R.id.widget_workspace, WidgetSupport.value(prefs, "workspace", "Kitchen Insights"));
+        views.setTextViewText(R.id.widget_workspace, WidgetSupport.value(prefs, "workspace", "Kommee"));
         views.setTextViewText(R.id.widget_action_orders, es ? "Pedidos\nCrear y gestionar" : "Orders\nCreate & manage");
         views.setTextViewText(R.id.widget_action_invoice, es ? "Subir factura\nCámara o archivo" : "Upload invoice\nCamera or file");
         views.setTextViewText(R.id.widget_action_stock, es ? "Inventario\nNuevo conteo" : "Stock count\nStart a count");
@@ -157,7 +157,7 @@ public class QuickActionsWidget extends AppWidgetProvider {
     }
 }
 ''',
-    JAVA / "KitchenTodayWidget.java": r'''package uk.kitcheninsights.app;
+    JAVA / "KitchenTodayWidget.java": r'''package uk.co.kommee.app;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -175,7 +175,7 @@ public class KitchenTodayWidget extends AppWidgetProvider {
         SharedPreferences prefs = WidgetSupport.prefs(context);
         boolean es = WidgetSupport.spanish(prefs);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_kitchen_today);
-        views.setTextViewText(R.id.today_workspace, WidgetSupport.value(prefs, "workspace", "Kitchen Insights"));
+        views.setTextViewText(R.id.today_workspace, WidgetSupport.value(prefs, "workspace", "Kommee"));
         views.setTextViewText(R.id.today_updated, (es ? "Actualizado " : "Updated ") + WidgetSupport.value(prefs, "updated", "—"));
         views.setTextViewText(R.id.today_label_spend, es ? "Gasto mes" : "Month spend");
         views.setTextViewText(R.id.today_label_invoices, es ? "Facturas" : "Invoices");
@@ -199,7 +199,7 @@ public class KitchenTodayWidget extends AppWidgetProvider {
     }
 }
 ''',
-    JAVA / "ManagerOverviewWidget.java": r'''package uk.kitcheninsights.app;
+    JAVA / "ManagerOverviewWidget.java": r'''package uk.co.kommee.app;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -217,7 +217,7 @@ public class ManagerOverviewWidget extends AppWidgetProvider {
         SharedPreferences prefs = WidgetSupport.prefs(context);
         boolean es = WidgetSupport.spanish(prefs);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_manager_overview);
-        views.setTextViewText(R.id.manager_workspace, WidgetSupport.value(prefs, "workspace", "Kitchen Insights"));
+        views.setTextViewText(R.id.manager_workspace, WidgetSupport.value(prefs, "workspace", "Kommee"));
         views.setTextViewText(R.id.manager_updated, (es ? "Actualizado " : "Updated ") + WidgetSupport.value(prefs, "updated", "—"));
         views.setTextViewText(R.id.manager_label_spend, es ? "Gasto del mes" : "Month spend");
         views.setTextViewText(R.id.manager_label_invoices, es ? "Por facturar" : "Awaiting invoice");
@@ -287,8 +287,8 @@ public class ManagerOverviewWidget extends AppWidgetProvider {
     <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:orientation="horizontal" android:gravity="center_vertical">
         <TextView android:layout_width="42dp" android:layout_height="42dp" android:gravity="center" android:text="KI" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="17sp" android:background="@drawable/widget_blue" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:paddingStart="10dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kitchen Insights" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="17sp" />
-            <TextView android:id="@+id/widget_workspace" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kitchen Insights" android:textColor="#B7C6E3" android:textSize="10sp" android:maxLines="1" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kommee" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="17sp" />
+            <TextView android:id="@+id/widget_workspace" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kommee" android:textColor="#B7C6E3" android:textSize="10sp" android:maxLines="1" />
         </LinearLayout>
         <TextView android:id="@+id/widget_waiting" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kitchen shortcuts" android:textColor="#FF8A3D" android:textSize="10sp" />
     </LinearLayout>
@@ -316,7 +316,7 @@ public class ManagerOverviewWidget extends AppWidgetProvider {
         <TextView android:layout_width="38dp" android:layout_height="38dp" android:gravity="center" android:text="KI" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="15sp" android:background="@drawable/widget_blue" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:paddingStart="9dp">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kitchen Today" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="16sp" />
-            <TextView android:id="@+id/today_workspace" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kitchen Insights" android:textColor="#B7C6E3" android:textSize="9sp" android:maxLines="1" />
+            <TextView android:id="@+id/today_workspace" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kommee" android:textColor="#B7C6E3" android:textSize="9sp" android:maxLines="1" />
         </LinearLayout>
         <TextView android:id="@+id/today_updated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Updated —" android:textColor="#AEBEDB" android:textSize="9sp" />
     </LinearLayout>
@@ -361,7 +361,7 @@ public class ManagerOverviewWidget extends AppWidgetProvider {
         <TextView android:layout_width="38dp" android:layout_height="38dp" android:gravity="center" android:text="KI" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="15sp" android:background="@drawable/widget_blue" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:paddingStart="9dp">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Manager Overview" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="16sp" />
-            <TextView android:id="@+id/manager_workspace" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kitchen Insights" android:textColor="#B7C6E3" android:textSize="9sp" android:maxLines="1" />
+            <TextView android:id="@+id/manager_workspace" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kommee" android:textColor="#B7C6E3" android:textSize="9sp" android:maxLines="1" />
         </LinearLayout>
         <TextView android:id="@+id/manager_updated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Updated —" android:textColor="#AEBEDB" android:textSize="9sp" />
     </LinearLayout>
@@ -460,5 +460,5 @@ if ".QuickActionsWidget" not in text:
     text = text.replace("</application>", receivers + "\n    </application>", 1)
     manifest.write_text(text)
 
-print("Kitchen Insights Android widgets installed into generated project")
+print("Kommee Android widgets installed into generated project")
 print(manifest.read_text())

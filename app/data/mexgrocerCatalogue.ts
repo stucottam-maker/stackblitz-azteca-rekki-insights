@@ -1,15200 +1,15 @@
-/**
- * Mexgrocer catalogue for Kitchen Insights.
- *
- * Generated from mexgrocer-products.json (2026-08-16T17:32:43.833Z).
- * The raw export is retained below; the default catalogue removes obvious
- * alcohol, gifts, books, kitchenware, decorations, and unrelated retail items.
- */
-
-export interface MexgrocerProduct {
-  itemId: number | null;
-  title: string;
-  url: string;
-  department: string;
-  categorySlug: string;
-  availability: string;
-  price: number | null;
-  priceFrom: boolean;
-  image: string;
-}
-
-export interface MexgrocerCatalogueExclusion {
-  itemId: number | null;
-  title: string;
-  reason: string;
-}
-
-export const rawMexgrocerCatalogue: readonly MexgrocerProduct[] = [
-  {
-    "itemId": 4435,
-    "title": "10\" Poco Loco Flour Tortillas",
-    "url": "https://www.mexgrocer.co.uk/food/flour-tortillas/10-poco-loco-flour-tortillas",
-    "department": "food",
-    "categorySlug": "flour-tortillas",
-    "availability": "In Stock",
-    "price": 6.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/10%20inch%20Tortillas%20Poco%20Loco.jpg?t=1772013777"
-  },
-  {
-    "itemId": 4437,
-    "title": "12\" Poco Loco Flour Tortillas",
-    "url": "https://www.mexgrocer.co.uk/food/flour-tortillas/12-poco-loco-flour-tortillas",
-    "department": "food",
-    "categorySlug": "flour-tortillas",
-    "availability": "In Stock",
-    "price": 8.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/12%20Poco%20Loco.jpg?t=1672851728"
-  },
-  {
-    "itemId": 4402,
-    "title": "16cm Black Tortilla Press",
-    "url": "https://www.mexgrocer.co.uk/food/tortilla-press/16cm-black-tortilla-press",
-    "department": "food",
-    "categorySlug": "tortilla-press",
-    "availability": "Out of Stock",
-    "price": 26.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20Press%2016cm%20Black%201.JPG?t=1695111325"
-  },
-  {
-    "itemId": 4403,
-    "title": "16cm Red Tortilla Press",
-    "url": "https://www.mexgrocer.co.uk/food/tortilla-press/16cm-red-tortilla-press",
-    "department": "food",
-    "categorySlug": "tortilla-press",
-    "availability": "Out of Stock",
-    "price": 26.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20Press%2016cm%20Red%201.jpg?t=1695111320"
-  },
-  {
-    "itemId": 4398,
-    "title": "16cm Tortilla Press Silver",
-    "url": "https://www.mexgrocer.co.uk/food/tortilla-press/16cm-tortilla-press-silver",
-    "department": "food",
-    "categorySlug": "tortilla-press",
-    "availability": "In Stock",
-    "price": 26.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20Press%2016cm%20Silver%201.jpg?t=1695111325"
-  },
-  {
-    "itemId": 7100,
-    "title": "1800 Coconut Liqueur 50ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/1800-coconut-liqueur-50ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1800%20Coconut%20Liqueur%2050ml.jpg?t=1723537268"
-  },
-  {
-    "itemId": 6348,
-    "title": "1800 Coconut Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/1800-coconut-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1800%20Coconut%20Liqueur.jpg?t=1723537268"
-  },
-  {
-    "itemId": 5417,
-    "title": "1800 Tequila Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/1800-tequila-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 63.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1800%20Tequila%20Anejo.jpg?t=1720604506"
-  },
-  {
-    "itemId": 4220,
-    "title": "1800 Tequila Cristalino 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/1800-tequila-cristalino-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 67.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1800%20Tequila%20Crsitalino.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6278,
-    "title": "1800 Tequila Mini Silver 50ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/1800-tequila-mini-silver-50ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 3,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1800%20mini%20silver.jpg?t=1723536171"
-  },
-  {
-    "itemId": 5410,
-    "title": "1800 Tequila Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/1800-tequila-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 49.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1800%20Tequila%20Reposado.jpg?t=1720604506"
-  },
-  {
-    "itemId": 4221,
-    "title": "1800 Tequila Silver 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/1800-tequila-silver-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 54,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1800%20Tequila%20Blanco.jpg?t=1720604506"
-  },
-  {
-    "itemId": 4399,
-    "title": "19cm Black Tortilla Press",
-    "url": "https://www.mexgrocer.co.uk/food/tortilla-press/19cm-black-tortilla-press",
-    "department": "food",
-    "categorySlug": "tortilla-press",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20Press%2019cm%20Black%201.JPG?t=1727092809"
-  },
-  {
-    "itemId": 5617,
-    "title": "19cm Red Tortilla Press",
-    "url": "https://www.mexgrocer.co.uk/food/tortilla-press/19cm-red-tortilla-press",
-    "department": "food",
-    "categorySlug": "tortilla-press",
-    "availability": "Out of Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20Press%2019cm%20Red%201.jpg?t=1660147763"
-  },
-  {
-    "itemId": 4401,
-    "title": "19cm Silver Tortilla Press",
-    "url": "https://www.mexgrocer.co.uk/food/tortilla-press/19cm-silver-tortilla-press",
-    "department": "food",
-    "categorySlug": "tortilla-press",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20Press%2019cm%20Silver%201.jpg?t=1660147763"
-  },
-  {
-    "itemId": 5618,
-    "title": "25cm Silver Tortilla Press",
-    "url": "https://www.mexgrocer.co.uk/food/tortilla-press/25cm-silver-tortilla-press",
-    "department": "food",
-    "categorySlug": "tortilla-press",
-    "availability": "In Stock",
-    "price": 58.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20Press%2025cm.jpg?t=1680710741"
-  },
-  {
-    "itemId": 4884,
-    "title": "6\" Cream Plastic Tortilla Warmer",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/6-cream-plastic-tortilla-warmer",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cream%20Warmer%202.jpg?t=1671410822"
-  },
-  {
-    "itemId": 5404,
-    "title": "6\" Plastic Tortilla Warmer - Red",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/6-plastic-tortilla-warmer-red",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Plastic%20tortilla%20warmer%20red.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6869,
-    "title": "818 Blanco Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/818-blanco-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 48.97,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/818%20Blanco%20Tequila%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6870,
-    "title": "818 Repsado Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/818-repsado-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 58.74,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/818%20Reposado.jpg?t=1695284104"
-  },
-  {
-    "itemId": 5758,
-    "title": "Abasolo Corn Whisky 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/abasolo-corn-whisky-700ml",
-    "department": "drinks",
-    "categorySlug": "",
-    "availability": "In Stock",
-    "price": 48.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Absalo%20Wiskey.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4879,
-    "title": "Abuelita Chocolate 540g",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/abuelita-chocolate-540g",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "Out of Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nestle%20Abuelita%20Chocolate.JPG?t=1724314942"
-  },
-  {
-    "itemId": 7473,
-    "title": "Aciduladito Sweets 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/aciduladito-sweets-500g",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "Out of Stock",
-    "price": 11.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Aciduladtio%20Sweets%20500g.png?t=1784709713"
-  },
-  {
-    "itemId": 7121,
-    "title": "Agave Syrup 25kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/agave-syrup-25kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 170,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agave%20Syrup%2025kg.jpg?t=1733234757"
-  },
-  {
-    "itemId": 5853,
-    "title": "Agave Syrup 330g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/agave-syrup-330g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 4.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agave%20Syrup%20330g%20updated.jpg?t=1772015703"
-  },
-  {
-    "itemId": 5755,
-    "title": "Agave Syrup 5.6kg",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/agave-syrup-56kg",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 55,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agave%20Syrup%205.6kg.jpg?t=1763130444"
-  },
-  {
-    "itemId": 7222,
-    "title": "Agavesito 500ml Agave Syrup",
-    "url": "https://www.mexgrocer.co.uk/brands/agavesito/agavesito-500ml-agave-syrup",
-    "department": "brands",
-    "categorySlug": "agavesito",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agavesito%20500ml.jpg?t=1738594610"
-  },
-  {
-    "itemId": 4261,
-    "title": "Alipus San Andres Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/alipus-san-andres-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Alipus%20San%20Andres%20Mezcal.jpg?t=1723537268"
-  },
-  {
-    "itemId": 4262,
-    "title": "Alipus San Baltazar Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/alipus-san-baltazar-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 66,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Alipus%20San%20Balt%20Mezcal.jpg?t=1723537268"
-  },
-  {
-    "itemId": 4290,
-    "title": "Alipus San Juan Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/alipus-san-juan-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 64.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Alipus%20San%20Juan%20Mezcal.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4263,
-    "title": "Alipus Santa Ana Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/alipus-santa-ana-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 66,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Alipus%20Santa%20Ana%20Mezcal.jpg?t=1723494117"
-  },
-  {
-    "itemId": 7091,
-    "title": "Alma Finca Orange Liquer 40% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/alma-finca-orange-liquer-40-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 39.59,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Alma%20Finca%20Orange%20Liquer%2040%25%20700ml.jpg?t=1723537268"
-  },
-  {
-    "itemId": 4258,
-    "title": "Amaras Cupreata Guerrero Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/amaras-cupreata-guerrero-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "Out of Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Amores%20Cupreata.jpg?t=1731344343"
-  },
-  {
-    "itemId": 6672,
-    "title": "Amaras Espadin Reposado Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/amaras-espadin-reposado-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 65.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Amores%20Reposado.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6847,
-    "title": "Amargo Angostura Vallet Liqueur 45% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/amargo-angostura-vallet-liqueur-45-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 33.76,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Amargo%20Angostura%20Vallet%20Liqueur%2045%25%20700ml.jpg?t=1689934435"
-  },
-  {
-    "itemId": 5958,
-    "title": "Ancho Chilli Powder 100g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/ground-chillies/ancho-chilli-powder-100g",
-    "department": "food",
-    "categorySlug": "ground-chillies",
-    "availability": "Out of Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20Powder%202.jpg?t=1660837606"
-  },
-  {
-    "itemId": 7463,
-    "title": "Ancho Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/crushed-chillies/ancho-flakes-500g",
-    "department": "food",
-    "categorySlug": "crushed-chillies",
-    "availability": "In Stock",
-    "price": 24,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20Flakes%20500g.png?t=1782384603"
-  },
-  {
-    "itemId": 5408,
-    "title": "Ancho Reyes Chilli Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/ancho-reyes-chilli-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 55.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20reyes%20liquor.jpg?t=1723515810"
-  },
-  {
-    "itemId": 4829,
-    "title": "Ancho Reyes Verde Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/ancho-reyes-verde-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 55.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20Reyes%20Poblano%20chillie%20liquor.jpg?t=1723508544"
-  },
-  {
-    "itemId": 5220,
-    "title": "Ancho Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/ancho-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 36,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20Whole%202.jpg?t=1720604506"
-  },
-  {
-    "itemId": 4944,
-    "title": "Animas Espadin Cupreata 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/animas-espadin-cupreata-700ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "In Stock",
-    "price": 82.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Animas%20Mezcal%20Espadin%20Cupreata%20700ml.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6945,
-    "title": "Antica Cantina Cheese Dip 300g",
-    "url": "https://www.mexgrocer.co.uk/food/cheese/antica-cantina-cheese-dip-300g",
-    "department": "food",
-    "categorySlug": "cheese",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Antica%20Cantina%20Cheese%20Dip%20300g.jpg?t=1706477178"
-  },
-  {
-    "itemId": 7464,
-    "title": "Arbol Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/crushed-and-powder-chillies/arbol-flakes-500g",
-    "department": "catering-sizes",
-    "categorySlug": "crushed-and-powder-chillies",
-    "availability": "In Stock",
-    "price": 19,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/arbol%20flakes.jpg?t=1782384603"
-  },
-  {
-    "itemId": 5219,
-    "title": "Arbol Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/whole-dried-chillies/arbol-whole-dried-chilli-1kg",
-    "department": "food",
-    "categorySlug": "whole-dried-chillies",
-    "availability": "In Stock",
-    "price": 46,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Arbol%20Whole.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5081,
-    "title": "Arette Tequila Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/arette-tequila-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "Out of Stock",
-    "price": 36,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Arrette%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5067,
-    "title": "Arette Tequila Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/arette-tequila-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 39.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Arrette%20Repo.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5846,
-    "title": "Armonico Gin Seco 50%  500ml bottle",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/armonico-gin-seco-50-500ml-bottle",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "In Stock",
-    "price": 50.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Armonico.png?t=1723515810"
-  },
-  {
-    "itemId": 6349,
-    "title": "ArteNOM 1146 Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/artenom-1146-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 85.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/ArteNOM%20Anejo.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6351,
-    "title": "ArteNOM 1414 Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/artenom-1414-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 72,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/ArteNOM%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6350,
-    "title": "ArteNOM 1579 Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/artenom-1579-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 66,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/ArteNOM%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6787,
-    "title": "ASADA The Art of Mexican-Style Grilling",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/asada-the-art-of-mexican-style-grilling",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/ASADA%20The%20Art%20of%20Mexcan-Style%20Grilling.jpg?t=1680710741"
-  },
-  {
-    "itemId": 4850,
-    "title": "Avocado Leaf Powder 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/speciality/avocado-leaf-powder-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Avocado%20Powder.png?t=1714565486"
-  },
-  {
-    "itemId": 4983,
-    "title": "Avocado Leaves Whole 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/speciality/avocado-leaves-whole-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 38.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Avocado%20Leaves%20Whole.jpg?t=1660147763"
-  },
-  {
-    "itemId": 5086,
-    "title": "Bacanora Aguamiel 700ml  41%",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/bacanora-aguamiel-700ml-41",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "Out of Stock",
-    "price": 57.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Bacanora%20Aguamiel%20750ml%20-%20New.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6614,
-    "title": "Bacanora Santo Pecado",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/bacanora-santo-pecado",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "In Stock",
-    "price": 57.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Bacanora%20Santo%20Pecado.jpg?t=1723537268"
-  },
-  {
-    "itemId": 5063,
-    "title": "Balam Raicilla Costa 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/balam-raicilla-costa-700ml",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Balam%20Raicilla%20Costa.png?t=1723515810"
-  },
-  {
-    "itemId": 5079,
-    "title": "Balam Raicilla Madurado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/balam-raicilla-madurado-700ml",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "Out of Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Balam%20Raicilla%20Madurado.png?t=1723536171"
-  },
-  {
-    "itemId": 4960,
-    "title": "Balam Raicilla Sierra 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/balam-raicilla-sierra-700ml",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Balam%20Raicilla%20Sierra.png?t=1723515810"
-  },
-  {
-    "itemId": 6499,
-    "title": "Barrilito Beer 325ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/barrilito-beer-325ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "Out of Stock",
-    "price": 3.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Barrilito.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7261,
-    "title": "Bohemia Oscura 355ml Mexican Beer",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/bohemia-oscura-355ml-mexican-beer",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "In Stock",
-    "price": 3.84,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Bohemia%20Oscura%20355ml.jpg?t=1749132318"
-  },
-  {
-    "itemId": 4996,
-    "title": "Boing Grape 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-grape-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Grape%20237ml%20NEW.jpg?t=1772015699"
-  },
-  {
-    "itemId": 5085,
-    "title": "Boing Guava 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-guava-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Guava.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7241,
-    "title": "BOING JUICY KIT",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-juicy-kit",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 6.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/BOING%20JUICY%20KIT.jpg?t=1746021934"
-  },
-  {
-    "itemId": 4963,
-    "title": "Boing Mango 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-mango-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Mango%20237ml%20NEW.jpg?t=1772015699"
-  },
-  {
-    "itemId": 6341,
-    "title": "Boing Strawberry 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-strawberry-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Strawberry%20237ml%20NEW.jpg?t=1772015700"
-  },
-  {
-    "itemId": 6641,
-    "title": "Botanero Kit | Chicharron & Valentina Salsa",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/botanero-kit-chicharron-valentina-salsa",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 4.75,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Botanero%20kit%20-%20NEW.jpg?t=1750773219"
-  },
-  {
-    "itemId": 5698,
-    "title": "Botanero Salsa Clasica Hot Sauce 370g",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/mild-table-sauces/botanero-salsa-clasica-hot-sauce-370g",
-    "department": "food",
-    "categorySlug": "mild-table-sauces",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/botanera.jpg?t=1723515810"
-  },
-  {
-    "itemId": 5304,
-    "title": "Bruxo No.1 Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/bruxo-no1-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 55.51,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/bottle%20Bruxo%20No.1%20new.jpg?t=1723537268"
-  },
-  {
-    "itemId": 5027,
-    "title": "Bruxo No.2 Mezcal Joven 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/bruxo-no2-mezcal-joven-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 58.08,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/bottle%20Bruxo%20No.2%20new.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4907,
-    "title": "Bruxo No.3 Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/bruxo-no3-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "In Stock",
-    "price": 67.76,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/bottle%20Bruxo%20No.3%20new.jpg?t=1723494117"
-  },
-  {
-    "itemId": 4242,
-    "title": "Bruxo No.4 Blend Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/bruxo-no4-blend-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "In Stock",
-    "price": 74.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/bottle%20Bruxo%20No.4%20new.jpg?t=1723494117"
-  },
-  {
-    "itemId": 4243,
-    "title": "Bruxo No.5 Tobala Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/bruxo-no5-tobala-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "Out of Stock",
-    "price": 102.56,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/bottle%20Bruxo%20No.5%20new.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4244,
-    "title": "Bruxo X Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/bruxo-x-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 43.86,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20Bruxo%20X.jpg?t=1723494117"
-  },
-  {
-    "itemId": 5532,
-    "title": "Bufalo Clasico Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/hot-sauces/bufalo-clasico-hot-sauce-150ml",
-    "department": "food",
-    "categorySlug": "hot-sauces",
-    "availability": "Out of Stock",
-    "price": 2.1,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Bufalo%20Clasico%20Hot%20Sauce%20150ml%20%28new%29.jpg?t=1712757656"
-  },
-  {
-    "itemId": 5316,
-    "title": "Cabrito Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/cabrito-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 37.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cabrito%20blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7352,
-    "title": "Cacto Original Prickly Pear & White Peach Soda 330ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cacto/cacto-original-prickly-pear-white-peach-soda-330ml",
-    "department": "brands",
-    "categorySlug": "cacto",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cacto%20Peach%20SKU.png?t=1770027620"
-  },
-  {
-    "itemId": 7351,
-    "title": "Cacto Original Prickly Pear Soda 330ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cacto/cacto-original-prickly-pear-soda-330ml",
-    "department": "brands",
-    "categorySlug": "cacto",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cacto%20Prickly%20Pear%20SKU.png?t=1770027620"
-  },
-  {
-    "itemId": 5307,
-    "title": "Calle 23 Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/calle-23-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 73.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Calle%2023%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5313,
-    "title": "Calle 23 Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/calle-23-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 49.44,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Calle%2023%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5312,
-    "title": "Calle 23 Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/calle-23-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 61.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Calle%2023%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7354,
-    "title": "Cantinero Tequila Anejo 38% 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cantinero/cantinero-tequila-anejo-38-700ml",
-    "department": "brands",
-    "categorySlug": "cantinero",
-    "availability": "In Stock",
-    "price": 33.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cantinero%20Anejo%20750ml.jpg?t=1764065780"
-  },
-  {
-    "itemId": 6008,
-    "title": "Cantinero Tequila Blanco 38% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/cantinero-tequila-blanco-38-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 30.47,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cantinero%20Blanco%2038%25%20750ml.jpg?t=1764065778"
-  },
-  {
-    "itemId": 6009,
-    "title": "Cantinero Tequila Reposado 38% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/cantinero-tequila-reposado-38-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 30.76,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cantinero%20Reposado%2038%25%20750ml.jpg?t=1764065778"
-  },
-  {
-    "itemId": 7394,
-    "title": "Cantinero Tequila Triple Pack",
-    "url": "https://www.mexgrocer.co.uk/brands/cantinero/cantinero-tequila-triple-pack",
-    "department": "brands",
-    "categorySlug": "cantinero",
-    "availability": "In Stock",
-    "price": 90,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cantinero%20Tequila%20Triple%20Pack.jpg?t=1769520319"
-  },
-  {
-    "itemId": 7120,
-    "title": "Carey Tomatillo Whole 340g Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/carey/carey-tomatillo-whole-340g-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "carey",
-    "availability": "Out of Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Carey%20Tomatillo%20Whole%20340g%20NEW.jpg?t=1772030737"
-  },
-  {
-    "itemId": 5842,
-    "title": "Casa Argentina - Chimichurri Mixed Dried Herbs 100g",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/argentina/casa-argentina-chimichurri-mixed-dried-herbs-100g",
-    "department": "food",
-    "categorySlug": "argentina",
-    "availability": "Out of Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casa-Argentina-Premium-Chimichurri-Mixed-dried-herbs-x-100g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6663,
-    "title": "Casa Dragones Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/casa-dragones-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "Out of Stock",
-    "price": 186.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casa%20Dragones%20Tequila%20Anejo%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5482,
-    "title": "Casa Dragones Joven Tequila 700ml  40%",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/casa-dragones-joven-tequila-700ml-40",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "Out of Stock",
-    "price": 306.72,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casa_Dragones_Joven.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4964,
-    "title": "Casa Dragones Tequila Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/casa-dragones-tequila-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "Out of Stock",
-    "price": 99.43,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casa%20Dragones%20Tequila%20Blanco%20700ml%201.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5760,
-    "title": "Casamigos Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/casamigos-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 84,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casamigos%20Anejo.jpg?t=1723515810"
-  },
-  {
-    "itemId": 5761,
-    "title": "Casamigos Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/casamigos-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 68.76,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casamigos%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5483,
-    "title": "Casamigos Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/casamigos-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 81.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casamigos%20-%20NEW.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5543,
-    "title": "Cascabel Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/cascabel-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cascabel.jpg?t=1660837606"
-  },
-  {
-    "itemId": 6208,
-    "title": "Cascahuin Blanco Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/cascahuin-blanco-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "Out of Stock",
-    "price": 41.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cascahuin%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6209,
-    "title": "Cascahuin Reposado Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/cascahuin-reposado-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 44.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cascahuin%20Reposado.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6748,
-    "title": "Catrina Blanco Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/catrina-blanco-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "Out of Stock",
-    "price": 44.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Catrina%20Blanco%20Tequila%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6750,
-    "title": "Catrina Reposado Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/catrina-reposado-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "Out of Stock",
-    "price": 47.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Catrina%20Reposado%20Tequila%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7074,
-    "title": "Cazcabel Blanco Tequila 38% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/cazcabel-blanco-tequila-38-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 34.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Blanco_100%25_agave%20%284%29.png?t=1717148375"
-  },
-  {
-    "itemId": 7073,
-    "title": "Cazcabel Coconut Tequila 34% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/cazcabel-coconut-tequila-34-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 33,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/COCO.png?t=1717148376"
-  },
-  {
-    "itemId": 7076,
-    "title": "Cazcabel Honey Tequila 34% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/cazcabel-honey-tequila-34-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 33.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1.CAZ_HONEY%20%283%29.png?t=1782226141"
-  },
-  {
-    "itemId": 7075,
-    "title": "Cazcabel Reposado Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/cazcabel-reposado-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 36.36,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/1.CAZ_REPOSADO.png?t=1718352471"
-  },
-  {
-    "itemId": 4300,
-    "title": "Cerveza Noche Buena 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/cerveza-noche-buena-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "In Stock",
-    "price": 3.84,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Noche%20Buena.jpg?t=1664795200"
-  },
-  {
-    "itemId": 4233,
-    "title": "Charanda El Tarasco Rum Silver 700ml 38%",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/charanda-el-tarasco-rum-silver-700ml-38",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 44.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Tarasco%20Gran%20Reserva%20Silver.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4236,
-    "title": "Charanda Sol Tarasco Extra Aged Rum 700ml 40%",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/charanda-sol-tarasco-extra-aged-rum-700ml-40",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 56.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sol%20Tarasco%20Extra%20Aged.jpg?t=1723537268"
-  },
-  {
-    "itemId": 5587,
-    "title": "Charro Hat",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/charro-hat",
-    "department": "food",
-    "categorySlug": "other-mexican-items",
-    "availability": "Out of Stock",
-    "price": 57.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Charro%20Hat%20Black%20%26%20Silver%201.jpg?t=1683612626"
-  },
-  {
-    "itemId": 7439,
-    "title": "Chatica Small Panela Sugar Cane 500g",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/chatica-small-panela-sugar-cane-500g",
-    "department": "food",
-    "categorySlug": "latin-american-food",
-    "availability": "Out of Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Panela.jpg?t=1779449710"
-  },
-  {
-    "itemId": 7363,
-    "title": "Che Dulce de Leche Classic Style 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/che-dulce-de-leche-classic-style-1kg",
-    "department": "food",
-    "categorySlug": "latin-american-food",
-    "availability": "Out of Stock",
-    "price": 17,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Che%20Dulce%20de%20Leche%20Classic%20Style%201kg.jpg?t=1765458110"
-  },
-  {
-    "itemId": 6218,
-    "title": "Chicharron 100g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-100g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chicharon%20100g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7063,
-    "title": "CHICHARRON 100G (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-100g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 8.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chicharron%20100g%20%28Pack%203%29.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6219,
-    "title": "Chicharron Jalapeno 70g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-jalapeno-70g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/KAI030_20x70g.jpg?t=1710163896"
-  },
-  {
-    "itemId": 7229,
-    "title": "Chicharron Jalapeno 70g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-jalapeno-70g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 7,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chicharron%20Jalapeno%2070g%20%28Pack%203%29.jpg?t=1739274060"
-  },
-  {
-    "itemId": 6838,
-    "title": "Chilaquiles Verdes Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/chilaquiles-verdes-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 9.75,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chilaquiles%20Verdes%20Kit.jpg?t=1768319113"
-  },
-  {
-    "itemId": 5930,
-    "title": "Chipotle Chilli Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/chipotle-chilli-flakes-500g",
-    "department": "food",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 21,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chipotle%20Crushed%202.JPG?t=1739971556"
-  },
-  {
-    "itemId": 5232,
-    "title": "Chipotle Morita Chilli Powder 100g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/ground-chillies/chipotle-morita-chilli-powder-100g",
-    "department": "food",
-    "categorySlug": "ground-chillies",
-    "availability": "Out of Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/chipotle%20morita%20powder.jpg?t=1741254268"
-  },
-  {
-    "itemId": 5430,
-    "title": "Chocolate Drink Pack with Wood Molinillo",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/chocolate-drink-pack-with-wood-molinillo",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 24,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chocolate%20Drink%20Pack%20with%20Wood%20Molinillo.jpg?t=1741597495"
-  },
-  {
-    "itemId": 5434,
-    "title": "Cholula Chipotle Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-chipotle-hot-sauce-150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cholula-chipotle-hot-sauce.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5428,
-    "title": "Cholula Garlic and Chili Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-garlic-and-chili-hot-sauce-150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20garlic.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4465,
-    "title": "Cholula Limon Hot Sauce150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-limon-hot-sauce150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20Limon%20150ml.JPG?t=1730377369"
-  },
-  {
-    "itemId": 6015,
-    "title": "Cholula Origianl Hot Sauce 1.9lt",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-origianl-hot-sauce-19lt",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 21.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20catering.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4464,
-    "title": "Cholula Original Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-original-hot-sauce-150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20original.jpg?t=1663920238"
-  },
-  {
-    "itemId": 6824,
-    "title": "Cholula Sauce Collection",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-sauce-collection",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20Sauce%20Collection.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5052,
-    "title": "Chorizo Unit",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/chorizo-unit",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 12.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chorizo%20Unit.jpg?t=1703157595"
-  },
-  {
-    "itemId": 4988,
-    "title": "Churros Mix - Pronto 350g",
-    "url": "https://www.mexgrocer.co.uk/brands/pronto/churros-mix-pronto-350g",
-    "department": "brands",
-    "categorySlug": "pronto",
-    "availability": "Out of Stock",
-    "price": 3.7,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Churros%20Pronto.jpg?t=1664272172"
-  },
-  {
-    "itemId": 5431,
-    "title": "Churrumais 64g Crispy Corn Sticks with Lime",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/churrumais-64g-crispy-corn-sticks-with-lime",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/churrumais.jpg?t=1738848131"
-  },
-  {
-    "itemId": 7064,
-    "title": "Churrumaiz 64g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/churrumaiz-64g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 4.95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/churrumais%203%20pack.jpg?t=1723494117"
-  },
-  {
-    "itemId": 6352,
-    "title": "Cimarron Tequila Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/cimarron-tequila-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 34.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cimarron.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6729,
-    "title": "Ciudad de Mexico Cookbook",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/ciudad-de-mexico-cookbook",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "Out of Stock",
-    "price": 26,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ciudad%201.jpg?t=1669978621"
-  },
-  {
-    "itemId": 5365,
-    "title": "Clamato 946ml Bottle",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-946ml-bottle",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "In Stock",
-    "price": 7.08,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato.JPG?t=1723730375"
-  },
-  {
-    "itemId": 6827,
-    "title": "Clamato Bottle 296ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-bottle-296ml",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "In Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato%20Bottle%20296ml%20NEW.jpg?t=1772030747"
-  },
-  {
-    "itemId": 7206,
-    "title": "Clamato Cubano Bottle 946ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-cubano-bottle-946ml",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "Out of Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato%20Cubano%20Bottle%20946g.jpg?t=1733229633"
-  },
-  {
-    "itemId": 7452,
-    "title": "Clamato Cubano Glass Bottle 473ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-cubano-glass-bottle-473ml",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "In Stock",
-    "price": 4.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato%20Cubano%20Glass%20Bottle%20473ml.jpg?t=1781789299"
-  },
-  {
-    "itemId": 4519,
-    "title": "Clemente Jacques Chipotle in Adobo 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-chipotle-in-adobo-28kg",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 14.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Chipotle%20in%20Adobo%20%20NEW.jpg?t=1772016227"
-  },
-  {
-    "itemId": 4521,
-    "title": "Clemente Jacques Chipotle in Adobo 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-chipotle-in-adobo-210g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Chipotle%20in%20Adobo%20210g%20NEW.jpg?t=1772016226"
-  },
-  {
-    "itemId": 6236,
-    "title": "Clemente Jacques Chipotle Mashed 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-chipotle-mashed-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 3.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20chipotle%20squeeze%20220g.jpg?t=1776695924"
-  },
-  {
-    "itemId": 7231,
-    "title": "Clemente Jacques Habanero Relish 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-habanero-relish-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Habanero%20Relish%20220g.jpg?t=1739278220"
-  },
-  {
-    "itemId": 6882,
-    "title": "Clemente Jacques Home Style Casera Salsa 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-home-style-casera-salsa-370g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/656057011%20-%20Clemente%20Jacques%20Casera%20Salsa.jpg?t=1740057626"
-  },
-  {
-    "itemId": 5577,
-    "title": "Clemente Jacques Jalapeno Chillies in Slices 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-chillies-in-slices-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapeno%20Chillies%20in%20Slices%20220g%20updated.jpg?t=1739884345"
-  },
-  {
-    "itemId": 4522,
-    "title": "Clemente Jacques Jalapeno Chillies Whole 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-chillies-whole-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 1.7,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/jacques%20jalapeno%20whole%20220g.jpg?t=1776695861"
-  },
-  {
-    "itemId": 7215,
-    "title": "Clemente Jacques Jalapeno Mashed 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-mashed-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapeno%20Mashed%20220g.jpg?t=1737451343"
-  },
-  {
-    "itemId": 7061,
-    "title": "Clemente Jacques Jalapeno Nacho Slice 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-nacho-slice-28kg",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 8.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapeno%20Nacho%20Slice%202.8kg.jpg?t=1714637527"
-  },
-  {
-    "itemId": 5513,
-    "title": "Clemente Jacques Jalapenos Nacho 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapenos-nacho-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente-Jacques-Nachos-220g.jpg?t=1776695894"
-  },
-  {
-    "itemId": 6248,
-    "title": "Clemente Jacques Salsa Verde Bottle 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-salsa-verde-bottle-370g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/656056011%20-%20Clemente%20Jacques%20Salsa%20Verde.jpg?t=1740057597"
-  },
-  {
-    "itemId": 6891,
-    "title": "Clemente Jacques Taquera Salsa Bottle 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-taquera-salsa-bottle-370g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/656058011%20-%20Clemente%20Jacques%20Taquera%20Salsa.jpg?t=1740057627"
-  },
-  {
-    "itemId": 6246,
-    "title": "Clemente Jacques Whole Jalapeno 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-whole-jalapeno-28kg",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 5.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapenos%20Whole%202.8kg.jpg?t=1776702246"
-  },
-  {
-    "itemId": 6792,
-    "title": "Clemente Jacques Whole Tomatillo 3kg Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-whole-tomatillo-3kg-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Whole%20Tomatillo%203kg.jpg?t=1772017899"
-  },
-  {
-    "itemId": 5807,
-    "title": "Clutch Tassels Bag",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/waxaca-mx/clutch-tassels-bag",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "waxaca-mx",
-    "availability": "In Stock",
-    "price": 52,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clutch%20Tassel%20bag.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6867,
-    "title": "Cocina Mexicana Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/cocina-mexicana-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cocina%20Mexicana%20.jpg?t=1695046513"
-  },
-  {
-    "itemId": 6629,
-    "title": "Codigo 1530 Mezcal Ancestral/Joven 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/codigo-1530-mezcal-ancestraljoven-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 180,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Codigo%20Mezcal%20Ancestral.jpg?t=1723537268"
-  },
-  {
-    "itemId": 6619,
-    "title": "Codigo 1530 Tequila Extra Anejo Origen 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/codigo-1530-tequila-extra-anejo-origen-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "Out of Stock",
-    "price": 324.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Codigo%20Extra%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5828,
-    "title": "Comal Imusa 28cm",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/comal-imusa-28cm",
-    "department": "food",
-    "categorySlug": "other-mexican-items",
-    "availability": "In Stock",
-    "price": 36,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Comal%20Edit.jpg?t=1664577335"
-  },
-  {
-    "itemId": 5737,
-    "title": "Comida Mexicana Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/comida-mexicana-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 24,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Comida%20Mexicana%20Book.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4245,
-    "title": "Corte Vetusto Mezcal Joven Ensamble 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/corte-vetusto-mezcal-joven-ensamble-700ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "In Stock",
-    "price": 102,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Corte%20Vetusto%20Ensamble%20Mezcal%20new.jpg?t=1723536171"
-  },
-  {
-    "itemId": 4246,
-    "title": "Corte Vetusto Mezcal Joven Espadin 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/corte-vetusto-mezcal-joven-espadin-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 63.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Corte%20Vetusto%20Espadin%20Mezcal%20new.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4247,
-    "title": "Corte Vetusto Mezcal Joven Tobala 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/corte-vetusto-mezcal-joven-tobala-700ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "In Stock",
-    "price": 102,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Corte%20Vetusto%20Tobala%20Mezcal%20new.jpg?t=1723515810"
-  },
-  {
-    "itemId": 6589,
-    "title": "Curado Blue Agave 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/curado-blue-agave-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 50.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Curado%20Blue%20Agave.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6588,
-    "title": "Curado Cupreta 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/curado-cupreta-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 50.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Curado%20Cupreta.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6587,
-    "title": "Curado Espadin 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/curado-espadin-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 50.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Curado%20Espadin.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5022,
-    "title": "D'aristi Xtabentun 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/daristi-xtabentun-700ml",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "Out of Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/XTA%20New%20Bottle.jpg?t=1723537268"
-  },
-  {
-    "itemId": 7289,
-    "title": "Day of the Dead Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/day-of-the-dead-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 26,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Day%20of%20the%20Dead.jpg?t=1757426578"
-  },
-  {
-    "itemId": 7046,
-    "title": "De La Rosa Japanese Peanuts 14 Pieces",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/de-la-rosa-japanese-peanuts-14-pieces",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "Out of Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/De%20La%20Rosa%20Japanese%20Peanuts%2014%20Pieces.jpg?t=1772017899"
-  },
-  {
-    "itemId": 5302,
-    "title": "Del Maguey Mezcal Chichicapa 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/del-maguey-mezcal-chichicapa-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 99.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Del%20Maguey%20Mezcal%20Chichicapa.jpg?t=1723494117"
-  },
-  {
-    "itemId": 5300,
-    "title": "Del Maguey Mezcal San Luis Del Rio 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/del-maguey-mezcal-san-luis-del-rio-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 114,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Del%20Maguey%20Mezcal%20SLdR%20Azul.jpg?t=1723494117"
-  },
-  {
-    "itemId": 5299,
-    "title": "Del Maguey Mezcal Vida 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/del-maguey-mezcal-vida-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 61.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Del%20Maguey%20Mezcal%20Vida.jpg?t=1723537268"
-  },
-  {
-    "itemId": 5959,
-    "title": "Discreto Encanto Red Wine",
-    "url": "https://www.mexgrocer.co.uk/brands/discreto-encanto-wine/discreto-encanto-red-wine",
-    "department": "brands",
-    "categorySlug": "discreto-encanto-wine",
-    "availability": "In Stock",
-    "price": 22.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Discreto%20Encanto%20-%20NEW.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5310,
-    "title": "Don Julio Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/don-julio-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "Out of Stock",
-    "price": 84,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Don%20Julio%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5309,
-    "title": "Don Julio Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/don-julio-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 65.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Don%20Julio%20blanco.jpeg?t=1720604716"
-  },
-  {
-    "itemId": 7440,
-    "title": "Don Julio Paloma kit",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/gifts/don-julio-paloma-kit",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "gifts",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Don%20Julio%20x%20Tajin.jpg?t=1779441182"
-  },
-  {
-    "itemId": 5308,
-    "title": "Don Julio Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/don-julio-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 90,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Don%20Julio%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5529,
-    "title": "Dona Maria Adobo 235g Mexican Cooking Sauce for Chicken & Meats",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-adobo-235g-mexican-cooking-sauce-for-chicken-meats",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "In Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Adobo%20Dona%20Maria%20-%20NEW.jpg?t=1750774577"
-  },
-  {
-    "itemId": 6363,
-    "title": "Dona Maria Green Mole 235g Green Mole Sauce with Tomatillo & Pumpkin Seeds",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-green-mole-235g-green-mole-sauce-with-tomatillo-pumpkin-seeds",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mole%20Verde%20Dona%20Maria%20-%20NEW.jpg?t=1687773165"
-  },
-  {
-    "itemId": 6199,
-    "title": "Dona Maria Mole Brown 235g Traditional Mole Sauce with Chocolate & Spices",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-mole-brown-235g-traditional-mole-sauce-with-chocolate-spices",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "In Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20Mole%20235g.jpg?t=1750774577"
-  },
-  {
-    "itemId": 5531,
-    "title": "Dona Maria Pipian 235g Mole Pipian Sauce with Roasted Pumpkin Seeds",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-pipian-235g-mole-pipian-sauce-with-roasted-pumpkin-seeds",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "In Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pipian%20Dona%20Maria%20-%20NEW.jpg?t=1750774577"
-  },
-  {
-    "itemId": 7083,
-    "title": "Dona Maria ready to use Green Mole 360g",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-ready-to-use-green-mole-360g",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20ready%20to%20use%20Green%20Mole%20360g.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7082,
-    "title": "Dona Maria ready to use Poblano Mole 360g",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-ready-to-use-poblano-mole-360g",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20ready%20to%20use%20Poblano%20Mole%20360g.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7085,
-    "title": "Dona Maria ready to use Red Mole 360g",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-ready-to-use-red-mole-360g",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20ready%20to%20use%20Red%20Mole%20360g.jpg?t=1720604506"
-  },
-  {
-    "itemId": 4292,
-    "title": "Dos Equis Lager Beer 350ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/dos-equis-lager-beer-350ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "In Stock",
-    "price": 3.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dos%20XX.png?t=1759997729"
-  },
-  {
-    "itemId": 5541,
-    "title": "Dried Black Beans 25kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/beans/dried-black-beans-25kg",
-    "department": "catering-sizes",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 85,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/black%20beans%20catrinas.jpg?t=1664577335"
-  },
-  {
-    "itemId": 5540,
-    "title": "Dried Pinto Beans 25kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/beans/dried-pinto-beans-25kg",
-    "department": "catering-sizes",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 85,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/pinto%20beans%2025kg.jpg?t=1720604506"
-  },
-  {
-    "itemId": 7232,
-    "title": "Durum Flour Tortillas 30cm (12\")",
-    "url": "https://www.mexgrocer.co.uk/food/flour-tortillas/durum-flour-tortillas-30cm-12",
-    "department": "food",
-    "categorySlug": "flour-tortillas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Durum%20Flour%20Tortillas%2030cm.jpg?t=1740050743"
-  },
-  {
-    "itemId": 4929,
-    "title": "El Camino del Pensador Ensamble 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/wild-agave-mezcals/el-camino-del-pensador-ensamble-500ml",
-    "department": "drinks",
-    "categorySlug": "wild-agave-mezcals",
-    "availability": "Out of Stock",
-    "price": 43.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Camino%20del%20Pensador%20Mezcal.JPG?t=1723536171"
-  },
-  {
-    "itemId": 6401,
-    "title": "El Camino del Pensador Espadin 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/el-camino-del-pensador-espadin-500ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 52.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Camino%20del%20Pensador%20Joven.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6819,
-    "title": "El Hispano Chipotle Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/el-hispano-chipotle-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "Out of Stock",
-    "price": 44.81,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Hispano%20Chipotle%20Liqueur.jpg?t=1683612626"
-  },
-  {
-    "itemId": 6818,
-    "title": "El Hispano Jalapeno Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/el-hispano-jalapeno-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 44.81,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Hispano%20Jalapeno%20Liqueur.jpg?t=1683612626"
-  },
-  {
-    "itemId": 6215,
-    "title": "El Mexicano Chipotle in Adobo 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-chipotle-in-adobo-28kg",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Chipotle%20in%20Adobo%202.8kg.png?t=1776771321"
-  },
-  {
-    "itemId": 4313,
-    "title": "El Mexicano Pinto Beans Refried 3kg",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-pinto-beans-refried-3kg",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 9.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Pinto%20Beans%20Refried%203kg%20%28NEW%29.jpg?t=1711368383"
-  },
-  {
-    "itemId": 4303,
-    "title": "El Mexicano Pozole 3kg Mexican White Hominy in Brine",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-pozole-3kg-mexican-white-hominy-in-brine",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 6.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Pozolo%203kg.jpg?t=1776771312"
-  },
-  {
-    "itemId": 4315,
-    "title": "El Mexicano Pozole 822g Mexican White Hominy in Brine",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-pozole-822g-mexican-white-hominy-in-brine",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 2.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Pozole%20822g.JPG?t=1776771313"
-  },
-  {
-    "itemId": 4305,
-    "title": "El Mexicano Tomatillo Whole 767g Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-tomatillo-whole-767g-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 3.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Tomatillo%20Whole%20767g.JPG?t=1776771312"
-  },
-  {
-    "itemId": 6411,
-    "title": "El Rayo Tequila Plata 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/el-rayo-tequila-plata-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 39.96,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Rayo%20Plata.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6410,
-    "title": "El Rayo Tequila Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/el-rayo-tequila-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 42.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Rayo%20Reposado.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6785,
-    "title": "EL YUCATECO \"BIG FIVE\" HOT SAUCE KIT",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/el-yucateco-big-five-hot-sauce-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/EL%20YUCATECO%20HOT%20SAUCE%20KIT.jpg?t=1680710741"
-  },
-  {
-    "itemId": 4433,
-    "title": "El Yucateco Achiote Liquid 300ml Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-achiote-liquid-300ml-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Achiote%20Liquid%20300ml.jpg?t=1738847083"
-  },
-  {
-    "itemId": 4429,
-    "title": "El Yucateco Achiote Paste 100g Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-achiote-paste-100g-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Achiote%20Paste%20100g.jpg?t=1738847082"
-  },
-  {
-    "itemId": 4431,
-    "title": "El Yucateco Achiote Paste 1kg Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-achiote-paste-1kg-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 12.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Achiote%201kg.jpg?t=1738847083"
-  },
-  {
-    "itemId": 4420,
-    "title": "El Yucateco Caribbean Habanero 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-caribbean-habanero-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Caribbean%20Habanero%20Salsa%20120ml.JPG?t=1724246347"
-  },
-  {
-    "itemId": 5975,
-    "title": "El Yucateco Charola Habanero 4 x 22ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/salsa/el-yucateco-charola-habanero-4-x-22ml",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mini%204%20pack.jpg?t=1663834724"
-  },
-  {
-    "itemId": 5433,
-    "title": "El Yucateco Chilmole Paste 100g Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-chilmole-paste-100g-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chilmole%20-%20NEW.jpg?t=1738847082"
-  },
-  {
-    "itemId": 4424,
-    "title": "El Yucateco Chipotle Salsa 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-chipotle-salsa-150ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Chipotle%20Salsa%20150ml.JPG?t=1724246348"
-  },
-  {
-    "itemId": 6935,
-    "title": "El Yucateco Habanero & Chiltepin 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-chiltepin-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 4.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Chiltepin%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 6939,
-    "title": "El Yucateco Habanero & Coffee 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-coffee-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 3.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Coffee%20120ml%20NEW.png?t=1772554615"
-  },
-  {
-    "itemId": 6937,
-    "title": "El Yucateco Habanero & Ghost 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-ghost-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 4.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Ghost%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 6936,
-    "title": "El Yucateco Habanero & Grilled Pineapple",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-grilled-pineapple",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Grilled%20Pineapple%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 5906,
-    "title": "El Yucateco Habanero 4 x 120ml Pack",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/salsa/el-yucateco-habanero-4-x-120ml-pack",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Salsa%204%20Pack%202.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4426,
-    "title": "El Yucateco Habanero Black Label Reserve 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-black-label-reserve-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Black%20Hot%20Sauce.png?t=1660147763"
-  },
-  {
-    "itemId": 4421,
-    "title": "El Yucateco Habanero Green 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-green-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Green%20Habanero%20Salsa%20120ml.JPG?t=1724246348"
-  },
-  {
-    "itemId": 7435,
-    "title": "El Yucateco Habanero Green 2L",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-green-2l",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Green%202L.jpg?t=1779814186"
-  },
-  {
-    "itemId": 4419,
-    "title": "El Yucateco Habanero Hot Sauce 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-hot-sauce-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Kutbil%20Habanero%20GREAT%20TASTE.jpg?t=1689934434"
-  },
-  {
-    "itemId": 4422,
-    "title": "El Yucateco Habanero Red 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-red-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Red%20Great%20Taste.jpg?t=1689934434"
-  },
-  {
-    "itemId": 7434,
-    "title": "El Yucateco Habanero Red 2L",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-red-2l",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Red%202L.jpg?t=1780332501"
-  },
-  {
-    "itemId": 7437,
-    "title": "El Yucateco Habanero XXXtra Hot 2L",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-xxxtra-hot-2l",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Xxtra%20Hot%202L%20NEW.jpg?t=1779814186"
-  },
-  {
-    "itemId": 4409,
-    "title": "El Yucateco Horchata Coconut Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-horchata-coconut-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Horchata%20Coco%20Concentrate%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4411,
-    "title": "El Yucateco Horchata Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-horchata-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Horchata%20Concentrate%20700ml.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6955,
-    "title": "El Yucateco Hot Sauce Flavour Pack",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/el-yucateco-hot-sauce-flavour-pack",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 17.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Hot%20Sauce%20Flavour%20Pack.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4423,
-    "title": "El Yucateco Jalapeno Salsa 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-jalapeno-salsa-150ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Jalapeno%20Salsa%20150ml.JPG?t=1720604716"
-  },
-  {
-    "itemId": 4408,
-    "title": "El Yucateco Jamaica Hibiscus Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-jamaica-hibiscus-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Jamaica%20Concentrate%20700ml.jpg?t=1738835368"
-  },
-  {
-    "itemId": 6942,
-    "title": "El Yucateco Marisquera Red 120ml Seafood Hot Sauce",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-marisquera-red-120ml-seafood-hot-sauce",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Marisquera%20Red%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 7482,
-    "title": "El Yucateco Mayakut Salsa de Habanero 105ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/salsa/el-yucateco-mayakut-salsa-de-habanero-105ml",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Mayakut%20Habanero%20Salsa%20.jpg?t=1785505959"
-  },
-  {
-    "itemId": 4410,
-    "title": "El Yucateco Tamarind Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-tamarind-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Tamarindo%20Concentrate%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7471,
-    "title": "Electrolit Blueberry Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-blueberry-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Blueberry%20625ml.jpg?t=1784290566"
-  },
-  {
-    "itemId": 7202,
-    "title": "Electrolit Coconut Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-coconut-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Coconut%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1733241081"
-  },
-  {
-    "itemId": 7291,
-    "title": "Electrolit Grape Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-grape-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Grape%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1758020546"
-  },
-  {
-    "itemId": 7420,
-    "title": "Electrolit Guava Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-guava-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Guava%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1776085029"
-  },
-  {
-    "itemId": 7468,
-    "title": "Electrolit Horchata Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-horchata-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Horchata%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1784290566"
-  },
-  {
-    "itemId": 7236,
-    "title": "Electrolit Lime Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-lime-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Lime%20Flavoured%20Mineral%20Water.jpg?t=1741613318"
-  },
-  {
-    "itemId": 7237,
-    "title": "Electrolit Orange Mandarine Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/electrolit-orange-mandarine-flavoured-mineral-water-625ml",
-    "department": "drinks",
-    "categorySlug": "",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Orange%20Mandarine%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1769089589"
-  },
-  {
-    "itemId": 7469,
-    "title": "Electrolit Pineapple Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-pineapple-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Pineapple%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1784290566"
-  },
-  {
-    "itemId": 7348,
-    "title": "Electrolit Ponche Zero Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-ponche-zero-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Ponche%20Zero%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1762169033"
-  },
-  {
-    "itemId": 7199,
-    "title": "Electrolit Strawberry & Kiwi Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-strawberry-kiwi-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/electrolit%20strawberry%20and%20kiwi%20mineral%20water%20625ml.jpg?t=1733241081"
-  },
-  {
-    "itemId": 7472,
-    "title": "Electrolit Strawberry & Kiwi ZERO Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-strawberry-kiwi-zero-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Strawberry%20%26%20Kiwi%20ZERO%20Flavoured%20Mineral%20Water%20625ml%20.jpg?t=1784290553"
-  },
-  {
-    "itemId": 7347,
-    "title": "Electrolit Strawberry Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-strawberry-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Strawberry%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1762169033"
-  },
-  {
-    "itemId": 6866,
-    "title": "Everyone Loves Tacos Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/everyone-loves-tacos-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Everyone%20Loves%20Tacos.jpg?t=1695046514"
-  },
-  {
-    "itemId": 7281,
-    "title": "Excellia Blanco 40% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/excellia-blanco-40-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 61.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/excellia%20blanco%20awards.jpg?t=1756742416"
-  },
-  {
-    "itemId": 7282,
-    "title": "Excellia Reposado 40% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/excellia-reposado-40-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 64.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Excellia%20Reposado%2040%25%20700ml.jpg?t=1756373960"
-  },
-  {
-    "itemId": 5793,
-    "title": "Facemask Chain",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/facemask-chain",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 25.71,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/facemask%20chain%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6849,
-    "title": "Fernet Vallet Liqueur 35% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/fernet-vallet-liqueur-35-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 30.65,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Fernet%20Vallet%20Liqueur%2035%25%20700ml.jpg?t=1689934435"
-  },
-  {
-    "itemId": 7333,
-    "title": "Fiestas Pozole 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/fiestas/fiestas-pozole-1kg",
-    "department": "brands",
-    "categorySlug": "fiestas",
-    "availability": "In Stock",
-    "price": 5.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Fiestas%20Pozole%201kg.jpg?t=1759402026"
-  },
-  {
-    "itemId": 7331,
-    "title": "Fiestas Tostadas 275g",
-    "url": "https://www.mexgrocer.co.uk/brands/fiestas/fiestas-tostadas-275g",
-    "department": "brands",
-    "categorySlug": "fiestas",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Fiestas%20Tostadas%20275g.jpg?t=1759402026"
-  },
-  {
-    "itemId": 7330,
-    "title": "Fiestas Totopos Corn Tortilla Chips 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/fiestas/fiestas-totopos-corn-tortilla-chips-400g",
-    "department": "brands",
-    "categorySlug": "fiestas",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Fiestas%20Totopos%20Corn%20Tortilla%20Chips%20400g%20NEW.jpg?t=1772017902"
-  },
-  {
-    "itemId": 4941,
-    "title": "Fortaleza Tequila Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/fortaleza-tequila-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 126,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/fortaleza-anejo-new.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4932,
-    "title": "Fortaleza Tequila Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/fortaleza-tequila-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 84,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/fortaleza-blanco-new.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5026,
-    "title": "Fortaleza Tequila Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/fortaleza-tequila-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "Out of Stock",
-    "price": 92.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/fortaleza-reposado-new.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4885,
-    "title": "Frida Kahlo Carry Bag",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/frida-kahlo-carry-bag",
-    "department": "food",
-    "categorySlug": "other-mexican-items",
-    "availability": "In Stock",
-    "price": 16.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Frida%20Bag.jpg?t=1717148376"
-  },
-  {
-    "itemId": 5771,
-    "title": "Frida Kahlo Floral Light Shade",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/viva-los-muertos/frida-kahlo-floral-light-shade",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "viva-los-muertos",
-    "availability": "In Stock",
-    "price": 50,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Frida%20Kahlo%20Floral%20lampshade.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5831,
-    "title": "Frida Kahlo Necklace",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/waxaca-mx/frida-kahlo-necklace",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "waxaca-mx",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Frida%20Kahlo%20Neckless.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7107,
-    "title": "Friendship Bracelets - Beige",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/friendship-bracelets-beige",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 27.43,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/friendship%20bracelet-%20white%20new.jpg?t=1743594699"
-  },
-  {
-    "itemId": 5786,
-    "title": "Friendship Bracelets - Black",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/friendship-bracelets-black",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 27.43,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/friendship%20bracelets%20new.jpg?t=1725357523"
-  },
-  {
-    "itemId": 4209,
-    "title": "G4 Tequila Blanco 700ml 40%",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/g4-tequila-blanco-700ml-40",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 45.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20G4%20blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5061,
-    "title": "Gem & Bolt Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/gem-bolt-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 74.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gem%20%26%20Bolt.jpg?t=1723515810"
-  },
-  {
-    "itemId": 6766,
-    "title": "Gin Condesa Clasica 43% 70cl",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/gin-condesa-clasica-43-70cl",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "In Stock",
-    "price": 39.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Condesa%20Clasica%201.jpg?t=1678191552"
-  },
-  {
-    "itemId": 6767,
-    "title": "Gin Condesa Prickly Pear 43% 70cl",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/gin-condesa-prickly-pear-43-70cl",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "In Stock",
-    "price": 39.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Condesa%20Prickly%20Pear%201.jpg?t=1678191552"
-  },
-  {
-    "itemId": 6564,
-    "title": "Golden Nuts 60g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/golden-nuts-60g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/golden%20nuts%202.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6966,
-    "title": "Golden Nuts 60g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/golden-nuts-60g-pack-of-3",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 6.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Golden%20Nuts%2060g%20%28Pack%20of%203%29.jpg?t=1723515810"
-  },
-  {
-    "itemId": 7400,
-    "title": "Goya Aji Amarillo Yellow Hot Pepper Paste 213g",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-aji-amarillo-yellow-hot-pepper-paste-213g",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Aji%20Amarillo%20Yellow%20Hot%20Pepper%20Paste%20213g.png?t=1772192325"
-  },
-  {
-    "itemId": 7402,
-    "title": "Goya Aji Panca Pepper Paste 213g",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-aji-panca-pepper-paste-213g",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Aji%20Panca%20Pepper%20Paste%20213g.png?t=1772192325"
-  },
-  {
-    "itemId": 7403,
-    "title": "Goya Peruvian Pepper Paste Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-peruvian-pepper-paste-bundle",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 17.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Peruvian%20Pepper%20Paste%20Bundle.jpg?t=1773058869"
-  },
-  {
-    "itemId": 7401,
-    "title": "Goya Rocoto Red Pepper Paste 213g",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-rocoto-red-pepper-paste-213g",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Rocoto%20Red%20Pepper%20Paste%20213g%20NEW.png?t=1773852260"
-  },
-  {
-    "itemId": 4230,
-    "title": "Gran Centenario Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/gran-centenario-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 67.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gran%20Centenario%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4228,
-    "title": "Gran Centenario Plata 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/gran-centenario-plata-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gran%20Centenario%20Plata.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4229,
-    "title": "Gran Centenario Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/gran-centenario-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 53.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gran%20Centenario%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6006,
-    "title": "Gran Orendain Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/gran-orendain-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 43.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Foto_GO_Blanco_021717_Aut.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6007,
-    "title": "Gran Orendain Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/gran-orendain-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 45.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/thumbnail_Foto_GO_Reposado_Aut.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6846,
-    "title": "Granada Vallet Liqueur 32% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/granada-vallet-liqueur-32-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 33.83,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Granada%20Vallet%20Liqueur%2032%25%20700ml.jpg?t=1689934434"
-  },
-  {
-    "itemId": 4395,
-    "title": "Guajillo Chilli Flakes 500gr",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/crushed-and-powder-chillies/guajillo-chilli-flakes-500gr",
-    "department": "catering-sizes",
-    "categorySlug": "crushed-and-powder-chillies",
-    "availability": "In Stock",
-    "price": 19,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Guajillo%20new.jpg?t=1738852742"
-  },
-  {
-    "itemId": 5218,
-    "title": "Guajillo Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/guajillo-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 32,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Guajillo%20Whole.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4359,
-    "title": "Guanajuato 15cm Cactus Corn Tortillas 340g",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/guanajuato-15cm-cactus-corn-tortillas-340g",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 3.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/15cm%20Cactus%20Corn%20Tortilla%20Zip%20Lock%201.JPG?t=1770993599"
-  },
-  {
-    "itemId": 4355,
-    "title": "Guanajuato 15cm Yellow Corn Tortilla For Frying 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/guanajuato-15cm-yellow-corn-tortilla-for-frying-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 5.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/15CM%20YELLOW%20CORN%20TORTILLA%20FOR%20FRYING%201KG%20NEW.jpg?t=1720604506"
-  },
-  {
-    "itemId": 7180,
-    "title": "Guava Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/guava-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Guava%20Tang%20Powder%20104g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 6044,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying GUSANO 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-gusano-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Gusano.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6056,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying MIX 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-mix-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Pasta%20mix.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6050,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying RAQUETA 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-raqueta-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "Out of Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Raqueta.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6042,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying RUEDA 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-rueda-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "Out of Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Rueda.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5547,
-    "title": "Habanero Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/habanero-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 62,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/habanero%20dry%201kg.jpg?t=1664577335"
-  },
-  {
-    "itemId": 4892,
-    "title": "Harina Pan (sweet) Red 500g Corn Flour for Arepas",
-    "url": "https://www.mexgrocer.co.uk/brands/harina-pan/harina-pan-sweet-red-500g-corn-flour-for-arepas",
-    "department": "brands",
-    "categorySlug": "harina-pan",
-    "availability": "Out of Stock",
-    "price": 5.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Harina%20Pan%20%28sweet%29%20Red%20500g%20NEW.png?t=1785406373"
-  },
-  {
-    "itemId": 5223,
-    "title": "Harina Pan Amarillo 1kg Yellow Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/harina-pan/harina-pan-amarillo-1kg-yellow-corn-flour",
-    "department": "brands",
-    "categorySlug": "harina-pan",
-    "availability": "In Stock",
-    "price": 4.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Harina%20Pan%20Amarilla%201kg%20NEW.jpg?t=1774349419"
-  },
-  {
-    "itemId": 5226,
-    "title": "Harina Pan Blanca 1kg White Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/harina-pan/harina-pan-blanca-1kg-white-corn-flour",
-    "department": "brands",
-    "categorySlug": "harina-pan",
-    "availability": "In Stock",
-    "price": 4.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Harina%20PAN%20Blanca.jpeg?t=1738852719"
-  },
-  {
-    "itemId": 5811,
-    "title": "Heart Pompoms Earrings",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/waxaca-mx/heart-pompoms-earrings",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "waxaca-mx",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Heart%20Pompom%20Earrings.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4654,
-    "title": "Herdez Casera Salsa 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-casera-salsa-210g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 1.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Casera%20Salsa%20210g%20NEW.jpg?t=1772551223"
-  },
-  {
-    "itemId": 4651,
-    "title": "Herdez Ranchera Salsa 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-ranchera-salsa-220g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Ranchera%20220g.JPG?t=1668500632"
-  },
-  {
-    "itemId": 7243,
-    "title": "HERDEZ SALSA DIPS KIT",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/herdez-salsa-dips-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 11.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Dips%20Kit.jpg?t=1746702217"
-  },
-  {
-    "itemId": 4656,
-    "title": "Herdez Salsa Verde 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-salsa-verde-210g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Verde%20210g.JPG?t=1725445050"
-  },
-  {
-    "itemId": 6993,
-    "title": "Herdez Salsa Verde Jar 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-salsa-verde-jar-453g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 4.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Verde%20Jar%20453g%20NEW.jpg?t=1772020676"
-  },
-  {
-    "itemId": 4649,
-    "title": "Herdez Salsa Verde with Avocado 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-salsa-verde-with-avocado-240g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 3.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20de%20Guacamole.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6898,
-    "title": "Herdez Spicy Chipotle Salsa Cremoso 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-spicy-chipotle-salsa-cremoso-240g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 4.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Spicy%20Chipotle%20Cremoso%20240g.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6897,
-    "title": "Herdez Spicy Guacamole Sauce 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-spicy-guacamole-sauce-240g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 4.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Spicy%20Guacamole%20240g.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7174,
-    "title": "Herdez White Corn with Poblano 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-white-corn-with-poblano-220g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "Out of Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20White%20Corn%20with%20Poblano%20220g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 4342,
-    "title": "Herencia de Plata Tequila Coffee 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/herencia-de-plata-tequila-coffee-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "Out of Stock",
-    "price": 30.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/DSC_0909.JPG?t=1720604716"
-  },
-  {
-    "itemId": 6760,
-    "title": "Herradura Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/herradura-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 64.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herradura%20Anejo.jpeg?t=1720604716"
-  },
-  {
-    "itemId": 5332,
-    "title": "Herradura Plata 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/herradura-plata-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 51.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herradura%20Plata.jpeg?t=1720604716"
-  },
-  {
-    "itemId": 5331,
-    "title": "Herradura Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/herradura-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "Out of Stock",
-    "price": 57.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herradura%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5503,
-    "title": "Hibiscus Mezcal Paloma",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/hibiscus-mezcal-paloma",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 49.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/SMOKY%20PALOMA%20OJO%20DE%20DIOS%202KEYS%20%281%29.png?t=1779377494"
-  },
-  {
-    "itemId": 7438,
-    "title": "Hibiscus Moy 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/hibiscus-moy-1kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "Out of Stock",
-    "price": 18,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Hibiscus%20Moy%201kg.png?t=1779120517"
-  },
-  {
-    "itemId": 6668,
-    "title": "Hoja Santa 10g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/hoja-santa-10g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 4.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/hoja%20santa.jpg?t=1760610874"
-  },
-  {
-    "itemId": 7433,
-    "title": "Hot Honey Cazcabel Tequila Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/hot-honey-cazcabel-tequila-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 38,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/HOT%20HONEY%2045G%20tajin.png?t=1782296019"
-  },
-  {
-    "itemId": 5556,
-    "title": "Hot Nuts Peanuts 75g Spicy Peanuts with Chilli & Lime",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/hot-nuts-peanuts-75g-spicy-peanuts-with-chilli-lime",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.52,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/hot%20nuts.jpg?t=1778848995"
-  },
-  {
-    "itemId": 4995,
-    "title": "Huana Guanabana Mayan 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/huana-guanabana-mayan-700ml",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/huana%20image%20new.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6997,
-    "title": "Huarache Press",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/huarache-press",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 50.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Huarache%20Press.jpg?t=1712757654"
-  },
-  {
-    "itemId": 6834,
-    "title": "Indio Lager Beer 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/indio-lager-beer-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "Out of Stock",
-    "price": 3.54,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Indio%20Beer%20Bottle%20355ml.jpg?t=1729605083"
-  },
-  {
-    "itemId": 7242,
-    "title": "ISADORA REFRIED BEANS PACK",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/isadora-refried-beans-pack",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 8.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Beans%20Pack.jpg?t=1746702217"
-  },
-  {
-    "itemId": 7327,
-    "title": "Isadora Refried Black Beans 430g",
-    "url": "https://www.mexgrocer.co.uk/brands/isadora/isadora-refried-black-beans-430g",
-    "department": "brands",
-    "categorySlug": "isadora",
-    "availability": "Out of Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Black%20Beans%20430g.jpg?t=1759398753"
-  },
-  {
-    "itemId": 7328,
-    "title": "Isadora Refried Peruvian Beans 430g",
-    "url": "https://www.mexgrocer.co.uk/brands/isadora/isadora-refried-peruvian-beans-430g",
-    "department": "brands",
-    "categorySlug": "isadora",
-    "availability": "In Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Peruvian%20Beans%20430g.jpg?t=1759398753"
-  },
-  {
-    "itemId": 7292,
-    "title": "Isadora Refried Pinto Beans 430g",
-    "url": "https://www.mexgrocer.co.uk/brands/isadora/isadora-refried-pinto-beans-430g",
-    "department": "brands",
-    "categorySlug": "isadora",
-    "availability": "In Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Pinto%20Beans%20430g.jpg?t=1759398753"
-  },
-  {
-    "itemId": 4393,
-    "title": "Jalapeno Chilli Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/crushed-and-powder-chillies/jalapeno-chilli-flakes-500g",
-    "department": "catering-sizes",
-    "categorySlug": "crushed-and-powder-chillies",
-    "availability": "Out of Stock",
-    "price": 14.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/jalapeno%20flakes%202.jpg?t=1738862528"
-  },
-  {
-    "itemId": 7259,
-    "title": "Jalapeno Chips 52g Spicy Potato Crisps",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/jalapeno-chips-52g-spicy-potato-crisps",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/potato%20chips%20jalapenos.jpg?t=1749467185"
-  },
-  {
-    "itemId": 7430,
-    "title": "Jarritos Fruit Punch 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-fruit-punch-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/F.jpg?t=1778493080"
-  },
-  {
-    "itemId": 4688,
-    "title": "Jarritos Grapefruit 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-grapefruit-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/JARGlass_Grapefruit_International.png?t=1736784486"
-  },
-  {
-    "itemId": 4693,
-    "title": "Jarritos Guava 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-guava-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Guava.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4687,
-    "title": "Jarritos Lime 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-lime-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Lime%20New%20Stock%20Photo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4689,
-    "title": "Jarritos Mandarin 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-mandarin-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20mandarin.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4690,
-    "title": "Jarritos Mango 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-mango-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Mango.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4694,
-    "title": "Jarritos Mexican Cola 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-mexican-cola-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "In Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/JARGlass_Cola_International.png?t=1736784487"
-  },
-  {
-    "itemId": 5347,
-    "title": "Jarritos Pineapple 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-pineapple-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarriots%20Pineapple.jpg?t=1664577335"
-  },
-  {
-    "itemId": 6809,
-    "title": "Jarritos Rainbow Kit",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-rainbow-kit",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 17.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/JARRITOS%20RAINBOW%20%28temporary%20cola%20and%20strawberry%29.jpg?t=1734958683"
-  },
-  {
-    "itemId": 6722,
-    "title": "Jarritos Strawberry 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-strawberry-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Strawberry.jpg?t=1667318711"
-  },
-  {
-    "itemId": 7429,
-    "title": "Jarritos Tamarind 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-tamarind-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Tamarind%20370ml.jpg?t=1778494325"
-  },
-  {
-    "itemId": 5363,
-    "title": "Jose Cuervo Margarita Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/jose-cuervo-margarita-mix",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "Out of Stock",
-    "price": 11.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jose%20Cuervo%20Margarita%20Mix%201lt.jpg?t=1725283855"
-  },
-  {
-    "itemId": 4226,
-    "title": "Jose Cuervo Reserva De La Familia 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/jose-cuervo-reserva-de-la-familia-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 172.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jose%20Cuervo%20Reserva%20De%20La%20Familia.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4222,
-    "title": "Jose Cuervo Tradicional Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/jose-cuervo-tradicional-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 43.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tradicional%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4973,
-    "title": "Jose Cuervo Tradicional Silver 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/jose-cuervo-tradicional-silver-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 36.48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jose%20Cuervo%20Tradicional%20Plata%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6586,
-    "title": "KAH Tequila Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/kah-tequila-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 72,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/KAH%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6585,
-    "title": "KAH Tequila Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/kah-tequila-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 54.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/KAH%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6584,
-    "title": "KAH Tequila Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/kah-tequila-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 57.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/KAH%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5075,
-    "title": "Kalani Coconut Rum Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/kalani-coconut-rum-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 31.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Kalani%20Coconut%20Liquer.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6757,
-    "title": "Kankun Jalapeno 2kg",
-    "url": "https://www.mexgrocer.co.uk/brands/kankun/kankun-jalapeno-2kg",
-    "department": "brands",
-    "categorySlug": "kankun",
-    "availability": "Out of Stock",
-    "price": 8.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Kankun%20Jalapeno%202kg.jpg?t=1675859705"
-  },
-  {
-    "itemId": 6756,
-    "title": "KanKun Pibil 2kg",
-    "url": "https://www.mexgrocer.co.uk/brands/kankun/kankun-pibil-2kg",
-    "department": "brands",
-    "categorySlug": "kankun",
-    "availability": "Out of Stock",
-    "price": 63.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Kankun%20Pibil%202kg.jpg?t=1675859707"
-  },
-  {
-    "itemId": 5507,
-    "title": "Ki Gourmet Chipotle Adelita 380g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-chipotle-adelita-380g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20La%20Adelita.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5489,
-    "title": "Ki Gourmet Green with Chilli La Dona 380g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-green-with-chilli-la-dona-380g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20La%20Dona.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5486,
-    "title": "Ki Gourmet Mango Huapango 420g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-mango-huapango-420g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 7.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20Huapango.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5510,
-    "title": "Ki Gourmet Morita Llorona 380g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-morita-llorona-380g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20La%20Llorona.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5276,
-    "title": "Knorr Mexican Style Rice 160g",
-    "url": "https://www.mexgrocer.co.uk/food/rice-and-soups/knorr-mexican-style-rice-160g",
-    "department": "food",
-    "categorySlug": "rice-and-soups",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Knorr%20Arroz%20a%20la%20Mexicana%202.JPG?t=1732793264"
-  },
-  {
-    "itemId": 5409,
-    "title": "Knorr Poblano Rice 160g",
-    "url": "https://www.mexgrocer.co.uk/food/rice-and-soups/knorr-poblano-rice-160g",
-    "department": "food",
-    "categorySlug": "rice-and-soups",
-    "availability": "Out of Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/poblano.jpg?t=1664577335"
-  },
-  {
-    "itemId": 7453,
-    "title": "Knorr Tomato Powder 200g",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/knorr-tomato-powder-200g",
-    "department": "food",
-    "categorySlug": "seasonings",
-    "availability": "In Stock",
-    "price": 13,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Knorr%20Tomato%20Powder%20200g.png?t=1782207344"
-  },
-  {
-    "itemId": 7097,
-    "title": "Koch El Mezcal Ensamble 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/koch-el-mezcal-ensamble-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 63.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Kock%20Ensamble.jpg?t=1723515810"
-  },
-  {
-    "itemId": 7096,
-    "title": "Koch El Mezcal Madrecuishe 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/koch-el-mezcal-madrecuishe-mexican-mezcal",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 69.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Kock%20Madrecuishe.jpg?t=1723508544"
-  },
-  {
-    "itemId": 5813,
-    "title": "Koch El Mezcal Tobasiche 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/koch-el-mezcal-tobasiche-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 69.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Koch%20Tobasiche.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6685,
-    "title": "Komos Tequila Anejo Cristalino 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/komos-tequila-anejo-cristalino-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "Out of Stock",
-    "price": 126.19,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Komos%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6686,
-    "title": "Komos Tequila Extra Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/komos-tequila-extra-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 392.68,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Komos%20Extra%20Anejo.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6684,
-    "title": "Komos Tequila Reposado Rosa 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/komos-tequila-reposado-rosa-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "Out of Stock",
-    "price": 115.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Komos%20Reposado.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5612,
-    "title": "La Anita Marinade Pastor Sauce Bottle 300ml",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/pastes/la-anita-marinade-pastor-sauce-bottle-300ml",
-    "department": "food",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Anota%20pastor%20marinade.jpg?t=1738855352"
-  },
-  {
-    "itemId": 6929,
-    "title": "La Anita Pastor Marinde Bottle 3.8Lt",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/pastes/la-anita-pastor-marinde-bottle-38lt",
-    "department": "food",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 49.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Anita%20Pastor%20Marinde%20Bottle%203.8Lt.jpg?t=1706023595"
-  },
-  {
-    "itemId": 7340,
-    "title": "La Artesanal Extra Hot Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-extra-hot-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Toke%20Innova%20Macha%20Sauce%20200g.jpg?t=1761824226"
-  },
-  {
-    "itemId": 7343,
-    "title": "La Artesanal Honey and Cranberry Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-honey-and-cranberry-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Artesanal%20Blueberry%20Salsa%20Macha%20200g.jpg?t=1763650465"
-  },
-  {
-    "itemId": 7345,
-    "title": "La Artesanal Medium Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-medium-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Toke%20Innova%20No%20Tan%20Macha%20Sauce%20200g.jpg?t=1761824226"
-  },
-  {
-    "itemId": 7341,
-    "title": "La Artesanal Peanut and Morita Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-peanut-and-morita-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Toke%20Innova%20Peanut%20Sauce%20200g.jpg?t=1761824226"
-  },
-  {
-    "itemId": 7393,
-    "title": "La Artesanal Salsa Macha Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-salsa-macha-bundle",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Artesanal%20Salsa%20Macha%20Bundle.jpg?t=1769074391"
-  },
-  {
-    "itemId": 6111,
-    "title": "La Costena Black Whole Beans 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-black-whole-beans-400g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20black%20beans%20400g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6084,
-    "title": "La Costena Chipotle in Adobo 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-chipotle-in-adobo-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 23.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20chipotle%20in%20adobo%202.8kg.jpg?t=1776702236"
-  },
-  {
-    "itemId": 7213,
-    "title": "La Costena Chipotle in Adobo Picados Jar 230g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-chipotle-in-adobo-picados-jar-230g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Chipotle%20in%20Adobo%20Picados%20jar%20230g.png?t=1737390640"
-  },
-  {
-    "itemId": 4493,
-    "title": "La Costena Chipotle in Adobo Sauce 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-chipotle-in-adobo-sauce-199g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Chipotle%20in%20Adobo%20Sauce%20199g%20UPDATED.jpg?t=1696326571"
-  },
-  {
-    "itemId": 6128,
-    "title": "La Costena Elote Dorado Whole 220g Sweet Corn",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-elote-dorado-whole-220g-sweet-corn",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20gold%20corn.jpg?t=1776771320"
-  },
-  {
-    "itemId": 7255,
-    "title": "La Costena Green Salsa 475g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-green-salsa-475g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Green%20Salsa%20475g.jpg?t=1749029483"
-  },
-  {
-    "itemId": 6113,
-    "title": "La Costena Guacamole Salsa 465g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-guacamole-salsa-465g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Guacamole%20Salsa%20465g.jpg?t=1748510629"
-  },
-  {
-    "itemId": 6115,
-    "title": "La Costena Guayaba Paste 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-guayaba-paste-240g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20guava%20paste.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6093,
-    "title": "La Costena Habanero Rajas 210g Habanero Pepper Slices",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-habanero-rajas-210g-habanero-pepper-slices",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20habaneros%20slices.jpg?t=1776771321"
-  },
-  {
-    "itemId": 6094,
-    "title": "La Costena Habanero Whole 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-habanero-whole-200g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20habaneros.jpg?t=1782467505"
-  },
-  {
-    "itemId": 6082,
-    "title": "La Costena Huitlacoche 380g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-huitlacoche-380g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 12.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20huitlacoche.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6090,
-    "title": "La Costena Jalapeno Chilli Picados 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-chilli-picados-220g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20jalapeno%20pickled%20220g.jpg?t=1776771319"
-  },
-  {
-    "itemId": 5578,
-    "title": "La Costena Jalapeno Chillies Whole 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-chillies-whole-220g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20jalapenos%20220g.jpg?t=1782994609"
-  },
-  {
-    "itemId": 6120,
-    "title": "La Costena Jalapeno Nacho 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-jalapeno-nacho-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 9.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Jalapeno%20nacho%20slices%203kg.jpg?t=1776771319"
-  },
-  {
-    "itemId": 7212,
-    "title": "La Costena Jalapeno Nacho Jar 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-jalapeno-nacho-jar-210g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.55,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Jalapeno%20Nacho%20Jar%20210g.jpg?t=1772013242"
-  },
-  {
-    "itemId": 6293,
-    "title": "La Costena Jalapeno Red Slices 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-red-slices-199g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/LA%20COSTENA%20JALAPENO%20RED%20SLICES%20199G%20%28updated%29.jpg?t=1717148376"
-  },
-  {
-    "itemId": 6138,
-    "title": "La Costena Jalapeno Slices 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-slices-199g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/LA%20COSTENA%20JALAPENO%20SLICES%20199G%20%28updated%29.jpg?t=1711368382"
-  },
-  {
-    "itemId": 6088,
-    "title": "La Costena Jalapeno Whole 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-whole-28kg",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 6.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20jalapenos%203kg.jpg?t=1776771299"
-  },
-  {
-    "itemId": 6807,
-    "title": "La Costena Maiz Blanco 820g Mexican Pozole",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-maiz-blanco-820g-mexican-pozole",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Maiz%20Blanco%20820g%20NEW.png?t=1772458767"
-  },
-  {
-    "itemId": 6840,
-    "title": "La Costena Membrillo Chamoy Paste 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-membrillo-chamoy-paste-240g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Membrillo%20Chamoy%20Paste%20240g.jpg?t=1725531420"
-  },
-  {
-    "itemId": 6145,
-    "title": "La Costena Membrillo Paste 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-membrillo-paste-240g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20membrillo%20paste.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6395,
-    "title": "La Costena Mexican Red Salsa 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-mexican-red-salsa-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 13.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Mexican%20Red%20Salsa%202.8kg%20UPDATED.jpg?t=1696326552"
-  },
-  {
-    "itemId": 7428,
-    "title": "La Costena Pickled Carrots 230g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-pickled-carrots-230g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 0.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Pickled%20Carrots%20230g.jpg?t=1776782587"
-  },
-  {
-    "itemId": 6109,
-    "title": "La Costena Pinto Whole Beans 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/beans/la-costena-pinto-whole-beans-400g",
-    "department": "brands",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Whole%20pinto%20bean%20400g.jpg?t=1752160296"
-  },
-  {
-    "itemId": 7214,
-    "title": "La Costena Red Nacho Jalapeno Tatemado 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-red-nacho-jalapeno-tatemado-220g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Red%20Nacho%20Jalapeno%20Tatemado%20220g%20HQ.jpg?t=1737994855"
-  },
-  {
-    "itemId": 6086,
-    "title": "La Costena Refried Black Beans Pouch 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/beans/la-costena-refried-black-beans-pouch-220g",
-    "department": "brands",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Refried%20Black%20Beans%20Pouch%20220g.png?t=1663328465"
-  },
-  {
-    "itemId": 6104,
-    "title": "La Costena Refried Pinto Beans Pouch 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/beans/la-costena-refried-pinto-beans-pouch-220g",
-    "department": "brands",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20pinto%20bean%20pouch.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6079,
-    "title": "La Costena Salsa Dip Hot 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/salsa/la-costena-salsa-dip-hot-453g",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 3.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20hot%20salsa%20dip.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6076,
-    "title": "La Costena Salsa Dip Medium 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/salsa/la-costena-salsa-dip-medium-453g",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 3.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20medium%20salsa%20dip.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6075,
-    "title": "La Costena Salsa Dip Mild 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/salsa/la-costena-salsa-dip-mild-453g",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 3.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20mild%20salsa%20dip.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6853,
-    "title": "La Costena Salsa Dips",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/la-costena-salsa-dips",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 8.49,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Dips%20.jpg?t=1691509886"
-  },
-  {
-    "itemId": 6108,
-    "title": "La Costena Salsa Mexicana Casera 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-mexicana-casera-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Mexicana%20Casera%20250g%20new.jpg?t=1769681995"
-  },
-  {
-    "itemId": 6295,
-    "title": "La Costena Salsa Picante 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-picante-370ml",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20para%20bonata%20salsa.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4490,
-    "title": "La Costena Salsa Ranchera 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-ranchera-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Ranchera%20250g%20new.jpg?t=1769681138"
-  },
-  {
-    "itemId": 4491,
-    "title": "La Costena Salsa Taquera 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-taquera-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Taquera%20250g%20new.jpg?t=1769681138"
-  },
-  {
-    "itemId": 6391,
-    "title": "La Costena Salsa Verde 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-verde-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 13.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Verde%202.8kg.jpg?t=1772013227"
-  },
-  {
-    "itemId": 4515,
-    "title": "La Costena Salsa Verde 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-verde-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Verde%20250g%20new.jpg?t=1769681144"
-  },
-  {
-    "itemId": 6291,
-    "title": "La Costena Serrano Chillies Toreados 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-serrano-chillies-toreados-220g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20serranos%20toreados%20220g.jpg?t=1776771319"
-  },
-  {
-    "itemId": 5581,
-    "title": "La Costena Serrano Whole Chillies 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-serrano-whole-chillies-199g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Serrano%20Whole%20Chillies%20199g.jpg?t=1772013228"
-  },
-  {
-    "itemId": 6284,
-    "title": "La Costena Tamal de Elote 110g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tamal-de-elote-110g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tamal%20elote.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6282,
-    "title": "La Costena Tamal Dulce 110g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tamal-dulce-110g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tamal%20dulce.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6186,
-    "title": "La Costena Tomatillo Whole 2.8kg Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tomatillo-whole-28kg-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tomatillos%20whole%202.8kg.jpg?t=1780396867"
-  },
-  {
-    "itemId": 6188,
-    "title": "La Costena Tomatillos 794g Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tomatillos-794g-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tomatillos%20whole%20794g.jpg?t=1781700435"
-  },
-  {
-    "itemId": 7396,
-    "title": "La Costena Traditional Mexican Salsa Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-traditional-mexican-salsa-bundle",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 10,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costenaa%20Traditional%20Mexican%20Salsa%20Bundle%201.jpg?t=1769682601"
-  },
-  {
-    "itemId": 6289,
-    "title": "La Costena Vinagre de Manzana 1050ml",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-vinagre-de-manzana-1050ml",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20vinegar.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6812,
-    "title": "La Fonda 6\" Flour Tortilla",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-6-flour-tortilla",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Flour%20Tortilla.jpg?t=1772013237"
-  },
-  {
-    "itemId": 7238,
-    "title": "La Fonda Blue Flautas Tortillas 20 Pcs",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-flautas-tortillas-20-pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 7.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Flautas%20Tortillas%2020%20Pcs.jpg?t=1741876895"
-  },
-  {
-    "itemId": 7224,
-    "title": "La Fonda Blue Placera 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-placera-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Placera%2020PCS%20NEW.jpg?t=1773916849"
-  },
-  {
-    "itemId": 7225,
-    "title": "La Fonda Blue Taquera Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-taquera-tortillas-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Taquera%20Tortillas%2020PCS%20NEW.jpg?t=1773916848"
-  },
-  {
-    "itemId": 7223,
-    "title": "La Fonda Blue Tradicional 20PCS Tortillas",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-tradicional-20pcs-tortillas",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Tradicional%2020PCS%20NEW.jpg?t=1773916848"
-  },
-  {
-    "itemId": 7219,
-    "title": "La Fonda Cactus Strips Jar 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-strips-jar-460g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Strips%20Jar%20460g%20%28230g%20Drained%20Weight%29.jpg?t=1771946785"
-  },
-  {
-    "itemId": 7218,
-    "title": "La Fonda Cactus Strips Pouch 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-strips-pouch-1kg",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 6.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Strips%20Pouch%201kg%20NEW.jpg?t=1772013242"
-  },
-  {
-    "itemId": 7221,
-    "title": "La Fonda Cactus Whole Leaves Jar 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-whole-leaves-jar-460g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Whole%20Leaves%20Jar%20460g%20%28230g%20Drained%20Weight%29.jpg?t=1771946785"
-  },
-  {
-    "itemId": 7220,
-    "title": "La Fonda Cactus Whole Leaves Pouch 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-whole-leaves-pouch-1kg",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 7,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Whole%20Leaves%20Pouch%201kg%20NEW.jpg?t=1772013242"
-  },
-  {
-    "itemId": 7462,
-    "title": "La Fonda Chipotle Morita Powder 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-chipotle-morita-powder-500g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "Out of Stock",
-    "price": 17,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Chipotle%20Morita%20Powder%20500g.jpg?t=1782314443"
-  },
-  {
-    "itemId": 7240,
-    "title": "La Fonda Fresh Extra Large Corn Tortilla 20pcs",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-extra-large-corn-tortilla-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "Out of Stock",
-    "price": 19,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Extra%20Large%20Corn%20Tortilla%2020pcs%20NEW.png?t=1773919949"
-  },
-  {
-    "itemId": 7235,
-    "title": "La Fonda Fresh Flautas Tortillas 20 Pcs",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-flautas-tortillas-20-pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 6.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Flautas%20Tortillas%2020%20Pcs%20NEW.jpg?t=1773916848"
-  },
-  {
-    "itemId": 6918,
-    "title": "La Fonda Fresh Placera Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-placera-tortillas-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Placera%20Tortillas%2020PCS%20NEW.jpg?t=1773916844"
-  },
-  {
-    "itemId": 6916,
-    "title": "La Fonda Fresh Taquera Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-taquera-tortillas-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Taquera%20Tortillas%2020PCS%20NEW.jpg?t=1773916844"
-  },
-  {
-    "itemId": 7387,
-    "title": "La Fonda LS Placera Corn Tortilla 36 x 20pcs Case",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-ls-placera-corn-tortilla-36-x-20pcs-case",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 119,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20LS.png?t=1772805284"
-  },
-  {
-    "itemId": 7386,
-    "title": "La Fonda LS Taquera Corn Tortilla 18 x 20pcs Case",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-long-shelf-life-taquera-corn-tortilla-18-x-20pcs-case",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 63,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20LS.png?t=1772805284"
-  },
-  {
-    "itemId": 7338,
-    "title": "La Fonda LS Tradicional Corn Tortilla 18 x 20 Case",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/corn-tortillas/la-fonda-ls-tradicional-corn-tortilla-18-x-20-case",
-    "department": "catering-sizes",
-    "categorySlug": "corn-tortillas",
-    "availability": "In Stock",
-    "price": 63,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20LS.png?t=1772805284"
-  },
-  {
-    "itemId": 7427,
-    "title": "La Fonda Pickled Cactus in Brine 330g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-pickled-cactus-in-brine-330g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Pickled%20Cactus%20in%20Brine%20330g.png?t=1776769729"
-  },
-  {
-    "itemId": 7454,
-    "title": "La Fonda Tomatillo Whole 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-tomatillo-whole-28kg",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 10.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Tomatillo%202.8kg.jpg?t=1782207572"
-  },
-  {
-    "itemId": 7355,
-    "title": "La Fonda Tradicional Corn Tortillas 8 Pieces",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-tradicional-corn-tortillas-8-pieces",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Tradicional%20Corn%20Tortillas%208%20Pieces%20NEW.jpg?t=1775663302"
-  },
-  {
-    "itemId": 6907,
-    "title": "La Fonda Tradicional Fresh Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/food/corn-tortillas/la-fonda-tradicional-fresh-tortillas-20pcs",
-    "department": "food",
-    "categorySlug": "corn-tortillas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Tradicional%20Tortillas%2020PCS%20NEW.jpg?t=1773852254"
-  },
-  {
-    "itemId": 7457,
-    "title": "La Fonda Whole Dried Cascabel 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-cascabel-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Cascabel%2075g.jpg?t=1782314442"
-  },
-  {
-    "itemId": 7456,
-    "title": "La Fonda Whole Dried Jalapeno 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-jalapeno-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Jalapeno%2075g.jpg?t=1782314442"
-  },
-  {
-    "itemId": 7461,
-    "title": "La Fonda Whole Dried Morita 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-morita-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Morita%2075g.jpg?t=1782314443"
-  },
-  {
-    "itemId": 7460,
-    "title": "La Fonda Whole Dried Mulato 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-mulato-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Mulato%2075g.jpg?t=1782314443"
-  },
-  {
-    "itemId": 6822,
-    "title": "La Sierra Bayos Beans Whole 560g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-bayos-beans-whole-560g",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Bayos%20Beans%20Whole%20560g%20NEW.png?t=1772539376"
-  },
-  {
-    "itemId": 5607,
-    "title": "La Sierra Chilaquiles Verdes 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-chilaquiles-verdes-370g",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Chilaquiles%20Verde%20370g.jpg?t=1738855352"
-  },
-  {
-    "itemId": 6896,
-    "title": "La Sierra Dried Black Beans",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-dried-black-beans",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 3.33,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Dried%20Black%20Beans%20900g%202026.jpg?t=1770648666"
-  },
-  {
-    "itemId": 7230,
-    "title": "La Sierra Dried Pinto Beans",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-dried-pinto-beans",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 3.33,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Dried%20Pinto%20Beans%20900g%20copy.jpg?t=1739274053"
-  },
-  {
-    "itemId": 5672,
-    "title": "La Sierra Red Chilaquiles 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-red-chilaquiles-370g",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20sierra%20Chilaquiles%20Rojos.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6260,
-    "title": "La Sierra Refried Pinto Beans 3kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-refried-pinto-beans-3kg",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 9.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Pinto%20Refried%20Beans%202.8kg.JPG?t=1762257275"
-  },
-  {
-    "itemId": 6264,
-    "title": "La Sierra Whole Pinto Beans 3kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-whole-pinto-beans-3kg",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 7.13,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Pinto%20Beans%20Whole%203kg.JPG?t=1750786392"
-  },
-  {
-    "itemId": 7450,
-    "title": "Large Mexican Flag",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/large-mexican-flag",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "",
-    "availability": "In Stock",
-    "price": 18,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mexican%20Flag%20Large.jpg?t=1781687431"
-  },
-  {
-    "itemId": 7244,
-    "title": "Las Catrinas Avocado Leaves 70g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/las-catrinas-avocado-leaves-70g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Avocado%20Leaves%20Whole.jpg?t=1747069449"
-  },
-  {
-    "itemId": 4386,
-    "title": "Las Catrinas Black Beans Dried 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-black-beans-dried-500g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Las%20Catrinas%20Black%20Beans%20500g.JPG?t=1731406974"
-  },
-  {
-    "itemId": 4383,
-    "title": "Las Catrinas Chipotle Morita Chilli Dried 40g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-chipotle-morita-chilli-dried-40g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/morita%20w%20catrinas%202.jpg?t=1673875100"
-  },
-  {
-    "itemId": 5432,
-    "title": "Las Catrinas Cinnamon Quills - Canela 100g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-cinnamon-quills-canela-100g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 7.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cinnamon%20-%20NEW.jpg?t=1660147763"
-  },
-  {
-    "itemId": 5546,
-    "title": "Las Catrinas Habanero Dried Chilli 30g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-habanero-dried-chilli-30g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/habanero%20w%20catrinas.jpg?t=1664577335"
-  },
-  {
-    "itemId": 5575,
-    "title": "Las Catrinas Piloncillo 230g Raw Cane Sugar",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-piloncillo-230g-raw-cane-sugar",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 2.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/piloncillo.jpg?t=1738855344"
-  },
-  {
-    "itemId": 4336,
-    "title": "Las Catrinas Pinto Dried Beans 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-pinto-dried-beans-500g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Las%20Catrinas%20Pinto%20Beans%20500g.JPG?t=1720604716"
-  },
-  {
-    "itemId": 6517,
-    "title": "Las Catrinas Salty Chilli Margarita Rim 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-salty-chilli-margarita-rim-1kg",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 13,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Salty%20Chilli%20Margarita%20rim.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6520,
-    "title": "Las Catrinas Sweet Hibiscus Margarita Rim 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-sweet-hibiscus-margarita-rim-1kg",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "Out of Stock",
-    "price": 13,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sweet%20Hibiscus%20Salt.jpg?t=1663934583"
-  },
-  {
-    "itemId": 7280,
-    "title": "Licor 43 31% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/licor-43-31-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 31.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Licor%2043%2031%25%20700ml.jpg?t=1756373960"
-  },
-  {
-    "itemId": 7193,
-    "title": "Lime Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/lime-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lime%20Tang%20Powder%20104g.jpg?t=1733234719"
-  },
-  {
-    "itemId": 7263,
-    "title": "Loltun Pastor Cooking Paste 320g",
-    "url": "https://www.mexgrocer.co.uk/brands/loltun/loltun-pastor-cooking-paste-320g",
-    "department": "brands",
-    "categorySlug": "loltun",
-    "availability": "In Stock",
-    "price": 5.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lol%20Tun%20Pastor.jpg?t=1749463074"
-  },
-  {
-    "itemId": 7262,
-    "title": "Loltun Pibil Cooking Paste 320g",
-    "url": "https://www.mexgrocer.co.uk/brands/loltun/loltun-pibil-cooking-paste-320g",
-    "department": "brands",
-    "categorySlug": "loltun",
-    "availability": "In Stock",
-    "price": 5.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lol%20Tun%20Pibil.jpg?t=1749463074"
-  },
-  {
-    "itemId": 5579,
-    "title": "Loteria Game Set",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/decorations/loteria-game-set",
-    "department": "food",
-    "categorySlug": "decorations",
-    "availability": "In Stock",
-    "price": 5.94,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Loteria%20game%20set.jpg?t=1662714561"
-  },
-  {
-    "itemId": 5788,
-    "title": "LOVE Bracelet",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/love-bracelet",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 17.14,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Love%20bracelet%20new.jpg?t=1725357523"
-  },
-  {
-    "itemId": 6040,
-    "title": "Lucas Gusano",
-    "url": "https://www.mexgrocer.co.uk/food/candy/lucas-gusano",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 13.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lucas%20gusano.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5872,
-    "title": "Lucas Muecas Sweet Chamoy Candy with Chilli Mix Powder",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/lucas-muecas-sweet-chamoy-candy-with-chilli-mix-powder",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/lucas%20muecas.jpg?t=1738751811"
-  },
-  {
-    "itemId": 4953,
-    "title": "Macha Christmas Fruit Ponche Drink 908g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/macha-christmas-fruit-ponche-drink-908g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 1.53,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ponche%20navideno%20Macha.jpg?t=1664793366"
-  },
-  {
-    "itemId": 5877,
-    "title": "Macha Guava Fruit in Syrup 908g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/macha-guava-fruit-in-syrup-908g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 0,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/guayaba%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6382,
-    "title": "Macha Sugar Cane 908g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/macha-sugar-cane-908g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "Out of Stock",
-    "price": 8.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sugar%20Cane.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5002,
-    "title": "Macha Tejocote 908g",
-    "url": "https://www.mexgrocer.co.uk/sale-items/macha-tejocote-908g",
-    "department": "sale-items",
-    "categorySlug": "",
-    "availability": "In Stock",
-    "price": 1.53,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tejocote%20Macha.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6591,
-    "title": "Madre Mezcal Ensamble 200ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/madre-mezcal-ensamble-200ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 33.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Madre%20Mezcal%20Ensamble%20200ml.jpg?t=1736421962"
-  },
-  {
-    "itemId": 6592,
-    "title": "Madre Mezcal Ensamble 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/madre-mezcal-ensamble-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 73.44,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Madre%20Mezcal%20New%20Image.jpg?t=1723494117"
-  },
-  {
-    "itemId": 4225,
-    "title": "Maestro Dobel Diamante 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/maestro-dobel-diamante-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 68.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Diamante.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4224,
-    "title": "Maestro Dobel Humito 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/maestro-dobel-humito-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 64.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maestro%20Dobel%20Humito.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7094,
-    "title": "Maestro Dobel Silver 200ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/maestro-dobel-silver-200ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 18,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maestro%20Dobel%20Silver%2020cl.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4223,
-    "title": "Maestro Dobel Silver 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/maestro-dobel-silver-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 62.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maestro%20Dobel%20Silver.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6321,
-    "title": "Maggie Black Sauce Bottle 800ml",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/maggie-black-sauce-bottle-800ml",
-    "department": "food",
-    "categorySlug": "seasonings",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jugo.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5582,
-    "title": "Maizena Cajeta 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-cajeta-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/maizena%20cajeta.jpg?t=1738855345"
-  },
-  {
-    "itemId": 5585,
-    "title": "Maizena Chocolate 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-chocolate-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/maizena%20chocolate.jpg?t=1738855345"
-  },
-  {
-    "itemId": 5584,
-    "title": "Maizena Coconut 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-coconut-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/maizena%20coconut.jpg?t=1738855345"
-  },
-  {
-    "itemId": 5391,
-    "title": "Maizena Nuez Walnut 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-nuez-walnut-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maizena%20Walnut.jpg?t=1738855346"
-  },
-  {
-    "itemId": 5388,
-    "title": "Maizena Vanilla 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-vanilla-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maizena%20Vainilla%20new.jpg?t=1738855346"
-  },
-  {
-    "itemId": 6658,
-    "title": "Mamacita - Mexican Cookbook by Andrea Pons",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/mamacita-mexican-cookbook-by-andrea-pons",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 21.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mamacita%201.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7194,
-    "title": "Mango Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/mango-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mango%20Tang%20Powder%20104g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 5631,
-    "title": "Manita de la Suerte Lollipop",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/manita-de-la-suerte-lollipop",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Manita%20de%20la%20Suerte.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7350,
-    "title": "Manzanita Sol 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/manzanita-sol-355ml",
-    "department": "drinks",
-    "categorySlug": "",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Manzanita%20Sol%20355ml.jpg?t=1762429708"
-  },
-  {
-    "itemId": 6323,
-    "title": "Marinela Cinnamon Canelitas Cookies 60g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/marinela-cinnamon-canelitas-cookies-60g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 1.56,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Canelitas%20Unit.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6331,
-    "title": "Marinela Pineapple Barritas Cookies 55g",
-    "url": "https://www.mexgrocer.co.uk/brands/marinela/marinela-pineapple-barritas-cookies-55g",
-    "department": "brands",
-    "categorySlug": "marinela",
-    "availability": "Out of Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Barritas%20Pineapple%20Unit.jpg?t=1761590579"
-  },
-  {
-    "itemId": 6325,
-    "title": "Marinela Polvorones Shortbread Orange Cookies 74g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/marinela-polvorones-shortbread-orange-cookies-74g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 1.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Polvorones%20Unit%20update.jpg?t=1776857354"
-  },
-  {
-    "itemId": 6329,
-    "title": "Marinela Strawberry Barritas Cookies 55g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/marinela-strawberry-barritas-cookies-55g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "Out of Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Barritas%20Strawberry%20Unit.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5271,
-    "title": "Maruchan Shrimp with Lime and Habanero Soup",
-    "url": "https://www.mexgrocer.co.uk/meals/ready-meals/maruchan-shrimp-with-lime-and-habanero-soup",
-    "department": "meals",
-    "categorySlug": "ready-meals",
-    "availability": "Out of Stock",
-    "price": 0.63,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maruchan%20Shrimp%20with%20Habanero.JPG?t=1723494117"
-  },
-  {
-    "itemId": 5598,
-    "title": "Maruchan Shrimp with Piquin Chilli Soup 64g",
-    "url": "https://www.mexgrocer.co.uk/meals/ready-meals/maruchan-shrimp-with-piquin-chilli-soup-64g",
-    "department": "meals",
-    "categorySlug": "ready-meals",
-    "availability": "In Stock",
-    "price": 2.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maruchan%20Shrimp%20with%20Piquin%20Chile.JPG?t=1724156363"
-  },
-  {
-    "itemId": 6695,
-    "title": "Masa - Techniques, Recipes, and Reflections on a Timeless Staple",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/masa-techniques-recipes-and-reflections-on-a-timeless-staple",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 26,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Masa%201.jpg?t=1663331530"
-  },
-  {
-    "itemId": 7467,
-    "title": "MasaMaiz Blue Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/masamaiz/masamaiz-blue-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "masamaiz",
-    "availability": "In Stock",
-    "price": 100,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MasaMaiz%20Blue%20Corn%20Flour%2020kg.jpg?t=1783008086"
-  },
-  {
-    "itemId": 7465,
-    "title": "MasaMaiz White Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/masamaiz/masamaiz-white-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "masamaiz",
-    "availability": "Out of Stock",
-    "price": 80,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MasaMaiz%20White%20Corn%20Flour%2020kg1.jpg?t=1783008085"
-  },
-  {
-    "itemId": 7466,
-    "title": "MasaMaiz Yellow Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/masamaiz/masamaiz-yellow-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "masamaiz",
-    "availability": "Out of Stock",
-    "price": 95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MasaMaiz%20Yellow%20Corn%20Flour%2020kg1.jpg?t=1783008086"
-  },
-  {
-    "itemId": 7250,
-    "title": "Maseca Antojitos 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/maseca/maseca-antojitos-1kg",
-    "department": "brands",
-    "categorySlug": "maseca",
-    "availability": "Out of Stock",
-    "price": 3.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Antojitos%20for%20Frying%201kg.jpg?t=1759752417"
-  },
-  {
-    "itemId": 4469,
-    "title": "Maseca Blue Corn Flour 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk/maseca-blue-corn-flour-1kg",
-    "department": "food",
-    "categorySlug": "maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk",
-    "availability": "Out of Stock",
-    "price": 3.59,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Blue%201kg%20New.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4468,
-    "title": "Maseca Corn Flour for Tamales 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk/maseca-corn-flour-for-tamales-1kg",
-    "department": "food",
-    "categorySlug": "maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk",
-    "availability": "In Stock",
-    "price": 2.69,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Tamales.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4467,
-    "title": "Maseca White Corn Flour 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk/maseca-white-corn-flour-1kg",
-    "department": "food",
-    "categorySlug": "maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk",
-    "availability": "Out of Stock",
-    "price": 3.59,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca.JPG?t=1738679669"
-  },
-  {
-    "itemId": 7451,
-    "title": "Maseca Yellow 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/maseca/maseca-yellow-1kg",
-    "department": "brands",
-    "categorySlug": "maseca",
-    "availability": "Out of Stock",
-    "price": 3.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Yellow%201kg.jpg?t=1781789299"
-  },
-  {
-    "itemId": 7346,
-    "title": "Mata De Monte Mezcal 29% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mata-de-monte-mezcal-29-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mata%20De%20Monte%20Mezcal%2029%25%20700ml.jpg?t=1761904339"
-  },
-  {
-    "itemId": 5336,
-    "title": "Mayordomo Chocolate 500g Mexican Hot Chocolate Tablets",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/mayordomo-chocolate-500g-mexican-hot-chocolate-tablets",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chocolate%20Mayordomo.jpg?t=1750779192"
-  },
-  {
-    "itemId": 5500,
-    "title": "Mayordomo Mole Black 4.5 kg",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-mole-black-45-kg",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 78,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cubeta-de-mole-negro-4.5kg-mayordomo-oaxaqueno.jpg?t=1777391055"
-  },
-  {
-    "itemId": 5499,
-    "title": "Mayordomo Mole Red 4.5 kg",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-mole-red-45-kg",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 78,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/mayordomo%20red%20mole%204.5kg.jpg?t=1725361475"
-  },
-  {
-    "itemId": 4826,
-    "title": "Mayordomo Mole Red 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-mole-red-460g",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 12.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mayordomo%20Mole%20Red%20460g%20NEW.png?t=1772552562"
-  },
-  {
-    "itemId": 5105,
-    "title": "Mayordomo Oaxaqueno Mole 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-oaxaqueno-mole-460g",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 12.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mayordomo%20Oaxaqueno%20Mole%20460g%20NEW.png?t=1772552527"
-  },
-  {
-    "itemId": 5014,
-    "title": "Maza Real Red Corn Flour 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maza-real-red-corn-flour-1kg",
-    "department": "food",
-    "categorySlug": "masa-harina",
-    "availability": "Out of Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Real%20Maza%20Red%20Corn.png?t=1720604506"
-  },
-  {
-    "itemId": 7339,
-    "title": "Maza Real Red Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maza-real-red-corn-flour-20kg",
-    "department": "food",
-    "categorySlug": "masa-harina",
-    "availability": "Out of Stock",
-    "price": 110,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maza%20Real%20Red%20Corn%20Flour%2020kg.jpg?t=1761780300"
-  },
-  {
-    "itemId": 5399,
-    "title": "Mazahua Doll",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/other-decorations/mazahua-doll",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "other-decorations",
-    "availability": "In Stock",
-    "price": 5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mazahua%20Doll.jpg?t=1743594691"
-  },
-  {
-    "itemId": 5286,
-    "title": "Mazapan De La Rosa Peanut Candy",
-    "url": "https://www.mexgrocer.co.uk/food/candy/traditional/mazapan-de-la-rosa-peanut-candy",
-    "department": "food",
-    "categorySlug": "traditional",
-    "availability": "Out of Stock",
-    "price": 2.28,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mazapan%20Original%20%28Updated%29.jpg?t=1724082856"
-  },
-  {
-    "itemId": 4864,
-    "title": "Metate Volcanic Stone",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/metate-volcanic-stone",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 67.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/metate.jpg?t=1660837606"
-  },
-  {
-    "itemId": 7474,
-    "title": "Mexican Dried Chillies & Chipotle in Adobo Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mexican-dried-chillies-chipotle-in-adobo-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chillies%20%26%20Chipotle%20in%20Adobo%20Kit.png?t=1784800346"
-  },
-  {
-    "itemId": 7455,
-    "title": "Mexican Gaban Poncho",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/mexican-gaban-poncho",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "",
-    "availability": "In Stock",
-    "price": 25,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mexican%20Gaban%20Poncho.jpg?t=1782302483"
-  },
-  {
-    "itemId": 7106,
-    "title": "Mexican Kite Cappuccino Brown Earrings",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/waxaca-mx/mexican-kite-cappuccino-brown-earrings",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "waxaca-mx",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Brown%20Kite%20Earrings.jpg?t=1743594699"
-  },
-  {
-    "itemId": 7360,
-    "title": "Mexican Mayca Cajeta Caramel Spread 320g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/mexican-mayca-cajeta-caramel-spread-320g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mexican%20Mayca%20Cajeta%20Caramel%20Spread%20-%20320g.jpg?t=1772030750"
-  },
-  {
-    "itemId": 7484,
-    "title": "Mexican Salsa Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mexican-salsa-kit-buy-at-mexgrocer-uk",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 14.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mexican%20Salsa%20Kit.jpg?t=1786114710"
-  },
-  {
-    "itemId": 7388,
-    "title": "Mexican Street Corn Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mexican-street-corn-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MEXICAN%20STREET%20CORN%20KIT.png?t=1768322787"
-  },
-  {
-    "itemId": 5243,
-    "title": "Mexico - The Cookbook",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/mexico-the-cookbook",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 39.95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mexico%20the%20Cookbook%20image.jpg?t=1725357518"
-  },
-  {
-    "itemId": 7424,
-    "title": "Mezcal Reina Espadin 48% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcal-reina-espadin-48-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 68.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/reina%20espadin.jpg?t=1776178914"
-  },
-  {
-    "itemId": 7444,
-    "title": "Mezcal Reina Mezcalita with Lime 200ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcal-reina-mezcalita-with-lime-200ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 4.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20Reina%20Mezcalita%20with%20Lime%20200ml.jpg?t=1781532143"
-  },
-  {
-    "itemId": 7423,
-    "title": "Mezcal Reina Paloma 200ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcal-reina-paloma-200ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 4.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/e7c319e2-f99a-4400-abc4-d45231303c0a%20-%20Edited.png?t=1776680718"
-  },
-  {
-    "itemId": 7426,
-    "title": "Mezcal Reina Tobala 37% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcal-reina-tobala-37-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 144,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tobala%20mezcal.png?t=1776178914"
-  },
-  {
-    "itemId": 7425,
-    "title": "Mezcal Reina Tobasiche 48% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcal-reina-tobasiche-48-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 78,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20Reina%20Tobasiche%2048%25%20700ml.jpg?t=1776178914"
-  },
-  {
-    "itemId": 4260,
-    "title": "Mezcal Union Uno 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcal-union-uno-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 57.84,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal_Union_Bottle.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6360,
-    "title": "Mezcales de Leyenda Durango 47% - Agave Cenizo 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-durango-47-agave-cenizo-700ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "In Stock",
-    "price": 61.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Cenizo.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6469,
-    "title": "Mezcales de Leyenda Durango 48% - Agave Verde 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcales-de-leyenda-durango-48-agave-verde-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 80.11,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Durango%20Verde.jpg?t=1723537268"
-  },
-  {
-    "itemId": 6361,
-    "title": "Mezcales de Leyenda Guerrero 45% - Agave Cupreta - Ancho 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcales-de-leyenda-guerrero-45-agave-cupreta-ancho-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 51,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/leyenda%20ancho.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6362,
-    "title": "Mezcales de Leyenda Oaxaca 42% - Agave Tobala 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcales-de-leyenda-oaxaca-42-agave-tobala-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 53.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Tobala%20Oaxaca.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6473,
-    "title": "Mezcales de Leyenda Oaxaca 47% - Agave Coyote 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcales-de-leyenda-oaxaca-47-agave-coyote-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 85.64,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Coyote%20Oaxaca.jpg?t=1723537268"
-  },
-  {
-    "itemId": 6472,
-    "title": "Mezcales de Leyenda Oaxaca 48% - Agave Mexicano 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcales-de-leyenda-oaxaca-48-agave-mexicano-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 87.49,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Mexicano%20Oaxaca.jpg?t=1723494117"
-  },
-  {
-    "itemId": 6738,
-    "title": "Mezcales de Leyenda Oaxaca 50.1% Agave Espadin 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-oaxaca-501-agave-espadin-700ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "Out of Stock",
-    "price": 60.48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Espadin%20Oaxaca.jpg?t=1723494117"
-  },
-  {
-    "itemId": 6475,
-    "title": "Mezcales de Leyenda Oaxaca 50% - Agave Jabali 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcales-de-leyenda-oaxaca-50-agave-jabali-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 113.34,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Jabali%20Oaxaca.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6471,
-    "title": "Mezcales de Leyenda Puebla 47% - Agave Pichumel 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/mezcales-de-leyenda-puebla-47-agave-pichumel-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 80.11,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Pichumel.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6359,
-    "title": "Mezcales de Leyenda San Luis Potosi 42% - Agave Salmiana - Verde 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-san-luis-potosi-42-agave-salmiana-verde-700ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "In Stock",
-    "price": 51,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20San%20Luis%20Verde.jpg?t=1723515810"
-  },
-  {
-    "itemId": 4256,
-    "title": "Mezcales de Leyenda Tripack 3 x 100ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-tripack-3-x-100ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "Out of Stock",
-    "price": 41.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcales%20de%20Leyenda%20Tripack.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6759,
-    "title": "Mezcalita Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mezcalita-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 42.98,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/mezcalita%20and%20free%20tajin.jpg?t=1727794032"
-  },
-  {
-    "itemId": 6601,
-    "title": "Mi Adelita Stone Ground Tortilla Blue Corn Chips 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-blue-corn-chips-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Blue%20200g%20Bio.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6599,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Chilli 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-chilli-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 4.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Chilli%20200g%20Bio.jpg?t=1664793366"
-  },
-  {
-    "itemId": 6600,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Paprika 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-paprika-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 4.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Paprika%20200g%20Bio.jpg?t=1663663706"
-  },
-  {
-    "itemId": 6598,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Sea Salt 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-sea-salt-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Sea%20Salt%20200g%20Bio.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6637,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Sea Salt 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-sea-salt-1kg",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 19.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Sea%20Salt%201kg.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6841,
-    "title": "Mi Adelita Tortilla Chips Bundle",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mi-adelita-tortilla-chips-bundle",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mi%20Adelita%20Bundle.jpg?t=1689617568"
-  },
-  {
-    "itemId": 6643,
-    "title": "Michelada Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/michelada-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Michelada%201.jpg?t=1767788112"
-  },
-  {
-    "itemId": 5472,
-    "title": "Miguelito Chile Powder 950g",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/miguelito-chile-powder-950g",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "Out of Stock",
-    "price": 12.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Miguelito%20Powder%20950g.png?t=1720604716"
-  },
-  {
-    "itemId": 5564,
-    "title": "Miguelitos Chile powder Bag with 100",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/miguelitos-chile-powder-bag-with-100",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "In Stock",
-    "price": 15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/miguelito%20sachets%20-%20NEW.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5827,
-    "title": "Milagrito Hand-embroidered Black Facemask",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/papatxoa/milagrito-hand-embroidered-black-facemask",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "papatxoa",
-    "availability": "In Stock",
-    "price": 24,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Alebrijes%20Facemask%20Collection%20-%20Milagrito%202.jpg?t=1725357525"
-  },
-  {
-    "itemId": 5787,
-    "title": "Mini Frida Kahlo Bracelet",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/mini-frida-kahlo-bracelet",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 30.86,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mini%20Frida%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5554,
-    "title": "Mini Mexican Flags (50 Pack)",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/decorations/mini-mexican-flags-50-pack",
-    "department": "food",
-    "categorySlug": "decorations",
-    "availability": "Out of Stock",
-    "price": 10.68,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/mini%20mexican%20flags%20toothpicks.jpg?t=1662714561"
-  },
-  {
-    "itemId": 4294,
-    "title": "Modelo Especial Beer 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/modelo-especial-beer-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "In Stock",
-    "price": 3.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Modelo%20Special%20355ml.JPG?t=1739870726"
-  },
-  {
-    "itemId": 7260,
-    "title": "Modelo Negra Beer 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/modelo-negra-beer-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "In Stock",
-    "price": 3.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Modelo%20Negra%20355ml.jpg?t=1749132295"
-  },
-  {
-    "itemId": 5406,
-    "title": "Molcajete Plastic 12cm (For Salsas)",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/molcajete-plastic-12cm-for-salsas",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "Out of Stock",
-    "price": 3.3,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Molcajete%2012cm%20Plastic%20updated.jpg?t=1696840296"
-  },
-  {
-    "itemId": 5407,
-    "title": "Molcajete Volcanic Stone - 20cm",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/molcajete-volcanic-stone-20cm",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 50.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Molcajete.jpg?t=1734957711"
-  },
-  {
-    "itemId": 5589,
-    "title": "Molinillo - Mexican Chocolate Stirrer",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/molinillo-mexican-chocolate-stirrer",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/chocolate%20stirrer%20-%20NEW.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6297,
-    "title": "Morita Chipotle Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/whole-dried-chillies/morita-chipotle-whole-dried-chilli-1kg",
-    "department": "food",
-    "categorySlug": "whole-dried-chillies",
-    "availability": "In Stock",
-    "price": 38,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chipotle%20Morita%20Whole.jpg?t=1664577335"
-  },
-  {
-    "itemId": 4701,
-    "title": "Mulato Whole Dried Chilli",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/mulato-whole-dried-chilli",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/mulato%20w%20catrinas.jpg?t=1760104458"
-  },
-  {
-    "itemId": 6495,
-    "title": "Nacional Morelos American Pale Ale Beer 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/nacional-morelos-american-pale-ale-beer-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "Out of Stock",
-    "price": 3.12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nacional%20Morelos%20Fusil.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6721,
-    "title": "Nacional Morelos Nacion Lager Beer 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/nacional-morelos-nacion-lager-beer-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "Out of Stock",
-    "price": 2.64,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nacional%20Morelos%20Nacion.jpg?t=1666762807"
-  },
-  {
-    "itemId": 6590,
-    "title": "Narano Bitter Orange Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/narano-bitter-orange-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Narano.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4326,
-    "title": "Naturelo Blue Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-mexican-blue-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "In Stock",
-    "price": 85,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20Blue%2020kg%201.jpg?t=1749463061"
-  },
-  {
-    "itemId": 4321,
-    "title": "Naturelo Harina De Maiz Azul 1kg Blue Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-harina-de-maiz-azul-1kg-blue-corn-flour",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "In Stock",
-    "price": 5.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20Blue%201kg.jpg?t=1738922797"
-  },
-  {
-    "itemId": 4324,
-    "title": "Naturelo Harina De Maiz Blanco 1kg White Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-harina-de-maiz-blanco-1kg-white-corn-flour",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20White%201kg.jpg?t=1738922797"
-  },
-  {
-    "itemId": 4325,
-    "title": "Naturelo White Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-white-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20White%2020kg%201.jpg?t=1738922768"
-  },
-  {
-    "itemId": 5759,
-    "title": "Nixta Corn Liqueur 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/liqueurs/nixta-corn-liqueur-700ml",
-    "department": "drinks",
-    "categorySlug": "liqueurs",
-    "availability": "In Stock",
-    "price": 41.59,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nixta%20Licor%20de%20elote.jpg?t=1723536171"
-  },
-  {
-    "itemId": 7277,
-    "title": "Nocheluna Sotol 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/sotol/nocheluna-sotol-700ml",
-    "department": "drinks",
-    "categorySlug": "sotol",
-    "availability": "In Stock",
-    "price": 71.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nocheluna%20Sotol%20700ml.jpg?t=1754044671"
-  },
-  {
-    "itemId": 7442,
-    "title": "Nopal Cactus Powder 12kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/nopal-cactus-powder-12kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 328,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopal%20Powder%2012kg.jpg?t=1780490672"
-  },
-  {
-    "itemId": 7247,
-    "title": "Nopal Mild Chilli 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/nopal/nopal-mild-chilli-250g",
-    "department": "brands",
-    "categorySlug": "nopal",
-    "availability": "In Stock",
-    "price": 11.45,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopal%20Mild%20Chilli%20250g.jpg?t=1748338877"
-  },
-  {
-    "itemId": 7248,
-    "title": "Nopal Powder 300g",
-    "url": "https://www.mexgrocer.co.uk/brands/nopal/nopal-powder-300g",
-    "department": "brands",
-    "categorySlug": "nopal",
-    "availability": "In Stock",
-    "price": 22.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopal%20Powder%20350g.jpg?t=1748338877"
-  },
-  {
-    "itemId": 6000,
-    "title": "Nopalia Churritos Chipotle 100g - Cactus Chips",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/nopalia-churritos-chipotle-100g-cactus-chips",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopalia%20churritos%20chipotle.jpg?t=1749732900"
-  },
-  {
-    "itemId": 6002,
-    "title": "Nopalia Churritos Habanero 100g - Spicy Cactus Chips",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/nopalia-churritos-habanero-100g-spicy-cactus-chips",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopalia%20Churritos%20Habanero%20100g%20%28new%29.jpg?t=1732019816"
-  },
-  {
-    "itemId": 5980,
-    "title": "Nopalia Churritos Original 100g - Cactus Chips",
-    "url": "https://www.mexgrocer.co.uk/brands/nopalia/nopalia-churritos-original-100g-cactus-chips",
-    "department": "brands",
-    "categorySlug": "nopalia",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopalia%20churritos%20original.jpg?t=1749732900"
-  },
-  {
-    "itemId": 7078,
-    "title": "Norte√±a - Cookbook for Authentic Mexican Recipes",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/nortena-cookbook-for-authentic-mexican-recipes",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 26,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nortena.jpg?t=1718352471"
-  },
-  {
-    "itemId": 5329,
-    "title": "Ocho Blanco 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/ocho-blanco-500ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 37.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ocho%20Blanco%20New.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5992,
-    "title": "Ocho Extra Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/ocho-extra-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "Out of Stock",
-    "price": 103.87,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ocho%20Extra%20Anejo%201.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5328,
-    "title": "Ocho Reposado 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/ocho-reposado-500ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "Out of Stock",
-    "price": 27.72,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ocho%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6676,
-    "title": "Ojo de Dios Hibiscus Mezcal 700ml 35% Abv",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/ojo-de-dios-hibiscus-mezcal-700ml-35-abv",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 45,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ojo%20de%20Dios%20Hibiscus%202.jpg?t=1723537268"
-  },
-  {
-    "itemId": 5527,
-    "title": "Ojo De Dios Mezcal 42% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/ojo-de-dios-mezcal-42-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 47.1,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ojo%20de%20Dios%202.jpg?t=1723537268"
-  },
-  {
-    "itemId": 6070,
-    "title": "Ojo De Dios Mezcal Odd Cafe 700ml 35% Abv",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/ojo-de-dios-mezcal-odd-cafe-700ml-35-abv",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 45,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ojo%20de%20Dios%20Coffee%203.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6718,
-    "title": "Ojo de Dios Mezcal Triple Pack",
-    "url": "https://www.mexgrocer.co.uk/brands/ojo-de-dios-mezcal/ojo-de-dios-mezcal-triple-pack",
-    "department": "brands",
-    "categorySlug": "ojo-de-dios-mezcal",
-    "availability": "Out of Stock",
-    "price": 128.94,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/ojo%20de%20dios%20triple%20pack.jpg?t=1723537268"
-  },
-  {
-    "itemId": 5321,
-    "title": "Olmeca Altos Plata 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/olmeca-altos-plata-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Olmeca%20Altos%20Plata.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5327,
-    "title": "Olmeca Altos Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/olmeca-altos-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 55.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Olmeca%20Altos%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7192,
-    "title": "Orange Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/orange-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Orange%20Tang%20Powder%20104g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 5278,
-    "title": "Pachicletas Lollipop",
-    "url": "https://www.mexgrocer.co.uk/food/candy/lolipops/pachicletas-lollipop",
-    "department": "food",
-    "categorySlug": "lolipops",
-    "availability": "In Stock",
-    "price": 9.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pachicleta.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6367,
-    "title": "Papel Picado Day of the Dead - 10 Sheets",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/papel-picado-day-of-the-dead-10-sheets",
-    "department": "food",
-    "categorySlug": "other-mexican-items",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Papel%20Picado%20DotD%201.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5859,
-    "title": "Papel Picado Landscapes (45 x 35 cm)",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/decorations/papel-picado-landscapes-45-x-35-cm",
-    "department": "food",
-    "categorySlug": "decorations",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Papel%20Picado%20landscape%201.jpg?t=1725358975"
-  },
-  {
-    "itemId": 5861,
-    "title": "Papel Picado Rodeo (45 x 35 cm)",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/decorations/papel-picado-rodeo-45-x-35-cm",
-    "department": "food",
-    "categorySlug": "decorations",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Papel%20Rodeo%203.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4397,
-    "title": "Pasilla Chilli Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/crushed-chillies/pasilla-chilli-flakes-500g",
-    "department": "food",
-    "categorySlug": "crushed-chillies",
-    "availability": "Out of Stock",
-    "price": 19,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/pasilla%20flakes%20new.jpg?t=1738855341"
-  },
-  {
-    "itemId": 5956,
-    "title": "Pasilla Chilli Powder 100g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/ground-chillies/pasilla-chilli-powder-100g",
-    "department": "food",
-    "categorySlug": "ground-chillies",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pasilla%20Powder.jpg?t=1660837606"
-  },
-  {
-    "itemId": 5228,
-    "title": "Pasilla Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/pasilla-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 29,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/PASILLA.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6768,
-    "title": "Pasote Anejo 40% 70cl",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/pasote-anejo-40-70cl",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 67.09,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pasote%20Anejo%201.jpg?t=1679410900"
-  },
-  {
-    "itemId": 6770,
-    "title": "Pasote Reposado 40% 70cl",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/pasote-reposado-40-70cl",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 60.95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pasote%20Reposado%201.jpg?t=1679408477"
-  },
-  {
-    "itemId": 5326,
-    "title": "Patron Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/patron-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "Out of Stock",
-    "price": 74.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Patron%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5325,
-    "title": "Patron Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/patron-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 63.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Patron%20reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5324,
-    "title": "Patron Silver 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/patron-silver-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Patron%20Silver.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7275,
-    "title": "Patron Silver Tequila mini 50ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/patron-silver-tequila-mini-50ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/patron%20silver%20mini%2050ml.jpg?t=1753699396"
-  },
-  {
-    "itemId": 5560,
-    "title": "Pelon Pelo Rico",
-    "url": "https://www.mexgrocer.co.uk/food/candy/pelon-pelo-rico",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 9.48,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pelon%20Pelo%20Rico%2012%20x%2035g%20Bag.jpg?t=1754559210"
-  },
-  {
-    "itemId": 5678,
-    "title": "Pelon Pelonete 210g",
-    "url": "https://www.mexgrocer.co.uk/sale-items/pelon-pelonete-210g",
-    "department": "sale-items",
-    "categorySlug": "",
-    "availability": "Out of Stock",
-    "price": 8.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pelon%20Pelonete.jpg?t=1664577335"
-  },
-  {
-    "itemId": 6951,
-    "title": "Pimentae Spicy Margarita Tequila Cocktail 125ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/pimentae-spicy-margarita-tequila-cocktail-125ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 4.44,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pimentae%20Tommys%20Spicy%20Margarita%20125ml.jpg?t=1723715080"
-  },
-  {
-    "itemId": 7480,
-    "title": "Pimentae Spicy Mezcal Margarita 125ml",
-    "url": "https://www.mexgrocer.co.uk/brands/pimentae/pimentae-spicy-mezcal-margarita-125ml",
-    "department": "brands",
-    "categorySlug": "pimentae",
-    "availability": "In Stock",
-    "price": 4.44,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pimentae%20Spicy%20Mezcal%20Margarita%20125ml.jpg?t=1785496232"
-  },
-  {
-    "itemId": 7481,
-    "title": "Pimentae Tequila Espresso Martini 125ml",
-    "url": "https://www.mexgrocer.co.uk/brands/pimentae/pimentae-tequila-espresso-martini-125ml",
-    "department": "brands",
-    "categorySlug": "pimentae",
-    "availability": "In Stock",
-    "price": 4.44,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pimentae%20Tequila%20Espresso%20Martini%20125ml.jpg?t=1786114709"
-  },
-  {
-    "itemId": 7479,
-    "title": "Pimentae Tequila Grapefruit Margarita 125ml",
-    "url": "https://www.mexgrocer.co.uk/brands/pimentae/pimentae-tequila-grapefruit-margarita-125ml",
-    "department": "brands",
-    "categorySlug": "pimentae",
-    "availability": "In Stock",
-    "price": 4.44,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pimentae%20Tequila%20Grapefruit%20Margarita%20125ml.jpg?t=1785496232"
-  },
-  {
-    "itemId": 6953,
-    "title": "Pimentae Tommy Margarita 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/pimentae-tommy-margarita-500ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 27.42,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pimentae%20Tommy%20Margarita%20500ml.jpg?t=1707399739"
-  },
-  {
-    "itemId": 6949,
-    "title": "Pimentae Tommy's Margarita Tequila Cocktail 125ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/pimentae-tommys-margarita-tequila-cocktail-125ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 4.44,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pimentae%20Tommy%20Margarita%20125ml.jpg?t=1723714470"
-  },
-  {
-    "itemId": 6948,
-    "title": "Pimentae Tommys Spicy Margarita 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/pimentae-tommys-spicy-margarita-500ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 27.42,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pimentae%20Tommys%20Spicy%20Margarita%20500ml.jpg?t=1707399740"
-  },
-  {
-    "itemId": 4675,
-    "title": "Pinata Cheese Sauce Plain 3kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/pinata-cheese-sauce-plain-3kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pinata%20Cheese%20Sauce.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6956,
-    "title": "Pinata Cheese Sauce with Jalapeno Chilli 3kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/salsas-and-sauces/pinata-cheese-sauce-with-jalapeno-chilli-3kg",
-    "department": "catering-sizes",
-    "categorySlug": "salsas-and-sauces",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pinata%20Cheddar%20Cheese%20Sauce%20with%20Jalapeno%203kg.jpg?t=1707730053"
-  },
-  {
-    "itemId": 5382,
-    "title": "Pinata Handmade Foldable",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/decorations/pinata-handmade-foldable",
-    "department": "food",
-    "categorySlug": "decorations",
-    "availability": "In Stock",
-    "price": 48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pinata.jpg?t=1662714561"
-  },
-  {
-    "itemId": 5317,
-    "title": "Plastic Mini Molcajeta 5.5cm (For Spices)",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/plastic-mini-molcajeta-55cm-for-spices",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 2.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Molcajete%20Plastic.JPG?t=1732808957"
-  },
-  {
-    "itemId": 4379,
-    "title": "Pre Cut Blue Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-blue-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Blue%20Corn%20Tortilla%201kg.png?t=1660147763"
-  },
-  {
-    "itemId": 4367,
-    "title": "Pre Cut Cactus Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-cactus-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Cactus%20Corn%20Tortillas%201kg.JPG?t=1732790302"
-  },
-  {
-    "itemId": 4368,
-    "title": "Pre Cut Chipotle Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-chipotle-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Chipotle%20Corn%20Tortillas%201kg.JPG?t=1726240889"
-  },
-  {
-    "itemId": 4369,
-    "title": "Pre Cut Guajillo Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-guajillo-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "Out of Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Guajillo%20Corn%20Tortillas%201kg.JPG?t=1727284929"
-  },
-  {
-    "itemId": 4370,
-    "title": "Pre Cut Yellow Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-yellow-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Yellow%20Corn%20Tortillas%201kg.JPG?t=1726226404"
-  },
-  {
-    "itemId": 6996,
-    "title": "Premium Lemon Squeezer",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/premium-lemon-squeezer",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "Out of Stock",
-    "price": 18,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Premium%20Lemon%20Squeezer.jpg?t=1712757656"
-  },
-  {
-    "itemId": 5091,
-    "title": "Pronto Hot Cake Mix 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/pronto/pronto-hot-cake-mix-500g",
-    "department": "brands",
-    "categorySlug": "pronto",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pronto%20Hot%20Cake%20Mix%20500g.jpg?t=1738925938"
-  },
-  {
-    "itemId": 7024,
-    "title": "Pulparindo Chamoy 20 Pieces Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindo-chamoy-20-pieces-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Chamoy%2020%20Pieces.jpg?t=1714053605"
-  },
-  {
-    "itemId": 6122,
-    "title": "Pulparindo Mango 20 Pieces Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/pulparindo-mango-20-pieces-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Mango.jpg?t=1738768577"
-  },
-  {
-    "itemId": 5254,
-    "title": "Pulparindo Red Extra Hot 20Pcs Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/pulparindo-red-extra-hot-20pcs-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Hot%20Box.JPG?t=1738768551"
-  },
-  {
-    "itemId": 6124,
-    "title": "Pulparindo Watermelon 20 Pieces Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/pulparindo-watermelon-20-pieces-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Watermelon.jpg?t=1738768577"
-  },
-  {
-    "itemId": 5257,
-    "title": "Pulparindo Yellow 20PCS Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/pulparindo-yellow-20pcs-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Box%202.JPG?t=1738768551"
-  },
-  {
-    "itemId": 7051,
-    "title": "Pulparindots 360g Tamarind Candy",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-360g-tamarind-candy",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20360g.jpg?t=1714053603"
-  },
-  {
-    "itemId": 7057,
-    "title": "Pulparindots Extra Hot 360g Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-extra-hot-360g-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20Extra%20Hot%20360g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7052,
-    "title": "Pulparindots Mango 360g Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-mango-360g-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20Mango%20360g.jpg?t=1714053604"
-  },
-  {
-    "itemId": 7055,
-    "title": "Pulparindots Watermelon 360g Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-watermelon-360g-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20Watermelon%20360g.jpg?t=1714053603"
-  },
-  {
-    "itemId": 6865,
-    "title": "Real Mexican Food Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/real-mexican-food-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Real%20Mexican%20Food%20Book.jpg?t=1695046486"
-  },
-  {
-    "itemId": 7477,
-    "title": "Rey Campero Mezcal Pechuga 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/rey-campero-mezcal-pechuga-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 87.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Rey%20Campero%20Mezcal%20Pechuga%20700ml.jpg?t=1785153726"
-  },
-  {
-    "itemId": 7475,
-    "title": "Rey Campero Mezcal Sierra Negra 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/rey-campero-mezcal-sierra-negra-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 87.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/RC%20Sierra%20Negra.jpg?t=1785153726"
-  },
-  {
-    "itemId": 7478,
-    "title": "Rey Campero Mezcal Tepextate 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/rey-campero-mezcal-tepextate-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 87.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/RC%20Tepeztate.jpg?t=1785153726"
-  },
-  {
-    "itemId": 7476,
-    "title": "Rey Campero Mezcal Tobala 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/rey-campero-mezcal-tobala-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 87.6,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/RC%20Tobala.jpg?t=1785153726"
-  },
-  {
-    "itemId": 6604,
-    "title": "Rooster Rojo Anejo Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/rooster-rojo-anejo-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 38.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Rooster%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6603,
-    "title": "Rooster Rojo Blanco Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/rooster-rojo-blanco-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 31.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Rooster%20Blanco.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6967,
-    "title": "Rooster Rojo Reposado Smoke Pineapple Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/rooster-rojo-reposado-smoke-pineapple-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 37.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Rooster%20Rojo%20Reposado%20Smoke%20Pineapple%20Tequila%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6602,
-    "title": "Rooster Rojo Reposado Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/rooster-rojo-reposado-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 34.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Rooster%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5785,
-    "title": "Rosa Earrings",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/rosa-earrings",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 42.86,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Rosa%20Earrings%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7258,
-    "title": "Runners Fuego 72g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/runners-fuego-72g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Runners%20Fuego.jpeg?t=1749113859"
-  },
-  {
-    "itemId": 7257,
-    "title": "Runners Lemon & Chilli 72g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/runners-lemon-chilli-72g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Runners%2068g.jpeg?t=1749113859"
-  },
-  {
-    "itemId": 7065,
-    "title": "Sabritas Lime 42g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/sabritas-lime-42g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "Out of Stock",
-    "price": 8.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sabritas%20Lime%2042g%20%28Pack%20of%203%29.jpg?t=1723537268"
-  },
-  {
-    "itemId": 4830,
-    "title": "Sabritas Lime 42g Potato Crisps",
-    "url": "https://www.mexgrocer.co.uk/brands/sabritas/sabritas-lime-42g-potato-crisps",
-    "department": "brands",
-    "categorySlug": "sabritas",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/sabritas%20lime%20new.jpg?t=1761209143"
-  },
-  {
-    "itemId": 5536,
-    "title": "Salsa Huichol 190g",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/salsa-huichol-190g",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "In Stock",
-    "price": 2.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/huichol%20-%20NEW.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7278,
-    "title": "Salsa Huichol Black 190g",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/salsa-huichol-black-190g",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "In Stock",
-    "price": 2.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Salsa%20Huichol%20Black%20190g.jpg?t=1755593030"
-  },
-  {
-    "itemId": 5481,
-    "title": "Salvador Jimenez & Mariachi Mexteca",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/other-decorations/salvador-jimenez-mariachi-mexteca",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "other-decorations",
-    "availability": "In Stock",
-    "price": 8.33,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Salvador%20Jimenez%20CD%20-%20NEW.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6004,
-    "title": "San Cosme Mezcal 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/san-cosme-mezcal-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "Out of Stock",
-    "price": 55.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/thumbnail_San%20Cosme.jpg?t=1723494117"
-  },
-  {
-    "itemId": 7175,
-    "title": "San Miguel Artichoke Hearts 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-artichoke-hearts-400g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Artichoke%20Hearts%20400g%20new.jpg?t=1779374487"
-  },
-  {
-    "itemId": 5946,
-    "title": "San Miguel Chipotle Sauce De La Abuela",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/san-miguel-chipotle-sauce-de-la-abuela",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Chipotle%20Sauce%20De%20La%20Abuela%20450g%20.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5940,
-    "title": "San Miguel Del Patron 450g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-del-patron-450g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Del%20Patron%20sauce.png?t=1720604716"
-  },
-  {
-    "itemId": 7256,
-    "title": "San Miguel Enchilada Sauce Green 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-enchilada-sauce-green-400g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Enchilada%20Green%20Sauce%20400g%20NEW.png?t=1772458745"
-  },
-  {
-    "itemId": 7152,
-    "title": "San Miguel Enchilada Sauce Red 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-enchilada-sauce-red-400g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Enchilada%20Red%20Sauce%20400g%20NEW.png?t=1772458745"
-  },
-  {
-    "itemId": 5948,
-    "title": "San Miguel Habanero Sauce Don Pancho 450g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-habanero-sauce-don-pancho-450g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Don%20pancho%20habanero%20sauce.png?t=1720604716"
-  },
-  {
-    "itemId": 5942,
-    "title": "San Miguel Jalapeno Sauce De Dona Chole",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-jalapeno-sauce-de-dona-chole",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20jalapenbo%20Sauce%20-Dona%20Chole%20450g.png?t=1720604506"
-  },
-  {
-    "itemId": 5944,
-    "title": "San Miguel Pasilla Sauce De La Nana",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-pasilla-sauce-de-la-nana",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Pasilla%20Sauce%20la%20nana.png?t=1720604716"
-  },
-  {
-    "itemId": 4625,
-    "title": "San Miguel Poblano Pepper Strips 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-poblano-pepper-strips-220g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Poblano%20Strips%20220g.png?t=1772456948"
-  },
-  {
-    "itemId": 4626,
-    "title": "San Miguel Poblano Whole Peppers 780g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-poblano-whole-peppers-780g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 7.19,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Poblano%20Whole%20780g%20NEW.png?t=1772458014"
-  },
-  {
-    "itemId": 4856,
-    "title": "Sangria Senorial 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/sangria-senorial-355ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "In Stock",
-    "price": 2.28,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sangria%20Casera%20355ml.JPG?t=1732790310"
-  },
-  {
-    "itemId": 5590,
-    "title": "Sangrita Viuda de Sanchez 1000ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/bar-essentials/sangrita-viuda-de-sanchez-1000ml",
-    "department": "drinks",
-    "categorySlug": "bar-essentials",
-    "availability": "In Stock",
-    "price": 9.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sangrita.jpg?t=1720604506"
-  },
-  {
-    "itemId": 7390,
-    "title": "Sanissimo Salmas 144g",
-    "url": "https://www.mexgrocer.co.uk/brands/sanissimo/sanissimo-salmas-144g",
-    "department": "brands",
-    "categorySlug": "sanissimo",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sanissimo%20Salmas%20144g.jpg?t=1769001210"
-  },
-  {
-    "itemId": 4601,
-    "title": "Sanissimo Tostadas 216g",
-    "url": "https://www.mexgrocer.co.uk/brands/sanissimo/sanissimo-tostadas-216g",
-    "department": "brands",
-    "categorySlug": "sanissimo",
-    "availability": "Out of Stock",
-    "price": 4.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sanissimo%20Tostadas%20Box%20216g%20%28updated%29.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6982,
-    "title": "Sazon Natural Ancho Chilli Flakes 380g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-flakes-380g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Flakes%20380g.jpg?t=1712757656"
-  },
-  {
-    "itemId": 7018,
-    "title": "Sazon Natural Ancho Chilli Flakes 85g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-flakes-85g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Flakes%2085g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7016,
-    "title": "Sazon Natural Ancho Chilli Powder 120g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-powder-120g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Powder%20120g.jpg?t=1714053605"
-  },
-  {
-    "itemId": 6980,
-    "title": "Sazon Natural Ancho Chilli Powder 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-powder-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Powder%20550g.jpg?t=1712757656"
-  },
-  {
-    "itemId": 6987,
-    "title": "Sazon Natural Chipotle Flakes 380g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-flakes-380g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Flakes%20380g.jpg?t=1712757656"
-  },
-  {
-    "itemId": 7022,
-    "title": "Sazon Natural Chipotle Flakes 85g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-flakes-85g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Flakes%2085g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7020,
-    "title": "Sazon Natural Chipotle Powder 120g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-powder-120g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Powder%20120g.jpg?t=1714053603"
-  },
-  {
-    "itemId": 6984,
-    "title": "Sazon Natural Chipotle Powder 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-powder-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Powder%20550g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 7010,
-    "title": "Sazon Natural Fajita \"Pibil Style\" Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-fajita-pibil-style-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Fajita%20Pibil%20Style%20Seasoning%20142g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7000,
-    "title": "Sazon Natural Fajita \"Pibil Style\" Seasoning 700g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-fajita-pibil-style-seasoning-700g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 13.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Fajita%20Pibil%20Style%20Seasoning%20700g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 7012,
-    "title": "Sazon Natural Mexican Adobo Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-mexican-adobo-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Mexican%20Adobo%20Seasoning%20142g.jpg?t=1714053604"
-  },
-  {
-    "itemId": 7002,
-    "title": "Sazon Natural Mexican Adobo Seasoning 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-mexican-adobo-seasoning-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 13.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Mexican%20Adobo%20Seasoning%20550g.jpg?t=1712757655"
-  },
-  {
-    "itemId": 7014,
-    "title": "Sazon Natural Piko Pikin Guacamole Mix 150g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-piko-pikin-guacamole-mix-150g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "In Stock",
-    "price": 0,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Piko%20Pikin%20Guacamole%20Mix%20150g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7005,
-    "title": "Sazon Natural Piko Pikin Gucamole Mix 738g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-piko-pikin-gucamole-mix-738g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "In Stock",
-    "price": 0,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Piko%20Pikin%20Gucamole%20Mix%20738g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 7008,
-    "title": "Sazon Natural Taco Al Pastor Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-taco-al-pastor-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Taco%20Al%20Pastor%20Seasoning%20142g.jpg?t=1714053604"
-  },
-  {
-    "itemId": 6989,
-    "title": "Sazon Natural Taco Al Pastor Seasoning 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-taco-al-pastor-seasoning-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "In Stock",
-    "price": 13.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Taco%20Al%20Pastor%20Seasoning%20550g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 6852,
-    "title": "SHHH! Mezcal 47% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mezcal/shhh-mezcal-47-700ml",
-    "department": "drinks",
-    "categorySlug": "mezcal",
-    "availability": "In Stock",
-    "price": 99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/SHH%21%20Mezcal%20700ml.jpg?t=1689934435"
-  },
-  {
-    "itemId": 7108,
-    "title": "SHINE Bracelet",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/shine-bracelet",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 17.14,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Shine%20bracelet%20new%202.jpg?t=1743594699"
-  },
-  {
-    "itemId": 5555,
-    "title": "Skwinkles Clasico Chamoy",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-clasico-chamoy",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20clasicos%20new.jpg?t=1664577335"
-  },
-  {
-    "itemId": 5293,
-    "title": "Skwinkles Rellenos Pineapple",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-rellenos-pineapple",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 7.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20Relleno.jpeg?t=1779108948"
-  },
-  {
-    "itemId": 4808,
-    "title": "Skwinkles Rellenos Watermelon Sandia Enchilada",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-rellenos-watermelon-sandia-enchilada",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20rellenos%20watermelon%20pack%20of%2012.jpg?t=1664577335"
-  },
-  {
-    "itemId": 6825,
-    "title": "Skwinkles Salsaghetti 12 Pack",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-salsaghetti-12-pack",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20Salsaghetti%2012%20Pack.jpg?t=1683612626"
-  },
-  {
-    "itemId": 7431,
-    "title": "Small Beer Mexican Lager 2.5%",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/small-beer-mexican-lager-25",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "In Stock",
-    "price": 2.28,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Small%20Beer%20Mexican%20Lager%202.5%25.jpg?t=1778574731"
-  },
-  {
-    "itemId": 7077,
-    "title": "Sobremesa Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/sobremesa-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 27,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sobremesa%20Book.jpg?t=1718352471"
-  },
-  {
-    "itemId": 6817,
-    "title": "Sol Tarasco \"Hongos\" Anejo Rum 40% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/sol-tarasco-hongos-anejo-rum-40-700ml",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 55.73,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sol%20Tarasco%20Hongos%20Charanda%20Anejo%20Rum.jpg?t=1683612626"
-  },
-  {
-    "itemId": 6815,
-    "title": "Sol Tarasco 4 Year Charanda Anejo Rum 40% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/sol-tarasco-4-year-charanda-anejo-rum-40-700ml",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sol%20Tarasco%204%20YO%20Charanda%20Anejo%20Rum.jpg?t=1683612626"
-  },
-  {
-    "itemId": 6816,
-    "title": "Sol Tarasco 8 Year Charanda Anejo Rum 42% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/sol-tarasco-8-year-charanda-anejo-rum-42-700ml",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 55.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sol%20Tarasco%208%20YO%20Charanda%20Anejo%20Rum.jpg?t=1683612626"
-  },
-  {
-    "itemId": 5812,
-    "title": "Sotol Sotomayor Excepcional Ensamble 750ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/spirits/sotol-sotomayor-excepcional-ensamble-750ml",
-    "department": "drinks",
-    "categorySlug": "spirits",
-    "availability": "In Stock",
-    "price": 86.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/sotomayor-ensamble-sotol.jpg?t=1723536171"
-  },
-  {
-    "itemId": 7395,
-    "title": "Spicy Hibiscus Margarita Kit",
-    "url": "https://www.mexgrocer.co.uk/brands/ojo-de-dios-mezcal/spicy-hibiscus-margarita-kit",
-    "department": "brands",
-    "categorySlug": "ojo-de-dios-mezcal",
-    "availability": "In Stock",
-    "price": 51,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/spicy%20margarita%20ojo%20de%20dios.jpg?t=1769530875"
-  },
-  {
-    "itemId": 7274,
-    "title": "Spicy Margarita Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/spicy-margarita-cocktail",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 39,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Spicy%20Margarita%20Kit.jpg?t=1769521660"
-  },
-  {
-    "itemId": 4872,
-    "title": "Squirt Grapefruit Can 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/squirt-grapefruit-can-355ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "In Stock",
-    "price": 2.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Squirt%20Can%20355ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5790,
-    "title": "Star and Cherry Quartz Bracelet",
-    "url": "https://www.mexgrocer.co.uk/fashion-craft-gifts/casa-orozco/star-and-cherry-quartz-bracelet",
-    "department": "fashion-craft-gifts",
-    "categorySlug": "casa-orozco",
-    "availability": "In Stock",
-    "price": 34.29,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/star%20and%20cherry%20quartz%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7413,
-    "title": "SU Tequila Blanco 40% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/su-tequila-blanco-40-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 42,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/SU%20Tequila%20Blanco%2040%25%20700ml.jpg?t=1774522516"
-  },
-  {
-    "itemId": 7414,
-    "title": "SU Tequila Reposado 40% 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/su-tequila-reposado-40-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 47.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/SU%20Tequila%20Reposado%2040%25%20700ml.jpg?t=1774522516"
-  },
-  {
-    "itemId": 7142,
-    "title": "Sugar Skull Calaveritas 9cm",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/decorations/sugar-skull-calaveritas-9cm",
-    "department": "food",
-    "categorySlug": "decorations",
-    "availability": "In Stock",
-    "price": 9.48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sugar%20Skull%20Calaveritas%209cm%20new.png?t=1785146091"
-  },
-  {
-    "itemId": 7290,
-    "title": "Tacos by Lily Ramirez-Froan",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/tacos-by-lily-ramirez-froan",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 15,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tacos%20by%20Lily%20Ramirez-Froan.jpg?t=1757591452"
-  },
-  {
-    "itemId": 5424,
-    "title": "Tacos!",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/tacos",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 13.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cook%20in%20a%20book%20tacos.jpg?t=1725357521"
-  },
-  {
-    "itemId": 4453,
-    "title": "Tajin Ancho Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-ancho-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Ancho%20Chilli%2075g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4455,
-    "title": "Tajin Arbol Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-arbol-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Arbol%2075g.jpg?t=1664273061"
-  },
-  {
-    "itemId": 7485,
-    "title": "Tajin Chamoy Liquid 308ml",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chamoy-liquid-308ml",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 3.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tjn_fruitChamoy_15-38oz_455ml_1.0003.png?t=1786704141"
-  },
-  {
-    "itemId": 4696,
-    "title": "Tajin Chamoy Liquid 455ml",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chamoy-liquid-455ml",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tjn_fruitChamoy_15-38oz_455ml_1.0003.png?t=1709638821"
-  },
-  {
-    "itemId": 6802,
-    "title": "Tajin Chili and Lime Seasoning 142g & Chamoy Pack",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chili-and-lime-seasoning-142g-chamoy-pack",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tajin%20chamoy%20kit.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7324,
-    "title": "Tajin Chili and Lime Seasoning 45g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chili-and-lime-seasoning-45g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "Out of Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chili%20and%20Lime%20Seasoning%2045g.jpg?t=1759224396"
-  },
-  {
-    "itemId": 4451,
-    "title": "Tajin Chilli & Lime Seasoning Mini Bottle10 x10g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chilli-lime-seasoning-mini-bottle10-x10g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 6.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%208x100g%202.jpg?t=1725630435"
-  },
-  {
-    "itemId": 4443,
-    "title": "Tajin Chilli and Lime Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chilli-and-lime-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20142g.jpg?t=1706477176"
-  },
-  {
-    "itemId": 4332,
-    "title": "Tajin Chilli and Lime Seasoning 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chilli-and-lime-seasoning-400g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 7.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%20400g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6820,
-    "title": "Tajin Dried Chillies (4 x 75g)",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-dried-chillies-4-x-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 16,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chillies%20Bundle.jpg?t=1683612626"
-  },
-  {
-    "itemId": 4460,
-    "title": "Tajin Glass Season Rimmer",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-glass-season-rimmer",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "Out of Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20rimmer.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4457,
-    "title": "Tajin Guajillo Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-guajillo-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Guajillo%2075g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5548,
-    "title": "Tajin Habanero Powder 45g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-habanero-powder-45g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Habanero_45_gr%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6924,
-    "title": "Tajin Keyring",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/seasoning/tajin-keyring",
-    "department": "brands",
-    "categorySlug": "seasoning",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Keyring.jpg?t=1730816856"
-  },
-  {
-    "itemId": 4442,
-    "title": "Tajin Low Sodium Chilli and Lime Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-low-sodium-chilli-and-lime-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chile%20and%20Lime%20Low%20Sodium%20140g.JPG?t=1724156362"
-  },
-  {
-    "itemId": 4459,
-    "title": "Tajin Pasilla Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-pasilla-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Pasilla%2075g.jpg?t=1664273449"
-  },
-  {
-    "itemId": 4450,
-    "title": "Tajin Seasoning Bottle 907g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-seasoning-bottle-907g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 15.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%20900g.jpg?t=1660837606"
-  },
-  {
-    "itemId": 4452,
-    "title": "Tajin To Go 25 Sachets Chilli & Lime Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-to-go-25-sachets-chilli-lime-seasoning",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.38,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%20To%20Go%2025x1g.jpg?t=1739201029"
-  },
-  {
-    "itemId": 6906,
-    "title": "Takis Blue Heat 70g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-blue-heat-70g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "In Stock",
-    "price": 2.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Takis%20Blue%20Heat%2070g%20UPDATE.jpg?t=1772026668"
-  },
-  {
-    "itemId": 7441,
-    "title": "Takis Duoz 70g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-duoz-70g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Takis%20Duoz%2070g.jpg?t=1779978401"
-  },
-  {
-    "itemId": 5552,
-    "title": "Takis Salsa Brava 70g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-salsa-brava-70g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/salsa%20brava.png?t=1720604506"
-  },
-  {
-    "itemId": 6964,
-    "title": "Takis Salsa Brava 70g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-salsa-brava-70g-pack-of-3",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Takis%20Salsa%20Brava%2070g%20%28Pack%203%29.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6476,
-    "title": "Tama Roca Banderilla 30 x 50g",
-    "url": "https://www.mexgrocer.co.uk/food/candy/tama-roca-banderilla-30-x-50g",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 30,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tamaroca%20Banderliers.jpg?t=1664577335"
-  },
-  {
-    "itemId": 7349,
-    "title": "Tama Roca Pellizco 40 Pcs",
-    "url": "https://www.mexgrocer.co.uk/food/candy/tama-roca-pellizco-40-pcs",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tama%20Roca%20Pellizco%2040%20Pcs.jpg?t=1762429708"
-  },
-  {
-    "itemId": 7098,
-    "title": "Tamal Steamer Cooking Pot Aluminium 20Lt",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/tamal-steamer-cooking-pot-aluminium-20lt",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Steamer%2020L.jpg?t=1723494117"
-  },
-  {
-    "itemId": 5534,
-    "title": "Tamazula Black 140ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/tamazula-black-140ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tamazula%20black%20-%20NEW.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5535,
-    "title": "Tamazula Red 140ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/tamazula-red-140ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tamazula%20red%20-%20NEW.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5322,
-    "title": "Tapatio Anejo 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/tapatio-anejo-500ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tapatio%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5320,
-    "title": "Tapatio Blanco 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/tapatio-blanco-500ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 38.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tapatio%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5306,
-    "title": "Tapatio Reposado 500ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/tapatio-reposado-500ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 43.2,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tapatio%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6954,
-    "title": "Tapatio Salsa Picante 148ml",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/tapatio-salsa-picante-148ml",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "In Stock",
-    "price": 2.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tapatio%20Salsa%20Picante%20148ml.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5834,
-    "title": "Taragui - Yerba Mate with Stems",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/argentina/taragui-yerba-mate-with-stems",
-    "department": "food",
-    "categorySlug": "argentina",
-    "availability": "In Stock",
-    "price": 10,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Taragui-yerba-mate-with-stems-con-palo-x-500g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5561,
-    "title": "Tarrito Beer Lollipop Bag",
-    "url": "https://www.mexgrocer.co.uk/food/candy/lolipops/tarrito-beer-lollipop-bag",
-    "department": "food",
-    "categorySlug": "lolipops",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tarrito%20beer%20lollipop.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5741,
-    "title": "Tecate Lager Beer 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/tecate-lager-beer-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "Out of Stock",
-    "price": 3.36,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tecate.jpg?t=1759997729"
-  },
-  {
-    "itemId": 4250,
-    "title": "Tequila Centinela Anejo 3yr 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/tequila-centinela-anejo-3yr-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 204,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20Centinela%20Anejo%203yr%20new.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4251,
-    "title": "Tequila Centinela Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/tequila-centinela-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 74.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Centinela%20Anejo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4252,
-    "title": "Tequila Centinela Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/tequila-centinela-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 59.94,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tequila%20Centinela%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4253,
-    "title": "Tequila Centinela Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/tequila-centinela-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 64.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Centinela%20Reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6868,
-    "title": "Tequila Cocktails Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/tequila-cocktails-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 8.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20Cocktails.jpg?t=1695046515"
-  },
-  {
-    "itemId": 6926,
-    "title": "Tequila Tierra Noble Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/anejo/tequila-tierra-noble-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "anejo",
-    "availability": "In Stock",
-    "price": 79.44,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20Tierra%20Noble%20Anejo%20700ml.jpg?t=1706023596"
-  },
-  {
-    "itemId": 6927,
-    "title": "Tequila Tierra Noble Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/tequila-tierra-noble-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "Out of Stock",
-    "price": 59.3,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20Tierra%20Noble%20Blanco%20700ml.jpg?t=1706023595"
-  },
-  {
-    "itemId": 6928,
-    "title": "Tequila Tierra Noble Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/tequila-tierra-noble-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 68.76,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20Tierra%20Noble%20Reposado%20700ml.jpg?t=1706023595"
-  },
-  {
-    "itemId": 4605,
-    "title": "Terana Epazote 26g",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-epazote-26g",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "In Stock",
-    "price": 4.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Epazote%20Chopped%202.JPG?t=1732790309"
-  },
-  {
-    "itemId": 4608,
-    "title": "Terana Epazote 400gr",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-epazote-400gr",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "In Stock",
-    "price": 14.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Epazote%20Chopped%20Wholesale.JPG?t=1725361462"
-  },
-  {
-    "itemId": 5250,
-    "title": "Terana Oregano 21g",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-oregano-21g",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Oregano%2021g.JPG?t=1732790309"
-  },
-  {
-    "itemId": 5357,
-    "title": "Terana Oregano 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-oregano-400g",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "Out of Stock",
-    "price": 14.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Oregano%20Wholesale.JPG?t=1725361463"
-  },
-  {
-    "itemId": 4212,
-    "title": "Terralta Blanco 750ml 40%",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/terralta-blanco-750ml-40",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 42,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20Terralta%20Blanco.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4213,
-    "title": "Terralta Reposado 750ml 40%",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/terralta-reposado-750ml-40",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 42,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tequila%20Terralta%20reposado.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7276,
-    "title": "The Curators Tajin Pork Puffs 25g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/the-curators-tajin-pork-puffs-25g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Pork%20Puffs%2025g.jpg?t=1754042568"
-  },
-  {
-    "itemId": 6431,
-    "title": "The Latin American Cookbook",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/the-latin-american-cookbook",
-    "department": "food",
-    "categorySlug": "other-mexican-items",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Latin%20Cookbook.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6932,
-    "title": "Tico Blanco Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/blanco/tico-blanco-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "blanco",
-    "availability": "In Stock",
-    "price": 45,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tico%20Blanco.JPG?t=1706477178"
-  },
-  {
-    "itemId": 6933,
-    "title": "Tico Reposado Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/tico-reposado-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 49.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tico%20Reposado.JPG?t=1706477179"
-  },
-  {
-    "itemId": 6934,
-    "title": "Tico Rosa Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/tico-rosa-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 48.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tico%20Rosa.JPG?t=1706477176"
-  },
-  {
-    "itemId": 6747,
-    "title": "Torre de Picos Reposado Tequila 375ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/torre-de-picos-reposado-tequila-375ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 56.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Torre%20de%20Picos%20Reposado%20Tequila%20375ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6749,
-    "title": "Torre de Picos Reposado Tequila 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/torre-de-picos-reposado-tequila-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 98.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Torre%20de%20Picos%20Reposado%20Tequila%20700ml.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5484,
-    "title": "Tortilla Machine VILLAMEX V5",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/other-mexican-products/tortilla-machine-villamex-v5",
-    "department": "catering-sizes",
-    "categorySlug": "other-mexican-products",
-    "availability": "In Stock",
-    "price": 1800,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/VILLAMEX%20V5.jpg?t=1730737791"
-  },
-  {
-    "itemId": 5566,
-    "title": "Tortilla Making Kit: Tortilla press, 1kg Naturelo & Tortilla Warmer",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/tortilla-making-kit-tortilla-press-1kg-naturelo-tortilla-warmer",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 39,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortilla%20making%20kit.jpg?t=1785142010"
-  },
-  {
-    "itemId": 5474,
-    "title": "Tortilla Warmer Palm Style",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/tortilla-warmer-palm-style",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tortillero%20palma.jpg?t=1664278900"
-  },
-  {
-    "itemId": 5702,
-    "title": "Tortilla Warmer Pewter Black 18cm",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/tortilla-warmer-pewter-black-18cm",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pewter%20tortilla%20warmer%20black.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5700,
-    "title": "Tortilla Warmer Pewter Blue 18cm",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/tortilla-warmer-pewter-blue-18cm",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pewter%20tortilla%20warmer%20blue.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5701,
-    "title": "Tortilla Warmer Pewter Red 18cm",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/tortilla-warmer-pewter-red-18cm",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pewter%20tortilla%20warmer%20red.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4389,
-    "title": "Totmoxtle Corn Husks 100g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/totmoxtle-corn-husks-100g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Las%20Catrinas%20Corn%20Husks%20100g.JPG?t=1730902673"
-  },
-  {
-    "itemId": 4952,
-    "title": "Tu Casa Mi Casa Book",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/cookbooks/tu-casa-mi-casa-book",
-    "department": "food",
-    "categorySlug": "cookbooks",
-    "availability": "In Stock",
-    "price": 29.95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tu%20Casa%20Mi%20Casa%20Book.jpg?t=1660147763"
-  },
-  {
-    "itemId": 7058,
-    "title": "Two Keys Frozen Paloma Mix 750ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/two-keys-frozen-paloma-mix-750ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "Out of Stock",
-    "price": 4.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Two%20Keys%20Frozen%20Paloma%20Mix%20750ml.jpg?t=1714565486"
-  },
-  {
-    "itemId": 6427,
-    "title": "Two Keys Pink Grapefruit Soda 200ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/two-keys-pink-grapefruit-soda-200ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "In Stock",
-    "price": 2.18,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Two%20Keys%20Grapefruit.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6813,
-    "title": "Uruapan Pure Agricola Charanda Blanco Rum 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/rum/uruapan-pure-agricola-charanda-blanco-rum-700ml",
-    "department": "drinks",
-    "categorySlug": "rum",
-    "availability": "In Stock",
-    "price": 61.44,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Uruapan%20-%20Charanda%20Blanco%20-%20Pure%20Single%20Agricola%20Rum.jpg?t=1683612628"
-  },
-  {
-    "itemId": 4883,
-    "title": "Valentina Black 1lt",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/snack-salsas/valentina-black-1lt",
-    "department": "food",
-    "categorySlug": "snack-salsas",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20Black%201lt.jpg?t=1660837606"
-  },
-  {
-    "itemId": 5116,
-    "title": "Valentina Black 370ml",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/snack-salsas/valentina-black-370ml",
-    "department": "food",
-    "categorySlug": "snack-salsas",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20black%20370ml.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6856,
-    "title": "Valentina Hot Sauce Trio",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/valentina-hot-sauce-trio",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 5.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20Hot%20Sauce%20Trio%20NEW.png?t=1785241408"
-  },
-  {
-    "itemId": 4825,
-    "title": "Valentina Mariscos 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-mariscos-370ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20seafood.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5144,
-    "title": "Valentina Red 1lt",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/snack-salsas/valentina-red-1lt",
-    "department": "food",
-    "categorySlug": "snack-salsas",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%201lt.JPG?t=1725009527"
-  },
-  {
-    "itemId": 5113,
-    "title": "Valentina Red 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-red-370ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20red%20370ml.jpg?t=1663751872"
-  },
-  {
-    "itemId": 7392,
-    "title": "Valentina Red 4Lt",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-red-4lt",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 27,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20Red%204L.jpg?t=1769009049"
-  },
-  {
-    "itemId": 5420,
-    "title": "Valentina Salsa Sachets 15 x 10g",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-salsa-sachets-15-x-10g",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "Out of Stock",
-    "price": 1.95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/valentina%20pouches%20-%20NEW.jpg?t=1660837606"
-  },
-  {
-    "itemId": 7407,
-    "title": "Vallemex Flor de Calabaza 908g (Pumpkin Flower in Brine)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-flor-de-calabaza-908g-pumpkin-flower-in-brine",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "Out of Stock",
-    "price": 7.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Flor%20de%20Calabaza%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 7411,
-    "title": "Vallemex Guayaba 908g (Mexican Guava in Syrup)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-guayaba-908g-mexican-guava-in-syrup",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Guayaba%20908g.jpg?t=1773852260"
-  },
-  {
-    "itemId": 7408,
-    "title": "Vallemex Huitlacoche 908g (Mexican Corn Smut)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-huitlacoche-908g-mexican-corn-smut",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Huitlacoche%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 7410,
-    "title": "Vallemex Nanche 908g",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-nanche-908g",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "Out of Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Nanche%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 7412,
-    "title": "Vallemex Romertios (Seepweed) 908g",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-romertios-seepweed-908g",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Romertios%20908g.png?t=1773852260"
-  },
-  {
-    "itemId": 7404,
-    "title": "Vallemex Tejocote 908g (Hawthorn in Syrup)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-tejocote-908g-hawthorn-in-syrup",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Tejocote%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 5288,
-    "title": "Vero Elote Lollipops",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/vero-elote-lollipops",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "Out of Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vero%20Elotes.JPG?t=1720604716"
-  },
-  {
-    "itemId": 5280,
-    "title": "Vero Mango Lollipops",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/vero-mango-lollipops",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "Out of Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vero%20Mango.JPG?t=1725895315"
-  },
-  {
-    "itemId": 5680,
-    "title": "Vero Picafresas 100 x 6g Bag",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/vero-picafresas-100-x-6g-bag",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vero%20Picafresas%20100%20x%206g%20Bag%20NEW.jpg?t=1779968069"
-  },
-  {
-    "itemId": 6500,
-    "title": "Victoria Beer 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/beer/victoria-beer-355ml",
-    "department": "drinks",
-    "categorySlug": "beer",
-    "availability": "In Stock",
-    "price": 3.84,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Victoria.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5099,
-    "title": "Vitrolero",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/kitchenware/vitrolero",
-    "department": "food",
-    "categorySlug": "kitchenware",
-    "availability": "In Stock",
-    "price": 42,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vitrolero.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6035,
-    "title": "Vivir Tequila Anejo 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/vivir-tequila-anejo-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 73.15,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vivir%20Tequila%20Anejo.png?t=1720604506"
-  },
-  {
-    "itemId": 6034,
-    "title": "Vivir Tequila Blanco 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/vivir-tequila-blanco-700ml",
-    "department": "drinks",
-    "categorySlug": "tequila",
-    "availability": "In Stock",
-    "price": 50.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vivir%20Tequila%20Blanco.png?t=1720604716"
-  },
-  {
-    "itemId": 6160,
-    "title": "Vivir Tequila Reposado 700ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/tequila/reposado/vivir-tequila-reposado-700ml",
-    "department": "drinks",
-    "categorySlug": "reposado",
-    "availability": "In Stock",
-    "price": 52.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vivir%20Tequila%20Reposado.png?t=1720604716"
-  },
-  {
-    "itemId": 7254,
-    "title": "Xiqueno Mole Sauce 500g",
-    "url": "https://www.mexgrocer.co.uk/food/mole-sauces/xiqueno-mole-sauce-500g",
-    "department": "food",
-    "categorySlug": "mole-sauces",
-    "availability": "In Stock",
-    "price": 9.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Xiqueno%20Mole.jpg?t=1749130273"
-  },
-  {
-    "itemId": 7317,
-    "title": "Zaaschila Creamy Cheese & Jalapeno Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-cheese-jalapeno-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Cheese%20%26%20Jalapeno%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7419,
-    "title": "Zaaschila Creamy Cheese & Jalapeno Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-cheese-jalapeno-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Cheese%20%26%20Jalapeno%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7294,
-    "title": "Zaaschila Creamy Chipotle Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-chipotle-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Chipotle%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7418,
-    "title": "Zaaschila Creamy Chipotle Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-chipotle-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Chipotle%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7316,
-    "title": "Zaaschila Creamy Guacamole & Habanero 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-habanero-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20%26%20Habanero%20.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7417,
-    "title": "Zaaschila Creamy Guacamole & Habanero 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-habanero-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20%26%20Habanero%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7299,
-    "title": "Zaaschila Creamy Guacamole and Jalapeno Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-and-jalapeno-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20and%20Jalapeno%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7416,
-    "title": "Zaaschila Creamy Guacamole and Jalapeno Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-and-jalapeno-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20and%20Jalapeno%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7364,
-    "title": "Zaaschila Creamy Salsa Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-salsa-bundle",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 13.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Salsa%20Bundle.jpg?t=1766051934"
-  },
-  {
-    "itemId": 7321,
-    "title": "Zaaschila Creamy Street Corn Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-street-corn-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Street%20Corn%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7415,
-    "title": "Zaaschila Creamy Street Corn Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-street-corn-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 5.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Street%20Corn%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 6994,
-    "title": "Zote Pink Soap 200g",
-    "url": "https://www.mexgrocer.co.uk/food/other-mexican-items/zote-pink-soap-200g",
-    "department": "food",
-    "categorySlug": "other-mexican-items",
-    "availability": "Out of Stock",
-    "price": 2.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zote%20Pink%20Soap%20200g.jpg?t=1723508544"
-  }
-];
-
-export const mexgrocerCatalogue: readonly MexgrocerProduct[] = [
-  {
-    "itemId": 4435,
-    "title": "10\" Poco Loco Flour Tortillas",
-    "url": "https://www.mexgrocer.co.uk/food/flour-tortillas/10-poco-loco-flour-tortillas",
-    "department": "food",
-    "categorySlug": "flour-tortillas",
-    "availability": "In Stock",
-    "price": 6.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/10%20inch%20Tortillas%20Poco%20Loco.jpg?t=1772013777"
-  },
-  {
-    "itemId": 4437,
-    "title": "12\" Poco Loco Flour Tortillas",
-    "url": "https://www.mexgrocer.co.uk/food/flour-tortillas/12-poco-loco-flour-tortillas",
-    "department": "food",
-    "categorySlug": "flour-tortillas",
-    "availability": "In Stock",
-    "price": 8.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/12%20Poco%20Loco.jpg?t=1672851728"
-  },
-  {
-    "itemId": 4879,
-    "title": "Abuelita Chocolate 540g",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/abuelita-chocolate-540g",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "Out of Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nestle%20Abuelita%20Chocolate.JPG?t=1724314942"
-  },
-  {
-    "itemId": 7473,
-    "title": "Aciduladito Sweets 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/aciduladito-sweets-500g",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "Out of Stock",
-    "price": 11.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Aciduladtio%20Sweets%20500g.png?t=1784709713"
-  },
-  {
-    "itemId": 7121,
-    "title": "Agave Syrup 25kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/agave-syrup-25kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 170,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agave%20Syrup%2025kg.jpg?t=1733234757"
-  },
-  {
-    "itemId": 5853,
-    "title": "Agave Syrup 330g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/agave-syrup-330g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 4.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agave%20Syrup%20330g%20updated.jpg?t=1772015703"
-  },
-  {
-    "itemId": 5755,
-    "title": "Agave Syrup 5.6kg",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/agave-syrup-56kg",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 55,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agave%20Syrup%205.6kg.jpg?t=1763130444"
-  },
-  {
-    "itemId": 7222,
-    "title": "Agavesito 500ml Agave Syrup",
-    "url": "https://www.mexgrocer.co.uk/brands/agavesito/agavesito-500ml-agave-syrup",
-    "department": "brands",
-    "categorySlug": "agavesito",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Agavesito%20500ml.jpg?t=1738594610"
-  },
-  {
-    "itemId": 5958,
-    "title": "Ancho Chilli Powder 100g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/ground-chillies/ancho-chilli-powder-100g",
-    "department": "food",
-    "categorySlug": "ground-chillies",
-    "availability": "Out of Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20Powder%202.jpg?t=1660837606"
-  },
-  {
-    "itemId": 7463,
-    "title": "Ancho Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/crushed-chillies/ancho-flakes-500g",
-    "department": "food",
-    "categorySlug": "crushed-chillies",
-    "availability": "In Stock",
-    "price": 24,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20Flakes%20500g.png?t=1782384603"
-  },
-  {
-    "itemId": 5220,
-    "title": "Ancho Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/ancho-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 36,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ancho%20Whole%202.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6945,
-    "title": "Antica Cantina Cheese Dip 300g",
-    "url": "https://www.mexgrocer.co.uk/food/cheese/antica-cantina-cheese-dip-300g",
-    "department": "food",
-    "categorySlug": "cheese",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Antica%20Cantina%20Cheese%20Dip%20300g.jpg?t=1706477178"
-  },
-  {
-    "itemId": 7464,
-    "title": "Arbol Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/crushed-and-powder-chillies/arbol-flakes-500g",
-    "department": "catering-sizes",
-    "categorySlug": "crushed-and-powder-chillies",
-    "availability": "In Stock",
-    "price": 19,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/arbol%20flakes.jpg?t=1782384603"
-  },
-  {
-    "itemId": 5219,
-    "title": "Arbol Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/whole-dried-chillies/arbol-whole-dried-chilli-1kg",
-    "department": "food",
-    "categorySlug": "whole-dried-chillies",
-    "availability": "In Stock",
-    "price": 46,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Arbol%20Whole.jpg?t=1720604506"
-  },
-  {
-    "itemId": 4850,
-    "title": "Avocado Leaf Powder 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/speciality/avocado-leaf-powder-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Avocado%20Powder.png?t=1714565486"
-  },
-  {
-    "itemId": 4983,
-    "title": "Avocado Leaves Whole 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/speciality/avocado-leaves-whole-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 38.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Avocado%20Leaves%20Whole.jpg?t=1660147763"
-  },
-  {
-    "itemId": 4996,
-    "title": "Boing Grape 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-grape-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Grape%20237ml%20NEW.jpg?t=1772015699"
-  },
-  {
-    "itemId": 5085,
-    "title": "Boing Guava 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-guava-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Guava.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7241,
-    "title": "BOING JUICY KIT",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-juicy-kit",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 6.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/BOING%20JUICY%20KIT.jpg?t=1746021934"
-  },
-  {
-    "itemId": 4963,
-    "title": "Boing Mango 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-mango-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Mango%20237ml%20NEW.jpg?t=1772015699"
-  },
-  {
-    "itemId": 6341,
-    "title": "Boing Strawberry 237ml",
-    "url": "https://www.mexgrocer.co.uk/brands/boing/boing-strawberry-237ml",
-    "department": "brands",
-    "categorySlug": "boing",
-    "availability": "Out of Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Boing%20Strawberry%20237ml%20NEW.jpg?t=1772015700"
-  },
-  {
-    "itemId": 6641,
-    "title": "Botanero Kit | Chicharron & Valentina Salsa",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/botanero-kit-chicharron-valentina-salsa",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 4.75,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Botanero%20kit%20-%20NEW.jpg?t=1750773219"
-  },
-  {
-    "itemId": 5698,
-    "title": "Botanero Salsa Clasica Hot Sauce 370g",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/mild-table-sauces/botanero-salsa-clasica-hot-sauce-370g",
-    "department": "food",
-    "categorySlug": "mild-table-sauces",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/botanera.jpg?t=1723515810"
-  },
-  {
-    "itemId": 5532,
-    "title": "Bufalo Clasico Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/hot-sauces/bufalo-clasico-hot-sauce-150ml",
-    "department": "food",
-    "categorySlug": "hot-sauces",
-    "availability": "Out of Stock",
-    "price": 2.1,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Bufalo%20Clasico%20Hot%20Sauce%20150ml%20%28new%29.jpg?t=1712757656"
-  },
-  {
-    "itemId": 7352,
-    "title": "Cacto Original Prickly Pear & White Peach Soda 330ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cacto/cacto-original-prickly-pear-white-peach-soda-330ml",
-    "department": "brands",
-    "categorySlug": "cacto",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cacto%20Peach%20SKU.png?t=1770027620"
-  },
-  {
-    "itemId": 7351,
-    "title": "Cacto Original Prickly Pear Soda 330ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cacto/cacto-original-prickly-pear-soda-330ml",
-    "department": "brands",
-    "categorySlug": "cacto",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cacto%20Prickly%20Pear%20SKU.png?t=1770027620"
-  },
-  {
-    "itemId": 7120,
-    "title": "Carey Tomatillo Whole 340g Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/carey/carey-tomatillo-whole-340g-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "carey",
-    "availability": "Out of Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Carey%20Tomatillo%20Whole%20340g%20NEW.jpg?t=1772030737"
-  },
-  {
-    "itemId": 5842,
-    "title": "Casa Argentina - Chimichurri Mixed Dried Herbs 100g",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/argentina/casa-argentina-chimichurri-mixed-dried-herbs-100g",
-    "department": "food",
-    "categorySlug": "argentina",
-    "availability": "Out of Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Casa-Argentina-Premium-Chimichurri-Mixed-dried-herbs-x-100g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5543,
-    "title": "Cascabel Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/cascabel-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cascabel.jpg?t=1660837606"
-  },
-  {
-    "itemId": 7439,
-    "title": "Chatica Small Panela Sugar Cane 500g",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/chatica-small-panela-sugar-cane-500g",
-    "department": "food",
-    "categorySlug": "latin-american-food",
-    "availability": "Out of Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Panela.jpg?t=1779449710"
-  },
-  {
-    "itemId": 7363,
-    "title": "Che Dulce de Leche Classic Style 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/che-dulce-de-leche-classic-style-1kg",
-    "department": "food",
-    "categorySlug": "latin-american-food",
-    "availability": "Out of Stock",
-    "price": 17,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Che%20Dulce%20de%20Leche%20Classic%20Style%201kg.jpg?t=1765458110"
-  },
-  {
-    "itemId": 6218,
-    "title": "Chicharron 100g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-100g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chicharon%20100g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7063,
-    "title": "CHICHARRON 100G (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-100g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 8.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chicharron%20100g%20%28Pack%203%29.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6219,
-    "title": "Chicharron Jalapeno 70g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-jalapeno-70g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/KAI030_20x70g.jpg?t=1710163896"
-  },
-  {
-    "itemId": 7229,
-    "title": "Chicharron Jalapeno 70g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/chicharron-jalapeno-70g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 7,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chicharron%20Jalapeno%2070g%20%28Pack%203%29.jpg?t=1739274060"
-  },
-  {
-    "itemId": 6838,
-    "title": "Chilaquiles Verdes Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/chilaquiles-verdes-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 9.75,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chilaquiles%20Verdes%20Kit.jpg?t=1768319113"
-  },
-  {
-    "itemId": 5930,
-    "title": "Chipotle Chilli Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/chipotle-chilli-flakes-500g",
-    "department": "food",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 21,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chipotle%20Crushed%202.JPG?t=1739971556"
-  },
-  {
-    "itemId": 5232,
-    "title": "Chipotle Morita Chilli Powder 100g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/ground-chillies/chipotle-morita-chilli-powder-100g",
-    "department": "food",
-    "categorySlug": "ground-chillies",
-    "availability": "Out of Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/chipotle%20morita%20powder.jpg?t=1741254268"
-  },
-  {
-    "itemId": 5430,
-    "title": "Chocolate Drink Pack with Wood Molinillo",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/chocolate-drink-pack-with-wood-molinillo",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 24,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chocolate%20Drink%20Pack%20with%20Wood%20Molinillo.jpg?t=1741597495"
-  },
-  {
-    "itemId": 5434,
-    "title": "Cholula Chipotle Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-chipotle-hot-sauce-150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cholula-chipotle-hot-sauce.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5428,
-    "title": "Cholula Garlic and Chili Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-garlic-and-chili-hot-sauce-150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20garlic.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4465,
-    "title": "Cholula Limon Hot Sauce150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-limon-hot-sauce150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20Limon%20150ml.JPG?t=1730377369"
-  },
-  {
-    "itemId": 6015,
-    "title": "Cholula Origianl Hot Sauce 1.9lt",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-origianl-hot-sauce-19lt",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 21.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20catering.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4464,
-    "title": "Cholula Original Hot Sauce 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-original-hot-sauce-150ml",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20original.jpg?t=1663920238"
-  },
-  {
-    "itemId": 6824,
-    "title": "Cholula Sauce Collection",
-    "url": "https://www.mexgrocer.co.uk/brands/cholula/cholula-sauce-collection",
-    "department": "brands",
-    "categorySlug": "cholula",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Cholula%20Sauce%20Collection.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5052,
-    "title": "Chorizo Unit",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/chorizo-unit",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 12.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chorizo%20Unit.jpg?t=1703157595"
-  },
-  {
-    "itemId": 4988,
-    "title": "Churros Mix - Pronto 350g",
-    "url": "https://www.mexgrocer.co.uk/brands/pronto/churros-mix-pronto-350g",
-    "department": "brands",
-    "categorySlug": "pronto",
-    "availability": "Out of Stock",
-    "price": 3.7,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Churros%20Pronto.jpg?t=1664272172"
-  },
-  {
-    "itemId": 5431,
-    "title": "Churrumais 64g Crispy Corn Sticks with Lime",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/churrumais-64g-crispy-corn-sticks-with-lime",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/churrumais.jpg?t=1738848131"
-  },
-  {
-    "itemId": 7064,
-    "title": "Churrumaiz 64g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/churrumaiz-64g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 4.95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/churrumais%203%20pack.jpg?t=1723494117"
-  },
-  {
-    "itemId": 5365,
-    "title": "Clamato 946ml Bottle",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-946ml-bottle",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "In Stock",
-    "price": 7.08,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato.JPG?t=1723730375"
-  },
-  {
-    "itemId": 6827,
-    "title": "Clamato Bottle 296ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-bottle-296ml",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "In Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato%20Bottle%20296ml%20NEW.jpg?t=1772030747"
-  },
-  {
-    "itemId": 7206,
-    "title": "Clamato Cubano Bottle 946ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-cubano-bottle-946ml",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "Out of Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato%20Cubano%20Bottle%20946g.jpg?t=1733229633"
-  },
-  {
-    "itemId": 7452,
-    "title": "Clamato Cubano Glass Bottle 473ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/clamato-cubano-glass-bottle-473ml",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "In Stock",
-    "price": 4.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clamato%20Cubano%20Glass%20Bottle%20473ml.jpg?t=1781789299"
-  },
-  {
-    "itemId": 4519,
-    "title": "Clemente Jacques Chipotle in Adobo 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-chipotle-in-adobo-28kg",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 14.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Chipotle%20in%20Adobo%20%20NEW.jpg?t=1772016227"
-  },
-  {
-    "itemId": 4521,
-    "title": "Clemente Jacques Chipotle in Adobo 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-chipotle-in-adobo-210g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Chipotle%20in%20Adobo%20210g%20NEW.jpg?t=1772016226"
-  },
-  {
-    "itemId": 6236,
-    "title": "Clemente Jacques Chipotle Mashed 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-chipotle-mashed-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 3.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20chipotle%20squeeze%20220g.jpg?t=1776695924"
-  },
-  {
-    "itemId": 7231,
-    "title": "Clemente Jacques Habanero Relish 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-habanero-relish-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Habanero%20Relish%20220g.jpg?t=1739278220"
-  },
-  {
-    "itemId": 6882,
-    "title": "Clemente Jacques Home Style Casera Salsa 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-home-style-casera-salsa-370g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/656057011%20-%20Clemente%20Jacques%20Casera%20Salsa.jpg?t=1740057626"
-  },
-  {
-    "itemId": 5577,
-    "title": "Clemente Jacques Jalapeno Chillies in Slices 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-chillies-in-slices-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapeno%20Chillies%20in%20Slices%20220g%20updated.jpg?t=1739884345"
-  },
-  {
-    "itemId": 4522,
-    "title": "Clemente Jacques Jalapeno Chillies Whole 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-chillies-whole-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 1.7,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/jacques%20jalapeno%20whole%20220g.jpg?t=1776695861"
-  },
-  {
-    "itemId": 7215,
-    "title": "Clemente Jacques Jalapeno Mashed 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-mashed-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapeno%20Mashed%20220g.jpg?t=1737451343"
-  },
-  {
-    "itemId": 7061,
-    "title": "Clemente Jacques Jalapeno Nacho Slice 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapeno-nacho-slice-28kg",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 8.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapeno%20Nacho%20Slice%202.8kg.jpg?t=1714637527"
-  },
-  {
-    "itemId": 5513,
-    "title": "Clemente Jacques Jalapenos Nacho 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-jalapenos-nacho-220g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente-Jacques-Nachos-220g.jpg?t=1776695894"
-  },
-  {
-    "itemId": 6248,
-    "title": "Clemente Jacques Salsa Verde Bottle 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-salsa-verde-bottle-370g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/656056011%20-%20Clemente%20Jacques%20Salsa%20Verde.jpg?t=1740057597"
-  },
-  {
-    "itemId": 6891,
-    "title": "Clemente Jacques Taquera Salsa Bottle 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-taquera-salsa-bottle-370g",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/656058011%20-%20Clemente%20Jacques%20Taquera%20Salsa.jpg?t=1740057627"
-  },
-  {
-    "itemId": 6246,
-    "title": "Clemente Jacques Whole Jalapeno 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-whole-jalapeno-28kg",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "In Stock",
-    "price": 5.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Jalapenos%20Whole%202.8kg.jpg?t=1776702246"
-  },
-  {
-    "itemId": 6792,
-    "title": "Clemente Jacques Whole Tomatillo 3kg Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/clemente-jacques/clemente-jacques-whole-tomatillo-3kg-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "clemente-jacques",
-    "availability": "Out of Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Clemente%20Jacques%20Whole%20Tomatillo%203kg.jpg?t=1772017899"
-  },
-  {
-    "itemId": 7046,
-    "title": "De La Rosa Japanese Peanuts 14 Pieces",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/de-la-rosa-japanese-peanuts-14-pieces",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "Out of Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/De%20La%20Rosa%20Japanese%20Peanuts%2014%20Pieces.jpg?t=1772017899"
-  },
-  {
-    "itemId": 5529,
-    "title": "Dona Maria Adobo 235g Mexican Cooking Sauce for Chicken & Meats",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-adobo-235g-mexican-cooking-sauce-for-chicken-meats",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "In Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Adobo%20Dona%20Maria%20-%20NEW.jpg?t=1750774577"
-  },
-  {
-    "itemId": 6363,
-    "title": "Dona Maria Green Mole 235g Green Mole Sauce with Tomatillo & Pumpkin Seeds",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-green-mole-235g-green-mole-sauce-with-tomatillo-pumpkin-seeds",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mole%20Verde%20Dona%20Maria%20-%20NEW.jpg?t=1687773165"
-  },
-  {
-    "itemId": 6199,
-    "title": "Dona Maria Mole Brown 235g Traditional Mole Sauce with Chocolate & Spices",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-mole-brown-235g-traditional-mole-sauce-with-chocolate-spices",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "In Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20Mole%20235g.jpg?t=1750774577"
-  },
-  {
-    "itemId": 5531,
-    "title": "Dona Maria Pipian 235g Mole Pipian Sauce with Roasted Pumpkin Seeds",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-pipian-235g-mole-pipian-sauce-with-roasted-pumpkin-seeds",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "In Stock",
-    "price": 6.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pipian%20Dona%20Maria%20-%20NEW.jpg?t=1750774577"
-  },
-  {
-    "itemId": 7083,
-    "title": "Dona Maria ready to use Green Mole 360g",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-ready-to-use-green-mole-360g",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20ready%20to%20use%20Green%20Mole%20360g.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7082,
-    "title": "Dona Maria ready to use Poblano Mole 360g",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-ready-to-use-poblano-mole-360g",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20ready%20to%20use%20Poblano%20Mole%20360g.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7085,
-    "title": "Dona Maria ready to use Red Mole 360g",
-    "url": "https://www.mexgrocer.co.uk/brands/dona-maria/dona-maria-ready-to-use-red-mole-360g",
-    "department": "brands",
-    "categorySlug": "dona-maria",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Dona%20Maria%20ready%20to%20use%20Red%20Mole%20360g.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5541,
-    "title": "Dried Black Beans 25kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/beans/dried-black-beans-25kg",
-    "department": "catering-sizes",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 85,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/black%20beans%20catrinas.jpg?t=1664577335"
-  },
-  {
-    "itemId": 5540,
-    "title": "Dried Pinto Beans 25kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/beans/dried-pinto-beans-25kg",
-    "department": "catering-sizes",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 85,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/pinto%20beans%2025kg.jpg?t=1720604506"
-  },
-  {
-    "itemId": 7232,
-    "title": "Durum Flour Tortillas 30cm (12\")",
-    "url": "https://www.mexgrocer.co.uk/food/flour-tortillas/durum-flour-tortillas-30cm-12",
-    "department": "food",
-    "categorySlug": "flour-tortillas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Durum%20Flour%20Tortillas%2030cm.jpg?t=1740050743"
-  },
-  {
-    "itemId": 6215,
-    "title": "El Mexicano Chipotle in Adobo 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-chipotle-in-adobo-28kg",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Chipotle%20in%20Adobo%202.8kg.png?t=1776771321"
-  },
-  {
-    "itemId": 4313,
-    "title": "El Mexicano Pinto Beans Refried 3kg",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-pinto-beans-refried-3kg",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 9.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Pinto%20Beans%20Refried%203kg%20%28NEW%29.jpg?t=1711368383"
-  },
-  {
-    "itemId": 4303,
-    "title": "El Mexicano Pozole 3kg Mexican White Hominy in Brine",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-pozole-3kg-mexican-white-hominy-in-brine",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 6.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Pozolo%203kg.jpg?t=1776771312"
-  },
-  {
-    "itemId": 4315,
-    "title": "El Mexicano Pozole 822g Mexican White Hominy in Brine",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-pozole-822g-mexican-white-hominy-in-brine",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 2.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Pozole%20822g.JPG?t=1776771313"
-  },
-  {
-    "itemId": 4305,
-    "title": "El Mexicano Tomatillo Whole 767g Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/el-mexicano/el-mexicano-tomatillo-whole-767g-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "el-mexicano",
-    "availability": "In Stock",
-    "price": 3.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Mexicano%20Tomatillo%20Whole%20767g.JPG?t=1776771312"
-  },
-  {
-    "itemId": 6785,
-    "title": "EL YUCATECO \"BIG FIVE\" HOT SAUCE KIT",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/el-yucateco-big-five-hot-sauce-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/EL%20YUCATECO%20HOT%20SAUCE%20KIT.jpg?t=1680710741"
-  },
-  {
-    "itemId": 4433,
-    "title": "El Yucateco Achiote Liquid 300ml Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-achiote-liquid-300ml-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Achiote%20Liquid%20300ml.jpg?t=1738847083"
-  },
-  {
-    "itemId": 4429,
-    "title": "El Yucateco Achiote Paste 100g Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-achiote-paste-100g-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Achiote%20Paste%20100g.jpg?t=1738847082"
-  },
-  {
-    "itemId": 4431,
-    "title": "El Yucateco Achiote Paste 1kg Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-achiote-paste-1kg-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 12.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Achiote%201kg.jpg?t=1738847083"
-  },
-  {
-    "itemId": 4420,
-    "title": "El Yucateco Caribbean Habanero 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-caribbean-habanero-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Caribbean%20Habanero%20Salsa%20120ml.JPG?t=1724246347"
-  },
-  {
-    "itemId": 5975,
-    "title": "El Yucateco Charola Habanero 4 x 22ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/salsa/el-yucateco-charola-habanero-4-x-22ml",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mini%204%20pack.jpg?t=1663834724"
-  },
-  {
-    "itemId": 5433,
-    "title": "El Yucateco Chilmole Paste 100g Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/pastes/el-yucateco-chilmole-paste-100g-seasoning",
-    "department": "brands",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chilmole%20-%20NEW.jpg?t=1738847082"
-  },
-  {
-    "itemId": 4424,
-    "title": "El Yucateco Chipotle Salsa 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-chipotle-salsa-150ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Chipotle%20Salsa%20150ml.JPG?t=1724246348"
-  },
-  {
-    "itemId": 6935,
-    "title": "El Yucateco Habanero & Chiltepin 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-chiltepin-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 4.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Chiltepin%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 6939,
-    "title": "El Yucateco Habanero & Coffee 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-coffee-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 3.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Coffee%20120ml%20NEW.png?t=1772554615"
-  },
-  {
-    "itemId": 6937,
-    "title": "El Yucateco Habanero & Ghost 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-ghost-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 4.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Ghost%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 6936,
-    "title": "El Yucateco Habanero & Grilled Pineapple",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-grilled-pineapple",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20%26%20Grilled%20Pineapple%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 5906,
-    "title": "El Yucateco Habanero 4 x 120ml Pack",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/salsa/el-yucateco-habanero-4-x-120ml-pack",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Salsa%204%20Pack%202.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4426,
-    "title": "El Yucateco Habanero Black Label Reserve 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-black-label-reserve-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Black%20Hot%20Sauce.png?t=1660147763"
-  },
-  {
-    "itemId": 4421,
-    "title": "El Yucateco Habanero Green 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-green-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Green%20Habanero%20Salsa%20120ml.JPG?t=1724246348"
-  },
-  {
-    "itemId": 7435,
-    "title": "El Yucateco Habanero Green 2L",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-green-2l",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Green%202L.jpg?t=1779814186"
-  },
-  {
-    "itemId": 4419,
-    "title": "El Yucateco Habanero Hot Sauce 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-hot-sauce-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Kutbil%20Habanero%20GREAT%20TASTE.jpg?t=1689934434"
-  },
-  {
-    "itemId": 4422,
-    "title": "El Yucateco Habanero Red 120ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-red-120ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Red%20Great%20Taste.jpg?t=1689934434"
-  },
-  {
-    "itemId": 7434,
-    "title": "El Yucateco Habanero Red 2L",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-red-2l",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Red%202L.jpg?t=1780332501"
-  },
-  {
-    "itemId": 7437,
-    "title": "El Yucateco Habanero XXXtra Hot 2L",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-habanero-xxxtra-hot-2l",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Habanero%20Xxtra%20Hot%202L%20NEW.jpg?t=1779814186"
-  },
-  {
-    "itemId": 4409,
-    "title": "El Yucateco Horchata Coconut Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-horchata-coconut-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Horchata%20Coco%20Concentrate%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4411,
-    "title": "El Yucateco Horchata Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-horchata-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Horchata%20Concentrate%20700ml.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6955,
-    "title": "El Yucateco Hot Sauce Flavour Pack",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/el-yucateco-hot-sauce-flavour-pack",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 17.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Hot%20Sauce%20Flavour%20Pack.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4423,
-    "title": "El Yucateco Jalapeno Salsa 150ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-jalapeno-salsa-150ml",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Jalapeno%20Salsa%20150ml.JPG?t=1720604716"
-  },
-  {
-    "itemId": 4408,
-    "title": "El Yucateco Jamaica Hibiscus Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-jamaica-hibiscus-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Jamaica%20Concentrate%20700ml.jpg?t=1738835368"
-  },
-  {
-    "itemId": 6942,
-    "title": "El Yucateco Marisquera Red 120ml Seafood Hot Sauce",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/el-yucateco-marisquera-red-120ml-seafood-hot-sauce",
-    "department": "brands",
-    "categorySlug": "el-yucateco",
-    "availability": "In Stock",
-    "price": 2.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Marisquera%20Red%20120ml%20NEW.png?t=1772554614"
-  },
-  {
-    "itemId": 7482,
-    "title": "El Yucateco Mayakut Salsa de Habanero 105ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/salsa/el-yucateco-mayakut-salsa-de-habanero-105ml",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Mayakut%20Habanero%20Salsa%20.jpg?t=1785505959"
-  },
-  {
-    "itemId": 4410,
-    "title": "El Yucateco Tamarind Concentrate 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/el-yucateco/concentrates/el-yucateco-tamarind-concentrate-700ml",
-    "department": "brands",
-    "categorySlug": "concentrates",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/El%20Yucateco%20Tamarindo%20Concentrate%20700ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7471,
-    "title": "Electrolit Blueberry Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-blueberry-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Blueberry%20625ml.jpg?t=1784290566"
-  },
-  {
-    "itemId": 7202,
-    "title": "Electrolit Coconut Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-coconut-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Coconut%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1733241081"
-  },
-  {
-    "itemId": 7291,
-    "title": "Electrolit Grape Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-grape-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Grape%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1758020546"
-  },
-  {
-    "itemId": 7420,
-    "title": "Electrolit Guava Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-guava-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Guava%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1776085029"
-  },
-  {
-    "itemId": 7468,
-    "title": "Electrolit Horchata Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-horchata-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Horchata%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1784290566"
-  },
-  {
-    "itemId": 7236,
-    "title": "Electrolit Lime Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-lime-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Lime%20Flavoured%20Mineral%20Water.jpg?t=1741613318"
-  },
-  {
-    "itemId": 7237,
-    "title": "Electrolit Orange Mandarine Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/electrolit-orange-mandarine-flavoured-mineral-water-625ml",
-    "department": "drinks",
-    "categorySlug": "",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Orange%20Mandarine%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1769089589"
-  },
-  {
-    "itemId": 7469,
-    "title": "Electrolit Pineapple Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-pineapple-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Pineapple%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1784290566"
-  },
-  {
-    "itemId": 7348,
-    "title": "Electrolit Ponche Zero Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-ponche-zero-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Ponche%20Zero%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1762169033"
-  },
-  {
-    "itemId": 7199,
-    "title": "Electrolit Strawberry & Kiwi Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-strawberry-kiwi-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/electrolit%20strawberry%20and%20kiwi%20mineral%20water%20625ml.jpg?t=1733241081"
-  },
-  {
-    "itemId": 7472,
-    "title": "Electrolit Strawberry & Kiwi ZERO Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-strawberry-kiwi-zero-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Strawberry%20%26%20Kiwi%20ZERO%20Flavoured%20Mineral%20Water%20625ml%20.jpg?t=1784290553"
-  },
-  {
-    "itemId": 7347,
-    "title": "Electrolit Strawberry Flavoured Mineral Water 625ml",
-    "url": "https://www.mexgrocer.co.uk/brands/electrolit/electrolit-strawberry-flavoured-mineral-water-625ml",
-    "department": "brands",
-    "categorySlug": "electrolit",
-    "availability": "Out of Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Electrolit%20Strawberry%20Flavoured%20Mineral%20Water%20625ml.jpg?t=1762169033"
-  },
-  {
-    "itemId": 7333,
-    "title": "Fiestas Pozole 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/fiestas/fiestas-pozole-1kg",
-    "department": "brands",
-    "categorySlug": "fiestas",
-    "availability": "In Stock",
-    "price": 5.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Fiestas%20Pozole%201kg.jpg?t=1759402026"
-  },
-  {
-    "itemId": 7331,
-    "title": "Fiestas Tostadas 275g",
-    "url": "https://www.mexgrocer.co.uk/brands/fiestas/fiestas-tostadas-275g",
-    "department": "brands",
-    "categorySlug": "fiestas",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Fiestas%20Tostadas%20275g.jpg?t=1759402026"
-  },
-  {
-    "itemId": 7330,
-    "title": "Fiestas Totopos Corn Tortilla Chips 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/fiestas/fiestas-totopos-corn-tortilla-chips-400g",
-    "department": "brands",
-    "categorySlug": "fiestas",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Fiestas%20Totopos%20Corn%20Tortilla%20Chips%20400g%20NEW.jpg?t=1772017902"
-  },
-  {
-    "itemId": 6564,
-    "title": "Golden Nuts 60g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/golden-nuts-60g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/golden%20nuts%202.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6966,
-    "title": "Golden Nuts 60g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/golden-nuts-60g-pack-of-3",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 6.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Golden%20Nuts%2060g%20%28Pack%20of%203%29.jpg?t=1723515810"
-  },
-  {
-    "itemId": 7400,
-    "title": "Goya Aji Amarillo Yellow Hot Pepper Paste 213g",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-aji-amarillo-yellow-hot-pepper-paste-213g",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Aji%20Amarillo%20Yellow%20Hot%20Pepper%20Paste%20213g.png?t=1772192325"
-  },
-  {
-    "itemId": 7402,
-    "title": "Goya Aji Panca Pepper Paste 213g",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-aji-panca-pepper-paste-213g",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Aji%20Panca%20Pepper%20Paste%20213g.png?t=1772192325"
-  },
-  {
-    "itemId": 7403,
-    "title": "Goya Peruvian Pepper Paste Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-peruvian-pepper-paste-bundle",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 17.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Peruvian%20Pepper%20Paste%20Bundle.jpg?t=1773058869"
-  },
-  {
-    "itemId": 7401,
-    "title": "Goya Rocoto Red Pepper Paste 213g",
-    "url": "https://www.mexgrocer.co.uk/brands/goya/goya-rocoto-red-pepper-paste-213g",
-    "department": "brands",
-    "categorySlug": "goya",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Goya%20Rocoto%20Red%20Pepper%20Paste%20213g%20NEW.png?t=1773852260"
-  },
-  {
-    "itemId": 4395,
-    "title": "Guajillo Chilli Flakes 500gr",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/crushed-and-powder-chillies/guajillo-chilli-flakes-500gr",
-    "department": "catering-sizes",
-    "categorySlug": "crushed-and-powder-chillies",
-    "availability": "In Stock",
-    "price": 19,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Guajillo%20new.jpg?t=1738852742"
-  },
-  {
-    "itemId": 5218,
-    "title": "Guajillo Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/guajillo-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 32,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Guajillo%20Whole.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4359,
-    "title": "Guanajuato 15cm Cactus Corn Tortillas 340g",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/guanajuato-15cm-cactus-corn-tortillas-340g",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 3.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/15cm%20Cactus%20Corn%20Tortilla%20Zip%20Lock%201.JPG?t=1770993599"
-  },
-  {
-    "itemId": 4355,
-    "title": "Guanajuato 15cm Yellow Corn Tortilla For Frying 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/guanajuato-15cm-yellow-corn-tortilla-for-frying-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 5.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/15CM%20YELLOW%20CORN%20TORTILLA%20FOR%20FRYING%201KG%20NEW.jpg?t=1720604506"
-  },
-  {
-    "itemId": 7180,
-    "title": "Guava Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/guava-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Guava%20Tang%20Powder%20104g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 6044,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying GUSANO 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-gusano-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Gusano.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6056,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying MIX 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-mix-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Pasta%20mix.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6050,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying RAQUETA 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-raqueta-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "Out of Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Raqueta.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6042,
-    "title": "Gustinos Wheat Flour Snack Pellets for frying RUEDA 227g",
-    "url": "https://www.mexgrocer.co.uk/brands/gustinos-wheat-snacks/gustinos-wheat-flour-snack-pellets-for-frying-rueda-227g",
-    "department": "brands",
-    "categorySlug": "gustinos-wheat-snacks",
-    "availability": "Out of Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Gustinos%20Rueda.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5547,
-    "title": "Habanero Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/habanero-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 62,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/habanero%20dry%201kg.jpg?t=1664577335"
-  },
-  {
-    "itemId": 4892,
-    "title": "Harina Pan (sweet) Red 500g Corn Flour for Arepas",
-    "url": "https://www.mexgrocer.co.uk/brands/harina-pan/harina-pan-sweet-red-500g-corn-flour-for-arepas",
-    "department": "brands",
-    "categorySlug": "harina-pan",
-    "availability": "Out of Stock",
-    "price": 5.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Harina%20Pan%20%28sweet%29%20Red%20500g%20NEW.png?t=1785406373"
-  },
-  {
-    "itemId": 5223,
-    "title": "Harina Pan Amarillo 1kg Yellow Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/harina-pan/harina-pan-amarillo-1kg-yellow-corn-flour",
-    "department": "brands",
-    "categorySlug": "harina-pan",
-    "availability": "In Stock",
-    "price": 4.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Harina%20Pan%20Amarilla%201kg%20NEW.jpg?t=1774349419"
-  },
-  {
-    "itemId": 5226,
-    "title": "Harina Pan Blanca 1kg White Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/harina-pan/harina-pan-blanca-1kg-white-corn-flour",
-    "department": "brands",
-    "categorySlug": "harina-pan",
-    "availability": "In Stock",
-    "price": 4.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Harina%20PAN%20Blanca.jpeg?t=1738852719"
-  },
-  {
-    "itemId": 4654,
-    "title": "Herdez Casera Salsa 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-casera-salsa-210g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 1.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Casera%20Salsa%20210g%20NEW.jpg?t=1772551223"
-  },
-  {
-    "itemId": 4651,
-    "title": "Herdez Ranchera Salsa 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-ranchera-salsa-220g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Ranchera%20220g.JPG?t=1668500632"
-  },
-  {
-    "itemId": 7243,
-    "title": "HERDEZ SALSA DIPS KIT",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/herdez-salsa-dips-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 11.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Dips%20Kit.jpg?t=1746702217"
-  },
-  {
-    "itemId": 4656,
-    "title": "Herdez Salsa Verde 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-salsa-verde-210g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Verde%20210g.JPG?t=1725445050"
-  },
-  {
-    "itemId": 6993,
-    "title": "Herdez Salsa Verde Jar 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-salsa-verde-jar-453g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 4.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20Verde%20Jar%20453g%20NEW.jpg?t=1772020676"
-  },
-  {
-    "itemId": 4649,
-    "title": "Herdez Salsa Verde with Avocado 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-salsa-verde-with-avocado-240g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 3.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Salsa%20de%20Guacamole.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6898,
-    "title": "Herdez Spicy Chipotle Salsa Cremoso 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-spicy-chipotle-salsa-cremoso-240g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 4.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Spicy%20Chipotle%20Cremoso%20240g.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6897,
-    "title": "Herdez Spicy Guacamole Sauce 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-spicy-guacamole-sauce-240g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "In Stock",
-    "price": 4.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20Spicy%20Guacamole%20240g.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7174,
-    "title": "Herdez White Corn with Poblano 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/herdez/herdez-white-corn-with-poblano-220g",
-    "department": "brands",
-    "categorySlug": "herdez",
-    "availability": "Out of Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Herdez%20White%20Corn%20with%20Poblano%20220g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 7438,
-    "title": "Hibiscus Moy 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/hibiscus-moy-1kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "Out of Stock",
-    "price": 18,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Hibiscus%20Moy%201kg.png?t=1779120517"
-  },
-  {
-    "itemId": 6668,
-    "title": "Hoja Santa 10g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/hoja-santa-10g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 4.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/hoja%20santa.jpg?t=1760610874"
-  },
-  {
-    "itemId": 5556,
-    "title": "Hot Nuts Peanuts 75g Spicy Peanuts with Chilli & Lime",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/hot-nuts-peanuts-75g-spicy-peanuts-with-chilli-lime",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.52,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/hot%20nuts.jpg?t=1778848995"
-  },
-  {
-    "itemId": 7242,
-    "title": "ISADORA REFRIED BEANS PACK",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/isadora-refried-beans-pack",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 8.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Beans%20Pack.jpg?t=1746702217"
-  },
-  {
-    "itemId": 7327,
-    "title": "Isadora Refried Black Beans 430g",
-    "url": "https://www.mexgrocer.co.uk/brands/isadora/isadora-refried-black-beans-430g",
-    "department": "brands",
-    "categorySlug": "isadora",
-    "availability": "Out of Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Black%20Beans%20430g.jpg?t=1759398753"
-  },
-  {
-    "itemId": 7328,
-    "title": "Isadora Refried Peruvian Beans 430g",
-    "url": "https://www.mexgrocer.co.uk/brands/isadora/isadora-refried-peruvian-beans-430g",
-    "department": "brands",
-    "categorySlug": "isadora",
-    "availability": "In Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Peruvian%20Beans%20430g.jpg?t=1759398753"
-  },
-  {
-    "itemId": 7292,
-    "title": "Isadora Refried Pinto Beans 430g",
-    "url": "https://www.mexgrocer.co.uk/brands/isadora/isadora-refried-pinto-beans-430g",
-    "department": "brands",
-    "categorySlug": "isadora",
-    "availability": "In Stock",
-    "price": 2.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Isadora%20Refried%20Pinto%20Beans%20430g.jpg?t=1759398753"
-  },
-  {
-    "itemId": 4393,
-    "title": "Jalapeno Chilli Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/crushed-and-powder-chillies/jalapeno-chilli-flakes-500g",
-    "department": "catering-sizes",
-    "categorySlug": "crushed-and-powder-chillies",
-    "availability": "Out of Stock",
-    "price": 14.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/jalapeno%20flakes%202.jpg?t=1738862528"
-  },
-  {
-    "itemId": 7259,
-    "title": "Jalapeno Chips 52g Spicy Potato Crisps",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/jalapeno-chips-52g-spicy-potato-crisps",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/potato%20chips%20jalapenos.jpg?t=1749467185"
-  },
-  {
-    "itemId": 7430,
-    "title": "Jarritos Fruit Punch 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-fruit-punch-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/F.jpg?t=1778493080"
-  },
-  {
-    "itemId": 4688,
-    "title": "Jarritos Grapefruit 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-grapefruit-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/JARGlass_Grapefruit_International.png?t=1736784486"
-  },
-  {
-    "itemId": 4693,
-    "title": "Jarritos Guava 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-guava-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Guava.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4687,
-    "title": "Jarritos Lime 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-lime-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Lime%20New%20Stock%20Photo.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4689,
-    "title": "Jarritos Mandarin 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-mandarin-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20mandarin.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4690,
-    "title": "Jarritos Mango 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-mango-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Mango.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4694,
-    "title": "Jarritos Mexican Cola 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-mexican-cola-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "In Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/JARGlass_Cola_International.png?t=1736784487"
-  },
-  {
-    "itemId": 5347,
-    "title": "Jarritos Pineapple 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-pineapple-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarriots%20Pineapple.jpg?t=1664577335"
-  },
-  {
-    "itemId": 6809,
-    "title": "Jarritos Rainbow Kit",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-rainbow-kit",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 17.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/JARRITOS%20RAINBOW%20%28temporary%20cola%20and%20strawberry%29.jpg?t=1734958683"
-  },
-  {
-    "itemId": 6722,
-    "title": "Jarritos Strawberry 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-strawberry-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Strawberry.jpg?t=1667318711"
-  },
-  {
-    "itemId": 7429,
-    "title": "Jarritos Tamarind 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/jarritos/jarritos-tamarind-370ml",
-    "department": "brands",
-    "categorySlug": "jarritos",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jarritos%20Tamarind%20370ml.jpg?t=1778494325"
-  },
-  {
-    "itemId": 5363,
-    "title": "Jose Cuervo Margarita Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/mixers/jose-cuervo-margarita-mix",
-    "department": "drinks",
-    "categorySlug": "mixers",
-    "availability": "Out of Stock",
-    "price": 11.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jose%20Cuervo%20Margarita%20Mix%201lt.jpg?t=1725283855"
-  },
-  {
-    "itemId": 6757,
-    "title": "Kankun Jalapeno 2kg",
-    "url": "https://www.mexgrocer.co.uk/brands/kankun/kankun-jalapeno-2kg",
-    "department": "brands",
-    "categorySlug": "kankun",
-    "availability": "Out of Stock",
-    "price": 8.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Kankun%20Jalapeno%202kg.jpg?t=1675859705"
-  },
-  {
-    "itemId": 6756,
-    "title": "KanKun Pibil 2kg",
-    "url": "https://www.mexgrocer.co.uk/brands/kankun/kankun-pibil-2kg",
-    "department": "brands",
-    "categorySlug": "kankun",
-    "availability": "Out of Stock",
-    "price": 63.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Kankun%20Pibil%202kg.jpg?t=1675859707"
-  },
-  {
-    "itemId": 5507,
-    "title": "Ki Gourmet Chipotle Adelita 380g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-chipotle-adelita-380g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20La%20Adelita.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5489,
-    "title": "Ki Gourmet Green with Chilli La Dona 380g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-green-with-chilli-la-dona-380g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20La%20Dona.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5486,
-    "title": "Ki Gourmet Mango Huapango 420g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-mango-huapango-420g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 7.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20Huapango.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5510,
-    "title": "Ki Gourmet Morita Llorona 380g Salsa",
-    "url": "https://www.mexgrocer.co.uk/brands/ki-gourmet/ki-gourmet-morita-llorona-380g-salsa",
-    "department": "brands",
-    "categorySlug": "ki-gourmet",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ki%20Gourmet%20-%20La%20Llorona.jpg?t=1738853106"
-  },
-  {
-    "itemId": 5276,
-    "title": "Knorr Mexican Style Rice 160g",
-    "url": "https://www.mexgrocer.co.uk/food/rice-and-soups/knorr-mexican-style-rice-160g",
-    "department": "food",
-    "categorySlug": "rice-and-soups",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Knorr%20Arroz%20a%20la%20Mexicana%202.JPG?t=1732793264"
-  },
-  {
-    "itemId": 5409,
-    "title": "Knorr Poblano Rice 160g",
-    "url": "https://www.mexgrocer.co.uk/food/rice-and-soups/knorr-poblano-rice-160g",
-    "department": "food",
-    "categorySlug": "rice-and-soups",
-    "availability": "Out of Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/poblano.jpg?t=1664577335"
-  },
-  {
-    "itemId": 7453,
-    "title": "Knorr Tomato Powder 200g",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/knorr-tomato-powder-200g",
-    "department": "food",
-    "categorySlug": "seasonings",
-    "availability": "In Stock",
-    "price": 13,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Knorr%20Tomato%20Powder%20200g.png?t=1782207344"
-  },
-  {
-    "itemId": 5612,
-    "title": "La Anita Marinade Pastor Sauce Bottle 300ml",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/pastes/la-anita-marinade-pastor-sauce-bottle-300ml",
-    "department": "food",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Anota%20pastor%20marinade.jpg?t=1738855352"
-  },
-  {
-    "itemId": 6929,
-    "title": "La Anita Pastor Marinde Bottle 3.8Lt",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/pastes/la-anita-pastor-marinde-bottle-38lt",
-    "department": "food",
-    "categorySlug": "pastes",
-    "availability": "In Stock",
-    "price": 49.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Anita%20Pastor%20Marinde%20Bottle%203.8Lt.jpg?t=1706023595"
-  },
-  {
-    "itemId": 7340,
-    "title": "La Artesanal Extra Hot Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-extra-hot-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Toke%20Innova%20Macha%20Sauce%20200g.jpg?t=1761824226"
-  },
-  {
-    "itemId": 7343,
-    "title": "La Artesanal Honey and Cranberry Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-honey-and-cranberry-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Artesanal%20Blueberry%20Salsa%20Macha%20200g.jpg?t=1763650465"
-  },
-  {
-    "itemId": 7345,
-    "title": "La Artesanal Medium Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-medium-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Toke%20Innova%20No%20Tan%20Macha%20Sauce%20200g.jpg?t=1761824226"
-  },
-  {
-    "itemId": 7341,
-    "title": "La Artesanal Peanut and Morita Salsa Macha 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-peanut-and-morita-salsa-macha-200g",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 5.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Toke%20Innova%20Peanut%20Sauce%20200g.jpg?t=1761824226"
-  },
-  {
-    "itemId": 7393,
-    "title": "La Artesanal Salsa Macha Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/la-artesanal/la-artesanal-salsa-macha-bundle",
-    "department": "brands",
-    "categorySlug": "la-artesanal",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Artesanal%20Salsa%20Macha%20Bundle.jpg?t=1769074391"
-  },
-  {
-    "itemId": 6111,
-    "title": "La Costena Black Whole Beans 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-black-whole-beans-400g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20black%20beans%20400g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6084,
-    "title": "La Costena Chipotle in Adobo 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-chipotle-in-adobo-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 23.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20chipotle%20in%20adobo%202.8kg.jpg?t=1776702236"
-  },
-  {
-    "itemId": 7213,
-    "title": "La Costena Chipotle in Adobo Picados Jar 230g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-chipotle-in-adobo-picados-jar-230g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Chipotle%20in%20Adobo%20Picados%20jar%20230g.png?t=1737390640"
-  },
-  {
-    "itemId": 4493,
-    "title": "La Costena Chipotle in Adobo Sauce 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-chipotle-in-adobo-sauce-199g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Chipotle%20in%20Adobo%20Sauce%20199g%20UPDATED.jpg?t=1696326571"
-  },
-  {
-    "itemId": 6128,
-    "title": "La Costena Elote Dorado Whole 220g Sweet Corn",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-elote-dorado-whole-220g-sweet-corn",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20gold%20corn.jpg?t=1776771320"
-  },
-  {
-    "itemId": 7255,
-    "title": "La Costena Green Salsa 475g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-green-salsa-475g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Green%20Salsa%20475g.jpg?t=1749029483"
-  },
-  {
-    "itemId": 6113,
-    "title": "La Costena Guacamole Salsa 465g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-guacamole-salsa-465g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Guacamole%20Salsa%20465g.jpg?t=1748510629"
-  },
-  {
-    "itemId": 6115,
-    "title": "La Costena Guayaba Paste 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-guayaba-paste-240g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20guava%20paste.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6093,
-    "title": "La Costena Habanero Rajas 210g Habanero Pepper Slices",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-habanero-rajas-210g-habanero-pepper-slices",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20habaneros%20slices.jpg?t=1776771321"
-  },
-  {
-    "itemId": 6094,
-    "title": "La Costena Habanero Whole 200g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-habanero-whole-200g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20habaneros.jpg?t=1782467505"
-  },
-  {
-    "itemId": 6082,
-    "title": "La Costena Huitlacoche 380g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-huitlacoche-380g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 12.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20huitlacoche.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6090,
-    "title": "La Costena Jalapeno Chilli Picados 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-chilli-picados-220g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20jalapeno%20pickled%20220g.jpg?t=1776771319"
-  },
-  {
-    "itemId": 5578,
-    "title": "La Costena Jalapeno Chillies Whole 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-chillies-whole-220g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20jalapenos%20220g.jpg?t=1782994609"
-  },
-  {
-    "itemId": 6120,
-    "title": "La Costena Jalapeno Nacho 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-jalapeno-nacho-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 9.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Jalapeno%20nacho%20slices%203kg.jpg?t=1776771319"
-  },
-  {
-    "itemId": 7212,
-    "title": "La Costena Jalapeno Nacho Jar 210g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-jalapeno-nacho-jar-210g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.55,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Jalapeno%20Nacho%20Jar%20210g.jpg?t=1772013242"
-  },
-  {
-    "itemId": 6293,
-    "title": "La Costena Jalapeno Red Slices 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-red-slices-199g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/LA%20COSTENA%20JALAPENO%20RED%20SLICES%20199G%20%28updated%29.jpg?t=1717148376"
-  },
-  {
-    "itemId": 6138,
-    "title": "La Costena Jalapeno Slices 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-slices-199g",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/LA%20COSTENA%20JALAPENO%20SLICES%20199G%20%28updated%29.jpg?t=1711368382"
-  },
-  {
-    "itemId": 6088,
-    "title": "La Costena Jalapeno Whole 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/chillies/la-costena-jalapeno-whole-28kg",
-    "department": "brands",
-    "categorySlug": "chillies",
-    "availability": "In Stock",
-    "price": 6.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20whole%20jalapenos%203kg.jpg?t=1776771299"
-  },
-  {
-    "itemId": 6807,
-    "title": "La Costena Maiz Blanco 820g Mexican Pozole",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-maiz-blanco-820g-mexican-pozole",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Maiz%20Blanco%20820g%20NEW.png?t=1772458767"
-  },
-  {
-    "itemId": 6840,
-    "title": "La Costena Membrillo Chamoy Paste 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-membrillo-chamoy-paste-240g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Membrillo%20Chamoy%20Paste%20240g.jpg?t=1725531420"
-  },
-  {
-    "itemId": 6145,
-    "title": "La Costena Membrillo Paste 240g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-membrillo-paste-240g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.45,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20membrillo%20paste.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6395,
-    "title": "La Costena Mexican Red Salsa 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-mexican-red-salsa-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 13.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Mexican%20Red%20Salsa%202.8kg%20UPDATED.jpg?t=1696326552"
-  },
-  {
-    "itemId": 7428,
-    "title": "La Costena Pickled Carrots 230g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-pickled-carrots-230g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 0.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Pickled%20Carrots%20230g.jpg?t=1776782587"
-  },
-  {
-    "itemId": 6109,
-    "title": "La Costena Pinto Whole Beans 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/beans/la-costena-pinto-whole-beans-400g",
-    "department": "brands",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 1.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Whole%20pinto%20bean%20400g.jpg?t=1752160296"
-  },
-  {
-    "itemId": 7214,
-    "title": "La Costena Red Nacho Jalapeno Tatemado 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-red-nacho-jalapeno-tatemado-220g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Red%20Nacho%20Jalapeno%20Tatemado%20220g%20HQ.jpg?t=1737994855"
-  },
-  {
-    "itemId": 6086,
-    "title": "La Costena Refried Black Beans Pouch 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/beans/la-costena-refried-black-beans-pouch-220g",
-    "department": "brands",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Refried%20Black%20Beans%20Pouch%20220g.png?t=1663328465"
-  },
-  {
-    "itemId": 6104,
-    "title": "La Costena Refried Pinto Beans Pouch 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/beans/la-costena-refried-pinto-beans-pouch-220g",
-    "department": "brands",
-    "categorySlug": "beans",
-    "availability": "In Stock",
-    "price": 1.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20pinto%20bean%20pouch.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6079,
-    "title": "La Costena Salsa Dip Hot 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/salsa/la-costena-salsa-dip-hot-453g",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 3.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20hot%20salsa%20dip.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6076,
-    "title": "La Costena Salsa Dip Medium 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/salsa/la-costena-salsa-dip-medium-453g",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 3.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20medium%20salsa%20dip.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6075,
-    "title": "La Costena Salsa Dip Mild 453g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/salsa/la-costena-salsa-dip-mild-453g",
-    "department": "brands",
-    "categorySlug": "salsa",
-    "availability": "In Stock",
-    "price": 3.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20mild%20salsa%20dip.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6853,
-    "title": "La Costena Salsa Dips",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/la-costena-salsa-dips",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 8.49,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Dips%20.jpg?t=1691509886"
-  },
-  {
-    "itemId": 6108,
-    "title": "La Costena Salsa Mexicana Casera 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-mexicana-casera-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Mexicana%20Casera%20250g%20new.jpg?t=1769681995"
-  },
-  {
-    "itemId": 6295,
-    "title": "La Costena Salsa Picante 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-picante-370ml",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20para%20bonata%20salsa.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4490,
-    "title": "La Costena Salsa Ranchera 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-ranchera-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Ranchera%20250g%20new.jpg?t=1769681138"
-  },
-  {
-    "itemId": 4491,
-    "title": "La Costena Salsa Taquera 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-taquera-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Taquera%20250g%20new.jpg?t=1769681138"
-  },
-  {
-    "itemId": 6391,
-    "title": "La Costena Salsa Verde 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-verde-28kg",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 13.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Verde%202.8kg.jpg?t=1772013227"
-  },
-  {
-    "itemId": 4515,
-    "title": "La Costena Salsa Verde 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-salsa-verde-250g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Salsa%20Verde%20250g%20new.jpg?t=1769681144"
-  },
-  {
-    "itemId": 6291,
-    "title": "La Costena Serrano Chillies Toreados 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-serrano-chillies-toreados-220g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20serranos%20toreados%20220g.jpg?t=1776771319"
-  },
-  {
-    "itemId": 5581,
-    "title": "La Costena Serrano Whole Chillies 199g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-serrano-whole-chillies-199g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20Serrano%20Whole%20Chillies%20199g.jpg?t=1772013228"
-  },
-  {
-    "itemId": 6284,
-    "title": "La Costena Tamal de Elote 110g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tamal-de-elote-110g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tamal%20elote.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6282,
-    "title": "La Costena Tamal Dulce 110g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tamal-dulce-110g",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tamal%20dulce.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6186,
-    "title": "La Costena Tomatillo Whole 2.8kg Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tomatillo-whole-28kg-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tomatillos%20whole%202.8kg.jpg?t=1780396867"
-  },
-  {
-    "itemId": 6188,
-    "title": "La Costena Tomatillos 794g Mexican Green Tomatoes",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-tomatillos-794g-mexican-green-tomatoes",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20tomatillos%20whole%20794g.jpg?t=1781700435"
-  },
-  {
-    "itemId": 7396,
-    "title": "La Costena Traditional Mexican Salsa Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-traditional-mexican-salsa-bundle",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 10,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costenaa%20Traditional%20Mexican%20Salsa%20Bundle%201.jpg?t=1769682601"
-  },
-  {
-    "itemId": 6289,
-    "title": "La Costena Vinagre de Manzana 1050ml",
-    "url": "https://www.mexgrocer.co.uk/brands/la-costena/la-costena-vinagre-de-manzana-1050ml",
-    "department": "brands",
-    "categorySlug": "la-costena",
-    "availability": "Out of Stock",
-    "price": 2.35,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Costena%20vinegar.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6812,
-    "title": "La Fonda 6\" Flour Tortilla",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-6-flour-tortilla",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Flour%20Tortilla.jpg?t=1772013237"
-  },
-  {
-    "itemId": 7238,
-    "title": "La Fonda Blue Flautas Tortillas 20 Pcs",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-flautas-tortillas-20-pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 7.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Flautas%20Tortillas%2020%20Pcs.jpg?t=1741876895"
-  },
-  {
-    "itemId": 7224,
-    "title": "La Fonda Blue Placera 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-placera-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Placera%2020PCS%20NEW.jpg?t=1773916849"
-  },
-  {
-    "itemId": 7225,
-    "title": "La Fonda Blue Taquera Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-taquera-tortillas-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Taquera%20Tortillas%2020PCS%20NEW.jpg?t=1773916848"
-  },
-  {
-    "itemId": 7223,
-    "title": "La Fonda Blue Tradicional 20PCS Tortillas",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-blue-tradicional-20pcs-tortillas",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.85,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Blue%20Tradicional%2020PCS%20NEW.jpg?t=1773916848"
-  },
-  {
-    "itemId": 7219,
-    "title": "La Fonda Cactus Strips Jar 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-strips-jar-460g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Strips%20Jar%20460g%20%28230g%20Drained%20Weight%29.jpg?t=1771946785"
-  },
-  {
-    "itemId": 7218,
-    "title": "La Fonda Cactus Strips Pouch 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-strips-pouch-1kg",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 6.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Strips%20Pouch%201kg%20NEW.jpg?t=1772013242"
-  },
-  {
-    "itemId": 7221,
-    "title": "La Fonda Cactus Whole Leaves Jar 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-whole-leaves-jar-460g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Whole%20Leaves%20Jar%20460g%20%28230g%20Drained%20Weight%29.jpg?t=1771946785"
-  },
-  {
-    "itemId": 7220,
-    "title": "La Fonda Cactus Whole Leaves Pouch 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-cactus-whole-leaves-pouch-1kg",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 7,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Cactus%20Whole%20Leaves%20Pouch%201kg%20NEW.jpg?t=1772013242"
-  },
-  {
-    "itemId": 7462,
-    "title": "La Fonda Chipotle Morita Powder 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-chipotle-morita-powder-500g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "Out of Stock",
-    "price": 17,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Chipotle%20Morita%20Powder%20500g.jpg?t=1782314443"
-  },
-  {
-    "itemId": 7240,
-    "title": "La Fonda Fresh Extra Large Corn Tortilla 20pcs",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-extra-large-corn-tortilla-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "Out of Stock",
-    "price": 19,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Extra%20Large%20Corn%20Tortilla%2020pcs%20NEW.png?t=1773919949"
-  },
-  {
-    "itemId": 7235,
-    "title": "La Fonda Fresh Flautas Tortillas 20 Pcs",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-flautas-tortillas-20-pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 6.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Flautas%20Tortillas%2020%20Pcs%20NEW.jpg?t=1773916848"
-  },
-  {
-    "itemId": 6918,
-    "title": "La Fonda Fresh Placera Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-placera-tortillas-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Placera%20Tortillas%2020PCS%20NEW.jpg?t=1773916844"
-  },
-  {
-    "itemId": 6916,
-    "title": "La Fonda Fresh Taquera Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-fresh-taquera-tortillas-20pcs",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Taquera%20Tortillas%2020PCS%20NEW.jpg?t=1773916844"
-  },
-  {
-    "itemId": 7387,
-    "title": "La Fonda LS Placera Corn Tortilla 36 x 20pcs Case",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-ls-placera-corn-tortilla-36-x-20pcs-case",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 119,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20LS.png?t=1772805284"
-  },
-  {
-    "itemId": 7386,
-    "title": "La Fonda LS Taquera Corn Tortilla 18 x 20pcs Case",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-long-shelf-life-taquera-corn-tortilla-18-x-20pcs-case",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 63,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20LS.png?t=1772805284"
-  },
-  {
-    "itemId": 7338,
-    "title": "La Fonda LS Tradicional Corn Tortilla 18 x 20 Case",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/corn-tortillas/la-fonda-ls-tradicional-corn-tortilla-18-x-20-case",
-    "department": "catering-sizes",
-    "categorySlug": "corn-tortillas",
-    "availability": "In Stock",
-    "price": 63,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20LS.png?t=1772805284"
-  },
-  {
-    "itemId": 7427,
-    "title": "La Fonda Pickled Cactus in Brine 330g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-pickled-cactus-in-brine-330g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Pickled%20Cactus%20in%20Brine%20330g.png?t=1776769729"
-  },
-  {
-    "itemId": 7454,
-    "title": "La Fonda Tomatillo Whole 2.8kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-tomatillo-whole-28kg",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 10.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Tomatillo%202.8kg.jpg?t=1782207572"
-  },
-  {
-    "itemId": 7355,
-    "title": "La Fonda Tradicional Corn Tortillas 8 Pieces",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-tradicional-corn-tortillas-8-pieces",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 2.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Tradicional%20Corn%20Tortillas%208%20Pieces%20NEW.jpg?t=1775663302"
-  },
-  {
-    "itemId": 6907,
-    "title": "La Fonda Tradicional Fresh Tortillas 20PCS",
-    "url": "https://www.mexgrocer.co.uk/food/corn-tortillas/la-fonda-tradicional-fresh-tortillas-20pcs",
-    "department": "food",
-    "categorySlug": "corn-tortillas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Fresh%20Tradicional%20Tortillas%2020PCS%20NEW.jpg?t=1773852254"
-  },
-  {
-    "itemId": 7457,
-    "title": "La Fonda Whole Dried Cascabel 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-cascabel-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Cascabel%2075g.jpg?t=1782314442"
-  },
-  {
-    "itemId": 7456,
-    "title": "La Fonda Whole Dried Jalapeno 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-jalapeno-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Jalapeno%2075g.jpg?t=1782314442"
-  },
-  {
-    "itemId": 7461,
-    "title": "La Fonda Whole Dried Morita 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-morita-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Morita%2075g.jpg?t=1782314443"
-  },
-  {
-    "itemId": 7460,
-    "title": "La Fonda Whole Dried Mulato 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-fonda/la-fonda-whole-dried-mulato-75g",
-    "department": "brands",
-    "categorySlug": "la-fonda",
-    "availability": "In Stock",
-    "price": 3.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Fonda%20Whole%20Dried%20Mulato%2075g.jpg?t=1782314443"
-  },
-  {
-    "itemId": 6822,
-    "title": "La Sierra Bayos Beans Whole 560g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-bayos-beans-whole-560g",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Bayos%20Beans%20Whole%20560g%20NEW.png?t=1772539376"
-  },
-  {
-    "itemId": 5607,
-    "title": "La Sierra Chilaquiles Verdes 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-chilaquiles-verdes-370g",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Chilaquiles%20Verde%20370g.jpg?t=1738855352"
-  },
-  {
-    "itemId": 6896,
-    "title": "La Sierra Dried Black Beans",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-dried-black-beans",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 3.33,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Dried%20Black%20Beans%20900g%202026.jpg?t=1770648666"
-  },
-  {
-    "itemId": 7230,
-    "title": "La Sierra Dried Pinto Beans",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-dried-pinto-beans",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 3.33,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Dried%20Pinto%20Beans%20900g%20copy.jpg?t=1739274053"
-  },
-  {
-    "itemId": 5672,
-    "title": "La Sierra Red Chilaquiles 370g",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-red-chilaquiles-370g",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20sierra%20Chilaquiles%20Rojos.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6260,
-    "title": "La Sierra Refried Pinto Beans 3kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-refried-pinto-beans-3kg",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 9.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Pinto%20Refried%20Beans%202.8kg.JPG?t=1762257275"
-  },
-  {
-    "itemId": 6264,
-    "title": "La Sierra Whole Pinto Beans 3kg",
-    "url": "https://www.mexgrocer.co.uk/brands/la-sierra/la-sierra-whole-pinto-beans-3kg",
-    "department": "brands",
-    "categorySlug": "la-sierra",
-    "availability": "In Stock",
-    "price": 7.13,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/La%20Sierra%20Pinto%20Beans%20Whole%203kg.JPG?t=1750786392"
-  },
-  {
-    "itemId": 7244,
-    "title": "Las Catrinas Avocado Leaves 70g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/las-catrinas-avocado-leaves-70g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Avocado%20Leaves%20Whole.jpg?t=1747069449"
-  },
-  {
-    "itemId": 4386,
-    "title": "Las Catrinas Black Beans Dried 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-black-beans-dried-500g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Las%20Catrinas%20Black%20Beans%20500g.JPG?t=1731406974"
-  },
-  {
-    "itemId": 4383,
-    "title": "Las Catrinas Chipotle Morita Chilli Dried 40g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-chipotle-morita-chilli-dried-40g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/morita%20w%20catrinas%202.jpg?t=1673875100"
-  },
-  {
-    "itemId": 5432,
-    "title": "Las Catrinas Cinnamon Quills - Canela 100g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-cinnamon-quills-canela-100g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 7.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cinnamon%20-%20NEW.jpg?t=1660147763"
-  },
-  {
-    "itemId": 5546,
-    "title": "Las Catrinas Habanero Dried Chilli 30g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-habanero-dried-chilli-30g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/habanero%20w%20catrinas.jpg?t=1664577335"
-  },
-  {
-    "itemId": 5575,
-    "title": "Las Catrinas Piloncillo 230g Raw Cane Sugar",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-piloncillo-230g-raw-cane-sugar",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 2.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/piloncillo.jpg?t=1738855344"
-  },
-  {
-    "itemId": 4336,
-    "title": "Las Catrinas Pinto Dried Beans 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-pinto-dried-beans-500g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 3.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Las%20Catrinas%20Pinto%20Beans%20500g.JPG?t=1720604716"
-  },
-  {
-    "itemId": 6517,
-    "title": "Las Catrinas Salty Chilli Margarita Rim 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-salty-chilli-margarita-rim-1kg",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 13,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Salty%20Chilli%20Margarita%20rim.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6520,
-    "title": "Las Catrinas Sweet Hibiscus Margarita Rim 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/las-catrinas-sweet-hibiscus-margarita-rim-1kg",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "Out of Stock",
-    "price": 13,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sweet%20Hibiscus%20Salt.jpg?t=1663934583"
-  },
-  {
-    "itemId": 7193,
-    "title": "Lime Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/lime-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lime%20Tang%20Powder%20104g.jpg?t=1733234719"
-  },
-  {
-    "itemId": 7263,
-    "title": "Loltun Pastor Cooking Paste 320g",
-    "url": "https://www.mexgrocer.co.uk/brands/loltun/loltun-pastor-cooking-paste-320g",
-    "department": "brands",
-    "categorySlug": "loltun",
-    "availability": "In Stock",
-    "price": 5.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lol%20Tun%20Pastor.jpg?t=1749463074"
-  },
-  {
-    "itemId": 7262,
-    "title": "Loltun Pibil Cooking Paste 320g",
-    "url": "https://www.mexgrocer.co.uk/brands/loltun/loltun-pibil-cooking-paste-320g",
-    "department": "brands",
-    "categorySlug": "loltun",
-    "availability": "In Stock",
-    "price": 5.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lol%20Tun%20Pibil.jpg?t=1749463074"
-  },
-  {
-    "itemId": 6040,
-    "title": "Lucas Gusano",
-    "url": "https://www.mexgrocer.co.uk/food/candy/lucas-gusano",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 13.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Lucas%20gusano.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5872,
-    "title": "Lucas Muecas Sweet Chamoy Candy with Chilli Mix Powder",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/lucas-muecas-sweet-chamoy-candy-with-chilli-mix-powder",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/lucas%20muecas.jpg?t=1738751811"
-  },
-  {
-    "itemId": 4953,
-    "title": "Macha Christmas Fruit Ponche Drink 908g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/macha-christmas-fruit-ponche-drink-908g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 1.53,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Ponche%20navideno%20Macha.jpg?t=1664793366"
-  },
-  {
-    "itemId": 5877,
-    "title": "Macha Guava Fruit in Syrup 908g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/macha-guava-fruit-in-syrup-908g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 0,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/guayaba%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6382,
-    "title": "Macha Sugar Cane 908g",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/macha-sugar-cane-908g",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "Out of Stock",
-    "price": 8.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sugar%20Cane.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5002,
-    "title": "Macha Tejocote 908g",
-    "url": "https://www.mexgrocer.co.uk/sale-items/macha-tejocote-908g",
-    "department": "sale-items",
-    "categorySlug": "",
-    "availability": "In Stock",
-    "price": 1.53,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tejocote%20Macha.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6321,
-    "title": "Maggie Black Sauce Bottle 800ml",
-    "url": "https://www.mexgrocer.co.uk/food/seasonings/maggie-black-sauce-bottle-800ml",
-    "department": "food",
-    "categorySlug": "seasonings",
-    "availability": "In Stock",
-    "price": 30,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Jugo.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5582,
-    "title": "Maizena Cajeta 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-cajeta-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/maizena%20cajeta.jpg?t=1738855345"
-  },
-  {
-    "itemId": 5585,
-    "title": "Maizena Chocolate 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-chocolate-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/maizena%20chocolate.jpg?t=1738855345"
-  },
-  {
-    "itemId": 5584,
-    "title": "Maizena Coconut 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-coconut-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/maizena%20coconut.jpg?t=1738855345"
-  },
-  {
-    "itemId": 5391,
-    "title": "Maizena Nuez Walnut 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-nuez-walnut-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maizena%20Walnut.jpg?t=1738855346"
-  },
-  {
-    "itemId": 5388,
-    "title": "Maizena Vanilla 47g Atole Drink Mix",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/maizena-vanilla-47g-atole-drink-mix",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maizena%20Vainilla%20new.jpg?t=1738855346"
-  },
-  {
-    "itemId": 7194,
-    "title": "Mango Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/mango-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mango%20Tang%20Powder%20104g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 5631,
-    "title": "Manita de la Suerte Lollipop",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/manita-de-la-suerte-lollipop",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Manita%20de%20la%20Suerte.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7350,
-    "title": "Manzanita Sol 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/manzanita-sol-355ml",
-    "department": "drinks",
-    "categorySlug": "",
-    "availability": "Out of Stock",
-    "price": 2.88,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Manzanita%20Sol%20355ml.jpg?t=1762429708"
-  },
-  {
-    "itemId": 6323,
-    "title": "Marinela Cinnamon Canelitas Cookies 60g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/marinela-cinnamon-canelitas-cookies-60g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 1.56,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Canelitas%20Unit.jpg?t=1720604506"
-  },
-  {
-    "itemId": 6331,
-    "title": "Marinela Pineapple Barritas Cookies 55g",
-    "url": "https://www.mexgrocer.co.uk/brands/marinela/marinela-pineapple-barritas-cookies-55g",
-    "department": "brands",
-    "categorySlug": "marinela",
-    "availability": "Out of Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Barritas%20Pineapple%20Unit.jpg?t=1761590579"
-  },
-  {
-    "itemId": 6325,
-    "title": "Marinela Polvorones Shortbread Orange Cookies 74g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/marinela-polvorones-shortbread-orange-cookies-74g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 1.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Polvorones%20Unit%20update.jpg?t=1776857354"
-  },
-  {
-    "itemId": 6329,
-    "title": "Marinela Strawberry Barritas Cookies 55g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/marinela-strawberry-barritas-cookies-55g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "Out of Stock",
-    "price": 1.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Barritas%20Strawberry%20Unit.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5271,
-    "title": "Maruchan Shrimp with Lime and Habanero Soup",
-    "url": "https://www.mexgrocer.co.uk/meals/ready-meals/maruchan-shrimp-with-lime-and-habanero-soup",
-    "department": "meals",
-    "categorySlug": "ready-meals",
-    "availability": "Out of Stock",
-    "price": 0.63,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maruchan%20Shrimp%20with%20Habanero.JPG?t=1723494117"
-  },
-  {
-    "itemId": 5598,
-    "title": "Maruchan Shrimp with Piquin Chilli Soup 64g",
-    "url": "https://www.mexgrocer.co.uk/meals/ready-meals/maruchan-shrimp-with-piquin-chilli-soup-64g",
-    "department": "meals",
-    "categorySlug": "ready-meals",
-    "availability": "In Stock",
-    "price": 2.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maruchan%20Shrimp%20with%20Piquin%20Chile.JPG?t=1724156363"
-  },
-  {
-    "itemId": 7467,
-    "title": "MasaMaiz Blue Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/masamaiz/masamaiz-blue-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "masamaiz",
-    "availability": "In Stock",
-    "price": 100,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MasaMaiz%20Blue%20Corn%20Flour%2020kg.jpg?t=1783008086"
-  },
-  {
-    "itemId": 7465,
-    "title": "MasaMaiz White Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/masamaiz/masamaiz-white-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "masamaiz",
-    "availability": "Out of Stock",
-    "price": 80,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MasaMaiz%20White%20Corn%20Flour%2020kg1.jpg?t=1783008085"
-  },
-  {
-    "itemId": 7466,
-    "title": "MasaMaiz Yellow Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/masamaiz/masamaiz-yellow-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "masamaiz",
-    "availability": "Out of Stock",
-    "price": 95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MasaMaiz%20Yellow%20Corn%20Flour%2020kg1.jpg?t=1783008086"
-  },
-  {
-    "itemId": 7250,
-    "title": "Maseca Antojitos 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/maseca/maseca-antojitos-1kg",
-    "department": "brands",
-    "categorySlug": "maseca",
-    "availability": "Out of Stock",
-    "price": 3.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Antojitos%20for%20Frying%201kg.jpg?t=1759752417"
-  },
-  {
-    "itemId": 4469,
-    "title": "Maseca Blue Corn Flour 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk/maseca-blue-corn-flour-1kg",
-    "department": "food",
-    "categorySlug": "maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk",
-    "availability": "Out of Stock",
-    "price": 3.59,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Blue%201kg%20New.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4468,
-    "title": "Maseca Corn Flour for Tamales 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk/maseca-corn-flour-for-tamales-1kg",
-    "department": "food",
-    "categorySlug": "maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk",
-    "availability": "In Stock",
-    "price": 2.69,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Tamales.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4467,
-    "title": "Maseca White Corn Flour 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk/maseca-white-corn-flour-1kg",
-    "department": "food",
-    "categorySlug": "maseca-corn-flour-mexican-food-mexican-corn-flour-flour-corn-mexican-shop-mexgrocer-uk",
-    "availability": "Out of Stock",
-    "price": 3.59,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca.JPG?t=1738679669"
-  },
-  {
-    "itemId": 7451,
-    "title": "Maseca Yellow 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/maseca/maseca-yellow-1kg",
-    "department": "brands",
-    "categorySlug": "maseca",
-    "availability": "Out of Stock",
-    "price": 3.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maseca%20Yellow%201kg.jpg?t=1781789299"
-  },
-  {
-    "itemId": 5336,
-    "title": "Mayordomo Chocolate 500g Mexican Hot Chocolate Tablets",
-    "url": "https://www.mexgrocer.co.uk/drinks/hot-drinks/mayordomo-chocolate-500g-mexican-hot-chocolate-tablets",
-    "department": "drinks",
-    "categorySlug": "hot-drinks",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chocolate%20Mayordomo.jpg?t=1750779192"
-  },
-  {
-    "itemId": 5500,
-    "title": "Mayordomo Mole Black 4.5 kg",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-mole-black-45-kg",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 78,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/cubeta-de-mole-negro-4.5kg-mayordomo-oaxaqueno.jpg?t=1777391055"
-  },
-  {
-    "itemId": 5499,
-    "title": "Mayordomo Mole Red 4.5 kg",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-mole-red-45-kg",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 78,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/mayordomo%20red%20mole%204.5kg.jpg?t=1725361475"
-  },
-  {
-    "itemId": 4826,
-    "title": "Mayordomo Mole Red 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-mole-red-460g",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 12.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mayordomo%20Mole%20Red%20460g%20NEW.png?t=1772552562"
-  },
-  {
-    "itemId": 5105,
-    "title": "Mayordomo Oaxaqueno Mole 460g",
-    "url": "https://www.mexgrocer.co.uk/brands/mayordomo/mayordomo-oaxaqueno-mole-460g",
-    "department": "brands",
-    "categorySlug": "mayordomo",
-    "availability": "In Stock",
-    "price": 12.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mayordomo%20Oaxaqueno%20Mole%20460g%20NEW.png?t=1772552527"
-  },
-  {
-    "itemId": 5014,
-    "title": "Maza Real Red Corn Flour 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maza-real-red-corn-flour-1kg",
-    "department": "food",
-    "categorySlug": "masa-harina",
-    "availability": "Out of Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Real%20Maza%20Red%20Corn.png?t=1720604506"
-  },
-  {
-    "itemId": 7339,
-    "title": "Maza Real Red Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/food/masa-harina/maza-real-red-corn-flour-20kg",
-    "department": "food",
-    "categorySlug": "masa-harina",
-    "availability": "Out of Stock",
-    "price": 110,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Maza%20Real%20Red%20Corn%20Flour%2020kg.jpg?t=1761780300"
-  },
-  {
-    "itemId": 5286,
-    "title": "Mazapan De La Rosa Peanut Candy",
-    "url": "https://www.mexgrocer.co.uk/food/candy/traditional/mazapan-de-la-rosa-peanut-candy",
-    "department": "food",
-    "categorySlug": "traditional",
-    "availability": "Out of Stock",
-    "price": 2.28,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mazapan%20Original%20%28Updated%29.jpg?t=1724082856"
-  },
-  {
-    "itemId": 7474,
-    "title": "Mexican Dried Chillies & Chipotle in Adobo Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mexican-dried-chillies-chipotle-in-adobo-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chillies%20%26%20Chipotle%20in%20Adobo%20Kit.png?t=1784800346"
-  },
-  {
-    "itemId": 7360,
-    "title": "Mexican Mayca Cajeta Caramel Spread 320g",
-    "url": "https://www.mexgrocer.co.uk/food/desserts/mexican-mayca-cajeta-caramel-spread-320g",
-    "department": "food",
-    "categorySlug": "desserts",
-    "availability": "In Stock",
-    "price": 6.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mexican%20Mayca%20Cajeta%20Caramel%20Spread%20-%20320g.jpg?t=1772030750"
-  },
-  {
-    "itemId": 7484,
-    "title": "Mexican Salsa Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mexican-salsa-kit-buy-at-mexgrocer-uk",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 14.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mexican%20Salsa%20Kit.jpg?t=1786114710"
-  },
-  {
-    "itemId": 7388,
-    "title": "Mexican Street Corn Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mexican-street-corn-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 9.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/MEXICAN%20STREET%20CORN%20KIT.png?t=1768322787"
-  },
-  {
-    "itemId": 6360,
-    "title": "Mezcales de Leyenda Durango 47% - Agave Cenizo 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-durango-47-agave-cenizo-700ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "In Stock",
-    "price": 61.8,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Cenizo.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6738,
-    "title": "Mezcales de Leyenda Oaxaca 50.1% Agave Espadin 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-oaxaca-501-agave-espadin-700ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "Out of Stock",
-    "price": 60.48,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20Espadin%20Oaxaca.jpg?t=1723494117"
-  },
-  {
-    "itemId": 6359,
-    "title": "Mezcales de Leyenda San Luis Potosi 42% - Agave Salmiana - Verde 700ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-san-luis-potosi-42-agave-salmiana-verde-700ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "In Stock",
-    "price": 51,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcal%20de%20Leyenda%20San%20Luis%20Verde.jpg?t=1723515810"
-  },
-  {
-    "itemId": 4256,
-    "title": "Mezcales de Leyenda Tripack 3 x 100ml",
-    "url": "https://www.mexgrocer.co.uk/brands/mezcal-de-leyenda/mezcales-de-leyenda-tripack-3-x-100ml",
-    "department": "brands",
-    "categorySlug": "mezcal-de-leyenda",
-    "availability": "Out of Stock",
-    "price": 41.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mezcales%20de%20Leyenda%20Tripack.jpg?t=1723508544"
-  },
-  {
-    "itemId": 6759,
-    "title": "Mezcalita Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mezcalita-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "Out of Stock",
-    "price": 42.98,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/mezcalita%20and%20free%20tajin.jpg?t=1727794032"
-  },
-  {
-    "itemId": 6601,
-    "title": "Mi Adelita Stone Ground Tortilla Blue Corn Chips 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-blue-corn-chips-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Blue%20200g%20Bio.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6599,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Chilli 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-chilli-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 4.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Chilli%20200g%20Bio.jpg?t=1664793366"
-  },
-  {
-    "itemId": 6600,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Paprika 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-paprika-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 4.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Paprika%20200g%20Bio.jpg?t=1663663706"
-  },
-  {
-    "itemId": 6598,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Sea Salt 150g",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-sea-salt-150g",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Sea%20Salt%20200g%20Bio.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6637,
-    "title": "Mi Adelita Stone Ground Tortilla Chips Sea Salt 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/mi-adelita-stone-ground-tortilla-chips-sea-salt-1kg",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "In Stock",
-    "price": 19.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Stone%20Ground%20Chips%20Sea%20Salt%201kg.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6841,
-    "title": "Mi Adelita Tortilla Chips Bundle",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/mi-adelita-tortilla-chips-bundle",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 10.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Mi%20Adelita%20Bundle.jpg?t=1689617568"
-  },
-  {
-    "itemId": 6643,
-    "title": "Michelada Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/michelada-kit",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 14,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Michelada%201.jpg?t=1767788112"
-  },
-  {
-    "itemId": 5472,
-    "title": "Miguelito Chile Powder 950g",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/miguelito-chile-powder-950g",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "Out of Stock",
-    "price": 12.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Miguelito%20Powder%20950g.png?t=1720604716"
-  },
-  {
-    "itemId": 5564,
-    "title": "Miguelitos Chile powder Bag with 100",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/miguelitos-chile-powder-bag-with-100",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "In Stock",
-    "price": 15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/miguelito%20sachets%20-%20NEW.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6297,
-    "title": "Morita Chipotle Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/whole-dried-chillies/morita-chipotle-whole-dried-chilli-1kg",
-    "department": "food",
-    "categorySlug": "whole-dried-chillies",
-    "availability": "In Stock",
-    "price": 38,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Chipotle%20Morita%20Whole.jpg?t=1664577335"
-  },
-  {
-    "itemId": 4701,
-    "title": "Mulato Whole Dried Chilli",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/mulato-whole-dried-chilli",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/mulato%20w%20catrinas.jpg?t=1760104458"
-  },
-  {
-    "itemId": 4326,
-    "title": "Naturelo Blue Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-mexican-blue-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "In Stock",
-    "price": 85,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20Blue%2020kg%201.jpg?t=1749463061"
-  },
-  {
-    "itemId": 4321,
-    "title": "Naturelo Harina De Maiz Azul 1kg Blue Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-harina-de-maiz-azul-1kg-blue-corn-flour",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "In Stock",
-    "price": 5.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20Blue%201kg.jpg?t=1738922797"
-  },
-  {
-    "itemId": 4324,
-    "title": "Naturelo Harina De Maiz Blanco 1kg White Corn Flour",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-harina-de-maiz-blanco-1kg-white-corn-flour",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "Out of Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20White%201kg.jpg?t=1738922797"
-  },
-  {
-    "itemId": 4325,
-    "title": "Naturelo White Corn Flour 20kg",
-    "url": "https://www.mexgrocer.co.uk/brands/naturelo/naturelo-white-corn-flour-20kg",
-    "department": "brands",
-    "categorySlug": "naturelo",
-    "availability": "In Stock",
-    "price": 60,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Naturelo%20White%2020kg%201.jpg?t=1738922768"
-  },
-  {
-    "itemId": 7442,
-    "title": "Nopal Cactus Powder 12kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/nopal-cactus-powder-12kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 328,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopal%20Powder%2012kg.jpg?t=1780490672"
-  },
-  {
-    "itemId": 7247,
-    "title": "Nopal Mild Chilli 250g",
-    "url": "https://www.mexgrocer.co.uk/brands/nopal/nopal-mild-chilli-250g",
-    "department": "brands",
-    "categorySlug": "nopal",
-    "availability": "In Stock",
-    "price": 11.45,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopal%20Mild%20Chilli%20250g.jpg?t=1748338877"
-  },
-  {
-    "itemId": 7248,
-    "title": "Nopal Powder 300g",
-    "url": "https://www.mexgrocer.co.uk/brands/nopal/nopal-powder-300g",
-    "department": "brands",
-    "categorySlug": "nopal",
-    "availability": "In Stock",
-    "price": 22.4,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopal%20Powder%20350g.jpg?t=1748338877"
-  },
-  {
-    "itemId": 6000,
-    "title": "Nopalia Churritos Chipotle 100g - Cactus Chips",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/nopalia-churritos-chipotle-100g-cactus-chips",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopalia%20churritos%20chipotle.jpg?t=1749732900"
-  },
-  {
-    "itemId": 6002,
-    "title": "Nopalia Churritos Habanero 100g - Spicy Cactus Chips",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/nopalia-churritos-habanero-100g-spicy-cactus-chips",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopalia%20Churritos%20Habanero%20100g%20%28new%29.jpg?t=1732019816"
-  },
-  {
-    "itemId": 5980,
-    "title": "Nopalia Churritos Original 100g - Cactus Chips",
-    "url": "https://www.mexgrocer.co.uk/brands/nopalia/nopalia-churritos-original-100g-cactus-chips",
-    "department": "brands",
-    "categorySlug": "nopalia",
-    "availability": "Out of Stock",
-    "price": 2.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Nopalia%20churritos%20original.jpg?t=1749732900"
-  },
-  {
-    "itemId": 7192,
-    "title": "Orange Tang Powder Mix 8 x 13g",
-    "url": "https://www.mexgrocer.co.uk/brands/tang/orange-tang-powder-mix-8-x-13g",
-    "department": "brands",
-    "categorySlug": "tang",
-    "availability": "Out of Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Orange%20Tang%20Powder%20104g.jpg?t=1733227347"
-  },
-  {
-    "itemId": 5278,
-    "title": "Pachicletas Lollipop",
-    "url": "https://www.mexgrocer.co.uk/food/candy/lolipops/pachicletas-lollipop",
-    "department": "food",
-    "categorySlug": "lolipops",
-    "availability": "In Stock",
-    "price": 9.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pachicleta.jpg?t=1660147763"
-  },
-  {
-    "itemId": 4397,
-    "title": "Pasilla Chilli Flakes 500g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/crushed-chillies/pasilla-chilli-flakes-500g",
-    "department": "food",
-    "categorySlug": "crushed-chillies",
-    "availability": "Out of Stock",
-    "price": 19,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/pasilla%20flakes%20new.jpg?t=1738855341"
-  },
-  {
-    "itemId": 5956,
-    "title": "Pasilla Chilli Powder 100g",
-    "url": "https://www.mexgrocer.co.uk/food/chillies/ground-chillies/pasilla-chilli-powder-100g",
-    "department": "food",
-    "categorySlug": "ground-chillies",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pasilla%20Powder.jpg?t=1660837606"
-  },
-  {
-    "itemId": 5228,
-    "title": "Pasilla Whole Dried Chilli 1kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/dried-chillies/pasilla-whole-dried-chilli-1kg",
-    "department": "catering-sizes",
-    "categorySlug": "dried-chillies",
-    "availability": "In Stock",
-    "price": 29,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/PASILLA.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5560,
-    "title": "Pelon Pelo Rico",
-    "url": "https://www.mexgrocer.co.uk/food/candy/pelon-pelo-rico",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 9.48,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pelon%20Pelo%20Rico%2012%20x%2035g%20Bag.jpg?t=1754559210"
-  },
-  {
-    "itemId": 5678,
-    "title": "Pelon Pelonete 210g",
-    "url": "https://www.mexgrocer.co.uk/sale-items/pelon-pelonete-210g",
-    "department": "sale-items",
-    "categorySlug": "",
-    "availability": "Out of Stock",
-    "price": 8.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pelon%20Pelonete.jpg?t=1664577335"
-  },
-  {
-    "itemId": 4675,
-    "title": "Pinata Cheese Sauce Plain 3kg",
-    "url": "https://www.mexgrocer.co.uk/food/speciality/pinata-cheese-sauce-plain-3kg",
-    "department": "food",
-    "categorySlug": "speciality",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pinata%20Cheese%20Sauce.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6956,
-    "title": "Pinata Cheese Sauce with Jalapeno Chilli 3kg",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/salsas-and-sauces/pinata-cheese-sauce-with-jalapeno-chilli-3kg",
-    "department": "catering-sizes",
-    "categorySlug": "salsas-and-sauces",
-    "availability": "In Stock",
-    "price": 22,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pinata%20Cheddar%20Cheese%20Sauce%20with%20Jalapeno%203kg.jpg?t=1707730053"
-  },
-  {
-    "itemId": 4379,
-    "title": "Pre Cut Blue Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-blue-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Blue%20Corn%20Tortilla%201kg.png?t=1660147763"
-  },
-  {
-    "itemId": 4367,
-    "title": "Pre Cut Cactus Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-cactus-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Cactus%20Corn%20Tortillas%201kg.JPG?t=1732790302"
-  },
-  {
-    "itemId": 4368,
-    "title": "Pre Cut Chipotle Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-chipotle-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Chipotle%20Corn%20Tortillas%201kg.JPG?t=1726240889"
-  },
-  {
-    "itemId": 4369,
-    "title": "Pre Cut Guajillo Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-guajillo-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "Out of Stock",
-    "price": 9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Guajillo%20Corn%20Tortillas%201kg.JPG?t=1727284929"
-  },
-  {
-    "itemId": 4370,
-    "title": "Pre Cut Yellow Corn Tortilla for Frying 15cm 1kg",
-    "url": "https://www.mexgrocer.co.uk/brands/guanajuato/pre-cut-yellow-corn-tortilla-for-frying-15cm-1kg",
-    "department": "brands",
-    "categorySlug": "guanajuato",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pre%20Cut%20Yellow%20Corn%20Tortillas%201kg.JPG?t=1726226404"
-  },
-  {
-    "itemId": 5091,
-    "title": "Pronto Hot Cake Mix 500g",
-    "url": "https://www.mexgrocer.co.uk/brands/pronto/pronto-hot-cake-mix-500g",
-    "department": "brands",
-    "categorySlug": "pronto",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pronto%20Hot%20Cake%20Mix%20500g.jpg?t=1738925938"
-  },
-  {
-    "itemId": 7024,
-    "title": "Pulparindo Chamoy 20 Pieces Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindo-chamoy-20-pieces-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Chamoy%2020%20Pieces.jpg?t=1714053605"
-  },
-  {
-    "itemId": 6122,
-    "title": "Pulparindo Mango 20 Pieces Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/pulparindo-mango-20-pieces-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Mango.jpg?t=1738768577"
-  },
-  {
-    "itemId": 5254,
-    "title": "Pulparindo Red Extra Hot 20Pcs Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/pulparindo-red-extra-hot-20pcs-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Hot%20Box.JPG?t=1738768551"
-  },
-  {
-    "itemId": 6124,
-    "title": "Pulparindo Watermelon 20 Pieces Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/pulparindo-watermelon-20-pieces-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Watermelon.jpg?t=1738768577"
-  },
-  {
-    "itemId": 5257,
-    "title": "Pulparindo Yellow 20PCS Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/food/candy/sweet-sour/pulparindo-yellow-20pcs-tamarind-sweets",
-    "department": "food",
-    "categorySlug": "sweet-sour",
-    "availability": "Out of Stock",
-    "price": 6.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindo%20Box%202.JPG?t=1738768551"
-  },
-  {
-    "itemId": 7051,
-    "title": "Pulparindots 360g Tamarind Candy",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-360g-tamarind-candy",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20360g.jpg?t=1714053603"
-  },
-  {
-    "itemId": 7057,
-    "title": "Pulparindots Extra Hot 360g Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-extra-hot-360g-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20Extra%20Hot%20360g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7052,
-    "title": "Pulparindots Mango 360g Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-mango-360g-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20Mango%20360g.jpg?t=1714053604"
-  },
-  {
-    "itemId": 7055,
-    "title": "Pulparindots Watermelon 360g Tamarind Sweets",
-    "url": "https://www.mexgrocer.co.uk/brands/de-la-rosa/pulparindots-watermelon-360g-tamarind-sweets",
-    "department": "brands",
-    "categorySlug": "de-la-rosa",
-    "availability": "In Stock",
-    "price": 7.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Pulparindots%20Watermelon%20360g.jpg?t=1714053603"
-  },
-  {
-    "itemId": 7258,
-    "title": "Runners Fuego 72g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/runners-fuego-72g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Runners%20Fuego.jpeg?t=1749113859"
-  },
-  {
-    "itemId": 7257,
-    "title": "Runners Lemon & Chilli 72g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/runners-lemon-chilli-72g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Runners%2068g.jpeg?t=1749113859"
-  },
-  {
-    "itemId": 7065,
-    "title": "Sabritas Lime 42g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/food/crisps-snacks/sabritas-lime-42g-pack-of-3",
-    "department": "food",
-    "categorySlug": "crisps-snacks",
-    "availability": "Out of Stock",
-    "price": 8.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sabritas%20Lime%2042g%20%28Pack%20of%203%29.jpg?t=1723537268"
-  },
-  {
-    "itemId": 4830,
-    "title": "Sabritas Lime 42g Potato Crisps",
-    "url": "https://www.mexgrocer.co.uk/brands/sabritas/sabritas-lime-42g-potato-crisps",
-    "department": "brands",
-    "categorySlug": "sabritas",
-    "availability": "Out of Stock",
-    "price": 3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/sabritas%20lime%20new.jpg?t=1761209143"
-  },
-  {
-    "itemId": 5536,
-    "title": "Salsa Huichol 190g",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/salsa-huichol-190g",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "In Stock",
-    "price": 2.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/huichol%20-%20NEW.jpg?t=1663328465"
-  },
-  {
-    "itemId": 7278,
-    "title": "Salsa Huichol Black 190g",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/salsa-huichol-black-190g",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "In Stock",
-    "price": 2.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Salsa%20Huichol%20Black%20190g.jpg?t=1755593030"
-  },
-  {
-    "itemId": 7175,
-    "title": "San Miguel Artichoke Hearts 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-artichoke-hearts-400g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Artichoke%20Hearts%20400g%20new.jpg?t=1779374487"
-  },
-  {
-    "itemId": 5946,
-    "title": "San Miguel Chipotle Sauce De La Abuela",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/san-miguel-chipotle-sauce-de-la-abuela",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Chipotle%20Sauce%20De%20La%20Abuela%20450g%20.jpg?t=1720604716"
-  },
-  {
-    "itemId": 5940,
-    "title": "San Miguel Del Patron 450g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-del-patron-450g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Del%20Patron%20sauce.png?t=1720604716"
-  },
-  {
-    "itemId": 7256,
-    "title": "San Miguel Enchilada Sauce Green 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-enchilada-sauce-green-400g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Enchilada%20Green%20Sauce%20400g%20NEW.png?t=1772458745"
-  },
-  {
-    "itemId": 7152,
-    "title": "San Miguel Enchilada Sauce Red 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-enchilada-sauce-red-400g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 3.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Enchilada%20Red%20Sauce%20400g%20NEW.png?t=1772458745"
-  },
-  {
-    "itemId": 5948,
-    "title": "San Miguel Habanero Sauce Don Pancho 450g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-habanero-sauce-don-pancho-450g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Don%20pancho%20habanero%20sauce.png?t=1720604716"
-  },
-  {
-    "itemId": 5942,
-    "title": "San Miguel Jalapeno Sauce De Dona Chole",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-jalapeno-sauce-de-dona-chole",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20jalapenbo%20Sauce%20-Dona%20Chole%20450g.png?t=1720604506"
-  },
-  {
-    "itemId": 5944,
-    "title": "San Miguel Pasilla Sauce De La Nana",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-pasilla-sauce-de-la-nana",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Pasilla%20Sauce%20la%20nana.png?t=1720604716"
-  },
-  {
-    "itemId": 4625,
-    "title": "San Miguel Poblano Pepper Strips 220g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-poblano-pepper-strips-220g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 2.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Poblano%20Strips%20220g.png?t=1772456948"
-  },
-  {
-    "itemId": 4626,
-    "title": "San Miguel Poblano Whole Peppers 780g",
-    "url": "https://www.mexgrocer.co.uk/brands/san-miguel/san-miguel-poblano-whole-peppers-780g",
-    "department": "brands",
-    "categorySlug": "san-miguel",
-    "availability": "In Stock",
-    "price": 7.19,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/San%20Miguel%20Poblano%20Whole%20780g%20NEW.png?t=1772458014"
-  },
-  {
-    "itemId": 4856,
-    "title": "Sangria Senorial 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/sangria-senorial-355ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "In Stock",
-    "price": 2.28,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sangria%20Casera%20355ml.JPG?t=1732790310"
-  },
-  {
-    "itemId": 5590,
-    "title": "Sangrita Viuda de Sanchez 1000ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/bar-essentials/sangrita-viuda-de-sanchez-1000ml",
-    "department": "drinks",
-    "categorySlug": "bar-essentials",
-    "availability": "In Stock",
-    "price": 9.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sangrita.jpg?t=1720604506"
-  },
-  {
-    "itemId": 7390,
-    "title": "Sanissimo Salmas 144g",
-    "url": "https://www.mexgrocer.co.uk/brands/sanissimo/sanissimo-salmas-144g",
-    "department": "brands",
-    "categorySlug": "sanissimo",
-    "availability": "Out of Stock",
-    "price": 3.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sanissimo%20Salmas%20144g.jpg?t=1769001210"
-  },
-  {
-    "itemId": 4601,
-    "title": "Sanissimo Tostadas 216g",
-    "url": "https://www.mexgrocer.co.uk/brands/sanissimo/sanissimo-tostadas-216g",
-    "department": "brands",
-    "categorySlug": "sanissimo",
-    "availability": "Out of Stock",
-    "price": 4.8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sanissimo%20Tostadas%20Box%20216g%20%28updated%29.jpg?t=1720604716"
-  },
-  {
-    "itemId": 6982,
-    "title": "Sazon Natural Ancho Chilli Flakes 380g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-flakes-380g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Flakes%20380g.jpg?t=1712757656"
-  },
-  {
-    "itemId": 7018,
-    "title": "Sazon Natural Ancho Chilli Flakes 85g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-flakes-85g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Flakes%2085g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7016,
-    "title": "Sazon Natural Ancho Chilli Powder 120g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-powder-120g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Powder%20120g.jpg?t=1714053605"
-  },
-  {
-    "itemId": 6980,
-    "title": "Sazon Natural Ancho Chilli Powder 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-ancho-chilli-powder-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Ancho%20Chilli%20Powder%20550g.jpg?t=1712757656"
-  },
-  {
-    "itemId": 6987,
-    "title": "Sazon Natural Chipotle Flakes 380g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-flakes-380g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Flakes%20380g.jpg?t=1712757656"
-  },
-  {
-    "itemId": 7022,
-    "title": "Sazon Natural Chipotle Flakes 85g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-flakes-85g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Flakes%2085g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7020,
-    "title": "Sazon Natural Chipotle Powder 120g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-powder-120g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Powder%20120g.jpg?t=1714053603"
-  },
-  {
-    "itemId": 6984,
-    "title": "Sazon Natural Chipotle Powder 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-chipotle-powder-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 14.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Chipotle%20Powder%20550g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 7010,
-    "title": "Sazon Natural Fajita \"Pibil Style\" Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-fajita-pibil-style-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Fajita%20Pibil%20Style%20Seasoning%20142g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7000,
-    "title": "Sazon Natural Fajita \"Pibil Style\" Seasoning 700g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-fajita-pibil-style-seasoning-700g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 13.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Fajita%20Pibil%20Style%20Seasoning%20700g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 7012,
-    "title": "Sazon Natural Mexican Adobo Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-mexican-adobo-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Mexican%20Adobo%20Seasoning%20142g.jpg?t=1714053604"
-  },
-  {
-    "itemId": 7002,
-    "title": "Sazon Natural Mexican Adobo Seasoning 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-mexican-adobo-seasoning-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 13.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Mexican%20Adobo%20Seasoning%20550g.jpg?t=1712757655"
-  },
-  {
-    "itemId": 7014,
-    "title": "Sazon Natural Piko Pikin Guacamole Mix 150g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-piko-pikin-guacamole-mix-150g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "In Stock",
-    "price": 0,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Piko%20Pikin%20Guacamole%20Mix%20150g.jpg?t=1714053602"
-  },
-  {
-    "itemId": 7005,
-    "title": "Sazon Natural Piko Pikin Gucamole Mix 738g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-piko-pikin-gucamole-mix-738g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "In Stock",
-    "price": 0,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Piko%20Pikin%20Gucamole%20Mix%20738g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 7008,
-    "title": "Sazon Natural Taco Al Pastor Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-taco-al-pastor-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "Out of Stock",
-    "price": 4.75,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Taco%20Al%20Pastor%20Seasoning%20142g.jpg?t=1714053604"
-  },
-  {
-    "itemId": 6989,
-    "title": "Sazon Natural Taco Al Pastor Seasoning 550g",
-    "url": "https://www.mexgrocer.co.uk/brands/sazon-natural-mexican-seasoning-and-spices/sazon-natural-taco-al-pastor-seasoning-550g",
-    "department": "brands",
-    "categorySlug": "sazon-natural-mexican-seasoning-and-spices",
-    "availability": "In Stock",
-    "price": 13.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Sazon%20Natural%20Taco%20Al%20Pastor%20Seasoning%20550g.jpg?t=1712757654"
-  },
-  {
-    "itemId": 5555,
-    "title": "Skwinkles Clasico Chamoy",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-clasico-chamoy",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20clasicos%20new.jpg?t=1664577335"
-  },
-  {
-    "itemId": 5293,
-    "title": "Skwinkles Rellenos Pineapple",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-rellenos-pineapple",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 7.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20Relleno.jpeg?t=1779108948"
-  },
-  {
-    "itemId": 4808,
-    "title": "Skwinkles Rellenos Watermelon Sandia Enchilada",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-rellenos-watermelon-sandia-enchilada",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20rellenos%20watermelon%20pack%20of%2012.jpg?t=1664577335"
-  },
-  {
-    "itemId": 6825,
-    "title": "Skwinkles Salsaghetti 12 Pack",
-    "url": "https://www.mexgrocer.co.uk/food/candy/skwinkles-salsaghetti-12-pack",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Skwinkles%20Salsaghetti%2012%20Pack.jpg?t=1683612626"
-  },
-  {
-    "itemId": 7395,
-    "title": "Spicy Hibiscus Margarita Kit",
-    "url": "https://www.mexgrocer.co.uk/brands/ojo-de-dios-mezcal/spicy-hibiscus-margarita-kit",
-    "department": "brands",
-    "categorySlug": "ojo-de-dios-mezcal",
-    "availability": "In Stock",
-    "price": 51,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/spicy%20margarita%20ojo%20de%20dios.jpg?t=1769530875"
-  },
-  {
-    "itemId": 7274,
-    "title": "Spicy Margarita Kit",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/spicy-margarita-cocktail",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 39,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Spicy%20Margarita%20Kit.jpg?t=1769521660"
-  },
-  {
-    "itemId": 4872,
-    "title": "Squirt Grapefruit Can 355ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/squirt-grapefruit-can-355ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "In Stock",
-    "price": 2.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Squirt%20Can%20355ml.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4453,
-    "title": "Tajin Ancho Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-ancho-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.25,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Ancho%20Chilli%2075g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4455,
-    "title": "Tajin Arbol Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-arbol-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Arbol%2075g.jpg?t=1664273061"
-  },
-  {
-    "itemId": 7485,
-    "title": "Tajin Chamoy Liquid 308ml",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chamoy-liquid-308ml",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 3.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tjn_fruitChamoy_15-38oz_455ml_1.0003.png?t=1786704141"
-  },
-  {
-    "itemId": 4696,
-    "title": "Tajin Chamoy Liquid 455ml",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chamoy-liquid-455ml",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tjn_fruitChamoy_15-38oz_455ml_1.0003.png?t=1709638821"
-  },
-  {
-    "itemId": 6802,
-    "title": "Tajin Chili and Lime Seasoning 142g & Chamoy Pack",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chili-and-lime-seasoning-142g-chamoy-pack",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 6.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tajin%20chamoy%20kit.jpg?t=1720604716"
-  },
-  {
-    "itemId": 7324,
-    "title": "Tajin Chili and Lime Seasoning 45g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chili-and-lime-seasoning-45g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "Out of Stock",
-    "price": 1.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chili%20and%20Lime%20Seasoning%2045g.jpg?t=1759224396"
-  },
-  {
-    "itemId": 4451,
-    "title": "Tajin Chilli & Lime Seasoning Mini Bottle10 x10g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chilli-lime-seasoning-mini-bottle10-x10g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 6.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%208x100g%202.jpg?t=1725630435"
-  },
-  {
-    "itemId": 4443,
-    "title": "Tajin Chilli and Lime Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chilli-and-lime-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20142g.jpg?t=1706477176"
-  },
-  {
-    "itemId": 4332,
-    "title": "Tajin Chilli and Lime Seasoning 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-chilli-and-lime-seasoning-400g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 7.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%20400g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6820,
-    "title": "Tajin Dried Chillies (4 x 75g)",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-dried-chillies-4-x-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 16,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chillies%20Bundle.jpg?t=1683612626"
-  },
-  {
-    "itemId": 4460,
-    "title": "Tajin Glass Season Rimmer",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-glass-season-rimmer",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "Out of Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20rimmer.jpg?t=1723508544"
-  },
-  {
-    "itemId": 4457,
-    "title": "Tajin Guajillo Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-guajillo-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Guajillo%2075g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5548,
-    "title": "Tajin Habanero Powder 45g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-habanero-powder-45g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Habanero_45_gr%20new.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6924,
-    "title": "Tajin Keyring",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/seasoning/tajin-keyring",
-    "department": "brands",
-    "categorySlug": "seasoning",
-    "availability": "In Stock",
-    "price": 1.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Keyring.jpg?t=1730816856"
-  },
-  {
-    "itemId": 4442,
-    "title": "Tajin Low Sodium Chilli and Lime Seasoning 142g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-low-sodium-chilli-and-lime-seasoning-142g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.65,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chile%20and%20Lime%20Low%20Sodium%20140g.JPG?t=1724156362"
-  },
-  {
-    "itemId": 4459,
-    "title": "Tajin Pasilla Chilli 75g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-pasilla-chilli-75g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Pasilla%2075g.jpg?t=1664273449"
-  },
-  {
-    "itemId": 4450,
-    "title": "Tajin Seasoning Bottle 907g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-seasoning-bottle-907g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 15.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%20900g.jpg?t=1660837606"
-  },
-  {
-    "itemId": 4452,
-    "title": "Tajin To Go 25 Sachets Chilli & Lime Seasoning",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/tajin-to-go-25-sachets-chilli-lime-seasoning",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 2.38,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Chilli%20and%20Lime%20Seasoning%20To%20Go%2025x1g.jpg?t=1739201029"
-  },
-  {
-    "itemId": 6906,
-    "title": "Takis Blue Heat 70g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-blue-heat-70g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "In Stock",
-    "price": 2.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Takis%20Blue%20Heat%2070g%20UPDATE.jpg?t=1772026668"
-  },
-  {
-    "itemId": 7441,
-    "title": "Takis Duoz 70g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-duoz-70g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 2.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Takis%20Duoz%2070g.jpg?t=1779978401"
-  },
-  {
-    "itemId": 5552,
-    "title": "Takis Salsa Brava 70g",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-salsa-brava-70g",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/salsa%20brava.png?t=1720604506"
-  },
-  {
-    "itemId": 6964,
-    "title": "Takis Salsa Brava 70g (Pack of 3)",
-    "url": "https://www.mexgrocer.co.uk/brands/barcel/takis-salsa-brava-70g-pack-of-3",
-    "department": "brands",
-    "categorySlug": "barcel",
-    "availability": "Out of Stock",
-    "price": 5.5,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Takis%20Salsa%20Brava%2070g%20%28Pack%203%29.jpg?t=1723536171"
-  },
-  {
-    "itemId": 6476,
-    "title": "Tama Roca Banderilla 30 x 50g",
-    "url": "https://www.mexgrocer.co.uk/food/candy/tama-roca-banderilla-30-x-50g",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "Out of Stock",
-    "price": 30,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tamaroca%20Banderliers.jpg?t=1664577335"
-  },
-  {
-    "itemId": 7349,
-    "title": "Tama Roca Pellizco 40 Pcs",
-    "url": "https://www.mexgrocer.co.uk/food/candy/tama-roca-pellizco-40-pcs",
-    "department": "food",
-    "categorySlug": "candy",
-    "availability": "In Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tama%20Roca%20Pellizco%2040%20Pcs.jpg?t=1762429708"
-  },
-  {
-    "itemId": 5534,
-    "title": "Tamazula Black 140ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/tamazula-black-140ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tamazula%20black%20-%20NEW.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5535,
-    "title": "Tamazula Red 140ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/tamazula-red-140ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 1.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tamazula%20red%20-%20NEW.jpg?t=1663328465"
-  },
-  {
-    "itemId": 6954,
-    "title": "Tapatio Salsa Picante 148ml",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/tapatio-salsa-picante-148ml",
-    "department": "food",
-    "categorySlug": "hot-sauce-salsa",
-    "availability": "In Stock",
-    "price": 2.99,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tapatio%20Salsa%20Picante%20148ml.jpg?t=1720604506"
-  },
-  {
-    "itemId": 5834,
-    "title": "Taragui - Yerba Mate with Stems",
-    "url": "https://www.mexgrocer.co.uk/food/latin-american-food/argentina/taragui-yerba-mate-with-stems",
-    "department": "food",
-    "categorySlug": "argentina",
-    "availability": "In Stock",
-    "price": 10,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Taragui-yerba-mate-with-stems-con-palo-x-500g.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5561,
-    "title": "Tarrito Beer Lollipop Bag",
-    "url": "https://www.mexgrocer.co.uk/food/candy/lolipops/tarrito-beer-lollipop-bag",
-    "department": "food",
-    "categorySlug": "lolipops",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/tarrito%20beer%20lollipop.jpg?t=1720604716"
-  },
-  {
-    "itemId": 4605,
-    "title": "Terana Epazote 26g",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-epazote-26g",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "In Stock",
-    "price": 4.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Epazote%20Chopped%202.JPG?t=1732790309"
-  },
-  {
-    "itemId": 4608,
-    "title": "Terana Epazote 400gr",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-epazote-400gr",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "In Stock",
-    "price": 14.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Epazote%20Chopped%20Wholesale.JPG?t=1725361462"
-  },
-  {
-    "itemId": 5250,
-    "title": "Terana Oregano 21g",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-oregano-21g",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "In Stock",
-    "price": 3.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Oregano%2021g.JPG?t=1732790309"
-  },
-  {
-    "itemId": 5357,
-    "title": "Terana Oregano 400g",
-    "url": "https://www.mexgrocer.co.uk/brands/terana/terana-oregano-400g",
-    "department": "brands",
-    "categorySlug": "terana",
-    "availability": "Out of Stock",
-    "price": 14.9,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Terana%20Oregano%20Wholesale.JPG?t=1725361463"
-  },
-  {
-    "itemId": 7276,
-    "title": "The Curators Tajin Pork Puffs 25g",
-    "url": "https://www.mexgrocer.co.uk/brands/tajin/the-curators-tajin-pork-puffs-25g",
-    "department": "brands",
-    "categorySlug": "tajin",
-    "availability": "In Stock",
-    "price": 1.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Tajin%20Pork%20Puffs%2025g.jpg?t=1754042568"
-  },
-  {
-    "itemId": 5484,
-    "title": "Tortilla Machine VILLAMEX V5",
-    "url": "https://www.mexgrocer.co.uk/catering-sizes/other-mexican-products/tortilla-machine-villamex-v5",
-    "department": "catering-sizes",
-    "categorySlug": "other-mexican-products",
-    "availability": "In Stock",
-    "price": 1800,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/VILLAMEX%20V5.jpg?t=1730737791"
-  },
-  {
-    "itemId": 4389,
-    "title": "Totmoxtle Corn Husks 100g",
-    "url": "https://www.mexgrocer.co.uk/brands/las-catrinas/totmoxtle-corn-husks-100g",
-    "department": "brands",
-    "categorySlug": "las-catrinas",
-    "availability": "In Stock",
-    "price": 6.25,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Las%20Catrinas%20Corn%20Husks%20100g.JPG?t=1730902673"
-  },
-  {
-    "itemId": 7058,
-    "title": "Two Keys Frozen Paloma Mix 750ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/two-keys-frozen-paloma-mix-750ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "Out of Stock",
-    "price": 4.2,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Two%20Keys%20Frozen%20Paloma%20Mix%20750ml.jpg?t=1714565486"
-  },
-  {
-    "itemId": 6427,
-    "title": "Two Keys Pink Grapefruit Soda 200ml",
-    "url": "https://www.mexgrocer.co.uk/drinks/soft-drinks/two-keys-pink-grapefruit-soda-200ml",
-    "department": "drinks",
-    "categorySlug": "soft-drinks",
-    "availability": "In Stock",
-    "price": 2.18,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Two%20Keys%20Grapefruit.jpg?t=1663328465"
-  },
-  {
-    "itemId": 4883,
-    "title": "Valentina Black 1lt",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/snack-salsas/valentina-black-1lt",
-    "department": "food",
-    "categorySlug": "snack-salsas",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20Black%201lt.jpg?t=1660837606"
-  },
-  {
-    "itemId": 5116,
-    "title": "Valentina Black 370ml",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/snack-salsas/valentina-black-370ml",
-    "department": "food",
-    "categorySlug": "snack-salsas",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20black%20370ml.jpg?t=1660147763"
-  },
-  {
-    "itemId": 6856,
-    "title": "Valentina Hot Sauce Trio",
-    "url": "https://www.mexgrocer.co.uk/meals/kits/valentina-hot-sauce-trio",
-    "department": "meals",
-    "categorySlug": "kits",
-    "availability": "In Stock",
-    "price": 5.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20Hot%20Sauce%20Trio%20NEW.png?t=1785241408"
-  },
-  {
-    "itemId": 4825,
-    "title": "Valentina Mariscos 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-mariscos-370ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20seafood.jpg?t=1663328465"
-  },
-  {
-    "itemId": 5144,
-    "title": "Valentina Red 1lt",
-    "url": "https://www.mexgrocer.co.uk/food/hot-sauce-salsa/snack-salsas/valentina-red-1lt",
-    "department": "food",
-    "categorySlug": "snack-salsas",
-    "availability": "In Stock",
-    "price": 5.9,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%201lt.JPG?t=1725009527"
-  },
-  {
-    "itemId": 5113,
-    "title": "Valentina Red 370ml",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-red-370ml",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 2.15,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20red%20370ml.jpg?t=1663751872"
-  },
-  {
-    "itemId": 7392,
-    "title": "Valentina Red 4Lt",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-red-4lt",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "In Stock",
-    "price": 27,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Valentina%20Red%204L.jpg?t=1769009049"
-  },
-  {
-    "itemId": 5420,
-    "title": "Valentina Salsa Sachets 15 x 10g",
-    "url": "https://www.mexgrocer.co.uk/brands/valentina/valentina-salsa-sachets-15-x-10g",
-    "department": "brands",
-    "categorySlug": "valentina",
-    "availability": "Out of Stock",
-    "price": 1.95,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/valentina%20pouches%20-%20NEW.jpg?t=1660837606"
-  },
-  {
-    "itemId": 7407,
-    "title": "Vallemex Flor de Calabaza 908g (Pumpkin Flower in Brine)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-flor-de-calabaza-908g-pumpkin-flower-in-brine",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "Out of Stock",
-    "price": 7.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Flor%20de%20Calabaza%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 7411,
-    "title": "Vallemex Guayaba 908g (Mexican Guava in Syrup)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-guayaba-908g-mexican-guava-in-syrup",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Guayaba%20908g.jpg?t=1773852260"
-  },
-  {
-    "itemId": 7408,
-    "title": "Vallemex Huitlacoche 908g (Mexican Corn Smut)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-huitlacoche-908g-mexican-corn-smut",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 8,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Huitlacoche%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 7410,
-    "title": "Vallemex Nanche 908g",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-nanche-908g",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "Out of Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Nanche%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 7412,
-    "title": "Vallemex Romertios (Seepweed) 908g",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-romertios-seepweed-908g",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Romertios%20908g.png?t=1773852260"
-  },
-  {
-    "itemId": 7404,
-    "title": "Vallemex Tejocote 908g (Hawthorn in Syrup)",
-    "url": "https://www.mexgrocer.co.uk/brands/vallemex/vallemex-tejocote-908g-hawthorn-in-syrup",
-    "department": "brands",
-    "categorySlug": "vallemex",
-    "availability": "In Stock",
-    "price": 5.6,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vallemex%20Tejocote%20908g.png?t=1773852259"
-  },
-  {
-    "itemId": 5288,
-    "title": "Vero Elote Lollipops",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/vero-elote-lollipops",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "Out of Stock",
-    "price": 14.4,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vero%20Elotes.JPG?t=1720604716"
-  },
-  {
-    "itemId": 5280,
-    "title": "Vero Mango Lollipops",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/vero-mango-lollipops",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "Out of Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vero%20Mango.JPG?t=1725895315"
-  },
-  {
-    "itemId": 5680,
-    "title": "Vero Picafresas 100 x 6g Bag",
-    "url": "https://www.mexgrocer.co.uk/brands/dulces-vero/vero-picafresas-100-x-6g-bag",
-    "department": "brands",
-    "categorySlug": "dulces-vero",
-    "availability": "In Stock",
-    "price": 12,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Vero%20Picafresas%20100%20x%206g%20Bag%20NEW.jpg?t=1779968069"
-  },
-  {
-    "itemId": 7254,
-    "title": "Xiqueno Mole Sauce 500g",
-    "url": "https://www.mexgrocer.co.uk/food/mole-sauces/xiqueno-mole-sauce-500g",
-    "department": "food",
-    "categorySlug": "mole-sauces",
-    "availability": "In Stock",
-    "price": 9.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Xiqueno%20Mole.jpg?t=1749130273"
-  },
-  {
-    "itemId": 7317,
-    "title": "Zaaschila Creamy Cheese & Jalapeno Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-cheese-jalapeno-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Cheese%20%26%20Jalapeno%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7419,
-    "title": "Zaaschila Creamy Cheese & Jalapeno Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-cheese-jalapeno-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Cheese%20%26%20Jalapeno%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7294,
-    "title": "Zaaschila Creamy Chipotle Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-chipotle-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Chipotle%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7418,
-    "title": "Zaaschila Creamy Chipotle Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-chipotle-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Chipotle%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7316,
-    "title": "Zaaschila Creamy Guacamole & Habanero 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-habanero-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20%26%20Habanero%20.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7417,
-    "title": "Zaaschila Creamy Guacamole & Habanero 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-habanero-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20%26%20Habanero%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7299,
-    "title": "Zaaschila Creamy Guacamole and Jalapeno Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-and-jalapeno-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20and%20Jalapeno%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7416,
-    "title": "Zaaschila Creamy Guacamole and Jalapeno Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-guacamole-and-jalapeno-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 4.5,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Guacamole%20and%20Jalapeno%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  },
-  {
-    "itemId": 7364,
-    "title": "Zaaschila Creamy Salsa Bundle",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-salsa-bundle",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 13.99,
-    "priceFrom": false,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Salsa%20Bundle.jpg?t=1766051934"
-  },
-  {
-    "itemId": 7321,
-    "title": "Zaaschila Creamy Street Corn Sauce 265g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-street-corn-sauce-265g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 2.95,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Street%20Corn%20Sauce%20265g.jpg?t=1758193506"
-  },
-  {
-    "itemId": 7415,
-    "title": "Zaaschila Creamy Street Corn Sauce 425g",
-    "url": "https://www.mexgrocer.co.uk/brands/zaaschila/zaaschila-creamy-street-corn-sauce-425g",
-    "department": "brands",
-    "categorySlug": "zaaschila",
-    "availability": "In Stock",
-    "price": 5.3,
-    "priceFrom": true,
-    "image": "https://www.mexgrocer.co.uk/images/product/l/Zaaschila%20Creamy%20Street%20Corn%20Sauce%20265g%20no%20size.jpg?t=1774955883"
-  }
-];
-
-export const mexgrocerCatalogueExclusions: readonly MexgrocerCatalogueExclusion[] = [
-  {
-    "itemId": 4402,
-    "title": "16cm Black Tortilla Press",
-    "reason": "category:tortilla-press"
-  },
-  {
-    "itemId": 4403,
-    "title": "16cm Red Tortilla Press",
-    "reason": "category:tortilla-press"
-  },
-  {
-    "itemId": 4398,
-    "title": "16cm Tortilla Press Silver",
-    "reason": "category:tortilla-press"
-  },
-  {
-    "itemId": 7100,
-    "title": "1800 Coconut Liqueur 50ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6348,
-    "title": "1800 Coconut Liqueur 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5417,
-    "title": "1800 Tequila Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 4220,
-    "title": "1800 Tequila Cristalino 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6278,
-    "title": "1800 Tequila Mini Silver 50ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5410,
-    "title": "1800 Tequila Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 4221,
-    "title": "1800 Tequila Silver 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4399,
-    "title": "19cm Black Tortilla Press",
-    "reason": "category:tortilla-press"
-  },
-  {
-    "itemId": 5617,
-    "title": "19cm Red Tortilla Press",
-    "reason": "category:tortilla-press"
-  },
-  {
-    "itemId": 4401,
-    "title": "19cm Silver Tortilla Press",
-    "reason": "category:tortilla-press"
-  },
-  {
-    "itemId": 5618,
-    "title": "25cm Silver Tortilla Press",
-    "reason": "category:tortilla-press"
-  },
-  {
-    "itemId": 4884,
-    "title": "6\" Cream Plastic Tortilla Warmer",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 5404,
-    "title": "6\" Plastic Tortilla Warmer - Red",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 6869,
-    "title": "818 Blanco Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6870,
-    "title": "818 Repsado Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5758,
-    "title": "Abasolo Corn Whisky 700ml",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 4261,
-    "title": "Alipus San Andres Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 4262,
-    "title": "Alipus San Baltazar Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 4290,
-    "title": "Alipus San Juan Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 4263,
-    "title": "Alipus Santa Ana Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7091,
-    "title": "Alma Finca Orange Liquer 40% 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 4258,
-    "title": "Amaras Cupreata Guerrero Mezcal 700ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 6672,
-    "title": "Amaras Espadin Reposado Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6847,
-    "title": "Amargo Angostura Vallet Liqueur 45% 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 5408,
-    "title": "Ancho Reyes Chilli Liqueur 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 4829,
-    "title": "Ancho Reyes Verde Liqueur 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 4944,
-    "title": "Animas Espadin Cupreata 700ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 5081,
-    "title": "Arette Tequila Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5067,
-    "title": "Arette Tequila Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 5846,
-    "title": "Armonico Gin Seco 50%  500ml bottle",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 6349,
-    "title": "ArteNOM 1146 Anejo 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6351,
-    "title": "ArteNOM 1414 Reposado 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6350,
-    "title": "ArteNOM 1579 Blanco 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6787,
-    "title": "ASADA The Art of Mexican-Style Grilling",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 5086,
-    "title": "Bacanora Aguamiel 700ml  41%",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 6614,
-    "title": "Bacanora Santo Pecado",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 5063,
-    "title": "Balam Raicilla Costa 700ml",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 5079,
-    "title": "Balam Raicilla Madurado 700ml",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 4960,
-    "title": "Balam Raicilla Sierra 700ml",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 6499,
-    "title": "Barrilito Beer 325ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 7261,
-    "title": "Bohemia Oscura 355ml Mexican Beer",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 5304,
-    "title": "Bruxo No.1 Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5027,
-    "title": "Bruxo No.2 Mezcal Joven 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 4907,
-    "title": "Bruxo No.3 Mezcal 700ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 4242,
-    "title": "Bruxo No.4 Blend Mezcal 700ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 4243,
-    "title": "Bruxo No.5 Tobala Mezcal 700ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 4244,
-    "title": "Bruxo X Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5316,
-    "title": "Cabrito Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5307,
-    "title": "Calle 23 Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 5313,
-    "title": "Calle 23 Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5312,
-    "title": "Calle 23 Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 7354,
-    "title": "Cantinero Tequila Anejo 38% 700ml",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 6008,
-    "title": "Cantinero Tequila Blanco 38% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6009,
-    "title": "Cantinero Tequila Reposado 38% 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 7394,
-    "title": "Cantinero Tequila Triple Pack",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 6663,
-    "title": "Casa Dragones Anejo 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5482,
-    "title": "Casa Dragones Joven Tequila 700ml  40%",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4964,
-    "title": "Casa Dragones Tequila Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5760,
-    "title": "Casamigos Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 5761,
-    "title": "Casamigos Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5483,
-    "title": "Casamigos Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 6208,
-    "title": "Cascahuin Blanco Tequila 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 6209,
-    "title": "Cascahuin Reposado Tequila 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 6748,
-    "title": "Catrina Blanco Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6750,
-    "title": "Catrina Reposado Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7074,
-    "title": "Cazcabel Blanco Tequila 38% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7073,
-    "title": "Cazcabel Coconut Tequila 34% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7076,
-    "title": "Cazcabel Honey Tequila 34% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7075,
-    "title": "Cazcabel Reposado Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4300,
-    "title": "Cerveza Noche Buena 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 4233,
-    "title": "Charanda El Tarasco Rum Silver 700ml 38%",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 4236,
-    "title": "Charanda Sol Tarasco Extra Aged Rum 700ml 40%",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 5587,
-    "title": "Charro Hat",
-    "reason": "title:gift/decor"
-  },
-  {
-    "itemId": 6352,
-    "title": "Cimarron Tequila Blanco 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6729,
-    "title": "Ciudad de Mexico Cookbook",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 5807,
-    "title": "Clutch Tassels Bag",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 6867,
-    "title": "Cocina Mexicana Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 6629,
-    "title": "Codigo 1530 Mezcal Ancestral/Joven 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6619,
-    "title": "Codigo 1530 Tequila Extra Anejo Origen 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5828,
-    "title": "Comal Imusa 28cm",
-    "reason": "title:kitchenware"
-  },
-  {
-    "itemId": 5737,
-    "title": "Comida Mexicana Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 4245,
-    "title": "Corte Vetusto Mezcal Joven Ensamble 700ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 4246,
-    "title": "Corte Vetusto Mezcal Joven Espadin 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 4247,
-    "title": "Corte Vetusto Mezcal Joven Tobala 700ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 6589,
-    "title": "Curado Blue Agave 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6588,
-    "title": "Curado Cupreta 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6587,
-    "title": "Curado Espadin 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5022,
-    "title": "D'aristi Xtabentun 700ml",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 7289,
-    "title": "Day of the Dead Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 5302,
-    "title": "Del Maguey Mezcal Chichicapa 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5300,
-    "title": "Del Maguey Mezcal San Luis Del Rio 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5299,
-    "title": "Del Maguey Mezcal Vida 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5959,
-    "title": "Discreto Encanto Red Wine",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 5310,
-    "title": "Don Julio Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 5309,
-    "title": "Don Julio Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 7440,
-    "title": "Don Julio Paloma kit",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 5308,
-    "title": "Don Julio Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 4292,
-    "title": "Dos Equis Lager Beer 350ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 4929,
-    "title": "El Camino del Pensador Ensamble 500ml",
-    "reason": "category:wild-agave-mezcals"
-  },
-  {
-    "itemId": 6401,
-    "title": "El Camino del Pensador Espadin 500ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6819,
-    "title": "El Hispano Chipotle Liqueur 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 6818,
-    "title": "El Hispano Jalapeno Liqueur 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 6411,
-    "title": "El Rayo Tequila Plata 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6410,
-    "title": "El Rayo Tequila Reposado 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6866,
-    "title": "Everyone Loves Tacos Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 7281,
-    "title": "Excellia Blanco 40% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7282,
-    "title": "Excellia Reposado 40% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5793,
-    "title": "Facemask Chain",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 6849,
-    "title": "Fernet Vallet Liqueur 35% 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 4941,
-    "title": "Fortaleza Tequila Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 4932,
-    "title": "Fortaleza Tequila Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5026,
-    "title": "Fortaleza Tequila Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 4885,
-    "title": "Frida Kahlo Carry Bag",
-    "reason": "title:gift/decor"
-  },
-  {
-    "itemId": 5771,
-    "title": "Frida Kahlo Floral Light Shade",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 5831,
-    "title": "Frida Kahlo Necklace",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 7107,
-    "title": "Friendship Bracelets - Beige",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 5786,
-    "title": "Friendship Bracelets - Black",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 4209,
-    "title": "G4 Tequila Blanco 700ml 40%",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5061,
-    "title": "Gem & Bolt Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6766,
-    "title": "Gin Condesa Clasica 43% 70cl",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 6767,
-    "title": "Gin Condesa Prickly Pear 43% 70cl",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 4230,
-    "title": "Gran Centenario Anejo 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4228,
-    "title": "Gran Centenario Plata 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4229,
-    "title": "Gran Centenario Reposado 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6006,
-    "title": "Gran Orendain Blanco 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6007,
-    "title": "Gran Orendain Reposado 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6846,
-    "title": "Granada Vallet Liqueur 32% 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 5811,
-    "title": "Heart Pompoms Earrings",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 4342,
-    "title": "Herencia de Plata Tequila Coffee 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6760,
-    "title": "Herradura Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 5332,
-    "title": "Herradura Plata 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5331,
-    "title": "Herradura Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 5503,
-    "title": "Hibiscus Mezcal Paloma",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 7433,
-    "title": "Hot Honey Cazcabel Tequila Kit",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 4995,
-    "title": "Huana Guanabana Mayan 700ml",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 6997,
-    "title": "Huarache Press",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 6834,
-    "title": "Indio Lager Beer 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 4226,
-    "title": "Jose Cuervo Reserva De La Familia 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4222,
-    "title": "Jose Cuervo Tradicional Reposado 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4973,
-    "title": "Jose Cuervo Tradicional Silver 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 6586,
-    "title": "KAH Tequila Anejo 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6585,
-    "title": "KAH Tequila Blanco 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6584,
-    "title": "KAH Tequila Reposado 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5075,
-    "title": "Kalani Coconut Rum Liqueur 700ml",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 7097,
-    "title": "Koch El Mezcal Ensamble 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7096,
-    "title": "Koch El Mezcal Madrecuishe 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5813,
-    "title": "Koch El Mezcal Tobasiche 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6685,
-    "title": "Komos Tequila Anejo Cristalino 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 6686,
-    "title": "Komos Tequila Extra Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 6684,
-    "title": "Komos Tequila Reposado Rosa 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 7450,
-    "title": "Large Mexican Flag",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 7280,
-    "title": "Licor 43 31% 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 5579,
-    "title": "Loteria Game Set",
-    "reason": "category:decorations"
-  },
-  {
-    "itemId": 5788,
-    "title": "LOVE Bracelet",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 6591,
-    "title": "Madre Mezcal Ensamble 200ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6592,
-    "title": "Madre Mezcal Ensamble 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 4225,
-    "title": "Maestro Dobel Diamante 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4224,
-    "title": "Maestro Dobel Humito 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7094,
-    "title": "Maestro Dobel Silver 200ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4223,
-    "title": "Maestro Dobel Silver 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6658,
-    "title": "Mamacita - Mexican Cookbook by Andrea Pons",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 6695,
-    "title": "Masa - Techniques, Recipes, and Reflections on a Timeless Staple",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 7346,
-    "title": "Mata De Monte Mezcal 29% 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5399,
-    "title": "Mazahua Doll",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 4864,
-    "title": "Metate Volcanic Stone",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 7455,
-    "title": "Mexican Gaban Poncho",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 7106,
-    "title": "Mexican Kite Cappuccino Brown Earrings",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 5243,
-    "title": "Mexico - The Cookbook",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 7424,
-    "title": "Mezcal Reina Espadin 48% 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7444,
-    "title": "Mezcal Reina Mezcalita with Lime 200ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7423,
-    "title": "Mezcal Reina Paloma 200ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7426,
-    "title": "Mezcal Reina Tobala 37% 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7425,
-    "title": "Mezcal Reina Tobasiche 48% 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 4260,
-    "title": "Mezcal Union Uno 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6469,
-    "title": "Mezcales de Leyenda Durango 48% - Agave Verde 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6361,
-    "title": "Mezcales de Leyenda Guerrero 45% - Agave Cupreta - Ancho 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6362,
-    "title": "Mezcales de Leyenda Oaxaca 42% - Agave Tobala 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6473,
-    "title": "Mezcales de Leyenda Oaxaca 47% - Agave Coyote 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6472,
-    "title": "Mezcales de Leyenda Oaxaca 48% - Agave Mexicano 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6475,
-    "title": "Mezcales de Leyenda Oaxaca 50% - Agave Jabali 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6471,
-    "title": "Mezcales de Leyenda Puebla 47% - Agave Pichumel 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5827,
-    "title": "Milagrito Hand-embroidered Black Facemask",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 5787,
-    "title": "Mini Frida Kahlo Bracelet",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 5554,
-    "title": "Mini Mexican Flags (50 Pack)",
-    "reason": "category:decorations"
-  },
-  {
-    "itemId": 4294,
-    "title": "Modelo Especial Beer 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 7260,
-    "title": "Modelo Negra Beer 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 5406,
-    "title": "Molcajete Plastic 12cm (For Salsas)",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 5407,
-    "title": "Molcajete Volcanic Stone - 20cm",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 5589,
-    "title": "Molinillo - Mexican Chocolate Stirrer",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 6495,
-    "title": "Nacional Morelos American Pale Ale Beer 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 6721,
-    "title": "Nacional Morelos Nacion Lager Beer 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 6590,
-    "title": "Narano Bitter Orange Liqueur 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 5759,
-    "title": "Nixta Corn Liqueur 700ml",
-    "reason": "category:liqueurs"
-  },
-  {
-    "itemId": 7277,
-    "title": "Nocheluna Sotol 700ml",
-    "reason": "category:sotol"
-  },
-  {
-    "itemId": 7078,
-    "title": "Norte√±a - Cookbook for Authentic Mexican Recipes",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 5329,
-    "title": "Ocho Blanco 500ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5992,
-    "title": "Ocho Extra Anejo 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5328,
-    "title": "Ocho Reposado 500ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 6676,
-    "title": "Ojo de Dios Hibiscus Mezcal 700ml 35% Abv",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 5527,
-    "title": "Ojo De Dios Mezcal 42% 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6070,
-    "title": "Ojo De Dios Mezcal Odd Cafe 700ml 35% Abv",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6718,
-    "title": "Ojo de Dios Mezcal Triple Pack",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 5321,
-    "title": "Olmeca Altos Plata 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5327,
-    "title": "Olmeca Altos Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 6367,
-    "title": "Papel Picado Day of the Dead - 10 Sheets",
-    "reason": "title:gift/decor"
-  },
-  {
-    "itemId": 5859,
-    "title": "Papel Picado Landscapes (45 x 35 cm)",
-    "reason": "category:decorations"
-  },
-  {
-    "itemId": 5861,
-    "title": "Papel Picado Rodeo (45 x 35 cm)",
-    "reason": "category:decorations"
-  },
-  {
-    "itemId": 6768,
-    "title": "Pasote Anejo 40% 70cl",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6770,
-    "title": "Pasote Reposado 40% 70cl",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5326,
-    "title": "Patron Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 5325,
-    "title": "Patron Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 5324,
-    "title": "Patron Silver 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 7275,
-    "title": "Patron Silver Tequila mini 50ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6951,
-    "title": "Pimentae Spicy Margarita Tequila Cocktail 125ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7480,
-    "title": "Pimentae Spicy Mezcal Margarita 125ml",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 7481,
-    "title": "Pimentae Tequila Espresso Martini 125ml",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 7479,
-    "title": "Pimentae Tequila Grapefruit Margarita 125ml",
-    "reason": "title:alcohol"
-  },
-  {
-    "itemId": 6953,
-    "title": "Pimentae Tommy Margarita 500ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6949,
-    "title": "Pimentae Tommy's Margarita Tequila Cocktail 125ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6948,
-    "title": "Pimentae Tommys Spicy Margarita 500ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5382,
-    "title": "Pinata Handmade Foldable",
-    "reason": "category:decorations"
-  },
-  {
-    "itemId": 5317,
-    "title": "Plastic Mini Molcajeta 5.5cm (For Spices)",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 6996,
-    "title": "Premium Lemon Squeezer",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 6865,
-    "title": "Real Mexican Food Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 7477,
-    "title": "Rey Campero Mezcal Pechuga 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7475,
-    "title": "Rey Campero Mezcal Sierra Negra 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7478,
-    "title": "Rey Campero Mezcal Tepextate 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7476,
-    "title": "Rey Campero Mezcal Tobala 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6604,
-    "title": "Rooster Rojo Anejo Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6603,
-    "title": "Rooster Rojo Blanco Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6967,
-    "title": "Rooster Rojo Reposado Smoke Pineapple Tequila 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 6602,
-    "title": "Rooster Rojo Reposado Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5785,
-    "title": "Rosa Earrings",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 5481,
-    "title": "Salvador Jimenez & Mariachi Mexteca",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 6004,
-    "title": "San Cosme Mezcal 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 6852,
-    "title": "SHHH! Mezcal 47% 700ml",
-    "reason": "category:mezcal"
-  },
-  {
-    "itemId": 7108,
-    "title": "SHINE Bracelet",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 7431,
-    "title": "Small Beer Mexican Lager 2.5%",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 7077,
-    "title": "Sobremesa Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 6817,
-    "title": "Sol Tarasco \"Hongos\" Anejo Rum 40% 700ml",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 6815,
-    "title": "Sol Tarasco 4 Year Charanda Anejo Rum 40% 700ml",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 6816,
-    "title": "Sol Tarasco 8 Year Charanda Anejo Rum 42% 700ml",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 5812,
-    "title": "Sotol Sotomayor Excepcional Ensamble 750ml",
-    "reason": "category:spirits"
-  },
-  {
-    "itemId": 5790,
-    "title": "Star and Cherry Quartz Bracelet",
-    "reason": "department:fashion-craft-gifts"
-  },
-  {
-    "itemId": 7413,
-    "title": "SU Tequila Blanco 40% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7414,
-    "title": "SU Tequila Reposado 40% 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 7142,
-    "title": "Sugar Skull Calaveritas 9cm",
-    "reason": "category:decorations"
-  },
-  {
-    "itemId": 7290,
-    "title": "Tacos by Lily Ramirez-Froan",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 5424,
-    "title": "Tacos!",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 7098,
-    "title": "Tamal Steamer Cooking Pot Aluminium 20Lt",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 5322,
-    "title": "Tapatio Anejo 500ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 5320,
-    "title": "Tapatio Blanco 500ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 5306,
-    "title": "Tapatio Reposado 500ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 5741,
-    "title": "Tecate Lager Beer 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 4250,
-    "title": "Tequila Centinela Anejo 3yr 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4251,
-    "title": "Tequila Centinela Anejo 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4252,
-    "title": "Tequila Centinela Blanco 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4253,
-    "title": "Tequila Centinela Reposado 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6868,
-    "title": "Tequila Cocktails Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 6926,
-    "title": "Tequila Tierra Noble Anejo 700ml",
-    "reason": "category:anejo"
-  },
-  {
-    "itemId": 6927,
-    "title": "Tequila Tierra Noble Blanco 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 6928,
-    "title": "Tequila Tierra Noble Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 4212,
-    "title": "Terralta Blanco 750ml 40%",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 4213,
-    "title": "Terralta Reposado 750ml 40%",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6431,
-    "title": "The Latin American Cookbook",
-    "reason": "title:book"
-  },
-  {
-    "itemId": 6932,
-    "title": "Tico Blanco Tequila 700ml",
-    "reason": "category:blanco"
-  },
-  {
-    "itemId": 6933,
-    "title": "Tico Reposado Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6934,
-    "title": "Tico Rosa Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6747,
-    "title": "Torre de Picos Reposado Tequila 375ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6749,
-    "title": "Torre de Picos Reposado Tequila 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 5566,
-    "title": "Tortilla Making Kit: Tortilla press, 1kg Naturelo & Tortilla Warmer",
-    "reason": "title:kitchenware"
-  },
-  {
-    "itemId": 5474,
-    "title": "Tortilla Warmer Palm Style",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 5702,
-    "title": "Tortilla Warmer Pewter Black 18cm",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 5700,
-    "title": "Tortilla Warmer Pewter Blue 18cm",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 5701,
-    "title": "Tortilla Warmer Pewter Red 18cm",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 4952,
-    "title": "Tu Casa Mi Casa Book",
-    "reason": "category:cookbooks"
-  },
-  {
-    "itemId": 6813,
-    "title": "Uruapan Pure Agricola Charanda Blanco Rum 700ml",
-    "reason": "category:rum"
-  },
-  {
-    "itemId": 6500,
-    "title": "Victoria Beer 355ml",
-    "reason": "category:beer"
-  },
-  {
-    "itemId": 5099,
-    "title": "Vitrolero",
-    "reason": "category:kitchenware"
-  },
-  {
-    "itemId": 6035,
-    "title": "Vivir Tequila Anejo 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6034,
-    "title": "Vivir Tequila Blanco 700ml",
-    "reason": "category:tequila"
-  },
-  {
-    "itemId": 6160,
-    "title": "Vivir Tequila Reposado 700ml",
-    "reason": "category:reposado"
-  },
-  {
-    "itemId": 6994,
-    "title": "Zote Pink Soap 200g",
-    "reason": "title:unrelated retail"
-  }
-];
-
-export const mexgrocerCatalogueStats = {
-  raw: 767,
-  kept: 481,
-  excluded: 286,
-} as const;
-
-export default mexgrocerCatalogue;
+Y™Áäx-ÆÈ‹j◊ù¢Îi∫⁄+äßj[hëÈ‹¢ÈÌ◊ŒªÔÑËµ©h∫⁄n∂XßzÕK äÇà
+àY^‹õÿŸ\àÿ][Ÿ›YHõ‹à€€[YYKÇà
+Çà
+àŸ[ô\ò]Yúõ€HY^‹õÿŸ\ã\õŸX›Àöú€€à
+åçãLLMïMŒåÃéçÀéÃ÷äKÇà
+àHò]»^‹ù\»ô]Z[ôYô[›Œ»HYò][ÿ][Ÿ›YHô[[›ô\»ÿùö[›\¬à
+à[€⁄€⁄YùÀõ€⁄‹À⁄]⁄[ùÿ\ôKX€‹ò][€úÀ[ô[úô[]Yô]Z[][\ÀÇà
+ã¬Çô^‹ù[ù\ôòXŸHY^‹õÿŸ\îõŸX›¬à][RYàù[Xô\àù[¬à]Nà›ö[ôŒ¬à\õà›ö[ôŒ¬à\\ùY[ùà›ö[ôŒ¬àÿ]Y€‹ûT€YŒà›ö[ôŒ¬à]òZ[Xö[]Nà›ö[ôŒ¬àöXŸNàù[Xô\àù[¬àöXŸQúõ€Nàõ€€X[é¬à[XYŸNà›ö[ôŒ¬üBÇô^‹ù[ù\ôòXŸHY^‹õÿŸ\êÿ][Ÿ›YQ^€\⁄[€à¬à][RYàù[Xô\àù[¬à]Nà›ö[ôŒ¬àôX\€€éà›ö[ôŒ¬üBÇô^‹ù€€ú›ò]”Y^‹õÿŸ\êÿ][Ÿ›YNàôXY€õHY^‹õÿŸ\îõŸX›◊HH¬à¬àö][RYéàÕKàù]HéàåLàÿ€»ÿ€»õ›\à‹ù[\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€ŸŸõ›\ã]‹ù[\ÀÃL\ÿ€À[ÿ€ÀYõ›\ã]‹ù[\»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàôõ›\ã]‹ù[\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃL	Lå[ò⁄	Lå‹ù[\…Låÿ€…Låÿ€Àöúœ›LMÕÃåLÕÕÕ»ÇàKà¬àö][RYéàÕÀàù]HéàåLóàÿ€»ÿ€»õ›\à‹ù[\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€ŸŸõ›\ã]‹ù[\ÀÃLã\ÿ€À[ÿ€ÀYõ›\ã]‹ù[\»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàôõ›\ã]‹ù[\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃLâLåÿ€…Låÿ€Àöúœ›LMçÃéLMÃéÇàKà¬àö][RYéàãàù]HéàåMò€HõX⁄»‹ù[Hô\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ›‹ù[K\ô\‹ÀÃMò€KXõX⁄À]‹ù[K\ô\‹»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù‹ù[K\ô\‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçãçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’‹ù[ILåô\‹…LåMò€ILåõX⁄…LåKíîœ›LMéMLLLLÃçHÇàKà¬àö][RYéàÀàù]HéàåMò€HôY‹ù[Hô\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ›‹ù[K\ô\‹ÀÃMò€K\ôY]‹ù[K\ô\‹»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù‹ù[K\ô\‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçãçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’‹ù[ILåô\‹…LåMò€ILåôY	LåKöúœ›LMéMLLLLÃåÇàKà¬àö][RYéàŒNàù]HéàåMò€H‹ù[Hô\‹»⁄[ô\àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ›‹ù[K\ô\‹ÀÃMò€K]‹ù[K\ô\‹À\⁄[ô\àãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù‹ù[K\ô\‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçãçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’‹ù[ILåô\‹…LåMò€ILå⁄[ô\âLåKöúœ›LMéMLLLLÃçHÇàKà¬àö][RYéàÃLàù]HéàåN€ÿ€€ù]\]Y]\àL[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KÃNX€ÿ€€ù][\]Y]\ãML[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃN	Lå€ÿ€€ù]	Lå\]Y]\âLåL[öúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàåÕàù]HéàåN€ÿ€€ù]\]Y]\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KÃNX€ÿ€€ù][\]Y]\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃN	Lå€ÿ€€ù]	Lå\]Y]\ãöúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàMMÀàù]HéàåN\]Z[H[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀÃN]\]Z[KX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃN	Lå\]Z[ILå[ôZõÀöúœ›LMÃååLàÇàKà¬àö][RYéàååàù]HéàåN\]Z[H‹ö\›[[õ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KÃN]\]Z[KX‹ö\›[[õÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçÀéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃN	Lå\]Z[ILå‹ú⁄][[õÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàåçŒàù]HéàåN\]Z[HZ[öH⁄[ô\àL[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KÃN]\]Z[K[Z[öK\⁄[ô\ãML[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃN	LåZ[öILå⁄[ô\ãöúœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàMLàù]HéàåN\]Z[Hô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀÃN]\]Z[K\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃN	Lå\]Z[ILåô\‹ÿYÀöúœ›LMÃååLàÇàKà¬àö][RYéàååKàù]HéàåN\]Z[H⁄[ô\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KÃN]\]Z[K\⁄[ô\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃN	Lå\]Z[ILåõ[ò€Àöúœ›LMÃååLàÇàKà¬àö][RYéàŒNKàù]HéàåNX€HõX⁄»‹ù[Hô\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ›‹ù[K\ô\‹ÀÃNX€KXõX⁄À]‹ù[K\ô\‹»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù‹ù[K\ô\‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’‹ù[ILåô\‹…LåNX€ILåõX⁄…LåKíîœ›LMÃçÃLéHÇàKà¬àö][RYéàMåMÀàù]HéàåNX€HôY‹ù[Hô\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ›‹ù[K\ô\‹ÀÃNX€K\ôY]‹ù[K\ô\‹»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù‹ù[K\ô\‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’‹ù[ILåô\‹…LåNX€ILåôY	LåKöúœ›LMçåMÕÕå»ÇàKà¬àö][RYéàKàù]HéàåNX€H⁄[ô\à‹ù[Hô\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ›‹ù[K\ô\‹ÀÃNX€K\⁄[ô\ã]‹ù[K\ô\‹»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù‹ù[K\ô\‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’‹ù[ILåô\‹…LåNX€ILå⁄[ô\âLåKöúœ›LMçåMÕÕå»ÇàKà¬àö][RYéàMåNàù]HéàåçX€H⁄[ô\à‹ù[Hô\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ›‹ù[K\ô\‹ÀÃçX€K\⁄[ô\ã]‹ù[K\ô\‹»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù‹ù[K\ô\‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàNéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’‹ù[ILåô\‹…LåçX€Köúœ›LMéÃLÕHÇàKà¬àö][RYéààù]Héàçóà‹ôX[H\›X»‹ù[Hÿ\õY\àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\À⁄⁄]⁄[ùÿ\ôKÕãX‹ôX[K\\›XÀ]‹ù[K]ÿ\õY\àãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàö⁄]⁄[ùÿ\ôHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–‹ôX[ILåÿ\õY\âLåãöúœ›LMçÃMLåàÇàKà¬àö][RYéàMàù]Héàçóà\›X»‹ù[Hÿ\õY\àHôYãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\À⁄⁄]⁄[ùÿ\ôKÕã\\›XÀ]‹ù[K]ÿ\õY\ã\ôYãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàö⁄]⁄[ùÿ\ôHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‘\›X…Lå‹ù[ILåÿ\õY\âLåôYöúœ›LMçåMÕÕå»ÇàKà¬àö][RYéàééKàù]HéàéNõ[ò€»\]Z[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŒNXõ[ò€À]\]Z[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéMÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ŒN	Låõ[ò€…Lå\]Z[ILåÃ[öúœ›LMÃååÃMàÇàKà¬àö][RYéàéÃàù]HéàéNô\ÿY»\]Z[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŒN\ô\ÿYÀ]\]Z[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàNçÕàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ŒN	Låô\‹ÿYÀöúœ›LMéMLéLÇàKà¬àö][RYéàMÕNàù]HéàêXò\€€»€‹õà⁄\⁄ﬁHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹ÀÿXò\€€ÀX€‹õã]⁄\⁄ﬁKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éààãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–Xúÿ[…Lå⁄\⁄Ÿ^Köúœ›LMÃåÕLMÇàKà¬àö][RYéàŒKàù]HéàêXùY[]H⁄ÿ€€]HM»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À⁄›Yö[ö‹ÀÿXùY[]KX⁄ÿ€€]KMM»ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàö›Yö[ö‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMçàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ô\›ILåXùY[]ILå⁄ÿ€€]Kíîœ›LMÃçÃMMàÇàKà¬àö][RYéàÕÃÀàù]HéàêX⁄Y[Y]»›ŸY]»L»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸK[K\õ‹ÿKÿX⁄Y[Y]À\›ŸY]ÀML»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàôK[K\õ‹ÿHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLKéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–X⁄Y[Y[…Lå›ŸY]…LåLÀúôœ›LMŒÃMÃL»ÇàKà¬àö][RYéàÃLåKàù]HéàêYÿ]ôHﬁ\ù\çZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹‹X⁄X[]KÿYÿ]ôK\ﬁ\ù\LçZŸ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàú‹X⁄X[]Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–Yÿ]ôILåﬁ\ù\	LåçZŸÀöúœ›LMÃÃÃåÕÕM»ÇàKà¬àö][RYéàNLÀàù]HéàêYÿ]ôHﬁ\ù\ÃÃ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€ŸŸ\‹Ÿ\ùÀÿYÿ]ôK\ﬁ\ù\LÃÃ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàô\‹Ÿ\ù»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–Yÿ]ôILåﬁ\ù\	LåÃÃ…Lå\]Yöúœ›LMÕÃåMMÃ»ÇàKà¬àö][RYéàMÕMKàù]HéàêYÿ]ôHﬁ\ù\KçöŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€ŸŸ\‹Ÿ\ùÀÿYÿ]ôK\ﬁ\ù\MMöŸ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàô\‹Ÿ\ù»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–Yÿ]ôILåﬁ\ù\	LåKçöŸÀöúœ›LMÕåÃLÃÇàKà¬àö][RYéàÃååãàù]HéàêYÿ]ô\⁄]»L[Yÿ]ôHﬁ\ù\ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿYÿ]ô\⁄]ÀÿYÿ]ô\⁄]ÀML[XYÿ]ôK\ﬁ\ù\ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòYÿ]ô\⁄]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–Yÿ]ô\⁄]…LåL[öúœ›LMÃŒNMåLÇàKà¬àö][RYéàçåKàù]Héàê[\\»ÿ[à[ôô\»Y^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿ[\\À\ÿ[ãX[ôô\À[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàåàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[\\…Låÿ[âLå[ôô\…LåY^òÿ[öúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàçåãàù]Héàê[\\»ÿ[àò[^ò\àY^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿ[\\À\ÿ[ãXò[^ò\ã[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[\\…Låÿ[âLåò[	LåY^òÿ[öúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàéLàù]Héàê[\\»ÿ[àùX[àY^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿ[\\À\ÿ[ãZùX[ã[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[\\…Låÿ[âLåùX[âLåY^òÿ[öúœ›LMÃåÕLMÇàKà¬àö][RYéàçåÀàù]Héàê[\\»ÿ[ùH[òHY^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿ[\\À\ÿ[ùKX[òK[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[\\…Låÿ[ùILå[òILåY^òÿ[öúœ›LMÃåÕMLM»ÇàKà¬àö][RYéàÃLKàù]Héàê[XHö[òÿH‹ò[ôŸH\]Y\à	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀÿ[XKYö[òÿK[‹ò[ôŸK[\]Y\ãMMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàŒKçNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[XILåö[òÿILå‹ò[ôŸILå\]Y\âLå	LçILåÃ[öúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàçNàù]Héàê[X\ò\»›\ôX]H›Y\úô\õ»Y^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[Àÿ[X\ò\ÀX›\ôX]KY›Y\úô\õÀ[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàåàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[[‹ô\…Lå›\ôX]Köúœ›LMÃÃLÕÕ»ÇàKà¬àö][RYéàççÃãàù]Héàê[X\ò\»\‹Y[àô\‹ÿY»Y^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿ[X\ò\ÀY\‹Y[ã\ô\‹ÿYÀ[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçKçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[[‹ô\…Låô\‹ÿYÀöúœ›LMÃåÕLMÇàKà¬àö][RYéàéÀàù]Héàê[X\ô€»[ô€‹›\òHò[]\]Y]\àIHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀÿ[X\ô€ÀX[ô€‹›\òK]ò[][\]Y]\ãMKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃÀçÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[X\ô€…Lå[ô€‹›\òILåò[]	Lå\]Y]\âLåILçILåÃ[öúœ›LMéNLÕÕHÇàKà¬àö][RYéàNMNàù]Héàê[ò⁄»⁄[H›Ÿ\àL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ⁄[Y\ÀŸ‹õ›[ôX⁄[Y\Àÿ[ò⁄ÀX⁄[K\›Ÿ\ãLL»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàô‹õ›[ôX⁄[Y\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[ò⁄…Lå›Ÿ\âLåãöúœ›LMçåÕÕåàÇàKà¬àö][RYéàÕåÀàù]Héàê[ò⁄»õZŸ\»L»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ⁄[Y\Àÿ‹ù\⁄YX⁄[Y\Àÿ[ò⁄ÀYõZŸ\ÀML»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò‹ù\⁄YX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[ò⁄…LåõZŸ\…LåLÀúôœ›LMŒåŒå»ÇàKà¬àö][RYéàMàù]Héàê[ò⁄»ô^Y\»⁄[H\]Y]\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀÿ[ò⁄À\ô^Y\ÀX⁄[K[\]Y]\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[ò⁄…Låô^Y\…Lå\][‹ãöúœ›LMÃåÕLMNLÇàKà¬àö][RYéàéKàù]Héàê[ò⁄»ô^Y\»ô\ôH\]Y]\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀÿ[ò⁄À\ô^Y\À]ô\ôK[\]Y]\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[ò⁄…Låô^Y\…Låÿõ[õ…Lå⁄[YILå\][‹ãöúœ›LMÃåÕLMÇàKà¬àö][RYéàLååàù]Héàê[ò⁄»⁄€HöYY⁄[HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\ÀŸöYYX⁄[Y\Àÿ[ò⁄À]⁄€KYöYYX⁄[KLZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàôöYYX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[ò⁄…Lå⁄€ILåãöúœ›LMÃååLàÇàKà¬àö][RYéàMàù]Héàê[ö[X\»\‹Y[à›\ôX]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[Àÿ[ö[X\ÀY\‹Y[ãX›\ôX]KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[ö[X\…LåY^òÿ[	Lå\‹Y[âLå›\ôX]ILåÃ[öúœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàéMKàù]Héàê[ùXÿHÿ[ù[òH⁄Y\ŸH\Ã»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ⁄Y\ŸKÿ[ùXÿKXÿ[ù[òKX⁄Y\ŸKY\LÃ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò⁄Y\ŸHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–[ùXÿILåÿ[ù[òILå⁄Y\ŸILå\	LåÃÀöúœ›LMÃçÕÃMŒÇàKà¬àö][RYéàÕçàù]Héàê\òõ€õZŸ\»L»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\Àÿ‹ù\⁄YX[ô\›Ÿ\ãX⁄[Y\Àÿ\òõ€YõZŸ\ÀML»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàò‹ù\⁄YX[ô\›Ÿ\ãX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿ\òõ€	LåõZŸ\Àöúœ›LMŒåŒå»ÇàKà¬àö][RYéàLåNKàù]Héàê\òõ€⁄€HöYY⁄[HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ⁄[Y\À›⁄€KYöYYX⁄[Y\Àÿ\òõ€]⁄€KYöYYX⁄[KLZŸ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàù⁄€KYöYYX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–\òõ€	Lå⁄€Köúœ›LMÃååLàÇàKà¬àö][RYéàLKàù]Héàê\ô]H\]Z[Hõ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€Àÿ\ô]K]\]Z[KXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–\úô]ILåõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàLçÀàù]Héàê\ô]H\]Z[Hô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀÿ\ô]K]\]Z[K\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàŒKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–\úô]ILåô\Àöúœ›LMÃååLàÇàKà¬àö][RYéàNãàù]Héàê\õ[€öX€»⁄[àŸX€»L	HL[õ›Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]Àÿ\õ[€öX€ÀY⁄[ã\ŸX€ÀMLML[Xõ›Hãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–\õ[€öX€Àúôœ›LMÃåÕLMNLÇàKà¬àö][RYéàåÕKàù]Héàê\ùSì”HLMà[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ\ù[õ€KLLMãX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–\ùSì”ILå[ôZõÀöúœ›LMÃååLàÇàKà¬àö][RYéàåÕLKàù]Héàê\ùSì”HMMô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ\ù[õ€KLMM\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–\ùSì”ILåô\‹ÿYÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàåÕLàù]Héàê\ùSì”HMMŒHõ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ\ù[õ€KLMMŒKXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–\ùSì”ILåõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàçŒÀàù]HéàêT–QHH\ùŸàY^Xÿ[ãT›[H‹ö[[ô»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ€€⁄ÿõ€⁄‹Àÿ\ÿYK]KX\ù[Ÿã[Y^Xÿ[ã\›[KY‹ö[[ô»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò€€⁄ÿõ€⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–T–QILåILå\ù	LåŸâLåY^ÿ[ãT›[ILå‹ö[[ôÀöúœ›LMéÃLÕHÇàKà¬àö][RYéàLàù]Héàê]õÿÿY»XYà›Ÿ\àZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\À‹‹X⁄X[]Kÿ]õÿÿYÀ[XYã\›Ÿ\ãLZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàú‹X⁄X[]Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–]õÿÿY…Lå›Ÿ\ãúôœ›LMÃMMçMàÇàKà¬àö][RYéàNÀàù]Héàê]õÿÿY»X]ô\»⁄€HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\À‹‹X⁄X[]Kÿ]õÿÿYÀ[X]ô\À]⁄€KLZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàú‹X⁄X[]Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàŒçKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–]õÿÿY…LåX]ô\…Lå⁄€Köúœ›LMçåMÕÕå»ÇàKà¬àö][RYéàLãàù]HéàêòXÿ[õ‹òHY›X[ZY[Ã[IHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]ÀÿòXÿ[õ‹òKXY›X[ZY[MÃ[MHãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–òXÿ[õ‹òILåY›X[ZY[	LåÕL[	LåILåô]Àöúœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàçåMàù]HéàêòXÿ[õ‹òHÿ[ù»XÿY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]ÀÿòXÿ[õ‹òK\ÿ[ùÀ\XÿY»ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–òXÿ[õ‹òILåÿ[ù…LåXÿYÀöúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàLåÀàù]Héàêò[[HòZX⁄[H€‹›HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]Àÿò[[K\òZX⁄[KX€‹›KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ò[[ILåòZX⁄[ILå€‹›Kúôœ›LMÃåÕLMNLÇàKà¬àö][RYéàLŒKàù]Héàêò[[HòZX⁄[HXY\òY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]Àÿò[[K\òZX⁄[K[XY\òYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàåàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ò[[ILåòZX⁄[ILåXY\òYÀúôœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàMåàù]Héàêò[[HòZX⁄[H⁄Y\úòHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]Àÿò[[K\òZX⁄[K\⁄Y\úòKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ò[[ILåòZX⁄[ILå⁄Y\úòKúôœ›LMÃåÕLMNLÇàKà¬àö][RYéàçNKàù]Héàêò\úö[]»ôY\àÃç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹ÀÿôY\ãÿò\úö[]ÀXôY\ãLÃç[[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòôY\àãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ò\úö[]Àöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàÃçåKàù]Héàêõ⁄[ZXH‹ÿ›\òHÕM[[Y^Xÿ[àôY\àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹ÀÿôY\ãÿõ⁄[ZXK[‹ÿ›\òKLÕM[[[Y^Xÿ[ãXôY\àãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòôY\àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–õ⁄[ZXILå‹ÿ›\òILåÕM[[öúœ›LMÕLLÃåÃNÇàKà¬àö][RYéàNMãàù]Héàêõ⁄[ô»‹ò\HåÕ€[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿõ⁄[ôÀÿõ⁄[ôÀY‹ò\KLåÕ€[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòõ⁄[ô»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–õ⁄[ô…Lå‹ò\ILååÕ€[	LåëUÀöúœ›LMÕÃåMMéNHÇàKà¬àö][RYéàLKàù]Héàêõ⁄[ô»›X]òHåÕ€[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿõ⁄[ôÀÿõ⁄[ôÀY›X]òKLåÕ€[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòõ⁄[ô»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–õ⁄[ô…Lå›X]òKöúœ›LMÃååÃMàÇàKà¬àö][RYéàÃçKàù]Héàêì“Së»ïRP÷H“Uãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿõ⁄[ôÀÿõ⁄[ôÀZùZXﬁKZ⁄]ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòõ⁄[ô»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ì“Së…LåïRP÷ILå“Uöúœ›LMÕååNLÕÇàKà¬àö][RYéàMåÀàù]Héàêõ⁄[ô»X[ô€»åÕ€[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿõ⁄[ôÀÿõ⁄[ôÀ[X[ô€ÀLåÕ€[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòõ⁄[ô»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–õ⁄[ô…LåX[ô€…LååÕ€[	LåëUÀöúœ›LMÕÃåMMéNHÇàKà¬àö][RYéàåÕKàù]Héàêõ⁄[ô»›ò]ÿô\úûHåÕ€[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿõ⁄[ôÀÿõ⁄[ôÀ\›ò]ÿô\úûKLåÕ€[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòõ⁄[ô»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–õ⁄[ô…Lå›ò]ÿô\úûILååÕ€[	LåëUÀöúœ›LMÕÃåMMÃÇàKà¬àö][RYéàççKàù]Héàêõ›[ô\õ»⁄]⁄X⁄\úõ€à	àò[[ù[òHÿ[ÿHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]Àÿõ›[ô\õÀZ⁄]X⁄X⁄\úõ€ã]ò[[ù[òK\ÿ[ÿHãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçÕKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–õ›[ô\õ…Lå⁄]	LåILåëUÀöúœ›LMÕLÕÃÃåNHÇàKà¬àö][RYéàMéNàù]Héàêõ›[ô\õ»ÿ[ÿH€\⁄XÿH›ÿ]XŸHÕÃ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ⁄›\ÿ]XŸK\ÿ[ÿK€Z[]XõK\ÿ]XŸ\Àÿõ›[ô\õÀ\ÿ[ÿKX€\⁄XÿKZ›\ÿ]XŸKLÕÃ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàõZ[]XõK\ÿ]XŸ\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿõ›[ô\òKöúœ›LMÃåÕLMNLÇàKà¬àö][RYéàLÃàù]Héàêúù^»õÀåHY^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿúù^À[õÃK[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMKçLKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿõ›ILåúù^…LåõÀåILåô]Àöúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàLçÀàù]Héàêúù^»õÀåàY^òÿ[õ›ô[àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿúù^À[õÃã[Y^òÿ[Zõ›ô[ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàNåàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿõ›ILåúù^…LåõÀåâLåô]Àöúœ›LMÃåÕLMÇàKà¬àö][RYéàLÀàù]Héàêúù^»õÀå»Y^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[Àÿúù^À[õÃÀ[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçÀçÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿõ›ILåúù^…LåõÀå…Låô]Àöúœ›LMÃåÕMLM»ÇàKà¬àö][RYéàçãàù]Héàêúù^»õÀçõ[ôY^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[Àÿúù^À[õÕXõ[ô[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿõ›ILåúù^…LåõÀç	Låô]Àöúœ›LMÃåÕMLM»ÇàKà¬àö][RYéàçÀàù]Héàêúù^»õÀçHÿò[HY^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[Àÿúù^À[õÕK]ÿò[K[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLãçMãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿõ›ILåúù^…LåõÀçILåô]Àöúœ›LMÃåÕLMÇàKà¬àö][RYéàçàù]Héàêúù^»Y^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿúù^À^[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀéãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”Y^òÿ[	Låúù^…Låöúœ›LMÃåÕMLM»ÇàKà¬àö][RYéàMLÃãàù]HéàêùYò[»€\⁄X€»›ÿ]XŸHML[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ⁄›\ÿ]XŸK\ÿ[ÿK⁄›\ÿ]XŸ\ÀÿùYò[ÀX€\⁄X€ÀZ›\ÿ]XŸKLML[ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàö›\ÿ]XŸ\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãåKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ùYò[…Lå€\⁄X€…Lå›	Låÿ]XŸILåML[	Lå	Léô]…LéKöúœ›LMÃLçÕMÕçMàÇàKà¬àö][RYéàLÃMãàù]HéàêÿXúö]»õ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€ÀÿÿXúö]ÀXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕÀåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿXúö]…Låõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàÃÕLãàù]HéàêÿX›»‹öY⁄[ò[öX⁄€HX\à	à⁄]HXX⁄€ŸHÃÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿÿX›ÀÿÿX›À[‹öY⁄[ò[\öX⁄€K\X\ã]⁄]K\XX⁄\€ŸKLÃÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòÿX›»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿX›…LåXX⁄	Lå“’Kúôœ›LMÕÃçÕååÇàKà¬àö][RYéàÃÕLKàù]HéàêÿX›»‹öY⁄[ò[öX⁄€HX\à€ŸHÃÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿÿX›ÀÿÿX›À[‹öY⁄[ò[\öX⁄€K\X\ã\€ŸKLÃÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòÿX›»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿX›…LåöX⁄€ILåX\âLå“’Kúôœ›LMÕÃçÕååÇàKà¬àö][RYéàLÃÀàù]Héàêÿ[Hå»[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀÿÿ[KLåÀX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃÀåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ[ILåå…Lå[ôZõÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàLÃLÀàù]Héàêÿ[Hå»õ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€Àÿÿ[KLåÀXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ[ILåå…Låõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàLÃLãàù]Héàêÿ[Hå»ô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀÿÿ[KLåÀ\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ[ILåå…Låô\‹ÿYÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàÃÕMàù]Héàêÿ[ù[ô\õ»\]Z[H[ôZõ»Œ	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿÿ[ù[ô\õÀÿÿ[ù[ô\õÀ]\]Z[KX[ôZõÀLŒMÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòÿ[ù[ô\õ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ[ù[ô\õ…Lå[ôZõ…LåÕL[öúœ›LMÕççMŒÇàKà¬àö][RYéàåàù]Héàêÿ[ù[ô\õ»\]Z[Hõ[ò€»Œ	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ[ù[ô\õÀ]\]Z[KXõ[ò€ÀLŒMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃçÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ[ù[ô\õ…Låõ[ò€…LåŒ	LçILåÕL[öúœ›LMÕççMÕŒÇàKà¬àö][RYéàåKàù]Héàêÿ[ù[ô\õ»\]Z[Hô\‹ÿY»Œ	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀÿÿ[ù[ô\õÀ]\]Z[K\ô\‹ÿYÀLŒMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃçÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ[ù[ô\õ…Låô\‹ÿY…LåŒ	LçILåÕL[öúœ›LMÕççMÕŒÇàKà¬àö][RYéàÃŒMàù]Héàêÿ[ù[ô\õ»\]Z[Hö\HX⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿÿ[ù[ô\õÀÿÿ[ù[ô\õÀ]\]Z[K]ö\K\X⁄»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòÿ[ù[ô\õ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ[ù[ô\õ…Lå\]Z[ILåö\ILåX⁄Àöúœ›LMÕéMLåÃNHÇàKà¬àö][RYéàÃLåàù]Héàêÿ\ô^H€X][»⁄€HÕ»Y^Xÿ[à‹ôY[à€X]Ÿ\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿÿ\ô^Kÿÿ\ô^K]€X][À]⁄€KLÕÀ[Y^Xÿ[ãY‹ôY[ã]€X]Ÿ\»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòÿ\ô^Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãççKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ô^ILå€X][…Lå⁄€ILåÕ…LåëUÀöúœ›LMÕÃåÃÃÕ»ÇàKà¬àö][RYéàNãàù]Héàêÿ\ÿH\ôŸ[ù[òHH⁄[ZX⁄\úöHZ^YöYY\òú»L»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€][ãX[Y\öXÿ[ãYõ€Ÿÿ\ôŸ[ù[òKÿÿ\ÿKX\ôŸ[ù[òKX⁄[ZX⁄\úöK[Z^YYöYYZ\òúÀLL»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò\ôŸ[ù[òHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿKP\ôŸ[ù[òKTô[Z][KP⁄[ZX⁄\úöKSZ^YYöYYZ\òúÀ^LLÀöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàççåÀàù]Héàêÿ\ÿHòY€€ô\»[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ\ÿKYòY€€ô\ÀX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàNãéKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿILåòY€€ô\…Lå\]Z[ILå[ôZõ…LåÃ[öúœ›LMÃååÃMàÇàKà¬àö][RYéàMãàù]Héàêÿ\ÿHòY€€ô\»õ›ô[à\]Z[HÃ[	Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ\ÿKYòY€€ô\ÀZõ›ô[ã]\]Z[KMÃ[Mãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÃãçÃãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿW—òY€€ô\◊“õ›ô[ãöúœ›LMÃååÃMàÇàKà¬àö][RYéàMçàù]Héàêÿ\ÿHòY€€ô\»\]Z[Hõ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€Àÿÿ\ÿKYòY€€ô\À]\]Z[KXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàNKçÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿILåòY€€ô\…Lå\]Z[ILåõ[ò€…LåÃ[	LåKöúœ›LMÃååLàÇàKà¬àö][RYéàMÕåàù]Héàêÿ\ÿ[ZY€‹»[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀÿÿ\ÿ[ZY€‹ÀX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿ[ZY€‹…Lå[ôZõÀöúœ›LMÃåÕLMNLÇàKà¬àö][RYéàMÕåKàù]Héàêÿ\ÿ[ZY€‹»õ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€Àÿÿ\ÿ[ZY€‹ÀXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéçÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿ[ZY€‹…Låõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàMÀàù]Héàêÿ\ÿ[ZY€‹»ô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀÿÿ\ÿ[ZY€‹À\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿ[ZY€‹…LåILåëUÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàMMÀàù]Héàêÿ\ÿÿXô[⁄€HöYY⁄[HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\ÀŸöYYX⁄[Y\Àÿÿ\ÿÿXô[]⁄€KYöYYX⁄[KLZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàôöYYX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿÿ\ÿÿXô[öúœ›LMçåÕÕåàÇàKà¬àö][RYéàååàù]Héàêÿ\ÿÿZZ[àõ[ò€»\]Z[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€Àÿÿ\ÿÿZZ[ãXõ[ò€À]\]Z[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿÿZZ[âLåõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàååKàù]Héàêÿ\ÿÿZZ[àô\‹ÿY»\]Z[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀÿÿ\ÿÿZZ[ã\ô\‹ÿYÀ]\]Z[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ\ÿÿZZ[âLåô\‹ÿYÀöúœ›LMÃååLàÇàKà¬àö][RYéàçÕàù]Héàêÿ]ö[òHõ[ò€»\]Z[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ]ö[òKXõ[ò€À]\]Z[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ]ö[òILåõ[ò€…Lå\]Z[ILåÃ[öúœ›LMÃååÃMàÇàKà¬àö][RYéàçÕLàù]Héàêÿ]ö[òHô\‹ÿY»\]Z[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ]ö[òK\ô\‹ÿYÀ]\]Z[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–ÿ]ö[òILåô\‹ÿY…Lå\]Z[ILåÃ[öúœ›LMÃååÃMàÇàKà¬àö][RYéàÃÕàù]Héàêÿ^òÿXô[õ[ò€»\]Z[HŒ	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ^òÿXô[Xõ[ò€À]\]Z[KLŒMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–õ[ò€◊ÃL	LçWÿYÿ]ôILå	Lé	LéKúôœ›LMÃMÃMÕÕHÇàKà¬àö][RYéàÃÃÀàù]Héàêÿ^òÿXô[€ÿ€€ù]\]Z[HÕ	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ^òÿXô[X€ÿ€€ù]]\]Z[KLÕMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–”–”Àúôœ›LMÃMÃMÕÕàÇàKà¬àö][RYéàÃÕãàù]Héàêÿ^òÿXô[€ô^H\]Z[HÕ	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ^òÿXô[Z€ô^K]\]Z[KLÕMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃKê–Vó“”ëVILå	Lé…LéKúôœ›LMŒååçåMHÇàKà¬àö][RYéàÃÕKàù]Héàêÿ^òÿXô[ô\‹ÿY»\]Z[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿÿ^òÿXô[\ô\‹ÿYÀ]\]Z[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕãåÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃKê–Vó‘ëT‘–QÀúôœ›LMÃNÕLçÃHÇàKà¬àö][RYéàÃàù]HéàêŸ\ùô^òHõÿ⁄HùY[òHÕM[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹ÀÿôY\ãÿŸ\ùô^òK[õÿ⁄KXùY[òKLÕM[[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòôY\àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”õÿ⁄ILåùY[òKöúœ›LMççŒMLåÇàKà¬àö][RYéàåÃÀàù]Héàê⁄\ò[ôH[\ò\ÿ€»ù[H⁄[ô\àÃ[Œ	Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹ù[Kÿ⁄\ò[ôKY[]\ò\ÿ€À\ù[K\⁄[ô\ãMÃ[LŒãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúù[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå\ò\ÿ€…Lå‹ò[âLåô\Ÿ\ùòILå⁄[ô\ãöúœ›LMÃåÕLMÇàKà¬àö][RYéàåÕãàù]Héàê⁄\ò[ôH€€\ò\ÿ€»^òHYŸYù[HÃ[	Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹ù[Kÿ⁄\ò[ôK\€€]\ò\ÿ€ÀY^òKXYŸY\ù[KMÃ[Mãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúù[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMãçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‘€€	Lå\ò\ÿ€…Lå^òILåYŸYöúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàMNÀàù]Héàê⁄\úõ»]ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ⁄\úõÀZ]ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàõ›\ã[Y^Xÿ[ãZ][\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄\úõ…Lå]	LåõX⁄…Lå	LçâLå⁄[ô\âLåKöúœ›LMéÕåLçåçàÇàKà¬àö][RYéàÕŒKàù]Héàê⁄]XÿH€X[[ô[H›Yÿ\àÿ[ôHL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€][ãX[Y\öXÿ[ãYõ€Ÿÿ⁄]XÿK\€X[\[ô[K\›Yÿ\ãXÿ[ôKML»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàõ][ãX[Y\öXÿ[ãYõ€Ÿãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‘[ô[Köúœ›LMÕŒMMÃLÇàKà¬àö][RYéàÃÕåÀàù]Héàê⁄H[ŸHHX⁄H€\‹⁄X»›[HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€][ãX[Y\öXÿ[ãYõ€Ÿÿ⁄KY[ŸKYK[X⁄KX€\‹⁄XÀ\›[KLZŸ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàõ][ãX[Y\öXÿ[ãYõ€Ÿãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄ILå[ŸILåILåX⁄ILå€\‹⁄X…Lå›[ILåZŸÀöúœ›LMÕçMNLLÇàKà¬àö][RYéàååNàù]Héàê⁄X⁄\úõ€àL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ‹ö\‹À\€òX⁄‹Àÿ⁄X⁄\úõ€ãLL»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò‹ö\‹À\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄X⁄\õ€âLåLÀöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàÃåÀàù]Héàê“P“Tîì”àL»
+X⁄»Ÿà Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ‹ö\‹À\€òX⁄‹Àÿ⁄X⁄\úõ€ãLLÀ\X⁄À[ŸãL»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò‹ö\‹À\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄X⁄\úõ€âLåL…Lå	LéX⁄…Lå…LéKöúœ›LMÃåÕLMÇàKà¬àö][RYéàååNKàù]Héàê⁄X⁄\úõ€àò[\[õ»Ã»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ‹ö\‹À\€òX⁄‹Àÿ⁄X⁄\úõ€ãZò[\[õÀMÃ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò‹ö\‹À\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“–RLÃÃåÃÀöúœ›LMÃLMåŒMàÇàKà¬àö][RYéàÃåéKàù]Héàê⁄X⁄\úõ€àò[\[õ»Ã»
+X⁄»Ÿà Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ‹ö\‹À\€òX⁄‹Àÿ⁄X⁄\úõ€ãZò[\[õÀMÃÀ\X⁄À[ŸãL»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò‹ö\‹À\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄X⁄\úõ€âLåò[\[õ…LåÃ…Lå	LéX⁄…Lå…LéKöúœ›LMÃŒLçÕåÇàKà¬àö][RYéàéŒàù]Héàê⁄[\]Z[\»ô\ô\»⁄]ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]Àÿ⁄[\]Z[\À]ô\ô\ÀZ⁄]ãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKçÕKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄[\]Z[\…Låô\ô\…Lå⁄]öúœ›LMÕéÃNLLL»ÇàKà¬àö][RYéàNLÃàù]Héàê⁄\›H⁄[HõZŸ\»L»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ⁄[Y\Àÿ⁄\›KX⁄[KYõZŸ\ÀML»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄\›ILå‹ù\⁄Y	Låãíîœ›LMÃŒNMÃMMMàÇàKà¬àö][RYéàLåÃãàù]Héàê⁄\›H[‹ö]H⁄[H›Ÿ\àL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ⁄[Y\ÀŸ‹õ›[ôX⁄[Y\Àÿ⁄\›K[[‹ö]KX⁄[K\›Ÿ\ãLL»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàô‹õ›[ôX⁄[Y\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿ⁄\›ILå[‹ö]ILå›Ÿ\ãöúœ›LMÕLçMçéÇàKà¬àö][RYéàMÃàù]Héàê⁄ÿ€€]Hö[ö»X⁄»⁄]€€Ÿ[€[ö[»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]Àÿ⁄ÿ€€]KYö[öÀ\X⁄À]⁄]]€€Ÿ[[€[ö[»ãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄ÿ€€]ILåö[ö…LåX⁄…Lå⁄]	Lå€€Ÿ	Lå[€[ö[Àöúœ›LMÕMNMÕMHÇàKà¬àö][RYéàMÕàù]Héàê⁄€[H⁄\›H›ÿ]XŸHML[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ⁄€[Kÿ⁄€[KX⁄\›KZ›\ÿ]XŸKLML[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄€[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿ⁄€[KX⁄\›KZ›\ÿ]XŸKöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàMéàù]Héàê⁄€[Hÿ\õX»[ô⁄[H›ÿ]XŸHML[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ⁄€[Kÿ⁄€[KYÿ\õXÀX[ôX⁄[KZ›\ÿ]XŸKLML[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄€[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄€[ILåÿ\õXÀöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàçKàù]Héàê⁄€[H[[€à›ÿ]XŸLML[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ⁄€[Kÿ⁄€[K[[[€ãZ›\ÿ]XŸLML[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄€[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄€[ILå[[€âLåML[íîœ›LMÃÃÕÕÃÕéHÇàKà¬àö][RYéàåMKàù]Héàê⁄€[H‹öY⁄X[õ›ÿ]XŸHKé[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ⁄€[Kÿ⁄€[K[‹öY⁄X[õZ›\ÿ]XŸKLN[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄€[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåKçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄€[ILåÿ]\ö[ôÀöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàçàù]Héàê⁄€[H‹öY⁄[ò[›ÿ]XŸHML[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ⁄€[Kÿ⁄€[K[‹öY⁄[ò[Z›\ÿ]XŸKLML[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄€[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄€[ILå‹öY⁄[ò[öúœ›LMçåŒLååŒÇàKà¬àö][RYéàéçàù]Héàê⁄€[Hÿ]XŸH€€X›[€àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ⁄€[Kÿ⁄€[K\ÿ]XŸKX€€X›[€àãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄€[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄€[ILåÿ]XŸILå€€X›[€ãöúœ›LMÃååÃMàÇàKà¬àö][RYéàLLãàù]Héàê⁄‹ö^õ»[ö]ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹‹X⁄X[]Kÿ⁄‹ö^õÀ][ö]ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàú‹X⁄X[]Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãéKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄‹ö^õ…Lå[ö]öúœ›LMÃÃMMÕNMHÇàKà¬àö][RYéàNàù]Héàê⁄\úõ‹»Z^Hõ€ù»ÕL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ‹õ€ùÀÿ⁄\úõ‹À[Z^\õ€ùÀLÕL»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàúõ€ù»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀçÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄\úõ‹…Låõ€ùÀöúœ›LMçççÃåMÃàÇàKà¬àö][RYéàMÃKàù]Héàê⁄\úù[XZ\»ç»‹ö\‹H€‹õà›X⁄‹»⁄][YHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ‹ö\‹À\€òX⁄‹Àÿ⁄\úù[XZ\ÀMçÀX‹ö\‹KX€‹õã\›X⁄‹À]⁄][[YHãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò‹ö\‹À\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿ⁄\úù[XZ\Àöúœ›LMÃŒLÃHÇàKà¬àö][RYéàÃçàù]Héàê⁄\úù[XZ^àç»
+X⁄»Ÿà Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿÿ‹ö\‹À\€òX⁄‹Àÿ⁄\úù[XZ^ãMçÀ\X⁄À[ŸãL»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò‹ö\‹À\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéMKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿ⁄\úù[XZ\…Lå…LåX⁄Àöúœ›LMÃåÕMLM»ÇàKà¬àö][RYéàåÕLãàù]Héàê⁄[X\úõ€à\]Z[Hõ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ⁄[X\úõ€ã]\]Z[KXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄[X\úõ€ãöúœ›LMÃååÃMàÇàKà¬àö][RYéàçÃéKàù]Héàê⁄]YYHY^X€»€€⁄ÿõ€⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ€€⁄ÿõ€⁄‹Àÿ⁄]YYYK[Y^X€ÀX€€⁄ÿõ€⁄»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò€€⁄ÿõ€⁄‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄]YY	LåKöúœ›LMçéNMŒååHÇàKà¬àö][RYéàLÕçKàù]Héàê€[X]»Mõ[õ›Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Z^\úÀÿ€[X]ÀNMõ[Xõ›Hãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõZ^\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀåàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[X]Àíîœ›LMÃåÕÃÃÕÕHÇàKà¬àö][RYéàéçÀàù]Héàê€[X]»õ›HéMõ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Z^\úÀÿ€[X]ÀXõ›KLéMõ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõZ^\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[X]…Låõ›ILåéMõ[	LåëUÀöúœ›LMÕÃåÃÕ»ÇàKà¬àö][RYéàÃåãàù]Héàê€[X]»›Xò[õ»õ›HMõ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Z^\úÀÿ€[X]ÀX›Xò[õÀXõ›KNMõ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõZ^\ú»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[X]…Lå›Xò[õ…Låõ›ILåMôÀöúœ›LMÃÃÃåéMåÃ»ÇàKà¬àö][RYéàÕLãàù]Héàê€[X]»›Xò[õ»€\‹»õ›HÃ€[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Z^\úÀÿ€[X]ÀX›Xò[õÀY€\‹ÀXõ›KMÃ€[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõZ^\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[X]…Lå›Xò[õ…Lå€\‹…Låõ›ILåÃ€[öúœ›LMŒMŒLéNHÇàKà¬àö][RYéàLNKàù]Héàê€[Y[ùHòX‹]Y\»⁄\›H[àYÿõ»ãéŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀX⁄\›KZ[ãXYÿõÀLéŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Lå⁄\›ILå[âLåYÿõ…Lå	LåëUÀöúœ›LMÕÃåMååç»ÇàKà¬àö][RYéàLåKàù]Héàê€[Y[ùHòX‹]Y\»⁄\›H[àYÿõ»åL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀX⁄\›KZ[ãXYÿõÀLåL»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Lå⁄\›ILå[âLåYÿõ…LååL…LåëUÀöúœ›LMÕÃåMååçàÇàKà¬àö][RYéàååÕãàù]Héàê€[Y[ùHòX‹]Y\»⁄\›HX\⁄Yåå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀX⁄\›K[X\⁄YLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Lå⁄\›ILå‹]YY^ôILåååÀöúœ›LMÕÕçéMNLçÇàKà¬àö][RYéàÃåÃKàù]Héàê€[Y[ùHòX‹]Y\»Xò[ô\õ»ô[\⁄åå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀZXò[ô\õÀ\ô[\⁄Låå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…LåXò[ô\õ…Låô[\⁄	LåååÀöúœ›LMÃŒLçŒååÇàKà¬àö][RYéàéãàù]Héàê€[Y[ùHòX‹]Y\»€YH›[Hÿ\Ÿ\òHÿ[ÿHÕÃ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀZ€YK\›[KXÿ\Ÿ\òK\ÿ[ÿKLÕÃ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÕçMåMÃLILåILå€[Y[ùILåòX‹]Y\…Låÿ\Ÿ\òILåÿ[ÿKöúœ›LMÕMÕåçàÇàKà¬àö][RYéàMMÕÀàù]Héàê€[Y[ùHòX‹]Y\»ò[\[õ»⁄[Y\»[à€XŸ\»åå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀZò[\[õÀX⁄[Y\ÀZ[ã\€XŸ\ÀLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãåÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Låò[\[õ…Lå⁄[Y\…Lå[âLå€XŸ\…Lååå…Lå\]Yöúœ›LMÃŒNÕHÇàKà¬àö][RYéàLåãàù]Héàê€[Y[ùHòX‹]Y\»ò[\[õ»⁄[Y\»⁄€Håå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀZò[\[õÀX⁄[Y\À]⁄€KLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€⁄òX‹]Y\…Låò[\[õ…Lå⁄€ILåååÀöúœ›LMÕÕçéMNåHÇàKà¬àö][RYéàÃåMKàù]Héàê€[Y[ùHòX‹]Y\»ò[\[õ»X\⁄Yåå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀZò[\[õÀ[X\⁄YLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Låò[\[õ…LåX\⁄Y	LåååÀöúœ›LMÃÕÕLLÕ»ÇàKà¬àö][RYéàÃåKàù]Héàê€[Y[ùHòX‹]Y\»ò[\[õ»òX⁄»€XŸHãéŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀZò[\[õÀ[òX⁄À\€XŸKLéŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Låò[\[õ…LåòX⁄…Lå€XŸILåãéŸÀöúœ›LMÃMåÕÕLç»ÇàKà¬àö][RYéàMLLÀàù]Héàê€[Y[ùHòX‹]Y\»ò[\[õ‹»òX⁄»åå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\ÀZò[\[õ‹À[òX⁄ÀLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùKRòX‹]Y\ÀSòX⁄‹ÀLååÀöúœ›LMÕÕçéMNMÇàKà¬àö][RYéàåçàù]Héàê€[Y[ùHòX‹]Y\»ÿ[ÿHô\ôHõ›HÕÃ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\À\ÿ[ÿK]ô\ôKXõ›KLÕÃ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÕçMåMåLILåILå€[Y[ùILåòX‹]Y\…Låÿ[ÿILåô\ôKöúœ›LMÕMÕNM»ÇàKà¬àö][RYéàéLKàù]Héàê€[Y[ùHòX‹]Y\»\]Y\òHÿ[ÿHõ›HÕÃ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\À]\]Y\òK\ÿ[ÿKXõ›KLÕÃ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÕçMåNLILåILå€[Y[ùILåòX‹]Y\…Lå\]Y\òILåÿ[ÿKöúœ›LMÕMÕåç»ÇàKà¬àö][RYéàåçãàù]Héàê€[Y[ùHòX‹]Y\»⁄€Hò[\[õ»ãéŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\À]⁄€KZò[\[õÀLéŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Låò[\[õ‹…Lå⁄€ILåãéŸÀöúœ›LMÕÕçÃåçàÇàKà¬àö][RYéàçŒLãàù]Héàê€[Y[ùHòX‹]Y\»⁄€H€X][»⁄Ÿ»Y^Xÿ[à‹ôY[à€X]Ÿ\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿ€[Y[ùKZòX‹]Y\Àÿ€[Y[ùKZòX‹]Y\À]⁄€K]€X][ÀL⁄ŸÀ[Y^Xÿ[ãY‹ôY[ã]€X]Ÿ\»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€[Y[ùKZòX‹]Y\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€[Y[ùILåòX‹]Y\…Lå⁄€ILå€X][…Lå⁄ŸÀöúœ›LMÕÃåMŒNHÇàKà¬àö][RYéàNÀàù]Héàê€]⁄\‹Ÿ[»òY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀ›ÿ^XÿK[^ÿ€]⁄]\‹Ÿ[ÀXòY»ãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàùÿ^XÿK[^ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€]⁄	Lå\‹Ÿ[	LåòYÀöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàéçÀàù]Héàê€ÿ⁄[òHY^Xÿ[òHõ€⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ€€⁄ÿõ€⁄‹Àÿ€ÿ⁄[òK[Y^Xÿ[òKXõ€⁄»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò€€⁄ÿõ€⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€ÿ⁄[òILåY^Xÿ[òILåöúœ›LMéMLçLL»ÇàKà¬àö][RYéàçåéKàù]Héàê€ŸY€»MLÃY^òÿ[[òŸ\›ò[“õ›ô[àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿ€ŸY€ÀLMLÃ[Y^òÿ[X[òŸ\›ò[õ›ô[ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàNàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€ŸY€…LåY^òÿ[	Lå[òŸ\›ò[öúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàçåNKàù]Héàê€ŸY€»MLÃ\]Z[H^òH[ôZõ»‹öYŸ[àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ€ŸY€ÀLMLÃ]\]Z[KY^òKX[ôZõÀ[‹öYŸ[ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÃççãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€ŸY€…Lå^òILå[ôZõÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàNéàù]Héàê€€X[[]\ÿHé€Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ€€X[Z[]\ÿKLé€Hãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàõ›\ã[Y^Xÿ[ãZ][\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€€X[	LåY]öúœ›LMççMÕÃÃÕHÇàKà¬àö][RYéàMÃÕÀàù]Héàê€€ZYHY^Xÿ[òHõ€⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ€€⁄ÿõ€⁄‹Àÿ€€ZYK[Y^Xÿ[òKXõ€⁄»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò€€⁄ÿõ€⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€€ZYILåY^Xÿ[òILåõ€⁄Àöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàçKàù]Héàê€‹ùHô]\›»Y^òÿ[õ›ô[à[úÿ[XõHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[Àÿ€‹ùK]ô]\›À[Y^òÿ[Zõ›ô[ãY[úÿ[XõKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€‹ùILåô]\›…Lå[úÿ[XõILåY^òÿ[	Låô]Àöúœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàçãàù]Héàê€‹ùHô]\›»Y^òÿ[õ›ô[à\‹Y[àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ÿ€‹ùK]ô]\›À[Y^òÿ[Zõ›ô[ãY\‹Y[ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€‹ùILåô]\›…Lå\‹Y[âLåY^òÿ[	Låô]Àöúœ›LMÃåÕLMÇàKà¬àö][RYéàçÀàù]Héàê€‹ùHô]\›»Y^òÿ[õ›ô[àÿò[HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[Àÿ€‹ùK]ô]\›À[Y^òÿ[Zõ›ô[ã]ÿò[KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€‹ùILåô]\›…Låÿò[ILåY^òÿ[	Låô]Àöúœ›LMÃåÕLMNLÇàKà¬àö][RYéàçNKàù]Héàê›\òY»õYHYÿ]ôHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ›\òYÀXõYKXYÿ]ôKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–›\òY…LåõYILåYÿ]ôKöúœ›LMÃååÃMàÇàKà¬àö][RYéàçNàù]Héàê›\òY»›\ô]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ›\òYÀX›\ô]KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–›\òY…Lå›\ô]Köúœ›LMÃååÃMàÇàKà¬àö][RYéàçNÀàù]Héàê›\òY»\‹Y[àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ›\òYÀY\‹Y[ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–›\òY…Lå\‹Y[ãöúœ›LMÃååÃMàÇàKà¬àö][RYéàLåãàù]Héàë	ÿ\ö\›HXô[ù[àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹ù[KŸ\ö\›K^Xô[ù[ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúù[Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€÷ILåô]…Låõ›Köúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàÃéKàù]Héàë^HŸàHXYõ€⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ€€⁄ÿõ€⁄‹ÀŸ^K[Ÿã]KYXYXõ€⁄»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò€€⁄ÿõ€⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—^ILåŸâLåILåXYöúœ›LMÕMÕççMŒÇàKà¬àö][RYéàÃãàù]HéàëHHõ‹ÿHò\[ô\ŸHX[ù]»MYXŸ\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸK[K\õ‹ÿKŸK[K\õ‹ÿKZò\[ô\ŸK\X[ù]ÀLM\YXŸ\»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàôK[K\õ‹ÿHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—ILåILåõ‹ÿILåò\[ô\ŸILåX[ù]…LåM	LåYXŸ\Àöúœ›LMÕÃåMŒNHÇàKà¬àö][RYéàLÃãàù]Héàë[XY›Y^HY^òÿ[⁄X⁄Xÿ\HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[Ÿ[[XY›Y^K[Y^òÿ[X⁄X⁄Xÿ\KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàNKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåXY›Y^ILåY^òÿ[	Lå⁄X⁄Xÿ\Köúœ›LMÃåÕMLM»ÇàKà¬àö][RYéàLÃàù]Héàë[XY›Y^HY^òÿ[ÿ[àZ\»[ö[»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[Ÿ[[XY›Y^K[Y^òÿ[\ÿ[ã[Z\ÀY[\ö[ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLMàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåXY›Y^ILåY^òÿ[	Lå”âLå^ù[öúœ›LMÃåÕMLM»ÇàKà¬àö][RYéàLéNKàù]Héàë[XY›Y^HY^òÿ[öYHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[Ÿ[[XY›Y^K[Y^òÿ[]öYKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàåKéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåXY›Y^ILåY^òÿ[	LåöYKöúœ›LMÃåÕLÕÃçéÇàKà¬àö][RYéàNMNKàù]Héàë\ÿ‹ô]»[òÿ[ù»ôY⁄[ôHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ\ÿ‹ô]ÀY[òÿ[ùÀ]⁄[ôKŸ\ÿ‹ô]ÀY[òÿ[ùÀ\ôY]⁄[ôHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô\ÿ‹ô]ÀY[òÿ[ùÀ]⁄[ôHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—\ÿ‹ô]…Lå[òÿ[ù…LåILåëUÀöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàLÃLàù]Héàë€àù[[»[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀŸ€ãZù[[ÀX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€âLåù[[…Lå[ôZõÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàLÃKàù]Héàë€àù[[»õ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€ÀŸ€ãZù[[ÀXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçKçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€âLåù[[…Låõ[ò€ÀöúYœ›LMÃååÃMàÇàKà¬àö][RYéàÕàù]Héàë€àù[[»[€XH⁄]ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀŸ⁄YùÀŸ€ãZù[[À\[€XKZ⁄]ãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàô⁄Yù»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€âLåù[[…Lå	LåZö[ãöúœ›LMÕŒMLNàÇàKà¬àö][RYéàLÃàù]Héàë€àù[[»ô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀŸ€ãZù[[À\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€âLåù[[…Låô\‹ÿYÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàMLéKàù]Héàë€òHX\öXHYÿõ»åÕY»Y^Xÿ[à€€⁄⁄[ô»ÿ]XŸHõ‹à⁄X⁄Ÿ[à	àYX]»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€òK[X\öXKŸ€òK[X\öXKXYÿõÀLåÕYÀ[Y^Xÿ[ãX€€⁄⁄[ôÀ\ÿ]XŸKYõ‹ãX⁄X⁄Ÿ[ã[YX]»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€òK[X\öXHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–Yÿõ…Lå€òILåX\öXILåILåëUÀöúœ›LMÕLÕÕMÕ»ÇàKà¬àö][RYéàåÕåÀàù]Héàë€òHX\öXH‹ôY[à[€HåÕY»‹ôY[à[€Hÿ]XŸH⁄]€X][»	à[\⁄[àŸYY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€òK[X\öXKŸ€òK[X\öXKY‹ôY[ã[[€KLåÕYÀY‹ôY[ã[[€K\ÿ]XŸK]⁄]]€X][À\[\⁄[ã\ŸYY»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€òK[X\öXHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”[€ILåô\ôILå€òILåX\öXILåILåëUÀöúœ›LMéÕÕÃÃMçHÇàKà¬àö][RYéàåNNKàù]Héàë€òHX\öXH[€Húõ›€àåÕY»òY][€ò[[€Hÿ]XŸH⁄]⁄ÿ€€]H	à‹XŸ\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€òK[X\öXKŸ€òK[X\öXK[[€KXúõ›€ãLåÕYÀ]òY][€ò[[[€K\ÿ]XŸK]⁄]X⁄ÿ€€]K\‹XŸ\»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€òK[X\öXHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€òILåX\öXILå[€ILååÕYÀöúœ›LMÕLÕÕMÕ»ÇàKà¬àö][RYéàMLÃKàù]Héàë€òHX\öXH\X[àåÕY»[€H\X[àÿ]XŸH⁄]õÿ\›Y[\⁄[àŸYY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€òK[X\öXKŸ€òK[X\öXK\\X[ãLåÕYÀ[[€K\\X[ã\ÿ]XŸK]⁄]\õÿ\›Y\[\⁄[ã\ŸYY»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€òK[X\öXHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‘\X[âLå€òILåX\öXILåILåëUÀöúœ›LMÕLÕÕMÕ»ÇàKà¬àö][RYéàÃÀàù]Héàë€òHX\öXHôXYH»\ŸH‹ôY[à[€HÕå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€òK[X\öXKŸ€òK[X\öXK\ôXYK]À]\ŸKY‹ôY[ã[[€KLÕå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€òK[X\öXHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€òILåX\öXILåôXYILå…Lå\ŸILå‹ôY[âLå[€ILåÕåÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàÃãàù]Héàë€òHX\öXHôXYH»\ŸHÿõ[õ»[€HÕå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€òK[X\öXKŸ€òK[X\öXK\ôXYK]À]\ŸK\ÿõ[õÀ[[€KLÕå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€òK[X\öXHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€òILåX\öXILåôXYILå…Lå\ŸILåÿõ[õ…Lå[€ILåÕåÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàÃKàù]Héàë€òHX\öXHôXYH»\ŸHôY[€HÕå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€òK[X\öXKŸ€òK[X\öXK\ôXYK]À]\ŸK\ôY[[€KLÕå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€òK[X\öXHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€òILåX\öXILåôXYILå…Lå\ŸILåôY	Lå[€ILåÕåÀöúœ›LMÃååLàÇàKà¬àö][RYéàéLãàù]Héàë‹»\]Z\»YŸ\àôY\àÕL[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹ÀÿôY\ãŸ‹ÀY\]Z\À[YŸ\ãXôY\ãLÕL[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòôY\àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀåÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—‹…Låúôœ›LMÕNNNMÕÃéHÇàKà¬àö][RYéàMMKàù]HéàëöYYõX⁄»ôX[ú»çZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\ÀÿôX[úÀŸöYYXõX⁄ÀXôX[úÀLçZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàòôX[ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÿõX⁄…LåôX[ú…Låÿ]ö[ò\Àöúœ›LMççMÕÃÃÕHÇàKà¬àö][RYéàMMàù]HéàëöYY[ù»ôX[ú»çZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\ÀÿôX[úÀŸöYY\[ùÀXôX[úÀLçZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàòôX[ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‹[ù…LåôX[ú…LåçZŸÀöúœ›LMÃååLàÇàKà¬àö][RYéàÃåÃãàù]Héàë\ù[Hõ›\à‹ù[\»Ã€H
+LóäHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€ŸŸõ›\ã]‹ù[\ÀŸ\ù[KYõ›\ã]‹ù[\ÀLÃ€KLLàãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàôõ›\ã]‹ù[\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—\ù[ILåõ›\âLå‹ù[\…LåÃ€Köúœ›LMÕLÕ»ÇàKà¬àö][RYéàLéKàù]Héàë[ÿ[Z[õ»[[úÿY‹à[úÿ[XõHL[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[›⁄[XYÿ]ôK[Y^òÿ[ÀŸ[Xÿ[Z[õÀY[\[úÿY‹ãY[úÿ[XõKML[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù⁄[XYÿ]ôK[Y^òÿ[»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Låÿ[Z[õ…Lå[	Lå[úÿY‹âLåY^òÿ[íîœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàçKàù]Héàë[ÿ[Z[õ»[[úÿY‹à\‹Y[àL[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[Ÿ[Xÿ[Z[õÀY[\[úÿY‹ãY\‹Y[ãML[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Låÿ[Z[õ…Lå[	Lå[úÿY‹âLåõ›ô[ãöúœ›LMÃåÕLMÇàKà¬àö][RYéàéNKàù]Héàë[\‹[õ»⁄\›H\]Y]\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀŸ[Z\‹[õÀX⁄\›K[\]Y]\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàéKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå\‹[õ…Lå⁄\›ILå\]Y]\ãöúœ›LMéÕåLçåçàÇàKà¬àö][RYéàéNàù]Héàë[\‹[õ»ò[\[õ»\]Y]\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀŸ[Z\‹[õÀZò[\[õÀ[\]Y]\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå\‹[õ…Låò[\[õ…Lå\]Y]\ãöúœ›LMéÕåLçåçàÇàKà¬àö][RYéàååMKàù]Héàë[Y^Xÿ[õ»⁄\›H[àYÿõ»ãéŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[[Y^Xÿ[õÀŸ[[Y^Xÿ[õÀX⁄\›KZ[ãXYÿõÀLéŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[[Y^Xÿ[õ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåY^Xÿ[õ…Lå⁄\›ILå[âLåYÿõ…LåãéŸÀúôœ›LMÕÕçÕÃLÃåHÇàKà¬àö][RYéàÃLÀàù]Héàë[Y^Xÿ[õ»[ù»ôX[ú»ôYúöYY⁄Ÿ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[[Y^Xÿ[õÀŸ[[Y^Xÿ[õÀ\[ùÀXôX[úÀ\ôYúöYYL⁄Ÿ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[[Y^Xÿ[õ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåY^Xÿ[õ…Lå[ù…LåôX[ú…LåôYúöYY	Lå⁄Ÿ…Lå	LéëU…LéKöúœ›LMÃLLÕéŒ»ÇàKà¬àö][RYéàÃÀàù]Héàë[Y^Xÿ[õ»ﬁõ€H⁄Ÿ»Y^Xÿ[à⁄]H€Z[ûH[àúö[ôHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[[Y^Xÿ[õÀŸ[[Y^Xÿ[õÀ\ﬁõ€KL⁄ŸÀ[Y^Xÿ[ã]⁄]KZ€Z[ûKZ[ãXúö[ôHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[[Y^Xÿ[õ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåY^Xÿ[õ…Låﬁõ€…Lå⁄ŸÀöúœ›LMÕÕçÕÃLÃLàÇàKà¬àö][RYéàÃMKàù]Héàë[Y^Xÿ[õ»ﬁõ€Håô»Y^Xÿ[à⁄]H€Z[ûH[àúö[ôHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[[Y^Xÿ[õÀŸ[[Y^Xÿ[õÀ\ﬁõ€KNåôÀ[Y^Xÿ[ã]⁄]KZ€Z[ûKZ[ãXúö[ôHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[[Y^Xÿ[õ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåY^Xÿ[õ…Låﬁõ€ILååôÀíîœ›LMÕÕçÕÃLÃL»ÇàKà¬àö][RYéàÃKàù]Héàë[Y^Xÿ[õ»€X][»⁄€HÕçŸ»Y^Xÿ[à‹ôY[à€X]Ÿ\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[[Y^Xÿ[õÀŸ[[Y^Xÿ[õÀ]€X][À]⁄€KMÕçŸÀ[Y^Xÿ[ãY‹ôY[ã]€X]Ÿ\»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[[Y^Xÿ[õ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	LåY^Xÿ[õ…Lå€X][…Lå⁄€ILåÕçŸÀíîœ›LMÕÕçÕÃLÃLàÇàKà¬àö][RYéàçLKàù]Héàë[ò^[»\]Z[H]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ[\ò^[À]\]Z[K\]KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàŒKéMãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Låò^[…Lå]Köúœ›LMÃååLàÇàKà¬àö][RYéàçLàù]Héàë[ò^[»\]Z[Hô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ[\ò^[À]\]Z[K\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Låò^[…Låô\‹ÿYÀöúœ›LMÃååLàÇàKà¬àö][RYéàçŒKàù]HéàëSUP–UP”»êíQ»íUëWà’–UP—H“Uãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]ÀŸ[^]Xÿ]X€ÀXöYÀYö]ôKZ›\ÿ]XŸKZ⁄]ãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—S	LåUP–UP”…Lå’	Lå–UP—ILå“Uöúœ›LMéÃLÕHÇàKà¬àö][RYéàÃÀàù]Héàë[]Xÿ]X€»X⁄[›H\]ZYÃ[ŸX\€€ö[ô»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€À‹\›\ÀŸ[^]Xÿ]X€ÀXX⁄[›K[\]ZYLÃ[\ŸX\€€ö[ô»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàú\›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåX⁄[›ILå\]ZY	LåÃ[öúœ›LMÃŒÃ»ÇàKà¬àö][RYéàéKàù]Héàë[]Xÿ]X€»X⁄[›H\›HL»ŸX\€€ö[ô»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€À‹\›\ÀŸ[^]Xÿ]X€ÀXX⁄[›K\\›KLLÀ\ŸX\€€ö[ô»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàú\›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåX⁄[›ILå\›ILåLÀöúœ›LMÃŒÃàÇàKà¬àö][RYéàÃKàù]Héàë[]Xÿ]X€»X⁄[›H\›HZŸ»ŸX\€€ö[ô»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€À‹\›\ÀŸ[^]Xÿ]X€ÀXX⁄[›K\\›KLZŸÀ\ŸX\€€ö[ô»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàú\›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåX⁄[›ILåZŸÀöúœ›LMÃŒÃ»ÇàKà¬àö][RYéàåàù]Héàë[]Xÿ]X€»ÿ\öXòôX[àXò[ô\õ»Lå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀXÿ\öXòôX[ãZXò[ô\õÀLLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Låÿ\öXòôX[âLåXò[ô\õ…Låÿ[ÿILåLå[íîœ›LMÃççåÕ»ÇàKà¬àö][RYéàNMÕKàù]Héàë[]Xÿ]X€»⁄\õ€HXò[ô\õ»åõ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€À‹ÿ[ÿKŸ[^]Xÿ]X€ÀX⁄\õ€KZXò[ô\õÀM^Låõ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàúÿ[ÿHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”Z[öILå	LåX⁄Àöúœ›LMçåŒÕÃçÇàKà¬àö][RYéàMÃÀàù]Héàë[]Xÿ]X€»⁄[[€H\›HL»ŸX\€€ö[ô»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€À‹\›\ÀŸ[^]Xÿ]X€ÀX⁄[[€K\\›KLLÀ\ŸX\€€ö[ô»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàú\›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–⁄[[€ILåILåëUÀöúœ›LMÃŒÃàÇàKà¬àö][RYéàçàù]Héàë[]Xÿ]X€»⁄\›Hÿ[ÿHML[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀX⁄\›K\ÿ[ÿKLML[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Lå⁄\›ILåÿ[ÿILåML[íîœ›LMÃççåÕÇàKà¬àö][RYéàéLÕKàù]Héàë[]Xÿ]X€»Xò[ô\õ»	à⁄[\[àLå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀX⁄[\[ãLLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…Lå	LçâLå⁄[\[âLåLå[	LåëUÀúôœ›LMÕÃçMMåMÇàKà¬àö][RYéàéLŒKàù]Héàë[]Xÿ]X€»Xò[ô\õ»	à€ŸôôYHLå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀX€ŸôôYKLLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀåÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…Lå	LçâLå€ŸôôYILåLå[	LåëUÀúôœ›LMÕÃçMMåMHÇàKà¬àö][RYéàéLÕÀàù]Héàë[]Xÿ]X€»Xò[ô\õ»	à⁄‹›Lå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀY⁄‹›LLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…Lå	LçâLå⁄‹›	LåLå[	LåëUÀúôœ›LMÕÃçMMåMÇàKà¬àö][RYéàéLÕãàù]Héàë[]Xÿ]X€»Xò[ô\õ»	à‹ö[Y[ôX\Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀY‹ö[Y\[ôX\Hãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…Lå	LçâLå‹ö[Y	Lå[ôX\ILåLå[	LåëUÀúôœ›LMÕÃçMMåMÇàKà¬àö][RYéàNLãàù]Héàë[]Xÿ]X€»Xò[ô\õ»Lå[X⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€À‹ÿ[ÿKŸ[^]Xÿ]X€ÀZXò[ô\õÀM^LLå[\X⁄»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàúÿ[ÿHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéNKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…Låÿ[ÿILå	LåX⁄…Låãöúœ›LMÃååÃMàÇàKà¬àö][RYéàçãàù]Héàë[]Xÿ]X€»Xò[ô\õ»õX⁄»Xô[ô\Ÿ\ùôHLå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀXõX⁄À[Xô[\ô\Ÿ\ùôKLLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…LåõX⁄…Lå›	Låÿ]XŸKúôœ›LMçåMÕÕå»ÇàKà¬àö][RYéàåKàù]Héàë[]Xÿ]X€»Xò[ô\õ»‹ôY[àLå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀY‹ôY[ãLLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Lå‹ôY[âLåXò[ô\õ…Låÿ[ÿILåLå[íîœ›LMÃççåÕÇàKà¬àö][RYéàÕÕKàù]Héàë[]Xÿ]X€»Xò[ô\õ»‹ôY[àìãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀY‹ôY[ãLõãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…Lå‹ôY[âLåìöúœ›LMÕŒNMNàÇàKà¬àö][RYéàNKàù]Héàë[]Xÿ]X€»Xò[ô\õ»›ÿ]XŸHLå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀZ›\ÿ]XŸKLLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Lå›]ö[	LåXò[ô\õ…Lå‘ëPU	LåT’Köúœ›LMéNLÕÕÇàKà¬àö][RYéàåãàù]Héàë[]Xÿ]X€»Xò[ô\õ»ôYLå[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀ\ôYLLå[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…LåôY	Lå‹ôX]	Lå\›Köúœ›LMéNLÕÕÇàKà¬àö][RYéàÕÕàù]Héàë[]Xÿ]X€»Xò[ô\õ»ôYìãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀ\ôYLõãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…LåôY	Låìöúœ›LMŒÃÃçLHÇàKà¬àö][RYéàÕÕÀàù]Héàë[]Xÿ]X€»Xò[ô\õ»òH›ìãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZXò[ô\õÀ^òKZ›Lõãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåXò[ô\õ…LåòILå›	Låì	LåëUÀöúœ›LMÕŒNMNàÇàKà¬àö][RYéàKàù]Héàë[]Xÿ]X€»‹ò⁄]H€ÿ€€ù]€€òŸ[ùò]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€Àÿ€€òŸ[ùò]\ÀŸ[^]Xÿ]X€ÀZ‹ò⁄]KX€ÿ€€ù]X€€òŸ[ùò]KMÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€€òŸ[ùò]\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Lå‹ò⁄]ILå€ÿ€…Lå€€òŸ[ùò]ILåÃ[öúœ›LMÃååÃMàÇàKà¬àö][RYéàLKàù]Héàë[]Xÿ]X€»‹ò⁄]H€€òŸ[ùò]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€Àÿ€€òŸ[ùò]\ÀŸ[^]Xÿ]X€ÀZ‹ò⁄]KX€€òŸ[ùò]KMÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€€òŸ[ùò]\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Lå‹ò⁄]ILå€€òŸ[ùò]ILåÃ[öúœ›LMçåMÕÕå»ÇàKà¬àö][RYéàéMMKàù]Héàë[]Xÿ]X€»›ÿ]XŸHõ]õ›\àX⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]ÀŸ[^]Xÿ]X€ÀZ›\ÿ]XŸKYõ]õ›\ã\X⁄»ãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMÀéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Lå›	Låÿ]XŸILåõ]õ›\âLåX⁄Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàåÀàù]Héàë[]Xÿ]X€»ò[\[õ»ÿ[ÿHML[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€ÀZò[\[õÀ\ÿ[ÿKLML[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Låò[\[õ…Låÿ[ÿILåML[íîœ›LMÃååÃMàÇàKà¬àö][RYéààù]Héàë[]Xÿ]X€»ò[XZXÿHXö\ÿ›\»€€òŸ[ùò]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€Àÿ€€òŸ[ùò]\ÀŸ[^]Xÿ]X€ÀZò[XZXÿKZXö\ÿ›\ÀX€€òŸ[ùò]KMÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€€òŸ[ùò]\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Låò[XZXÿILå€€òŸ[ùò]ILåÃ[öúœ›LMÃŒÕLÕéÇàKà¬àö][RYéàéMãàù]Héàë[]Xÿ]X€»X\ö\‹]Y\òHôYLå[ŸXYõ€Ÿ›ÿ]XŸHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€ÀŸ[^]Xÿ]X€À[X\ö\‹]Y\òK\ôYLLå[\ŸXYõ€ŸZ›\ÿ]XŸHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[^]Xÿ]X€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåX\ö\‹]Y\òILåôY	LåLå[	LåëUÀúôœ›LMÕÃçMMåMÇàKà¬àö][RYéàÕãàù]Héàë[]Xÿ]X€»X^XZ›]ÿ[ÿHHXò[ô\õ»L[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€À‹ÿ[ÿKŸ[^]Xÿ]X€À[X^XZ›]\ÿ[ÿKYKZXò[ô\õÀLL[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàúÿ[ÿHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…LåX^XZ›]	LåXò[ô\õ…Låÿ[ÿILåöúœ›LMŒMLNMNHÇàKà¬àö][RYéàLàù]Héàë[]Xÿ]X€»[X\ö[ô€€òŸ[ùò]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[^]Xÿ]X€Àÿ€€òŸ[ùò]\ÀŸ[^]Xÿ]X€À][X\ö[ôX€€òŸ[ùò]KMÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò€€òŸ[ùò]\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[	Lå]Xÿ]X€…Lå[X\ö[ô…Lå€€òŸ[ùò]ILåÃ[öúœ›LMÃååÃMàÇàKà¬àö][RYéàÕÃKàù]Héàë[X›õ€]õYXô\úûHõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]XõYXô\úûKYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	LåõYXô\úûILååç[[öúœ›LMŒéLMçàÇàKà¬àö][RYéàÃåãàù]Héàë[X›õ€]€ÿ€€ù]õ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]X€ÿ€€ù]Yõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå€ÿ€€ù]	Låõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMÃÃÃçLHÇàKà¬àö][RYéàÃéLKàù]Héàë[X›õ€]‹ò\Hõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]Y‹ò\KYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå‹ò\ILåõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMÕNåMàÇàKà¬àö][RYéàÕåàù]Héàë[X›õ€]›X]òHõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]Y›X]òKYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå›X]òILåõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMÕÕåLéHÇàKà¬àö][RYéàÕéàù]Héàë[X›õ€]‹ò⁄]Hõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]Z‹ò⁄]KYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå‹ò⁄]ILåõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMŒéLMçàÇàKà¬àö][RYéàÃåÕãàù]Héàë[X›õ€][YHõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€][[YKYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå[YILåõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\ãöúœ›LMÕMåLÃÃNÇàKà¬àö][RYéàÃåÕÀàù]Héàë[X›õ€]‹ò[ôŸHX[ô\ö[ôHõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹ÀŸ[X›õ€][‹ò[ôŸK[X[ô\ö[ôKYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éààãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå‹ò[ôŸILåX[ô\ö[ôILåõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMÕéLMNHÇàKà¬àö][RYéàÕéKàù]Héàë[X›õ€][ôX\Hõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]\[ôX\KYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå[ôX\ILåõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMŒéLMçàÇàKà¬àö][RYéàÃÕàù]Héàë[X›õ€]€ò⁄Hô\õ»õ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]\€ò⁄K^ô\õÀYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå€ò⁄ILåô\õ…Låõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMÕååMéLÃ»ÇàKà¬àö][RYéàÃNNKàù]Héàë[X›õ€]›ò]ÿô\úûH	à⁄]⁄Hõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]\›ò]ÿô\úûKZ⁄]⁄KYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€Ÿ[X›õ€]	Lå›ò]ÿô\úûILå[ô	Lå⁄]⁄ILåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMÃÃÃçLHÇàKà¬àö][RYéàÕÃãàù]Héàë[X›õ€]›ò]ÿô\úûH	à⁄]⁄HëTì»õ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]\›ò]ÿô\úûKZ⁄]⁄K^ô\õÀYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå›ò]ÿô\úûILå	LçâLå⁄]⁄ILåëTì…Låõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[	Låöúœ›LMŒéLML»ÇàKà¬àö][RYéàÃÕÀàù]Héàë[X›õ€]›ò]ÿô\úûHõ]õ›\ôYZ[ô\ò[ÿ]\àåç[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ[X›õ€]Ÿ[X›õ€]\›ò]ÿô\úûKYõ]õ›\ôY[Z[ô\ò[]ÿ]\ãMåç[[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô[X›õ€]ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—[X›õ€]	Lå›ò]ÿô\úûILåõ]õ›\ôY	LåZ[ô\ò[	Låÿ]\âLååç[[öúœ›LMÕååMéLÃ»ÇàKà¬àö][RYéàéçãàù]Héàë]ô\û[€ôH›ô\»X€‹»õ€⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\Àÿ€€⁄ÿõ€⁄‹ÀŸ]ô\û[€ôK[›ô\À]X€‹ÀXõ€⁄»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàò€€⁄ÿõ€⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—]ô\û[€ôILå›ô\…LåX€‹Àöúœ›LMéMLçLMÇàKà¬àö][RYéàÃéKàù]Héàë^Ÿ[XHõ[ò€»	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ^Ÿ[XKXõ[ò€ÀMMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€Ÿ^Ÿ[XILåõ[ò€…Lå]ÿ\ôÀöúœ›LMÕMçÕçMàÇàKà¬àö][RYéàÃéãàù]Héàë^Ÿ[XHô\‹ÿY»	HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ^Ÿ[XK\ô\‹ÿYÀMMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—^Ÿ[XILåô\‹ÿY…Lå	LçILåÃ[öúœ›LMÕMåÕÃŒMåÇàKà¬àö][RYéàMŒLÀàù]HéàëòXŸ[X\⁄»⁄Z[àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀÿÿ\ÿK[‹õﬁò€ÀŸòXŸ[X\⁄ÀX⁄Z[àãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàòÿ\ÿK[‹õﬁò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçKçÃKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ŸòXŸ[X\⁄…Lå⁄Z[âLåô]Àöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàéKàù]Héàëô\õô]ò[]\]Y]\àÕIHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀŸô\õô]]ò[][\]Y]\ãLÕKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃççKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—ô\õô]	Låò[]	Lå\]Y]\âLåÕILçILåÃ[öúœ›LMéNLÕÕHÇàKà¬àö][RYéàÃÃÃÀàù]HéàëöY\›\»ﬁõ€HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸöY\›\ÀŸöY\›\À\ﬁõ€KLZŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàôöY\›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKåãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—öY\›\…Låﬁõ€ILåZŸÀöúœ›LMÕNMåçàÇàKà¬àö][RYéàÃÃÃKàù]HéàëöY\›\»‹›Y\»çÕY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸöY\›\ÀŸöY\›\À]‹›Y\ÀLçÕY»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàôöY\›\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—öY\›\…Lå‹›Y\…LåçÕYÀöúœ›LMÕNMåçàÇàKà¬àö][RYéàÃÃÃàù]HéàëöY\›\»›‹‹»€‹õà‹ù[H⁄\»»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸöY\›\ÀŸöY\›\À]›‹‹ÀX€‹õã]‹ù[KX⁄\ÀM»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàôöY\›\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—öY\›\…Lå›‹‹…Lå€‹õâLå‹ù[ILå⁄\…Lå…LåëUÀöúœ›LMÕÃåMŒLàÇàKà¬àö][RYéàMKàù]Héàëõ‹ù[^òH\]Z[H[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀŸõ‹ù[^òK]\]Z[KX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€Ÿõ‹ù[^òKX[ôZõÀ[ô]Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàLÃãàù]Héàëõ‹ù[^òH\]Z[Hõ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€ÀŸõ‹ù[^òK]\]Z[KXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€Ÿõ‹ù[^òKXõ[ò€À[ô]Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàLçãàù]Héàëõ‹ù[^òH\]Z[Hô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀŸõ‹ù[^òK]\]Z[K\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLãçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€Ÿõ‹ù[^òK\ô\‹ÿYÀ[ô]Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàKàù]HéàëúöYHÿZ»ÿ\úûHòY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\ÀŸúöYKZÿZÀXÿ\úûKXòY»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàõ›\ã[Y^Xÿ[ãZ][\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMãéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—úöYILåòYÀöúœ›LMÃMÃMÕÕàÇàKà¬àö][RYéàMÕÃKàù]HéàëúöYHÿZ»õ‹ò[Y⁄⁄YHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀ›ö]òK[‹À[]Y\ù‹ÀŸúöYKZÿZÀYõ‹ò[[Y⁄\⁄YHãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàùö]òK[‹À[]Y\ù‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—úöYILåÿZ…Låõ‹ò[	Lå[\⁄YKöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàNÃKàù]HéàëúöYHÿZ»ôX⁄€XŸHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀ›ÿ^XÿK[^ŸúöYKZÿZÀ[ôX⁄€XŸHãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàùÿ^XÿK[^ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—úöYILåÿZ…LåôX⁄€\‹Àöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàÃLÀàù]HéàëúöY[ô⁄\úòXŸ[]»HôZYŸHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀÿÿ\ÿK[‹õﬁò€ÀŸúöY[ô⁄\XúòXŸ[]ÀXôZYŸHãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàòÿ\ÿK[‹õﬁò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçÀçÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ŸúöY[ô⁄\	LåúòXŸ[]ILå⁄]ILåô]Àöúœ›LMÕÕNMéNHÇàKà¬àö][RYéàMŒãàù]HéàëúöY[ô⁄\úòXŸ[]»HõX⁄»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀÿÿ\ÿK[‹õﬁò€ÀŸúöY[ô⁄\XúòXŸ[]ÀXõX⁄»ãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàòÿ\ÿK[‹õﬁò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçÀçÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ŸúöY[ô⁄\	LåúòXŸ[]…Låô]Àöúœ›LMÃçLÕMÕLå»ÇàKà¬àö][RYéàåKàù]HéàëÕ\]Z[Hõ[ò€»Ã[	Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸÕ]\]Z[KXõ[ò€ÀMÃ[Mãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’\]Z[ILåÕ	Låõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàLåKàù]HéàëŸ[H	àõ€Y^òÿ[Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[ŸŸ[KXõ€[Y^òÿ[MÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—Ÿ[ILå	LçâLåõ€öúœ›LMÃåÕLMNLÇàKà¬àö][RYéàçÕçãàù]Héàë⁄[à€€ô\ÿH€\⁄XÿH…HÃ€ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]ÀŸ⁄[ãX€€ô\ÿKX€\⁄XÿKMÀMÃ€ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàŒKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€€ô\ÿILå€\⁄XÿILåKöúœ›LMçŒNLMMLàÇàKà¬àö][RYéàçÕçÀàù]Héàë⁄[à€€ô\ÿHöX⁄€HX\à…HÃ€ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹‹\ö]ÀŸ⁄[ãX€€ô\ÿK\öX⁄€K\X\ãMÀMÃ€ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàú‹\ö]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàŒKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€–€€ô\ÿILåöX⁄€ILåX\âLåKöúœ›LMçŒNLMMLàÇàKà¬àö][RYéàçMçàù]Héàë€€[àù]»å»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿò\òŸ[Ÿ€€[ã[ù]ÀMå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòò\òŸ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãåÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€Ÿ€€[âLåù]…Låãöúœ›LMÃååLàÇàKà¬àö][RYéàéMçãàù]Héàë€€[àù]»å»
+X⁄»Ÿà Hãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿò\òŸ[Ÿ€€[ã[ù]ÀMåÀ\X⁄À[ŸãL»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòò\òŸ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€€[âLåù]…Låå…Lå	LéX⁄…LåŸâLå…LéKöúœ›LMÃåÕLMNLÇàKà¬àö][RYéàÕàù]Héàë€ﬁXHZöH[X\ö[»Y[›»›\\à\›HåLŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€ﬁXKŸ€ﬁXKXZöKX[X\ö[À^Y[›ÀZ›\\\ã\\›KLåLŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€ﬁXHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€ﬁXILåZöILå[X\ö[…LåY[›…Lå›	Lå\\âLå\›ILååLŸÀúôœ›LMÕÃåNLåÃçHÇàKà¬àö][RYéàÕãàù]Héàë€ﬁXHZöH[òÿH\\à\›HåLŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€ﬁXKŸ€ﬁXKXZöK\[òÿK\\\ã\\›KLåLŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€ﬁXHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€ﬁXILåZöILå[òÿILå\\âLå\›ILååLŸÀúôœ›LMÕÃåNLåÃçHÇàKà¬àö][RYéàÕÀàù]Héàë€ﬁXH\ù]öX[à\\à\›Hù[ôHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€ﬁXKŸ€ﬁXK\\ù]öX[ã\\\ã\\›KXù[ôHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€ﬁXHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMÀçKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€ﬁXILå\ù]öX[âLå\\âLå\›ILåù[ôKöúœ›LMÕÃÃNéHÇàKà¬àö][RYéàÕKàù]Héàë€ﬁXHõÿ€›»ôY\\à\›HåLŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ€ﬁXKŸ€ﬁXK\õÿ€›À\ôY\\\ã\\›KLåLŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô€ﬁXHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—€ﬁXILåõÿ€›…LåôY	Lå\\âLå\›ILååLŸ…LåëUÀúôœ›LMÕÃŒLåçåÇàKà¬àö][RYéàåÃàù]Héàë‹ò[àŸ[ù[ò\ö[»[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ‹ò[ãXŸ[ù[ò\ö[ÀX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçÀåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—‹ò[âLåŸ[ù[ò\ö[…Lå[ôZõÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàåéàù]Héàë‹ò[àŸ[ù[ò\ö[»]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ‹ò[ãXŸ[ù[ò\ö[À\]KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—‹ò[âLåŸ[ù[ò\ö[…Lå]Köúœ›LMÃååÃMàÇàKà¬àö][RYéàåéKàù]Héàë‹ò[àŸ[ù[ò\ö[»ô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ‹ò[ãXŸ[ù[ò\ö[À\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLÀçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—‹ò[âLåŸ[ù[ò\ö[…Låô\‹ÿYÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàåãàù]Héàë‹ò[à‹ô[ôZ[àõ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ‹ò[ã[‹ô[ôZ[ãXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—õ›◊—”◊–õ[ò€◊ÃåMÃM◊–]]öúœ›LMÃååÃMàÇàKà¬àö][RYéàåÀàù]Héàë‹ò[à‹ô[ôZ[àô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[KŸ‹ò[ã[‹ô[ôZ[ã\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€›[XõòZ[—õ›◊—”◊‘ô\‹ÿY◊–]]öúœ›LMÃååLàÇàKà¬àö][RYéàéãàù]Héàë‹ò[òYHò[]\]Y]\àÃâHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€\]Y]\úÀŸ‹ò[òYK]ò[][\]Y]\ãLÃãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõ\]Y]\ú»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃÀéÀàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—‹ò[òYILåò[]	Lå\]Y]\âLåÃâLçILåÃ[öúœ›LMéNLÕÕÇàKà¬àö][RYéàŒMKàù]Héàë›XZö[»⁄[HõZŸ\»L‹àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\Àÿ‹ù\⁄YX[ô\›Ÿ\ãX⁄[Y\ÀŸ›XZö[ÀX⁄[KYõZŸ\ÀML‹àãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàò‹ù\⁄YX[ô\›Ÿ\ãX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—›XZö[…Låô]Àöúœ›LMÃŒLçÕàÇàKà¬àö][RYéàLåNàù]Héàë›XZö[»⁄€HöYY⁄[HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\ÀŸöYYX⁄[Y\ÀŸ›XZö[À]⁄€KYöYYX⁄[KLZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàôöYYX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—›XZö[…Lå⁄€Köúœ›LMÃååÃMàÇàKà¬àö][RYéàÕNKàù]Héàë›X[òZùX]»MX€HÿX›\»€‹õà‹ù[\»Õ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ›X[òZùX]ÀŸ›X[òZùX]ÀLMX€KXÿX›\ÀX€‹õã]‹ù[\ÀLÕ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô›X[òZùX]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀåÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃMX€ILåÿX›\…Lå€‹õâLå‹ù[ILåö\	Låÿ⁄…LåKíîœ›LMÕÃNLÕNNHÇàKà¬àö][RYéàÕMKàù]Héàë›X[òZùX]»MX€HY[›»€‹õà‹ù[Hõ‹àúûZ[ô»ZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ›X[òZùX]ÀŸ›X[òZùX]ÀLMX€K^Y[›ÀX€‹õã]‹ù[KYõ‹ãYúûZ[ôÀLZŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô›X[òZùX]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€ÃMP”ILåQS’…Lå”‘ìâLå‘ïSILåì‘âLåîñRSë…LåR—…LåëUÀöúœ›LMÃååLàÇàKà¬àö][RYéàÃNàù]Héàë›X]òH[ô»›Ÿ\àZ^LŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ›[ôÀŸ›X]òK][ôÀ\›Ÿ\ã[Z^N^LLŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàù[ô»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—›X]òILå[ô…Lå›Ÿ\âLåLÀöúœ›LMÃÃÃåçÃÕ»ÇàKà¬àö][RYéàåàù]Héàë›\›[õ‹»⁄X]õ›\à€òX⁄»[]»õ‹àúûZ[ô»’T–Sì»åçŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ›\›[õ‹À]⁄X]\€òX⁄‹ÀŸ›\›[õ‹À]⁄X]Yõ›\ã\€òX⁄À\[]ÀYõ‹ãYúûZ[ôÀY›\ÿ[õÀLåçŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô›\›[õ‹À]⁄X]\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—›\›[õ‹…Lå›\ÿ[õÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàåMãàù]Héàë›\›[õ‹»⁄X]õ›\à€òX⁄»[]»õ‹àúûZ[ô»RVåçŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ›\›[õ‹À]⁄X]\€òX⁄‹ÀŸ›\›[õ‹À]⁄X]Yõ›\ã\€òX⁄À\[]ÀYõ‹ãYúûZ[ôÀ[Z^LåçŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô›\›[õ‹À]⁄X]\€òX⁄‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—›\›[õ‹…Lå\›ILåZ^öúœ›LMçåÃÃéçHÇàKà¬àö][RYéàåLàù]Héàë›\›[õ‹»⁄X]õ›\à€òX⁄»[]»õ‹àúûZ[ô»êTUQUHåçŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ›\›[õ‹À]⁄X]\€òX⁄‹ÀŸ›\›[õ‹À]⁄X]Yõ›\ã\€òX⁄À\[]ÀYõ‹ãYúûZ[ôÀ\ò\]Y]KLåçŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô›\›[õ‹À]⁄X]\€òX⁄‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—›\›[õ‹…Låò\]Y]Köúœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàåãàù]Héàë›\›[õ‹»⁄X]õ›\à€òX⁄»[]»õ‹àúûZ[ô»ïQQHåçŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀŸ›\›[õ‹À]⁄X]\€òX⁄‹ÀŸ›\›[õ‹À]⁄X]Yõ›\ã\€òX⁄À\[]ÀYõ‹ãYúûZ[ôÀ\ùYYKLåçŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàô›\›[õ‹À]⁄X]\€òX⁄‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—›\›[õ‹…LåùYYKöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàMMÀàù]HéàíXò[ô\õ»⁄€HöYY⁄[HZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\ÀŸöYYX⁄[Y\À⁄Xò[ô\õÀ]⁄€KYöYYX⁄[KLZŸ»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàôöYYX⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€⁄Xò[ô\õ…LåûILåZŸÀöúœ›LMççMÕÃÃÕHÇàKà¬àö][RYéàLãàù]Héàí\ö[òH[à
+›ŸY]
+HôYL»€‹õàõ›\àõ‹à\ô\\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ö[òK\[ã⁄\ö[òK\[ã\›ŸY]\ôYMLÀX€‹õãYõ›\ãYõ‹ãX\ô\\»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ö[òK\[àãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKåÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ö[òILå[âLå	Lé›ŸY]	LéILåôY	LåL…LåëUÀúôœ›LMŒMåÕÃ»ÇàKà¬àö][RYéàLååÀàù]Héàí\ö[òH[à[X\ö[»ZŸ»Y[›»€‹õàõ›\àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ö[òK\[ã⁄\ö[òK\[ãX[X\ö[ÀLZŸÀ^Y[›ÀX€‹õãYõ›\àãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ö[òK\[àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ö[òILå[âLå[X\ö[ILåZŸ…LåëUÀöúœ›LMÕÕÕMNHÇàKà¬àö][RYéàLåçãàù]Héàí\ö[òH[àõ[òÿHZŸ»⁄]H€‹õàõ›\àãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ö[òK\[ã⁄\ö[òK\[ãXõ[òÿKLZŸÀ]⁄]KX€‹õãYõ›\àãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ö[òK\[àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ö[òILåSâLåõ[òÿKöúYœ›LMÃŒLçÃNHÇàKà¬àö][RYéàNLKàù]HéàíX\ù€\€\»X\úö[ô‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸò\⁄[€ãX‹òYùY⁄YùÀ›ÿ^XÿK[^⁄X\ù\€\€\ÀYX\úö[ô‹»ãàô\\ùY[ùéàôò\⁄[€ãX‹òYùY⁄Yù»ãàòÿ]Y€‹ûT€Y»éàùÿ^XÿK[^ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“X\ù	Lå€\€ILåX\úö[ô‹Àöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàçMàù]Héàí\ô^àÿ\Ÿ\òHÿ[ÿHåL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ãXÿ\Ÿ\òK\ÿ[ÿKLåL»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLåÿ\Ÿ\òILåÿ[ÿILååL…LåëUÀöúœ›LMÕÃçMLLåå»ÇàKà¬àö][RYéàçLKàù]Héàí\ô^àò[ò⁄\òHÿ[ÿHåå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ã\ò[ò⁄\òK\ÿ[ÿKLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLåÿ[ÿILåò[ò⁄\òILåååÀíîœ›LMçéLåÃàÇàKà¬àö][RYéàÃçÀàù]HéàíTëVà–S–HT»“Uãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]À⁄\ô^ã\ÿ[ÿKY\ÀZ⁄]ãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLKéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLåÿ[ÿILå\…Lå⁄]öúœ›LMÕçÃååM»ÇàKà¬àö][RYéàçMãàù]Héàí\ô^àÿ[ÿHô\ôHåL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ã\ÿ[ÿK]ô\ôKLåL»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLåÿ[ÿILåô\ôILååLÀíîœ›LMÃçMLLÇàKà¬àö][RYéàéNLÀàù]Héàí\ô^àÿ[ÿHô\ôHò\àLŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ã\ÿ[ÿK]ô\ôKZò\ãMLŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLåÿ[ÿILåô\ôILåò\âLåLŸ…LåëUÀöúœ›LMÕÃååçÕàÇàKà¬àö][RYéàçKàù]Héàí\ô^àÿ[ÿHô\ôH⁄]]õÿÿY»ç»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ã\ÿ[ÿK]ô\ôK]⁄]X]õÿÿYÀLç»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀççKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLåÿ[ÿILåILå›XXÿ[[€Köúœ›LMçåÃÃéçHÇàKà¬àö][RYéàéNàù]Héàí\ô^à‹XﬁH⁄\›Hÿ[ÿH‹ô[[‹€»ç»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ã\‹XﬁKX⁄\›K\ÿ[ÿKX‹ô[[‹€ÀLç»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLå‹XﬁILå⁄\›ILå‹ô[[‹€…LåçÀöúœ›LMÃååLàÇàKà¬àö][RYéàéMÀàù]Héàí\ô^à‹XﬁH›XXÿ[[€Hÿ]XŸHç»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ã\‹XﬁKY›XXÿ[[€K\ÿ]XŸKLç»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLå‹XﬁILå›XXÿ[[€ILåçÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàÃMÕàù]Héàí\ô^à⁄]H€‹õà⁄]ÿõ[õ»åå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ô^ã⁄\ô^ã]⁄]KX€‹õã]⁄]\ÿõ[õÀLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ô^àãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ô^âLå⁄]ILå€‹õâLå⁄]	Låÿõ[õ…LåååÀöúœ›LMÃÃÃåçÃÕ»ÇàKà¬àö][RYéàÕãàù]Héàí\ô[ò⁄XHH]H\]Z[H€ŸôôYHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K⁄\ô[ò⁄XKYK\]K]\]Z[KX€ŸôôYKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÃçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—–◊ÃLKíîœ›LMÃååÃMàÇàKà¬àö][RYéàçÕåàù]Héàí\úòY\òH[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀ⁄\úòY\òKX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàçéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\úòY\òILå[ôZõÀöúYœ›LMÃååÃMàÇàKà¬àö][RYéàLÃÃãàù]Héàí\úòY\òH]HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€À⁄\úòY\òK\]KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLKçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\úòY\òILå]KöúYœ›LMÃååÃMàÇàKà¬àö][RYéàLÃÃKàù]Héàí\úòY\òHô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀ⁄\úòY\òK\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\úòY\òILåô\‹ÿYÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàMLÀàù]HéàíXö\ÿ›\»Y^òÿ[[€XHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]À⁄Xö\ÿ›\À[Y^òÿ[\[€XHãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‘”S“÷ILåS”PILå“ì…LåILåS‘…Låí—VT…Lå	LéILéKúôœ›LMÕŒLÕÕÕMÇàKà¬àö][RYéàÕŒàù]HéàíXö\ÿ›\»[ﬁHZŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹‹X⁄X[]K⁄Xö\ÿ›\À[[ﬁKLZŸ»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàú‹X⁄X[]Hãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàNàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“Xö\ÿ›\…Lå[ﬁILåZŸÀúôœ›LMÕŒLLåLM»ÇàKà¬àö][RYéàççéàù]Héàí⁄òHÿ[ùHL»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€\ÀXÿ]ö[ò\À⁄⁄òK\ÿ[ùKLL»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõ\ÀXÿ]ö[ò\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€⁄⁄òILåÿ[ùKöúœ›LMÕååLÕÇàKà¬àö][RYéàÕÃÀàù]Héàí›€ô^Hÿ^òÿXô[\]Z[H⁄]ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]À⁄›Z€ô^KXÿ^òÿXô[]\]Z[KZ⁄]ãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàŒàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“’	Lå”ëVILåQ…LåZö[ãúôœ›LMŒåéMåNHÇàKà¬àö][RYéàMMMãàù]Héàí›ù]»X[ù]»ÕY»‹XﬁHX[ù]»⁄]⁄[H	à[YHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿò\òŸ[⁄›[ù]À\X[ù]ÀMÕYÀ\‹XﬁK\X[ù]À]⁄]X⁄[K[[YHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòò\òŸ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãçLãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€⁄›	Låù]Àöúœ›LMÕŒNMHÇàKà¬àö][RYéàNMKàù]HéàíX[òH›X[òXò[òHX^X[àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹ù[K⁄X[òKY›X[òXò[òK[X^X[ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúù[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€⁄X[òILå[XYŸILåô]Àöúœ›LMÃåÕLMÇàKà¬àö][RYéàéNMÀàù]HéàíX\òX⁄Hô\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ€›\ã[Y^Xÿ[ãZ][\À⁄⁄]⁄[ùÿ\ôK⁄X\òX⁄K\ô\‹»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàö⁄]⁄[ùÿ\ôHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“X\òX⁄ILåô\‹Àöúœ›LMÃLçÕMÕçMÇàKà¬àö][RYéàéÕàù]Héàí[ô[»YŸ\àôY\àÕM[[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹ÀÿôY\ã⁄[ô[À[YŸ\ãXôY\ãLÕM[[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòôY\àãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀçMàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“[ô[…LåôY\âLåõ›ILåÕM[[öúœ›LMÃéMåL»ÇàKà¬àö][RYéàÃçãàù]HéàíT–Q‘êHëQîíQQëPSî»P“»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ€YX[À⁄⁄]À⁄\ÿY‹òK\ôYúöYYXôX[úÀ\X⁄»ãàô\\ùY[ùéàõYX[»ãàòÿ]Y€‹ûT€Y»éàö⁄]»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàçKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ÿY‹òILåôYúöYY	LåôX[ú…LåX⁄Àöúœ›LMÕçÃååM»ÇàKà¬àö][RYéàÃÃçÀàù]Héàí\ÿY‹òHôYúöYYõX⁄»ôX[ú»Ã»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ÿY‹òK⁄\ÿY‹òK\ôYúöYYXõX⁄ÀXôX[úÀMÃ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ÿY‹òHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ÿY‹òILåôYúöYY	LåõX⁄…LåôX[ú…LåÃÀöúœ›LMÕNLŒNÕL»ÇàKà¬àö][RYéàÃÃéàù]Héàí\ÿY‹òHôYúöYY\ù]öX[àôX[ú»Ã»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ÿY‹òK⁄\ÿY‹òK\ôYúöYY\\ù]öX[ãXôX[úÀMÃ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ÿY‹òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ÿY‹òILåôYúöYY	Lå\ù]öX[âLåôX[ú…LåÃÀöúœ›LMÕNLŒNÕL»ÇàKà¬àö][RYéàÃéLãàù]Héàí\ÿY‹òHôYúöYY[ù»ôX[ú»Ã»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄\ÿY‹òK⁄\ÿY‹òK\ôYúöYY\[ùÀXôX[úÀMÃ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö\ÿY‹òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“\ÿY‹òILåôYúöYY	Lå[ù…LåôX[ú…LåÃÀöúœ›LMÕNLŒNÕL»ÇàKà¬àö][RYéàŒLÀàù]Héàíò[\[õ»⁄[HõZŸ\»L»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿÿ]\ö[ôÀ\⁄^ô\Àÿ‹ù\⁄YX[ô\›Ÿ\ãX⁄[Y\À⁄ò[\[õÀX⁄[KYõZŸ\ÀML»ãàô\\ùY[ùéàòÿ]\ö[ôÀ\⁄^ô\»ãàòÿ]Y€‹ûT€Y»éàò‹ù\⁄YX[ô\›Ÿ\ãX⁄[Y\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMçKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€⁄ò[\[õ…LåõZŸ\…Låãöúœ›LMÃŒåçLéÇàKà¬àö][RYéàÃçNKàù]Héàíò[\[õ»⁄\»Lô»‹XﬁH›]»‹ö\‹»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀÿò\òŸ[⁄ò[\[õÀX⁄\ÀMLôÀ\‹XﬁK\›]ÀX‹ö\‹»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàòò\òŸ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãåÕKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‹›]…Lå⁄\…Låò[\[õ‹Àöúœ›LMÕMçÃNHÇàKà¬àö][RYéàÕÃàù]Héàíò\úö]‹»úùZ][ò⁄ÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹ÀYúùZ]\[ò⁄LÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€—ãöúœ›LMÕŒLÃÇàKà¬àö][RYéàéàù]Héàíò\úö]‹»‹ò\YúùZ]ÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹ÀY‹ò\YúùZ]LÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“êTë€\‹◊—‹ò\YúùZ]“[ù\õò][€ò[úôœ›LMÃÕçŒàÇàKà¬àö][RYéàéLÀàù]Héàíò\úö]‹»›X]òHÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹ÀY›X]òKLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ò\úö]‹…Lå›X]òKöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàéÀàù]Héàíò\úö]‹»[YHÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À[[YKLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ò\úö]‹…Lå[YILåô]…Lå›ÿ⁄…Lå›Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàéKàù]Héàíò\úö]‹»X[ô\ö[àÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À[X[ô\ö[ãLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ò\úö]‹…LåX[ô\ö[ãöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàéLàù]Héàíò\úö]‹»X[ô€»ÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À[X[ô€ÀLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ò\úö]‹…LåX[ô€Àöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàéMàù]Héàíò\úö]‹»Y^Xÿ[à€€HÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À[Y^Xÿ[ãX€€KLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“êTë€\‹◊–€€W“[ù\õò][€ò[úôœ›LMÃÕçŒ»ÇàKà¬àö][RYéàLÕÀàù]Héàíò\úö]‹»[ôX\HÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À\[ôX\KLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ò\úö[›…Lå[ôX\Köúœ›LMççMÕÃÃÕHÇàKà¬àö][RYéàéKàù]Héàíò\úö]‹»òZ[òõ›»⁄]ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À\òZ[òõ›ÀZ⁄]ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàMÀéNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“êTîíU‘…LåêRSêì’…Lå	Lé[\‹ò\ûILå€€ILå[ô	Lå›ò]ÿô\úûILéKöúœ›LMÃÕMNé»ÇàKà¬àö][RYéàçÃåãàù]Héàíò\úö]‹»›ò]ÿô\úûHÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À\›ò]ÿô\úûKLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ò\úö]‹…Lå›ò]ÿô\úûKöúœ›LMççÃÃNÃLHÇàKà¬àö][RYéàÕéKàù]Héàíò\úö]‹»[X\ö[ôÕÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ò\úö]‹À⁄ò\úö]‹À][X\ö[ôLÕÃ[ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöò\úö]‹»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ò\úö]‹…Lå[X\ö[ô	LåÕÃ[öúœ›LMÕŒMÃçHÇàKà¬àö][RYéàLÕåÀàù]Héàíõ‹ŸH›Y\ùõ»X\ôÿ\ö]HZ^ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Z^\úÀ⁄õ‹ŸKX›Y\ùõÀ[X\ôÿ\ö]K[Z^ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõZ^\ú»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“õ‹ŸILå›Y\ùõ…LåX\ôÿ\ö]ILåZ^	Lå[öúœ›LMÃçLéŒMHÇàKà¬àö][RYéàåçãàù]Héàíõ‹ŸH›Y\ùõ»ô\Ÿ\ùòHHHò[Z[XHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K⁄õ‹ŸKX›Y\ùõÀ\ô\Ÿ\ùòKYK[KYò[Z[XKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMÃãåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“õ‹ŸILå›Y\ùõ…Låô\Ÿ\ùòILåILåILåò[Z[XKöúœ›LMÃååÃMàÇàKà¬àö][RYéàååãàù]Héàíõ‹ŸH›Y\ùõ»òYX⁄[€ò[ô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K⁄õ‹ŸKX›Y\ùõÀ]òYX⁄[€ò[\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’òYX⁄[€ò[	Låô\‹ÿYÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàMÃÀàù]Héàíõ‹ŸH›Y\ùõ»òYX⁄[€ò[⁄[ô\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿõ[ò€À⁄õ‹ŸKX›Y\ùõÀ]òYX⁄[€ò[\⁄[ô\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàòõ[ò€»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÕãçàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“õ‹ŸILå›Y\ùõ…LåòYX⁄[€ò[	Lå]ILåÃ[öúœ›LMÃååÃMàÇàKà¬àö][RYéàçNãàù]Héàí–R\]Z[H[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K⁄ÿZ]\]Z[KX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“–R	Lå[ôZõÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàçNKàù]Héàí–R\]Z[Hõ[ò€»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K⁄ÿZ]\]Z[KXõ[ò€ÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“–R	Låõ[ò€Àöúœ›LMÃååÃMàÇàKà¬àö][RYéàçNàù]Héàí–R\]Z[Hô\‹ÿY»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K⁄ÿZ]\]Z[K\ô\‹ÿYÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàù\]Z[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàMÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“–R	Låô\‹ÿYÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàLÕKàù]Héàíÿ[[öH€ÿ€€ù]ù[H\]Y]\àÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À‹ù[K⁄ÿ[[öKX€ÿ€€ù]\ù[K[\]Y]\ãMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúù[Hãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÃKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ÿ[[öILå€ÿ€€ù]	Lå\]Y\ãöúœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàçÕMÀàù]Héàíÿ[ö›[àò[\[õ»öŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ÿ[ö›[ã⁄ÿ[ö›[ãZò[\[õÀLöŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöÿ[ö›[àãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàéNKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ÿ[ö›[âLåò[\[õ…LåöŸÀöúœ›LMçÕNNMÃHÇàKà¬àö][RYéàçÕMãàù]Héàíÿ[í›[àXö[öŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄ÿ[ö›[ã⁄ÿ[ö›[ã\Xö[LöŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàöÿ[ö›[àãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàåÀéKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“ÿ[ö›[âLåXö[	LåöŸÀöúœ›LMçÕNNMÃ»ÇàKà¬àö][RYéàMLÀàù]Héàí⁄H€›\õY]⁄\›HY[]HŒ»ÿ[ÿHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄⁄KY€›\õY]⁄⁄KY€›\õY]X⁄\›KXY[]KLŒÀ\ÿ[ÿHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö⁄KY€›\õY]ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“⁄ILå€›\õY]	LåILåILåY[]Köúœ›LMÃŒLÃLàÇàKà¬àö][RYéàMKàù]Héàí⁄H€›\õY]‹ôY[à⁄]⁄[HH€òHŒ»ÿ[ÿHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄⁄KY€›\õY]⁄⁄KY€›\õY]Y‹ôY[ã]⁄]X⁄[K[KY€òKLŒÀ\ÿ[ÿHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö⁄KY€›\õY]ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“⁄ILå€›\õY]	LåILåILå€òKöúœ›LMÃŒLÃLàÇàKà¬àö][RYéàMãàù]Héàí⁄H€›\õY]X[ô€»X\[ô€»å»ÿ[ÿHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄⁄KY€›\õY]⁄⁄KY€›\õY][X[ô€ÀZX\[ô€ÀMåÀ\ÿ[ÿHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö⁄KY€›\õY]ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“⁄ILå€›\õY]	LåILåX\[ô€Àöúœ›LMÃŒLÃLàÇàKà¬àö][RYéàMLLàù]Héàí⁄H€›\õY][‹ö]H‹õ€òHŒ»ÿ[ÿHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ⁄⁄KY€›\õY]⁄⁄KY€›\õY][[‹ö]K[‹õ€òKLŒÀ\ÿ[ÿHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàö⁄KY€›\õY]ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“⁄ILå€›\õY]	LåILåILå‹õ€òKöúœ›LMÃŒLÃLàÇàKà¬àö][RYéàLçÕãàù]Héàí€õ‹úàY^Xÿ[à›[HöXŸHMå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹öXŸKX[ô\€›\À⁄€õ‹úã[Y^Xÿ[ã\›[K\öXŸKLMå»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàúöXŸKX[ô\€›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€õ‹úâLå\úõﬁâLåILåILåY^Xÿ[òILåãíîœ›LMÃÃçŒLÃççÇàKà¬àö][RYéàMKàù]Héàí€õ‹úàÿõ[õ»öXŸHMå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹öXŸKX[ô\€›\À⁄€õ‹úã\ÿõ[õÀ\öXŸKLMå»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàúöXŸKX[ô\€›\»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàKéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€‹ÿõ[õÀöúœ›LMççMÕÃÃÕHÇàKà¬àö][RYéàÕLÀàù]Héàí€õ‹úà€X]»›Ÿ\àå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹ŸX\€€ö[ô‹À⁄€õ‹úã]€X]À\›Ÿ\ãLå»ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàúŸX\€€ö[ô‹»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€õ‹úâLå€X]…Lå›Ÿ\âLååÀúôœ›LMŒååÃÕÇàKà¬àö][RYéàÃMÀàù]Héàí€ÿ⁄[Y^òÿ[[úÿ[XõHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[⁄€ÿ⁄Y[[Y^òÿ[Y[úÿ[XõKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàåÀçãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€ÿ⁄…Lå[úÿ[XõKöúœ›LMÃåÕLMNLÇàKà¬àö][RYéàÃMãàù]Héàí€ÿ⁄[Y^òÿ[XYôX›Z\⁄HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[⁄€ÿ⁄Y[[Y^òÿ[[XYôX›Z\⁄K[Y^Xÿ[ã[Y^òÿ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàéKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€ÿ⁄…LåXYôX›Z\⁄Köúœ›LMÃåÕLMÇàKà¬àö][RYéàNLÀàù]Héàí€ÿ⁄[Y^òÿ[ÿò\⁄X⁄HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À€Y^òÿ[⁄€ÿ⁄Y[[Y^òÿ[]ÿò\⁄X⁄KMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàõY^òÿ[ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàéKåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€ÿ⁄	Låÿò\⁄X⁄Köúœ›LMÃåÕLÕåMÃHÇàKà¬àö][RYéàçéKàù]Héàí€€[‹»\]Z[H[ôZõ»‹ö\›[[õ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀ⁄€€[‹À]\]Z[KX[ôZõÀX‹ö\›[[õÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLçãåNKàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€€[‹…Lå[ôZõÀöúœ›LMÃååÃMàÇàKà¬àö][RYéàçéãàù]Héàí€€[‹»\]Z[H^òH[ôZõ»Ã[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[Kÿ[ôZõÀ⁄€€[‹À]\]Z[KY^òKX[ôZõÀMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàò[ôZõ»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàŒLãçéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€€[‹…Lå^òILå[ôZõÀöúœ›LMÃååLàÇàKà¬àö][RYéàçéàù]Héàí€€[‹»\]Z[Hô\‹ÿY»õ‹ÿHÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸö[ö‹À›\]Z[K‹ô\‹ÿYÀ⁄€€[‹À]\]Z[K\ô\‹ÿYÀ\õ‹ÿKMÃ[ãàô\\ùY[ùéàôö[ö‹»ãàòÿ]Y€‹ûT€Y»éàúô\‹ÿY»ãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàLMKéàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€“€€[‹…Låô\‹ÿYÀöúœ›LMÃååLàÇàKà¬àö][RYéàMåLãàù]HéàìH[ö]HX\ö[òYH\›‹àÿ]XŸHõ›HÃ[ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹ŸX\€€ö[ô‹À‹\›\À€KX[ö]K[X\ö[òYK\\›‹ã\ÿ]XŸKXõ›KLÃ[ãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàú\›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀéKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå[õ›ILå\›‹âLåX\ö[òYKöúœ›LMÃŒMLÕLàÇàKà¬àö][RYéàéLéKàù]HéàìH[ö]H\›‹àX\ö[ôHõ›HÀéãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀŸõ€Ÿ‹ŸX\€€ö[ô‹À‹\›\À€KX[ö]K\\›‹ã[X\ö[ôKXõ›KLŒãàô\\ùY[ùéàôõ€Ÿãàòÿ]Y€‹ûT€Y»éàú\›\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå[ö]ILå\›‹âLåX\ö[ôILåõ›ILåÀéöúœ›LMÃååÕNMHÇàKà¬àö][RYéàÃÕàù]HéàìH\ù\ÿ[ò[^òH›ÿ[ÿHXX⁄Hå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX\ù\ÿ[ò[€KX\ù\ÿ[ò[Y^òKZ›\ÿ[ÿK[XX⁄KLå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX\ù\ÿ[ò[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’⁄ŸILå[õõ›òILåXX⁄ILåÿ]XŸILååÀöúœ›LMÕåNçåçàÇàKà¬àö][RYéàÃÕÀàù]HéàìH\ù\ÿ[ò[€ô^H[ô‹ò[òô\úûHÿ[ÿHXX⁄Hå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX\ù\ÿ[ò[€KX\ù\ÿ[ò[Z€ô^KX[ôX‹ò[òô\úûK\ÿ[ÿK[XX⁄KLå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX\ù\ÿ[ò[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå\ù\ÿ[ò[	LåõYXô\úûILåÿ[ÿILåXX⁄ILååÀöúœ›LMÕåÕçLçHÇàKà¬àö][RYéàÃÕKàù]HéàìH\ù\ÿ[ò[YY][Hÿ[ÿHXX⁄Hå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX\ù\ÿ[ò[€KX\ù\ÿ[ò[[YY][K\ÿ[ÿK[XX⁄KLå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX\ù\ÿ[ò[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’⁄ŸILå[õõ›òILåõ…Lå[âLåXX⁄ILåÿ]XŸILååÀöúœ›LMÕåNçåçàÇàKà¬àö][RYéàÃÕKàù]HéàìH\ù\ÿ[ò[X[ù][ô[‹ö]Hÿ[ÿHXX⁄Hå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX\ù\ÿ[ò[€KX\ù\ÿ[ò[\X[ù]X[ô[[‹ö]K\ÿ[ÿK[XX⁄KLå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX\ù\ÿ[ò[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€’⁄ŸILå[õõ›òILåX[ù]	Låÿ]XŸILååÀöúœ›LMÕåNçåçàÇàKà¬àö][RYéàÃŒLÀàù]HéàìH\ù\ÿ[ò[ÿ[ÿHXX⁄Hù[ôHãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX\ù\ÿ[ò[€KX\ù\ÿ[ò[\ÿ[ÿK[XX⁄KXù[ôHãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX\ù\ÿ[ò[ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàåãàúöXŸQúõ€Héàò[ŸKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå\ù\ÿ[ò[	Låÿ[ÿILåXX⁄ILåù[ôKöúœ›LMÕéLÕŒLHÇàKà¬àö][RYéàåLLKàù]HéàìH€‹›[òHõX⁄»⁄€HôX[ú»»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKXõX⁄À]⁄€KXôX[úÀM»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKéàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå⁄€ILåõX⁄…LåôX[ú…LåÀöúœ›LMçåÃÃéçHÇàKà¬àö][RYéàåàù]HéàìH€‹›[òH⁄\›H[àYÿõ»ãéŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKX⁄\›KZ[ãXYÿõÀLéŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàåÀçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå⁄\›ILå[âLåYÿõ…LåãéŸÀöúœ›LMÕÕçÃååÕàÇàKà¬àö][RYéàÃåLÀàù]HéàìH€‹›[òH⁄\›H[àYÿõ»XÿY‹»ò\àåÃ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKX⁄\›KZ[ãXYÿõÀ\XÿY‹ÀZò\ãLåÃ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå⁄\›ILå[âLåYÿõ…LåXÿY‹…Låò\âLååÃÀúôœ›LMÃÕÃŒLçÇàKà¬àö][RYéàLÀàù]HéàìH€‹›[òH⁄\›H[àYÿõ»ÿ]XŸHNNY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKX⁄\›KZ[ãXYÿõÀ\ÿ]XŸKLNNY»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàãéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå⁄\›ILå[âLåYÿõ…Låÿ]XŸILåNNY…LåTUQöúœ›LMéMåÃççMÃHÇàKà¬àö][RYéàåLéàù]HéàìH€‹›[òH[›H‹òY»⁄€Håå»›ŸY]€‹õàãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKY[›KY‹òYÀ]⁄€KLååÀ\›ŸY]X€‹õàãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå€€	Lå€‹õãöúœ›LMÕÕçÕÃLÃåÇàKà¬àö][RYéàÃçMKàù]HéàìH€‹›[òH‹ôY[àÿ[ÿHÕY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKY‹ôY[ã\ÿ[ÿKMÕY»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàì›]Ÿà›ÿ⁄»ãàúöXŸHéàÀàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå‹ôY[âLåÿ[ÿILåÕYÀöúœ›LMÕLéM»ÇàKà¬àö][RYéàåLLÀàù]HéàìH€‹›[òH›XXÿ[[€Hÿ[ÿHçY»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKY›XXÿ[[€K\ÿ[ÿKMçY»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀéMKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå›XXÿ[[€ILåÿ[ÿILåçYÀöúœ›LMÕLLåéHÇàKà¬àö][RYéàåLMKàù]HéàìH€‹›[òH›X^XXòH\›Hç»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKY›X^XXòK\\›KLç»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàÀçKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå›X]òILå\›Köúœ›LMçåÃÃéçHÇàKà¬àö][RYéàåLÀàù]HéàìH€‹›[òHXò[ô\õ»òZò\»åL»Xò[ô\õ»\\à€XŸ\»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKZXò[ô\õÀ\òZò\ÀLåLÀZXò[ô\õÀ\\\ã\€XŸ\»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILåXò[ô\õ‹…Lå€XŸ\Àöúœ›LMÕÕçÕÃLÃåHÇàKà¬àö][RYéàåMàù]HéàìH€‹›[òHXò[ô\õ»⁄€Hå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òKÿ⁄[Y\À€KX€‹›[òKZXò[ô\õÀ]⁄€KLå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéààúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå⁄€ILåXò[ô\õ‹Àöúœ›LMŒççÕLHÇàKà¬àö][RYéàåãàù]HéàìH€‹›[òHZ]X€ÿ⁄HŒ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKZZ]X€ÿ⁄KLŒ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàLãçãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILåZ]X€ÿ⁄Köúœ›LMçåÃÃéçHÇàKà¬àö][RYéàåLàù]HéàìH€‹›[òHò[\[õ»⁄[HXÿY‹»åå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òKÿ⁄[Y\À€KX€‹›[òKZò[\[õÀX⁄[K\XÿY‹ÀLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKççKàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILåò[\[õ…LåX⁄€Y	LåååÀöúœ›LMÕÕçÕÃLÃNHÇàKà¬àö][RYéàMMŒàù]HéàìH€‹›[òHò[\[õ»⁄[Y\»⁄€Håå»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òKÿ⁄[Y\À€KX€‹›[òKZò[\[õÀX⁄[Y\À]⁄€KLåå»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàò⁄[Y\»ãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéàKåãàúöXŸQúõ€HéàùYKàö[XYŸHéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀ⁄[XYŸ\À‹õŸX›€”ILå€‹›[òILå⁄€ILåò[\[õ‹…LåååÀöúœ›LMŒéNMåHÇàKà¬àö][RYéàåLåàù]HéàìH€‹›[òHò[\[õ»òX⁄»ãéŸ»ãàù\õéàöŒãÀ›››ÀõY^‹õÿŸ\ãò€ÀùZÀÿúò[ôÀ€KX€‹›[òK€KX€‹›[òKZò[\[õÀ[òX⁄ÀLéŸ»ãàô\\ùY[ùéàòúò[ô»ãàòÿ]Y€‹ûT€Y»éàõKX€‹›[òHãàò]òZ[Xö[]Héàí[à›ÿ⁄»ãàúöXŸHéà<Îæ¯∂âûÀk∫wµÁB'FóF∆R#¢$∆6˜7FVÊ¶∆VÊÚÊ6ÜÚ"„Ü∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ÷¶∆VÊÚ÷Ê6ÜÚ”#Ü∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#¶∆VÊÚS#Ê6ÜÚS#6∆ñ6W2S#6∂rÊßs˜C”sscss3í ¢“¿¢∞¢&óFV‘ñB#¢s#"¿¢'FóF∆R#¢$∆6˜7FVÊ¶∆VÊÚÊ6ÜÚ¶"#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ÷¶∆VÊÚ÷Ê6ÜÚ÷¶"”#r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„SR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#¶∆VÊÚS#Ê6ÜÚS#¶"S##rÊßs˜C”ss#3#C" ¢“¿¢∞¢&óFV‘ñB#¢c#ì2¿¢'FóF∆R#¢$∆6˜7FVÊ¶∆VÊÚ&VB6∆ñ6W2ìñr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ6Üñ∆∆ñW2ˆ∆÷6˜7FVÊ÷¶∆VÊÚ◊&VB◊6∆ñ6W2”ìñr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&6Üñ∆∆ñW2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„3R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙƒS#4ı5DT‰S#§ƒT‰ÚS#$TBS#4ƒî4U2S#ìîrS#S#áWFFVBS#íÊßs˜C”ssCÉ3sb ¢“¿¢∞¢&óFV‘ñB#¢c3Ç¿¢'FóF∆R#¢$∆6˜7FVÊ¶∆VÊÚ6∆ñ6W2ìñr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ6Üñ∆∆ñW2ˆ∆÷6˜7FVÊ÷¶∆VÊÚ◊6∆ñ6W2”ìñr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&6Üñ∆∆ñW2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„3R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙƒS#4ı5DT‰S#§ƒT‰ÚS#4ƒî4U2S#ìîrS#S#áWFFVBS#íÊßs˜C”s3cÉ3É" ¢“¿¢∞¢&óFV‘ñB#¢cÉÇ¿¢'FóF∆R#¢$∆6˜7FVÊ¶∆VÊÚvÜˆ∆R"„Ü∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ6Üñ∆∆ñW2ˆ∆÷6˜7FVÊ÷¶∆VÊÚ◊vÜˆ∆R”#Ü∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&6Üñ∆∆ñW2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#vÜˆ∆RS#¶∆VÊ˜2S#6∂rÊßs˜C”sscss#ìí ¢“¿¢∞¢&óFV‘ñB#¢cÉr¿¢'FóF∆R#¢$∆6˜7FVÊ÷ó¢&∆Ê6ÚÉ#r÷WÜñ6‚˜¶ˆ∆R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ÷÷ó¢÷&∆Ê6Ú”É#r÷÷WÜñ6‚◊˜¶ˆ∆R"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#÷ó¢S#&∆Ê6ÚS#É#rS#‰UrÁÊs˜C”ss#CSÉscr ¢“¿¢∞¢&óFV‘ñB#¢cÉC¿¢'FóF∆R#¢$∆6˜7FVÊ÷V÷'&ñ∆∆Ú6Ü÷˜í7FR#Cr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ÷÷V÷'&ñ∆∆Ú÷6Ü÷˜í◊7FR”#Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„CR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#÷V÷'&ñ∆∆ÚS#6Ü÷˜íS#7FRS##CrÊßs˜C”s#SS3C# ¢“¿¢∞¢&óFV‘ñB#¢cCR¿¢'FóF∆R#¢$∆6˜7FVÊ÷V÷'&ñ∆∆Ú7FR#Cr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ÷÷V÷'&ñ∆∆Ú◊7FR”#Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„CR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#÷V÷'&ñ∆∆ÚS#7FRÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢c3ìR¿¢'FóF∆R#¢$∆6˜7FVÊ÷WÜñ6‚&VB6«6"„Ü∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ÷÷WÜñ6‚◊&VB◊6«6”#Ü∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#÷WÜñ6‚S#&VBS#6«6S#"„Ü∂rS#UDDTBÊßs˜C”cìc3#cSS" ¢“¿¢∞¢&óFV‘ñB#¢sC#Ç¿¢'FóF∆R#¢$∆6˜7FVÊñ6∂∆VB6'&˜G2#3r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊ñ6∂∆VB÷6'&˜G2”#3r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#ñ6∂∆VBS#6'&˜G2S##3rÊßs˜C”sscsÉ#SÉr ¢“¿¢∞¢&óFV‘ñB#¢cí¿¢'FóF∆R#¢$∆6˜7FVÊñÁFÚvÜˆ∆R&VÁ2Cr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ&VÁ2ˆ∆÷6˜7FVÊ◊ñÁFÚ◊vÜˆ∆R÷&VÁ2”Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&VÁ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#vÜˆ∆RS#ñÁFÚS#&V‚S#CrÊßs˜C”sS#c#ìb ¢“¿¢∞¢&óFV‘ñB#¢s#B¿¢'FóF∆R#¢$∆6˜7FVÊ&VBÊ6ÜÚ¶∆VÊÚFFV÷FÚ##r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊&VB÷Ê6ÜÚ÷¶∆VÊÚ◊FFV÷FÚ”##r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#&VBS#Ê6ÜÚS#¶∆VÊÚS#FFV÷FÚS###rS#ÖÊßs˜C”s3sììCÉSR ¢“¿¢∞¢&óFV‘ñB#¢cÉb¿¢'FóF∆R#¢$∆6˜7FVÊ&Vg&ñVB&∆6≤&VÁ2˜V6Ç##r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ&VÁ2ˆ∆÷6˜7FVÊ◊&Vg&ñVB÷&∆6≤÷&VÁ2◊˜V6Ç”##r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&VÁ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„3R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#&Vg&ñVBS#&∆6≤S#&VÁ2S#˜V6ÇS###rÁÊs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cB¿¢'FóF∆R#¢$∆6˜7FVÊ&Vg&ñVBñÁFÚ&VÁ2˜V6Ç##r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ&VÁ2ˆ∆÷6˜7FVÊ◊&Vg&ñVB◊ñÁFÚ÷&VÁ2◊˜V6Ç”##r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&VÁ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„3R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#ñÁFÚS#&V‚S#˜V6ÇÊßs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢csí¿¢'FóF∆R#¢$∆6˜7FVÊ6«6FóÜ˜BCS6r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊ˜6«6ˆ∆÷6˜7FVÊ◊6«6÷Fó÷Ü˜B”CS6r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6«6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#Ü˜BS#6«6S#FóÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢csb¿¢'FóF∆R#¢$∆6˜7FVÊ6«6Fó÷VFóV“CS6r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊ˜6«6ˆ∆÷6˜7FVÊ◊6«6÷Fó÷÷VFóV“”CS6r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6«6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#÷VFóV“S#6«6S#FóÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢csR¿¢'FóF∆R#¢$∆6˜7FVÊ6«6Fó÷ñ∆BCS6r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊ˜6«6ˆ∆÷6˜7FVÊ◊6«6÷Fó÷÷ñ∆B”CS6r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6«6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#÷ñ∆BS#6«6S#FóÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cÉS2¿¢'FóF∆R#¢$∆6˜7FVÊ6«6Fó2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2ˆ∆÷6˜7FVÊ◊6«6÷Fó2"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢Ç„Cí¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6«6S#Fó2S#Êßs˜C”cìSìÉÉb ¢“¿¢∞¢&óFV‘ñB#¢cÇ¿¢'FóF∆R#¢$∆6˜7FVÊ6«6÷WÜñ6Ê66W&#Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6«6÷÷WÜñ6Ê÷66W&”#Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6«6S#÷WÜñ6ÊS#66W&S##SrS#ÊWrÊßs˜C”scìcÉììR ¢“¿¢∞¢&óFV‘ñB#¢c#ìR¿¢'FóF∆R#¢$∆6˜7FVÊ6«6ñ6ÁFR3s÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6«6◊ñ6ÁFR”3s÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„#R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#&S#&ˆÊFS#6«6Êßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢CCì¿¢'FóF∆R#¢$∆6˜7FVÊ6«6&Ê6ÜW&#Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6«6◊&Ê6ÜW&”#Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6«6S#&Ê6ÜW&S##SrS#ÊWrÊßs˜C”scìcÉ3Ç ¢“¿¢∞¢&óFV‘ñB#¢CCì¿¢'FóF∆R#¢$∆6˜7FVÊ6«6FVW&#Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6«6◊FVW&”#Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6«6S#FVW&S##SrS#ÊWrÊßs˜C”scìcÉ3Ç ¢“¿¢∞¢&óFV‘ñB#¢c3ì¿¢'FóF∆R#¢$∆6˜7FVÊ6«6fW&FR"„Ü∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6«6◊fW&FR”#Ü∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6«6S#fW&FRS#"„Ü∂rÊßs˜C”ss#3##r ¢“¿¢∞¢&óFV‘ñB#¢CSR¿¢'FóF∆R#¢$∆6˜7FVÊ6«6fW&FR#Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6«6◊fW&FR”#Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6«6S#fW&FRS##SrS#ÊWrÊßs˜C”scìcÉCB ¢“¿¢∞¢&óFV‘ñB#¢c#ì¿¢'FóF∆R#¢$∆6˜7FVÊ6W'&ÊÚ6Üñ∆∆ñW2F˜&VF˜2##r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6W'&ÊÚ÷6Üñ∆∆ñW2◊F˜&VF˜2”##r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6W'&Ê˜2S#F˜&VF˜2S###rÊßs˜C”sscss3í ¢“¿¢∞¢&óFV‘ñB#¢SSÉ¿¢'FóF∆R#¢$∆6˜7FVÊ6W'&ÊÚvÜˆ∆R6Üñ∆∆ñW2ìñr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊6W'&ÊÚ◊vÜˆ∆R÷6Üñ∆∆ñW2”ìñr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#6W'&ÊÚS#vÜˆ∆RS#6Üñ∆∆ñW2S#ìñrÊßs˜C”ss#3##Ç ¢“¿¢∞¢&óFV‘ñB#¢c#ÉB¿¢'FóF∆R#¢$∆6˜7FVÊF÷¬FRV∆˜FRr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊F÷¬÷FR÷V∆˜FR”r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#F÷¬S#V∆˜FRÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢c#É"¿¢'FóF∆R#¢$∆6˜7FVÊF÷¬GV∆6Rr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊F÷¬÷GV∆6R”r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#F÷¬S#GV∆6RÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cÉb¿¢'FóF∆R#¢$∆6˜7FVÊFˆ÷Fñ∆∆ÚvÜˆ∆R"„Ü∂r÷WÜñ6‚w&VV‚Fˆ÷FˆW2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊Fˆ÷Fñ∆∆Ú◊vÜˆ∆R”#Ü∂r÷÷WÜñ6‚÷w&VV‚◊Fˆ÷FˆW2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#Fˆ÷Fñ∆∆˜2S#vÜˆ∆RS#"„Ü∂rÊßs˜C”sÉ3ìcÉcr ¢“¿¢∞¢&óFV‘ñB#¢cÉÇ¿¢'FóF∆R#¢$∆6˜7FVÊFˆ÷Fñ∆∆˜2sìFr÷WÜñ6‚w&VV‚Fˆ÷FˆW2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊Fˆ÷Fñ∆∆˜2”sìFr÷÷WÜñ6‚÷w&VV‚◊Fˆ÷FˆW2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#Fˆ÷Fñ∆∆˜2S#vÜˆ∆RS#sìFrÊßs˜C”sÉsC3R ¢“¿¢∞¢&óFV‘ñB#¢s3ìb¿¢'FóF∆R#¢$∆6˜7FVÊG&FóFñˆÊ¬÷WÜñ6‚6«6'VÊF∆R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊G&FóFñˆÊ¬÷÷WÜñ6‚◊6«6÷'VÊF∆R"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#G&FóFñˆÊ¬S#÷WÜñ6‚S#6«6S#'VÊF∆RS#Êßs˜C”scìcÉ#c ¢“¿¢∞¢&óFV‘ñB#¢c#Éí¿¢'FóF∆R#¢$∆6˜7FVÊfñÊw&RFR÷Á¶ÊS÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷6˜7FVÊˆ∆÷6˜7FVÊ◊fñÊw&R÷FR÷÷Á¶Ê”S÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷6˜7FVÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„3R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6˜7FVÊS#fñÊVv"Êßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cÉ"¿¢'FóF∆R#¢$∆fˆÊFe¬"f∆˜W"F˜'Fñ∆∆"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF”b÷f∆˜W"◊F˜'Fñ∆∆"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#f∆˜W"S#F˜'Fñ∆∆Êßs˜C”ss#3#3r ¢“¿¢∞¢&óFV‘ñB#¢s#3Ç¿¢'FóF∆R#¢$∆fˆÊF&«VRf∆WF2F˜'Fñ∆∆2#72"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷&«VR÷f∆WF2◊F˜'Fñ∆∆2”#◊72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#&«VRS#f∆WF2S#F˜'Fñ∆∆2S##S#72Êßs˜C”sCÉscÉìR ¢“¿¢∞¢&óFV‘ñB#¢s##B¿¢'FóF∆R#¢$∆fˆÊF&«VR∆6W&#52"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷&«VR◊∆6W&”#72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ÉR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#&«VRS#∆6W&S##52S#‰UrÊßs˜C”ss3ìcÉCí ¢“¿¢∞¢&óFV‘ñB#¢s##R¿¢'FóF∆R#¢$∆fˆÊF&«VRFVW&F˜'Fñ∆∆2#52"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷&«VR◊FVW&◊F˜'Fñ∆∆2”#72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ÉR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#&«VRS#FVW&S#F˜'Fñ∆∆2S##52S#‰UrÊßs˜C”ss3ìcÉCÇ ¢“¿¢∞¢&óFV‘ñB#¢s##2¿¢'FóF∆R#¢$∆fˆÊF&«VRG&Fñ6ñˆÊ¬#52F˜'Fñ∆∆2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷&«VR◊G&Fñ6ñˆÊ¬”#72◊F˜'Fñ∆∆2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ÉR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#&«VRS#G&Fñ6ñˆÊ¬S##52S#‰UrÊßs˜C”ss3ìcÉCÇ ¢“¿¢∞¢&óFV‘ñB#¢s#í¿¢'FóF∆R#¢$∆fˆÊF67GW27G&ó2¶"Ccr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷67GW2◊7G&ó2÷¶"”Ccr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#67GW2S#7G&ó2S#¶"S#CcrS#S#É#3rS#G&ñÊVBS#vVñváBS#íÊßs˜C”ssìCcsÉR ¢“¿¢∞¢&óFV‘ñB#¢s#Ç¿¢'FóF∆R#¢$∆fˆÊF67GW27G&ó2˜V6Ç∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷67GW2◊7G&ó2◊˜V6Ç”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#67GW2S#7G&ó2S#˜V6ÇS#∂rS#‰UrÊßs˜C”ss#3#C" ¢“¿¢∞¢&óFV‘ñB#¢s##¿¢'FóF∆R#¢$∆fˆÊF67GW2vÜˆ∆R∆VfW2¶"Ccr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷67GW2◊vÜˆ∆R÷∆VfW2÷¶"”Ccr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#67GW2S#vÜˆ∆RS#∆VfW2S#¶"S#CcrS#S#É#3rS#G&ñÊVBS#vVñváBS#íÊßs˜C”ssìCcsÉR ¢“¿¢∞¢&óFV‘ñB#¢s##¿¢'FóF∆R#¢$∆fˆÊF67GW2vÜˆ∆R∆VfW2˜V6Ç∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷67GW2◊vÜˆ∆R÷∆VfW2◊˜V6Ç”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#67GW2S#vÜˆ∆RS#∆VfW2S#˜V6ÇS#∂rS#‰UrÊßs˜C”ss#3#C" ¢“¿¢∞¢&óFV‘ñB#¢sCc"¿¢'FóF∆R#¢$∆fˆÊF6Üó˜F∆R÷˜&óF˜vFW"Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷6Üó˜F∆R÷÷˜&óF◊˜vFW"”Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢r¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#6Üó˜F∆RS#÷˜&óFS#˜vFW"S#SrÊßs˜C”sÉ#3CCC2 ¢“¿¢∞¢&óFV‘ñB#¢s#C¿¢'FóF∆R#¢$∆fˆÊFg&W6ÇWáG&∆&vR6˜&‚F˜'Fñ∆∆#72"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷g&W6Ç÷WáG&÷∆&vR÷6˜&‚◊F˜'Fñ∆∆”#72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#WáG&S#∆&vRS#6˜&‚S#F˜'Fñ∆∆S##72S#‰UrÁÊs˜C”ss3ìììCí ¢“¿¢∞¢&óFV‘ñB#¢s#3R¿¢'FóF∆R#¢$∆fˆÊFg&W6Çf∆WF2F˜'Fñ∆∆2#72"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷g&W6Ç÷f∆WF2◊F˜'Fñ∆∆2”#◊72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#f∆WF2S#F˜'Fñ∆∆2S##S#72S#‰UrÊßs˜C”ss3ìcÉCÇ ¢“¿¢∞¢&óFV‘ñB#¢cìÇ¿¢'FóF∆R#¢$∆fˆÊFg&W6Ç∆6W&F˜'Fñ∆∆2#52"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷g&W6Ç◊∆6W&◊F˜'Fñ∆∆2”#72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#∆6W&S#F˜'Fñ∆∆2S##52S#‰UrÊßs˜C”ss3ìcÉCB ¢“¿¢∞¢&óFV‘ñB#¢cìb¿¢'FóF∆R#¢$∆fˆÊFg&W6ÇFVW&F˜'Fñ∆∆2#52"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷g&W6Ç◊FVW&◊F˜'Fñ∆∆2”#72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#FVW&S#F˜'Fñ∆∆2S##52S#‰UrÊßs˜C”ss3ìcÉCB ¢“¿¢∞¢&óFV‘ñB#¢s3Ér¿¢'FóF∆R#¢$∆fˆÊF≈2∆6W&6˜&‚F˜'Fñ∆∆3bÇ#7266R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷«2◊∆6W&÷6˜&‚◊F˜'Fñ∆∆”3b◊Ç”#72÷66R"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#≈2ÁÊs˜C”ss#ÉS#ÉB ¢“¿¢∞¢&óFV‘ñB#¢s3Éb¿¢'FóF∆R#¢$∆fˆÊF≈2FVW&6˜&‚F˜'Fñ∆∆ÇÇ#7266R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF÷∆ˆÊr◊6ÜV∆b÷∆ñfR◊FVW&÷6˜&‚◊F˜'Fñ∆∆”Ç◊Ç”#72÷66R"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢c2¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#≈2ÁÊs˜C”ss#ÉS#ÉB ¢“¿¢∞¢&óFV‘ñB#¢s33Ç¿¢'FóF∆R#¢$∆fˆÊF≈2G&Fñ6ñˆÊ¬6˜&‚F˜'Fñ∆∆ÇÇ#66R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ6FW&ñÊr◊6ó¶W2ˆ6˜&‚◊F˜'Fñ∆∆2ˆ∆÷fˆÊF÷«2◊G&Fñ6ñˆÊ¬÷6˜&‚◊F˜'Fñ∆∆”Ç◊Ç”#÷66R"¿¢&FW'F÷VÁB#¢&6FW&ñÊr◊6ó¶W2"¿¢&6FVv˜'ï6«Vr#¢&6˜&‚◊F˜'Fñ∆∆2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢c2¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#≈2ÁÊs˜C”ss#ÉS#ÉB ¢“¿¢∞¢&óFV‘ñB#¢sC#r¿¢'FóF∆R#¢$∆fˆÊFñ6∂∆VB67GW2ñ‚'&ñÊR33r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF◊ñ6∂∆VB÷67GW2÷ñ‚÷'&ñÊR”33r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#ñ6∂∆VBS#67GW2S#ñ‚S#'&ñÊRS#33rÁÊs˜C”sscscìs#í ¢“¿¢∞¢&óFV‘ñB#¢sCSB¿¢'FóF∆R#¢$∆fˆÊFFˆ÷Fñ∆∆ÚvÜˆ∆R"„Ü∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF◊Fˆ÷Fñ∆∆Ú◊vÜˆ∆R”#Ü∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#vÜˆ∆RS#Fˆ÷Fñ∆∆ÚS#"„Ü∂rÊßs˜C”sÉ##sSs" ¢“¿¢∞¢&óFV‘ñB#¢s3SR¿¢'FóF∆R#¢$∆fˆÊFG&Fñ6ñˆÊ¬6˜&‚F˜'Fñ∆∆2ÇñV6W2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF◊G&Fñ6ñˆÊ¬÷6˜&‚◊F˜'Fñ∆∆2”Ç◊ñV6W2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#G&Fñ6ñˆÊ¬S#6˜&‚S#F˜'Fñ∆∆2S#ÇS#ñV6W2S#‰UrÊßs˜C”ssScc33" ¢“¿¢∞¢&óFV‘ñB#¢cìr¿¢'FóF∆R#¢$∆fˆÊFG&Fñ6ñˆÊ¬g&W6ÇF˜'Fñ∆∆2#52"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6˜&‚◊F˜'Fñ∆∆2ˆ∆÷fˆÊF◊G&Fñ6ñˆÊ¬÷g&W6Ç◊F˜'Fñ∆∆2”#72"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6˜&‚◊F˜'Fñ∆∆2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#g&W6ÇS#G&Fñ6ñˆÊ¬S#F˜'Fñ∆∆2S##52S#‰UrÊßs˜C”ss3ÉS##SB ¢“¿¢∞¢&óFV‘ñB#¢sCSr¿¢'FóF∆R#¢$∆fˆÊFvÜˆ∆RG&ñVB666&V¬sVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF◊vÜˆ∆R÷G&ñVB÷666&V¬”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„Ç¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#vÜˆ∆RS#G&ñVBS#666&V¬S#sVrÊßs˜C”sÉ#3CCC" ¢“¿¢∞¢&óFV‘ñB#¢sCSb¿¢'FóF∆R#¢$∆fˆÊFvÜˆ∆RG&ñVB¶∆VÊÚsVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF◊vÜˆ∆R÷G&ñVB÷¶∆VÊÚ”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#vÜˆ∆RS#G&ñVBS#¶∆VÊÚS#sVrÊßs˜C”sÉ#3CCC" ¢“¿¢∞¢&óFV‘ñB#¢sCc¿¢'FóF∆R#¢$∆fˆÊFvÜˆ∆RG&ñVB÷˜&óFsVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF◊vÜˆ∆R÷G&ñVB÷÷˜&óF”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#vÜˆ∆RS#G&ñVBS#÷˜&óFS#sVrÊßs˜C”sÉ#3CCC2 ¢“¿¢∞¢&óFV‘ñB#¢sCc¿¢'FóF∆R#¢$∆fˆÊFvÜˆ∆RG&ñVB◊V∆FÚsVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆÷fˆÊFˆ∆÷fˆÊF◊vÜˆ∆R÷G&ñVB÷◊V∆FÚ”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆÷fˆÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„Ç¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#fˆÊFS#vÜˆ∆RS#G&ñVBS#◊V∆FÚS#sVrÊßs˜C”sÉ#3CCC2 ¢“¿¢∞¢&óFV‘ñB#¢cÉ#"¿¢'FóF∆R#¢$∆6ñW'&&ñ˜2&VÁ2vÜˆ∆RScr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆◊6ñW'&ˆ∆◊6ñW'&÷&ñ˜2÷&VÁ2◊vÜˆ∆R”Scr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆◊6ñW'&"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6ñW'&S#&ñ˜2S#&VÁ2S#vÜˆ∆RS#ScrS#‰UrÁÊs˜C”ss#S3ì3sb ¢“¿¢∞¢&óFV‘ñB#¢Scr¿¢'FóF∆R#¢$∆6ñW'&6Üñ∆Vñ∆W2fW&FW23sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆◊6ñW'&ˆ∆◊6ñW'&÷6Üñ∆Vñ∆W2◊fW&FW2”3sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆◊6ñW'&"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6ñW'&S#6Üñ∆Vñ∆W2S#fW&FRS#3srÊßs˜C”s3ÉÉSS3S" ¢“¿¢∞¢&óFV‘ñB#¢cÉìb¿¢'FóF∆R#¢$∆6ñW'&G&ñVB&∆6≤&VÁ2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆◊6ñW'&ˆ∆◊6ñW'&÷G&ñVB÷&∆6≤÷&VÁ2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆◊6ñW'&"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„32¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6ñW'&S#G&ñVBS#&∆6≤S#&VÁ2S#ìrS###bÊßs˜C”sscCÉccb ¢“¿¢∞¢&óFV‘ñB#¢s#3¿¢'FóF∆R#¢$∆6ñW'&G&ñVBñÁFÚ&VÁ2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆◊6ñW'&ˆ∆◊6ñW'&÷G&ñVB◊ñÁFÚ÷&VÁ2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆◊6ñW'&"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„32¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6ñW'&S#G&ñVBS#ñÁFÚS#&VÁ2S#ìrS#6˜íÊßs˜C”s3ì#sCS2 ¢“¿¢∞¢&óFV‘ñB#¢Scs"¿¢'FóF∆R#¢$∆6ñW'&&VB6Üñ∆Vñ∆W23sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆◊6ñW'&ˆ∆◊6ñW'&◊&VB÷6Üñ∆Vñ∆W2”3sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆◊6ñW'&"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6ñW'&S#6Üñ∆Vñ∆W2S#&ˆ¶˜2Êßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢c#c¿¢'FóF∆R#¢$∆6ñW'&&Vg&ñVBñÁFÚ&VÁ26∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆◊6ñW'&ˆ∆◊6ñW'&◊&Vg&ñVB◊ñÁFÚ÷&VÁ2”6∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆◊6ñW'&"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6ñW'&S#ñÁFÚS#&Vg&ñVBS#&VÁ2S#"„Ü∂r‰•s˜C”sc##Ss#sR ¢“¿¢∞¢&óFV‘ñB#¢c#cB¿¢'FóF∆R#¢$∆6ñW'&vÜˆ∆RñÁFÚ&VÁ26∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆◊6ñW'&ˆ∆◊6ñW'&◊vÜˆ∆R◊ñÁFÚ÷&VÁ2”6∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆◊6ñW'&"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆S#6ñW'&S#ñÁFÚS#&VÁ2S#vÜˆ∆RS#6∂r‰•s˜C”sSsÉc3ì" ¢“¿¢∞¢&óFV‘ñB#¢s#CB¿¢'FóF∆R#¢$∆26G&ñÊ2fˆ6FÚ∆VfW2sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆB˜7V6ñ∆óGíˆ∆2÷6G&ñÊ2÷fˆ6FÚ÷∆VfW2”sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7V6ñ∆óGí"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ùfˆ6FÚS#∆VfW2S#vÜˆ∆RÊßs˜C”sCscìCCí ¢“¿¢∞¢&óFV‘ñB#¢C3Éb¿¢'FóF∆R#¢$∆26G&ñÊ2&∆6≤&VÁ2G&ñVBSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2÷&∆6≤÷&VÁ2÷G&ñVB”Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆2S#6G&ñÊ2S#&∆6≤S#&VÁ2S#Sr‰•s˜C”s3CcìsB ¢“¿¢∞¢&óFV‘ñB#¢C3É2¿¢'FóF∆R#¢$∆26G&ñÊ26Üó˜F∆R÷˜&óF6Üñ∆∆íG&ñVBCr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2÷6Üó˜F∆R÷÷˜&óF÷6Üñ∆∆í÷G&ñVB”Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ÷˜&óFS#rS#6G&ñÊ2S#"Êßs˜C”cs3ÉsS ¢“¿¢∞¢&óFV‘ñB#¢SC3"¿¢'FóF∆R#¢$∆26G&ñÊ26ñÊÊ÷ˆ‚Vñ∆«2“6ÊV∆r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2÷6ñÊÊ÷ˆ‚◊Vñ∆«2÷6ÊV∆”r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ6ñÊÊ÷ˆ‚S#“S#‰UrÊßs˜C”ccCssc2 ¢“¿¢∞¢&óFV‘ñB#¢SSCb¿¢'FóF∆R#¢$∆26G&ñÊ2Ü&ÊW&ÚG&ñVB6Üñ∆∆í3r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2÷Ü&ÊW&Ú÷G&ñVB÷6Üñ∆∆í”3r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„í¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆÜ&ÊW&ÚS#rS#6G&ñÊ2Êßs˜C”ccCSss33R ¢“¿¢∞¢&óFV‘ñB#¢SSsR¿¢'FóF∆R#¢$∆26G&ñÊ2ñ∆ˆÊ6ñ∆∆Ú#3r&r6ÊR7Vv""¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2◊ñ∆ˆÊ6ñ∆∆Ú”#3r◊&r÷6ÊR◊7Vv""¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜ñ∆ˆÊ6ñ∆∆ÚÊßs˜C”s3ÉÉSS3CB ¢“¿¢∞¢&óFV‘ñB#¢C33b¿¢'FóF∆R#¢$∆26G&ñÊ2ñÁFÚG&ñVB&VÁ2Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2◊ñÁFÚ÷G&ñVB÷&VÁ2”Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆2S#6G&ñÊ2S#ñÁFÚS#&VÁ2S#Sr‰•s˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢cSr¿¢'FóF∆R#¢$∆26G&ñÊ26«Gí6Üñ∆∆í÷&v&óF&ñ“∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2◊6«Gí÷6Üñ∆∆í÷÷&v&óF◊&ñ“”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6«GíS#6Üñ∆∆íS#÷&v&óFS#&ñ“Êßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cS#¿¢'FóF∆R#¢$∆26G&ñÊ27vVWBÜñ&ó67W2÷&v&óF&ñ“∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ∆2÷6G&ñÊ2◊7vVWB÷Üñ&ó67W2÷÷&v&óF◊&ñ“”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7vVWBS#Üñ&ó67W2S#6«BÊßs˜C”cc3ì3CSÉ2 ¢“¿¢∞¢&óFV‘ñB#¢sì2¿¢'FóF∆R#¢$∆ñ÷RFÊr˜vFW"÷óÇÇÇ6r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜FÊrˆ∆ñ÷R◊FÊr◊˜vFW"÷÷óÇ”Ç◊Ç”6r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'FÊr"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆ñ÷RS#FÊrS#˜vFW"S#FrÊßs˜C”s33#3Csí ¢“¿¢∞¢&óFV‘ñB#¢s#c2¿¢'FóF∆R#¢$∆ˆ«GV‚7F˜"6ˆˆ∂ñÊr7FR3#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆ˆ«GV‚ˆ∆ˆ«GV‚◊7F˜"÷6ˆˆ∂ñÊr◊7FR”3#r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆ˆ«GV‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„#R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆ˆ¬S#GV‚S#7F˜"Êßs˜C”sCìCc3sB ¢“¿¢∞¢&óFV‘ñB#¢s#c"¿¢'FóF∆R#¢$∆ˆ«GV‚ñ&ñ¬6ˆˆ∂ñÊr7FR3#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆ˆ«GV‚ˆ∆ˆ«GV‚◊ñ&ñ¬÷6ˆˆ∂ñÊr◊7FR”3#r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆ˆ«GV‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„#R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆ˆ¬S#GV‚S#ñ&ñ¬Êßs˜C”sCìCc3sB ¢“¿¢∞¢&óFV‘ñB#¢cC¿¢'FóF∆R#¢$«V62wW6ÊÚ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGíˆ«V62÷wW6ÊÚ"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù«V62S#wW6ÊÚÊßs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢SÉs"¿¢'FóF∆R#¢$«V62◊VV627vVWB6Ü÷˜í6ÊGívóFÇ6Üñ∆∆í÷óÇ˜vFW""¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜7vVWB◊6˜W"ˆ«V62÷◊VV62◊7vVWB÷6Ü÷˜í÷6ÊGí◊vóFÇ÷6Üñ∆∆í÷÷óÇ◊˜vFW""¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7vVWB◊6˜W""¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ«V62S#◊VV62Êßs˜C”s3ÉsSÉ ¢“¿¢∞¢&óFV‘ñB#¢CìS2¿¢'FóF∆R#¢$÷6Ü6á&ó7F÷2g'VóBˆÊ6ÜRG&ñÊ≤ìÜr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆB˜7V6ñ∆óGíˆ÷6Ü÷6á&ó7F÷2÷g'VóB◊ˆÊ6ÜR÷G&ñÊ≤”ìÜr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7V6ñ∆óGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„S2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıˆÊ6ÜRS#ÊfñFVÊÚS#÷6ÜÊßs˜C”ccCsì33cb ¢“¿¢∞¢&óFV‘ñB#¢SÉsr¿¢'FóF∆R#¢$÷6ÜwVfg'VóBñ‚7ó'WìÜr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆB˜7V6ñ∆óGíˆ÷6Ü÷wVf÷g'VóB÷ñ‚◊7ó'W”ìÜr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7V6ñ∆óGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆwVñ&S#ÊWrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢c3É"¿¢'FóF∆R#¢$÷6Ü7Vv"6ÊRìÜr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆB˜7V6ñ∆óGíˆ÷6Ü◊7Vv"÷6ÊR”ìÜr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7V6ñ∆óGí"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢Ç„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7Vv"S#6ÊRÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢S"¿¢'FóF∆R#¢$÷6ÜFV¶ˆ6˜FRìÜr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤˜6∆R÷óFV◊2ˆ÷6Ü◊FV¶ˆ6˜FR”ìÜr"¿¢&FW'F÷VÁB#¢'6∆R÷óFV◊2"¿¢&6FVv˜'ï6«Vr#¢""¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„S2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıFV¶ˆ6˜FRS#÷6ÜÊßs˜C”ccCssc2 ¢“¿¢∞¢&óFV‘ñB#¢c3#¿¢'FóF∆R#¢$÷vvñR&∆6≤6V6R&˜GF∆RÉ÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆB˜6V6ˆÊñÊw2ˆ÷vvñR÷&∆6≤◊6V6R÷&˜GF∆R”É÷¬"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'6V6ˆÊñÊw2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢3¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙßVvÚÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢SSÉ"¿¢'FóF∆R#¢$÷ó¶VÊ6¶WFCvrFˆ∆RG&ñÊ≤÷óÇ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆÜ˜B÷G&ñÊ∑2ˆ÷ó¶VÊ÷6¶WF”Cvr÷Fˆ∆R÷G&ñÊ≤÷÷óÇ"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ÷ó¶VÊS#6¶WFÊßs˜C”s3ÉÉSS3CR ¢“¿¢∞¢&óFV‘ñB#¢SSÉR¿¢'FóF∆R#¢$÷ó¶VÊ6Üˆ6ˆ∆FRCvrFˆ∆RG&ñÊ≤÷óÇ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆÜ˜B÷G&ñÊ∑2ˆ÷ó¶VÊ÷6Üˆ6ˆ∆FR”Cvr÷Fˆ∆R÷G&ñÊ≤÷÷óÇ"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ÷ó¶VÊS#6Üˆ6ˆ∆FRÊßs˜C”s3ÉÉSS3CR ¢“¿¢∞¢&óFV‘ñB#¢SSÉB¿¢'FóF∆R#¢$÷ó¶VÊ6ˆ6ˆÁWBCvrFˆ∆RG&ñÊ≤÷óÇ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆÜ˜B÷G&ñÊ∑2ˆ÷ó¶VÊ÷6ˆ6ˆÁWB”Cvr÷Fˆ∆R÷G&ñÊ≤÷÷óÇ"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ÷ó¶VÊS#6ˆ6ˆÁWBÊßs˜C”s3ÉÉSS3CR ¢“¿¢∞¢&óFV‘ñB#¢S3ì¿¢'FóF∆R#¢$÷ó¶VÊÁVW¢v∆ÁWBCvrFˆ∆RG&ñÊ≤÷óÇ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆÜ˜B÷G&ñÊ∑2ˆ÷ó¶VÊ÷ÁVW¢◊v∆ÁWB”Cvr÷Fˆ∆R÷G&ñÊ≤÷÷óÇ"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ó¶VÊS#v∆ÁWBÊßs˜C”s3ÉÉSS3Cb ¢“¿¢∞¢&óFV‘ñB#¢S3ÉÇ¿¢'FóF∆R#¢$÷ó¶VÊfÊñ∆∆CvrFˆ∆RG&ñÊ≤÷óÇ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆÜ˜B÷G&ñÊ∑2ˆ÷ó¶VÊ◊fÊñ∆∆”Cvr÷Fˆ∆R÷G&ñÊ≤÷÷óÇ"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ó¶VÊS#fñÊñ∆∆S#ÊWrÊßs˜C”s3ÉÉSS3Cb ¢“¿¢∞¢&óFV‘ñB#¢sìB¿¢'FóF∆R#¢$÷ÊvÚFÊr˜vFW"÷óÇÇÇ6r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜FÊrˆ÷ÊvÚ◊FÊr◊˜vFW"÷÷óÇ”Ç◊Ç”6r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'FÊr"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ÊvÚS#FÊrS#˜vFW"S#FrÊßs˜C”s33##s3Cr ¢“¿¢∞¢&óFV‘ñB#¢Sc3¿¢'FóF∆R#¢$÷ÊóFFR∆7VW'FR∆ˆ∆∆ó˜"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆGV∆6W2◊fW&Úˆ÷ÊóF÷FR÷∆◊7VW'FR÷∆ˆ∆∆ó˜"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&GV∆6W2◊fW&Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ÊóFS#FRS#∆S#7VW'FRÊßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢s3S¿¢'FóF∆R#¢$÷Á¶ÊóF6ˆ¬3SV÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆ÷Á¶ÊóF◊6ˆ¬”3SV÷¬"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢""¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„ÉÇ¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷Á¶ÊóFS#6ˆ¬S#3SV÷¬Êßs˜C”sc#C#ìsÇ ¢“¿¢∞¢&óFV‘ñB#¢c3#2¿¢'FóF∆R#¢$÷&ñÊV∆6ñÊÊ÷ˆ‚6ÊV∆óF26ˆˆ∂ñW2cr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆFW76W'G2ˆ÷&ñÊV∆÷6ñÊÊ÷ˆ‚÷6ÊV∆óF2÷6ˆˆ∂ñW2”cr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&FW76W'G2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„Sb¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù6ÊV∆óF2S#VÊóBÊßs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢c33¿¢'FóF∆R#¢$÷&ñÊV∆ñÊV∆R&'&óF26ˆˆ∂ñW2SVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷&ñÊV∆ˆ÷&ñÊV∆◊ñÊV∆R÷&'&óF2÷6ˆˆ∂ñW2”SVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷&ñÊV∆"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù&'&óF2S#ñÊV∆RS#VÊóBÊßs˜C”scSìSsí ¢“¿¢∞¢&óFV‘ñB#¢c3#R¿¢'FóF∆R#¢$÷&ñÊV∆ˆ«f˜&ˆÊW26Ü˜'F'&VB˜&ÊvR6ˆˆ∂ñW2sFr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆFW76W'G2ˆ÷&ñÊV∆◊ˆ«f˜&ˆÊW2◊6Ü˜'F'&VB÷˜&ÊvR÷6ˆˆ∂ñW2”sFr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&FW76W'G2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıˆ«f˜&ˆÊW2S#VÊóBS#WFFRÊßs˜C”sscÉSs3SB ¢“¿¢∞¢&óFV‘ñB#¢c3#í¿¢'FóF∆R#¢$÷&ñÊV∆7G&v&W''í&'&óF26ˆˆ∂ñW2SVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆFW76W'G2ˆ÷&ñÊV∆◊7G&v&W''í÷&'&óF2÷6ˆˆ∂ñW2”SVr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&FW76W'G2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù&'&óF2S#7G&v&W''íS#VÊóBÊßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢S#s¿¢'FóF∆R#¢$÷'V6Ü‚6á&ñ◊vóFÇ∆ñ÷RÊBÜ&ÊW&Ú6˜W"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2˜&VGí÷÷V«2ˆ÷'V6Ü‚◊6á&ñ◊◊vóFÇ÷∆ñ÷R÷ÊB÷Ü&ÊW&Ú◊6˜W"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢'&VGí÷÷V«2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢„c2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷'V6Ü‚S#6á&ñ◊S#vóFÇS#Ü&ÊW&Ú‰•s˜C”s#3CìCr ¢“¿¢∞¢&óFV‘ñB#¢SSìÇ¿¢'FóF∆R#¢$÷'V6Ü‚6á&ñ◊vóFÇóVñ‚6Üñ∆∆í6˜WcFr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2˜&VGí÷÷V«2ˆ÷'V6Ü‚◊6á&ñ◊◊vóFÇ◊óVñ‚÷6Üñ∆∆í◊6˜W”cFr"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢'&VGí÷÷V«2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷'V6Ü‚S#6á&ñ◊S#vóFÇS#óVñ‚S#6Üñ∆R‰•s˜C”s#CSc3c2 ¢“¿¢∞¢&óFV‘ñB#¢sCcr¿¢'FóF∆R#¢$÷6÷ó¢&«VR6˜&‚f∆˜W"#∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷6÷ó¢ˆ÷6÷ó¢÷&«VR÷6˜&‚÷f∆˜W"”#∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷6÷ó¢"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6÷ó¢S#&«VRS#6˜&‚S#f∆˜W"S##∂rÊßs˜C”sÉ3ÉÉb ¢“¿¢∞¢&óFV‘ñB#¢sCcR¿¢'FóF∆R#¢$÷6÷ó¢vÜóFR6˜&‚f∆˜W"#∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷6÷ó¢ˆ÷6÷ó¢◊vÜóFR÷6˜&‚÷f∆˜W"”#∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷6÷ó¢"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢É¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6÷ó¢S#vÜóFRS#6˜&‚S#f∆˜W"S##∂sÊßs˜C”sÉ3ÉÉR ¢“¿¢∞¢&óFV‘ñB#¢sCcb¿¢'FóF∆R#¢$÷6÷ó¢ñV∆∆˜r6˜&‚f∆˜W"#∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷6÷ó¢ˆ÷6÷ó¢◊ñV∆∆˜r÷6˜&‚÷f∆˜W"”#∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷6÷ó¢"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢ìR¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6÷ó¢S#ñV∆∆˜rS#6˜&‚S#f∆˜W"S##∂sÊßs˜C”sÉ3ÉÉb ¢“¿¢∞¢&óFV‘ñB#¢s#S¿¢'FóF∆R#¢$÷6V6ÁFˆ¶óF˜2∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷6V6ˆ÷6V6÷ÁFˆ¶óF˜2”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷6V6"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6V6S#ÁFˆ¶óF˜2S#f˜"S#g'ññÊrS#∂rÊßs˜C”sSìsS#Cr ¢“¿¢∞¢&óFV‘ñB#¢CCcí¿¢'FóF∆R#¢$÷6V6&«VR6˜&‚f∆˜W"∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ÷6÷Ü&ñÊˆ÷6V6÷6˜&‚÷f∆˜W"÷÷WÜñ6‚÷fˆˆB÷÷WÜñ6‚÷6˜&‚÷f∆˜W"÷f∆˜W"÷6˜&‚÷÷WÜñ6‚◊6Ü˜÷÷WÜw&ˆ6W"◊V≤ˆ÷6V6÷&«VR÷6˜&‚÷f∆˜W"”∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&÷6V6÷6˜&‚÷f∆˜W"÷÷WÜñ6‚÷fˆˆB÷÷WÜñ6‚÷6˜&‚÷f∆˜W"÷f∆˜W"÷6˜&‚÷÷WÜñ6‚◊6Ü˜÷÷WÜw&ˆ6W"◊V≤"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„Sí¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6V6S#&«VRS#∂rS#ÊWrÊßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢CCcÇ¿¢'FóF∆R#¢$÷6V66˜&‚f∆˜W"f˜"F÷∆W2∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ÷6÷Ü&ñÊˆ÷6V6÷6˜&‚÷f∆˜W"÷÷WÜñ6‚÷fˆˆB÷÷WÜñ6‚÷6˜&‚÷f∆˜W"÷f∆˜W"÷6˜&‚÷÷WÜñ6‚◊6Ü˜÷÷WÜw&ˆ6W"◊V≤ˆ÷6V6÷6˜&‚÷f∆˜W"÷f˜"◊F÷∆W2”∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&÷6V6÷6˜&‚÷f∆˜W"÷÷WÜñ6‚÷fˆˆB÷÷WÜñ6‚÷6˜&‚÷f∆˜W"÷f∆˜W"÷6˜&‚÷÷WÜñ6‚◊6Ü˜÷÷WÜw&ˆ6W"◊V≤"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„cí¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6V6S#F÷∆W2Êßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢CCcr¿¢'FóF∆R#¢$÷6V6vÜóFR6˜&‚f∆˜W"∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ÷6÷Ü&ñÊˆ÷6V6÷6˜&‚÷f∆˜W"÷÷WÜñ6‚÷fˆˆB÷÷WÜñ6‚÷6˜&‚÷f∆˜W"÷f∆˜W"÷6˜&‚÷÷WÜñ6‚◊6Ü˜÷÷WÜw&ˆ6W"◊V≤ˆ÷6V6◊vÜóFR÷6˜&‚÷f∆˜W"”∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&÷6V6÷6˜&‚÷f∆˜W"÷÷WÜñ6‚÷fˆˆB÷÷WÜñ6‚÷6˜&‚÷f∆˜W"÷f∆˜W"÷6˜&‚÷÷WÜñ6‚◊6Ü˜÷÷WÜw&ˆ6W"◊V≤"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„Sí¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6V6‰•s˜C”s3Écsìccí ¢“¿¢∞¢&óFV‘ñB#¢sCS¿¢'FóF∆R#¢$÷6V6ñV∆∆˜r∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷6V6ˆ÷6V6◊ñV∆∆˜r”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷6V6"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷6V6S#ñV∆∆˜rS#∂rÊßs˜C”sÉsÉì#ìí ¢“¿¢∞¢&óFV‘ñB#¢S33b¿¢'FóF∆R#¢$÷ñ˜&Fˆ÷Ú6Üˆ6ˆ∆FRSr÷WÜñ6‚Ü˜B6Üˆ6ˆ∆FRF&∆WG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆÜ˜B÷G&ñÊ∑2ˆ÷ñ˜&Fˆ÷Ú÷6Üˆ6ˆ∆FR”Sr÷÷WÜñ6‚÷Ü˜B÷6Üˆ6ˆ∆FR◊F&∆WG2"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢#"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù6Üˆ6ˆ∆FRS#÷ñ˜&Fˆ÷ÚÊßs˜C”sSssìì" ¢“¿¢∞¢&óFV‘ñB#¢SS¿¢'FóF∆R#¢$÷ñ˜&Fˆ÷Ú÷ˆ∆R&∆6≤B„R∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷ñ˜&Fˆ÷Úˆ÷ñ˜&Fˆ÷Ú÷÷ˆ∆R÷&∆6≤”CR÷∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷ñ˜&Fˆ÷Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢sÇ¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ7V&WF÷FR÷÷ˆ∆R÷ÊVw&Ú”B„V∂r÷÷ñ˜&Fˆ÷Ú÷ˆÜVVÊÚÊßs˜C”sss3ìSR ¢“¿¢∞¢&óFV‘ñB#¢SCìí¿¢'FóF∆R#¢$÷ñ˜&Fˆ÷Ú÷ˆ∆R&VBB„R∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷ñ˜&Fˆ÷Úˆ÷ñ˜&Fˆ÷Ú÷÷ˆ∆R◊&VB”CR÷∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷ñ˜&Fˆ÷Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢sÇ¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ÷ñ˜&Fˆ÷ÚS#&VBS#÷ˆ∆RS#B„V∂rÊßs˜C”s#S3cCsR ¢“¿¢∞¢&óFV‘ñB#¢CÉ#b¿¢'FóF∆R#¢$÷ñ˜&Fˆ÷Ú÷ˆ∆R&VBCcr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷ñ˜&Fˆ÷Úˆ÷ñ˜&Fˆ÷Ú÷÷ˆ∆R◊&VB”Ccr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷ñ˜&Fˆ÷Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ñ˜&Fˆ÷ÚS#÷ˆ∆RS#&VBS#CcrS#‰UrÁÊs˜C”ss#SS#Sc" ¢“¿¢∞¢&óFV‘ñB#¢SR¿¢'FóF∆R#¢$÷ñ˜&Fˆ÷ÚˆÜVVÊÚ÷ˆ∆RCcr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷ñ˜&Fˆ÷Úˆ÷ñ˜&Fˆ÷Ú÷ˆÜVVÊÚ÷÷ˆ∆R”Ccr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷ñ˜&Fˆ÷Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ñ˜&Fˆ÷ÚS#ˆÜVVÊÚS#÷ˆ∆RS#CcrS#‰UrÁÊs˜C”ss#SS#S#r ¢“¿¢∞¢&óFV‘ñB#¢SB¿¢'FóF∆R#¢$÷¶&V¬&VB6˜&‚f∆˜W"∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ÷6÷Ü&ñÊˆ÷¶◊&V¬◊&VB÷6˜&‚÷f∆˜W"”∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&÷6÷Ü&ñÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı&V¬S#÷¶S#&VBS#6˜&‚ÁÊs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢s33í¿¢'FóF∆R#¢$÷¶&V¬&VB6˜&‚f∆˜W"#∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ÷6÷Ü&ñÊˆ÷¶◊&V¬◊&VB÷6˜&‚÷f∆˜W"”#∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&÷6÷Ü&ñÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷¶S#&V¬S#&VBS#6˜&‚S#f∆˜W"S##∂rÊßs˜C”scsÉ3 ¢“¿¢∞¢&óFV‘ñB#¢S#Éb¿¢'FóF∆R#¢$÷¶‚FR∆&˜6VÁWB6ÊGí"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜G&FóFñˆÊ¬ˆ÷¶‚÷FR÷∆◊&˜6◊VÁWB÷6ÊGí"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'G&FóFñˆÊ¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„#Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷¶‚S#˜&ñvñÊ¬S#S#ÖWFFVBS#íÊßs˜C”s#CÉ#ÉSb ¢“¿¢∞¢&óFV‘ñB#¢sCsB¿¢'FóF∆R#¢$÷WÜñ6‚G&ñVB6Üñ∆∆ñW2b6Üó˜F∆Rñ‚Fˆ&Ú∂óB"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2ˆ÷WÜñ6‚÷G&ñVB÷6Üñ∆∆ñW2÷6Üó˜F∆R÷ñ‚÷Fˆ&Ú÷∂óB"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„ìí¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆∆ñW2S#S#bS#6Üó˜F∆RS#ñ‚S#Fˆ&ÚS#∂óBÁÊs˜C”sÉCÉ3Cb ¢“¿¢∞¢&óFV‘ñB#¢s3c¿¢'FóF∆R#¢$÷WÜñ6‚÷ñ66¶WF6&÷V¬7&VB3#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆFW76W'G2ˆ÷WÜñ6‚÷÷ñ6÷6¶WF÷6&÷V¬◊7&VB”3#r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&FW76W'G2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷WÜñ6‚S#÷ñ6S#6¶WFS#6&÷V¬S#7&VBS#“S#3#rÊßs˜C”ss#3sS ¢“¿¢∞¢&óFV‘ñB#¢sCÉB¿¢'FóF∆R#¢$÷WÜñ6‚6«6∂óB"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2ˆ÷WÜñ6‚◊6«6÷∂óB÷'Wí÷B÷÷WÜw&ˆ6W"◊V≤"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„ìí¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷WÜñ6‚S#6«6S#∂óBÊßs˜C”sÉcCs ¢“¿¢∞¢&óFV‘ñB#¢s3ÉÇ¿¢'FóF∆R#¢$÷WÜñ6‚7G&VWB6˜&‚∂óB"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2ˆ÷WÜñ6‚◊7G&VWB÷6˜&‚÷∂óB"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í„ìí¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù‘UÑî4‚S#5E$TUBS#4ı$‚S#¥ïBÁÊs˜C”scÉ3##sÉr ¢“¿¢∞¢&óFV‘ñB#¢c3c¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFGW&ÊvÚCrR“vfR6VÊó¶Ús÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷W¶6¬÷FR÷∆WñVÊFˆ÷W¶6∆W2÷FR÷∆WñVÊF÷GW&ÊvÚ”Cr÷vfR÷6VÊó¶Ú”s÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷W¶6¬÷FR÷∆WñVÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢c„Ç¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷W¶6¬S#FRS#∆WñVÊFS#6VÊó¶ÚÊßs˜C”s#3SÉSCB ¢“¿¢∞¢&óFV‘ñB#¢cs3Ç¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFˆÜ6S„RvfRW7Fñ‚s÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷W¶6¬÷FR÷∆WñVÊFˆ÷W¶6∆W2÷FR÷∆WñVÊF÷ˆÜ6”S÷vfR÷W7Fñ‚”s÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷W¶6¬÷FR÷∆WñVÊF"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢c„CÇ¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷W¶6¬S#FRS#∆WñVÊFS#W7Fñ‚S#ˆÜ6Êßs˜C”s#3CìCr ¢“¿¢∞¢&óFV‘ñB#¢c3Sí¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊF6‚«Vó2˜F˜6íC"R“vfR6∆÷ñÊ“fW&FRs÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷W¶6¬÷FR÷∆WñVÊFˆ÷W¶6∆W2÷FR÷∆WñVÊF◊6‚÷«Vó2◊˜F˜6í”C"÷vfR◊6∆÷ñÊ◊fW&FR”s÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷W¶6¬÷FR÷∆WñVÊF"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢S¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷W¶6¬S#FRS#∆WñVÊFS#6‚S#«Vó2S#fW&FRÊßs˜C”s#3SSÉ ¢“¿¢∞¢&óFV‘ñB#¢C#Sb¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFG&ó6≤2Ç÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ÷W¶6¬÷FR÷∆WñVÊFˆ÷W¶6∆W2÷FR÷∆WñVÊF◊G&ó6≤”2◊Ç”÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&÷W¶6¬÷FR÷∆WñVÊF"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢C„B¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷W¶6∆W2S#FRS#∆WñVÊFS#G&ó6≤Êßs˜C”s#3SÉSCB ¢“¿¢∞¢&óFV‘ñB#¢csSí¿¢'FóF∆R#¢$÷W¶6∆óF∂óB"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2ˆ÷W¶6∆óF÷∂óB"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢C"„ìÇ¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ÷W¶6∆óFS#ÊBS#g&VRS#F¶ñ‚Êßs˜C”s#ssìC3" ¢“¿¢∞¢&óFV‘ñB#¢cc¿¢'FóF∆R#¢$÷íFV∆óF7FˆÊRw&˜VÊBF˜'Fñ∆∆&«VR6˜&‚6Üó2Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2ˆ÷í÷FV∆óF◊7FˆÊR÷w&˜VÊB◊F˜'Fñ∆∆÷&«VR÷6˜&‚÷6Üó2”Sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7FˆÊRS#w&˜VÊBS#6Üó2S#&«VRS##rS#&ñÚÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cSìí¿¢'FóF∆R#¢$÷íFV∆óF7FˆÊRw&˜VÊBF˜'Fñ∆∆6Üó26Üñ∆∆íSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2ˆ÷í÷FV∆óF◊7FˆÊR÷w&˜VÊB◊F˜'Fñ∆∆÷6Üó2÷6Üñ∆∆í”Sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7FˆÊRS#w&˜VÊBS#6Üó2S#6Üñ∆∆íS##rS#&ñÚÊßs˜C”ccCsì33cb ¢“¿¢∞¢&óFV‘ñB#¢cc¿¢'FóF∆R#¢$÷íFV∆óF7FˆÊRw&˜VÊBF˜'Fñ∆∆6Üó2&ñ∂Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2ˆ÷í÷FV∆óF◊7FˆÊR÷w&˜VÊB◊F˜'Fñ∆∆÷6Üó2◊&ñ∂”Sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7FˆÊRS#w&˜VÊBS#6Üó2S#&ñ∂S##rS#&ñÚÊßs˜C”cc3cc3sb ¢“¿¢∞¢&óFV‘ñB#¢cSìÇ¿¢'FóF∆R#¢$÷íFV∆óF7FˆÊRw&˜VÊBF˜'Fñ∆∆6Üó26V6«BSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2ˆ÷í÷FV∆óF◊7FˆÊR÷w&˜VÊB◊F˜'Fñ∆∆÷6Üó2◊6V◊6«B”Sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7FˆÊRS#w&˜VÊBS#6Üó2S#6VS#6«BS##rS#&ñÚÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cc3r¿¢'FóF∆R#¢$÷íFV∆óF7FˆÊRw&˜VÊBF˜'Fñ∆∆6Üó26V6«B∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2ˆ÷í÷FV∆óF◊7FˆÊR÷w&˜VÊB◊F˜'Fñ∆∆÷6Üó2◊6V◊6«B”∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7FˆÊRS#w&˜VÊBS#6Üó2S#6VS#6«BS#∂rÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cÉC¿¢'FóF∆R#¢$÷íFV∆óFF˜'Fñ∆∆6Üó2'VÊF∆R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2ˆ÷í÷FV∆óF◊F˜'Fñ∆∆÷6Üó2÷'VÊF∆R"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„ìí¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷íS#FV∆óFS#'VÊF∆RÊßs˜C”cÉìcsScÇ ¢“¿¢∞¢&óFV‘ñB#¢ccC2¿¢'FóF∆R#¢$÷ñ6ÜV∆F∂óB"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2ˆ÷ñ6ÜV∆F÷∂óB"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ñ6ÜV∆FS#Êßs˜C”scssÉÉ" ¢“¿¢∞¢&óFV‘ñB#¢SCs"¿¢'FóF∆R#¢$÷ñwVV∆óFÚ6Üñ∆R˜vFW"ìSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜7vVWB◊6˜W"ˆ÷ñwVV∆óFÚ÷6Üñ∆R◊˜vFW"”ìSr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7vVWB◊6˜W""¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù÷ñwVV∆óFÚS#˜vFW"S#ìSrÁÊs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢SScB¿¢'FóF∆R#¢$÷ñwVV∆óF˜26Üñ∆R˜vFW"&rvóFÇ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜7vVWB◊6˜W"ˆ÷ñwVV∆óF˜2÷6Üñ∆R◊˜vFW"÷&r◊vóFÇ”"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7vVWB◊6˜W""¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ÷ñwVV∆óFÚS#66ÜWG2S#“S#‰UrÊßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢c#ìr¿¢'FóF∆R#¢$÷˜&óF6Üó˜F∆RvÜˆ∆RG&ñVB6Üñ∆∆í∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6Üñ∆∆ñW2˜vÜˆ∆R÷G&ñVB÷6Üñ∆∆ñW2ˆ÷˜&óF÷6Üó˜F∆R◊vÜˆ∆R÷G&ñVB÷6Üñ∆∆í”∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'vÜˆ∆R÷G&ñVB÷6Üñ∆∆ñW2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢3Ç¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù6Üó˜F∆RS#÷˜&óFS#vÜˆ∆RÊßs˜C”ccCSss33R ¢“¿¢∞¢&óFV‘ñB#¢Cs¿¢'FóF∆R#¢$◊V∆FÚvÜˆ∆RG&ñVB6Üñ∆∆í"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2ˆ◊V∆FÚ◊vÜˆ∆R÷G&ñVB÷6Üñ∆∆í"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆ◊V∆FÚS#rS#6G&ñÊ2Êßs˜C”scCCSÇ ¢“¿¢∞¢&óFV‘ñB#¢C3#b¿¢'FóF∆R#¢$ÊGW&V∆Ú&«VR6˜&‚f∆˜W"#∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆÊGW&V∆ÚˆÊGW&V∆Ú÷÷WÜñ6‚÷&«VR÷6˜&‚÷f∆˜W"”#∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&ÊGW&V∆Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢ÉR¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊGW&V∆ÚS#&«VRS##∂rS#Êßs˜C”sCìCc3c ¢“¿¢∞¢&óFV‘ñB#¢C3#¿¢'FóF∆R#¢$ÊGW&V∆ÚÜ&ñÊFR÷ó¢ßV¬∂r&«VR6˜&‚f∆˜W""¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆÊGW&V∆ÚˆÊGW&V∆Ú÷Ü&ñÊ÷FR÷÷ó¢÷ßV¬”∂r÷&«VR÷6˜&‚÷f∆˜W""¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&ÊGW&V∆Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊGW&V∆ÚS#&«VRS#∂rÊßs˜C”s3Éì##sìr ¢“¿¢∞¢&óFV‘ñB#¢C3#B¿¢'FóF∆R#¢$ÊGW&V∆ÚÜ&ñÊFR÷ó¢&∆Ê6Ú∂rvÜóFR6˜&‚f∆˜W""¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆÊGW&V∆ÚˆÊGW&V∆Ú÷Ü&ñÊ÷FR÷÷ó¢÷&∆Ê6Ú”∂r◊vÜóFR÷6˜&‚÷f∆˜W""¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&ÊGW&V∆Ú"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊGW&V∆ÚS#vÜóFRS#∂rÊßs˜C”s3Éì##sìr ¢“¿¢∞¢&óFV‘ñB#¢C3#R¿¢'FóF∆R#¢$ÊGW&V∆ÚvÜóFR6˜&‚f∆˜W"#∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆÊGW&V∆ÚˆÊGW&V∆Ú◊vÜóFR÷6˜&‚÷f∆˜W"”#∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&ÊGW&V∆Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢c¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊGW&V∆ÚS#vÜóFRS##∂rS#Êßs˜C”s3Éì##scÇ ¢“¿¢∞¢&óFV‘ñB#¢sCC"¿¢'FóF∆R#¢$Ê˜¬67GW2˜vFW"&∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆB˜7V6ñ∆óGíˆÊ˜¬÷67GW2◊˜vFW"”&∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7V6ñ∆óGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢3#Ç¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊ˜¬S#˜vFW"S#&∂rÊßs˜C”sÉCìcs" ¢“¿¢∞¢&óFV‘ñB#¢s#Cr¿¢'FóF∆R#¢$Ê˜¬÷ñ∆B6Üñ∆∆í#Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆÊ˜¬ˆÊ˜¬÷÷ñ∆B÷6Üñ∆∆í”#Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&Ê˜¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„CR¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊ˜¬S#÷ñ∆BS#6Üñ∆∆íS##SrÊßs˜C”sCÉ33ÉÉsr ¢“¿¢∞¢&óFV‘ñB#¢s#CÇ¿¢'FóF∆R#¢$Ê˜¬˜vFW"3r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆÊ˜¬ˆÊ˜¬◊˜vFW"”3r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&Ê˜¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢#"„B¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊ˜¬S#˜vFW"S#3SrÊßs˜C”sCÉ33ÉÉsr ¢“¿¢∞¢&óFV‘ñB#¢c¿¢'FóF∆R#¢$Ê˜∆ñ6áW'&óF˜26Üó˜F∆Rr“67GW26Üó2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2ˆÊ˜∆ñ÷6áW'&óF˜2÷6Üó˜F∆R”r÷67GW2÷6Üó2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊ˜∆ñS#6áW'&óF˜2S#6Üó˜F∆RÊßs˜C”sCìs3#ì ¢“¿¢∞¢&óFV‘ñB#¢c"¿¢'FóF∆R#¢$Ê˜∆ñ6áW'&óF˜2Ü&ÊW&Úr“7ñ7í67GW26Üó2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2ˆÊ˜∆ñ÷6áW'&óF˜2÷Ü&ÊW&Ú”r◊7ñ7í÷67GW2÷6Üó2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊ˜∆ñS#6áW'&óF˜2S#Ü&ÊW&ÚS#rS#S#ÜÊWrS#íÊßs˜C”s3#ìÉb ¢“¿¢∞¢&óFV‘ñB#¢SìÉ¿¢'FóF∆R#¢$Ê˜∆ñ6áW'&óF˜2˜&ñvñÊ¬r“67GW26Üó2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆÊ˜∆ñˆÊ˜∆ñ÷6áW'&óF˜2÷˜&ñvñÊ¬”r÷67GW2÷6Üó2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&Ê˜∆ñ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÊ˜∆ñS#6áW'&óF˜2S#˜&ñvñÊ¬Êßs˜C”sCìs3#ì ¢“¿¢∞¢&óFV‘ñB#¢sì"¿¢'FóF∆R#¢$˜&ÊvRFÊr˜vFW"÷óÇÇÇ6r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜FÊrˆ˜&ÊvR◊FÊr◊˜vFW"÷÷óÇ”Ç◊Ç”6r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'FÊr"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù˜&ÊvRS#FÊrS#˜vFW"S#FrÊßs˜C”s33##s3Cr ¢“¿¢∞¢&óFV‘ñB#¢S#sÇ¿¢'FóF∆R#¢%6Üñ6∆WF2∆ˆ∆∆ó˜"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGíˆ∆ˆ∆ó˜2˜6Üñ6∆WF2÷∆ˆ∆∆ó˜"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&∆ˆ∆ó˜2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6Üñ6∆WFÊßs˜C”ccCssc2 ¢“¿¢∞¢&óFV‘ñB#¢C3ìr¿¢'FóF∆R#¢%6ñ∆∆6Üñ∆∆íf∆∂W2Sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6Üñ∆∆ñW2ˆ7'W6ÜVB÷6Üñ∆∆ñW2˜6ñ∆∆÷6Üñ∆∆í÷f∆∂W2”Sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7'W6ÜVB÷6Üñ∆∆ñW2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢í¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜6ñ∆∆S#f∆∂W2S#ÊWrÊßs˜C”s3ÉÉSS3C ¢“¿¢∞¢&óFV‘ñB#¢SìSb¿¢'FóF∆R#¢%6ñ∆∆6Üñ∆∆í˜vFW"r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6Üñ∆∆ñW2ˆw&˜VÊB÷6Üñ∆∆ñW2˜6ñ∆∆÷6Üñ∆∆í◊˜vFW"”r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&w&˜VÊB÷6Üñ∆∆ñW2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6ñ∆∆S#˜vFW"Êßs˜C”ccÉ3scb ¢“¿¢∞¢&óFV‘ñB#¢S##Ç¿¢'FóF∆R#¢%6ñ∆∆vÜˆ∆RG&ñVB6Üñ∆∆í∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ6FW&ñÊr◊6ó¶W2ˆG&ñVB÷6Üñ∆∆ñW2˜6ñ∆∆◊vÜˆ∆R÷G&ñVB÷6Üñ∆∆í”∂r"¿¢&FW'F÷VÁB#¢&6FW&ñÊr◊6ó¶W2"¿¢&6FVv˜'ï6«Vr#¢&G&ñVB÷6Üñ∆∆ñW2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢#í¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı4îƒƒÊßs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢SSc¿¢'FóF∆R#¢%V∆ˆ‚V∆Ú&ñ6Ú"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜V∆ˆ‚◊V∆Ú◊&ñ6Ú"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢í„CÇ¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV∆ˆ‚S#V∆ÚS#&ñ6ÚS#"S#ÇS#3VrS#&rÊßs˜C”sSCSSì# ¢“¿¢∞¢&óFV‘ñB#¢ScsÇ¿¢'FóF∆R#¢%V∆ˆ‚V∆ˆÊWFR#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤˜6∆R÷óFV◊2˜V∆ˆ‚◊V∆ˆÊWFR”#r"¿¢&FW'F÷VÁB#¢'6∆R÷óFV◊2"¿¢&6FVv˜'ï6«Vr#¢""¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢Ç„B¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV∆ˆ‚S#V∆ˆÊWFRÊßs˜C”ccCSss33R ¢“¿¢∞¢&óFV‘ñB#¢CcsR¿¢'FóF∆R#¢%ñÊF6ÜVW6R6V6R∆ñ‚6∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆB˜7V6ñ∆óGí˜ñÊF÷6ÜVW6R◊6V6R◊∆ñ‚”6∂r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7V6ñ∆óGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢#"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıñÊFS#6ÜVW6RS#6V6RÊßs˜C”ccCssc2 ¢“¿¢∞¢&óFV‘ñB#¢cìSb¿¢'FóF∆R#¢%ñÊF6ÜVW6R6V6RvóFÇ¶∆VÊÚ6Üñ∆∆í6∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ6FW&ñÊr◊6ó¶W2˜6«62÷ÊB◊6V6W2˜ñÊF÷6ÜVW6R◊6V6R◊vóFÇ÷¶∆VÊÚ÷6Üñ∆∆í”6∂r"¿¢&FW'F÷VÁB#¢&6FW&ñÊr◊6ó¶W2"¿¢&6FVv˜'ï6«Vr#¢'6«62÷ÊB◊6V6W2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢#"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıñÊFS#6ÜVFF"S#6ÜVW6RS#6V6RS#vóFÇS#¶∆VÊÚS#6∂rÊßs˜C”sss3S2 ¢“¿¢∞¢&óFV‘ñB#¢C3sí¿¢'FóF∆R#¢%&R7WB&«VR6˜&‚F˜'Fñ∆∆f˜"g'ññÊrV6“∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆwVÊßVFÚ˜&R÷7WB÷&«VR÷6˜&‚◊F˜'Fñ∆∆÷f˜"÷g'ññÊr”V6“”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&wVÊßVFÚ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı&RS#7WBS#&«VRS#6˜&‚S#F˜'Fñ∆∆S#∂rÁÊs˜C”ccCssc2 ¢“¿¢∞¢&óFV‘ñB#¢C3cr¿¢'FóF∆R#¢%&R7WB67GW26˜&‚F˜'Fñ∆∆f˜"g'ññÊrV6“∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆwVÊßVFÚ˜&R÷7WB÷67GW2÷6˜&‚◊F˜'Fñ∆∆÷f˜"÷g'ññÊr”V6“”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&wVÊßVFÚ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı&RS#7WBS#67GW2S#6˜&‚S#F˜'Fñ∆∆2S#∂r‰•s˜C”s3#sì3" ¢“¿¢∞¢&óFV‘ñB#¢C3cÇ¿¢'FóF∆R#¢%&R7WB6Üó˜F∆R6˜&‚F˜'Fñ∆∆f˜"g'ññÊrV6“∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆwVÊßVFÚ˜&R÷7WB÷6Üó˜F∆R÷6˜&‚◊F˜'Fñ∆∆÷f˜"÷g'ññÊr”V6“”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&wVÊßVFÚ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı&RS#7WBS#6Üó˜F∆RS#6˜&‚S#F˜'Fñ∆∆2S#∂r‰•s˜C”s#c#CÉÉí ¢“¿¢∞¢&óFV‘ñB#¢C3cí¿¢'FóF∆R#¢%&R7WBwV¶ñ∆∆Ú6˜&‚F˜'Fñ∆∆f˜"g'ññÊrV6“∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆwVÊßVFÚ˜&R÷7WB÷wV¶ñ∆∆Ú÷6˜&‚◊F˜'Fñ∆∆÷f˜"÷g'ññÊr”V6“”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&wVÊßVFÚ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı&RS#7WBS#wV¶ñ∆∆ÚS#6˜&‚S#F˜'Fñ∆∆2S#∂r‰•s˜C”s#s#ÉCì#í ¢“¿¢∞¢&óFV‘ñB#¢C3s¿¢'FóF∆R#¢%&R7WBñV∆∆˜r6˜&‚F˜'Fñ∆∆f˜"g'ññÊrV6“∂r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆwVÊßVFÚ˜&R÷7WB◊ñV∆∆˜r÷6˜&‚◊F˜'Fñ∆∆÷f˜"÷g'ññÊr”V6“”∂r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&wVÊßVFÚ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı&RS#7WBS#ñV∆∆˜rS#6˜&‚S#F˜'Fñ∆∆2S#∂r‰•s˜C”s#c##cCB ¢“¿¢∞¢&óFV‘ñB#¢Sì¿¢'FóF∆R#¢%&ˆÁFÚÜ˜B6∂R÷óÇSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜&ˆÁFÚ˜&ˆÁFÚ÷Ü˜B÷6∂R÷÷óÇ”Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'&ˆÁFÚ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı&ˆÁFÚS#Ü˜BS#6∂RS#÷óÇS#SrÊßs˜C”s3Éì#Sì3Ç ¢“¿¢∞¢&óFV‘ñB#¢s#B¿¢'FóF∆R#¢%V«&ñÊFÚ6Ü÷˜í#ñV6W2F÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆFR÷∆◊&˜6˜V«&ñÊFÚ÷6Ü÷˜í”#◊ñV6W2◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&FR÷∆◊&˜6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊFÚS#6Ü÷˜íS##S#ñV6W2Êßs˜C”sCS3cR ¢“¿¢∞¢&óFV‘ñB#¢c#"¿¢'FóF∆R#¢%V«&ñÊFÚ÷ÊvÚ#ñV6W2F÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜V«&ñÊFÚ÷÷ÊvÚ”#◊ñV6W2◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢b„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊFÚS#÷ÊvÚÊßs˜C”s3ÉscÉSsr ¢“¿¢∞¢&óFV‘ñB#¢S#SB¿¢'FóF∆R#¢%V«&ñÊFÚ&VBWáG&Ü˜B#72F÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜7vVWB◊6˜W"˜V«&ñÊFÚ◊&VB÷WáG&÷Ü˜B”#72◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7vVWB◊6˜W""¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢b„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊFÚS#Ü˜BS#&˜Ç‰•s˜C”s3ÉscÉSS ¢“¿¢∞¢&óFV‘ñB#¢c#B¿¢'FóF∆R#¢%V«&ñÊFÚvFW&÷V∆ˆ‚#ñV6W2F÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜V«&ñÊFÚ◊vFW&÷V∆ˆ‚”#◊ñV6W2◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢b„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊFÚS#vFW&÷V∆ˆ‚Êßs˜C”s3ÉscÉSsr ¢“¿¢∞¢&óFV‘ñB#¢S#Sr¿¢'FóF∆R#¢%V«&ñÊFÚñV∆∆˜r#52F÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜7vVWB◊6˜W"˜V«&ñÊFÚ◊ñV∆∆˜r”#72◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'7vVWB◊6˜W""¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢b„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊFÚS#&˜ÇS#"‰•s˜C”s3ÉscÉSS ¢“¿¢∞¢&óFV‘ñB#¢sS¿¢'FóF∆R#¢%V«&ñÊF˜G23crF÷&ñÊB6ÊGí"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆFR÷∆◊&˜6˜V«&ñÊF˜G2”3cr◊F÷&ñÊB÷6ÊGí"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&FR÷∆◊&˜6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊF˜G2S#3crÊßs˜C”sCS3c2 ¢“¿¢∞¢&óFV‘ñB#¢sSr¿¢'FóF∆R#¢%V«&ñÊF˜G2WáG&Ü˜B3crF÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆFR÷∆◊&˜6˜V«&ñÊF˜G2÷WáG&÷Ü˜B”3cr◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&FR÷∆◊&˜6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊF˜G2S#WáG&S#Ü˜BS#3crÊßs˜C”sCS3c" ¢“¿¢∞¢&óFV‘ñB#¢sS"¿¢'FóF∆R#¢%V«&ñÊF˜G2÷ÊvÚ3crF÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆFR÷∆◊&˜6˜V«&ñÊF˜G2÷÷ÊvÚ”3cr◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&FR÷∆◊&˜6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊF˜G2S#÷ÊvÚS#3crÊßs˜C”sCS3cB ¢“¿¢∞¢&óFV‘ñB#¢sSR¿¢'FóF∆R#¢%V«&ñÊF˜G2vFW&÷V∆ˆ‚3crF÷&ñÊB7vVWG2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆFR÷∆◊&˜6˜V«&ñÊF˜G2◊vFW&÷V∆ˆ‚”3cr◊F÷&ñÊB◊7vVWG2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&FR÷∆◊&˜6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıV«&ñÊF˜G2S#vFW&÷V∆ˆ‚S#3crÊßs˜C”sCS3c2 ¢“¿¢∞¢&óFV‘ñB#¢s#SÇ¿¢'FóF∆R#¢%'VÊÊW'2gVVvÚs&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ&&6V¬˜'VÊÊW'2÷gVVvÚ”s&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&&6V¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı'VÊÊW'2S#gVVvÚÊßVs˜C”sCì3ÉSí ¢“¿¢∞¢&óFV‘ñB#¢s#Sr¿¢'FóF∆R#¢%'VÊÊW'2∆V÷ˆ‚b6Üñ∆∆ís&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ&&6V¬˜'VÊÊW'2÷∆V÷ˆ‚÷6Üñ∆∆í”s&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&&6V¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı'VÊÊW'2S#cÜrÊßVs˜C”sCì3ÉSí ¢“¿¢∞¢&óFV‘ñB#¢scR¿¢'FóF∆R#¢%6'&óF2∆ñ÷RC&rÖ6≤ˆb2í"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ7&ó72◊6Ê6∑2˜6'&óF2÷∆ñ÷R”C&r◊6≤÷ˆb”2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&7&ó72◊6Ê6∑2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢Ç„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6'&óF2S#∆ñ÷RS#C&rS#S#Ö6≤S#ˆbS#2S#íÊßs˜C”s#3S3s#cÇ ¢“¿¢∞¢&óFV‘ñB#¢CÉ3¿¢'FóF∆R#¢%6'&óF2∆ñ÷RC&r˜FFÚ7&ó72"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6'&óF2˜6'&óF2÷∆ñ÷R”C&r◊˜FFÚ÷7&ó72"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6'&óF2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜6'&óF2S#∆ñ÷RS#ÊWrÊßs˜C”sc#ìC2 ¢“¿¢∞¢&óFV‘ñB#¢SS3b¿¢'FóF∆R#¢%6«6áVñ6Üˆ¬ìr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆÜ˜B◊6V6R◊6«6˜6«6÷áVñ6Üˆ¬”ìr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B◊6V6R◊6«6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„#R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ˆáVñ6Üˆ¬S#“S#‰UrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢s#sÇ¿¢'FóF∆R#¢%6«6áVñ6Üˆ¬&∆6≤ìr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆÜ˜B◊6V6R◊6«6˜6«6÷áVñ6Üˆ¬÷&∆6≤”ìr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B◊6V6R◊6«6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„#R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6«6S#áVñ6Üˆ¬S#&∆6≤S#ìrÊßs˜C”sSSSì33 ¢“¿¢∞¢&óFV‘ñB#¢ssR¿¢'FóF∆R#¢%6‚÷ñwVV¬'Fñ6Üˆ∂RÜV'G2Cr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬÷'Fñ6Üˆ∂R÷ÜV'G2”Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#'Fñ6Üˆ∂RS#ÜV'G2S#CrS#ÊWrÊßs˜C”ssì3sCCÉr ¢“¿¢∞¢&óFV‘ñB#¢SìCb¿¢'FóF∆R#¢%6‚÷ñwVV¬6Üó˜F∆R6V6RFR∆'VV∆"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆÜ˜B◊6V6R◊6«6˜6‚÷÷ñwVV¬÷6Üó˜F∆R◊6V6R÷FR÷∆÷'VV∆"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B◊6V6R◊6«6"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#6Üó˜F∆RS#6V6RS#FRS#∆S#'VV∆S#CSrS#Êßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢SìC¿¢'FóF∆R#¢%6‚÷ñwVV¬FV¬G&ˆ‚CSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬÷FV¬◊G&ˆ‚”CSr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#FV¬S#G&ˆ‚S#6V6RÁÊs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢s#Sb¿¢'FóF∆R#¢%6‚÷ñwVV¬VÊ6Üñ∆F6V6Rw&VV‚Cr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬÷VÊ6Üñ∆F◊6V6R÷w&VV‚”Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#VÊ6Üñ∆FS#w&VV‚S#6V6RS#CrS#‰UrÁÊs˜C”ss#CSÉsCR ¢“¿¢∞¢&óFV‘ñB#¢sS"¿¢'FóF∆R#¢%6‚÷ñwVV¬VÊ6Üñ∆F6V6R&VBCr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬÷VÊ6Üñ∆F◊6V6R◊&VB”Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#VÊ6Üñ∆FS#&VBS#6V6RS#CrS#‰UrÁÊs˜C”ss#CSÉsCR ¢“¿¢∞¢&óFV‘ñB#¢SìCÇ¿¢'FóF∆R#¢%6‚÷ñwVV¬Ü&ÊW&Ú6V6RFˆ‚Ê6ÜÚCSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬÷Ü&ÊW&Ú◊6V6R÷Fˆ‚◊Ê6ÜÚ”CSr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙFˆ‚S#Ê6ÜÚS#Ü&ÊW&ÚS#6V6RÁÊs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢SìC"¿¢'FóF∆R#¢%6‚÷ñwVV¬¶∆VÊÚ6V6RFRFˆÊ6Üˆ∆R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬÷¶∆VÊÚ◊6V6R÷FR÷FˆÊ÷6Üˆ∆R"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#¶∆VÊ&ÚS#6V6RS#‘FˆÊS#6Üˆ∆RS#CSrÁÊs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢SìCB¿¢'FóF∆R#¢%6‚÷ñwVV¬6ñ∆∆6V6RFR∆ÊÊ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬◊6ñ∆∆◊6V6R÷FR÷∆÷ÊÊ"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#6ñ∆∆S#6V6RS#∆S#ÊÊÁÊs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢Cc#R¿¢'FóF∆R#¢%6‚÷ñwVV¬ˆ&∆ÊÚWW"7G&ó2##r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬◊ˆ&∆ÊÚ◊WW"◊7G&ó2”##r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#ˆ&∆ÊÚS#7G&ó2S###rÁÊs˜C”ss#CScìCÇ ¢“¿¢∞¢&óFV‘ñB#¢Cc#b¿¢'FóF∆R#¢%6‚÷ñwVV¬ˆ&∆ÊÚvÜˆ∆RWW'2sÉr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6‚÷÷ñwVV¬˜6‚÷÷ñwVV¬◊ˆ&∆ÊÚ◊vÜˆ∆R◊WW'2”sÉr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6‚÷÷ñwVV¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6‚S#÷ñwVV¬S#ˆ&∆ÊÚS#vÜˆ∆RS#sÉrS#‰UrÁÊs˜C”ss#CSÉB ¢“¿¢∞¢&óFV‘ñB#¢CÉSb¿¢'FóF∆R#¢%6Êw&ñ6VÊ˜&ñ¬3SV÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2˜6ˆgB÷G&ñÊ∑2˜6Êw&ñ◊6VÊ˜&ñ¬”3SV÷¬"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢'6ˆgB÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„#Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6Êw&ñS#66W&S#3SV÷¬‰•s˜C”s3#sì3 ¢“¿¢∞¢&óFV‘ñB#¢SSì¿¢'FóF∆R#¢%6Êw&óFfóVFFR6Ê6ÜW¢÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2ˆ&"÷W76VÁFñ«2˜6Êw&óF◊fóVF÷FR◊6Ê6ÜW¢”÷¬"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢&&"÷W76VÁFñ«2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6Êw&óFÊßs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢s3ì¿¢'FóF∆R#¢%6Êó76ñ÷Ú6∆÷2CFr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6Êó76ñ÷Ú˜6Êó76ñ÷Ú◊6∆÷2”CFr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6Êó76ñ÷Ú"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6Êó76ñ÷ÚS#6∆÷2S#CFrÊßs˜C”scì# ¢“¿¢∞¢&óFV‘ñB#¢Cc¿¢'FóF∆R#¢%6Êó76ñ÷ÚF˜7FF2#fr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6Êó76ñ÷Ú˜6Êó76ñ÷Ú◊F˜7FF2”#fr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6Êó76ñ÷Ú"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6Êó76ñ÷ÚS#F˜7FF2S#&˜ÇS##frS#S#áWFFVBS#íÊßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢cìÉ"¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬Ê6ÜÚ6Üñ∆∆íf∆∂W23Ér"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷Ê6ÜÚ÷6Üñ∆∆í÷f∆∂W2”3Ér"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#Ê6ÜÚS#6Üñ∆∆íS#f∆∂W2S#3ÉrÊßs˜C”s#sSscSb ¢“¿¢∞¢&óFV‘ñB#¢sÇ¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬Ê6ÜÚ6Üñ∆∆íf∆∂W2ÉVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷Ê6ÜÚ÷6Üñ∆∆í÷f∆∂W2”ÉVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#Ê6ÜÚS#6Üñ∆∆íS#f∆∂W2S#ÉVrÊßs˜C”sCS3c" ¢“¿¢∞¢&óFV‘ñB#¢sb¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬Ê6ÜÚ6Üñ∆∆í˜vFW"#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷Ê6ÜÚ÷6Üñ∆∆í◊˜vFW"”#r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#Ê6ÜÚS#6Üñ∆∆íS#˜vFW"S##rÊßs˜C”sCS3cR ¢“¿¢∞¢&óFV‘ñB#¢cìÉ¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬Ê6ÜÚ6Üñ∆∆í˜vFW"SSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷Ê6ÜÚ÷6Üñ∆∆í◊˜vFW"”SSr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#Ê6ÜÚS#6Üñ∆∆íS#˜vFW"S#SSrÊßs˜C”s#sSscSb ¢“¿¢∞¢&óFV‘ñB#¢cìÉr¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬6Üó˜F∆Rf∆∂W23Ér"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷6Üó˜F∆R÷f∆∂W2”3Ér"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#6Üó˜F∆RS#f∆∂W2S#3ÉrÊßs˜C”s#sSscSb ¢“¿¢∞¢&óFV‘ñB#¢s#"¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬6Üó˜F∆Rf∆∂W2ÉVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷6Üó˜F∆R÷f∆∂W2”ÉVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#6Üó˜F∆RS#f∆∂W2S#ÉVrÊßs˜C”sCS3c" ¢“¿¢∞¢&óFV‘ñB#¢s#¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬6Üó˜F∆R˜vFW"#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷6Üó˜F∆R◊˜vFW"”#r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#6Üó˜F∆RS#˜vFW"S##rÊßs˜C”sCS3c2 ¢“¿¢∞¢&óFV‘ñB#¢cìÉB¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬6Üó˜F∆R˜vFW"SSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷6Üó˜F∆R◊˜vFW"”SSr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#6Üó˜F∆RS#˜vFW"S#SSrÊßs˜C”s#sSscSB ¢“¿¢∞¢&óFV‘ñB#¢s¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬f¶óF¬%ñ&ñ¬7Gñ∆U¬"6V6ˆÊñÊrC&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷f¶óF◊ñ&ñ¬◊7Gñ∆R◊6V6ˆÊñÊr”C&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#f¶óFS#ñ&ñ¬S#7Gñ∆RS#6V6ˆÊñÊrS#C&rÊßs˜C”sCS3c" ¢“¿¢∞¢&óFV‘ñB#¢s¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬f¶óF¬%ñ&ñ¬7Gñ∆U¬"6V6ˆÊñÊrsr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷f¶óF◊ñ&ñ¬◊7Gñ∆R◊6V6ˆÊñÊr”sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#f¶óFS#ñ&ñ¬S#7Gñ∆RS#6V6ˆÊñÊrS#srÊßs˜C”s#sSscSB ¢“¿¢∞¢&óFV‘ñB#¢s"¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬÷WÜñ6‚Fˆ&Ú6V6ˆÊñÊrC&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚÷Fˆ&Ú◊6V6ˆÊñÊr”C&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#÷WÜñ6‚S#Fˆ&ÚS#6V6ˆÊñÊrS#C&rÊßs˜C”sCS3cB ¢“¿¢∞¢&óFV‘ñB#¢s"¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬÷WÜñ6‚Fˆ&Ú6V6ˆÊñÊrSSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚÷Fˆ&Ú◊6V6ˆÊñÊr”SSr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#÷WÜñ6‚S#Fˆ&ÚS#6V6ˆÊñÊrS#SSrÊßs˜C”s#sSscSR ¢“¿¢∞¢&óFV‘ñB#¢sB¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬ñ∂Úñ∂ñ‚wV6÷ˆ∆R÷óÇSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬◊ñ∂Ú◊ñ∂ñ‚÷wV6÷ˆ∆R÷÷óÇ”Sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#ñ∂ÚS#ñ∂ñ‚S#wV6÷ˆ∆RS#÷óÇS#SrÊßs˜C”sCS3c" ¢“¿¢∞¢&óFV‘ñB#¢sR¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬ñ∂Úñ∂ñ‚wV6÷ˆ∆R÷óÇs3Ür"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬◊ñ∂Ú◊ñ∂ñ‚÷wV6÷ˆ∆R÷÷óÇ”s3Ür"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#ñ∂ÚS#ñ∂ñ‚S#wV6÷ˆ∆RS#÷óÇS#s3ÜrÊßs˜C”s#sSscSB ¢“¿¢∞¢&óFV‘ñB#¢sÇ¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬F6Ú¬7F˜"6V6ˆÊñÊrC&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬◊F6Ú÷¬◊7F˜"◊6V6ˆÊñÊr”C&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„sR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#F6ÚS#¬S#7F˜"S#6V6ˆÊñÊrS#C&rÊßs˜C”sCS3cB ¢“¿¢∞¢&óFV‘ñB#¢cìÉí¿¢'FóF∆R#¢%6¶ˆ‚ÊGW&¬F6Ú¬7F˜"6V6ˆÊñÊrSSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2˜6¶ˆ‚÷ÊGW&¬◊F6Ú÷¬◊7F˜"◊6V6ˆÊñÊr”SSr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6¶ˆ‚÷ÊGW&¬÷÷WÜñ6‚◊6V6ˆÊñÊr÷ÊB◊7ñ6W2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6¶ˆ‚S#ÊGW&¬S#F6ÚS#¬S#7F˜"S#6V6ˆÊñÊrS#SSrÊßs˜C”s#sSscSB ¢“¿¢∞¢&óFV‘ñB#¢SSSR¿¢'FóF∆R#¢%6∑vñÊ∂∆W26∆6ñ6Ú6Ü÷˜í"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜6∑vñÊ∂∆W2÷6∆6ñ6Ú÷6Ü÷˜í"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6∑vñÊ∂∆W2S#6∆6ñ6˜2S#ÊWrÊßs˜C”ccCSss33R ¢“¿¢∞¢&óFV‘ñB#¢S#ì2¿¢'FóF∆R#¢%6∑vñÊ∂∆W2&V∆∆VÊ˜2ñÊV∆R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜6∑vñÊ∂∆W2◊&V∆∆VÊ˜2◊ñÊV∆R"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6∑vñÊ∂∆W2S#&V∆∆VÊÚÊßVs˜C”ssìÉìCÇ ¢“¿¢∞¢&óFV‘ñB#¢CÉÇ¿¢'FóF∆R#¢%6∑vñÊ∂∆W2&V∆∆VÊ˜2vFW&÷V∆ˆ‚6ÊFñVÊ6Üñ∆F"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜6∑vñÊ∂∆W2◊&V∆∆VÊ˜2◊vFW&÷V∆ˆ‚◊6ÊFñ÷VÊ6Üñ∆F"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„B¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6∑vñÊ∂∆W2S#&V∆∆VÊ˜2S#vFW&÷V∆ˆ‚S#6≤S#ˆbS#"Êßs˜C”ccCSss33R ¢“¿¢∞¢&óFV‘ñB#¢cÉ#R¿¢'FóF∆R#¢%6∑vñÊ∂∆W26«6vÜWGFí"6≤"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜6∑vñÊ∂∆W2◊6«6vÜWGFí”"◊6≤"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı6∑vñÊ∂∆W2S#6«6vÜWGFíS#"S#6≤Êßs˜C”cÉ3c#c#b ¢“¿¢∞¢&óFV‘ñB#¢s3ìR¿¢'FóF∆R#¢%7ñ7íÜñ&ó67W2÷&v&óF∂óB"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆˆ¶Ú÷FR÷Fñ˜2÷÷W¶6¬˜7ñ7í÷Üñ&ó67W2÷÷&v&óF÷∂óB"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&ˆ¶Ú÷FR÷Fñ˜2÷÷W¶6¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢S¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜7ñ7íS#÷&v&óFS#ˆ¶ÚS#FRS#Fñ˜2Êßs˜C”scìS3ÉsR ¢“¿¢∞¢&óFV‘ñB#¢s#sB¿¢'FóF∆R#¢%7ñ7í÷&v&óF∂óB"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2˜7ñ7í÷÷&v&óF÷6ˆ6∑Fñ¬"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢3í¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7ñ7íS#÷&v&óFS#∂óBÊßs˜C”scìS#cc ¢“¿¢∞¢&óFV‘ñB#¢CÉs"¿¢'FóF∆R#¢%7Vó'Bw&Vg'VóB6‚3SV÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2˜6ˆgB÷G&ñÊ∑2˜7Vó'B÷w&Vg'VóB÷6‚”3SV÷¬"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢'6ˆgB÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„B¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı7Vó'BS#6‚S#3SV÷¬Êßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢CCS2¿¢'FóF∆R#¢%F¶ñ‚Ê6ÜÚ6Üñ∆∆ísVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷Ê6ÜÚ÷6Üñ∆∆í”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„#R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#Ê6ÜÚS#6Üñ∆∆íS#sVrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢CCSR¿¢'FóF∆R#¢%F¶ñ‚&&ˆ¬6Üñ∆∆ísVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷&&ˆ¬÷6Üñ∆∆í”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#&&ˆ¬S#sVrÊßs˜C”ccC#s3c ¢“¿¢∞¢&óFV‘ñB#¢sCÉR¿¢'FóF∆R#¢%F¶ñ‚6Ü÷˜í∆óVñB3Ü÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷6Ü÷˜í÷∆óVñB”3Ü÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜F¶Âˆg'VóD6Ü÷˜ïÛR”3Ü˜•ÛCSV÷≈Û„2ÁÊs˜C”sÉcsCC ¢“¿¢∞¢&óFV‘ñB#¢Ccìb¿¢'FóF∆R#¢%F¶ñ‚6Ü÷˜í∆óVñBCSV÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷6Ü÷˜í÷∆óVñB”CSV÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜F¶Âˆg'VóD6Ü÷˜ïÛR”3Ü˜•ÛCSV÷≈Û„2ÁÊs˜C”sìc3ÉÉ# ¢“¿¢∞¢&óFV‘ñB#¢cÉ"¿¢'FóF∆R#¢%F¶ñ‚6Üñ∆íÊB∆ñ÷R6V6ˆÊñÊrC&rb6Ü÷˜í6≤"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷6Üñ∆í÷ÊB÷∆ñ÷R◊6V6ˆÊñÊr”C&r÷6Ü÷˜í◊6≤"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜F¶ñ‚S#6Ü÷˜íS#∂óBÊßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢s3#B¿¢'FóF∆R#¢%F¶ñ‚6Üñ∆íÊB∆ñ÷R6V6ˆÊñÊrCVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷6Üñ∆í÷ÊB÷∆ñ÷R◊6V6ˆÊñÊr”CVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆íS#ÊBS#∆ñ÷RS#6V6ˆÊñÊrS#CVrÊßs˜C”sSì##C3ìb ¢“¿¢∞¢&óFV‘ñB#¢CCS¿¢'FóF∆R#¢%F¶ñ‚6Üñ∆∆íb∆ñ÷R6V6ˆÊñÊr÷ñÊí&˜GF∆SÉr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷6Üñ∆∆í÷∆ñ÷R◊6V6ˆÊñÊr÷÷ñÊí÷&˜GF∆S◊Ér"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆∆íS#ÊBS#∆ñ÷RS#6V6ˆÊñÊrS#áÉrS#"Êßs˜C”s#Sc3C3R ¢“¿¢∞¢&óFV‘ñB#¢CCC2¿¢'FóF∆R#¢%F¶ñ‚6Üñ∆∆íÊB∆ñ÷R6V6ˆÊñÊrC&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷6Üñ∆∆í÷ÊB÷∆ñ÷R◊6V6ˆÊñÊr”C&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆∆íS#ÊBS#∆ñ÷RS#C&rÊßs˜C”scCsssb ¢“¿¢∞¢&óFV‘ñB#¢C33"¿¢'FóF∆R#¢%F¶ñ‚6Üñ∆∆íÊB∆ñ÷R6V6ˆÊñÊrCr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷6Üñ∆∆í÷ÊB÷∆ñ÷R◊6V6ˆÊñÊr”Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢r„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆∆íS#ÊBS#∆ñ÷RS#6V6ˆÊñÊrS#CrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cÉ#¿¢'FóF∆R#¢%F¶ñ‚G&ñVB6Üñ∆∆ñW2ÉBÇsVrí"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷G&ñVB÷6Üñ∆∆ñW2”B◊Ç”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆∆ñW2S#'VÊF∆RÊßs˜C”cÉ3c#c#b ¢“¿¢∞¢&óFV‘ñB#¢CCc¿¢'FóF∆R#¢%F¶ñ‚v∆726V6ˆ‚&ñ÷÷W""¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷v∆72◊6V6ˆ‚◊&ñ÷÷W""¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#&ñ÷÷W"Êßs˜C”s#3SÉSCB ¢“¿¢∞¢&óFV‘ñB#¢CCSr¿¢'FóF∆R#¢%F¶ñ‚wV¶ñ∆∆Ú6Üñ∆∆ísVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷wV¶ñ∆∆Ú÷6Üñ∆∆í”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#wV¶ñ∆∆ÚS#sVrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢SSCÇ¿¢'FóF∆R#¢%F¶ñ‚Ü&ÊW&Ú˜vFW"CVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷Ü&ÊW&Ú◊˜vFW"”CVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ÙÜ&ÊW&ıÛCUˆw"S#ÊWrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cì#B¿¢'FóF∆R#¢%F¶ñ‚∂Wó&ñÊr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜6V6ˆÊñÊr˜F¶ñ‚÷∂Wó&ñÊr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'6V6ˆÊñÊr"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#∂Wó&ñÊrÊßs˜C”s3ÉcÉSb ¢“¿¢∞¢&óFV‘ñB#¢CCC"¿¢'FóF∆R#¢%F¶ñ‚∆˜r6ˆFóV“6Üñ∆∆íÊB∆ñ÷R6V6ˆÊñÊrC&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚÷∆˜r◊6ˆFóV“÷6Üñ∆∆í÷ÊB÷∆ñ÷R◊6V6ˆÊñÊr”C&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„cR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆RS#ÊBS#∆ñ÷RS#∆˜rS#6ˆFóV“S#Cr‰•s˜C”s#CSc3c" ¢“¿¢∞¢&óFV‘ñB#¢CCSí¿¢'FóF∆R#¢%F¶ñ‚6ñ∆∆6Üñ∆∆ísVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚◊6ñ∆∆÷6Üñ∆∆í”sVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6ñ∆∆S#sVrÊßs˜C”ccC#s3CCí ¢“¿¢∞¢&óFV‘ñB#¢CCS¿¢'FóF∆R#¢%F¶ñ‚6V6ˆÊñÊr&˜GF∆Rìvr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚◊6V6ˆÊñÊr÷&˜GF∆R”ìvr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆∆íS#ÊBS#∆ñ÷RS#6V6ˆÊñÊrS#ìrÊßs˜C”ccÉ3scb ¢“¿¢∞¢&óFV‘ñB#¢CCS"¿¢'FóF∆R#¢%F¶ñ‚FÚvÚ#R66ÜWG26Üñ∆∆íb∆ñ÷R6V6ˆÊñÊr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜F¶ñ‚◊FÚ÷vÚ”#R◊66ÜWG2÷6Üñ∆∆í÷∆ñ÷R◊6V6ˆÊñÊr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„3Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#6Üñ∆∆íS#ÊBS#∆ñ÷RS#6V6ˆÊñÊrS#FÚS#vÚS##WÉrÊßs˜C”s3ì##í ¢“¿¢∞¢&óFV‘ñB#¢cìb¿¢'FóF∆R#¢%F∂ó2&«VRÜVBsr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ&&6V¬˜F∂ó2÷&«VR÷ÜVB”sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&&6V¬"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF∂ó2S#&«VRS#ÜVBS#srS#UDDRÊßs˜C”ss##cccÇ ¢“¿¢∞¢&óFV‘ñB#¢sCC¿¢'FóF∆R#¢%F∂ó2GV˜¢sr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ&&6V¬˜F∂ó2÷GV˜¢”sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&&6V¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF∂ó2S#GV˜¢S#srÊßs˜C”ssììsÉC ¢“¿¢∞¢&óFV‘ñB#¢SSS"¿¢'FóF∆R#¢%F∂ó26«6'&fsr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ&&6V¬˜F∂ó2◊6«6÷'&f”sr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&&6V¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜6«6S#'&fÁÊs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢cìcB¿¢'FóF∆R#¢%F∂ó26«6'&fsrÖ6≤ˆb2í"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ&&6V¬˜F∂ó2◊6«6÷'&f”sr◊6≤÷ˆb”2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&&&6V¬"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF∂ó2S#6«6S#'&fS#srS#S#Ö6≤S#2S#íÊßs˜C”s#3S3cs ¢“¿¢∞¢&óFV‘ñB#¢cCsb¿¢'FóF∆R#¢%F÷&ˆ6&ÊFW&ñ∆∆3ÇSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜F÷◊&ˆ6÷&ÊFW&ñ∆∆”3◊Ç”Sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢3¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF÷&ˆ6S#&ÊFW&∆ñW'2Êßs˜C”ccCSss33R ¢“¿¢∞¢&óFV‘ñB#¢s3Cí¿¢'FóF∆R#¢%F÷&ˆ6V∆∆ó¶6ÚC72"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGí˜F÷◊&ˆ6◊V∆∆ó¶6Ú”C◊72"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&6ÊGí"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„B¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF÷S#&ˆ6S#V∆∆ó¶6ÚS#CS#72Êßs˜C”sc#C#ìsÇ ¢“¿¢∞¢&óFV‘ñB#¢SS3B¿¢'FóF∆R#¢%F÷ßV∆&∆6≤C÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆VÁFñÊ˜F÷ßV∆÷&∆6≤”C÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆VÁFñÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜F÷ßV∆S#&∆6≤S#“S#‰UrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢SS3R¿¢'FóF∆R#¢%F÷ßV∆&VBC÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆VÁFñÊ˜F÷ßV∆◊&VB”C÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆VÁFñÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF÷ßV∆S#&VBS#“S#‰UrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢cìSB¿¢'FóF∆R#¢%FFñÚ6«6ñ6ÁFRCÜ÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆÜ˜B◊6V6R◊6«6˜FFñÚ◊6«6◊ñ6ÁFR”CÜ÷¬"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&Ü˜B◊6V6R◊6«6"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìí¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıFFñÚS#6«6S#ñ6ÁFRS#CÜ÷¬Êßs˜C”s#cCSb ¢“¿¢∞¢&óFV‘ñB#¢SÉ3B¿¢'FóF∆R#¢%F&wVí“ñW&&÷FRvóFÇ7FV◊2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ∆Fñ‚÷÷W&ñ6‚÷fˆˆBˆ&vVÁFñÊ˜F&wVí◊ñW&&÷÷FR◊vóFÇ◊7FV◊2"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&&vVÁFñÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF&wVí◊ñW&&÷÷FR◊vóFÇ◊7FV◊2÷6ˆ‚◊∆Ú◊Ç”SrÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢SSc¿¢'FóF∆R#¢%F'&óFÚ&VW"∆ˆ∆∆ó˜&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ6ÊGíˆ∆ˆ∆ó˜2˜F'&óFÚ÷&VW"÷∆ˆ∆∆ó˜÷&r"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&∆ˆ∆ó˜2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜F'&óFÚS#&VW"S#∆ˆ∆∆ó˜Êßs˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢CcR¿¢'FóF∆R#¢%FW&ÊW¶˜FR#fr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜FW&Ê˜FW&Ê÷W¶˜FR”#fr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'FW&Ê"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıFW&ÊS#W¶˜FRS#6Ü˜VBS#"‰•s˜C”s3#sì3í ¢“¿¢∞¢&óFV‘ñB#¢CcÇ¿¢'FóF∆R#¢%FW&ÊW¶˜FRCw""¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜FW&Ê˜FW&Ê÷W¶˜FR”Cw""¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'FW&Ê"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„í¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıFW&ÊS#W¶˜FRS#6Ü˜VBS#vÜˆ∆W6∆R‰•s˜C”s#S3cCc" ¢“¿¢∞¢&óFV‘ñB#¢S#S¿¢'FóF∆R#¢%FW&Ê˜&VvÊÚ#r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜FW&Ê˜FW&Ê÷˜&VvÊÚ”#r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'FW&Ê"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıFW&ÊS#˜&VvÊÚS##r‰•s˜C”s3#sì3í ¢“¿¢∞¢&óFV‘ñB#¢S3Sr¿¢'FóF∆R#¢%FW&Ê˜&VvÊÚCr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜FW&Ê˜FW&Ê÷˜&VvÊÚ”Cr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'FW&Ê"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„í¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıFW&ÊS#˜&VvÊÚS#vÜˆ∆W6∆R‰•s˜C”s#S3cCc2 ¢“¿¢∞¢&óFV‘ñB#¢s#sb¿¢'FóF∆R#¢%FÜR7W&F˜'2F¶ñ‚˜&≤Vfg2#Vr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜F¶ñ‚˜FÜR÷7W&F˜'2◊F¶ñ‚◊˜&≤◊Vfg2”#Vr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'F¶ñ‚"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıF¶ñ‚S#˜&≤S#Vfg2S##VrÊßs˜C”sSCC#ScÇ ¢“¿¢∞¢&óFV‘ñB#¢SCÉB¿¢'FóF∆R#¢%F˜'Fñ∆∆÷6ÜñÊRdîƒƒ‘UÇcR"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ6FW&ñÊr◊6ó¶W2ˆ˜FÜW"÷÷WÜñ6‚◊&ˆGV7G2˜F˜'Fñ∆∆÷÷6ÜñÊR◊fñ∆∆÷WÇ◊cR"¿¢&FW'F÷VÁB#¢&6FW&ñÊr◊6ó¶W2"¿¢&6FVv˜'ï6«Vr#¢&˜FÜW"÷÷WÜñ6‚◊&ˆGV7G2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢É¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıdîƒƒ‘UÇS#cRÊßs˜C”s3s3ssì ¢“¿¢∞¢&óFV‘ñB#¢C3Éí¿¢'FóF∆R#¢%F˜F÷˜áF∆R6˜&‚áW6∑2r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆ∆2÷6G&ñÊ2˜F˜F÷˜áF∆R÷6˜&‚÷áW6∑2”r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&∆2÷6G&ñÊ2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢b„#R¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬Ù∆2S#6G&ñÊ2S#6˜&‚S#áW6∑2S#r‰•s˜C”s3ì#cs2 ¢“¿¢∞¢&óFV‘ñB#¢sSÇ¿¢'FóF∆R#¢%GvÚ∂Wó2g&˜¶V‚∆ˆ÷÷óÇsS÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2˜6ˆgB÷G&ñÊ∑2˜GvÚ÷∂Wó2÷g&˜¶V‚◊∆ˆ÷÷÷óÇ”sS÷¬"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢'6ˆgB÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıGvÚS#∂Wó2S#g&˜¶V‚S#∆ˆ÷S#÷óÇS#sS÷¬Êßs˜C”sCScSCÉb ¢“¿¢∞¢&óFV‘ñB#¢cC#r¿¢'FóF∆R#¢%GvÚ∂Wó2ñÊ≤w&Vg'VóB6ˆF#÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆG&ñÊ∑2˜6ˆgB÷G&ñÊ∑2˜GvÚ÷∂Wó2◊ñÊ≤÷w&Vg'VóB◊6ˆF”#÷¬"¿¢&FW'F÷VÁB#¢&G&ñÊ∑2"¿¢&6FVv˜'ï6«Vr#¢'6ˆgB÷G&ñÊ∑2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıGvÚS#∂Wó2S#w&Vg'VóBÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢CÉÉ2¿¢'FóF∆R#¢%f∆VÁFñÊ&∆6≤«B"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆÜ˜B◊6V6R◊6«6˜6Ê6≤◊6«62˜f∆VÁFñÊ÷&∆6≤”«B"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'6Ê6≤◊6«62"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆VÁFñÊS#&∆6≤S#«BÊßs˜C”ccÉ3scb ¢“¿¢∞¢&óFV‘ñB#¢Sb¿¢'FóF∆R#¢%f∆VÁFñÊ&∆6≤3s÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆÜ˜B◊6V6R◊6«6˜6Ê6≤◊6«62˜f∆VÁFñÊ÷&∆6≤”3s÷¬"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'6Ê6≤◊6«62"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆VÁFñÊS#&∆6≤S#3s÷¬Êßs˜C”ccCssc2 ¢“¿¢∞¢&óFV‘ñB#¢cÉSb¿¢'FóF∆R#¢%f∆VÁFñÊÜ˜B6V6RG&ñÚ"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ÷V«2ˆ∂óG2˜f∆VÁFñÊ÷Ü˜B◊6V6R◊G&ñÚ"¿¢&FW'F÷VÁB#¢&÷V«2"¿¢&6FVv˜'ï6«Vr#¢&∂óG2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„ìí¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆VÁFñÊS#Ü˜BS#6V6RS#G&ñÚS#‰UrÁÊs˜C”sÉS#CCÇ ¢“¿¢∞¢&óFV‘ñB#¢CÉ#R¿¢'FóF∆R#¢%f∆VÁFñÊ÷&ó66˜23s÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆VÁFñÊ˜f∆VÁFñÊ÷÷&ó66˜2”3s÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆VÁFñÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆VÁFñÊS#6VfˆˆBÊßs˜C”cc33#ÉCcR ¢“¿¢∞¢&óFV‘ñB#¢SCB¿¢'FóF∆R#¢%f∆VÁFñÊ&VB«B"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆÜ˜B◊6V6R◊6«6˜6Ê6≤◊6«62˜f∆VÁFñÊ◊&VB”«B"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢'6Ê6≤◊6«62"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„í¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆VÁFñÊS#«B‰•s˜C”s#SìS#r ¢“¿¢∞¢&óFV‘ñB#¢S2¿¢'FóF∆R#¢%f∆VÁFñÊ&VB3s÷¬"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆VÁFñÊ˜f∆VÁFñÊ◊&VB”3s÷¬"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆VÁFñÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆VÁFñÊS#&VBS#3s÷¬Êßs˜C”cc3sSÉs" ¢“¿¢∞¢&óFV‘ñB#¢s3ì"¿¢'FóF∆R#¢%f∆VÁFñÊ&VBD«B"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆VÁFñÊ˜f∆VÁFñÊ◊&VB”F«B"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆VÁFñÊ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢#r¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆VÁFñÊS#&VBS#D¬Êßs˜C”scììCí ¢“¿¢∞¢&óFV‘ñB#¢SC#¿¢'FóF∆R#¢%f∆VÁFñÊ6«666ÜWG2RÇr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆VÁFñÊ˜f∆VÁFñÊ◊6«6◊66ÜWG2”R◊Ç”r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆VÁFñÊ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢„ìR¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬˜f∆VÁFñÊS#˜V6ÜW2S#“S#‰UrÊßs˜C”ccÉ3scb ¢“¿¢∞¢&óFV‘ñB#¢sCr¿¢'FóF∆R#¢%f∆∆V÷WÇf∆˜"FR6∆&¶ìÜrÖV◊∂ñ‚f∆˜vW"ñ‚'&ñÊRí"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆∆V÷WÇ˜f∆∆V÷WÇ÷f∆˜"÷FR÷6∆&¶”ìÜr◊V◊∂ñ‚÷f∆˜vW"÷ñ‚÷'&ñÊR"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆∆V÷WÇ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢r„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆∆V÷WÇS#f∆˜"S#FRS#6∆&¶S#ìÜrÁÊs˜C”ss3ÉS##Sí ¢“¿¢∞¢&óFV‘ñB#¢sC¿¢'FóF∆R#¢%f∆∆V÷WÇwVñ&ìÜrÑ÷WÜñ6‚wVfñ‚7ó'Wí"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆∆V÷WÇ˜f∆∆V÷WÇ÷wVñ&”ìÜr÷÷WÜñ6‚÷wVf÷ñ‚◊7ó'W"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆∆V÷WÇ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆∆V÷WÇS#wVñ&S#ìÜrÊßs˜C”ss3ÉS##c ¢“¿¢∞¢&óFV‘ñB#¢sCÇ¿¢'FóF∆R#¢%f∆∆V÷WÇáVóF∆6ˆ6ÜRìÜrÑ÷WÜñ6‚6˜&‚6◊WBí"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆∆V÷WÇ˜f∆∆V÷WÇ÷áVóF∆6ˆ6ÜR”ìÜr÷÷WÜñ6‚÷6˜&‚◊6◊WB"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆∆V÷WÇ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢Ç¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆∆V÷WÇS#áVóF∆6ˆ6ÜRS#ìÜrÁÊs˜C”ss3ÉS##Sí ¢“¿¢∞¢&óFV‘ñB#¢sC¿¢'FóF∆R#¢%f∆∆V÷WÇÊÊ6ÜRìÜr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆∆V÷WÇ˜f∆∆V÷WÇ÷ÊÊ6ÜR”ìÜr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆∆V÷WÇ"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢R„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆∆V÷WÇS#ÊÊ6ÜRS#ìÜrÁÊs˜C”ss3ÉS##Sí ¢“¿¢∞¢&óFV‘ñB#¢sC"¿¢'FóF∆R#¢%f∆∆V÷WÇ&ˆ÷W'Fñ˜2Ö6VWvVVBíìÜr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆∆V÷WÇ˜f∆∆V÷WÇ◊&ˆ÷W'Fñ˜2◊6VWvVVB”ìÜr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆∆V÷WÇ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆∆V÷WÇS#&ˆ÷W'Fñ˜2S#ìÜrÁÊs˜C”ss3ÉS##c ¢“¿¢∞¢&óFV‘ñB#¢sCB¿¢'FóF∆R#¢%f∆∆V÷WÇFV¶ˆ6˜FRìÜrÑÜwFÜ˜&‚ñ‚7ó'Wí"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜f∆∆V÷WÇ˜f∆∆V÷WÇ◊FV¶ˆ6˜FR”ìÜr÷ÜwFÜ˜&‚÷ñ‚◊7ó'W"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'f∆∆V÷WÇ"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„b¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıf∆∆V÷WÇS#FV¶ˆ6˜FRS#ìÜrÁÊs˜C”ss3ÉS##Sí ¢“¿¢∞¢&óFV‘ñB#¢S#ÉÇ¿¢'FóF∆R#¢%fW&ÚV∆˜FR∆ˆ∆∆ó˜2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆGV∆6W2◊fW&Ú˜fW&Ú÷V∆˜FR÷∆ˆ∆∆ó˜2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&GV∆6W2◊fW&Ú"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢B„B¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıfW&ÚS#V∆˜FW2‰•s˜C”s#cCsb ¢“¿¢∞¢&óFV‘ñB#¢S#É¿¢'FóF∆R#¢%fW&Ú÷ÊvÚ∆ˆ∆∆ó˜2"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆGV∆6W2◊fW&Ú˜fW&Ú÷÷ÊvÚ÷∆ˆ∆∆ó˜2"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&GV∆6W2◊fW&Ú"¿¢&fñ∆&ñ∆óGí#¢$˜WBˆb7Fˆ6≤"¿¢'&ñ6R#¢"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıfW&ÚS#÷ÊvÚ‰•s˜C”s#SÉìS3R ¢“¿¢∞¢&óFV‘ñB#¢ScÉ¿¢'FóF∆R#¢%fW&Úñ6g&W62Çfr&r"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2ˆGV∆6W2◊fW&Ú˜fW&Ú◊ñ6g&W62”◊Ç”fr÷&r"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢&GV∆6W2◊fW&Ú"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıfW&ÚS#ñ6g&W62S#S#ÇS#frS#&rS#‰UrÊßs˜C”ssììcÉcí ¢“¿¢∞¢&óFV‘ñB#¢s#SB¿¢'FóF∆R#¢%ÜóVVÊÚ÷ˆ∆R6V6RSr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆfˆˆBˆ÷ˆ∆R◊6V6W2˜ÜóVVÊÚ÷÷ˆ∆R◊6V6R”Sr"¿¢&FW'F÷VÁB#¢&fˆˆB"¿¢&6FVv˜'ï6«Vr#¢&÷ˆ∆R◊6V6W2"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢í„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ıÜóVVÊÚS#÷ˆ∆RÊßs˜C”sCì3#s2 ¢“¿¢∞¢&óFV‘ñB#¢s3r¿¢'FóF∆R#¢%¶66Üñ∆7&V◊í6ÜVW6Rb¶∆VÊÚ6V6R#cVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷6ÜVW6R÷¶∆VÊÚ◊6V6R”#cVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#6ÜVW6RS#S#bS#¶∆VÊÚS#6V6RS##cVrÊßs˜C”sSÉì3Sb ¢“¿¢∞¢&óFV‘ñB#¢sCí¿¢'FóF∆R#¢%¶66Üñ∆7&V◊í6ÜVW6Rb¶∆VÊÚ6V6RC#Vr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷6ÜVW6R÷¶∆VÊÚ◊6V6R”C#Vr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#6ÜVW6RS#S#bS#¶∆VÊÚS#6V6RS##cVrS#ÊÚS#6ó¶RÊßs˜C”ssCìSSÉÉ2 ¢“¿¢∞¢&óFV‘ñB#¢s#ìB¿¢'FóF∆R#¢%¶66Üñ∆7&V◊í6Üó˜F∆R6V6R#cVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷6Üó˜F∆R◊6V6R”#cVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#6Üó˜F∆RS#6V6RS##cVrÊßs˜C”sSÉì3Sb ¢“¿¢∞¢&óFV‘ñB#¢sCÇ¿¢'FóF∆R#¢%¶66Üñ∆7&V◊í6Üó˜F∆R6V6RC#Vr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷6Üó˜F∆R◊6V6R”C#Vr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#6Üó˜F∆RS#6V6RS##cVrS#ÊÚS#6ó¶RÊßs˜C”ssCìSSÉÉ2 ¢“¿¢∞¢&óFV‘ñB#¢s3b¿¢'FóF∆R#¢%¶66Üñ∆7&V◊íwV6÷ˆ∆RbÜ&ÊW&Ú#cVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷wV6÷ˆ∆R÷Ü&ÊW&Ú”#cVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#wV6÷ˆ∆RS#S#bS#Ü&ÊW&ÚS#Êßs˜C”sSÉì3Sb ¢“¿¢∞¢&óFV‘ñB#¢sCr¿¢'FóF∆R#¢%¶66Üñ∆7&V◊íwV6÷ˆ∆RbÜ&ÊW&ÚC#Vr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷wV6÷ˆ∆R÷Ü&ÊW&Ú”C#Vr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#wV6÷ˆ∆RS#S#bS#Ü&ÊW&ÚS#ÊÚS#6ó¶RÊßs˜C”ssCìSSÉÉ2 ¢“¿¢∞¢&óFV‘ñB#¢s#ìí¿¢'FóF∆R#¢%¶66Üñ∆7&V◊íwV6÷ˆ∆RÊB¶∆VÊÚ6V6R#cVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷wV6÷ˆ∆R÷ÊB÷¶∆VÊÚ◊6V6R”#cVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#wV6÷ˆ∆RS#ÊBS#¶∆VÊÚS#6V6RS##cVrÊßs˜C”sSÉì3Sb ¢“¿¢∞¢&óFV‘ñB#¢sCb¿¢'FóF∆R#¢%¶66Üñ∆7&V◊íwV6÷ˆ∆RÊB¶∆VÊÚ6V6RC#Vr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í÷wV6÷ˆ∆R÷ÊB÷¶∆VÊÚ◊6V6R”C#Vr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢B„R¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#wV6÷ˆ∆RS#ÊBS#¶∆VÊÚS#6V6RS##cVrS#ÊÚS#6ó¶RÊßs˜C”ssCìSSÉÉ2 ¢“¿¢∞¢&óFV‘ñB#¢s3cB¿¢'FóF∆R#¢%¶66Üñ∆7&V◊í6«6'VÊF∆R"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í◊6«6÷'VÊF∆R"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢2„ìí¿¢'&ñ6Tg&ˆ“#¢f«6R¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#6«6S#'VÊF∆RÊßs˜C”sccSì3B ¢“¿¢∞¢&óFV‘ñB#¢s3#¿¢'FóF∆R#¢%¶66Üñ∆7&V◊í7G&VWB6˜&‚6V6R#cVr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í◊7G&VWB÷6˜&‚◊6V6R”#cVr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢"„ìR¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#7G&VWBS#6˜&‚S#6V6RS##cVrÊßs˜C”sSÉì3Sb ¢“¿¢∞¢&óFV‘ñB#¢sCR¿¢'FóF∆R#¢%¶66Üñ∆7&V◊í7G&VWB6˜&‚6V6RC#Vr"¿¢'W&¬#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆ'&ÊG2˜¶66Üñ∆˜¶66Üñ∆÷7&V◊í◊7G&VWB÷6˜&‚◊6V6R”C#Vr"¿¢&FW'F÷VÁB#¢&'&ÊG2"¿¢&6FVv˜'ï6«Vr#¢'¶66Üñ∆"¿¢&fñ∆&ñ∆óGí#¢$ñ‚7Fˆ6≤"¿¢'&ñ6R#¢R„2¿¢'&ñ6Tg&ˆ“#¢G'VR¿¢&ñ÷vR#¢&áGG3¢Ú˜wwrÊ÷WÜw&ˆ6W"Ê6ÚÁV≤ˆñ÷vW2˜&ˆGV7Bˆ¬ı¶66Üñ∆S#7&V◊íS#7G&VWBS#6˜&‚S#6V6RS##cVrS#ÊÚS#6ó¶RÊßs˜C”ssCìSSÉÉ2 ¢–•”∞†¶Wá˜'B6ˆÁ7B÷WÜw&ˆ6W$6F∆ˆwVTWÜ6«W6ñˆÁ3¢&VFˆÊ«í÷WÜw&ˆ6W$6F∆ˆwVTWÜ6«W6ñˆÂµ““∞¢∞¢&óFV‘ñB#¢CC"¿¢'FóF∆R#¢#f6“&∆6≤F˜'Fñ∆∆&W72"¿¢'&V6ˆ‚#¢&6FVv˜'ìßF˜'Fñ∆∆◊&W72 ¢“¿¢∞¢&óFV‘ñB#¢CC2¿¢'FóF∆R#¢#f6“&VBF˜'Fñ∆∆&W72"¿¢'&V6ˆ‚#¢&6FVv˜'ìßF˜'Fñ∆∆◊&W72 ¢“¿¢∞¢&óFV‘ñB#¢C3ìÇ¿¢'FóF∆R#¢#f6“F˜'Fñ∆∆&W726ñ«fW""¿¢'&V6ˆ‚#¢&6FVv˜'ìßF˜'Fñ∆∆◊&W72 ¢“¿¢∞¢&óFV‘ñB#¢s¿¢'FóF∆R#¢#É6ˆ6ˆÁWB∆óVWW"S÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢c3CÇ¿¢'FóF∆R#¢#É6ˆ6ˆÁWB∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SCr¿¢'FóF∆R#¢#ÉFWVñ∆ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢C##¿¢'FóF∆R#¢#ÉFWVñ∆7&ó7F∆ñÊÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢c#sÇ¿¢'FóF∆R#¢#ÉFWVñ∆÷ñÊí6ñ«fW"S÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SC¿¢'FóF∆R#¢#ÉFWVñ∆&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢C##¿¢'FóF∆R#¢#ÉFWVñ∆6ñ«fW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C3ìí¿¢'FóF∆R#¢#ñ6“&∆6≤F˜'Fñ∆∆&W72"¿¢'&V6ˆ‚#¢&6FVv˜'ìßF˜'Fñ∆∆◊&W72 ¢“¿¢∞¢&óFV‘ñB#¢Scr¿¢'FóF∆R#¢#ñ6“&VBF˜'Fñ∆∆&W72"¿¢'&V6ˆ‚#¢&6FVv˜'ìßF˜'Fñ∆∆◊&W72 ¢“¿¢∞¢&óFV‘ñB#¢CC¿¢'FóF∆R#¢#ñ6“6ñ«fW"F˜'Fñ∆∆&W72"¿¢'&V6ˆ‚#¢&6FVv˜'ìßF˜'Fñ∆∆◊&W72 ¢“¿¢∞¢&óFV‘ñB#¢ScÇ¿¢'FóF∆R#¢##V6“6ñ«fW"F˜'Fñ∆∆&W72"¿¢'&V6ˆ‚#¢&6FVv˜'ìßF˜'Fñ∆∆◊&W72 ¢“¿¢∞¢&óFV‘ñB#¢CÉÉB¿¢'FóF∆R#¢#e¬"7&V“∆7Fñ2F˜'Fñ∆∆v&÷W""¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢SCB¿¢'FóF∆R#¢#e¬"∆7Fñ2F˜'Fñ∆∆v&÷W"“&VB"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢cÉcí¿¢'FóF∆R#¢#ÉÇ&∆Ê6ÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cÉs¿¢'FóF∆R#¢#ÉÇ&W6FÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SsSÇ¿¢'FóF∆R#¢$&6ˆ∆Ú6˜&‚vÜó6∑ís÷¬"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢C#c¿¢'FóF∆R#¢$∆óW26‚ÊG&W2÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢C#c"¿¢'FóF∆R#¢$∆óW26‚&«F¶"÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢C#ì¿¢'FóF∆R#¢$∆óW26‚ßV‚÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢C#c2¿¢'FóF∆R#¢$∆óW26ÁFÊ÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sì¿¢'FóF∆R#¢$∆÷fñÊ6˜&ÊvR∆óVW"CRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢C#SÇ¿¢'FóF∆R#¢$÷&27W&VFwVW'&W&Ú÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢ccs"¿¢'FóF∆R#¢$÷&2W7Fñ‚&W˜6FÚ÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cÉCr¿¢'FóF∆R#¢$÷&vÚÊv˜7GW&f∆∆WB∆óVWW"CRRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢SCÇ¿¢'FóF∆R#¢$Ê6ÜÚ&WñW26Üñ∆∆í∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢CÉ#í¿¢'FóF∆R#¢$Ê6ÜÚ&WñW2fW&FR∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢CìCB¿¢'FóF∆R#¢$Êñ÷2W7Fñ‚7W&VFs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢SÉ¿¢'FóF∆R#¢$&WGFRFWVñ∆&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢Scr¿¢'FóF∆R#¢$&WGFRFWVñ∆&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢SÉCb¿¢'FóF∆R#¢$&÷ˆÊñ6Úvñ‚6V6ÚSRS÷¬&˜GF∆R"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢c3Cí¿¢'FóF∆R#¢$'FT‰Ù“CbÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢c3S¿¢'FóF∆R#¢$'FT‰Ù“CB&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢c3S¿¢'FóF∆R#¢$'FT‰Ù“Ssí&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢csÉr¿¢'FóF∆R#¢$4DFÜR'Bˆb÷WÜñ6‚’7Gñ∆Rw&ñ∆∆ñÊr"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢SÉb¿¢'FóF∆R#¢$&6Ê˜&wV÷ñV¬s÷¬CR"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢ccB¿¢'FóF∆R#¢$&6Ê˜&6ÁFÚV6FÚ"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢Sc2¿¢'FóF∆R#¢$&∆“&ñ6ñ∆∆6˜7Fs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢Ssí¿¢'FóF∆R#¢$&∆“&ñ6ñ∆∆÷GW&FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢Cìc¿¢'FóF∆R#¢$&∆“&ñ6ñ∆∆6ñW'&s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢cCìí¿¢'FóF∆R#¢$&'&ñ∆óFÚ&VW"3#V÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢s#c¿¢'FóF∆R#¢$&ˆÜV÷ñ˜67W&3SV÷¬÷WÜñ6‚&VW""¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢S3B¿¢'FóF∆R#¢$''WÜÚÊÚ„÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢S#r¿¢'FóF∆R#¢$''WÜÚÊÚ„"÷W¶6¬¶˜fV‚s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢Cìr¿¢'FóF∆R#¢$''WÜÚÊÚ„2÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢C#C"¿¢'FóF∆R#¢$''WÜÚÊÚ„B&∆VÊB÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢C#C2¿¢'FóF∆R#¢$''WÜÚÊÚ„RFˆ&∆÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢C#CB¿¢'FóF∆R#¢$''WÜÚÇ÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢S3b¿¢'FóF∆R#¢$6'&óFÚ&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢S3r¿¢'FóF∆R#¢$6∆∆R#2ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢S32¿¢'FóF∆R#¢$6∆∆R#2&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢S3"¿¢'FóF∆R#¢$6∆∆R#2&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢s3SB¿¢'FóF∆R#¢$6ÁFñÊW&ÚFWVñ∆ÊV¶Ú3ÇRs÷¬"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢cÇ¿¢'FóF∆R#¢$6ÁFñÊW&ÚFWVñ∆&∆Ê6Ú3ÇRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cí¿¢'FóF∆R#¢$6ÁFñÊW&ÚFWVñ∆&W˜6FÚ3ÇRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢s3ìB¿¢'FóF∆R#¢$6ÁFñÊW&ÚFWVñ∆G&ó∆R6≤"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢ccc2¿¢'FóF∆R#¢$66G&vˆÊW2ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SCÉ"¿¢'FóF∆R#¢$66G&vˆÊW2¶˜fV‚FWVñ∆s÷¬CR"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢CìcB¿¢'FóF∆R#¢$66G&vˆÊW2FWVñ∆&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢Ssc¿¢'FóF∆R#¢$66÷ñv˜2ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢Ssc¿¢'FóF∆R#¢$66÷ñv˜2&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢SCÉ2¿¢'FóF∆R#¢$66÷ñv˜2&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢c#Ç¿¢'FóF∆R#¢$666áVñ‚&∆Ê6ÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢c#í¿¢'FóF∆R#¢$666áVñ‚&W˜6FÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢csCÇ¿¢'FóF∆R#¢$6G&ñÊ&∆Ê6ÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢csS¿¢'FóF∆R#¢$6G&ñÊ&W˜6FÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢ssB¿¢'FóF∆R#¢$6¶6&V¬&∆Ê6ÚFWVñ∆3ÇRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢ss2¿¢'FóF∆R#¢$6¶6&V¬6ˆ6ˆÁWBFWVñ∆3BRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢ssb¿¢'FóF∆R#¢$6¶6&V¬ÜˆÊWíFWVñ∆3BRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢ssR¿¢'FóF∆R#¢$6¶6&V¬&W˜6FÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C3¿¢'FóF∆R#¢$6W'fW¶Êˆ6ÜR'VVÊ3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢C#32¿¢'FóF∆R#¢$6Ü&ÊFV¬F&66Ú'V“6ñ«fW"s÷¬3ÇR"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢C#3b¿¢'FóF∆R#¢$6Ü&ÊF6ˆ¬F&66ÚWáG&vVB'V“s÷¬CR"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢SSÉr¿¢'FóF∆R#¢$6Ü'&ÚÜB"¿¢'&V6ˆ‚#¢'FóF∆S¶vñgBˆFV6˜" ¢“¿¢∞¢&óFV‘ñB#¢c3S"¿¢'FóF∆R#¢$6ñ÷'&ˆ‚FWVñ∆&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cs#í¿¢'FóF∆R#¢$6óVFBFR÷WÜñ6Ú6ˆˆ∂&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢SÉr¿¢'FóF∆R#¢$6«WF6ÇF76V«2&r"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢cÉcr¿¢'FóF∆R#¢$6ˆ6ñÊ÷WÜñ6Ê&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢cc#í¿¢'FóF∆R#¢$6ˆFñvÚS3÷W¶6¬Ê6W7G&¬Ù¶˜fV‚s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢ccí¿¢'FóF∆R#¢$6ˆFñvÚS3FWVñ∆WáG&ÊV¶Ú˜&ñvV‚s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SÉ#Ç¿¢'FóF∆R#¢$6ˆ÷¬ñ◊W6#Ü6“"¿¢'&V6ˆ‚#¢'FóF∆S¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢Ss3r¿¢'FóF∆R#¢$6ˆ÷ñF÷WÜñ6Ê&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢C#CR¿¢'FóF∆R#¢$6˜'FRfWGW7FÚ÷W¶6¬¶˜fV‚VÁ6÷&∆Rs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢C#Cb¿¢'FóF∆R#¢$6˜'FRfWGW7FÚ÷W¶6¬¶˜fV‚W7Fñ‚s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢C#Cr¿¢'FóF∆R#¢$6˜'FRfWGW7FÚ÷W¶6¬¶˜fV‚Fˆ&∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢cSÉí¿¢'FóF∆R#¢$7W&FÚ&«VRvfRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cSÉÇ¿¢'FóF∆R#¢$7W&FÚ7W&WFs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cSÉr¿¢'FóF∆R#¢$7W&FÚW7Fñ‚s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢S#"¿¢'FóF∆R#¢$Bv&ó7FíáF&VÁGV‚s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢s#Éí¿¢'FóF∆R#¢$FíˆbFÜRFVB&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢S3"¿¢'FóF∆R#¢$FV¬÷wVWí÷W¶6¬6Üñ6Üñ6s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢S3¿¢'FóF∆R#¢$FV¬÷wVWí÷W¶6¬6‚«Vó2FV¬&ñÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢S#ìí¿¢'FóF∆R#¢$FV¬÷wVWí÷W¶6¬fñFs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢SìSí¿¢'FóF∆R#¢$Fó67&WFÚVÊ6ÁFÚ&VBvñÊR"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢S3¿¢'FóF∆R#¢$Fˆ‚ßV∆ñÚÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢S3í¿¢'FóF∆R#¢$Fˆ‚ßV∆ñÚ&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢sCC¿¢'FóF∆R#¢$Fˆ‚ßV∆ñÚ∆ˆ÷∂óB"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢S3Ç¿¢'FóF∆R#¢$Fˆ‚ßV∆ñÚ&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢C#ì"¿¢'FóF∆R#¢$F˜2WVó2∆vW"&VW"3S÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢Cì#í¿¢'FóF∆R#¢$V¬6÷ñÊÚFV¬VÁ6F˜"VÁ6÷&∆RS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßvñ∆B÷vfR÷÷W¶6«2 ¢“¿¢∞¢&óFV‘ñB#¢cC¿¢'FóF∆R#¢$V¬6÷ñÊÚFV¬VÁ6F˜"W7Fñ‚S÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cÉí¿¢'FóF∆R#¢$V¬Üó7ÊÚ6Üó˜F∆R∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢cÉÇ¿¢'FóF∆R#¢$V¬Üó7ÊÚ¶∆VÊÚ∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢cC¿¢'FóF∆R#¢$V¬&ñÚFWVñ∆∆Fs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cC¿¢'FóF∆R#¢$V¬&ñÚFWVñ∆&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cÉcb¿¢'FóF∆R#¢$WfW'ñˆÊR∆˜fW2F6˜2&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢s#É¿¢'FóF∆R#¢$WÜ6V∆∆ñ&∆Ê6ÚCRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢s#É"¿¢'FóF∆R#¢$WÜ6V∆∆ñ&W˜6FÚCRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢Ssì2¿¢'FóF∆R#¢$f6V÷6≤6Üñ‚"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢cÉCí¿¢'FóF∆R#¢$fW&ÊWBf∆∆WB∆óVWW"3RRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢CìC¿¢'FóF∆R#¢$f˜'F∆W¶FWVñ∆ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢Cì3"¿¢'FóF∆R#¢$f˜'F∆W¶FWVñ∆&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢S#b¿¢'FóF∆R#¢$f˜'F∆W¶FWVñ∆&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢CÉÉR¿¢'FóF∆R#¢$g&ñF∂Ü∆Ú6''í&r"¿¢'&V6ˆ‚#¢'FóF∆S¶vñgBˆFV6˜" ¢“¿¢∞¢&óFV‘ñB#¢Sss¿¢'FóF∆R#¢$g&ñF∂Ü∆Úf∆˜&¬∆ñváB6ÜFR"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢SÉ3¿¢'FóF∆R#¢$g&ñF∂Ü∆ÚÊV6∂∆6R"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢sr¿¢'FóF∆R#¢$g&ñVÊG6Üó'&6V∆WG2“&VñvR"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢SsÉb¿¢'FóF∆R#¢$g&ñVÊG6Üó'&6V∆WG2“&∆6≤"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢C#í¿¢'FóF∆R#¢$sBFWVñ∆&∆Ê6Ús÷¬CR"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢Sc¿¢'FóF∆R#¢$vV“b&ˆ«B÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cscb¿¢'FóF∆R#¢$vñ‚6ˆÊFW66∆6ñ6C2Rs6¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢cscr¿¢'FóF∆R#¢$vñ‚6ˆÊFW6&ñ6∂«íV"C2Rs6¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢C#3¿¢'FóF∆R#¢$w&‚6VÁFVÊ&ñÚÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C##Ç¿¢'FóF∆R#¢$w&‚6VÁFVÊ&ñÚ∆Fs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C##í¿¢'FóF∆R#¢$w&‚6VÁFVÊ&ñÚ&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cb¿¢'FóF∆R#¢$w&‚˜&VÊFñ‚&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cr¿¢'FóF∆R#¢$w&‚˜&VÊFñ‚&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cÉCb¿¢'FóF∆R#¢$w&ÊFf∆∆WB∆óVWW"3"Rs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢SÉ¿¢'FóF∆R#¢$ÜV'Bˆ◊ˆ◊2V'&ñÊw2"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢C3C"¿¢'FóF∆R#¢$ÜW&VÊ6ñFR∆FFWVñ∆6ˆffVRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢csc¿¢'FóF∆R#¢$ÜW'&GW&ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢S33"¿¢'FóF∆R#¢$ÜW'&GW&∆Fs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢S33¿¢'FóF∆R#¢$ÜW'&GW&&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢SS2¿¢'FóF∆R#¢$Üñ&ó67W2÷W¶6¬∆ˆ÷"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢sC32¿¢'FóF∆R#¢$Ü˜BÜˆÊWí6¶6&V¬FWVñ∆∂óB"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢CììR¿¢'FóF∆R#¢$áVÊwVÊ&Ê÷ñ‚s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢cììr¿¢'FóF∆R#¢$áV&6ÜR&W72"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢cÉ3B¿¢'FóF∆R#¢$ñÊFñÚ∆vW"&VW"3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢C##b¿¢'FóF∆R#¢$¶˜6R7VW'fÚ&W6W'fFR∆f÷ñ∆ñs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C##"¿¢'FóF∆R#¢$¶˜6R7VW'fÚG&Fñ6ñˆÊ¬&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢Cìs2¿¢'FóF∆R#¢$¶˜6R7VW'fÚG&Fñ6ñˆÊ¬6ñ«fW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢cSÉb¿¢'FóF∆R#¢$¥ÇFWVñ∆ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cSÉR¿¢'FóF∆R#¢$¥ÇFWVñ∆&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cSÉB¿¢'FóF∆R#¢$¥ÇFWVñ∆&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SsR¿¢'FóF∆R#¢$∂∆Êí6ˆ6ˆÁWB'V“∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢sìr¿¢'FóF∆R#¢$∂ˆ6ÇV¬÷W¶6¬VÁ6÷&∆Rs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sìb¿¢'FóF∆R#¢$∂ˆ6ÇV¬÷W¶6¬÷G&V7Vó6ÜRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢SÉ2¿¢'FóF∆R#¢$∂ˆ6ÇV¬÷W¶6¬Fˆ&6ñ6ÜRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢ccÉR¿¢'FóF∆R#¢$∂ˆ÷˜2FWVñ∆ÊV¶Ú7&ó7F∆ñÊÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢ccÉb¿¢'FóF∆R#¢$∂ˆ÷˜2FWVñ∆WáG&ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢ccÉB¿¢'FóF∆R#¢$∂ˆ÷˜2FWVñ∆&W˜6FÚ&˜6s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢sCS¿¢'FóF∆R#¢$∆&vR÷WÜñ6‚f∆r"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢s#É¿¢'FóF∆R#¢$∆ñ6˜"C23Rs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢SSsí¿¢'FóF∆R#¢$∆˜FW&ñv÷R6WB"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶FV6˜&FñˆÁ2 ¢“¿¢∞¢&óFV‘ñB#¢SsÉÇ¿¢'FóF∆R#¢$ƒıdR'&6V∆WB"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢cSì¿¢'FóF∆R#¢$÷G&R÷W¶6¬VÁ6÷&∆R#÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cSì"¿¢'FóF∆R#¢$÷G&R÷W¶6¬VÁ6÷&∆Rs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢C##R¿¢'FóF∆R#¢$÷W7G&ÚFˆ&V¬Fñ÷ÁFRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C##B¿¢'FóF∆R#¢$÷W7G&ÚFˆ&V¬áV÷óFÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢sìB¿¢'FóF∆R#¢$÷W7G&ÚFˆ&V¬6ñ«fW"#÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C##2¿¢'FóF∆R#¢$÷W7G&ÚFˆ&V¬6ñ«fW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢ccSÇ¿¢'FóF∆R#¢$÷÷6óF“÷WÜñ6‚6ˆˆ∂&ˆˆ≤'íÊG&VˆÁ2"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢ccìR¿¢'FóF∆R#¢$÷6“FV6ÜÊóVW2¬&V6óW2¬ÊB&Vf∆V7FñˆÁ2ˆ‚Fñ÷V∆W727F∆R"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢s3Cb¿¢'FóF∆R#¢$÷FFR÷ˆÁFR÷W¶6¬#íRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢S3ìí¿¢'FóF∆R#¢$÷¶áVFˆ∆¬"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢CÉcB¿¢'FóF∆R#¢$÷WFFRfˆ∆6Êñ27FˆÊR"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢sCSR¿¢'FóF∆R#¢$÷WÜñ6‚v&‚ˆÊ6ÜÚ"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢sb¿¢'FóF∆R#¢$÷WÜñ6‚∂óFR6V66ñÊÚ'&˜v‚V'&ñÊw2"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢S#C2¿¢'FóF∆R#¢$÷WÜñ6Ú“FÜR6ˆˆ∂&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢sC#B¿¢'FóF∆R#¢$÷W¶6¬&VñÊW7Fñ‚CÇRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sCCB¿¢'FóF∆R#¢$÷W¶6¬&VñÊ÷W¶6∆óFvóFÇ∆ñ÷R#÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sC#2¿¢'FóF∆R#¢$÷W¶6¬&VñÊ∆ˆ÷#÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sC#b¿¢'FóF∆R#¢$÷W¶6¬&VñÊFˆ&∆3rRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sC#R¿¢'FóF∆R#¢$÷W¶6¬&VñÊFˆ&6ñ6ÜRCÇRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢C#c¿¢'FóF∆R#¢$÷W¶6¬VÊñˆ‚VÊÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cCcí¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFGW&ÊvÚCÇR“vfRfW&FRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢c3c¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFwVW'&W&ÚCRR“vfR7W&WF“Ê6ÜÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢c3c"¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFˆÜ6C"R“vfRFˆ&∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cCs2¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFˆÜ6CrR“vfR6˜ñ˜FRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cCs"¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFˆÜ6CÇR“vfR÷WÜñ6ÊÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cCsR¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFˆÜ6SR“vfR¶&∆ís÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cCs¿¢'FóF∆R#¢$÷W¶6∆W2FR∆WñVÊFVV&∆CrR“vfRñ6áV÷V¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢SÉ#r¿¢'FóF∆R#¢$÷ñ∆w&óFÚÜÊB÷V÷'&ˆñFW&VB&∆6≤f6V÷6≤"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢SsÉr¿¢'FóF∆R#¢$÷ñÊíg&ñF∂Ü∆Ú'&6V∆WB"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢SSSB¿¢'FóF∆R#¢$÷ñÊí÷WÜñ6‚f∆w2ÉS6≤í"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶FV6˜&FñˆÁ2 ¢“¿¢∞¢&óFV‘ñB#¢C#ìB¿¢'FóF∆R#¢$÷ˆFV∆ÚW7V6ñ¬&VW"3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢s#c¿¢'FóF∆R#¢$÷ˆFV∆ÚÊVw&&VW"3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢SCb¿¢'FóF∆R#¢$÷ˆ∆6¶WFR∆7Fñ2&6“Ñf˜"6«62í"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢SCr¿¢'FóF∆R#¢$÷ˆ∆6¶WFRfˆ∆6Êñ27FˆÊR“#6“"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢SSÉí¿¢'FóF∆R#¢$÷ˆ∆ñÊñ∆∆Ú“÷WÜñ6‚6Üˆ6ˆ∆FR7Fó'&W""¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢cCìR¿¢'FóF∆R#¢$Ê6ñˆÊ¬÷˜&V∆˜2÷W&ñ6‚∆R∆R&VW"3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢cs#¿¢'FóF∆R#¢$Ê6ñˆÊ¬÷˜&V∆˜2Ê6ñˆ‚∆vW"&VW"3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢cSì¿¢'FóF∆R#¢$Ê&ÊÚ&óGFW"˜&ÊvR∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢SsSí¿¢'FóF∆R#¢$ÊóáF6˜&‚∆óVWW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∆óVWW'2 ¢“¿¢∞¢&óFV‘ñB#¢s#sr¿¢'FóF∆R#¢$Êˆ6ÜV«VÊ6˜Fˆ¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß6˜Fˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢ssÇ¿¢'FóF∆R#¢$Ê˜'F\;“6ˆˆ∂&ˆˆ≤f˜"WFÜVÁFñ2÷WÜñ6‚&V6óW2"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢S3#í¿¢'FóF∆R#¢$ˆ6ÜÚ&∆Ê6ÚS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢Sìì"¿¢'FóF∆R#¢$ˆ6ÜÚWáG&ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢S3#Ç¿¢'FóF∆R#¢$ˆ6ÜÚ&W˜6FÚS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢ccsb¿¢'FóF∆R#¢$ˆ¶ÚFRFñ˜2Üñ&ó67W2÷W¶6¬s÷¬3RR'b"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢SS#r¿¢'FóF∆R#¢$ˆ¶ÚFRFñ˜2÷W¶6¬C"Rs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cs¿¢'FóF∆R#¢$ˆ¶ÚFRFñ˜2÷W¶6¬ˆFB6fRs÷¬3RR'b"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢csÇ¿¢'FóF∆R#¢$ˆ¶ÚFRFñ˜2÷W¶6¬G&ó∆R6≤"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢S3#¿¢'FóF∆R#¢$ˆ∆÷V6«F˜2∆Fs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢S3#r¿¢'FóF∆R#¢$ˆ∆÷V6«F˜2&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢c3cr¿¢'FóF∆R#¢%V¬ñ6FÚFíˆbFÜRFVB“6ÜVWG2"¿¢'&V6ˆ‚#¢'FóF∆S¶vñgBˆFV6˜" ¢“¿¢∞¢&óFV‘ñB#¢SÉSí¿¢'FóF∆R#¢%V¬ñ6FÚ∆ÊG66W2ÉCRÇ3R6“í"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶FV6˜&FñˆÁ2 ¢“¿¢∞¢&óFV‘ñB#¢SÉc¿¢'FóF∆R#¢%V¬ñ6FÚ&ˆFVÚÉCRÇ3R6“í"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶FV6˜&FñˆÁ2 ¢“¿¢∞¢&óFV‘ñB#¢cscÇ¿¢'FóF∆R#¢%6˜FRÊV¶ÚCRs6¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢css¿¢'FóF∆R#¢%6˜FR&W˜6FÚCRs6¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢S3#b¿¢'FóF∆R#¢%G&ˆ‚ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢S3#R¿¢'FóF∆R#¢%G&ˆ‚&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢S3#B¿¢'FóF∆R#¢%G&ˆ‚6ñ«fW"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢s#sR¿¢'FóF∆R#¢%G&ˆ‚6ñ«fW"FWVñ∆÷ñÊíS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cìS¿¢'FóF∆R#¢%ñ÷VÁFR7ñ7í÷&v&óFFWVñ∆6ˆ6∑Fñ¬#V÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢sCÉ¿¢'FóF∆R#¢%ñ÷VÁFR7ñ7í÷W¶6¬÷&v&óF#V÷¬"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢sCÉ¿¢'FóF∆R#¢%ñ÷VÁFRFWVñ∆W7&W76Ú÷'FñÊí#V÷¬"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢sCsí¿¢'FóF∆R#¢%ñ÷VÁFRFWVñ∆w&Vg'VóB÷&v&óF#V÷¬"¿¢'&V6ˆ‚#¢'FóF∆S¶∆6ˆÜˆ¬ ¢“¿¢∞¢&óFV‘ñB#¢cìS2¿¢'FóF∆R#¢%ñ÷VÁFRFˆ÷◊í÷&v&óFS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cìCí¿¢'FóF∆R#¢%ñ÷VÁFRFˆ÷◊íw2÷&v&óFFWVñ∆6ˆ6∑Fñ¬#V÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cìCÇ¿¢'FóF∆R#¢%ñ÷VÁFRFˆ÷◊ó27ñ7í÷&v&óFS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢S3É"¿¢'FóF∆R#¢%ñÊFÜÊF÷FRfˆ∆F&∆R"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶FV6˜&FñˆÁ2 ¢“¿¢∞¢&óFV‘ñB#¢S3r¿¢'FóF∆R#¢%∆7Fñ2÷ñÊí÷ˆ∆6¶WFR„V6“Ñf˜"7ñ6W2í"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢cììb¿¢'FóF∆R#¢%&V÷óV“∆V÷ˆ‚7VVW¶W""¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢cÉcR¿¢'FóF∆R#¢%&V¬÷WÜñ6‚fˆˆB&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢sCsr¿¢'FóF∆R#¢%&Wí6◊W&Ú÷W¶6¬V6áVvs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sCsR¿¢'FóF∆R#¢%&Wí6◊W&Ú÷W¶6¬6ñW'&ÊVw&s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sCsÇ¿¢'FóF∆R#¢%&Wí6◊W&Ú÷W¶6¬FWWáFFRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sCsb¿¢'FóF∆R#¢%&Wí6◊W&Ú÷W¶6¬Fˆ&∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢ccB¿¢'FóF∆R#¢%&ˆ˜7FW"&ˆ¶ÚÊV¶ÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cc2¿¢'FóF∆R#¢%&ˆ˜7FW"&ˆ¶Ú&∆Ê6ÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cìcr¿¢'FóF∆R#¢%&ˆ˜7FW"&ˆ¶Ú&W˜6FÚ6÷ˆ∂RñÊV∆RFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢cc"¿¢'FóF∆R#¢%&ˆ˜7FW"&ˆ¶Ú&W˜6FÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SsÉR¿¢'FóF∆R#¢%&˜6V'&ñÊw2"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢SCÉ¿¢'FóF∆R#¢%6«fF˜"¶ñ÷VÊW¢b÷&ñ6Üí÷WáFV6"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢cB¿¢'FóF∆R#¢%6‚6˜6÷R÷W¶6¬s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢cÉS"¿¢'FóF∆R#¢%4ÑÑÇ÷W¶6¬CrRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶÷W¶6¬ ¢“¿¢∞¢&óFV‘ñB#¢sÇ¿¢'FóF∆R#¢%4Ñî‰R'&6V∆WB"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢sC3¿¢'FóF∆R#¢%6÷∆¬&VW"÷WÜñ6‚∆vW""„RR"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢ssr¿¢'FóF∆R#¢%6ˆ'&V÷W6&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢cÉr¿¢'FóF∆R#¢%6ˆ¬F&66Ú¬$ÜˆÊv˜5¬"ÊV¶Ú'V“CRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢cÉR¿¢'FóF∆R#¢%6ˆ¬F&66ÚBñV"6Ü&ÊFÊV¶Ú'V“CRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢cÉb¿¢'FóF∆R#¢%6ˆ¬F&66ÚÇñV"6Ü&ÊFÊV¶Ú'V“C"Rs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢SÉ"¿¢'FóF∆R#¢%6˜Fˆ¬6˜Fˆ÷ñ˜"WÜ6W6ñˆÊ¬VÁ6÷&∆RsS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß7ó&óG2 ¢“¿¢∞¢&óFV‘ñB#¢Ssì¿¢'FóF∆R#¢%7F"ÊB6ÜW''íV'G¢'&6V∆WB"¿¢'&V6ˆ‚#¢&FW'F÷VÁC¶f6Üñˆ‚÷7&gB÷vñgG2 ¢“¿¢∞¢&óFV‘ñB#¢sC2¿¢'FóF∆R#¢%5RFWVñ∆&∆Ê6ÚCRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢sCB¿¢'FóF∆R#¢%5RFWVñ∆&W˜6FÚCRs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢sC"¿¢'FóF∆R#¢%7Vv"6∑V∆¬6∆fW&óF2ñ6“"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶FV6˜&FñˆÁ2 ¢“¿¢∞¢&óFV‘ñB#¢s#ì¿¢'FóF∆R#¢%F6˜2'í∆ñ«í&÷ó&W¢‘g&ˆ‚"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢SC#B¿¢'FóF∆R#¢%F6˜2"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢sìÇ¿¢'FóF∆R#¢%F÷¬7FV÷W"6ˆˆ∂ñÊr˜B«V÷ñÊóV“#«B"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢S3#"¿¢'FóF∆R#¢%FFñÚÊV¶ÚS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢S3#¿¢'FóF∆R#¢%FFñÚ&∆Ê6ÚS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢S3b¿¢'FóF∆R#¢%FFñÚ&W˜6FÚS÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢SsC¿¢'FóF∆R#¢%FV6FR∆vW"&VW"3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢C#S¿¢'FóF∆R#¢%FWVñ∆6VÁFñÊV∆ÊV¶Ú7ó"s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C#S¿¢'FóF∆R#¢%FWVñ∆6VÁFñÊV∆ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C#S"¿¢'FóF∆R#¢%FWVñ∆6VÁFñÊV∆&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C#S2¿¢'FóF∆R#¢%FWVñ∆6VÁFñÊV∆&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cÉcÇ¿¢'FóF∆R#¢%FWVñ∆6ˆ6∑Fñ«2&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢cì#b¿¢'FóF∆R#¢%FWVñ∆FñW'&Êˆ&∆RÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶ÊV¶Ú ¢“¿¢∞¢&óFV‘ñB#¢cì#r¿¢'FóF∆R#¢%FWVñ∆FñW'&Êˆ&∆R&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢cì#Ç¿¢'FóF∆R#¢%FWVñ∆FñW'&Êˆ&∆R&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢C#"¿¢'FóF∆R#¢%FW'&«F&∆Ê6ÚsS÷¬CR"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢C#2¿¢'FóF∆R#¢%FW'&«F&W˜6FÚsS÷¬CR"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cC3¿¢'FóF∆R#¢%FÜR∆Fñ‚÷W&ñ6‚6ˆˆ∂&ˆˆ≤"¿¢'&V6ˆ‚#¢'FóF∆S¶&ˆˆ≤ ¢“¿¢∞¢&óFV‘ñB#¢cì3"¿¢'FóF∆R#¢%Fñ6Ú&∆Ê6ÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&∆Ê6Ú ¢“¿¢∞¢&óFV‘ñB#¢cì32¿¢'FóF∆R#¢%Fñ6Ú&W˜6FÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cì3B¿¢'FóF∆R#¢%Fñ6Ú&˜6FWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢csCr¿¢'FóF∆R#¢%F˜'&RFRñ6˜2&W˜6FÚFWVñ∆3sV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢csCí¿¢'FóF∆R#¢%F˜'&RFRñ6˜2&W˜6FÚFWVñ∆s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢SScb¿¢'FóF∆R#¢%F˜'Fñ∆∆÷∂ñÊr∂óC¢F˜'Fñ∆∆&W72¬∂rÊGW&V∆ÚbF˜'Fñ∆∆v&÷W""¿¢'&V6ˆ‚#¢'FóF∆S¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢SCsB¿¢'FóF∆R#¢%F˜'Fñ∆∆v&÷W"∆“7Gñ∆R"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢Ss"¿¢'FóF∆R#¢%F˜'Fñ∆∆v&÷W"WwFW"&∆6≤Ü6“"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢Ss¿¢'FóF∆R#¢%F˜'Fñ∆∆v&÷W"WwFW"&«VRÜ6“"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢Ss¿¢'FóF∆R#¢%F˜'Fñ∆∆v&÷W"WwFW"&VBÜ6“"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢CìS"¿¢'FóF∆R#¢%GR66÷í66&ˆˆ≤"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶6ˆˆ∂&ˆˆ∑2 ¢“¿¢∞¢&óFV‘ñB#¢cÉ2¿¢'FóF∆R#¢%W'V‚W&Rw&ñ6ˆ∆6Ü&ÊF&∆Ê6Ú'V“s÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß'V“ ¢“¿¢∞¢&óFV‘ñB#¢cS¿¢'FóF∆R#¢%fñ7F˜&ñ&VW"3SV÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶&VW" ¢“¿¢∞¢&óFV‘ñB#¢Sìí¿¢'FóF∆R#¢%fóG&ˆ∆W&Ú"¿¢'&V6ˆ‚#¢&6FVv˜'ì¶∂óF6ÜVÁv&R ¢“¿¢∞¢&óFV‘ñB#¢c3R¿¢'FóF∆R#¢%fófó"FWVñ∆ÊV¶Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢c3B¿¢'FóF∆R#¢%fófó"FWVñ∆&∆Ê6Ús÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìßFWVñ∆ ¢“¿¢∞¢&óFV‘ñB#¢cc¿¢'FóF∆R#¢%fófó"FWVñ∆&W˜6FÚs÷¬"¿¢'&V6ˆ‚#¢&6FVv˜'ìß&W˜6FÚ ¢“¿¢∞¢&óFV‘ñB#¢cììB¿¢'FóF∆R#¢%¶˜FRñÊ≤6ˆ#r"¿¢'&V6ˆ‚#¢'FóF∆SßVÁ&V∆FVB&WFñ¬ ¢–•”∞†¶Wá˜'B6ˆÁ7B÷WÜw&ˆ6W$6F∆ˆwVU7FG2“∞¢&s¢scr¿¢∂WC¢CÉ¿¢WÜ6«VFVC¢#Éb¿ß“26ˆÁ7C∞†¶Wá˜'BFVfV«B÷WÜw&ˆ6W$6F∆ˆwVS∞†

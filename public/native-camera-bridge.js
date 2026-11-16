@@ -221,7 +221,7 @@
       return true;
     } catch (error) {
       if (isCancellation(error)) return true;
-      console.error("Kitchen Insights native camera error", error);
+      console.error("Kommee native camera error", error);
       return false;
     } finally {
       openingNativeCamera = false;
@@ -282,7 +282,7 @@
   // Intercepting it in a capture-phase document listener could open a different
   // file picker (or lose the Android user gesture) before React ran.
   // Expose the native Capacitor camera as an explicit, opt-in bridge instead.
-  window.KitchenInsightsCamera = {
+  window.KommeeCamera = {
     isAvailable: () => Boolean(getNativeCamera()),
     takePhoto: () => takeNativeInvoicePhoto(),
   };

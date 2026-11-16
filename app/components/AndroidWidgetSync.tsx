@@ -14,14 +14,14 @@ type WidgetPlugin = {
 type CapacitorWindow = Window & {
   Capacitor?: {
     Plugins?: {
-      KitchenInsightsWidget?: WidgetPlugin;
+      KommeeWidget?: WidgetPlugin;
     };
   };
 };
 
-function isKitchenInsightsAndroid() {
+function isKommeeAndroid() {
   if (typeof window === "undefined") return false;
-  return /KitchenInsightsAndroid|; wv\)/i.test(navigator.userAgent) && /Android/i.test(navigator.userAgent);
+  return /KommeeAndroid|; wv\)/i.test(navigator.userAgent) && /Android/i.test(navigator.userAgent);
 }
 
 function formatWidgetCurrency(value: number | null | undefined, mexicanPesos: boolean) {
@@ -43,13 +43,13 @@ export default function AndroidWidgetSync() {
   const { activeWorkspace } = useWorkspace();
 
   useEffect(() => {
-    if (!isKitchenInsightsAndroid() || !activeWorkspace) return;
+    if (!isKommeeAndroid() || !activeWorkspace) return;
 
     const workspace = activeWorkspace;
     let cancelled = false;
 
     async function sync() {
-      const plugin = (window as CapacitorWindow).Capacitor?.Plugins?.KitchenInsightsWidget;
+      const plugin = (window as CapacitorWindow).Capacitor?.Plugins?.KommeeWidget;
       if (!plugin?.update) return;
 
       try {

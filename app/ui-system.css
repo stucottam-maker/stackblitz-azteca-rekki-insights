@@ -520,7 +520,7 @@ table td {
   }
 }
 
-/* Kitchen Insights V2: operational mobile home, real data and direct workflows. */
+/* Kommee: operational mobile home, real data and direct workflows. */
 @media (max-width: 640px) {
   .ki-v2-mobile { padding: 4px 3px 30px; color: #17283b; }
   .ki-v2-intro { margin: 7px 3px 20px; }
