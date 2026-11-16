@@ -68,7 +68,7 @@ jobs:
           config_path = Path("capacitor.config.json")
           config = json.loads(config_path.read_text())
           config["server"]["url"] = url
-          config_path.write_text(json.dumps(config, indent=2) + "\\n")
+          config_path.write_text(json.dumps(config, indent=2) + chr(10))
           print("Using isolated Vercel preview origin for Android test build")
           PY
 
