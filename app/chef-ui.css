@@ -7,10 +7,10 @@
   --text-soft: #667085;
   --text-light: #8a96a8;
 
-  /* Keep the old variable names so every legacy screen picks up the new blue system. */
-  --green: #2563eb;
-  --green-dark: #172554;
-  --green-soft: #e8f0ff;
+  /* Keep the old variable names so every legacy screen picks up the Kommee palette. */
+  --green: #315C46;
+  --green-dark: #214534;
+  --green-soft: #E5F0E8;
   --orange: #c96832;
   --orange-soft: #fff0e7;
 
@@ -19,15 +19,15 @@
 }
 
 body { background: var(--background); }
-.sidebar { background: linear-gradient(180deg, #172554 0%, #1e3a8a 100%); }
-.brand-mark { background: #2563eb; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); }
-.nav-link-active { background: rgba(96,165,250,.22); }
-.primary-button { background: #2563eb; min-height: 46px; border-radius: 11px; font-weight: 800; }
-.primary-button:hover { background: #1d4ed8; }
-.secondary-inline-button { min-height: 42px; border-color: #d4ddea; background: #f8fafc; color: #1d4ed8; font-weight: 750; }
-.text-button { color: #1d4ed8; }
+.sidebar { background: linear-gradient(180deg, #214534 0%, #294F3B 100%); }
+.brand-mark { background: #315C46; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); }
+.nav-link-active { background: rgba(169,201,180,.22); }
+.primary-button { background: #315C46; min-height: 46px; border-radius: 11px; font-weight: 800; }
+.primary-button:hover { background: #214534; }
+.secondary-inline-button { min-height: 42px; border-color: #d4ddea; background: #f8fafc; color: #214534; font-weight: 750; }
+.text-button { color: #214534; }
 .panel, .stat-card { border-color: #dde5f0; box-shadow: 0 1px 3px rgba(23,32,51,.04); }
-input:focus, select:focus, textarea:focus { border-color: #60a5fa !important; box-shadow: 0 0 0 3px rgba(59,130,246,.13) !important; outline: 0; }
+input:focus, select:focus, textarea:focus { border-color: #F08C72 !important; box-shadow: 0 0 0 3px rgba(49,92,70,.13) !important; outline: 0; }
 
 /* Remove legacy pages that render a second app frame inside the global AppFrame. */
 .main-content-root > .app-shell { display: block; min-height: 0; }
@@ -76,9 +76,9 @@ input:focus, select:focus, textarea:focus { border-color: #60a5fa !important; bo
 .chef-order-search input { width:100%; min-height:48px; margin-bottom:12px; padding:0 14px; border:1px solid var(--border); border-radius:12px; background:#fff; }
 .chef-product-list { display:flex; flex-direction:column; }
 .chef-product-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:20px; padding:17px 20px; border-bottom:1px solid var(--border); }
-.chef-product-row-active { background:#eef5ff; }
+.chef-product-row-active { background:#EAF2E6; }
 .chef-product-row small { display:block; margin-top:6px; color:var(--text-soft); font-size:11px; }
-.quick-order-quantity button { width:44px !important; height:44px !important; border-radius:11px !important; color:#1d4ed8 !important; font-weight:800; }
+.quick-order-quantity button { width:44px !important; height:44px !important; border-radius:11px !important; color:#214534 !important; font-weight:800; }
 .quick-order-quantity input { width:82px !important; height:44px !important; font-size:16px; }
 .chef-order-review { max-width:900px; }
 .chef-review-order-lines > div { display:grid; grid-template-columns:minmax(0,1fr) 120px 120px; gap:18px; padding:14px 0; border-bottom:1px solid var(--border); }
@@ -106,7 +106,7 @@ input:focus, select:focus, textarea:focus { border-color: #60a5fa !important; bo
 .chef-stock-row input { min-height:46px; width:100%; border:1px solid var(--border); border-radius:10px; padding:0 10px; font-size:17px; font-weight:800; }
 .chef-stock-tabs { display:flex; gap:8px; margin-bottom:16px; overflow-x:auto; }
 .chef-stock-tab { min-height:42px; padding:0 14px; border:1px solid var(--border); border-radius:10px; background:#fff; color:var(--text-soft); font-weight:750; white-space:nowrap; }
-.chef-stock-tab.active { background:#e8f0ff; border-color:#93b4f8; color:#1d4ed8; }
+.chef-stock-tab.active { background:#E5F0E8; border-color:#93b4f8; color:#214534; }
 
 /* Sales/COGS */
 .sales-source-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }

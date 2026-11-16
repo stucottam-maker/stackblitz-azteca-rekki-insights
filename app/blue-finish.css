@@ -1,4 +1,4 @@
-/* Canonical blue chef-first theme. Keep this stylesheet loaded last. */
+/* Canonical Kommee chef-first theme. Keep this stylesheet loaded last. */
 
 :root {
   --background: #f4f7fb;
@@ -8,77 +8,77 @@
   --text: #172033;
   --text-soft: #667085;
   --text-light: #8a96a8;
-  /* Legacy variable names are retained for compatibility, but now point to blue. */
-  --green: #2563eb;
-  --green-dark: #172554;
-  --green-soft: #e8f0ff;
+  /* Legacy variable names are retained for compatibility, but now point to Kommee green. */
+  --green: #315C46;
+  --green-dark: #214534;
+  --green-soft: #E5F0E8;
 }
 
 html, body { background: var(--background); }
 
-::selection { background: #dbeafe; color: #172554; }
+::selection { background: #E5F0E8; color: #214534; }
 
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, .22) !important;
+  outline: 3px solid rgba(49, 92, 70, .22) !important;
   outline-offset: 2px;
 }
 
 /* Loading and splash states */
 .workspace-loading-screen,
 .auth-loading-screen {
-  background: linear-gradient(150deg, #172554 0%, #0f2f68 55%, #0b1d45 100%) !important;
+  background: linear-gradient(150deg, #214534 0%, #294F3B 55%, #173A2D 100%) !important;
 }
 .workspace-loading-screen .brand-mark,
 .auth-loading-mark {
-  background: #2563eb !important;
+  background: #315C46 !important;
   color: #fff !important;
   box-shadow: 0 14px 34px rgba(3, 12, 38, .28) !important;
 }
 
 /* Orders: remove leftover green presentation. Success statuses may remain green semantically. */
 .quick-order-page .quick-order-line-active {
-  background: #eef5ff !important;
-  box-shadow: inset 3px 0 0 #2563eb !important;
+  background: #EAF2E6 !important;
+  box-shadow: inset 3px 0 0 #315C46 !important;
 }
 .quick-order-page .purchasing-tabs .purchasing-tab-active,
 .quick-order-page .purchasing-tab-active {
-  color: #1d4ed8 !important;
+  color: #214534 !important;
   background: #fff !important;
 }
 .quick-order-page .quick-suggestion,
 .quick-order-page .regular-order-row > strong:last-child {
-  color: #1d4ed8 !important;
-  background: #e8f0ff !important;
+  color: #214534 !important;
+  background: #E5F0E8 !important;
 }
 .quick-order-page .quick-order-quantity button,
 .quick-order-page .quick-order-back,
 .quick-order-page .supplier-choice-arrow,
 .quick-order-page .order-review-recipient strong {
-  color: #1d4ed8 !important;
+  color: #214534 !important;
 }
 .quick-order-page .quick-order-footer {
-  border-color: rgba(37, 99, 235, .16) !important;
-  box-shadow: 0 12px 34px rgba(23, 37, 84, .14) !important;
+  border-color: rgba(49, 92, 70, .16) !important;
+  box-shadow: 0 12px 34px rgba(36, 53, 45, .14) !important;
 }
 .quick-order-page .quick-order-sku {
-  color: #1d4ed8 !important;
-  background: #eff6ff !important;
+  color: #214534 !important;
+  background: #F7F5ED !important;
 }
 
-/* Reports: blue is the neutral data colour. Green/red are reserved for good/bad movement. */
-.report-bar-track span { background: linear-gradient(90deg, #2563eb, #60a5fa) !important; }
-.report-chart-line { stroke: #2563eb !important; }
-.report-chart-dot { stroke: #2563eb !important; }
+/* Reports: forest green is the neutral data colour. */
+.report-bar-track span { background: linear-gradient(90deg, #315C46, #F08C72) !important; }
+.report-chart-line { stroke: #315C46 !important; }
+.report-chart-dot { stroke: #315C46 !important; }
 .report-chart-heading button,
 .report-text-button,
 .report-text-link,
 .report-period-arrow,
-.report-empty-icon { color: #1d4ed8 !important; }
-.report-formula-result-clean { border-color: #2563eb !important; }
+.report-empty-icon { color: #214534 !important; }
+.report-formula-result-clean { border-color: #315C46 !important; }
 
 /* Team management */
 .team-management-card { margin-top: 18px; }
@@ -120,7 +120,7 @@ textarea:focus-visible {
   /* Five obvious chef actions instead of an 11-item horizontal strip. */
   body > .app-shell > .sidebar {
     overflow: visible !important;
-    box-shadow: 0 7px 24px rgba(23, 37, 84, .2) !important;
+    box-shadow: 0 7px 24px rgba(36, 53, 45, .2) !important;
   }
 
   body > .app-shell > .sidebar .sidebar-nav {
@@ -165,7 +165,7 @@ textarea:focus-visible {
   body > .app-shell > .sidebar .nav-link-active,
   body > .app-shell > .sidebar .mobile-more-toggle.active {
     color: #fff !important;
-    background: rgba(96,165,250,.24) !important;
+    background: rgba(169,201,180,.24) !important;
     box-shadow: inset 0 0 0 1px rgba(147,197,253,.18);
   }
 
@@ -204,7 +204,7 @@ textarea:focus-visible {
     text-decoration: none;
   }
 
-  .mobile-more-menu a.active { color: #1d4ed8; background: #e8f0ff; }
+  .mobile-more-menu a.active { color: #214534; background: #E5F0E8; }
   .mobile-more-menu .mobile-more-danger { color: #9f3a36; background: #fef2f2; }
 
   .team-form-grid { grid-template-columns: 1fr !important; }
@@ -214,12 +214,12 @@ textarea:focus-visible {
 
   .receive-order-row { grid-template-columns: 1fr !important; gap: 9px !important; }
   .receive-order-row input { width: 100% !important; }
-  .receive-order-actions { position: sticky; bottom: 8px; align-items: stretch; flex-direction: column; padding: 10px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(23,37,84,.14); }
+  .receive-order-actions { position: sticky; bottom: 8px; align-items: stretch; flex-direction: column; padding: 10px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(36,53,45,.14); }
   .receive-order-actions button { width: 100%; }
 }
 
 /* =========================================================
-   BLUE THEME LOCK
+   KOMMEE THEME LOCK
    This is deliberately broad and lives at the very end of the
    global cascade so old green rules cannot reappear on routes.
    ========================================================= */
@@ -234,24 +234,24 @@ textarea:focus-visible {
   --text: #172033 !important;
   --text-soft: #667085 !important;
   --text-light: #8a96a8 !important;
-  --green: #2563eb !important;
-  --green-dark: #172554 !important;
-  --green-soft: #e8f0ff !important;
+  --green: #315C46 !important;
+  --green-dark: #214534 !important;
+  --green-soft: #E5F0E8 !important;
 }
 
 body > .app-shell > .sidebar,
 .app-shell-root > .chef-sidebar,
 .metro-app-shell .chef-sidebar,
 .sidebar.chef-sidebar {
-  background: linear-gradient(180deg, #172554 0%, #1e3a8a 100%) !important;
-  box-shadow: 1px 0 0 rgba(255,255,255,.05), 0 8px 28px rgba(23,37,84,.16) !important;
+  background: linear-gradient(180deg, #214534 0%, #294F3B 100%) !important;
+  box-shadow: 1px 0 0 rgba(255,255,255,.05), 0 8px 28px rgba(36,53,45,.16) !important;
 }
 
 body > .app-shell > .sidebar .brand-mark,
 .app-shell-root .brand-mark,
 .metro-app-shell .brand-mark,
 .brand-mark {
-  background: #2563eb !important;
+  background: #315C46 !important;
   color: #fff !important;
 }
 
@@ -259,16 +259,16 @@ body > .app-shell > .sidebar .nav-link-active,
 .app-shell-root .nav-link-active,
 .metro-app-shell .nav-link-active {
   color: #fff !important;
-  background: rgba(96,165,250,.22) !important;
-  box-shadow: inset 3px 0 0 #60a5fa !important;
+  background: rgba(169,201,180,.22) !important;
+  box-shadow: inset 3px 0 0 #F08C72 !important;
 }
 
 @media (max-width: 640px) {
   body > .app-shell > .sidebar .nav-link.mobile-primary.nav-link-active,
   .app-shell-root .nav-link.mobile-primary.nav-link-active,
   .metro-app-shell .nav-link.mobile-primary.nav-link-active {
-    background: rgba(37,99,235,.20) !important;
-    box-shadow: inset 0 -3px 0 #60a5fa !important;
+    background: rgba(169,201,180,.20) !important;
+    box-shadow: inset 0 -3px 0 #F08C72 !important;
   }
 }
 
@@ -277,8 +277,8 @@ button.primary-button,
 a.primary-button,
 .quick-review-button,
 .receive-order-actions .primary-button {
-  border-color: #2563eb !important;
-  background: #2563eb !important;
+  border-color: #315C46 !important;
+  background: #315C46 !important;
   color: #fff !important;
 }
 
@@ -286,8 +286,8 @@ a.primary-button,
 button.primary-button:hover,
 a.primary-button:hover,
 .quick-review-button:hover {
-  background: #1d4ed8 !important;
-  border-color: #1d4ed8 !important;
+  background: #214534 !important;
+  border-color: #214534 !important;
   color: #fff !important;
 }
 
@@ -297,34 +297,34 @@ a.primary-button:hover,
 .invoice-detail-link,
 .quick-order-back,
 .supplier-choice-arrow {
-  color: #1d4ed8 !important;
+  color: #214534 !important;
 }
 
 .stock-tab-active,
 .chef-stock-tabs .stock-tab-active,
 .purchasing-tab-active,
 .reports-tab-clean-active {
-  color: #1d4ed8 !important;
+  color: #214534 !important;
 }
 
 .chef-stock-row-counted {
-  border-color: #bfdbfe !important;
+  border-color: #DCE6DC !important;
   background: #f8fbff !important;
-  box-shadow: inset 3px 0 0 #2563eb !important;
+  box-shadow: inset 3px 0 0 #315C46 !important;
 }
 
 .quick-order-line-active {
-  border-color: #bfdbfe !important;
-  background: #eef5ff !important;
-  box-shadow: inset 3px 0 0 #2563eb !important;
+  border-color: #DCE6DC !important;
+  background: #EAF2E6 !important;
+  box-shadow: inset 3px 0 0 #315C46 !important;
 }
 
 .notice:not(.error),
 .pwa-installed-note,
 .team-permission-note {
-  border-color: #bfdbfe !important;
-  background: #eff6ff !important;
-  color: #1e40af !important;
+  border-color: #DCE6DC !important;
+  background: #F7F5ED !important;
+  color: #315C46 !important;
 }
 
 input:focus,
@@ -332,6 +332,6 @@ select:focus,
 textarea:focus,
 .ingredient-search input:focus,
 .supplier-search input:focus {
-  border-color: #60a5fa !important;
-  box-shadow: 0 0 0 3px rgba(37,99,235,.14) !important;
+  border-color: #F08C72 !important;
+  box-shadow: 0 0 0 3px rgba(49,92,70,.14) !important;
 }

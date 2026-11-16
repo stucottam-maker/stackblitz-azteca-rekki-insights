@@ -38,9 +38,9 @@
   gap: 10px;
   padding: 32px;
   background:
-    radial-gradient(circle at 18% 12%, rgba(96, 165, 250, .18), transparent 32%),
-    radial-gradient(circle at 82% 88%, rgba(37, 99, 235, .16), transparent 34%),
-    linear-gradient(150deg, #172554 0%, #0f2f68 52%, #0b1d45 100%);
+    radial-gradient(circle at 18% 12%, rgba(169, 201, 180, .18), transparent 32%),
+    radial-gradient(circle at 82% 88%, rgba(240, 140, 114, .16), transparent 34%),
+    linear-gradient(150deg, #214534 0%, #294F3B 52%, #173A2D 100%);
   color: #fff;
   text-align: center;
 }
@@ -53,7 +53,7 @@
   margin-bottom: 8px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, .18);
-  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  background: linear-gradient(145deg, #4E866B, #315C46);
   color: #fff;
   font-size: 25px;
   font-weight: 800;

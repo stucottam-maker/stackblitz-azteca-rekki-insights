@@ -1,4 +1,4 @@
-const CACHE_NAME = "kitchen-insights-static-v2";
+const CACHE_NAME = "kommee-static-v1";
 const OFFLINE_URL = "/offline.html";
 const STATIC_BOOTSTRAP = [OFFLINE_URL, "/kommee-icon.svg"];
 
@@ -17,7 +17,11 @@ self.addEventListener("activate", (event) => {
         .then((keys) =>
           Promise.all(
             keys
-              .filter((key) => key.startsWith("kitchen-insights-") && key !== CACHE_NAME)
+              .filter(
+                (key) =>
+                  (key.startsWith("kitchen-insights-") || key.startsWith("kommee-")) &&
+                  key !== CACHE_NAME
+              )
               .map((key) => caches.delete(key))
           )
         ),

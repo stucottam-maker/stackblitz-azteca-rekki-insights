@@ -19,12 +19,12 @@
   --ki-radius-sm: 12px;
   --ki-radius-md: 16px;
   --ki-radius-lg: 20px;
-  --ki-focus: 0 0 0 3px rgba(111,157,196,.22);
+  --ki-focus: 0 0 0 3px rgba(49,92,70,.22);
   --shadow-sm: 0 2px 10px rgba(38,55,70,.035);
   --shadow-md: 0 10px 28px rgba(38,55,70,.055);
 }
 body { background: var(--background); color: var(--text); }
-.sidebar { background: #34465a; }
+.sidebar { background: #214534; }
 .nav-link-active { background: rgba(167,204,195,.2); }
 .nav-link:hover { background: rgba(255,255,255,.1); }
 .panel, .stat-card, .metro-table-panel, .metro-desktop-kpi,
@@ -42,7 +42,7 @@ input:not([type="checkbox"]):not([type="radio"]), select, textarea {
 }
 button, input, select, textarea { transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease; }
 :where(button, a, input, select, textarea):focus-visible {
-  outline: 2px solid #6f9dc4;
+  outline: 2px solid #315c46;
   outline-offset: 2px;
 }
 :where(.panel, .stat-card, .metro-table-panel, .metro-desktop-kpi) {
@@ -72,7 +72,7 @@ body > .app-shell > .sidebar,
 .app-shell-root > .chef-sidebar,
 .metro-app-shell .chef-sidebar,
 .sidebar.chef-sidebar {
-  background: linear-gradient(180deg, #34465a 0%, #40566b 100%) !important;
+  background: linear-gradient(180deg, #214534 0%, #294f3b 100%) !important;
   box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 10px 28px rgba(38,55,70,.12) !important;
 }
 
@@ -80,7 +80,7 @@ body > .app-shell > .sidebar .brand-mark,
 .app-shell-root .brand-mark,
 .metro-app-shell .brand-mark,
 .brand-mark {
-  background: #6f9dc4 !important;
+  background: #315c46 !important;
   color: #fff !important;
 }
 
@@ -137,10 +137,10 @@ a.primary-button:hover {
   color: rgba(255,255,255,.34);
 }
 
-.metro-kpi-royal { background: linear-gradient(145deg, #526f8b, #6f9dc4); }
-.metro-kpi-blue { background: linear-gradient(145deg, #4f7f7a, #6fa69a); }
-.metro-kpi-navy { background: linear-gradient(145deg, #43556a, #61798e); }
-.metro-kpi-cobalt { background: linear-gradient(145deg, #7a6f8c, #988caa); }
+.metro-kpi-royal { background: linear-gradient(145deg, #214534, #315c46); }
+.metro-kpi-blue { background: linear-gradient(145deg, #467968, #6da28a); }
+.metro-kpi-navy { background: linear-gradient(145deg, #294f3b, #426454); }
+.metro-kpi-cobalt { background: linear-gradient(145deg, #bc735f, #f08c72); }
 
 .metro-home-heading p {
   color: #b77a4d;
@@ -176,14 +176,14 @@ a.primary-button:hover {
   background: rgba(255,255,255,.15);
 }
 
-.metro-action-royal { background: linear-gradient(145deg, #526f8b, #6f9dc4); }
-.metro-action-blue { background: linear-gradient(145deg, #527f91, #6fa3b2); }
+.metro-action-royal { background: linear-gradient(145deg, #214534, #315c46); }
+.metro-action-blue { background: linear-gradient(145deg, #467968, #6da28a); }
 .metro-action-cyan { background: linear-gradient(145deg, #4f827c, #6ca99d); }
-.metro-action-violet { background: linear-gradient(145deg, #706889, #9188a6); }
+.metro-action-violet { background: linear-gradient(145deg, #bc735f, #f08c72); }
 .metro-action-teal { background: linear-gradient(145deg, #4c796d, #67a08d); }
 .metro-action-orange { background: linear-gradient(145deg, #aa6b49, #c98760); }
-.metro-action-navy { background: linear-gradient(145deg, #43556a, #61798e); }
-.metro-action-royal-wide { background: linear-gradient(145deg, #486b78, #628f96); }
+.metro-action-navy { background: linear-gradient(145deg, #294f3b, #426454); }
+.metro-action-royal-wide { background: linear-gradient(145deg, #214534, #315c46); }
 
 .metro-table-panel,
 .metro-desktop-kpi {

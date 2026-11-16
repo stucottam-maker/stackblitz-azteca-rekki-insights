@@ -219,7 +219,7 @@ export default function InvoicesPage() {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `kitchen-insights-ap-${new Date().toISOString().slice(0, 10)}.csv`;
+    anchor.download = `kommee-ap-${new Date().toISOString().slice(0, 10)}.csv`;
     anchor.click();
     URL.revokeObjectURL(url);
   }

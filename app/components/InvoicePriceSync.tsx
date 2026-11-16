@@ -223,7 +223,7 @@ export default function InvoicePriceSync() {
 
         if (typeof window !== "undefined") {
           window.dispatchEvent(
-            new CustomEvent("kitchen-insights:ingredient-prices-synced")
+            new CustomEvent("kommee:ingredient-prices-synced")
           );
 
           // A recipe editor may already have loaded the old price snapshot.
@@ -248,12 +248,12 @@ export default function InvoicePriceSync() {
     });
 
     const resync = () => void syncPrices();
-    window.addEventListener("kitchen-insights:ingredient-mappings-updated", resync);
+    window.addEventListener("kommee:ingredient-mappings-updated", resync);
 
     return () => {
       cancelled = true;
       authListener.subscription.unsubscribe();
-      window.removeEventListener("kitchen-insights:ingredient-mappings-updated", resync);
+      window.removeEventListener("kommee:ingredient-mappings-updated", resync);
     };
   }, [recipes]);
 
