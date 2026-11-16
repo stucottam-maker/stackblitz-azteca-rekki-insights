@@ -73,8 +73,7 @@ function readCurrentHostname() {
 function readHostnameHint(): WorkspaceHostnameHint | null {
   if (typeof window === "undefined") return null;
 
-  const hostname = readCurrentHostname();
-  // Kommee is a multi-restaurant platform: never force a test restaurant by hostname.
+  // No workspace is imposed by the shared Kommee hostname.
   return null;
 }
 
