@@ -11,7 +11,7 @@
 }
 body { background:#F7F5ED !important; color:#24352D; }
 .sidebar.chef-sidebar,.metro-app-shell .chef-sidebar,.app-shell-root>.chef-sidebar {
- background:linear-gradient(170deg,#214534,#315C46) !important;
+ background:linear-gradient(165deg,#315C46,#467968) !important;
  color:#fffdf8 !important;
 }
 .sidebar .brand-mark,.app-shell-root .brand-mark,.metro-app-shell .brand-mark {
@@ -19,11 +19,45 @@ body { background:#F7F5ED !important; color:#24352D; }
 }
 .sidebar .brand-name {font-weight:850;letter-spacing:-.045em;font-size:clamp(21px,2vw,27px);}
 .sidebar .brand-subtitle {color:#d3e5d7 !important;}
-.sidebar .nav-link {border-radius:13px !important;}
-.sidebar .nav-link-active,.app-shell-root .nav-link-active,.metro-app-shell .nav-link-active {
- background:rgba(169,201,180,.25) !important;
- box-shadow:inset 3px 0 0 #F08C72 !important;
+.app-shell-root .sidebar.chef-sidebar .nav-link,
+.metro-app-shell .sidebar.chef-sidebar .nav-link,
+body .sidebar.chef-sidebar .nav-link {
+ border-radius:13px !important;
+ color:#dce9df !important;
 }
+.app-shell-root .sidebar.chef-sidebar .nav-link .nav-icon,
+.metro-app-shell .sidebar.chef-sidebar .nav-link .nav-icon,
+body .sidebar.chef-sidebar .nav-link .nav-icon {color:#c4d9c9 !important;}
+.app-shell-root .sidebar.chef-sidebar .nav-link:hover,
+.metro-app-shell .sidebar.chef-sidebar .nav-link:hover,
+body .sidebar.chef-sidebar .nav-link:hover {background:rgba(255,253,248,.11) !important;color:#fffdf8 !important;}
+.sidebar .nav-link-active,.app-shell-root .nav-link-active,.metro-app-shell .nav-link-active {
+ background:rgba(255,253,248,.16) !important;
+ box-shadow:inset 3px 0 0 #F08C72 !important;
+ color:#fffdf8 !important;
+}
+.app-shell-root .sidebar.chef-sidebar .nav-link-active .nav-icon,
+.metro-app-shell .sidebar.chef-sidebar .nav-link-active .nav-icon,
+body .sidebar.chef-sidebar .nav-link-active .nav-icon {color:#fffdf8 !important;}
+.sidebar.chef-sidebar .restaurant-name,
+.sidebar.chef-sidebar .sidebar-small-link,
+.sidebar.chef-sidebar .sidebar-install,
+.sidebar.chef-sidebar .sidebar-logout {color:#f1f6f2 !important;}
+.sidebar.chef-sidebar .restaurant-location {color:#c7dacb !important;}
+.sidebar.chef-sidebar .restaurant-avatar {background:#e5f0e8 !important;color:#315C46 !important;}
+.sidebar.chef-sidebar .chef-sidebar-tools,
+.sidebar.chef-sidebar .sidebar-footer {border-color:rgba(255,253,248,.28) !important;}
+.sidebar.chef-sidebar .sidebar-install,
+.sidebar.chef-sidebar .sidebar-logout {border-color:rgba(255,253,248,.28) !important;background:rgba(255,253,248,.08) !important;}
+.kommee-compliance-banner {
+ background:linear-gradient(120deg,#4E866B,#6DA28A) !important;
+ color:#fffdf8 !important;
+ box-shadow:0 8px 24px rgba(49,92,70,.13) !important;
+}
+.kommee-compliance-banner strong,
+.kommee-compliance-banner span {color:#fffdf8 !important;}
+.kommee-compliance-banner small {background:rgba(255,253,248,.2) !important;color:#fffdf8 !important;}
+.kommee-compliance-banner:hover {filter:brightness(1.04);color:#fffdf8 !important;}
 .primary-button,button.primary-button,a.primary-button,.quick-review-button {
  background:#315C46 !important;border-color:#315C46 !important;color:#fff !important;
  border-radius:13px !important;

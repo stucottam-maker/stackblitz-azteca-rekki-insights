@@ -77,7 +77,7 @@ export default function DashboardPage() {
   return (
     <div className="page metro-tile-page kommee-dashboard">
       <div className="metro-desktop-dashboard home-control-room">
-        <Link href="/compliance" className="mb-4 flex items-center justify-between gap-4 rounded-2xl bg-emerald-800 px-6 py-5 text-white shadow-sm"><span><strong className="text-lg">✓ Compliance <small className="ml-2 rounded-full bg-white/20 px-2 py-1 text-xs">BETA</small></strong><span className="mt-1 block text-sm">Food safety checks, records and daily logs</span></span><span aria-hidden="true" className="text-2xl">›</span></Link>
+        <Link href="/compliance" className="kommee-compliance-banner mb-4 flex items-center justify-between gap-4 rounded-2xl px-6 py-5 shadow-sm"><span><strong className="text-lg">✓ Compliance <small className="ml-2 rounded-full px-2 py-1 text-xs">BETA</small></strong><span className="mt-1 block text-sm">Food safety checks, records and daily logs</span></span><span aria-hidden="true" className="text-2xl">›</span></Link>
         <header className="metro-desktop-heading">
           <div><p>YOUR KITCHEN, AT A GLANCE</p><h1>Good to see you, Chef.</h1><span>Less admin. More cooking.</span></div>
           <Link href="/reports">Open full reports →</Link>
