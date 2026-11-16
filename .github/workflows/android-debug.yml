@@ -130,16 +130,17 @@ jobs:
           RES="android/app/src/main/res"
           mkdir -p "$RES/values" "$RES/drawable" "$RES/mipmap-anydpi" "$RES/mipmap-anydpi-v26" "$RES/mipmap-anydpi-v33"
 
-          cat > "$RES/values/ki_colors.xml" <<'EOF'
+          cat > "$RES/values/kommee_colors.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
-              <color name="ki_navy">#214534</color>
-              <color name="ki_blue">#F08C72</color>
-              <color name="ki_white">#F7F5ED</color>
+              <color name="kommee_forest">#214534</color>
+              <color name="kommee_peach">#F08C72</color>
+              <color name="kommee_cream">#F7F5ED</color>
+              <color name="kommee_sage">#A9C9B4</color>
           </resources>
           EOF
 
-          cat > "$RES/drawable/ki_launcher_foreground.xml" <<'EOF'
+          cat > "$RES/drawable/kommee_launcher_foreground.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <vector xmlns:android="http://schemas.android.com/apk/res/android"
               android:width="108dp"
@@ -147,24 +148,23 @@ jobs:
               android:viewportWidth="108"
               android:viewportHeight="108">
               <path
-                  android:fillColor="#214534"
-                  android:pathData="M30,18 H78 C84.627,18 90,23.373 90,30 V78 C90,84.627 84.627,90 78,90 H30 C23.373,90 18,84.627 18,78 V30 C18,23.373 23.373,18 30,18 Z" />
+                  android:fillColor="@android:color/transparent"
+                  android:strokeColor="#A9C9B4"
+                  android:strokeWidth="12"
+                  android:strokeLineCap="round"
+                  android:pathData="M37,29 L37,79" />
               <path
-                  android:fillColor="#A9C9B4"
-                  android:pathData="M36,29 L44,29 L44,79 L36,79 Z M48,53 L69,30 L79,30 L57,54 L79,78 L68,78 Z" />
-          </vector>
-          EOF
-
-          cat > "$RES/drawable/ki_launcher_monochrome.xml" <<'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <vector xmlns:android="http://schemas.android.com/apk/res/android"
-              android:width="108dp"
-              android:height="108dp"
-              android:viewportWidth="108"
-              android:viewportHeight="108">
+                  android:fillColor="@android:color/transparent"
+                  android:strokeColor="#F7F5ED"
+                  android:strokeWidth="11.5"
+                  android:strokeLineCap="round"
+                  android:pathData="M74,31 L49,54" />
               <path
-                  android:fillColor="#FFFFFFFF"
-                  android:pathData="M30,18 H78 C84.627,18 90,23.373 90,30 V78 C90,84.627 84.627,90 78,90 H30 C23.373,90 18,84.627 18,78 V30 C18,23.373 23.373,18 30,18 Z" />
+                  android:fillColor="@android:color/transparent"
+                  android:strokeColor="#F08C72"
+                  android:strokeWidth="11.5"
+                  android:strokeLineCap="round"
+                  android:pathData="M50,55 L76,78" />
           </vector>
           EOF
 
@@ -173,14 +173,10 @@ jobs:
           <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
               <item>
                   <shape android:shape="rectangle">
-                      <solid android:color="@color/ki_navy" />
+                      <solid android:color="@color/kommee_forest" />
                   </shape>
               </item>
-              <item
-                  android:width="72dp"
-                  android:height="72dp"
-                  android:gravity="center"
-                  android:drawable="@drawable/ki_launcher_foreground" />
+              <item android:drawable="@drawable/kommee_launcher_foreground" />
           </layer-list>
           EOF
           cp "$RES/mipmap-anydpi/ic_launcher.xml" "$RES/mipmap-anydpi/ic_launcher_round.xml"
@@ -188,8 +184,8 @@ jobs:
           cat > "$RES/mipmap-anydpi-v26/ic_launcher.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-              <background android:drawable="@color/ki_navy" />
-              <foreground android:drawable="@drawable/ki_launcher_foreground" />
+              <background android:drawable="@color/kommee_forest" />
+              <foreground android:drawable="@drawable/kommee_launcher_foreground" />
           </adaptive-icon>
           EOF
           cp "$RES/mipmap-anydpi-v26/ic_launcher.xml" "$RES/mipmap-anydpi-v26/ic_launcher_round.xml"
@@ -197,26 +193,25 @@ jobs:
           cat > "$RES/mipmap-anydpi-v33/ic_launcher.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-              <background android:drawable="@color/ki_navy" />
-              <foreground android:drawable="@drawable/ki_launcher_foreground" />
-              <monochrome android:drawable="@drawable/ki_launcher_monochrome" />
+              <background android:drawable="@color/kommee_forest" />
+              <foreground android:drawable="@drawable/kommee_launcher_foreground" />
           </adaptive-icon>
           EOF
           cp "$RES/mipmap-anydpi-v33/ic_launcher.xml" "$RES/mipmap-anydpi-v33/ic_launcher_round.xml"
 
-          cat > "$RES/drawable/ki_splash.xml" <<'EOF'
+          cat > "$RES/drawable/kommee_splash.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
               <item>
                   <shape android:shape="rectangle">
-                      <solid android:color="@color/ki_navy" />
+                      <solid android:color="@color/kommee_forest" />
                   </shape>
               </item>
               <item
                   android:width="144dp"
                   android:height="144dp"
                   android:gravity="center"
-                  android:drawable="@drawable/ki_launcher_foreground" />
+                  android:drawable="@drawable/kommee_launcher_foreground" />
           </layer-list>
           EOF
 
@@ -226,14 +221,14 @@ jobs:
           res = Path("android/app/src/main/res")
           for styles in res.glob("values*/styles.xml"):
               text = styles.read_text()
-              text = text.replace("@drawable/splash", "@drawable/ki_splash")
+              text = text.replace("@drawable/splash", "@drawable/kommee_splash")
               text = text.replace(
                   '<item name="android:windowSplashScreenBackground">@color/colorPrimary</item>',
-                  '<item name="android:windowSplashScreenBackground">@color/ki_navy</item>',
+                  '<item name="android:windowSplashScreenBackground">@color/kommee_forest</item>',
               )
               text = text.replace(
                   '<item name="android:statusBarColor">@color/colorPrimaryDark</item>',
-                  '<item name="android:statusBarColor">@color/ki_navy</item>',
+                  '<item name="android:statusBarColor">@color/kommee_forest</item>',
               )
               styles.write_text(text)
           PY
