@@ -1,0 +1,256 @@
+/* Kommee recipes: quiet, kitchen-friendly reading mode.
+   The edit view retains all existing inputs and costing functionality. */
+.recipe-readable-page {
+  max-width: 960px;
+  padding-bottom: 100px;
+}
+.recipe-readable-page .recipe-readable-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.recipe-readable-page .recipe-readable-header h1 {
+  margin: 4px 0 0;
+  font-size: clamp(25px, 4vw, 38px);
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  color: #24352d;
+}
+.recipe-readable-page .recipe-readable-subtitle {
+  font-size: 13px;
+  color: #617469;
+  margin: 6px 0 0;
+}
+.recipe-readable-page .recipe-readable-header .primary-button {
+  flex-shrink: 0;
+  min-height: 41px;
+  padding: 10px 16px;
+}
+.recipe-readable-page .recipe-readable-panel,
+.recipe-readable-page .recipe-readable-costing {
+  background: #fffdf8;
+  border: 1px solid #dce6dc;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(31, 55, 43, .035);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+.recipe-readable-page .recipe-readable-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+}
+.recipe-readable-page .recipe-readable-panel-heading h2 {
+  font-size: 19px;
+  line-height: 1.2;
+  margin: 0;
+  color: #24352d;
+}
+.recipe-readable-page .recipe-readable-panel-heading h2 small {
+  color: #7a8b80;
+  font-size: 13px;
+  font-weight: 500;
+}
+.recipe-readable-page .recipe-readable-panel-heading .panel-kicker {
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+.recipe-readable-ingredient-list {
+  border-top: 1px solid #edf1eb;
+}
+.recipe-readable-ingredient {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1px solid #edf1eb;
+  padding: 11px 0;
+  min-width: 0;
+}
+.recipe-readable-ingredient:last-child { border-bottom: 0; }
+.recipe-readable-ingredient strong,
+.recipe-readable-ingredient a {
+  color: #24352d;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.recipe-readable-ingredient a { color: #0d7e61; text-decoration: underline; text-underline-offset: 3px; }
+.recipe-readable-ingredient .recipe-readable-qty {
+  font-size: 15px;
+  font-weight: 750;
+  color: #214534;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.recipe-readable-qty.missing {
+  color: #92754d;
+  font-size: 12px;
+  font-weight: 600;
+}
+.recipe-readable-procedure {
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: pre-line;
+  margin: 0;
+  color: #30433a;
+  overflow-wrap: anywhere;
+}
+.recipe-readable-muted {
+  color: #687970;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+.recipe-readable-notes {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #edf1eb;
+}
+.recipe-readable-notes h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #375c49;
+}
+.recipe-readable-notes p {
+  margin: 0;
+  color: #52665a;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+.recipe-readable-page .recipe-readable-small-panel {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.recipe-readable-page .recipe-readable-small-panel .recipe-readable-panel-heading { margin-bottom: 0; }
+.recipe-readable-page .recipe-readable-small-panel .recipe-readable-panel-heading:has(+ .recipe-readable-muted) { margin-bottom: 10px; }
+.recipe-readable-yield-value { font-size: 16px; color: #214534; font-variant-numeric: tabular-nums; }
+.recipe-readable-allergen-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.recipe-readable-allergen-list span {
+  display: inline-flex;
+  background: #f0f4ed;
+  border: 1px solid #dce6dc;
+  color: #315c46;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.recipe-readable-page .recipe-readable-allergen-list,
+.recipe-readable-page .recipe-readable-small-panel > .recipe-readable-muted { margin-top: 12px; }
+.recipe-readable-used-in {
+  border-top: 1px solid #edf1eb;
+  margin-top: 12px;
+  padding-top: 12px;
+  display: flex;
+  gap: 8px 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+.recipe-readable-used-in a { color: #0d7e61; font-weight: 650; }
+.recipe-readable-costing summary {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  list-style: none;
+}
+.recipe-readable-costing summary::-webkit-details-marker { display: none; }
+.recipe-readable-costing summary > span:first-child { display: grid; gap: 4px; }
+.recipe-readable-costing summary strong { font-size: 15px; color: #24352d; }
+.recipe-readable-costing summary small { font-size: 12px; color: #718276; }
+.recipe-readable-costing[open] summary > span:last-child { transform: rotate(180deg); }
+.recipe-readable-costing-body { margin-top: 16px; border-top: 1px solid #edf1eb; padding-top: 14px; }
+.recipe-readable-cost-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.recipe-readable-cost-metrics > div { display: grid; gap: 3px; }
+.recipe-readable-cost-metrics small { color: #67796d; font-size: 11px; }
+.recipe-readable-cost-metrics strong { color: #214534; font-size: 16px; }
+.recipe-readable-cost-lines { display: grid; }
+.recipe-readable-cost-lines > div {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 3px 12px;
+  padding: 9px 0;
+  border-top: 1px solid #edf1eb;
+  font-size: 13px;
+}
+.recipe-readable-cost-lines > div span { overflow-wrap: anywhere; }
+.recipe-readable-cost-lines > div strong { font-size: 12px; font-weight: 700; }
+.recipe-readable-cost-lines > div small { grid-column: 1 / -1; color: #718276; overflow-wrap: anywhere; }
+
+/* Edit mode: preserve functionality, reduce unnecessary field and card height. */
+.recipe-v2-page:not(.recipe-readable-page) .recipe-v2-line {
+  background: #fffdf8;
+  box-shadow: none;
+  border-radius: 14px !important;
+}
+.recipe-v2-page:not(.recipe-readable-page) .recipe-v2-yield .panel-header p {
+  font-size: 13px;
+  line-height: 1.4;
+}
+.recipe-v2-page:not(.recipe-readable-page) .recipe-v2-price-source strong { font-size: 12px; }
+.recipe-v2-page:not(.recipe-readable-page) .recipe-v2-price-source span { font-size: 11px; }
+.recipe-readable-edit-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+/* The recipe catalogue is a navigator, not a financial dashboard. */
+@media (max-width: 640px) {
+  .recipe-readable-page { padding-bottom: 96px; }
+  .recipe-readable-page .recipe-readable-header { align-items: center; gap: 10px; }
+  .recipe-readable-page .recipe-readable-header h1 { font-size: 26px; }
+  .recipe-readable-page .recipe-readable-panel,
+  .recipe-readable-page .recipe-readable-costing {
+    margin-bottom: 10px;
+    padding: 15px 16px;
+    border-radius: 16px !important;
+  }
+  .recipe-readable-page .recipe-readable-panel-heading { margin-bottom: 8px; }
+  .recipe-readable-page .recipe-readable-panel-heading h2 { font-size: 18px; }
+  .recipe-readable-ingredient { padding: 10px 0; }
+  .recipe-readable-ingredient strong,
+  .recipe-readable-ingredient a,
+  .recipe-readable-ingredient .recipe-readable-qty { font-size: 14px; }
+  .recipe-readable-procedure { font-size: 14px; line-height: 1.65; }
+  .recipe-readable-cost-metrics { gap: 7px; }
+  .recipe-readable-cost-metrics strong { font-size: 14px; }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-line {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,95px) !important;
+    gap: 7px !important;
+    padding: 11px !important;
+  }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-line .recipe-v2-name { grid-column: 1 / -1; }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-line > input[type="number"] { grid-column: 1; }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-line > input:not([type="number"]):not(.recipe-v2-name) { grid-column: 2; }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-price-source { grid-column: 1; }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-line .cancel-button {
+    grid-column: 2;
+    width: auto !important;
+    min-height: 36px;
+    align-self: center;
+    padding: 6px;
+    font-size: 12px;
+  }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-yield-fields { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  .recipe-v2-page:not(.recipe-readable-page) .stats-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 8px; }
+  .recipe-v2-page:not(.recipe-readable-page) .stat-card { padding: 12px !important; min-width: 0; }
+  .recipe-v2-page:not(.recipe-readable-page) .stat-value { font-size: 20px; }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-allergens { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-v2-allergens label { font-size: 12px; }
+  .recipe-v2-page:not(.recipe-readable-page) .topbar { display: grid; gap: 8px; }
+  .recipe-v2-page:not(.recipe-readable-page) .recipe-readable-edit-actions { justify-content: flex-start; }
+}
