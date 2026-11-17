@@ -30,7 +30,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         <BenditosSpanishPolish />
         <InvoicePriceSync />
         <AndroidWidgetSync />
-        <div className="app-shell app-shell-root metro-app-shell">
+        <div className={`app-shell app-shell-root metro-app-shell ${pathname === "/" ? "kommee-mobile-home-shell" : ""}`}>
           <Sidebar />
           <main className="main-content main-content-root">{children}</main>
         </div>
