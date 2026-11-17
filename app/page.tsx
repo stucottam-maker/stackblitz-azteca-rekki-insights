@@ -181,8 +181,8 @@ export default function DashboardPage() {
               <KommeeHomeIcon name="chart" /><span>Reports</span>
             </Link>
             
-            <Link href="/restaurants" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
-              <KommeeHomeIcon name="building" /><span>Restaurants</span>
+            <Link href="/menu" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="calculator" /><span>Menu Costing</span>
             </Link>
           </section>
           <section aria-label="Compliance shortcuts" style={{marginTop:20,background:"#fff",borderRadius:22,padding:"18px 18px 8px",boxShadow:"0 4px 15px rgba(17,50,39,.04)"}}>
@@ -221,6 +221,7 @@ function KommeeHomeIcon({ name, small = false }: { name: string; small?: boolean
     chart: <><path d="M5 20v-6h3v6M11 20V9h3v11M17 20V4h3v16"/></>,
     check: <><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 12l3 3 5-6"/></>,
     building: <><path d="M4 21V5h16v16M8 9h2M14 9h2M8 13h2M14 13h2M9 21v-5h6v5"/></>,
+    calculator: <><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 6h8v4H8zM8 14h2M14 14h2M8 18h2M14 18h2"/></>,
     home: <><path d="M3 11l9-8 9 8M5 10v11h14V10M10 21v-7h4v7"/></>,
     more: <><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></>
   };
