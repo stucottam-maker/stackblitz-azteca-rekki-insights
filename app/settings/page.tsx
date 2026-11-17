@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import Link from "next/link";
 
 import PwaInstallButton from "../components/PwaInstallButton";
 import { useWorkspace } from "../components/WorkspaceProvider";
@@ -267,6 +268,21 @@ export default function SettingsPage() {
         </div>
         <PwaInstallButton className="primary-button pwa-settings-install" />
       </section>
+
+      {canManageOwners && (
+        <section className="panel" style={{ marginBottom: 16 }}>
+          <div className="panel-header">
+            <div>
+              <p className="panel-kicker">Developer tools</p>
+              <h2>Demonstration login</h2>
+              <p className="muted-text">Set up a separate, sample-only Kommee account for Google Play reviewers.</p>
+            </div>
+            <Link href="/settings/demo-login" className="secondary-inline-button">
+              Set up demo
+            </Link>
+          </div>
+        </section>
+      )}
 
       <form className="panel organisation-settings" onSubmit={submit}>
         <div className="panel-header">
