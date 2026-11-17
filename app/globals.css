@@ -2889,3 +2889,8 @@ td strong {
 
 /* Compliance screens use Tailwind utility classes. Keep the existing app CSS and avoid a global preflight reset. */
 @tailwind utilities;
+
+/* Kommee mobile home uses its own header and bottom navigation. */
+@media (max-width: 1024px) {
+  .kommee-mobile-home-shell .mobile-header-more { display: none !important; }
+}
