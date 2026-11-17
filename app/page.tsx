@@ -133,50 +133,57 @@ export default function DashboardPage() {
         </section>
       </div>
 
-      <div className="metro-mobile-dashboard ki-v2-mobile" style={{background:"#f8f7f2",minHeight:"100vh",paddingBottom:88}}>
-        <header style={{background:"linear-gradient(140deg,#064237,#0b5b48)",color:"#fff",padding:"30px 20px 34px",borderRadius:"0 0 28px 28px"}}>
-          <div style={{fontSize:25,fontWeight:800,letterSpacing:"-.7px",marginBottom:22}}><span style={{color:"#67d5a3"}}>✳</span> Kommee</div>
-          <h1 style={{fontSize:28,fontWeight:750,margin:"0 0 6px"}}>Good morning, Chef</h1>
-          <p style={{margin:0,color:"#d4e9de",fontSize:14}}>Your kitchen, all in one place.</p>
+      <div className="metro-mobile-dashboard ki-v2-mobile" style={{background:"#f7f8f6",minHeight:"100vh",paddingBottom:80,fontFamily:"inherit"}}>
+        <header style={{background:"linear-gradient(120deg,#064b3d 0%,#064336 62%,#0d604b 100%)",color:"#fff",padding:"30px 24px 64px",position:"relative",overflow:"hidden"}}>
+          <div aria-hidden="true" style={{position:"absolute",right:-70,top:75,width:220,height:220,borderRadius:"50%",background:"radial-gradient(circle,rgba(111,188,132,.17),transparent 70%)"}} />
+          <div style={{display:"flex",alignItems:"center",gap:9,marginBottom:37}}>
+            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:33,height:36,fontSize:33,color:"#68d5a1",fontWeight:900}}>✳</span>
+            <strong style={{fontSize:29,letterSpacing:"-1.1px",lineHeight:1,color:"#fff"}}>Kommee</strong>
+          </div>
+          <h1 style={{fontSize:29,fontWeight:750,color:"#fff",margin:"0 0 10px",lineHeight:1.15}}>Good morning</h1>
+          <Link href="/restaurants" style={{display:"inline-flex",alignItems:"center",gap:9,color:"#e5f2e9",fontSize:15,textDecoration:"none",fontWeight:500}}>
+            Select restaurant <span aria-hidden="true" style={{fontSize:16}}>⌄</span>
+          </Link>
         </header>
-        <section aria-label="Quick access" style={{display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:13,padding:"18px 16px"}}>
-          <Link href="/invoices/upload" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>📷</span><span>Scan Invoice</span>
-          </Link>
-          <Link href="/orders" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>🛒</span><span>New Order</span>
-          </Link>
-          <Link href="/invoices" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>📄</span><span>Invoices</span>
-          </Link>
-          <Link href="/suppliers" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>🏪</span><span>Suppliers</span>
-          </Link>
-          <Link href="/products" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>📦</span><span>Products</span>
-          </Link>
-          <Link href="/reports" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>📊</span><span>Reports</span>
-          </Link>
-          <Link href="/compliance" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>☑️</span><span>Compliance</span>
-          </Link>
-          <Link href="/restaurants" style={{background:"#fff",border:"1px solid #e7e9e3",borderRadius:19,minHeight:128,boxShadow:"0 4px 15px rgba(10,48,35,.05)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,textDecoration:"none",color:"#173d32",fontWeight:700,fontSize:15,textAlign:"center",padding:12}}>
-            <span aria-hidden="true" style={{fontSize:32,lineHeight:1}}>🏬</span><span>Restaurants</span>
-          </Link>
-        </section>
-        <section aria-label="Compliance shortcuts" style={{margin:"0 16px 20px",background:"#fff",borderRadius:20,padding:18,border:"1px solid #e7e9e3"}}>
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><h2 style={{fontSize:18,fontWeight:750,margin:0,color:"#173d32"}}>Today&apos;s compliance</h2><Link href="/compliance" style={{color:"#0a795a",fontWeight:650,fontSize:13}}>View all →</Link></div>
-          <p style={{color:"#68766e",fontSize:13,margin:"0 0 12px"}}>Keep your daily food safety records on track.</p>
-          <Link href="/compliance" style={{display:"flex",gap:12,alignItems:"center",padding:"12px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:600,fontSize:14}}><span>🌡️</span><span style={{flex:1}}>Fridge & freezer temperatures</span><span aria-hidden="true">›</span></Link>
-          <Link href="/compliance" style={{display:"flex",gap:12,alignItems:"center",padding:"12px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:600,fontSize:14}}><span>🧽</span><span style={{flex:1}}>Cleaning schedules</span><span aria-hidden="true">›</span></Link>
-          <Link href="/compliance" style={{display:"flex",gap:12,alignItems:"center",padding:"12px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:600,fontSize:14}}><span>☑️</span><span style={{flex:1}}>Opening & closing checks</span><span aria-hidden="true">›</span></Link>
-        </section>
-        <nav aria-label="Mobile navigation" style={{position:"sticky",bottom:0,background:"#fff",borderTop:"1px solid #e6eae5",padding:"13px 8px",display:"flex",justifyContent:"space-around",borderRadius:"16px 16px 0 0"}}>
-          <Link href="/" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:3,color:"#155c48",textDecoration:"none",fontSize:12,fontWeight:600}}><span style={{fontSize:22}}>⌂</span>Home</Link>
-          <Link href="/invoices" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:3,color:"#155c48",textDecoration:"none",fontSize:12,fontWeight:600}}><span style={{fontSize:22}}>▤</span>Invoices</Link>
-          <Link href="/compliance" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:3,color:"#155c48",textDecoration:"none",fontSize:12,fontWeight:600}}><span style={{fontSize:22}}>☑</span>Compliance</Link>
-          <Link href="/restaurants" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:3,color:"#155c48",textDecoration:"none",fontSize:12,fontWeight:600}}><span style={{fontSize:22}}>•••</span>More</Link>
+        <div style={{position:"relative",marginTop:-32,background:"#f7f8f6",borderRadius:"28px 28px 0 0",padding:"22px 16px 8px"}}>
+          <section aria-label="Quick access" style={{display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:12}}>
+            <Link href="/invoices/upload" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="camera" /><span>Scan Invoice</span>
+            </Link>
+            <Link href="/orders" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="cart" /><span>New Order</span>
+            </Link>
+            <Link href="/invoices" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="file" /><span>Invoices</span>
+            </Link>
+            <Link href="/suppliers" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="store" /><span>Suppliers</span>
+            </Link>
+            <Link href="/products" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="box" /><span>Products</span>
+            </Link>
+            <Link href="/reports" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="chart" /><span>Reports</span>
+            </Link>
+            <Link href="/compliance" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="check" /><span>Compliance</span>
+            </Link>
+            <Link href="/restaurants" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="building" /><span>Restaurants</span>
+            </Link>
+          </section>
+          <section aria-label="Compliance shortcuts" style={{marginTop:20,background:"#fff",borderRadius:22,padding:"18px 18px 8px",boxShadow:"0 4px 15px rgba(17,50,39,.04)"}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:8,marginBottom:12}}><h2 style={{fontSize:17,fontWeight:750,margin:0,color:"#173d32"}}>Today&apos;s compliance</h2><Link href="/compliance" style={{color:"#087e60",fontWeight:650,fontSize:13}}>View all →</Link></div>
+            <Link href="/compliance" style={{display:"flex",alignItems:"center",gap:10,padding:"13px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:550,fontSize:14}}><span style={{color:"#15936e",fontSize:18}}>○</span><span style={{flex:1}}>Fridge & freezer temperatures</span><span aria-hidden="true">›</span></Link>
+            <Link href="/compliance" style={{display:"flex",alignItems:"center",gap:10,padding:"13px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:550,fontSize:14}}><span style={{color:"#15936e",fontSize:18}}>○</span><span style={{flex:1}}>Cleaning schedules</span><span aria-hidden="true">›</span></Link>
+            <Link href="/compliance" style={{display:"flex",alignItems:"center",gap:10,padding:"13px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:550,fontSize:14}}><span style={{color:"#15936e",fontSize:18}}>○</span><span style={{flex:1}}>Opening & closing checks</span><span aria-hidden="true">›</span></Link>
+          </section>
+        </div>
+        <nav aria-label="Kommee mobile navigation" style={{position:"sticky",bottom:0,zIndex:5,background:"#fff",borderTop:"1px solid #edf0ed",padding:"14px 8px 16px",display:"flex",justifyContent:"space-around",boxShadow:"0 -5px 22px rgba(10,48,35,.04)"}}>
+          <Link href="/" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="home" small />Home</Link>
+          <Link href="/invoices" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="file" small />Invoices</Link>
+          <Link href="/compliance" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="check" small />Compliance</Link>
+          <Link href="/restaurants" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="more" small />More</Link>
         </nav>
       </div>
     </div>
@@ -193,4 +200,20 @@ function MetroKpi({ label, value, icon, tone }: { label: string; value: string; 
 
 function DesktopKpi({ label, value, note }: { label: string; value: string; note: string }) {
   return <article className="metro-desktop-kpi"><p>{label}</p><strong>{value}</strong><span>{note}</span></article>;
+}
+
+function KommeeHomeIcon({ name, small = false }: { name: string; small?: boolean }) {
+  const paths: Record<string, React.ReactNode> = {
+    camera: <><path d="M4 7h4l2-3h4l2 3h4v12H4z"/><circle cx="12" cy="13" r="4"/></>,
+    cart: <><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 4h3l3 12h11l3-9H6"/></>,
+    file: <><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v6h5M9 12h7M9 16h7"/></>,
+    store: <><path d="M3 10l2-7h14l2 7-2 3H5zM5 13v8h14v-8M9 21v-6h6"/></>,
+    box: <><path d="M3 7l9-5 9 5v10l-9 5-9-5zM3 7l9 5 9-5M12 12v10M8 4l9 5"/></>,
+    chart: <><path d="M5 20v-6h3v6M11 20V9h3v11M17 20V4h3v16"/></>,
+    check: <><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 12l3 3 5-6"/></>,
+    building: <><path d="M4 21V5h16v16M8 9h2M14 9h2M8 13h2M14 13h2M9 21v-5h6v5"/></>,
+    home: <><path d="M3 11l9-8 9 8M5 10v11h14V10M10 21v-7h4v7"/></>,
+    more: <><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></>
+  };
+  return <svg width={small ? 24 : 35} height={small ? 24 : 35} viewBox="0 0 24 24" fill="none" stroke="#11936C" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name] ?? paths.home}</svg>;
 }
