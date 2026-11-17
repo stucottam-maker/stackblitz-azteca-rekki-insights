@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useWorkspace } from "./components/WorkspaceProvider";
 import { useEffect, useMemo, useState } from "react";
 
 import { formatCurrency, generateInsights } from "./data/insights";
@@ -20,6 +21,7 @@ const actionTiles = [
 ];
 
 export default function DashboardPage() {
+  const { activeWorkspace, availableWorkspaces, switchWorkspace, switching } = useWorkspace();
   const [data, setData] = useState<Input | null>(null);
 
   useEffect(() => {
@@ -145,9 +147,14 @@ export default function DashboardPage() {
           </div>
           <div style={{position:"relative",zIndex:1}}>
             <h1 style={{fontSize:28,fontWeight:750,color:"#fff",margin:"0 0 9px",lineHeight:1.15}}>Good morning</h1>
-            <Link href="/restaurants" style={{display:"inline-flex",alignItems:"center",gap:9,color:"#f0f6f1",fontSize:16,textDecoration:"none",fontWeight:500}}>
-              Choose restaurant <span aria-hidden="true" style={{fontSize:17}}>⌄</span>
-            </Link>
+            <label style={{display:"inline-flex",alignItems:"center",gap:7,color:"#f0f6f1",fontSize:16,fontWeight:500}}>
+              <span className="sr-only">Select restaurant</span>
+              <select aria-label="Select restaurant" value={activeWorkspace ? activeWorkspace.organisationId + "." + activeWorkspace.siteId : ""} disabled={switching || !availableWorkspaces.length} onChange={(event) => { const [organisationId,siteId] = event.target.value.split("."); if (organisationId && siteId) void switchWorkspace(organisationId,siteId); }} style={{background:"transparent",color:"#fff",border:0,outline:0,maxWidth:230,fontSize:16,fontWeight:500,appearance:"none",padding:0}}>
+                {!activeWorkspace && <option value="">Select restaurant</option>}
+                {availableWorkspaces.flatMap((org) => org.sites.map((site) => <option key={org.organisationId + "." + site.id} value={org.organisationId + "." + site.id} style={{color:"#173d32"}}>{site.name}</option>))}
+              </select>
+              <span aria-hidden="true">⌄</span>
+            </label>
           </div>
         </header>
         <div style={{position:"relative",marginTop:-32,background:"#f7f8f6",borderRadius:"32px 32px 0 0",padding:"22px 16px 8px"}}>
@@ -184,12 +191,7 @@ export default function DashboardPage() {
             <Link href="/compliance" style={{display:"flex",alignItems:"center",gap:10,padding:"13px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:550,fontSize:14}}><span style={{color:"#15936e",fontSize:18}}>○</span><span style={{flex:1}}>Opening & closing checks</span><span aria-hidden="true">›</span></Link>
           </section>
         </div>
-        <nav aria-label="Kommee mobile navigation" style={{position:"sticky",bottom:0,zIndex:5,background:"#fff",borderTop:"1px solid #edf0ed",padding:"14px 8px 16px",display:"flex",justifyContent:"space-around",boxShadow:"0 -5px 22px rgba(10,48,35,.04)"}}>
-          <Link href="/" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="home" small />Home</Link>
-          <Link href="/invoices" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="file" small />Invoices</Link>
-          <Link href="/compliance" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="check" small />Compliance</Link>
-          <Link href="/restaurants" style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,color:"#17664f",textDecoration:"none",fontSize:12,fontWeight:650}}><KommeeHomeIcon name="more" small />More</Link>
-        </nav>
+
       </div>
     </div>
   );
