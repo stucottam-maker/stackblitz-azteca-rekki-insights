@@ -178,8 +178,8 @@ export default function RecipeDetailPage() {
         setYieldAmount(stored?.yieldAmount ?? startingRecipe.yieldAmount ?? null);
         setYieldUnit(stored?.yieldUnit ?? startingRecipe.yieldUnit ?? "");
         setNotes(stored?.notes ?? startingRecipe.notes ?? "");
-        setProcedure(stored?.procedure ?? "");
-        setAllergens(stored?.allergens ?? []);
+        setProcedure(stored?.procedure ?? startingRecipe.procedure ?? "");
+        setAllergens(stored?.allergens ?? startingRecipe.allergens ?? []);
         setPrices((state.get("ingredientPrices") ?? {}) as IngredientPrices);
         setStoredRecipes(
           Object.fromEntries(
