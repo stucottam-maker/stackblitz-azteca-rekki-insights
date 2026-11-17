@@ -1,10 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
+import { requireKommeeSupabaseUrl } from "./kommeeSupabase";
 
 function buildServiceSupabase() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseUrl = requireKommeeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL);
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!supabaseUrl || !serviceRoleKey) {
+  if (!serviceRoleKey) {
     throw Object.assign(
       new Error("Supabase server environment is not configured for this deployment."),
       { status: 503 }
@@ -39,7 +40,7 @@ export const serviceSupabase = new Proxy({} as ServiceSupabase, {
   },
 });
 
-const ACTIVE_WORKSPACE_COOKIE = "ki_workspace";
+const ACTIVE_WORKSPACE_COOKIE = "kommee_workspace";
 
 type Relation<T> = T | T[] | null;
 

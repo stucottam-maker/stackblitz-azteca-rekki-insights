@@ -122,7 +122,7 @@ const T: Record<string, string> = {
 
   "New order": "Nuevo pedido",
   "Who are you ordering from?": "¿A qué proveedor vas a pedir?",
-  "Choose a supplier, tap quantities and send the PO from Kitchen Insights.": "Elige un proveedor, marca cantidades y envía la orden desde Kitchen Insights.",
+  "Choose a supplier, tap quantities and send the PO from Kommee.": "Elige un proveedor, marca cantidades y envía la orden desde Kommee.",
   "Recent orders": "Pedidos recientes",
   "Latest purchasing": "Compras recientes",
   Repeat: "Repetir",
@@ -241,7 +241,7 @@ const T: Record<string, string> = {
   "Forgot password?": "¿Olvidaste tu contraseña?",
   "Welcome back": "Bienvenido de nuevo",
   "Sign in to your workspace": "Inicia sesión en tu espacio",
-  "Enter your details to continue to Kitchen Insights.": "Ingresa tus datos para continuar a Kitchen Insights.",
+  "Enter your details to continue to Kommee.": "Ingresa tus datos para continuar a Kommee.",
   "First time here?": "¿Primera vez aquí?",
   "Activate account": "Activar cuenta",
 };

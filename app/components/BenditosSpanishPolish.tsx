@@ -59,8 +59,8 @@ const EXACT: Record<string, string> = {
   "Supplying matched ingredients": "Proveedores de ingredientes conciliados",
   "Refresh": "Actualizar",
 
-  "Install Kitchen Insights": "Instalar Kitchen Insights",
-  "Add Kitchen Insights to the home screen so it opens like a kitchen app.": "Agrega Kitchen Insights a la pantalla de inicio para abrirlo como una app de cocina.",
+  "Install Kommee": "Instalar Kommee",
+  "Add Kommee to the home screen so it opens like a kitchen app.": "Agrega Kommee a la pantalla de inicio para abrirlo como una app de cocina.",
   "Order delivery": "Envío de pedidos",
   "Save settings": "Guardar configuración",
   "Organisation name": "Nombre de la organización",

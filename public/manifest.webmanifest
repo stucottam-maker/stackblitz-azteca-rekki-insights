@@ -1,21 +1,21 @@
 {
-  "name": "Kitchen Insights",
-  "short_name": "Kitchen Insights",
-  "description": "Kitchen operations, connected",
+  "name": "Kommee",
+  "short_name": "Kommee",
+  "description": "Your kitchen’s right hand.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#f7faf9",
-  "theme_color": "#34465a",
+  "background_color": "#F7F5ED",
+  "theme_color": "#315C46",
   "icons": [
     {
-      "src": "/pwa-icon.svg",
+      "src": "/kommee-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/android-icon.svg",
+      "src": "/kommee-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"

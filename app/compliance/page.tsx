@@ -54,7 +54,7 @@ export default function CompliancePage() {
   return <main className="ki-v2-workflow ki-v2-compliance min-h-screen bg-slate-50 px-4 py-6 text-slate-900">
     <div className="mx-auto max-w-2xl space-y-5">
       <header className="flex items-center justify-between">
-        <div><Link href="/" className="text-sm text-teal-800">← Kitchen Insights</Link><h1 className="mt-2 text-3xl font-bold">Compliance</h1><p className="text-slate-500">Daily kitchen checks</p></div>
+        <div><Link href="/" className="text-sm text-teal-800">← Kommee</Link><h1 className="mt-2 text-3xl font-bold">Compliance</h1><p className="text-slate-500">Daily kitchen checks</p></div>
         <span className="rounded-xl bg-teal-50 px-3 py-2 text-sm font-medium text-teal-900">Live records</span>
       </header>
       <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">Submitted checklists and measurements are saved to your selected site for review. Follow your site&apos;s approved food safety procedures; automated limits and scheduling are not yet configured.</p>{site && <p className="text-sm text-slate-600">Site: {site.name}</p>}{feedback && <p role="status" className="rounded-xl bg-slate-100 p-3 text-sm">{feedback}</p>}

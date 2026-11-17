@@ -6,9 +6,9 @@
   padding: clamp(22px, 5vw, 54px) 18px;
   color: #0f172a;
   background:
-    radial-gradient(circle at 15% 10%, rgba(96, 165, 250, .22), transparent 30%),
-    radial-gradient(circle at 85% 88%, rgba(37, 99, 235, .18), transparent 34%),
-    linear-gradient(150deg, #172554 0%, #0f2f68 52%, #0b1d45 100%);
+    radial-gradient(circle at 15% 10%, rgba(169, 201, 180, .22), transparent 30%),
+    radial-gradient(circle at 85% 88%, rgba(240, 140, 114, .18), transparent 34%),
+    linear-gradient(150deg, #214534 0%, #294F3B 52%, #173A2D 100%);
 }
 
 .login-simple-shell {
@@ -43,7 +43,7 @@
 .login-brand-icon-live {
   border-color: rgba(255,255,255,.22);
   color: #fff;
-  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  background: linear-gradient(145deg, #4E866B, #315C46);
   box-shadow:
     0 10px 24px rgba(3, 12, 38, .22),
     inset 0 0 0 1px rgba(255,255,255,.12);
@@ -78,7 +78,7 @@
 
 .login-heading .eyebrow {
   margin-bottom: 7px;
-  color: #2563eb;
+  color: #315C46;
 }
 
 .login-heading h1 {
@@ -123,8 +123,8 @@
 }
 
 .login-field input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+  border-color: #315C46;
+  box-shadow: 0 0 0 4px rgba(49,92,70,.12);
 }
 
 .login-password-field {
@@ -142,7 +142,7 @@
   transform: translateY(-50%);
   padding: 8px 9px;
   border-radius: 8px;
-  color: #1d4ed8;
+  color: #214534;
   background: transparent;
   font-size: 12px;
   font-weight: 800;
@@ -150,14 +150,14 @@
 }
 
 .login-password-toggle:hover {
-  background: #eff6ff;
+  background: #F7F5ED;
 }
 
 .login-forgot-link {
   justify-self: end;
   margin-top: -5px;
   padding: 2px 0;
-  color: #1d4ed8;
+  color: #214534;
   background: transparent;
   font-size: 12px;
   font-weight: 800;
@@ -179,22 +179,22 @@
 }
 
 .login-success {
-  border: 1px solid rgba(37,99,235,.18);
-  color: #1e40af;
-  background: #eff6ff;
+  border: 1px solid rgba(49,92,70,.18);
+  color: #315C46;
+  background: #F7F5ED;
 }
 
 .login-button {
   width: 100%;
   min-height: 52px;
   border-radius: 13px;
-  background: #2563eb;
+  background: #315C46;
   font-size: 14px;
   font-weight: 800;
 }
 
 .login-button:hover {
-  background: #1d4ed8;
+  background: #214534;
 }
 
 .login-button:disabled {
@@ -207,7 +207,7 @@
   width: 100%;
   margin-top: 16px;
   padding: 6px 0;
-  color: #1d4ed8;
+  color: #214534;
   background: transparent;
   font-size: 12px;
   font-weight: 800;

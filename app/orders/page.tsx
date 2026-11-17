@@ -731,7 +731,7 @@ export default function OrdersPage() {
             <div>
               <p className="eyebrow">Purchasing</p>
               <h1>Orders</h1>
-              <p className="page-description">Choose a supplier, tap quantities and send the PO from Kitchen Insights.</p>
+              <p className="page-description">Choose a supplier, tap quantities and send the PO from Kommee.</p>
             </div>
           </header>
 

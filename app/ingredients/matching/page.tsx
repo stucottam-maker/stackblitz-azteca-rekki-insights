@@ -132,7 +132,7 @@ export default function IngredientMatchingPage() {
       await persistWorkspaceState("invoiceProductMappings", JSON.stringify(next));
       setMessage(`${ingredient} returned to automatic matching.`);
       window.dispatchEvent(
-        new CustomEvent("kitchen-insights:ingredient-mappings-updated")
+        new CustomEvent("kommee:ingredient-mappings-updated")
       );
     } catch (error: any) {
       setMessage(error?.message || "Could not save mapping");

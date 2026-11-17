@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 
-export const ACTIVE_WORKSPACE_STORAGE_KEY = "kiActiveWorkspace";
-export const ACTIVE_WORKSPACE_COOKIE = "ki_workspace";
+export const ACTIVE_WORKSPACE_STORAGE_KEY = "kommeeActiveWorkspace";
+export const ACTIVE_WORKSPACE_COOKIE = "kommee_workspace";
 
 type Relation<T> = T | T[] | null;
 
@@ -31,26 +31,7 @@ type StoredWorkspaceSelection = {
 };
 
 const WORKSPACE_HOSTNAME_HINTS: Record<string, WorkspaceHostnameHint> = {
-  azteca: {
-    organisationName: "Azteca London",
-    siteName: "Battersea",
-  },
-  max: {
-    organisationName: "MAXIMILLIAN GREEN",
-    siteName: "Main Site",
-  },
-  beauforthouse: {
-    organisationName: "BEAUFORT HOUSE",
-    siteName: "BEAUFORT HOUSE",
-  },
-  benditosmexicali: {
-    organisationName: "BENDITOS MEXICALI",
-    siteName: "Mexicali",
-  },
-  demo: {
-    organisationName: "Kitchen Insights Test Restaurant",
-    siteName: "Isolation Test Kitchen",
-  },
+
 };
 
 export type WorkspaceSite = {
@@ -92,13 +73,8 @@ function readCurrentHostname() {
 function readHostnameHint(): WorkspaceHostnameHint | null {
   if (typeof window === "undefined") return null;
 
-  const hostname = readCurrentHostname();
-  const rootDomain = "kitcheninsights.uk";
-
-  if (!hostname.endsWith(`.${rootDomain}`)) return null;
-
-  const subdomain = hostname.slice(0, -(rootDomain.length + 1)).split(".")[0];
-  return WORKSPACE_HOSTNAME_HINTS[subdomain] ?? null;
+  // No workspace is imposed by the shared Kommee hostname.
+  return null;
 }
 
 function readSelection(): StoredWorkspaceSelection | null {

@@ -55,12 +55,14 @@ export default function LoginPage() {
     const normalizedEmail = email.trim().toLowerCase();
 
     if (mode === "forgot") {
-      const { error: resetError } = await supabase.auth.resetPasswordForEmail(normalizedEmail);
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
 
       if (resetError) {
         setError(resetError.message);
       } else {
-        setMessage("If that email belongs to a Kitchen Insights account, we’ve sent a password reset link.");
+        setMessage("If that email belongs to a Kommee account, we’ve sent a password reset link.");
       }
 
       setLoading(false);
@@ -71,6 +73,9 @@ export default function LoginPage() {
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: normalizedEmail,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+        },
       });
 
       if (signUpError) {
@@ -97,7 +102,11 @@ export default function LoginPage() {
     });
 
     if (signInError) {
-      setError(signInError.message);
+      setError(
+        signInError.message === "Invalid login credentials"
+          ? "We couldn’t sign you in. If this is your first time on Kommee, create your account below."
+          : signInError.message
+      );
       setLoading(false);
       return;
     }
@@ -115,10 +124,10 @@ export default function LoginPage() {
 
   const description =
     mode === "activate"
-      ? "Use the email and temporary password you were given."
+      ? "Create your Kommee login with your email and a new password."
       : mode === "forgot"
         ? "Enter your email and we’ll send you a reset link."
-        : "Welcome back to Kitchen Insights.";
+        : "Welcome back to Kommee.";
 
   return (
     <main className="login-page">
@@ -126,8 +135,8 @@ export default function LoginPage() {
         <div className="login-brand-row login-simple-brand">
           <KitchenLogo size={54} className="login-v2-logo-image" />
           <div className="login-brand-copy">
-            <strong>Kitchen Insights</strong>
-            <span>Kitchen operations, connected</span>
+            <strong>Kommee</strong>
+            <span>Your kitchen’s right hand.</span>
           </div>
         </div>
 
@@ -156,14 +165,15 @@ export default function LoginPage() {
 
             {mode !== "forgot" && (
               <label className="login-field">
-                <span>{mode === "activate" ? "Temporary password" : "Password"}</span>
+                <span>{mode === "activate" ? "Choose a password" : "Password"}</span>
                 <div className="login-password-field">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
-                    placeholder={mode === "activate" ? "Temporary password" : "Your password"}
+                    placeholder={mode === "activate" ? "Choose a secure password" : "Your password"}
                     required
+                    minLength={mode === "activate" ? 8 : undefined}
                     autoComplete={mode === "activate" ? "new-password" : "current-password"}
                   />
                   <button
@@ -204,7 +214,7 @@ export default function LoginPage() {
                     ? "Sending…"
                     : "Signing in…"
                 : mode === "activate"
-                  ? "Activate account"
+                  ? "Create Kommee account"
                   : mode === "forgot"
                     ? "Send reset link"
                     : "Sign in"}
@@ -223,7 +233,7 @@ export default function LoginPage() {
             {mode === "forgot"
               ? "← Back to sign in"
               : mode === "signin"
-                ? "First time here? Activate account"
+                ? "First time here? Create account"
                 : "Already activated? Sign in"}
           </button>
         </div>

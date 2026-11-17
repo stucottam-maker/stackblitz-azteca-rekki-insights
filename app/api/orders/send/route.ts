@@ -47,7 +47,7 @@ function buildSimplePurchaseOrderPdf(
 ) {
   const rawLines = config.spanish
     ? [
-        "KITCHEN INSIGHTS - ORDEN DE COMPRA",
+        "KOMMEE - ORDEN DE COMPRA",
         "",
         `De: ${organisationName}`,
         `OC: ${order.id}`,
@@ -66,7 +66,7 @@ function buildSimplePurchaseOrderPdf(
         order.notes ? `Notas: ${order.notes}` : "",
       ]
     : [
-        "KITCHEN INSIGHTS - PURCHASE ORDER",
+        "KOMMEE - PURCHASE ORDER",
         "",
         `From: ${organisationName}`,
         `PO: ${order.id}`,
@@ -134,7 +134,7 @@ function orderHtml(order: PurchaseOrder, organisationName: string, config: Order
       <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px">Artículo</th><th style="text-align:left;padding:8px">Cantidad</th><th style="text-align:right;padding:8px">Total est.</th></tr></thead><tbody>${rows}</tbody></table>
       <p style="font-size:18px;font-weight:700;text-align:right;margin:18px 0">Total estimado: ${escapeHtml(money(order.estimatedTotal, config))}</p>
       ${order.notes ? `<div style="padding:12px;background:#f8fafc;border-radius:8px"><strong>Notas de entrega</strong><br>${escapeHtml(order.notes)}</div>` : ""}
-      <p style="margin-top:22px;color:#64748b;font-size:12px">Enviado desde Kitchen Insights.</p>
+      <p style="margin-top:22px;color:#64748b;font-size:12px">Enviado desde Kommee.</p>
     </div>`;
   }
 
@@ -144,7 +144,7 @@ function orderHtml(order: PurchaseOrder, organisationName: string, config: Order
     <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:8px">Item</th><th style="text-align:left;padding:8px">Quantity</th><th style="text-align:right;padding:8px">Est. line total</th></tr></thead><tbody>${rows}</tbody></table>
     <p style="font-size:18px;font-weight:700;text-align:right;margin:18px 0">Estimated total: ${escapeHtml(money(order.estimatedTotal, config))}</p>
     ${order.notes ? `<div style="padding:12px;background:#f8fafc;border-radius:8px"><strong>Delivery notes</strong><br>${escapeHtml(order.notes)}</div>` : ""}
-    <p style="margin-top:22px;color:#64748b;font-size:12px">Sent from Kitchen Insights.</p>
+    <p style="margin-top:22px;color:#64748b;font-size:12px">Sent from Kommee.</p>
   </div>`;
 }
 
@@ -165,7 +165,7 @@ export async function POST(request: Request) {
       .select("name")
       .eq("id", organisationId)
       .maybeSingle();
-    const organisationName = String(settings.name || organisation?.name || "Kitchen Insights");
+    const organisationName = String(settings.name || organisation?.name || "Kommee");
     const config = orderLocale(organisationName);
 
     if (!order?.id || !order?.supplier || !Array.isArray(order.lines) || !order.lines.length) {
@@ -216,7 +216,7 @@ export async function POST(request: Request) {
         : [];
 
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const from = process.env.ORDER_FROM_EMAIL || "Kitchen Insights <orders@kitcheninsights.uk>";
+    const from = process.env.ORDER_FROM_EMAIL || "Kommee <orders@kommee.co.uk>";
     const attachments = settings.attachPurchaseOrder === false
       ? undefined
       : [{ filename: `${order.id}.pdf`, content: buildSimplePurchaseOrderPdf(order, organisationName, config) }];
@@ -249,7 +249,7 @@ export async function POST(request: Request) {
     console.error("PURCHASE ORDER SEND FAILED", error);
     const response = authErrorResponse(error);
     const message = response.message.includes("domain")
-      ? `${response.message} Verify the Kitchen Insights sending domain in Resend or set ORDER_FROM_EMAIL to a verified sender.`
+      ? `${response.message} Verify the Kommee sending domain in Resend or set ORDER_FROM_EMAIL to a verified sender.`
       : response.message;
     return NextResponse.json({ error: message }, { status: response.status === 500 ? 503 : response.status });
   }

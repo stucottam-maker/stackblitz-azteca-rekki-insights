@@ -1,5 +1,5 @@
 /*
- * Kitchen Insights UI system
+ * Kommee UI system
  * Consolidates the historical global style layers into one explicit entry point.
  * Import order intentionally matches the previous app/layout.tsx cascade.
  */
@@ -25,6 +25,8 @@
 @import "./desktop-control-room.css";
 @import "./blue-finish.css";
 @import "./soft-theme.css";
+@import "./kommee-theme.css";
+@import "./kommee-dashboard.css";
 
 /* Shared interaction and layout rules. Keep page-specific styling above this line. */
 :root {
@@ -35,7 +37,7 @@
   --ki-control-height: 42px;
   --ki-touch-height: 44px;
   --ki-content-max: 1440px;
-  --ki-focus: 0 0 0 3px rgba(37, 99, 235, 0.18);
+  --ki-focus: 0 0 0 3px rgba(240, 140, 114, 0.27);
 }
 
 body {
@@ -270,7 +272,7 @@ table td {
 }
 
 .ingredient-clear-filters:hover {
-  color: #1d4ed8;
+  color: #214534;
   border-color: #b8c8e5;
   background: #f8fbff;
 }
@@ -321,7 +323,7 @@ table td {
 }
 
 .ingredient-price-value {
-  color: #172554;
+  color: #214534;
   font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
@@ -424,7 +426,7 @@ table td {
 }
 
 .menu-selling-price {
-  color: #172554;
+  color: #214534;
   font-size: 13px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
@@ -437,8 +439,8 @@ table td {
     min-height: 24px;
     padding: 0 8px;
     border-radius: 999px;
-    background: #e8f0ff;
-    color: #1d4ed8;
+    background: #E5F0E8;
+    color: #214534;
     font-size: 11px;
     font-weight: 850;
     font-variant-numeric: tabular-nums;
@@ -518,7 +520,7 @@ table td {
   }
 }
 
-/* Kitchen Insights V2: operational mobile home, real data and direct workflows. */
+/* Kommee: operational mobile home, real data and direct workflows. */
 @media (max-width: 640px) {
   .ki-v2-mobile { padding: 4px 3px 30px; color: #17283b; }
   .ki-v2-intro { margin: 7px 3px 20px; }
@@ -527,7 +529,7 @@ table td {
   .ki-v2-intro > p:last-child { color: #718092; font-size: 14px; }
   .ki-v2-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; margin-bottom: 18px; }
   .ki-v2-metric { display: flex; position: relative; min-width: 0; min-height: 125px; align-items: flex-start; gap: 10px; padding: 17px 12px; border-radius: 19px; color: #18314a; text-decoration: none; box-shadow: 0 2px 8px rgba(22,42,62,.025); }
-  .ki-v2-blue { background: #e7f1fc; } .ki-v2-peach { background: #fff0df; } .ki-v2-green { background: #e5f4eb; } .ki-v2-lilac { background: #f0eafb; }
+  .ki-v2-blue { background: #e5f0e8; } .ki-v2-peach { background: #fff0e9; } .ki-v2-green { background: #eaf2e6; } .ki-v2-lilac { background: #f4ebe4; }
   .ki-v2-metric-icon { display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 32px; font-size: 24px; color: #256e67; }
   .ki-v2-metric > span:nth-child(2) { min-width: 0; font-size: 13px; font-weight: 750; line-height: 1.3; }
   .ki-v2-metric strong { display: block; margin: 8px 0 2px; font-size: clamp(19px, 5vw, 26px); font-weight: 850; letter-spacing: -.04em; overflow-wrap: anywhere; }
@@ -739,21 +741,21 @@ table td {
 .login-page .login-button { background: #286f61 !important; border-color: #286f61 !important; border-radius: 12px !important; }
 @media (prefers-reduced-motion: reduce) { .ki-v2-splash .auth-loading-spinner { animation: none; } }
 
-/* V2 splash palette aligned with the actual app shell: slate navy, blue KI mark, sage accents. */
+/* V2 splash palette aligned with the Kommee forest, cream, coral and sage palette. */
 .auth-loading-screen.ki-v2-splash {
-  background: radial-gradient(circle at 50% 25%, #edf3f8 0%, #f7f9fc 52%, #e9eef4 100%) !important;
+  background: radial-gradient(circle at 50% 25%, #e5f0e8 0%, #f7f5ed 52%, #dce6dc 100%) !important;
 }
 .ki-v2-splash .auth-loading-mark,
 .login-page .login-brand-icon-live {
-  background: linear-gradient(145deg,#6f9dc4,#5c89b1) !important;
-  box-shadow: 0 12px 28px rgba(61,102,137,.18) !important;
+  background: linear-gradient(145deg,#4e866b,#315c46) !important;
+  box-shadow: 0 12px 28px rgba(49,92,70,.18) !important;
 }
 .ki-v2-splash .auth-loading-spinner {
-  border-color: #dce7ef;
+  border-color: #dce6dc;
   border-top-color: #356f60;
 }
 .login-page {
-  background: radial-gradient(circle at 50% 0%, #eaf1f8 0%, #f7f9fc 55%, #edf1f5 100%) !important;
+  background: radial-gradient(circle at 50% 0%, #e5f0e8 0%, #f7f5ed 55%, #edf0e9 100%) !important;
 }
 .login-page .login-button { background: #356f60 !important; border-color: #356f60 !important; }
 
@@ -813,7 +815,7 @@ table td {
   .recipes-page .stats-grid,.ingredients-page .stats-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 
-/* Brand colour correction: remove legacy electric blue from app controls. */
+/* Brand colour correction: apply the Kommee palette to app controls. */
 :root {
   --ki-forest:#356f60;
   --ki-forest-dark:#27584e;
@@ -849,7 +851,7 @@ table td {
 .app-shell-root .chef-sidebar :where(.nav-link-active,.mobile-bottom-more.nav-link-active) {color:var(--ki-forest-dark)!important;}
 .app-shell-root .chef-sidebar :where(.nav-link-active .nav-icon,.mobile-bottom-more.nav-link-active .nav-icon) {color:var(--ki-forest-dark)!important;}
 
-/* Correct legacy blue logo container in actual app-shell DOM. */
+/* Correct the legacy logo container in the actual app-shell DOM. */
 body > .app-shell > .sidebar .brand-mark.ki-brand-image,
 .app-shell-root .brand-mark.ki-brand-image,
 .metro-app-shell .brand-mark.ki-brand-image,
@@ -1041,4 +1043,106 @@ body > .app-shell > .sidebar .brand-mark.ki-brand-image img,
   .ki-v2-splash .ki-splash-emblem-wrap,
   .ki-v2-splash .ki-v2-logo-image,
   .ki-v2-splash .auth-loading-copy {animation:none!important;transform:none!important;opacity:1!important;}
+}
+
+/* Kommee final cascade: intentionally after legacy rules and media queries. */
+:root,html,body,.metro-app-shell {
+  --background:#F7F5ED !important;--surface:#fffdf8 !important;--surface-soft:#eef3ea !important;
+  --border:#dce6dc !important;--text:#24352D !important;--text-soft:#51675b !important;
+  --text-light:#657b70 !important;--green:#315C46 !important;--green-dark:#214534 !important;
+  --green-soft:#e5f0e8 !important;--orange:#e9795e !important;--orange-soft:#fff0e9 !important;
+  --ki-focus:0 0 0 3px rgba(240,140,114,.27) !important;
+}
+html,body{background:#F7F5ED !important;color:#24352D;}
+::selection{background:#dce6dc;color:#214534;}
+.sidebar.chef-sidebar,.metro-app-shell .chef-sidebar,.app-shell-root>.chef-sidebar{
+  background:linear-gradient(170deg,#214534,#315C46) !important;color:#fffdf8 !important;
+}
+.sidebar .brand-mark,.app-shell-root .brand-mark,.metro-app-shell .brand-mark{
+  background:#315C46 !important;box-shadow:none !important;
+}
+.sidebar .nav-link-active,.app-shell-root .nav-link-active,.metro-app-shell .nav-link-active{
+  background:rgba(169,201,180,.25) !important;box-shadow:inset 3px 0 0 #F08C72 !important;
+}
+.primary-button,button.primary-button,a.primary-button,.quick-review-button{
+  background:#315C46 !important;border-color:#315C46 !important;color:#fff !important;border-radius:13px !important;
+}
+.primary-button:hover,button.primary-button:hover,a.primary-button:hover{background:#214534 !important;}
+.panel,.stat-card,.metro-table-panel,.metro-desktop-kpi,.matching-row,.catalogue-editor-row,
+.order-v2-row,.order-v2-history-row,.recipe-v2-line,.supplier-choice-card{
+  background:#fffdf8;border-color:#dce6dc;border-radius:20px !important;
+}
+:where(button,a,input,select,textarea):focus-visible{outline:2px solid #F08C72 !important;outline-offset:2px;}
+.kommee-dot,.kommee-splash-wordmark span{color:#F08C72 !important;}
+.auth-loading-screen.ki-v2-splash,.workspace-loading-screen.kommee-workspace-splash{
+  background:radial-gradient(circle at 50% 28%,#47765a 0%,#315C46 48%,#214534 100%) !important;
+  color:#F7F5ED !important;
+}
+.ki-v2-splash .auth-loading-card{background:transparent !important;border:0 !important;box-shadow:none !important;}
+.ki-v2-splash .auth-loading-copy strong.kommee-splash-wordmark,
+.kommee-workspace-splash .kommee-splash-wordmark{
+  color:#fffdf8 !important;font-size:clamp(36px,9vw,54px) !important;letter-spacing:-.06em !important;
+}
+.ki-v2-splash .auth-loading-copy span,.ki-v2-splash .ki-v2-splash-status{
+  color:#d9e8db !important;
+}
+.ki-v2-splash .auth-loading-spinner{border-color:rgba(247,245,237,.3) !important;border-top-color:#F08C72 !important;}
+.ki-v2-splash .ki-splash-emblem-wrap{background:transparent !important;border:0 !important;box-shadow:none !important;}
+.kommee-dashboard .ki-v2-blue{background:#e5f0e8 !important;}
+.kommee-dashboard .ki-v2-peach{background:#fff0e9 !important;}
+.kommee-dashboard .ki-v2-green{background:#eaf2e6 !important;}
+.kommee-dashboard .ki-v2-lilac{background:#f4ebe4 !important;}
+@media(max-width:640px){
+  .sidebar .nav-link.mobile-primary.nav-link-active,.app-shell-root .nav-link.mobile-primary.nav-link-active{
+    box-shadow:inset 0 -3px 0 #F08C72 !important;
+  }
+  .panel,.stat-card,.metro-table-panel,.metro-desktop-kpi{border-radius:17px !important;}
+}
+
+/* Ordering and mobile header: replace high-specificity legacy colour rules. */
+.quick-order-page .supplier-choice-arrow,
+.quick-order-page .quick-order-back,
+.quick-order-page .quick-order-quantity button,
+.quick-order-page .order-review-recipient strong,
+.quick-order-page .quick-order-sku,
+.quick-order-page .quick-suggestion,
+.quick-order-page .regular-order-row > strong:last-child {
+  color:#315C46 !important;
+}
+.quick-order-page .quick-order-sku,
+.quick-order-page .quick-suggestion,
+.quick-order-page .regular-order-row > strong:last-child{background:#e5f0e8 !important;}
+.quick-order-page .quick-order-line-active{background:#e5f0e8 !important;box-shadow:inset 3px 0 0 #F08C72 !important;}
+.quick-order-page .purchasing-tabs .purchasing-tab-active,
+.quick-order-page .purchasing-tab-active{color:#315C46 !important;background:#fffdf8 !important;}
+.quick-order-page .quick-order-footer{border-color:#dce6dc !important;box-shadow:0 12px 34px rgba(36,53,45,.1) !important;}
+.app-shell-root .sidebar.chef-sidebar,.metro-app-shell .sidebar.chef-sidebar,
+body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !important;}
+.app-shell-root .mobile-header-more.active,.app-shell-root .mobile-more-menu a.active{
+  color:#315C46 !important;background:#e5f0e8 !important;
+}
+@media(max-width:900px){
+  .app-shell-root .sidebar.chef-sidebar,.metro-app-shell .sidebar.chef-sidebar,
+  body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !important;}
+}
+
+/* Kommee home: the mock-up has one hero and one persistent navigation bar. */
+@media (max-width: 1024px) {
+  .kommee-mobile-home-shell .sidebar.chef-sidebar .brand { display: none !important; }
+  .kommee-mobile-home-shell .sidebar.chef-sidebar { background: transparent !important; height: 0 !important; min-height: 0 !important; padding: 0 !important; }
+  .kommee-mobile-home-shell .sidebar.chef-sidebar .sidebar-footer { display: none !important; }
+  .kommee-mobile-home-shell .main-content-root { padding: 0 !important; margin: 0 !important; }
+  .kommee-mobile-home-shell .page.metro-tile-page.kommee-dashboard { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+  .kommee-mobile-home-shell .metro-mobile-dashboard.ki-v2-mobile { margin: 0 !important; width: 100% !important; max-width: none !important; }
+  .kommee-mobile-home-shell .sidebar.chef-sidebar .sidebar-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 50 !important; }
+}
+
+/* Override legacy mobile/tablet shell styles, including 641–1024px viewport widths. */
+@media (max-width: 1024px) {
+  body .app-shell-root.kommee-mobile-home-shell .sidebar.chef-sidebar > .brand,
+  body .metro-app-shell.kommee-mobile-home-shell .sidebar.chef-sidebar > .brand,
+  body .kommee-mobile-home-shell .sidebar-brand-copy,
+  body .kommee-mobile-home-shell .mobile-workspace-control { display: none !important; }
+  body .kommee-mobile-home-shell .sidebar.chef-sidebar { height: 0 !important; min-height: 0 !important; padding: 0 !important; border: 0 !important; }
+  body .kommee-mobile-home-shell .main-content-root { padding-top: 0 !important; }
 }

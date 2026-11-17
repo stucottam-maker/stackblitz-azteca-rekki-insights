@@ -231,7 +231,7 @@ export default function InvoiceUploadV3() {
       const message = cameraError instanceof Error ? cameraError.name : "";
       setError(
         message === "NotAllowedError" || message === "PermissionDeniedError"
-          ? "Camera permission is blocked. In Android Settings, allow Camera permission for Kitchen Insights, then reopen the app."
+          ? "Camera permission is blocked. In Android Settings, allow Camera permission for Kommee, then reopen the app."
           : "Could not open the in-app camera. You can take a photo with the regular Camera app and select it with Choose photos or PDF."
       );
     } finally {

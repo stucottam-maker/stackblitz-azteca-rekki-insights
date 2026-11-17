@@ -924,7 +924,7 @@ function buildStockInsights(
           title:
             "More stock history is needed for actual COGS",
           message:
-            "Complete at least two stock counts so Kitchen Insights can calculate opening stock + purchases − closing stock.",
+            "Complete at least two stock counts so Kommee can calculate opening stock + purchases − closing stock.",
           category: "stock",
           severity: "low",
           actions: [

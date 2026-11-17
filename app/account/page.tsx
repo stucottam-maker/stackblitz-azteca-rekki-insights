@@ -101,7 +101,7 @@ export default function AccountPage() {
           <p className="eyebrow">Your account</p>
           <h1>Account & password</h1>
           <p className="page-description">
-            Manage your Kitchen Insights login. These settings follow your user account, not the selected restaurant.
+            Manage your Kommee login. These settings follow your user account, not the selected restaurant.
           </p>
         </div>
       </header>

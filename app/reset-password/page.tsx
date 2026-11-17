@@ -78,20 +78,20 @@ export default function ResetPasswordPage() {
 
   return (
     <main className="login-page password-reset-page">
-      <section className="login-intro" aria-label="Kitchen Insights password recovery">
+      <section className="login-intro" aria-label="Kommee password recovery">
         <div className="login-brand-row">
           <div className="login-brand-icon">
             <Image
-              src="/pwa-icon.svg"
-              alt="Kitchen Insights"
+              src="/kommee-icon.svg"
+              alt="Kommee"
               width={42}
               height={42}
               priority
             />
           </div>
           <div className="login-brand-copy">
-            <strong>Kitchen Insights</strong>
-            <span>Cost control & operations</span>
+            <strong>Kommee</strong>
+            <span>Less admin. More cooking.</span>
           </div>
         </div>
 

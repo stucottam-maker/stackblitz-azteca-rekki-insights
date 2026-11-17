@@ -17,10 +17,10 @@ export default function OrdersLayout({ children }: { children: ReactNode }) {
             display: "inline-flex",
             gap: 8,
             padding: 6,
-            border: "1px solid rgba(148, 163, 184, 0.35)",
+            border: "1px solid rgba(49, 92, 70, 0.22)",
             borderRadius: 14,
             background: "rgba(255,255,255,0.9)",
-            boxShadow: "0 5px 18px rgba(15,23,42,0.05)",
+            boxShadow: "0 5px 18px rgba(36,53,45,0.06)",
           }}
         >
           <Link
@@ -28,7 +28,7 @@ export default function OrdersLayout({ children }: { children: ReactNode }) {
             style={{
               padding: "9px 13px",
               borderRadius: 10,
-              color: "#1d4ed8",
+              color: "#315C46",
               fontWeight: 700,
               textDecoration: "none",
             }}
@@ -40,7 +40,7 @@ export default function OrdersLayout({ children }: { children: ReactNode }) {
             style={{
               padding: "9px 13px",
               borderRadius: 10,
-              background: "#1d4ed8",
+              background: "#315C46",
               color: "white",
               fontWeight: 700,
               textDecoration: "none",

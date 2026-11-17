@@ -397,7 +397,7 @@ export default function RecipeDetailPage() {
           <div>
             <p className="panel-kicker">Yield</p>
             <h2>Batch output</h2>
-            <p>Use the actual finished yield after cooking/prep. Kitchen Insights will not guess reductions or trim loss.</p>
+            <p>Use the actual finished yield after cooking/prep. Kommee will not guess reductions or trim loss.</p>
           </div>
         </div>
         <div className="recipe-v2-yield-fields">

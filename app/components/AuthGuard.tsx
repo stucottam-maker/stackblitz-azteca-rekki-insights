@@ -96,7 +96,7 @@ export default function AuthGuard({
           fontWeight: 700,
         }}
       >
-        Kitchen Insights
+        Kommee
       </div>
     );
   }

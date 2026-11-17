@@ -120,8 +120,8 @@ export default function Sidebar({ active }: SidebarProps) {
       <div className="brand">
         <div className="brand-mark ki-brand-image"><KitchenLogo size={44} /></div>
         <div className="sidebar-brand-copy">
-          <div className="brand-name">Kitchen Insights</div>
-          <div className="brand-subtitle">Kitchen control, without the admin</div>
+          <div className="brand-name">kommee<span className="kommee-dot">.</span></div>
+          <div className="brand-subtitle">Your kitchen’s right hand.</div>
           <div className="mobile-workspace-control">
             {loading ? (
               <span>Loading restaurant…</span>
@@ -212,7 +212,7 @@ export default function Sidebar({ active }: SidebarProps) {
       <div className="sidebar-footer">
         <div className="restaurant-card workspace-switcher-card">
           <div className="restaurant-avatar">
-            {activeWorkspace ? initials(activeWorkspace.siteName) : "KI"}
+            {activeWorkspace ? initials(activeWorkspace.siteName) : "K"}
           </div>
           <div className="restaurant-card-copy workspace-switcher-copy">
             {loading ? (
