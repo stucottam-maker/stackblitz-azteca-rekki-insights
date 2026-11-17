@@ -136,8 +136,8 @@ export default function DashboardPage() {
       </div>
 
       <div className="metro-mobile-dashboard ki-v2-mobile" style={{background:"#f7f8f6",minHeight:"100vh",paddingBottom:80,fontFamily:"inherit"}}>
-        <header style={{background:"linear-gradient(125deg,#003e32 0%,#064d3e 62%,#0b5844 100%)",color:"#fff",padding:"25px 22px 75px",position:"relative",overflow:"hidden",minHeight:270}}>
-          <div aria-hidden="true" style={{position:"absolute",right:-98,top:108,width:240,height:240,borderRadius:"50%",border:"20px solid rgba(227,243,225,.12)",background:"radial-gradient(circle at 45% 45%,rgba(229,164,89,.28) 0 18%,rgba(79,141,76,.36) 19% 30%,rgba(7,52,39,.15) 45%,transparent 67%)",boxShadow:"0 0 0 8px rgba(255,255,255,.035)",transform:"rotate(-18deg)"}} />
+        <header style={{background:"linear-gradient(125deg,#003e32 0%,#064d3e 62%,#0b5844 100%)",color:"#fff",padding:"25px 22px 62px",position:"relative",overflow:"hidden",minHeight:270}}>
+          <div aria-hidden="true" style={{position:"absolute",right:-58,top:96,width:260,height:235,borderRadius:"50%",backgroundImage:"linear-gradient(90deg,rgba(0,62,50,.36),rgba(0,62,50,0) 55%),url(https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=720&q=85)",backgroundSize:"cover",backgroundPosition:"center",boxShadow:"0 0 0 12px rgba(255,255,255,.07)",opacity:.94}} />
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,marginBottom:45,position:"relative",zIndex:1}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg width="37" height="37" viewBox="0 0 40 40" aria-hidden="true"><path d="M19 19C7 18 4 9 7 3c10-2 16 5 12 16Z" fill="#e58b77"/><path d="M21 19C22 7 30 3 37 6c1 10-6 16-16 13Z" fill="#8cce9d"/><path d="M19 21C7 22 3 30 6 37c10 1 16-6 13-16Z" fill="#55bb9b"/><path d="M21 21c1 12 9 16 16 13 1-10-6-16-16-13Z" fill="#f0c5a4"/></svg>
@@ -157,7 +157,7 @@ export default function DashboardPage() {
             </label>
           </div>
         </header>
-        <div style={{position:"relative",marginTop:-32,background:"#f7f8f6",borderRadius:"32px 32px 0 0",padding:"22px 16px 8px"}}>
+        <div style={{position:"relative",marginTop:-38,background:"#f7f8f6",borderRadius:"32px 32px 0 0",padding:"22px 16px 8px"}}>
           <section aria-label="Quick access" style={{display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:12}}>
             <Link href="/invoices/upload" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
               <KommeeHomeIcon name="camera" /><span>Scan Invoice</span>
@@ -174,12 +174,13 @@ export default function DashboardPage() {
             <Link href="/products" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
               <KommeeHomeIcon name="box" /><span>Products</span>
             </Link>
-            <Link href="/reports" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
-              <KommeeHomeIcon name="chart" /><span>Reports</span>
-            </Link>
             <Link href="/compliance" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
               <KommeeHomeIcon name="check" /><span>Compliance</span>
             </Link>
+            <Link href="/reports" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="chart" /><span>Reports</span>
+            </Link>
+            
             <Link href="/restaurants" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
               <KommeeHomeIcon name="building" /><span>Restaurants</span>
             </Link>
