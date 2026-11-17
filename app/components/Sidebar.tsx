@@ -21,6 +21,7 @@ const links: readonly NavLink[] = [
   ["□", "Stock", "/stock"],
   ["◇", "Recipes", "/recipes"],
   ["☰", "Menu", "/menu"],
+  ["⌂", "Restaurants", "/restaurants"],
   ["◯", "Suppliers", "/suppliers"],
   ["▣", "Ingredients", "/ingredients"],
   ["↗", "Reports", "/reports"],
@@ -30,7 +31,7 @@ const links: readonly NavLink[] = [
 ] as const;
 
 const mobilePrimaryNames = new Set(["Dashboard", "Orders", "Invoices", "Stock"]);
-const mobileMoreNames = ["Recipes", "Suppliers", "Ingredients", "Menu", "Reports", "Insights", "Compliance"] as const;
+const mobileMoreNames = ["Recipes", "Suppliers", "Ingredients", "Menu", "Reports", "Insights", "Compliance", "Restaurants"] as const;
 
 function initials(name: string) {
   return name
