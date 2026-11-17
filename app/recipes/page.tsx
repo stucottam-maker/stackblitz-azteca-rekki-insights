@@ -113,6 +113,7 @@ export default function RecipesPage() {
   );
   const [stored, setStored] = useState<Record<string, StoredRecipePayload>>({});
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     setStored({});
@@ -154,8 +155,15 @@ export default function RecipesPage() {
     });
   }, [recipes, stored]);
 
-  const prepRecipes = views.filter((view) => view.recipe.type === "Prep");
-  const menuRecipes = views.filter((view) => view.recipe.type === "Menu");
+  const filter = search.trim().toLocaleLowerCase("en-GB");
+  const visibleViews = filter
+    ? views.filter((view) =>
+        view.recipe.name.toLocaleLowerCase("en-GB").includes(filter) ||
+        view.recipe.ingredients.some((ingredient) => ingredient.name.toLocaleLowerCase("en-GB").includes(filter))
+      )
+    : views;
+  const prepRecipes = visibleViews.filter((view) => view.recipe.type === "Prep");
+  const menuRecipes = visibleViews.filter((view) => view.recipe.type === "Menu");
   const withYield = views.filter((view) => view.yieldAmount !== null && view.yieldAmount > 0).length;
   const fullyCosted = views.filter(
     (view) => view.totalCost !== null && view.missingLineCount === 0
@@ -175,6 +183,19 @@ export default function RecipesPage() {
           </p>
         </div>
       </header>
+
+      {hasRecipes && (
+        <label className="recipe-catalogue-search">
+          <span>Find a recipe</span>
+          <input
+            type="search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search dishes or ingredients…"
+            aria-label="Search recipes by name or ingredient"
+          />
+        </label>
+      )}
 
       <section className="stats-grid">
         <article className="stat-card">
@@ -223,7 +244,7 @@ export default function RecipesPage() {
               <span className="recipes-section-count">{prepRecipes.length}</span>
             </div>
             <div className="recipes-overview-list">
-              {prepRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />)}
+              {prepRecipes.length ? prepRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />) : <p className="recipe-search-empty">No matching prep recipes.</p>}
             </div>
           </article>
 
@@ -237,7 +258,7 @@ export default function RecipesPage() {
               <span className="recipes-section-count">{menuRecipes.length}</span>
             </div>
             <div className="recipes-overview-list">
-              {menuRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />)}
+              {menuRecipes.length ? menuRecipes.map((view) => <RecipeRow key={view.recipe.name} view={view} />) : <p className="recipe-search-empty">No matching menu recipes.</p>}
             </div>
           </article>
         </section>
