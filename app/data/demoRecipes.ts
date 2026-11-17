@@ -1,0 +1,80 @@
+import type { Recipe } from "./recipes";
+
+// Fictional demonstration dishes only; never copy customer kitchen IP into demo accounts.
+export const demoRecipes: Recipe[] = [
+  {
+    name: "Citrus Dressing (Demo)",
+    type: "Prep",
+    yieldAmount: 204,
+    yieldUnit: "ml",
+    ingredients: [
+      { name: "Lime Juice", quantity: 100, unit: "ml" },
+      { name: "Rapeseed Oil", quantity: 100, unit: "ml" },
+      { name: "Sea Salt", quantity: 4, unit: "g" },
+    ],
+    procedure: "1. Combine the lime juice and salt.\n2. Whisk in the oil until well blended.\n3. Label, refrigerate and follow the site's storage policy.",
+    notes: "Fictional recipe for Kommee demonstrations only. Verify actual food safety controls before use.",
+    allergens: [],
+  },
+  {
+    name: "Green Herb Salsa (Demo)",
+    type: "Prep",
+    yieldAmount: 250,
+    yieldUnit: "g",
+    ingredients: [
+      { name: "Coriander", quantity: 2, unit: "bunch" },
+      { name: "Lime Juice", quantity: 100, unit: "ml" },
+      { name: "Rapeseed Oil", quantity: 70, unit: "ml" },
+    ],
+    procedure: "1. Wash and dry the herbs.\n2. Blend coriander with lime juice.\n3. Gradually add the oil and season to taste.\n4. Chill for service.",
+    notes: "Demonstration-only illustration of batch recipes and ingredient costing.",
+    allergens: [],
+  },
+  {
+    name: "Avocado Corn Tacos (Demo)",
+    type: "Menu",
+    linkedMenuItem: "Avocado Corn Tacos (Demo)",
+    yieldAmount: 1,
+    yieldUnit: "portion",
+    ingredients: [
+      { name: "Blue Corn Tortillas", quantity: 2, unit: "each" },
+      { name: "Avocados Hass", quantity: 1, unit: "each" },
+      { name: "Lime Juice", quantity: 50, unit: "ml" },
+      { name: "Coriander", quantity: 0.25, unit: "bunch" },
+    ],
+    procedure: "1. Warm the tortillas.\n2. Slice the avocado and season with lime juice.\n3. Fill the tortillas, finish with coriander and serve.",
+    notes: "Example dish and ingredient cost calculation. All prices are illustrative.",
+    allergens: [],
+  },
+  {
+    name: "Green Rice Bowl (Demo)",
+    type: "Menu",
+    linkedMenuItem: "Green Rice Bowl (Demo)",
+    yieldAmount: 1,
+    yieldUnit: "portion",
+    ingredients: [
+      { name: "Easy Cook Rice", quantity: 0.25, unit: "kg" },
+      { name: "Avocados Hass", quantity: 1, unit: "each" },
+      { name: "Coriander", quantity: 0.25, unit: "bunch" },
+      { name: "Lime Juice", quantity: 20, unit: "ml" },
+    ],
+    procedure: "1. Cook the rice according to the supplier's instructions.\n2. Assemble with avocado, coriander and lime.\n3. Serve immediately.",
+    notes: "Demonstration-only example. Cooking times and service temperatures must be validated.",
+    allergens: [],
+  },
+  {
+    name: "Crispy Citrus Potatoes (Demo)",
+    type: "Menu",
+    linkedMenuItem: "Crispy Citrus Potatoes (Demo)",
+    yieldAmount: 1,
+    yieldUnit: "portion",
+    ingredients: [
+      { name: "Potatoes", quantity: 0.25, unit: "kg" },
+      { name: "Rapeseed Oil", quantity: 40, unit: "ml" },
+      { name: "Lime Juice", quantity: 50, unit: "ml" },
+    ],
+    procedure: "1. Cut potatoes into even pieces and cook until tender.\n2. Roast or fry until crisp.\n3. Dress lightly with lime juice and serve.",
+    notes: "Demo illustration only. Use an approved kitchen recipe for actual service.",
+    allergens: [],
+  },
+];
