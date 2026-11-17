@@ -9,7 +9,8 @@ import {
   recipeSlug,
   type Recipe,
 } from "../data/allRecipes";
-import { usesAztecaLegacyCatalogue } from "../lib/workspaceCatalogues";
+import { usesAztecaLegacyCatalogue, usesKommeeDemoCatalogue } from "../lib/workspaceCatalogues";
+import { demoRecipes } from "../data/demoRecipes";
 import { readWorkspaceStates } from "../lib/workspaceState";
 
 type StoredRecipePayload = {
@@ -104,13 +105,12 @@ function RecipeRow({ view }: { view: RecipeView }) {
 
 export default function RecipesPage() {
   const { activeWorkspace } = useWorkspace();
-  const recipes = useMemo(
-    () =>
-      usesAztecaLegacyCatalogue(activeWorkspace?.organisationId)
-        ? legacyRecipes
-        : [],
-    [activeWorkspace?.organisationId]
-  );
+  const recipes = useMemo(() => {
+    const organisationId = activeWorkspace?.organisationId;
+    if (usesAztecaLegacyCatalogue(organisationId)) return legacyRecipes;
+    if (usesKommeeDemoCatalogue(organisationId)) return demoRecipes;
+    return [];
+  }, [activeWorkspace?.organisationId]);
   const [stored, setStored] = useState<Record<string, StoredRecipePayload>>({});
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
