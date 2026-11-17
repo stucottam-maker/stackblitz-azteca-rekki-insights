@@ -1125,3 +1125,14 @@ body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !i
   .app-shell-root .sidebar.chef-sidebar,.metro-app-shell .sidebar.chef-sidebar,
   body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !important;}
 }
+
+/* Kommee home: the mock-up has one hero and one persistent navigation bar. */
+@media (max-width: 640px) {
+  .kommee-mobile-home-shell .sidebar.chef-sidebar .brand { display: none !important; }
+  .kommee-mobile-home-shell .sidebar.chef-sidebar { background: transparent !important; height: 0 !important; min-height: 0 !important; padding: 0 !important; }
+  .kommee-mobile-home-shell .sidebar.chef-sidebar .sidebar-footer { display: none !important; }
+  .kommee-mobile-home-shell .main-content-root { padding: 0 !important; margin: 0 !important; }
+  .kommee-mobile-home-shell .page.metro-tile-page.kommee-dashboard { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+  .kommee-mobile-home-shell .metro-mobile-dashboard.ki-v2-mobile { margin: 0 !important; width: 100% !important; max-width: none !important; }
+  .kommee-mobile-home-shell .sidebar.chef-sidebar .sidebar-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 50 !important; }
+}
