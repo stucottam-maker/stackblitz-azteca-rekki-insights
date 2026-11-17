@@ -154,6 +154,7 @@ export default function RecipeDetailPage() {
   const [allergens, setAllergens] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     if (!baseRecipe) {
@@ -304,6 +305,8 @@ export default function RecipeDetailPage() {
       yieldAmount,
       yieldUnit,
       notes,
+      procedure,
+      allergens,
       ingredients: ingredients.map(({ name, quantity, unit }) => ({ name, quantity, unit })),
     };
 
@@ -332,6 +335,7 @@ export default function RecipeDetailPage() {
         [recipeKey(baseRecipe?.name ?? recipe.name)]: payload,
       }));
       setMessage("Recipe saved.");
+      setEditing(false);
     } catch (error: any) {
       setMessage(error?.message || "Could not save recipe");
     }
@@ -343,6 +347,115 @@ export default function RecipeDetailPage() {
       <div className="page">
         <Link href="/recipes" className="back-link">← Recipes</Link>
         <section className="panel"><h1>Recipe not found</h1></section>
+      </div>
+    );
+  }
+
+  if (!editing) {
+    return (
+      <div className="page recipe-v2-page recipe-readable-page">
+        <header className="topbar recipe-readable-header">
+          <div className="recipe-readable-heading">
+            <Link href="/recipes" className="back-link">← All recipes</Link>
+            <p className="eyebrow">{recipe.type === "Menu" ? "Menu dish" : "Prep recipe"}</p>
+            <h1>{recipe.name}</h1>
+            {recipe.linkedMenuItem && <p className="recipe-readable-subtitle">Used in {recipe.linkedMenuItem}</p>}
+          </div>
+          <button type="button" className="primary-button" onClick={() => setEditing(true)}>Edit recipe</button>
+        </header>
+        {message && <div role="status" className="notice">{message}</div>}
+
+        <section className="panel recipe-readable-panel">
+          <div className="panel-header recipe-readable-panel-heading">
+            <div><p className="panel-kicker">Recipe</p><h2>Ingredients <small>({ingredients.length})</small></h2></div>
+          </div>
+          <div className="recipe-readable-ingredient-list">
+            {ingredients.map((ingredient, index) => {
+              const linked = findSubRecipe(ingredient.name);
+              return (
+                <div className="recipe-readable-ingredient" key={index}>
+                  {linked && linked.name !== recipe.name ? (
+                    <Link href={"/recipes/" + recipeSlug(linked.name)}>{ingredient.name}</Link>
+                  ) : (
+                    <strong>{ingredient.name || "Unnamed ingredient"}</strong>
+                  )}
+                  <span className={"recipe-readable-qty" + (ingredient.quantity === null ? " missing" : "")}>
+                    {ingredient.quantity === null ? "Qty needed" : String(ingredient.quantity) + (ingredient.unit ? " " + ingredient.unit : "")}
+                  </span>
+                </div>
+              );
+            })}
+            {!ingredients.length && <p className="recipe-readable-muted">No ingredients recorded yet.</p>}
+          </div>
+        </section>
+
+        <section className="panel recipe-readable-panel">
+          <div className="panel-header recipe-readable-panel-heading"><div><p className="panel-kicker">Kitchen</p><h2>Method</h2></div></div>
+          <p className={"recipe-readable-procedure" + (!procedure.trim() ? " recipe-readable-muted" : "")}>
+            {procedure.trim() || "No method recorded yet."}
+          </p>
+          {notes.trim() && (
+            <div className="recipe-readable-notes">
+              <h3>Chef’s notes</h3>
+              <p>{notes}</p>
+            </div>
+          )}
+        </section>
+
+        <section className="panel recipe-readable-panel recipe-readable-small-panel">
+          <div className="panel-header recipe-readable-panel-heading">
+            <div><p className="panel-kicker">Batch size</p><h2>Yield</h2></div>
+            <strong className="recipe-readable-yield-value">
+              {yieldAmount !== null && yieldAmount > 0 ? String(yieldAmount) + (yieldUnit ? " " + yieldUnit : "") : "Not set"}
+            </strong>
+          </div>
+        </section>
+
+        <section className="panel recipe-readable-panel recipe-readable-small-panel">
+          <div className="panel-header recipe-readable-panel-heading"><div><p className="panel-kicker">Food safety</p><h2>Allergens</h2></div></div>
+          {allergens.length ? (
+            <div className="recipe-readable-allergen-list">
+              {allergens.map((allergen) => <span key={allergen}>{allergen}</span>)}
+            </div>
+          ) : (
+            <p className="recipe-readable-muted">Not yet confirmed. Check ingredients before service.</p>
+          )}
+          {usedIn.length > 0 && (
+            <div className="recipe-readable-used-in">
+              <strong>Used in</strong>
+              {usedIn.map((item) => (
+                <Link key={item.name} href={"/recipes/" + recipeSlug(item.name)}>{item.name}</Link>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <details className="panel recipe-readable-costing">
+          <summary>
+            <span><strong>Costing details</strong><small>{pricedLineCount} of {ingredients.length} ingredient prices found</small></span>
+            <span aria-hidden="true">⌄</span>
+          </summary>
+          <div className="recipe-readable-costing-body">
+            <div className="recipe-readable-cost-metrics">
+              <div><small>Batch cost</small><strong>{money(totalCost)}</strong></div>
+              <div><small>Per yield unit</small><strong>{money(costPerYieldUnit)}</strong></div>
+              <div><small>Missing prices</small><strong>{missingLineCount}</strong></div>
+            </div>
+            {missingLineCount > 0 && <p className="recipe-readable-muted">Cost is partial until missing prices or quantities are entered.</p>}
+            <div className="recipe-readable-cost-lines">
+              {ingredients.map((ingredient, index) => {
+                const line = lineCosts[index];
+                return (
+                  <div key={index}>
+                    <span>{ingredient.name || "Unnamed ingredient"}</span>
+                    <strong>{line.cost === null ? line.source : money(line.cost)}</strong>
+                    {line.detail && <small>{line.detail}</small>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </details>
       </div>
     );
   }
@@ -362,9 +475,10 @@ export default function RecipeDetailPage() {
             {recipe.type} recipe{recipe.linkedMenuItem ? ` · linked to ${recipe.linkedMenuItem}` : ""}
           </p>
         </div>
-        <button type="button" className="primary-button" onClick={() => void saveRecipe()}>
-          Save recipe
-        </button>
+        <div className="recipe-readable-edit-actions">
+          <button type="button" className="secondary-inline-button" onClick={() => { if (window.confirm("Discard unsaved edits?")) window.location.reload(); }}>Cancel</button>
+          <button type="button" className="primary-button" onClick={() => void saveRecipe()}>Save changes</button>
+        </div>
       </header>
 
       {message && <div className="notice">{message}</div>}
@@ -437,7 +551,7 @@ export default function RecipeDetailPage() {
             const line = lineCosts[index];
             const price = findPrice(prices, ingredient.name);
             return (
-              <div className="recipe-v2-line" key={`${index}-${ingredient.name}`}>
+              <div className="recipe-v2-line" key={index}>
                 <input
                   className="recipe-v2-name"
                   value={ingredient.name}
