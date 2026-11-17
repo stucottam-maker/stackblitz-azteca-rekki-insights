@@ -6,3 +6,10 @@ export function usesAztecaLegacyCatalogue(
 ) {
   return organisationId === AZTECA_ORGANISATION_ID;
 }
+
+export const KOMMEE_DEMO_ORGANISATION_ID =
+  "3a327991-668d-4f3f-b650-ac248f48b7c5";
+
+export function usesKommeeDemoCatalogue(organisationId: string | null | undefined) {
+  return organisationId === KOMMEE_DEMO_ORGANISATION_ID;
+}
