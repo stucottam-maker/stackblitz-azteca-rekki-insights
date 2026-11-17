@@ -171,8 +171,8 @@ export default function DashboardPage() {
             <Link href="/suppliers" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
               <KommeeHomeIcon name="store" /><span>Suppliers</span>
             </Link>
-            <Link href="/products" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
-              <KommeeHomeIcon name="box" /><span>Products</span>
+            <Link href="/recipes" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
+              <KommeeHomeIcon name="book" /><span>Recipes</span>
             </Link>
             <Link href="/compliance" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
               <KommeeHomeIcon name="check" /><span>Compliance</span>
@@ -217,6 +217,7 @@ function KommeeHomeIcon({ name, small = false }: { name: string; small?: boolean
     file: <><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v6h5M9 12h7M9 16h7"/></>,
     store: <><path d="M3 10l2-7h14l2 7-2 3H5zM5 13v8h14v-8M9 21v-6h6"/></>,
     box: <><path d="M3 7l9-5 9 5v10l-9 5-9-5zM3 7l9 5 9-5M12 12v10M8 4l9 5"/></>,
+    book: <><path d="M12 6c-2.6-1.7-6.1-1.8-9-1v14c2.9-.8 6.4-.7 9 1 2.6-1.7 6.1-1.8 9-1V5c-2.9-.8-6.4-.7-9 1z"/><path d="M12 6v14M6 9h3M15 9h3M6 12h3M15 12h3"/></>,
     chart: <><path d="M5 20v-6h3v6M11 20V9h3v11M17 20V4h3v16"/></>,
     check: <><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 12l3 3 5-6"/></>,
     building: <><path d="M4 21V5h16v16M8 9h2M14 9h2M8 13h2M14 13h2M9 21v-5h6v5"/></>,
