@@ -143,7 +143,7 @@ export default function DashboardPage() {
               <svg width="37" height="37" viewBox="0 0 40 40" aria-hidden="true"><path d="M19 19C7 18 4 9 7 3c10-2 16 5 12 16Z" fill="#e58b77"/><path d="M21 19C22 7 30 3 37 6c1 10-6 16-16 13Z" fill="#8cce9d"/><path d="M19 21C7 22 3 30 6 37c10 1 16-6 13-16Z" fill="#55bb9b"/><path d="M21 21c1 12 9 16 16 13 1-10-6-16-16-13Z" fill="#f0c5a4"/></svg>
               <strong style={{fontSize:29,letterSpacing:"-1.1px",lineHeight:1,color:"#fff"}}>Kommee</strong>
             </div>
-            <Link href="/restaurants" aria-label="Restaurant options" style={{color:"#e5f2e9",fontSize:24,textDecoration:"none",padding:"0 5px"}}>⋮</Link>
+            
           </div>
           <div style={{position:"relative",zIndex:1}}>
             <h1 style={{fontSize:28,fontWeight:750,color:"#fff",margin:"0 0 9px",lineHeight:1.15}}>Good morning</h1>
