@@ -5,11 +5,14 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 import {
-  recipes,
+  recipes as legacyRecipes,
   recipeSlug,
   type Recipe,
   type RecipeIngredient,
 } from "../../data/allRecipes";
+import { demoRecipes } from "../../data/demoRecipes";
+import { usesAztecaLegacyCatalogue, usesKommeeDemoCatalogue } from "../../lib/workspaceCatalogues";
+import { useWorkspace } from "../../components/WorkspaceProvider";
 import {
   persistWorkspaceState,
   readWorkspaceStates,
@@ -123,8 +126,8 @@ function findPrice(prices: IngredientPrices, ingredient: string) {
   return key ? prices[key] : undefined;
 }
 
-function findSubRecipe(name: string) {
-  return recipes.find((recipe) => normalise(recipe.name) === normalise(name));
+function findSubRecipe(name: string, catalogue: Recipe[]) {
+  return catalogue.find((recipe) => normalise(recipe.name) === normalise(name));
 }
 
 function money(value: number | null) {
@@ -138,9 +141,16 @@ function money(value: number | null) {
 export default function RecipeDetailPage() {
   const params = useParams<{ slug: string }>();
   const slug = params.slug;
+  const { activeWorkspace } = useWorkspace();
+  const recipes = useMemo(() => {
+    const organisationId = activeWorkspace?.organisationId;
+    if (usesAztecaLegacyCatalogue(organisationId)) return legacyRecipes;
+    if (usesKommeeDemoCatalogue(organisationId)) return demoRecipes;
+    return [];
+  }, [activeWorkspace?.organisationId]);
   const baseRecipe = useMemo(
     () => recipes.find((recipe) => recipeSlug(recipe.name) === slug) ?? null,
-    [slug]
+    [slug, recipes]
   );
 
   const [recipe, setRecipe] = useState<Recipe | null>(baseRecipe);
@@ -171,7 +181,7 @@ export default function RecipeDetailPage() {
           stored?.ingredients ??
           startingRecipe.ingredients.map((ingredient) => ({
             ...ingredient,
-            type: findSubRecipe(ingredient.name) ? "Sub-recipe" : "Inventory item",
+            type: findSubRecipe(ingredient.name, recipes) ? "Sub-recipe" : "Inventory item",
           }));
 
         setRecipe(startingRecipe);
@@ -193,7 +203,7 @@ export default function RecipeDetailPage() {
       })
       .catch((error) => setMessage(error?.message || "Could not load recipe"))
       .finally(() => setLoading(false));
-  }, [baseRecipe]);
+  }, [baseRecipe, recipes]);
 
   const lineCosts = useMemo(() => {
     return ingredients.map((ingredient) => {
@@ -202,7 +212,7 @@ export default function RecipeDetailPage() {
         return { cost: null as number | null, source: "Quantity needed", detail: "" };
       }
 
-      const subRecipe = findSubRecipe(ingredient.name);
+      const subRecipe = findSubRecipe(ingredient.name, recipes);
       if (ingredient.type === "Sub-recipe" || subRecipe) {
         if (!subRecipe) return { cost: null, source: "Sub-recipe missing", detail: "" };
         const stored = storedRecipes[recipeKey(subRecipe.name)];
@@ -250,7 +260,7 @@ export default function RecipeDetailPage() {
         detail: audit,
       };
     });
-  }, [ingredients, prices, storedRecipes]);
+  }, [ingredients, prices, storedRecipes, recipes]);
 
   const totalCost = useMemo(() => {
     if (!ingredients.length) return null;
@@ -272,7 +282,7 @@ export default function RecipeDetailPage() {
         (ingredient) => normalise(ingredient.name) === normalise(recipe.name)
       )
     );
-  }, [recipe]);
+  }, [recipe, recipes]);
 
   function updateIngredient(index: number, field: keyof EditableIngredient, value: string) {
     setIngredients((current) =>
@@ -282,7 +292,7 @@ export default function RecipeDetailPage() {
               ...ingredient,
               [field]: field === "quantity" ? (value === "" ? null : Number(value)) : value,
               ...(field === "name"
-                ? { type: findSubRecipe(value) ? "Sub-recipe" : "Inventory item" }
+                ? { type: findSubRecipe(value, recipes) ? "Sub-recipe" : "Inventory item" }
                 : {}),
             }
           : ingredient
@@ -371,7 +381,7 @@ export default function RecipeDetailPage() {
           </div>
           <div className="recipe-readable-ingredient-list">
             {ingredients.map((ingredient, index) => {
-              const linked = findSubRecipe(ingredient.name);
+              const linked = findSubRecipe(ingredient.name, recipes);
               return (
                 <div className="recipe-readable-ingredient" key={index}>
                   {linked && linked.name !== recipe.name ? (
