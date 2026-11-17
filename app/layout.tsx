@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./ui-system.css";
+import "./recipe-readable.css";
 
 import type { Metadata } from "next";
 import Script from "next/script";
