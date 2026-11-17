@@ -12,6 +12,8 @@ export type Recipe = {
   yieldUnit?: string;
   ingredients: RecipeIngredient[];
   notes?: string;
+  procedure?: string;
+  allergens?: string[];
 };
 
 export function recipeSlug(name: string) {
