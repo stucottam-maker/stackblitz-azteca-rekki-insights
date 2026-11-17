@@ -134,18 +134,23 @@ export default function DashboardPage() {
       </div>
 
       <div className="metro-mobile-dashboard ki-v2-mobile" style={{background:"#f7f8f6",minHeight:"100vh",paddingBottom:80,fontFamily:"inherit"}}>
-        <header style={{background:"linear-gradient(120deg,#064b3d 0%,#064336 62%,#0d604b 100%)",color:"#fff",padding:"30px 24px 64px",position:"relative",overflow:"hidden"}}>
-          <div aria-hidden="true" style={{position:"absolute",right:-70,top:75,width:220,height:220,borderRadius:"50%",background:"radial-gradient(circle,rgba(111,188,132,.17),transparent 70%)"}} />
-          <div style={{display:"flex",alignItems:"center",gap:9,marginBottom:37}}>
-            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:33,height:36,fontSize:33,color:"#68d5a1",fontWeight:900}}>✳</span>
-            <strong style={{fontSize:29,letterSpacing:"-1.1px",lineHeight:1,color:"#fff"}}>Kommee</strong>
+        <header style={{background:"linear-gradient(125deg,#003e32 0%,#064d3e 62%,#0b5844 100%)",color:"#fff",padding:"25px 22px 75px",position:"relative",overflow:"hidden",minHeight:270}}>
+          <div aria-hidden="true" style={{position:"absolute",right:-98,top:108,width:240,height:240,borderRadius:"50%",border:"20px solid rgba(227,243,225,.12)",background:"radial-gradient(circle at 45% 45%,rgba(229,164,89,.28) 0 18%,rgba(79,141,76,.36) 19% 30%,rgba(7,52,39,.15) 45%,transparent 67%)",boxShadow:"0 0 0 8px rgba(255,255,255,.035)",transform:"rotate(-18deg)"}} />
+          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,marginBottom:45,position:"relative",zIndex:1}}>
+            <div style={{display:"flex",alignItems:"center",gap:9}}>
+              <svg width="37" height="37" viewBox="0 0 40 40" aria-hidden="true"><path d="M19 19C7 18 4 9 7 3c10-2 16 5 12 16Z" fill="#e58b77"/><path d="M21 19C22 7 30 3 37 6c1 10-6 16-16 13Z" fill="#8cce9d"/><path d="M19 21C7 22 3 30 6 37c10 1 16-6 13-16Z" fill="#55bb9b"/><path d="M21 21c1 12 9 16 16 13 1-10-6-16-16-13Z" fill="#f0c5a4"/></svg>
+              <strong style={{fontSize:29,letterSpacing:"-1.1px",lineHeight:1,color:"#fff"}}>Kommee</strong>
+            </div>
+            <Link href="/restaurants" aria-label="Restaurant options" style={{color:"#e5f2e9",fontSize:24,textDecoration:"none",padding:"0 5px"}}>⋮</Link>
           </div>
-          <h1 style={{fontSize:29,fontWeight:750,color:"#fff",margin:"0 0 10px",lineHeight:1.15}}>Good morning</h1>
-          <Link href="/restaurants" style={{display:"inline-flex",alignItems:"center",gap:9,color:"#e5f2e9",fontSize:15,textDecoration:"none",fontWeight:500}}>
-            Select restaurant <span aria-hidden="true" style={{fontSize:16}}>⌄</span>
-          </Link>
+          <div style={{position:"relative",zIndex:1}}>
+            <h1 style={{fontSize:28,fontWeight:750,color:"#fff",margin:"0 0 9px",lineHeight:1.15}}>Good morning</h1>
+            <Link href="/restaurants" style={{display:"inline-flex",alignItems:"center",gap:9,color:"#f0f6f1",fontSize:16,textDecoration:"none",fontWeight:500}}>
+              Choose restaurant <span aria-hidden="true" style={{fontSize:17}}>⌄</span>
+            </Link>
+          </div>
         </header>
-        <div style={{position:"relative",marginTop:-32,background:"#f7f8f6",borderRadius:"28px 28px 0 0",padding:"22px 16px 8px"}}>
+        <div style={{position:"relative",marginTop:-32,background:"#f7f8f6",borderRadius:"32px 32px 0 0",padding:"22px 16px 8px"}}>
           <section aria-label="Quick access" style={{display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:12}}>
             <Link href="/invoices/upload" style={{background:"#fff",border:"1px solid #edf0ed",borderRadius:22,minHeight:137,boxShadow:"0 4px 15px rgba(17,50,39,.06)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,textDecoration:"none",color:"#182f27",fontWeight:750,fontSize:15,textAlign:"center",padding:12}}>
               <KommeeHomeIcon name="camera" /><span>Scan Invoice</span>
