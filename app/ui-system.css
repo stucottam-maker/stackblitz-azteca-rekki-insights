@@ -1127,7 +1127,7 @@ body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !i
 }
 
 /* Kommee home: the mock-up has one hero and one persistent navigation bar. */
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
   .kommee-mobile-home-shell .sidebar.chef-sidebar .brand { display: none !important; }
   .kommee-mobile-home-shell .sidebar.chef-sidebar { background: transparent !important; height: 0 !important; min-height: 0 !important; padding: 0 !important; }
   .kommee-mobile-home-shell .sidebar.chef-sidebar .sidebar-footer { display: none !important; }
@@ -1135,4 +1135,14 @@ body .sidebar.chef-sidebar{background:linear-gradient(160deg,#214534,#315C46) !i
   .kommee-mobile-home-shell .page.metro-tile-page.kommee-dashboard { padding: 0 !important; margin: 0 !important; max-width: none !important; }
   .kommee-mobile-home-shell .metro-mobile-dashboard.ki-v2-mobile { margin: 0 !important; width: 100% !important; max-width: none !important; }
   .kommee-mobile-home-shell .sidebar.chef-sidebar .sidebar-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 50 !important; }
+}
+
+/* Override legacy mobile/tablet shell styles, including 641–1024px viewport widths. */
+@media (max-width: 1024px) {
+  body .app-shell-root.kommee-mobile-home-shell .sidebar.chef-sidebar > .brand,
+  body .metro-app-shell.kommee-mobile-home-shell .sidebar.chef-sidebar > .brand,
+  body .kommee-mobile-home-shell .sidebar-brand-copy,
+  body .kommee-mobile-home-shell .mobile-workspace-control { display: none !important; }
+  body .kommee-mobile-home-shell .sidebar.chef-sidebar { height: 0 !important; min-height: 0 !important; padding: 0 !important; border: 0 !important; }
+  body .kommee-mobile-home-shell .main-content-root { padding-top: 0 !important; }
 }
