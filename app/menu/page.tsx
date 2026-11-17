@@ -10,7 +10,9 @@ import {
   recipeSlug,
   type Recipe,
 } from "../data/allRecipes";
-import { usesAztecaLegacyCatalogue } from "../lib/workspaceCatalogues";
+import { usesAztecaLegacyCatalogue, usesKommeeDemoCatalogue } from "../lib/workspaceCatalogues";
+import { demoRecipes } from "../data/demoRecipes";
+import { demoMenuSections } from "../data/demoMenuCatalogue";
 import { readWorkspaceStates } from "../lib/workspaceState";
 
 type StoredRecipePayload = {
@@ -48,20 +50,18 @@ function formatMoney(value: number | null | undefined) {
 
 export default function MenuPage() {
   const { activeWorkspace } = useWorkspace();
-  const menuSections = useMemo(
-    () =>
-      usesAztecaLegacyCatalogue(activeWorkspace?.organisationId)
-        ? legacyMenuSections
-        : [],
-    [activeWorkspace?.organisationId]
-  );
-  const recipes = useMemo(
-    () =>
-      usesAztecaLegacyCatalogue(activeWorkspace?.organisationId)
-        ? legacyRecipes
-        : [],
-    [activeWorkspace?.organisationId]
-  );
+  const menuSections = useMemo(() => {
+    const organisationId = activeWorkspace?.organisationId;
+    if (usesAztecaLegacyCatalogue(organisationId)) return legacyMenuSections;
+    if (usesKommeeDemoCatalogue(organisationId)) return demoMenuSections;
+    return [];
+  }, [activeWorkspace?.organisationId]);
+  const recipes = useMemo(() => {
+    const organisationId = activeWorkspace?.organisationId;
+    if (usesAztecaLegacyCatalogue(organisationId)) return legacyRecipes;
+    if (usesKommeeDemoCatalogue(organisationId)) return demoRecipes;
+    return [];
+  }, [activeWorkspace?.organisationId]);
 
   const [storedRecipes, setStoredRecipes] = useState<Record<string, StoredRecipePayload>>({});
   const [loading, setLoading] = useState(true);
