@@ -1,3 +1,4 @@
+import { november2026Recipes } from "./november2026Recipes";
 import {
   recipes as baseRecipes,
   recipeSlug,
@@ -179,9 +180,34 @@ function patchRecipe(recipe: Recipe): Recipe {
   return recipe;
 }
 
-export const recipes: Recipe[] = [
+const previousRecipes: Recipe[] = [
   ...baseRecipes.map(patchRecipe),
   ...extraRecipes,
+];
+
+// The November 2026 book is the latest source for matching batch recipes.
+// Keep unrelated legacy recipes and menu links; add genuinely new recipes once.
+const novemberBySlug = new Map(
+  november2026Recipes.map((recipe) => [recipeSlug(recipe.name), recipe])
+);
+const originalSlugs = new Set(previousRecipes.map((recipe) => recipeSlug(recipe.name)));
+
+export const recipes: Recipe[] = [
+  ...previousRecipes.map((original) => {
+    const newer = novemberBySlug.get(recipeSlug(original.name));
+    return newer
+      ? {
+          ...original,
+          ...newer,
+          linkedMenuItem: newer.linkedMenuItem ?? original.linkedMenuItem,
+          yieldAmount: newer.yieldAmount ?? original.yieldAmount,
+          yieldUnit: newer.yieldUnit ?? original.yieldUnit,
+        }
+      : original;
+  }),
+  ...november2026Recipes.filter(
+    (recipe) => !originalSlugs.has(recipeSlug(recipe.name))
+  ),
 ];
 
 export { recipeSlug };
