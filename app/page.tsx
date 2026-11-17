@@ -151,7 +151,7 @@ export default function DashboardPage() {
               <span className="sr-only">Select restaurant</span>
               <select aria-label="Select restaurant" value={activeWorkspace ? activeWorkspace.organisationId + "." + activeWorkspace.siteId : ""} disabled={switching || !availableWorkspaces.length} onChange={(event) => { const [organisationId,siteId] = event.target.value.split("."); if (organisationId && siteId) void switchWorkspace(organisationId,siteId); }} style={{background:"transparent",color:"#fff",border:0,outline:0,maxWidth:230,fontSize:16,fontWeight:500,appearance:"none",padding:0}}>
                 {!activeWorkspace && <option value="">Select restaurant</option>}
-                {availableWorkspaces.flatMap((org) => org.sites.map((site) => <option key={org.organisationId + "." + site.id} value={org.organisationId + "." + site.id} style={{color:"#173d32"}}>{site.name}</option>))}
+                {availableWorkspaces.flatMap((org) => org.sites.map((site) => <option key={org.organisationId + "." + site.id} value={org.organisationId + "." + site.id} style={{color:"#173d32"}}>{org.organisationName === site.name ? site.name : `${org.organisationName} · ${site.name}`}</option>))}
               </select>
               <span aria-hidden="true">⌄</span>
             </label>
