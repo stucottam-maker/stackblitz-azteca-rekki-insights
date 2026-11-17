@@ -19,7 +19,7 @@ function respond(body: unknown, status = 200) {
 }
 
 async function verifyPlatformOwner(request: Request) {
-  const token = request.headers.get("authorization")?.replace(/^Bearer\\s+/i, "").trim();
+  const token = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "").trim();
   if (!token) return false;
 
   const { data: verified, error } = await serviceSupabase.auth.getUser(token);
