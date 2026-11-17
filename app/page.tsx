@@ -166,7 +166,7 @@ export default function DashboardPage() {
           </Link>
         </section>
         <section aria-label="Compliance shortcuts" style={{margin:"0 16px 20px",background:"#fff",borderRadius:20,padding:18,border:"1px solid #e7e9e3"}}>
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><h2 style={{fontSize:18,fontWeight:750,margin:0,color:"#173d32"}}>Today's compliance</h2><Link href="/compliance" style={{color:"#0a795a",fontWeight:650,fontSize:13}}>View all →</Link></div>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><h2 style={{fontSize:18,fontWeight:750,margin:0,color:"#173d32"}}>Today&apos;s compliance</h2><Link href="/compliance" style={{color:"#0a795a",fontWeight:650,fontSize:13}}>View all →</Link></div>
           <p style={{color:"#68766e",fontSize:13,margin:"0 0 12px"}}>Keep your daily food safety records on track.</p>
           <Link href="/compliance" style={{display:"flex",gap:12,alignItems:"center",padding:"12px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:600,fontSize:14}}><span>🌡️</span><span style={{flex:1}}>Fridge & freezer temperatures</span><span aria-hidden="true">›</span></Link>
           <Link href="/compliance" style={{display:"flex",gap:12,alignItems:"center",padding:"12px 0",borderTop:"1px solid #edf0eb",color:"#173d32",textDecoration:"none",fontWeight:600,fontSize:14}}><span>🧽</span><span style={{flex:1}}>Cleaning schedules</span><span aria-hidden="true">›</span></Link>
