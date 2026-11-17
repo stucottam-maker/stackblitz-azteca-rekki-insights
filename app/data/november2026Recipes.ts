@@ -28,7 +28,7 @@ function prep(
       "Source: Kitchen_Recipes_Complete_Revised.docx, 15 November 2026. Amounts are X1; scale by batch for X10.",
       allergenNotes ? `Dietary / allergens: ${allergenNotes}` : "",
       sourceNotes,
-    ].filter(Boolean).join("\\n\\n"),
+    ].filter(Boolean).join("\n\n"),
   };
 }
 
