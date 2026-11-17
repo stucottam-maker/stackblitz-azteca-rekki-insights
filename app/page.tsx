@@ -137,7 +137,7 @@ export default function DashboardPage() {
 
       <div className="metro-mobile-dashboard ki-v2-mobile" style={{background:"#f7f8f6",minHeight:"100vh",paddingBottom:80,fontFamily:"inherit"}}>
         <header style={{background:"linear-gradient(125deg,#003e32 0%,#064d3e 62%,#0b5844 100%)",color:"#fff",padding:"25px 22px 62px",position:"relative",overflow:"hidden",minHeight:270}}>
-          <div aria-hidden="true" style={{position:"absolute",right:-58,top:96,width:260,height:235,borderRadius:"50%",backgroundImage:"linear-gradient(90deg,rgba(0,62,50,.36),rgba(0,62,50,0) 55%),url(https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=720&q=85)",backgroundSize:"cover",backgroundPosition:"center",boxShadow:"0 0 0 12px rgba(255,255,255,.07)",opacity:.94}} />
+          <div aria-hidden="true" style={{position:"absolute",right:20,top:112,width:112,height:112,borderRadius:"50%",backgroundImage:"url(https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=85)",backgroundSize:"cover",backgroundPosition:"center",boxShadow:"0 0 0 5px rgba(255,255,255,.16)",opacity:1}} />
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,marginBottom:45,position:"relative",zIndex:1}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg width="37" height="37" viewBox="0 0 40 40" aria-hidden="true"><path d="M19 19C7 18 4 9 7 3c10-2 16 5 12 16Z" fill="#e58b77"/><path d="M21 19C22 7 30 3 37 6c1 10-6 16-16 13Z" fill="#8cce9d"/><path d="M19 21C7 22 3 30 6 37c10 1 16-6 13-16Z" fill="#55bb9b"/><path d="M21 21c1 12 9 16 16 13 1-10-6-16-16-13Z" fill="#f0c5a4"/></svg>
