@@ -15,12 +15,20 @@ function prep(
     type: "Prep",
     yieldAmount: null,
     ingredients,
+    procedure: method,
+    allergens: ({
+      "Miso Pastor": ["Soybeans"],
+      "Oyster – Garnish & Service": ["Molluscs"],
+      "Milk Crumb": ["Milk", "Gluten"],
+      "Chimichurri": ["Fish"],
+      "Miso Dressing": ["Soybeans"],
+      "Panisse": ["Milk"],
+    } as Record<string, string[]>)[name] ?? [],
     notes: [
       "Source: Kitchen_Recipes_Complete_Revised.docx, 15 November 2026. Amounts are X1; scale by batch for X10.",
-      method,
       allergenNotes ? `Dietary / allergens: ${allergenNotes}` : "",
       sourceNotes,
-    ].filter(Boolean).join("\n\n"),
+    ].filter(Boolean).join("\\n\\n"),
   };
 }
 
