@@ -42,7 +42,7 @@ export function MarketingShell({
             <Link className={active === "about" ? "km-current" : ""} href="/#about">About</Link>
           </nav>
           <div className="km-header-actions">
-            <Link className="km-header-login" href="/login?next=%2F%3Fapp%3D1">Log in</Link>
+            <a className="km-header-login" href="/login">Log in</a>
             <Link className="km-btn km-btn-accent km-header-get" href="/join">Get started</Link>
           </div>
         </div>
@@ -52,7 +52,7 @@ export function MarketingShell({
         <div className="km-container km-footer-inner">
           <div><strong>kommee<span className="km-dot">.</span></strong><span>Your kitchen’s right hand.</span></div>
           <nav aria-label="Footer navigation">
-            <Link href="/pricing">Pricing</Link><Link href="/demo">Explore demo</Link><Link href="/join">Join a kitchen</Link><Link href="/login?next=%2F%3Fapp%3D1">Log in</Link>
+            <Link href="/pricing">Pricing</Link><Link href="/demo">Explore demo</Link><Link href="/join">Join a kitchen</Link><a href="/login">Log in</a>
           </nav>
           <small>© 2026 Kommee. Built for hospitality.</small>
         </div>
