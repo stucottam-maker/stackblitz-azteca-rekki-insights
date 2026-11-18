@@ -27,7 +27,7 @@ export default function LoginPage() {
   const nextPath =
     requestedPath && requestedPath.startsWith("/") && !requestedPath.startsWith("//")
       ? requestedPath
-      : "/";
+      : "/?app=1";
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
