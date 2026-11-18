@@ -34,7 +34,7 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
 
       if (!session) {
         setReady(false);
-        router.replace(`/login?next=${encodeURIComponent(pathname || "/")}`);
+        router.replace(`/login?next=${encodeURIComponent(pathname === "/" ? "/?app=1" : pathname || "/")}`);
         return;
       }
 

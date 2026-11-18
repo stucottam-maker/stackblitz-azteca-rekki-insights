@@ -2,7 +2,7 @@
   "name": "Kommee",
   "short_name": "Kommee",
   "description": "Your kitchen’s right hand.",
-  "start_url": "/",
+  "start_url": "/?app=1",
   "scope": "/",
   "display": "standalone",
   "background_color": "#F7F5ED",
