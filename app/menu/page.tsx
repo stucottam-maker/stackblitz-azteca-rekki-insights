@@ -204,7 +204,7 @@ export default function MenuPage() {
                 <p className="panel-kicker">Clean workspace</p>
                 <h2>No menu items yet</h2>
                 <p>
-                  Add the Beaufort House menu here when it is ready. Azteca dishes remain only in the Azteca workspace.
+                  Add menu items and connect recipes to start tracking selling prices and food costs for this restaurant.
                 </p>
               </div>
             </div>
