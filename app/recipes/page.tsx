@@ -227,7 +227,8 @@ export default function RecipesPage() {
               <p className="panel-kicker">Clean workspace</p>
               <h2>No recipes yet</h2>
               <p>
-                Add Beaufort House recipes here when you are ready. Azteca recipes remain only in the Azteca workspace.
+                Add recipes to {activeWorkspace?.organisationName ?? "this restaurant"} to start tracking yields,
+                ingredient costs and menu margins.
               </p>
             </div>
           </div>
