@@ -31,7 +31,7 @@ export default function WelcomePage() {
               </div>
               <p className="km-hero-footnote"><MarketingIcon name="check" size={15}/> Made for chefs, managers and independent hospitality teams</p>
             </div>
-            <div className="km-hero-photo" role="img" aria-label="Atmospheric restaurant kitchen" />
+            <div className="km-hero-photo" role="img" aria-label="Chef cooking in a professional restaurant kitchen" />
           </div>
         </section>
 
