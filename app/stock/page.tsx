@@ -84,6 +84,55 @@ function stockValue(item: StockItem) {
   return 0;
 }
 
+function csvCell(value: string | number | null | undefined) {
+  const text = value == null ? "" : String(value);
+  // Prevent spreadsheet formula execution in user-supplied names and notes.
+  const safeText =
+    typeof value === "string" && /^[\\s\\x00-\\x1f]*[=+\\-@]/.test(text)
+      ? `'${text}`
+      : text;
+  return `"${safeText.replace(/"/g, '""')}"`;
+}
+
+function downloadStockCsv(stockItems: StockItem[], filename: string) {
+  const header = [
+    "Category",
+    "Item",
+    "Quantity",
+    "Unit",
+    "Unit price (GBP)",
+    "Price unit",
+    "Stock value (GBP)",
+    "Supplier",
+    "Notes",
+  ];
+  const rows = stockItems.map((item) => [
+    item.category,
+    item.name,
+    item.quantity,
+    item.unit,
+    item.price,
+    item.priceUnit,
+    item.quantity === null || item.price === null
+      ? null
+      : Number(stockValue(item).toFixed(2)),
+    item.supplier,
+    item.notes ?? "",
+  ]);
+
+  const csv =
+    "\\uFEFF" +
+    [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\\r\\n");
+  const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 10_000);
+}
+
 function preferredPrice(
   name: string,
   ingredientPrices: Record<string, IngredientPrice>,
@@ -124,6 +173,7 @@ export default function StockPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [lastSaved, setLastSaved] = useState("");
+  const [workspaceLabel, setWorkspaceLabel] = useState("");
 
   useEffect(() => {
     async function load() {
@@ -133,6 +183,7 @@ export default function StockPage() {
 
         const workspace = await resolveActiveWorkspace();
         if (!workspace) throw new Error("No active restaurant workspace.");
+        setWorkspaceLabel(`${workspace.organisationName}_${workspace.siteName}`);
 
         const [state, catalogueResult, prepResult] = await Promise.all([
           readWorkspaceStates([
@@ -305,6 +356,23 @@ export default function StockPage() {
     );
   }
 
+  function exportStock(stockItems: StockItem[], createdAt?: string) {
+    if (!stockItems.length) return;
+
+    const date = createdAt ? createdAt.slice(0, 10) : new Date().toISOString().slice(0, 10);
+    const location = (workspaceLabel || "Kommee")
+      .normalize("NFKD")
+      .replace(/[^a-zA-Z0-9_-]+/g, "_")
+      .replace(/^_+|_+$/g, "");
+    const kind = createdAt ? "completed" : "current";
+    try {
+      downloadStockCsv(stockItems, `${location}_stock_${date}_${kind}.csv`);
+      setMessage("Stock take downloaded as an Excel-compatible CSV file.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not download stock take.");
+    }
+  }
+
   async function saveDraft() {
     try {
       setSaving(true);
@@ -382,8 +450,20 @@ export default function StockPage() {
           {lastSaved && <p className="stock-last-saved">Draft saved {formatDate(lastSaved)}</p>}
         </div>
 
-        {tab === "count" && (
-          <div className="stock-header-actions">
+        <div className="stock-header-actions">
+          <button
+            type="button"
+            className="secondary-inline-button"
+            disabled={loading || (tab === "count" ? !items.length : !history.length)}
+            onClick={() =>
+              tab === "count"
+                ? exportStock(items)
+                : exportStock(history[0].items, history[0].createdAt)
+            }
+          >
+            Download CSV
+          </button>
+          {tab === "count" && (<>
             <button type="button" className="secondary-inline-button" onClick={() => void startFreshCount()}>
               New count
             </button>
@@ -393,8 +473,8 @@ export default function StockPage() {
             <button type="button" className="primary-button" disabled={saving || !items.length} onClick={() => void completeCount()}>
               Complete count
             </button>
-          </div>
-        )}
+          </>)}
+        </div>
       </header>
 
       {message && <div className="notice">{message}</div>}
@@ -517,7 +597,16 @@ export default function StockPage() {
                       <strong>{formatDate(take.createdAt)}</strong>
                       <span>{countedLines} counted lines</span>
                     </div>
-                    <strong>{money(value)}</strong>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                      <strong>{money(value)}</strong>
+                      <button
+                        type="button"
+                        className="secondary-inline-button"
+                        onClick={() => exportStock(take.items, take.createdAt)}
+                      >
+                        Download CSV
+                      </button>
+                    </div>
                   </article>
                 );
               })}
