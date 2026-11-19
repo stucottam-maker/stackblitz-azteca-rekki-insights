@@ -84,7 +84,26 @@ export default function WelcomePage() {
             <div className="km-pos-panel">
               <strong>POS integrations on our roadmap</strong>
               <div className="km-pos-names" aria-label="Potential POS integration providers">
-                {["Lightspeed", "Square", "Epos Now", "Tevalis", "Toast", "Clover"].map((provider) => <span key={provider}>{provider}</span>)}
+                {[
+                  { name: "Lightspeed", domain: "lightspeedhq.com" },
+                  { name: "Square", domain: "squareup.com" },
+                  { name: "Epos Now", domain: "eposnow.com" },
+                  { name: "Tevalis", domain: "tevalis.com" },
+                  { name: "Toast", domain: "pos.toasttab.com" },
+                  { name: "Clover", domain: "clover.com" },
+                ].map((provider) => (
+                  <span key={provider.name} className="km-pos-provider">
+                    {/* Provider brand icon, not an indication of an active partnership. */}
+                    <img
+                      src={`https://www.google.com/s2/favicons?domain=${provider.domain}&sz=128`}
+                      alt=""
+                      width="28"
+                      height="28"
+                      loading="lazy"
+                    />
+                    <span>{provider.name}</span>
+                  </span>
+                ))}
               </div>
               <p>Coming soon. These are planned integrations, not currently available connections. Availability will depend on provider access and your plan.</p>
             </div>
