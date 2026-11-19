@@ -119,9 +119,9 @@ export default function Sidebar({ active }: SidebarProps) {
   return (
     <aside className="sidebar chef-sidebar">
       <div className="brand">
-        <div className="brand-mark ki-brand-image"><KitchenLogo size={44} /></div>
+        <Link href="/welcome" className="brand-mark ki-brand-image" aria-label="Kommee welcome page"><KitchenLogo size={44} /></Link>
         <div className="sidebar-brand-copy">
-          <div className="brand-name">kommee<span className="kommee-dot">.</span></div>
+          <Link href="/welcome" className="brand-name" aria-label="Kommee welcome page">kommee<span className="kommee-dot">.</span></Link>
           <div className="brand-subtitle">Your kitchen’s right hand.</div>
           <div className="mobile-workspace-control">
             {loading ? (
