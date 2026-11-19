@@ -88,7 +88,7 @@ function csvCell(value: string | number | null | undefined) {
   const text = value == null ? "" : String(value);
   // Prevent spreadsheet formula execution in user-supplied names and notes.
   const safeText =
-    typeof value === "string" && /^[\\s\\x00-\\x1f]*[=+\\-@]/.test(text)
+    typeof value === "string" && /^[\s\x00-\x1f]*[=+\-@]/.test(text)
       ? `'${text}`
       : text;
   return `"${safeText.replace(/"/g, '""')}"`;
@@ -121,8 +121,8 @@ function downloadStockCsv(stockItems: StockItem[], filename: string) {
   ]);
 
   const csv =
-    "\\uFEFF" +
-    [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\\r\\n");
+    "\uFEFF" +
+    [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
   const link = document.createElement("a");
   link.href = url;
