@@ -76,6 +76,21 @@ export default function WelcomePage() {
           </div>
         </section>
 
+        <section className="km-pos-section" aria-labelledby="km-pos-title">
+          <div className="km-container km-pos-inner">
+            <p className="km-eyebrow">CONNECTED HOSPITALITY</p>
+            <h2 id="km-pos-title">Your systems. Working together<span className="km-dot">.</span></h2>
+            <p className="km-pos-lead">Bring sales, purchasing, stock and kitchen operations into one clearer picture. We're exploring integrations with the POS platforms restaurants already use.</p>
+            <div className="km-pos-panel">
+              <strong>POS integrations on our roadmap</strong>
+              <div className="km-pos-names" aria-label="Potential POS integration providers">
+                {["Lightspeed", "Square", "Epos Now", "Tevalis", "Toast", "Clover"].map((provider) => <span key={provider}>{provider}</span>)}
+              </div>
+              <p>Coming soon. These are planned integrations, not currently available connections. Availability will depend on provider access and your plan.</p>
+            </div>
+          </div>
+        </section>
+
         <section id="teams" className="km-next">
           <div className="km-container km-next-inner">
             <div><p className="km-eyebrow km-light-kicker">GET STARTED</p><h2>Make room for better cooking<span className="km-dot">.</span></h2><p>A calmer way to run the busy bits of hospitality.</p></div>
