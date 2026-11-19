@@ -144,3 +144,9 @@
 .km-pos-names span{padding:10px 15px;border:1px solid #ded8ca;border-radius:11px;background:#fffdf9;color:#254b38;font-size:14px;font-weight:800}
 .km-pos-panel p{font-size:12px;line-height:1.55;color:#6d796e;max-width:650px;margin:20px auto 0}
 @media(max-width:760px){.km-pos-section{padding:46px 0 52px}.km-pos-section h2{font-size:36px}.km-pos-panel{padding:22px 14px}.km-pos-names span{font-size:12px;padding:9px 11px}}
+
+/* Provider identity marks on the POS roadmap (not active integrations) */
+.km-pos-names .km-pos-provider{display:inline-flex;align-items:center;gap:9px;padding:10px 14px}
+.km-pos-provider img{width:28px;height:28px;object-fit:contain;border-radius:5px;flex:none}
+.km-pos-names .km-pos-provider span{padding:0;border:0;border-radius:0;background:transparent;color:inherit;font:inherit}
+@media(max-width:760px){.km-pos-names .km-pos-provider{gap:7px;padding:9px 10px}.km-pos-provider img{width:23px;height:23px}}
