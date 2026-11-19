@@ -15,7 +15,7 @@ type SidebarProps = { active?: string };
 type NavLink = readonly [string, string, string];
 
 const links: readonly NavLink[] = [
-  ["⌂", "Dashboard", "/"],
+  ["⌂", "Dashboard", "/?app=1"],
   ["+", "Orders", "/orders"],
   ["▤", "Invoices", "/invoices"],
   ["□", "Stock", "/stock"],
@@ -66,7 +66,7 @@ export default function Sidebar({ active }: SidebarProps) {
 
   function isActive(name: string, url: string) {
     if (active) return active.toLowerCase() === name.toLowerCase();
-    if (url === "/") return pathname === "/";
+    if (url === "/?app=1") return pathname === "/";
     return pathname === url || pathname.startsWith(`${url}/`);
   }
 
