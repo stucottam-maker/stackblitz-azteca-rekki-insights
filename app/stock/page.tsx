@@ -65,23 +65,41 @@ function formatDate(value: string) {
   }).format(date);
 }
 
-function stockValue(item: StockItem) {
-  if (item.quantity === null || item.price === null) return 0;
+
+function calculableStockValue(item: StockItem): number | null {
+  if (item.quantity === null || item.price === null) return null;
 
   const quantity = Number(item.quantity);
   const price = Number(item.price);
-  if (!Number.isFinite(quantity) || !Number.isFinite(price)) return 0;
+  if (!Number.isFinite(quantity) || !Number.isFinite(price)) return null;
 
-  const unit = item.unit.toLowerCase();
-  const priceUnit = item.priceUnit.toLowerCase();
-
+  const unit = item.unit.toLowerCase().trim();
+  const priceUnit = item.priceUnit.toLowerCase().trim();
   if (unit === priceUnit) return quantity * price;
   if (unit === "g" && priceUnit === "kg") return (quantity / 1000) * price;
-  if (unit === "ml" && ["l", "ltr", "litre"].includes(priceUnit)) {
-    return (quantity / 1000) * price;
-  }
+  if (unit === "kg" && priceUnit === "g") return quantity * 1000 * price;
+  if (unit === "ml" && ["l", "ltr", "litre"].includes(priceUnit)) return (quantity / 1000) * price;
+  if (["l", "ltr", "litre"].includes(unit) && ["l", "ltr", "litre"].includes(priceUnit)) return quantity * price;
+  if (["l", "ltr", "litre"].includes(unit) && priceUnit === "ml") return quantity * 1000 * price;
+  return null;
+}
 
-  return 0;
+function stockValue(item: StockItem) {
+  return calculableStockValue(item) ?? 0;
+}
+
+function stockValuation(stockItems: StockItem[]) {
+  const countedItems = stockItems.filter((item) => item.quantity !== null);
+  const pricedItems = countedItems.filter((item) => item.price !== null);
+  const valuedItems = pricedItems.filter((item) => calculableStockValue(item) !== null);
+  return {
+    countedLines: countedItems.length,
+    pricedLines: pricedItems.length,
+    valuedLines: valuedItems.length,
+    missingPriceLines: stockItems.filter((item) => item.price === null).length,
+    value: valuedItems.reduce((sum, item) => sum + stockValue(item), 0),
+    incomplete: valuedItems.length !== countedItems.length,
+  };
 }
 
 function csvCell(value: string | number | null | undefined) {
@@ -113,7 +131,7 @@ function downloadStockCsv(stockItems: StockItem[], filename: string) {
     item.unit,
     item.price,
     item.priceUnit,
-    item.quantity === null || item.price === null
+    calculableStockValue(item) === null
       ? null
       : Number(stockValue(item).toFixed(2)),
     item.supplier,
@@ -325,11 +343,10 @@ export default function StockPage() {
     });
   }, [items, search, category]);
 
-  const counted = items.filter((item) => item.quantity !== null).length;
-  const missingPrices = items.filter(
-    (item) => item.price === null && item.category !== "Prepared batches"
-  ).length;
-  const totalValue = items.reduce((sum, item) => sum + stockValue(item), 0);
+  const currentValuation = stockValuation(items);
+  const counted = currentValuation.countedLines;
+  const missingPrices = currentValuation.missingPriceLines;
+  const totalValue = currentValuation.value;
 
   function updateQuantity(id: string, value: string) {
     setItems((current) =>
@@ -413,7 +430,9 @@ export default function StockPage() {
 
       setHistory(nextHistory);
       setLastSaved("");
-      setMessage(`Stock take completed · ${money(totalValue)} counted value.`);
+      setMessage(currentValuation.incomplete
+        ? "Stock count completed. Valuation is partial until missing prices and units are resolved."
+        : `Stock take completed · ${money(totalValue)} counted value.`);
       setItems((current) => current.map((item) => ({ ...item, quantity: null })));
       setTab("history");
     } catch (error) {
@@ -496,7 +515,7 @@ export default function StockPage() {
               <p className="stat-value">{loading ? "—" : `${counted}/${items.length}`}</p>
             </article>
             <article className="stat-card">
-              <p className="stat-label">Current value</p>
+              <p className="stat-label">{currentValuation.incomplete ? "Priced portion only" : "Current value"}</p>
               <p className="stat-value">{loading ? "—" : money(totalValue)}</p>
             </article>
             <article className="stat-card">
@@ -504,6 +523,18 @@ export default function StockPage() {
               <p className="stat-value">{loading ? "—" : missingPrices}</p>
             </article>
           </section>
+          {!loading && currentValuation.incomplete && (
+            <div className="stock-valuation-warning" role="status">
+              <strong>Stock valuation incomplete</strong>
+              <span>
+                {currentValuation.pricedLines} of {currentValuation.countedLines} counted lines have a price.
+                {currentValuation.pricedLines > currentValuation.valuedLines
+                  ? ` ${currentValuation.pricedLines - currentValuation.valuedLines} priced lines also need compatible units.`
+                  : ""}
+                {" "}The figure above is only the costed portion, not the total stock value.
+              </span>
+            </div>
+          )}
 
           <section className="panel chef-stock-panel">
             <div className="stock-toolbar chef-stock-toolbar">
@@ -589,24 +620,28 @@ export default function StockPage() {
           ) : (
             <div className="chef-stock-history-list">
               {history.map((take) => {
-                const countedLines = take.items.filter((item) => item.quantity !== null).length;
-                const value = take.items.reduce((sum, item) => sum + stockValue(item), 0);
+                const valuation = stockValuation(take.items);
                 return (
                   <article className="chef-stock-history-row" key={take.id}>
-                    <div>
+                    <div className="chef-stock-history-main">
                       <strong>{formatDate(take.createdAt)}</strong>
-                      <span>{countedLines} counted lines</span>
+                      <span>{valuation.countedLines} of {take.items.length} lines counted</span>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-                      <strong>{money(value)}</strong>
-                      <button
-                        type="button"
-                        className="secondary-inline-button"
-                        onClick={() => exportStock(take.items, take.createdAt)}
-                      >
-                        Download CSV
-                      </button>
+                    <div className="chef-stock-history-meta">
+                      <strong>{valuation.incomplete ? `Costed portion: ${money(valuation.value)}` : money(valuation.value)}</strong>
+                      <span>
+                        {valuation.incomplete
+                          ? `${valuation.pricedLines} priced, ${valuation.missingPriceLines} missing prices · Not a total value`
+                          : "All counted lines valued"}
+                      </span>
                     </div>
+                    <button
+                      type="button"
+                      className="secondary-inline-button chef-stock-history-download"
+                      onClick={() => exportStock(take.items, take.createdAt)}
+                    >
+                      Download CSV
+                    </button>
                   </article>
                 );
               })}
