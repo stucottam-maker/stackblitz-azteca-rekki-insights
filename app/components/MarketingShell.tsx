@@ -31,7 +31,7 @@ export function MarketingShell({
     <div className="km-site">
       <header className="km-header">
         <div className="km-container km-header-inner">
-          <Link className="km-logo" href="/" aria-label="Kommee home">
+          <Link className="km-logo" href="/welcome" aria-label="Kommee home">
             <Image src="/kommee-icon.svg" alt="" width={38} height={38} unoptimized />
             <span>kommee<span className="km-dot">.</span></span>
           </Link>
