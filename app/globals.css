@@ -2948,3 +2948,72 @@ td strong {
   .chef-stock-history-meta { grid-column: 1; }
   .chef-stock-history-download { grid-column: 2; grid-row: 2; justify-self: end; }
 }
+
+
+/* Stock pricing editor: review only the lines still needing a usable price. */
+.stock-price-review-help {
+  margin: 0 0 14px;
+  padding: 12px 15px;
+  border: 1px solid #d4e3d6;
+  border-radius: 12px;
+  background: #f4f9f4;
+  color: #315c46;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.chef-stock-page .stock-review-button {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.chef-stock-page .stock-price-editor {
+  display: grid;
+  min-width: 130px;
+  gap: 5px;
+  color: #475a4e;
+  font-size: 12px;
+  font-weight: 650;
+}
+.chef-stock-page .stock-price-editor span {
+  white-space: nowrap;
+}
+.chef-stock-page .stock-price-editor input {
+  min-height: 44px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cdddcf;
+  border-radius: 10px;
+  background: #fff;
+  color: #1f3328;
+  font-size: 16px;
+  font-weight: 650;
+}
+.chef-stock-page .chef-stock-row:has(.stock-price-editor) {
+  grid-template-columns: minmax(0, 1fr) minmax(145px, 180px) 145px 100px;
+}
+@media (max-width: 800px) {
+  .chef-stock-page .stock-review-button {
+    width: 100%;
+  }
+  .chef-stock-page .chef-stock-row:has(.stock-price-editor) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+  .chef-stock-page .chef-stock-row:has(.stock-price-editor) .chef-stock-copy,
+  .chef-stock-page .chef-stock-row:has(.stock-price-editor) .chef-stock-counter {
+    grid-column: 1 / -1;
+  }
+  .chef-stock-page .chef-stock-row:has(.stock-price-editor) .chef-stock-counter {
+    justify-self: start !important;
+  }
+  .chef-stock-page .chef-stock-row:has(.stock-price-editor) .stock-price-editor {
+    grid-column: 1;
+    min-width: 0;
+  }
+  .chef-stock-page .chef-stock-row:has(.stock-price-editor) .chef-stock-value {
+    grid-column: 2;
+    justify-self: end;
+    align-self: end;
+    padding-bottom: 12px;
+  }
+}
