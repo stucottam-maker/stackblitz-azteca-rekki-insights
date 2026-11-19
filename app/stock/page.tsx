@@ -192,6 +192,50 @@ function mergeMissingStockItems(existing: StockItem[], extras: StockItem[]) {
   ].sort((a, b) => `${a.category}-${a.name}`.localeCompare(`${b.category}-${b.name}`));
 }
 
+function restorePreviousStockPrices(
+  incoming: StockItem[],
+  snapshots: SavedStockTake[]
+): { items: StockItem[]; matched: number } {
+  const known = new Map<string, StockItem>();
+  // Use the latest valid price for the same item and counted unit.
+  for (const snapshot of snapshots) {
+    for (const previous of snapshot.items ?? []) {
+      if (
+        previous.price === null ||
+        !Number.isFinite(previous.price) ||
+        previous.price <= 0 ||
+        previous.price > 250 ||
+        previous.unit.trim().toLowerCase() !== previous.priceUnit.trim().toLowerCase()
+      ) continue;
+      const key = `${normalise(previous.name)}|${previous.unit.trim().toLowerCase()}`;
+      if (!known.has(key)) known.set(key, previous);
+    }
+  }
+
+  let matched = 0;
+  const items = incoming.map((item) => {
+    if (item.price !== null && calculableStockValue({ ...item, quantity: 1 }) !== null) {
+      return item;
+    }
+    const previous = known.get(`${normalise(item.name)}|${item.unit.trim().toLowerCase()}`);
+    if (!previous || previous.price === null) return item;
+    if (item.category === "FRESH PRODUCE" && item.unit.toLowerCase() === "kg" && previous.price > 60) return item;
+    if (item.category === "FISH" && item.unit.toLowerCase() === "kg" && previous.price < 3) return item;
+
+    matched += 1;
+    return {
+      ...item,
+      price: previous.price,
+      priceUnit: item.unit,
+      supplier: previous.supplier || item.supplier,
+      priceSource: previous.priceSource || "Earlier stock take",
+      priceSourceProduct: previous.priceSourceProduct || previous.name,
+      priceSourceDate: previous.priceSourceDate,
+    };
+  });
+  return { items, matched };
+}
+
 export default function StockPage() {
   const [tab, setTab] = useState<"count" | "history">("count");
   const [items, setItems] = useState<StockItem[]>([]);
@@ -278,7 +322,14 @@ export default function StockPage() {
         );
 
         if (savedDraft?.items?.length) {
-          setItems(mergeMissingStockItems(savedDraft.items, prepItems));
+          const restored = restorePreviousStockPrices(
+            mergeMissingStockItems(savedDraft.items, prepItems),
+            safeHistory
+          );
+          setItems(restored.items);
+          if (restored.matched) {
+            setMessage(`${restored.matched} prices matched from this restaurant’s previous stock counts. Save draft to keep them.`);
+          }
           setLastSaved(savedDraft.createdAt || "");
           return;
         }
@@ -328,11 +379,16 @@ export default function StockPage() {
           if (!byIngredient.has(prepItem.id)) byIngredient.set(prepItem.id, prepItem);
         }
 
-        setItems(
+        const restored = restorePreviousStockPrices(
           Array.from(byIngredient.values()).sort((a, b) =>
             `${a.category}-${a.name}`.localeCompare(`${b.category}-${b.name}`)
-          )
+          ),
+          safeHistory
         );
+        setItems(restored.items);
+        if (restored.matched) {
+          setMessage(`${restored.matched} prices carried forward from this restaurant’s previous stock counts. Save draft to keep them.`);
+        }
       } catch (error) {
         console.error("Stock load failed", error);
         setMessage(error instanceof Error ? error.message : "Could not load stock.");
