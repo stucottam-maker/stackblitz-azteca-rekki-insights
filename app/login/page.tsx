@@ -3,40 +3,46 @@
 
 import KitchenLogo from "../components/KitchenLogo";
 import { type FormEvent, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 
 import { supabase } from "../lib/supabase";
 
 type LoginMode = "signin" | "activate" | "forgot";
 
-export default function LoginPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const requestedPath = searchParams.get("next");
-  const requestedEmail = searchParams.get("email") ?? "";
-  const requestedMode: LoginMode = searchParams.get("activate") === "1" ? "activate" : "signin";
+function loginDestination() {
+  const requestedPath = new URLSearchParams(window.location.search).get("next");
+  return requestedPath &&
+    requestedPath.startsWith("/") &&
+    !requestedPath.startsWith("//") &&
+    !requestedPath.startsWith("/\\")
+      ? requestedPath
+      : "/?app=1";
+}
 
-  const [mode, setMode] = useState<LoginMode>(requestedMode);
-  const [email, setEmail] = useState(requestedEmail);
+export default function LoginPage() {
+  const [mode, setMode] = useState<LoginMode>("signin");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const nextPath =
-    requestedPath && requestedPath.startsWith("/") && !requestedPath.startsWith("//")
-      ? requestedPath
-      : "/?app=1";
-
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        router.replace(nextPath);
-        router.refresh();
-      }
-    });
-  }, [nextPath, router]);
+    let active = true;
+    const params = new URLSearchParams(window.location.search);
+    setEmail(params.get("email") ?? "");
+    if (params.get("activate") === "1") setMode("activate");
+
+    void supabase.auth.getSession()
+      .then(({ data }) => {
+        if (active && data.session) window.location.replace(loginDestination());
+      })
+      .catch((error) => {
+        console.error("Login session check failed", error);
+      });
+
+    return () => { active = false; };
+  }, []);
 
   function switchMode(nextMode: LoginMode) {
     setMode(nextMode);
@@ -85,8 +91,7 @@ export default function LoginPage() {
       }
 
       if (data.session) {
-        router.replace(nextPath);
-        router.refresh();
+        window.location.replace(loginDestination());
         return;
       }
 
@@ -111,8 +116,7 @@ export default function LoginPage() {
       return;
     }
 
-    router.replace(nextPath);
-    router.refresh();
+    window.location.replace(loginDestination());
   }
 
   const heading =
