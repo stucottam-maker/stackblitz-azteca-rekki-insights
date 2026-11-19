@@ -28,12 +28,17 @@ type StockItem = {
   priceUnit: string;
   supplier: string;
   notes?: string;
+  priceSource?: string;
+  priceSourceProduct?: string;
+  priceSourceDate?: string;
+  priceReconciledAt?: string;
 };
 
 type SavedStockTake = {
   id: string;
   createdAt: string;
   items: StockItem[];
+  linkedHistoryId?: string;
 };
 
 type Relation<T> = T | T[] | null;
@@ -123,6 +128,9 @@ function downloadStockCsv(stockItems: StockItem[], filename: string) {
     "Stock value (GBP)",
     "Supplier",
     "Notes",
+    "Price source",
+    "Matched product",
+    "Source date",
   ];
   const rows = stockItems.map((item) => [
     item.category,
@@ -136,6 +144,9 @@ function downloadStockCsv(stockItems: StockItem[], filename: string) {
       : Number(stockValue(item).toFixed(2)),
     item.supplier,
     item.notes ?? "",
+    item.priceSource ?? "",
+    item.priceSourceProduct ?? "",
+    item.priceSourceDate ?? "",
   ]);
 
   const csv =
@@ -187,6 +198,9 @@ export default function StockPage() {
   const [history, setHistory] = useState<SavedStockTake[]>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+  const [reviewMissing, setReviewMissing] = useState(false);
+  const [reviewIds, setReviewIds] = useState<string[]>([]);
+  const [linkedHistoryId, setLinkedHistoryId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -253,7 +267,15 @@ export default function StockPage() {
           supplier: "Kitchen prep",
         }));
 
-        setHistory(Array.isArray(savedHistory) ? savedHistory : []);
+        const safeHistory = Array.isArray(savedHistory) ? savedHistory : [];
+        setHistory(safeHistory);
+        setLinkedHistoryId(
+          savedDraft?.linkedHistoryId ??
+          safeHistory.find(
+            (entry) => entry.createdAt === savedDraft?.createdAt && entry.items?.length === savedDraft?.items?.length
+          )?.id ??
+          null
+        );
 
         if (savedDraft?.items?.length) {
           setItems(mergeMissingStockItems(savedDraft.items, prepItems));
@@ -339,14 +361,46 @@ export default function StockPage() {
         normalise(item.name).includes(query) ||
         normalise(item.category).includes(query) ||
         normalise(item.supplier).includes(query);
-      return matchesCategory && matchesSearch;
+      const matchesReview = !reviewMissing || reviewIds.includes(item.id);
+      return matchesCategory && matchesSearch && matchesReview;
     });
-  }, [items, search, category]);
+  }, [items, search, category, reviewMissing, reviewIds]);
 
   const currentValuation = stockValuation(items);
   const counted = currentValuation.countedLines;
   const missingPrices = currentValuation.missingPriceLines;
   const totalValue = currentValuation.value;
+
+  function togglePriceReview() {
+    if (!reviewMissing) {
+      setReviewIds(
+        items.filter((item) =>
+          item.quantity !== null && calculableStockValue(item) === null
+        ).map((item) => item.id)
+      );
+      setCategory("All");
+      setSearch("");
+    }
+    setReviewMissing((previous) => !previous);
+  }
+
+  function updateUnitPrice(id: string, value: string) {
+    setItems((current) =>
+      current.map((item) => {
+        if (item.id !== id) return item;
+        const price = value.trim() === "" ? null : Number(value);
+        if (price !== null && (!Number.isFinite(price) || price < 0)) return item;
+        return {
+          ...item,
+          price,
+          priceUnit: item.unit,
+          priceSource: "Manually entered in Kommee",
+          priceSourceProduct: item.name,
+          priceSourceDate: new Date().toISOString().slice(0, 10),
+        };
+      })
+    );
+  }
 
   function updateQuantity(id: string, value: string) {
     setItems((current) =>
@@ -398,10 +452,41 @@ export default function StockPage() {
         id: "current",
         createdAt: now,
         items,
+        linkedHistoryId: linkedHistoryId ?? undefined,
       };
+
       await persistWorkspaceState("currentStockTake", JSON.stringify(draft));
+
+      // A historical count linked to this draft receives price corrections,
+      // but never changes its original quantities, names or timestamp.
+      if (linkedHistoryId) {
+        const byId = new Map(items.map((item) => [item.id, item]));
+        const nextHistory = history.map((take) =>
+          take.id === linkedHistoryId
+            ? {
+                ...take,
+                items: take.items.map((original) => {
+                  const edited = byId.get(original.id);
+                  return edited
+                    ? {
+                        ...original,
+                        price: edited.price,
+                        priceUnit: edited.priceUnit,
+                        supplier: edited.supplier,
+                        priceSource: edited.priceSource,
+                        priceSourceProduct: edited.priceSourceProduct,
+                        priceSourceDate: edited.priceSourceDate,
+                      }
+                    : original;
+                }),
+              }
+            : take
+        );
+        await persistWorkspaceState("stockTakeHistory", JSON.stringify(nextHistory));
+        setHistory(nextHistory);
+      }
       setLastSaved(now);
-      setMessage("Stock count saved.");
+      setMessage("Stock prices and counts saved to this restaurant.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Could not save stock count.");
     } finally {
@@ -429,6 +514,7 @@ export default function StockPage() {
       await removeWorkspaceState("currentStockTake");
 
       setHistory(nextHistory);
+      setLinkedHistoryId(null);
       setLastSaved("");
       setMessage(currentValuation.incomplete
         ? "Stock count completed. Valuation is partial until missing prices and units are resolved."
@@ -454,6 +540,9 @@ export default function StockPage() {
     await removeWorkspaceState("currentStockTake");
     setItems((current) => current.map((item) => ({ ...item, quantity: null })));
     setLastSaved("");
+    setLinkedHistoryId(null);
+    setReviewMissing(false);
+    setReviewIds([]);
     setMessage("Fresh stock count ready.");
   }
 
@@ -553,7 +642,21 @@ export default function StockPage() {
                   ))}
                 </select>
               </div>
+              <button
+                className="secondary-inline-button stock-review-button"
+                type="button"
+                onClick={togglePriceReview}
+                disabled={loading || saving}
+              >
+                {reviewMissing ? "Show all stock" : "Review missing prices"}
+              </button>
             </div>
+            {reviewMissing && (
+              <div className="stock-price-review-help">
+                Enter a confirmed purchase cost per displayed unit, then tap <strong>Save draft</strong>.
+                Prices for the linked 17 November count will update in History without altering its quantities.
+              </div>
+            )}
 
             {loading ? (
               <div className="empty-table-message">Loading this restaurant&apos;s stock list…</div>
@@ -592,8 +695,23 @@ export default function StockPage() {
                       <button type="button" onClick={() => bumpQuantity(item.id, 1)} aria-label={`Increase ${item.name}`}>+</button>
                     </div>
 
+                    {reviewMissing && (
+                      <label className="stock-price-editor">
+                        <span>Cost per {item.unit} (£)</span>
+                        <input
+                          type="number"
+                          inputMode="decimal"
+                          min="0"
+                          step="any"
+                          placeholder="Enter cost"
+                          value={item.price !== null && item.priceUnit.toLowerCase() === item.unit.toLowerCase() ? item.price : ""}
+                          onChange={(event) => updateUnitPrice(item.id, event.target.value)}
+                          aria-label={`Price per ${item.unit} for ${item.name}`}
+                        />
+                      </label>
+                    )}
                     <strong className="chef-stock-value">
-                      {item.quantity !== null && item.price !== null ? money(stockValue(item)) : "—"}
+                      {calculableStockValue(item) !== null ? money(stockValue(item)) : "—"}
                     </strong>
                   </article>
                 ))}
