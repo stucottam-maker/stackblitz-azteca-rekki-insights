@@ -3,6 +3,7 @@ import { MarketingShell, MarketingIcon } from "../components/MarketingShell";
 
 export const metadata = {
   title: "Join Kommee | Early access",
+  alternates: { canonical: "https://kommee.co.uk/join" },
   description: "Join your hospitality team on Kommee or explore a demonstration.",
 };
 

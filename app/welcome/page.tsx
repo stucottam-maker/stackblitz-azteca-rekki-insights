@@ -11,7 +11,9 @@ const features = [
 ];
 
 export const metadata = {
-  title: "Kommee | Your kitchen’s right hand",
+  title: "Kommee | Restaurant & Kitchen Management Software",
+  alternates: { canonical: "https://kommee.co.uk/" },
+  openGraph: { title: "Kommee | Restaurant & Kitchen Management Software", description: "Manage purchasing, invoices, stock, recipes and food safety in one place.", url: "https://kommee.co.uk/", siteName: "Kommee", type: "website", locale: "en_GB" },
   description: "Run your kitchen with fewer spreadsheets. Orders, invoices, stock, recipes, compliance and reporting in one simple place.",
 };
 
