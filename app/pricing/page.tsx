@@ -19,6 +19,7 @@ const plans = [
 
 export const metadata = {
   title: "Plans & pricing | Kommee",
+  alternates: { canonical: "https://kommee.co.uk/pricing" },
   description: "Explore illustrative subscription options for independent kitchens and hospitality groups.",
 };
 
