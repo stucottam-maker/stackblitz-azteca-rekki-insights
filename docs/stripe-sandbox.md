@@ -1,6 +1,6 @@
 # Kommee Stripe sandbox rollout
 
-This draft is based on main's illustrative monthly prices: Starter £29, Professional £59, Group £119. These are not approved live offers. VAT treatment and annual pricing require confirmation.
+Launch monthly pricing approved by the owner on 25 November 2026: Starter £29, Professional £59, Group £119. Kommee is not currently VAT registered; do not add VAT to these launch prices. Revisit tax settings before VAT registration or changes to selling jurisdictions. Annual pricing is not approved. Checkout remains sandbox-only pending verification.
 
 ## Preview setup
 
@@ -17,7 +17,7 @@ Use the isolated Kommee Test Supabase project and test-only accounts, not produc
 
 ## Required before release
 
-- Confirm final monthly/annual pricing and VAT treatment. Do not create live products until confirmed.
+- Monthly UK launch pricing and current VAT status confirmed. Annual pricing remains undecided. Do not activate live billing before sandbox tests and release review.
 - Add a signup UI and authenticated checkout flow, including clear trial end, renewal amount, cancellation terms and accessibility.
 - Implement tenant-level billing records and a server-controlled pending onboarding record, unique Stripe customer/subscription mapping and transactional idempotent provisioning of organisation, owner and site.
 - Verify raw webhook signatures with Stripe SDK, store event IDs, reconcile subscription state from Stripe, handle retries and out-of-order delivery. Grant access only when a verified subscription is trialing or active; define failed-payment grace period and cancellation behavior. Never trust return URL or client metadata for access.
