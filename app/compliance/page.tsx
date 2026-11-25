@@ -6,7 +6,7 @@ import { supabase } from '../lib/supabase';
 import { useWorkspace } from '../components/WorkspaceProvider';
 import Link from 'next/link';
 
-type DailySummary = { opening:number; closing:number; cleaning:number; readings:number; deliveries:number; flagged:number };
+type DailySummary = { opening:number; closing:number; cleaning:number; readings:number; am:number; pm:number; deliveries:number; flagged:number };
 const checklistTypes = ['opening','cleaning','closing'] as const;
 function localDay(date:Date) {
   return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
@@ -42,19 +42,19 @@ export default function CompliancePage() {
         const records=(type:string)=>supabase.from('compliance_checks').select('id',{count:'exact',head:true}).eq('site_id',siteId).eq('organisation_id',orgId).eq('check_type',type).gte('recorded_at',start.toISOString()).lt('recorded_at',end.toISOString());
         const results=await Promise.all([
           base().eq('checklist_type','opening'),base().eq('checklist_type','closing'),base().eq('checklist_type','cleaning'),
-          records('temperature').eq('label','Equipment temperature'),records('delivery'),
+          records('temperature').in('label',['Equipment temperature','Equipment temperature AM','Equipment temperature PM']),records('temperature').eq('label','Equipment temperature AM'),records('temperature').eq('label','Equipment temperature PM'),records('delivery'),
           base().gt('failure_count',0).eq('status','needs_review')
         ]);
         if(results.some(r=>r.error || r.count===null))throw new Error('Daily records unavailable');
-        const [opening,closing,cleaning,readings,deliveries,flagged]=results.map(r=>r.count ?? 0);
-        if(!cancelled)setSummary({key:summaryKey,data:{opening,closing,cleaning,readings,deliveries,flagged},error:false});
+        const [opening,closing,cleaning,readings,am,pm,deliveries,flagged]=results.map(r=>r.count ?? 0);
+        if(!cancelled)setSummary({key:summaryKey,data:{opening,closing,cleaning,readings,am,pm,deliveries,flagged},error:false});
       }catch{if(!cancelled)setSummary({key:summaryKey,data:null,error:true});}
     }
     void load();
     return ()=>{cancelled=true;};
   },[siteId,orgId,day,summaryKey]);
   useEffect(()=>{
-    setTemperatures({});setReadings([]);setSupplier('');setDeliveryTemp('');setDeliveries([]);setFeedback('');
+    setDrafts({AM:{},PM:{}});setSupplier('');setDeliveryTemp('');setDeliveries([]);setFeedback('');
   },[siteId,orgId]);
   async function saveCheck(input:{check_type:string;label:string;measured_temperature_c?:number;equipment_name?:string;notes?:string}) {
     if(!site) {setFeedback('Select an authorised site before saving.');return false;}
@@ -75,8 +75,26 @@ export default function CompliancePage() {
   const [tab, setTab] = useState<'today' | 'temperatures' | 'deliveries'>('today');
   useEffect(() => { const selected=searchParams.get('tab'); setTab(selected==='temperatures'||selected==='deliveries'?selected:'today'); },[searchParams]);
   const equipmentNames = ['Walk-in fridge','Prep fridge','Upright fridge','Freezer','Other equipment'];
-  const [temperatures, setTemperatures] = useState<Record<string,string>>({});
-  const [readings, setReadings] = useState<{equipment:string; temperature:number; at:string}[]>([]);
+  const [round,setRound]=useState<'AM'|'PM'>(()=>new Date().getHours()<12?'AM':'PM');
+  const [drafts,setDrafts]=useState<Record<'AM'|'PM',Record<string,string>>>({AM:{},PM:{}});
+  const temperatures=drafts[round];
+  const [history,setHistory]=useState<{key:string;rows:{id:string;equipment_name:string|null;measured_temperature_c:number;recorded_at:string;label:string}[];error:boolean}|null>(null);
+  useEffect(()=>{
+    if(!siteId||!orgId)return;
+    let cancelled=false;
+    async function load(){
+      try{
+        const start=new Date(day+'T00:00:00'),end=new Date(start);end.setDate(end.getDate()+1);
+        const {data,error}=await supabase.from('compliance_checks').select('id,equipment_name,measured_temperature_c,recorded_at,label').eq('site_id',siteId).eq('organisation_id',orgId).eq('check_type','temperature').in('label',['Equipment temperature','Equipment temperature AM','Equipment temperature PM']).gte('recorded_at',start.toISOString()).lt('recorded_at',end.toISOString()).order('recorded_at',{ascending:false});
+        if(error)throw error;
+        if(!cancelled)setHistory({key:summaryKey,rows:data||[],error:false});
+      }catch{if(!cancelled)setHistory({key:summaryKey,rows:[],error:true});}
+    }
+    void load();return()=>{cancelled=true;};
+  },[siteId,orgId,day,summaryKey]);
+  const currentHistory=history?.key===summaryKey?history:null;
+  const readings=currentHistory?.rows.filter(r=>r.label==='Equipment temperature '+round)||[];
+  const previous=(name:string)=>readings.find(r=>r.equipment_name===name);
   const [supplier, setSupplier] = useState('');
   const [deliveryTemp, setDeliveryTemp] = useState('');
   const [deliveries, setDeliveries] = useState<{supplier:string; temperature:number; at:string}[]>([]);
@@ -90,18 +108,18 @@ export default function CompliancePage() {
   const tiles:Tile[]=[
     {title:'Opening checks',icon:'sun',detail:'Before service',status:checklistStatus('opening'),href:'/compliance/checklist/opening',tone:daily?.opening?'done':undefined},
     {title:'Closing checks',icon:'moon',detail:'End of service',status:checklistStatus('closing'),href:'/compliance/checklist/closing',tone:daily?.closing?'done':undefined},
-    {title:'Temperatures',icon:'thermometer',detail:'Fridges & freezers',status:daily?daily.readings+' readings today':'Status unavailable',action:()=>setTab('temperatures')},
+    {title:'Temperatures',icon:'thermometer',detail:'Fridges & freezers',status:daily?'AM: '+daily.am+' · PM: '+daily.pm:'Status unavailable',action:()=>setTab('temperatures')},
     {title:'Cleaning',icon:'sparkles',detail:'Daily cleaning schedule',status:checklistStatus('cleaning'),href:'/compliance/checklist/cleaning',tone:daily?.cleaning?'done':undefined},
     {title:'Cooking & cooling',icon:'pot',detail:'Food & batch temperatures',status:'Record a measurement',href:'/compliance/food-temperatures'},
     {title:'Deliveries',icon:'truck',detail:'Incoming goods',status:daily?daily.deliveries+' records today':'Status unavailable',action:()=>setTab('deliveries')},
     {title:'Pest control',icon:'bug',detail:'Included in opening checklist',status:'Open pest check',href:'/compliance/checklist/opening'},
     {title:'Records & review',icon:'clipboard',detail:'Saved checklists',status:daily?daily.flagged+' flagged checklist(s) awaiting review':'View records',href:'/compliance/review',tone:daily?.flagged?'attention':undefined},
-    {title:'Food waste',icon:'bin',detail:'Ingredient-linked waste costing',status:'Planned'},
-    {title:'Allergens',icon:'list',detail:'Verified recipe allergen matrix',status:'Planned'},
-    {title:'HACCP & reports',icon:'shield',detail:'Site-specific plans & inspection export',status:'Planned'}
+    {title:'Food waste',icon:'bin',detail:'Ingredient-linked waste costing',status:'Open waste log',href:'/compliance/waste'},
+    {title:'Allergens',icon:'list',detail:'Verified recipe allergen matrix',status:'Open draft matrix',href:'/compliance/allergens'},
+    {title:'HACCP & reports',icon:'shield',detail:'Site-specific plans & inspection export',status:'Open plans & exports',href:'/compliance/haccp'}
   ];
 
-  return <main className="ki-v2-workflow ki-v2-compliance min-h-screen bg-slate-50 px-4 py-6 text-slate-900">
+  return <main className="ki-v2-workflow ki-v2-compliance min-h-screen bg-slate-50 px-4 pt-6 pb-32 text-slate-900">
     <div className="mx-auto max-w-2xl space-y-5">
       <header className="flex items-center justify-between gap-3">
         <div><Link href="/" className="text-sm font-semibold text-teal-800">← Kommee</Link><h1 className="mt-2 text-3xl font-bold">Kitchen compliance</h1><p className="mt-1 text-sm text-slate-600">{site?.name ?? 'Select a site'} · {new Date(day+'T12:00:00').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}</p></div>
@@ -128,11 +146,13 @@ export default function CompliancePage() {
             return tile.href?<Link key={tile.title} href={tile.href} className={style+' hover:border-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-700'}>{content}</Link>:tile.action?<button key={tile.title} type="button" onClick={tile.action} className={style+' hover:border-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-700'}>{content}</button>:<article key={tile.title} className={style+' opacity-70'}>{content}</article>;
           })}
         </section>
-        <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-900">Follow your site&apos;s approved food safety procedures. Automated deadlines, temperature limits, equipment configuration and inspection exports are not yet configured. Planned features do not record data.</p>
+        <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-900">Follow your site&apos;s approved food safety procedures. Automated deadlines, temperature limits, equipment configuration are not yet configured. Review HACCP records against approved procedures.</p>
       </>}
       {tab === 'temperatures' && <section className={card}>
         <h2 className="mb-1 text-xl font-bold">Record temperatures</h2>
-        <p className="mb-4 text-sm text-slate-500">Enter each equipment reading below. All temperatures are visible together.</p>
+        <p className="mb-4 text-sm text-slate-500">Select the round. AM and PM readings are recorded separately.</p>
+        <div className="mb-4 grid grid-cols-2 gap-2">{(['AM','PM'] as const).map(r=><button type="button" key={r} disabled={saving} aria-pressed={round===r} onClick={()=>setRound(r)} className={`min-h-16 rounded-2xl border p-3 text-left ${round===r?'bg-[#254c39] text-white border-[#254c39]':'bg-white text-slate-800 border-slate-200'}`}><strong>{r==='AM'?'☀ AM · Morning':'☾ PM · Afternoon'}</strong><span className="mt-1 block text-xs">{daily?(r==='AM'?daily.am:daily.pm)+' readings saved':'Checking records…'}</span></button>)}</div>
+        {currentHistory?.error&&<p role="alert" className="mb-3 text-sm text-amber-900">Saved temperatures could not be loaded. Refresh to retry.</p>}
         <form className="space-y-4" onSubmit={async e=>{
           e.preventDefault();
           const entries=equipmentNames.filter(name=>temperatures[name]?.trim() && Number.isFinite(Number(temperatures[name])));
@@ -141,26 +161,24 @@ export default function CompliancePage() {
           try {
             const {data:{user},error:authError}=await supabase.auth.getUser();
             if(authError||!user) throw new Error('Please sign in again.');
-            const rows=entries.map(name=>({check_type:'temperature',label:'Equipment temperature',equipment_name:name,measured_temperature_c:Number(temperatures[name]),organisation_id:site.organisation_id,site_id:site.id,recorded_by:user.id,status:'needs_review'}));
+            const rows=entries.map(name=>({check_type:'temperature',label:'Equipment temperature '+round,equipment_name:name,measured_temperature_c:Number(temperatures[name]),organisation_id:site.organisation_id,site_id:site.id,recorded_by:user.id,status:'needs_review'}));
             const {error}=await supabase.from('compliance_checks').insert(rows);
             if(error) throw error;
-            const at=now();
-            setReadings(prev=>[...entries.map(name=>({equipment:name,temperature:Number(temperatures[name]),at})),...prev]);
-            setTemperatures(prev=>Object.fromEntries(Object.entries(prev).filter(([name])=>!entries.includes(name))));
-            setFeedback(`${entries.length} reading(s) submitted for supervisor review.`);setRefresh(n=>n+1);
+            setDrafts(prev=>({...prev,[round]:Object.fromEntries(Object.entries(prev[round]).filter(([name])=>!entries.includes(name)))}));
+            setFeedback(`${entries.length} ${round} reading(s) submitted for supervisor review.`);setRefresh(n=>n+1);
           } catch(err){setFeedback(err instanceof Error?err.message:'Could not save readings.');}
           finally {setSaving(false);}
         }}>
           <div className="space-y-3">
             {equipmentNames.map(name=><label key={name} className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <span className="min-w-0 flex-1 text-sm font-semibold text-slate-800 sm:text-base">{name}</span>
-              <span className="flex shrink-0 items-center gap-2"><input aria-label={name+' temperature in Celsius'} type="number" inputMode="decimal" step="0.1" value={temperatures[name]??''} onChange={e=>setTemperatures(prev=>({...prev,[name]:e.target.value}))} placeholder="—" className="w-24 rounded-xl border border-slate-300 bg-white px-3 py-3 text-right text-lg font-semibold text-slate-900 focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-100" /><span className="text-sm font-semibold text-slate-600">°C</span></span>
+              <span className="min-w-0 flex-1 text-sm font-semibold text-slate-800 sm:text-base">{name}{previous(name)&&<small className="block text-xs font-normal text-slate-500">Last saved: {previous(name)?.measured_temperature_c}°C</small>}</span>
+              <span className="flex shrink-0 items-center gap-2"><input aria-label={name+' temperature in Celsius'} type="number" inputMode="decimal" step="0.1" value={temperatures[name]??''} disabled={saving} onChange={e=>setDrafts(prev=>({...prev,[round]:{...prev[round],[name]:e.target.value}}))} placeholder="—" className="w-24 rounded-xl border border-slate-300 bg-white px-3 py-3 text-right text-lg font-semibold text-slate-900 focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-100" /><span className="text-sm font-semibold text-slate-600">°C</span></span>
             </label>)}
           </div>
           <p className="text-xs text-slate-500">Only filled-in readings are submitted. Equipment thresholds and corrective-action workflows are not yet configured. Continue using approved food safety records.</p>
-          <button type="submit" disabled={saving || !site || !equipmentNames.some(name=>temperatures[name]?.trim() && Number.isFinite(Number(temperatures[name])))} className={btn+' w-full'}>{saving?'Saving…':'Submit temperature readings for review'}</button>
+          <button type="submit" disabled={saving || !site || !equipmentNames.some(name=>temperatures[name]?.trim() && Number.isFinite(Number(temperatures[name])))} className={btn+' w-full'}>{saving?'Saving…':'Submit '+round+' readings for review'}</button>
         </form>
-        {readings.length>0 && <div className="mt-5 space-y-2"><h3 className="font-semibold">Submitted this session</h3>{readings.map((r,i)=><div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 p-3 text-sm" key={i}><span>{r.equipment}<span className="block text-xs text-slate-500">{r.at}</span></span><strong>{r.temperature}°C</strong></div>)}</div>}
+        {readings.length>0 && <div className="mt-5 space-y-2"><h3 className="font-semibold">Saved {round} readings today</h3>{readings.map(r=><div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 p-3 text-sm" key={r.id}><span>{r.equipment_name}<span className="block text-xs text-slate-500">{new Date(r.recorded_at).toLocaleString('en-GB')}</span></span><strong>{r.measured_temperature_c}°C</strong></div>)}</div>}
       </section>}
       {tab === 'deliveries' && <section className={card}><h2 className="mb-4 text-xl font-bold">Delivery check</h2><form className="space-y-4" onSubmit={async e=>{e.preventDefault();if(supplier.trim()&&deliveryTemp.trim()&&Number.isFinite(Number(deliveryTemp))){const ok=await saveCheck({check_type:'delivery',label:'Delivery temperature',measured_temperature_c:Number(deliveryTemp),notes:'Supplier: '+supplier.trim()});if(ok){setDeliveries(d=>[{supplier:supplier.trim(),temperature:Number(deliveryTemp),at:now()},...d]);setSupplier('');setDeliveryTemp('');}}}}><label className="block text-sm font-medium">Supplier<input className={`${field} mt-1`} required value={supplier} onChange={e=>setSupplier(e.target.value)} placeholder="Supplier name"/></label><label className="block text-sm font-medium">Measured temperature (°C)<input className={`${field} mt-1`} type="number" step="0.1" required value={deliveryTemp} onChange={e=>setDeliveryTemp(e.target.value)}/></label><p className="text-xs text-slate-500">Product condition, acceptance, evidence and invoice matching will be added before production use.</p><button disabled={saving || !site} className={btn}>{saving?'Saving…':'Submit delivery for review'}</button></form><div className="mt-5 space-y-2">{deliveries.map((d,i)=><div className="rounded-xl bg-slate-50 p-3 text-sm" key={i}>{d.supplier}: <strong>{d.temperature}°C</strong><span className="block text-slate-500">{d.at}</span></div>)}</div></section>}
     </div>
