@@ -30,7 +30,7 @@ export default function PricingPage() {
           <p className="km-eyebrow"><span className="km-kicker-line" /> SIMPLE, FLEXIBLE PRICING</p>
           <h1>A plan for every kind<br className="km-desktop-only" /> of kitchen<span className="km-dot">.</span></h1>
           <p>Whether you run one bustling restaurant or a growing group, we want Kommee to make sense for your kitchen.</p>
-          <div className="km-pricing-note"><MarketingIcon name="spark" size={18} /> Choose a plan to see what is included. Subscriptions and payment are not yet open; these are indicative prices.</div>
+          <div className="km-pricing-note"><MarketingIcon name="spark" size={18} /> Seven-day free trial planned for every subscription. Register your interest now; checkout is not yet open. Prices are indicative.</div>
         </section>
 
         <section className="km-container km-pricing-grid" aria-label="Example subscription plans">
@@ -40,11 +40,11 @@ export default function PricingPage() {
               <h2>{plan.name}</h2>
               <p className="km-plan-description">{plan.summary}</p>
               <div className="km-plan-price">{plan.price}<span> / month</span></div>
-              <p className="km-plan-small">Illustrative pricing</p>
+              <p className="km-plan-small">Indicative monthly price after trial</p>
               <div className="km-plan-divider" />
               <ul>{plan.features.map((feature)=><li key={feature}><MarketingIcon name="check" size={17}/>{feature}</li>)}</ul>
-              <Link className={plan.featured ? "km-btn km-btn-accent km-plan-cta" : "km-btn km-btn-outline km-plan-cta"} href={`/join?plan=${plan.name.toLowerCase()}`}>
-                View subscription details <MarketingIcon name="arrow" size={17}/>
+              <Link className={plan.featured ? "km-btn km-btn-accent km-plan-cta" : "km-btn km-btn-outline km-plan-cta"} href={`/signup?plan=${plan.name.toLowerCase()}`}>
+                Choose plan <MarketingIcon name="arrow" size={17}/>
               </Link>
             </article>
           ))}
