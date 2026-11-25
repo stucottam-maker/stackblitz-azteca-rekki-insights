@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {redirect} from "next/navigation";
 import { MarketingShell, MarketingIcon } from "../components/MarketingShell";
 
 export const metadata = {
@@ -9,6 +10,7 @@ export const metadata = {
 const planNames:Record<string,string>={starter:'Starter',professional:'Professional',group:'Group'};
 export default function JoinPage({searchParams}:{searchParams:{plan?:string}}) {
   const plan=typeof searchParams.plan==='string'&&Object.prototype.hasOwnProperty.call(planNames,searchParams.plan)?planNames[searchParams.plan]:null;
+  if(plan)redirect("/signup?plan="+searchParams.plan);
   return <MarketingShell>
     <main className="km-container km-secondary-main km-join-main">
       <p className="km-eyebrow"><span className="km-kicker-line"/> GET STARTED</p>
@@ -25,7 +27,7 @@ export default function JoinPage({searchParams}:{searchParams:{plan?:string}}) {
           <MarketingIcon name="store" size={33}/>
           <h2>{plan ? plan+' subscription' : 'Running your own kitchen?'}</h2>
           <p>{plan ? 'You have selected '+plan+'. Checkout is not yet available, and no account, subscription or charge has been created.' : 'Choose a subscription plan for your kitchen. Checkout is not yet open.'}</p>
-          <Link className="km-btn km-btn-dark" href="/pricing">{plan?'Compare plans':'View subscription plans'} <MarketingIcon name="arrow" size={17}/></Link>
+          <Link className="km-btn km-btn-dark" href="/signup">{plan?'Compare plans':'View subscription plans'} <MarketingIcon name="arrow" size={17}/></Link>
           <Link className="km-btn km-btn-outline" href="/demo">Explore the demo <MarketingIcon name="arrow" size={17}/></Link>
         </div>
       </div>
