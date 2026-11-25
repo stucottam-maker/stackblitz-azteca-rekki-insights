@@ -55,6 +55,7 @@ export async function POST(request: Request) {
       "line_items[0][price]": priceId,
       "line_items[0][quantity]": "1",
       "subscription_data[trial_period_days]": "7",
+      "subscription_data[trial_settings][end_behavior][missing_payment_method]": "cancel",
       "subscription_data[metadata][kommee_user_id]": data.user.id,
       "subscription_data[metadata][kommee_plan]": plan,
       "metadata[kommee_user_id]": data.user.id,
@@ -62,7 +63,7 @@ export async function POST(request: Request) {
       payment_method_collection: "always",
       customer_email: data.user.email,
       client_reference_id: data.user.id,
-      success_url: origin.origin + "/pricing?checkout=test-success",
+      success_url: origin.origin + "/pricing?checkout=test-success&session_id={CHECKOUT_SESSION_ID}",
       cancel_url: origin.origin + "/pricing?checkout=test-cancelled",
     });
     const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
