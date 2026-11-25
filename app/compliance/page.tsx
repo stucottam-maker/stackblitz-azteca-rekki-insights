@@ -11,6 +11,9 @@ const checklistTypes = ['opening','cleaning','closing'] as const;
 function localDay(date:Date) {
   return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
 }
+type Equipment={id:string;name:string;equipment_type:string;active:boolean};
+const starterEquipment=[['Walk-in fridge','cold_room'],['Prep fridge','fridge'],['Upright fridge','fridge'],['Freezer','freezer'],['Other equipment','other']].map(([name,equipment_type])=>({id:'legacy:'+name,name,equipment_type,active:true}));
+const equipmentTypes=[['fridge','Fridge'],['freezer','Freezer'],['cold_room','Cold room'],['hot_holding','Hot holding'],['other','Other equipment']];
 type Tile = { title:string; detail:string; icon:string; status:string; href?:string; action?:()=>void; tone?:'done'|'attention' };
 
 export default function CompliancePage() {
@@ -74,27 +77,81 @@ export default function CompliancePage() {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState<'today' | 'temperatures' | 'deliveries'>('today');
   useEffect(() => { const selected=searchParams.get('tab'); setTab(selected==='temperatures'||selected==='deliveries'?selected:'today'); },[searchParams]);
-  const equipmentNames = ['Walk-in fridge','Prep fridge','Upright fridge','Freezer','Other equipment'];
+  const equipmentScope=[orgId,siteId].join(':');
+  const [register,setRegister]=useState<{scope:string;rows:Equipment[];canManage:boolean;error:string}|null>(null);
+  const [equipmentRefresh,setEquipmentRefresh]=useState(0);
+  const [manage,setManage]=useState(false);
+  const [equipmentName,setEquipmentName]=useState('');
+  const [equipmentType,setEquipmentType]=useState('fridge');
+  const [editing,setEditing]=useState<string|null>(null);
+  const [equipmentBusy,setEquipmentBusy]=useState(false);
+  const [equipmentMessage,setEquipmentMessage]=useState('');
+  useEffect(()=>{setManage(false);setEditing(null);setEquipmentName('');setEquipmentMessage('');},[equipmentScope]);
+  useEffect(()=>{
+    if(!siteId||!orgId)return;
+    let cancelled=false;
+    async function loadEquipment(){
+      try{
+        const {data:{user}}=await supabase.auth.getUser();
+        const [rows,role]=await Promise.all([
+          supabase.from('compliance_equipment').select('id,name,equipment_type,active').eq('site_id',siteId).eq('organisation_id',orgId).order('created_at'),
+          user?supabase.from('organisation_members').select('role').eq('organisation_id',orgId).eq('user_id',user.id).in('role',['owner','admin','manager']).maybeSingle():Promise.resolve({data:null,error:null})
+        ]);
+        if(rows.error)throw rows.error;
+        if(!cancelled)setRegister({scope:equipmentScope,rows:(rows.data||[]) as Equipment[],canManage:!role.error&&Boolean(role.data),error:''});
+      }catch{if(!cancelled)setRegister({scope:equipmentScope,rows:[],canManage:false,error:'Equipment settings could not be loaded. Custom equipment is unavailable in this environment.'});}
+    }
+    void loadEquipment();return()=>{cancelled=true;};
+  },[siteId,orgId,equipmentScope,equipmentRefresh]);
+  const config=register?.scope===equipmentScope?register:null;
+  const equipment=config&&!config.error?config.rows.filter(r=>r.active):config?.error?starterEquipment:[];
+  const equipmentNames=equipment.map(r=>r.id);
+  async function changeEquipment(mode:'save'|'archive'|'restore'|'starter',item?:Equipment){
+    if(!config?.canManage||!siteId||!orgId||equipmentBusy||saving)return;
+    setEquipmentBusy(true);setEquipmentMessage('');
+    try{
+      const {data:{user},error:authError}=await supabase.auth.getUser();if(authError||!user)throw Error('Please sign in again.');
+      if(mode==='starter'){
+        if(config.rows.length)throw Error('Starter equipment can only be imported into an empty register.');
+        const {error}=await supabase.from('compliance_equipment').insert(starterEquipment.map(r=>({name:r.name,equipment_type:r.equipment_type,site_id:siteId,organisation_id:orgId,created_by:user.id})));if(error)throw error;
+      }else if(mode==='save'){
+        const name=equipmentName.trim();if(!name||name.length>100)throw Error('Enter an equipment name.');
+        if(editing){
+          const {data,error}=await supabase.from('compliance_equipment').update({name,equipment_type:equipmentType}).eq('id',editing).eq('site_id',siteId).eq('organisation_id',orgId).select('id').single();if(error||!data)throw error||Error('No equipment updated.');
+        }else{
+          const {error}=await supabase.from('compliance_equipment').insert({name,equipment_type:equipmentType,site_id:siteId,organisation_id:orgId,created_by:user.id});if(error)throw error;
+        }
+      }else{
+        if(!item)return;
+        const {data,error}=await supabase.from('compliance_equipment').update({active:mode==='restore'}).eq('id',item.id).eq('site_id',siteId).eq('organisation_id',orgId).select('id').single();if(error||!data)throw error||Error('No equipment updated.');
+        if(mode==='archive')setDrafts(old=>({AM:Object.fromEntries(Object.entries(old.AM).filter(([k])=>k!==item.id)),PM:Object.fromEntries(Object.entries(old.PM).filter(([k])=>k!==item.id))}));
+      }
+      setEquipmentName('');setEditing(null);setEquipmentMessage('Equipment register updated.');setRegister(null);setEquipmentRefresh(v=>v+1);
+    }catch(err){const code=(err as {code?:string})?.code;setEquipmentMessage(code==='23505'?'An active unit already has that name.':err instanceof Error?err.message:'Could not update equipment. Check your permissions and try again.');}
+    finally{setEquipmentBusy(false);}
+  }
   const [round,setRound]=useState<'AM'|'PM'>(()=>new Date().getHours()<12?'AM':'PM');
   const [drafts,setDrafts]=useState<Record<'AM'|'PM',Record<string,string>>>({AM:{},PM:{}});
   const temperatures=drafts[round];
-  const [history,setHistory]=useState<{key:string;rows:{id:string;equipment_name:string|null;measured_temperature_c:number;recorded_at:string;label:string}[];error:boolean}|null>(null);
+  const [history,setHistory]=useState<{key:string;rows:{id:string;equipment_name:string|null;equipment_id?:string|null;measured_temperature_c:number;recorded_at:string;label:string}[];error:boolean}|null>(null);
   useEffect(()=>{
     if(!siteId||!orgId)return;
     let cancelled=false;
     async function load(){
       try{
         const start=new Date(day+'T00:00:00'),end=new Date(start);end.setDate(end.getDate()+1);
-        const {data,error}=await supabase.from('compliance_checks').select('id,equipment_name,measured_temperature_c,recorded_at,label').eq('site_id',siteId).eq('organisation_id',orgId).eq('check_type','temperature').in('label',['Equipment temperature','Equipment temperature AM','Equipment temperature PM']).gte('recorded_at',start.toISOString()).lt('recorded_at',end.toISOString()).order('recorded_at',{ascending:false});
-        if(error)throw error;
-        if(!cancelled)setHistory({key:summaryKey,rows:data||[],error:false});
+        const query=(columns:string)=>supabase.from('compliance_checks').select(columns).eq('site_id',siteId).eq('organisation_id',orgId).eq('check_type','temperature').in('label',['Equipment temperature','Equipment temperature AM','Equipment temperature PM']).gte('recorded_at',start.toISOString()).lt('recorded_at',end.toISOString()).order('recorded_at',{ascending:false});
+        let result=await query('id,equipment_name,equipment_id,measured_temperature_c,recorded_at,label');
+        if(result.error?.code==='42703'||result.error?.code==='PGRST204')result=await query('id,equipment_name,measured_temperature_c,recorded_at,label');
+        if(result.error)throw result.error;
+        if(!cancelled)setHistory({key:summaryKey,rows:(result.data||[]) as unknown as {id:string;equipment_name:string|null;equipment_id?:string|null;measured_temperature_c:number;recorded_at:string;label:string}[],error:false});
       }catch{if(!cancelled)setHistory({key:summaryKey,rows:[],error:true});}
     }
     void load();return()=>{cancelled=true;};
   },[siteId,orgId,day,summaryKey]);
   const currentHistory=history?.key===summaryKey?history:null;
   const readings=currentHistory?.rows.filter(r=>r.label==='Equipment temperature '+round)||[];
-  const previous=(name:string)=>readings.find(r=>r.equipment_name===name);
+  const previous=(id:string)=>{const item=equipment.find(r=>r.id===id);return item?readings.find(r=>r.equipment_id===id||(!r.equipment_id&&r.equipment_name===item.name)):undefined;};
   const [supplier, setSupplier] = useState('');
   const [deliveryTemp, setDeliveryTemp] = useState('');
   const [deliveries, setDeliveries] = useState<{supplier:string; temperature:number; at:string}[]>([]);
@@ -146,22 +203,40 @@ export default function CompliancePage() {
             return tile.href?<Link key={tile.title} href={tile.href} className={style+' hover:border-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-700'}>{content}</Link>:tile.action?<button key={tile.title} type="button" onClick={tile.action} className={style+' hover:border-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-700'}>{content}</button>:<article key={tile.title} className={style+' opacity-70'}>{content}</article>;
           })}
         </section>
-        <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-900">Follow your site&apos;s approved food safety procedures. Automated deadlines, temperature limits, equipment configuration are not yet configured. Review HACCP records against approved procedures.</p>
+        <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-900">Follow your site&apos;s approved food safety procedures. Automated deadlines, temperature limits, are not yet configured. Review HACCP records against approved procedures.</p>
       </>}
       {tab === 'temperatures' && <section className={card}>
         <h2 className="mb-1 text-xl font-bold">Record temperatures</h2>
         <p className="mb-4 text-sm text-slate-500">Select the round. AM and PM readings are recorded separately.</p>
+        <div className="mb-4 flex items-center justify-between gap-2"><span className="text-sm font-semibold">{equipment.length} equipment units</span>{config?.canManage&&<button type="button" disabled={saving} onClick={()=>setManage(v=>!v)} className="min-h-11 rounded-xl bg-teal-50 px-3 text-sm font-bold text-teal-900">{manage?'Close equipment settings':'+ Manage equipment'}</button>}</div>
+        {!config&&<p className="mb-4 text-sm text-slate-500">Loading equipment…</p>}
+        {config?.error&&<p role="alert" className="mb-4 rounded-xl bg-amber-50 p-3 text-xs text-amber-900">{config.error} Showing the previous generic list; confirm against your approved procedures.</p>}
+        {config&&!config.error&&config.rows.length===0&&<p className="mb-4 rounded-xl bg-slate-50 p-3 text-sm">No equipment configured yet. {config.canManage?'Add your real equipment or import the starter list.':'Ask a manager to set up this site.'}</p>}
+        {manage&&config?.canManage&&<section className="mb-5 space-y-3 rounded-2xl border border-teal-200 bg-white p-3">
+          <h3 className="font-bold">Equipment settings · {site?.name}</h3>
+          <p className="text-xs text-slate-600">These units appear in both AM and PM rounds for this site. Archiving preserves previous readings.</p>
+          {config.rows.length===0&&<button type="button" disabled={equipmentBusy} onClick={()=>changeEquipment('starter')} className="min-h-11 w-full rounded-xl border border-teal-200 px-3 text-sm font-semibold text-teal-900">Import previous starter list</button>}
+          <form className="space-y-2" onSubmit={e=>{e.preventDefault();void changeEquipment('save');}}>
+            <label className="block text-sm font-semibold">Equipment name<input required maxLength={100} value={equipmentName} onChange={e=>setEquipmentName(e.target.value)} placeholder="e.g. Fish fridge" className={field+' mt-1'}/></label>
+            <label className="block text-sm font-semibold">Type<select className={field+' mt-1'} value={equipmentType} onChange={e=>setEquipmentType(e.target.value)}>{equipmentTypes.map(([id,name])=><option key={id} value={id}>{name}</option>)}</select></label>
+            <button type="submit" disabled={equipmentBusy||!equipmentName.trim()} className={btn+' w-full'}>{editing?'Save changes':'+ Add equipment'}</button>
+            {editing&&<button type="button" onClick={()=>{setEditing(null);setEquipmentName('');}} className="text-sm font-semibold text-teal-800">Cancel edit</button>}
+          </form>
+          {equipmentMessage&&<p role="status" className="text-sm">{equipmentMessage}</p>}
+          {config.rows.map(item=><div key={item.id} className="flex flex-wrap items-center gap-2 rounded-xl bg-slate-50 p-3"><span className="min-w-0 flex-1 text-sm font-semibold">{item.name}<small className="block font-normal text-slate-600">{equipmentTypes.find(([id])=>id===item.equipment_type)?.[1]}{item.active?'':' · Archived'}</small></span>{item.active&&<button type="button" disabled={equipmentBusy} onClick={()=>{setEditing(item.id);setEquipmentName(item.name);setEquipmentType(item.equipment_type);}} className="min-h-10 px-2 text-sm font-semibold text-teal-800">Edit</button>}<button type="button" disabled={equipmentBusy} onClick={()=>{if(!item.active||window.confirm('Archive '+item.name+'? Past readings will remain saved.'))void changeEquipment(item.active?'archive':'restore',item);}} className="min-h-10 px-2 text-sm font-semibold text-teal-800">{item.active?'Archive':'Restore'}</button></div>)}
+        </section>}
+        {!manage&&equipmentMessage&&<p role="status" className="mb-3 text-sm">{equipmentMessage}</p>}
         <div className="mb-4 grid grid-cols-2 gap-2">{(['AM','PM'] as const).map(r=><button type="button" key={r} disabled={saving} aria-pressed={round===r} onClick={()=>setRound(r)} className={`min-h-16 rounded-2xl border p-3 text-left ${round===r?'bg-[#254c39] text-white border-[#254c39]':'bg-white text-slate-800 border-slate-200'}`}><strong>{r==='AM'?'☀ AM · Morning':'☾ PM · Afternoon'}</strong><span className="mt-1 block text-xs">{daily?(r==='AM'?daily.am:daily.pm)+' readings saved':'Checking records…'}</span></button>)}</div>
         {currentHistory?.error&&<p role="alert" className="mb-3 text-sm text-amber-900">Saved temperatures could not be loaded. Refresh to retry.</p>}
         <form className="space-y-4" onSubmit={async e=>{
           e.preventDefault();
           const entries=equipmentNames.filter(name=>temperatures[name]?.trim() && Number.isFinite(Number(temperatures[name])));
-          if(!entries.length || !site) return;
+          if(!entries.length || !site || equipmentBusy || manage) return;
           setSaving(true);setFeedback('');
           try {
             const {data:{user},error:authError}=await supabase.auth.getUser();
             if(authError||!user) throw new Error('Please sign in again.');
-            const rows=entries.map(name=>({check_type:'temperature',label:'Equipment temperature '+round,equipment_name:name,measured_temperature_c:Number(temperatures[name]),organisation_id:site.organisation_id,site_id:site.id,recorded_by:user.id,status:'needs_review'}));
+            const rows=entries.map(id=>({check_type:'temperature',label:'Equipment temperature '+round,equipment_name:equipment.find(r=>r.id===id)?.name, ...(!id.startsWith('legacy:')?{equipment_id:id}:{}),measured_temperature_c:Number(temperatures[id]),organisation_id:site.organisation_id,site_id:site.id,recorded_by:user.id,status:'needs_review'}));
             const {error}=await supabase.from('compliance_checks').insert(rows);
             if(error) throw error;
             setDrafts(prev=>({...prev,[round]:Object.fromEntries(Object.entries(prev[round]).filter(([name])=>!entries.includes(name)))}));
@@ -170,13 +245,13 @@ export default function CompliancePage() {
           finally {setSaving(false);}
         }}>
           <div className="space-y-3">
-            {equipmentNames.map(name=><label key={name} className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <span className="min-w-0 flex-1 text-sm font-semibold text-slate-800 sm:text-base">{name}{previous(name)&&<small className="block text-xs font-normal text-slate-500">Last saved: {previous(name)?.measured_temperature_c}°C</small>}</span>
-              <span className="flex shrink-0 items-center gap-2"><input aria-label={name+' temperature in Celsius'} type="number" inputMode="decimal" step="0.1" value={temperatures[name]??''} disabled={saving} onChange={e=>setDrafts(prev=>({...prev,[round]:{...prev[round],[name]:e.target.value}}))} placeholder="—" className="w-24 rounded-xl border border-slate-300 bg-white px-3 py-3 text-right text-lg font-semibold text-slate-900 focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-100" /><span className="text-sm font-semibold text-slate-600">°C</span></span>
+            {equipment.map(item=><label key={item.id} className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <span className="min-w-0 flex-1 text-sm font-semibold text-slate-800 sm:text-base">{item.name}{previous(item.id)&&<small className="block text-xs font-normal text-slate-500">Last saved: {previous(item.id)?.measured_temperature_c}°C</small>}</span>
+              <span className="flex shrink-0 items-center gap-2"><input aria-label={item.name+' temperature in Celsius'} type="number" inputMode="decimal" step="0.1" value={temperatures[item.id]??''} disabled={saving||manage||equipmentBusy} onChange={e=>setDrafts(prev=>({...prev,[round]:{...prev[round],[item.id]:e.target.value}}))} placeholder="—" className="w-24 rounded-xl border border-slate-300 bg-white px-3 py-3 text-right text-lg font-semibold text-slate-900 focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-100" /><span className="text-sm font-semibold text-slate-600">°C</span></span>
             </label>)}
           </div>
           <p className="text-xs text-slate-500">Only filled-in readings are submitted. Equipment thresholds and corrective-action workflows are not yet configured. Continue using approved food safety records.</p>
-          <button type="submit" disabled={saving || !site || !equipmentNames.some(name=>temperatures[name]?.trim() && Number.isFinite(Number(temperatures[name])))} className={btn+' w-full'}>{saving?'Saving…':'Submit '+round+' readings for review'}</button>
+          <button type="submit" disabled={saving || manage || equipmentBusy || !site || !equipmentNames.some(name=>temperatures[name]?.trim() && Number.isFinite(Number(temperatures[name])))} className={btn+' w-full'}>{saving?'Saving…':'Submit '+round+' readings for review'}</button>
         </form>
         {readings.length>0 && <div className="mt-5 space-y-2"><h3 className="font-semibold">Saved {round} readings today</h3>{readings.map(r=><div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 p-3 text-sm" key={r.id}><span>{r.equipment_name}<span className="block text-xs text-slate-500">{new Date(r.recorded_at).toLocaleString('en-GB')}</span></span><strong>{r.measured_temperature_c}°C</strong></div>)}</div>}
       </section>}
