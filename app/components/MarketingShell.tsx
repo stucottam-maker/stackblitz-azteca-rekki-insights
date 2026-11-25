@@ -43,7 +43,7 @@ export function MarketingShell({
           </nav>
           <div className="km-header-actions">
             <a className="km-header-login" href="/login">Log in</a>
-            <Link className="km-btn km-btn-accent km-header-get" href="/join">Get started</Link>
+            <Link className="km-btn km-btn-accent km-header-get" href="/signup">Get started</Link>
           </div>
         </div>
       </header>
