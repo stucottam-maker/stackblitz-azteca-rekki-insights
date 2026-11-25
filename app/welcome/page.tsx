@@ -26,7 +26,7 @@ export default function WelcomePage() {
               <h1>Your kitchen’s<br />right hand<span className="km-dot">.</span></h1>
               <p className="km-lead">Less admin. More cooking. Keep purchasing, invoices, stock, recipes and food safety beautifully organised in one place.</p>
               <div className="km-buttons">
-                <Link className="km-btn km-btn-accent" href="/join">Get started <MarketingIcon name="arrow" size={18} /></Link>
+                <Link className="km-btn km-btn-accent" href="/signup">Get started <MarketingIcon name="arrow" size={18} /></Link>
                 <Link className="km-btn km-btn-outline" href="/demo"><MarketingIcon name="play" size={19} /> Explore the demo</Link>
               </div>
               <p className="km-hero-footnote"><MarketingIcon name="check" size={15}/> Made for chefs, managers and independent hospitality teams</p>
