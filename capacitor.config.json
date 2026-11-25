@@ -2,8 +2,8 @@
   "appId": "uk.co.kommee.app",
   "appName": "Kommee",
   "webDir": "capacitor-shell",
-  "loggingBehavior": "debug",
-  "appendUserAgent": " KommeeAndroid/0.3",
+  "loggingBehavior": "none",
+  "appendUserAgent": " KommeeAndroid/1.0",
   "backgroundColor": "#214534",
   "server": {
     "url": "https://kommee.co.uk",
@@ -12,6 +12,6 @@
   "android": {
     "backgroundColor": "#214534",
     "allowMixedContent": false,
-    "webContentsDebuggingEnabled": true
+    "webContentsDebuggingEnabled": false
   }
 }
