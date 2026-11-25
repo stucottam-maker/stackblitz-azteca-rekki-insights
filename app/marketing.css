@@ -150,3 +150,21 @@
 .km-pos-provider img{width:28px;height:28px;object-fit:contain;border-radius:5px;flex:none}
 .km-pos-names .km-pos-provider span{padding:0;border:0;border-radius:0;background:transparent;color:inherit;font:inherit}
 @media(max-width:760px){.km-pos-names .km-pos-provider{gap:7px;padding:9px 10px}.km-pos-provider img{width:23px;height:23px}}
+
+/* Responsive public navigation: never drop a destination on smaller screens. */
+.km-mobile-navigation{display:none}
+@media(max-width:1050px){
+ .km-header-inner{gap:12px;min-width:0}
+ .km-nav{display:none}
+ .km-header-actions{margin-left:auto;gap:8px}
+ .km-mobile-navigation{display:block;flex-shrink:0}
+ .km-mobile-trigger{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 10px;border:1px solid rgba(255,255,255,.55);border-radius:11px;background:transparent;color:#fff;font:inherit;font-weight:700;font-size:13px;cursor:pointer}
+ .km-mobile-panel{position:absolute;top:100%;right:16px;left:16px;max-width:420px;margin-left:auto;display:flex;flex-direction:column;padding:10px;background:#fffdf8;color:#174f3c;border:1px solid #d9e2d9;border-radius:0 0 16px 16px;box-shadow:0 14px 35px rgba(16,56,42,.22);max-height:calc(100dvh - 85px);overflow-y:auto;overscroll-behavior:contain;z-index:50}
+ .km-mobile-panel a{display:flex;align-items:center;min-height:44px;padding:10px 14px;border-radius:9px;font-weight:650;color:#174f3c;font-size:15px;text-decoration:none}
+ .km-mobile-panel a:hover,.km-mobile-panel a:focus-visible{background:#e5efe9}
+ .km-mobile-panel .km-mobile-signup{background:#174f3c;color:white;margin-top:4px;justify-content:center}
+ .km-mobile-panel .km-mobile-signup:hover,.km-mobile-panel .km-mobile-signup:focus-visible{background:#255c46}
+ .km-mobile-trigger:focus-visible{outline:2px solid #f2b394;outline-offset:3px}
+}
+@media(max-width:540px){.km-header-get{display:none}.km-header-inner{gap:8px}.km-header-login{white-space:nowrap;min-height:40px;display:flex;align-items:center}.km-logo{flex-shrink:0}}
+@media(max-width:350px){.km-mobile-trigger span{display:none}.km-header-login{padding:8px}.km-logo{font-size:22px}}
