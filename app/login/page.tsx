@@ -6,7 +6,7 @@ import { type FormEvent, useEffect, useState } from "react";
 
 import { supabase } from "../lib/supabase";
 
-type LoginMode = "signin" | "activate" | "forgot";
+type LoginMode = "signin" | "forgot";
 
 function loginDestination() {
   const requestedPath = new URLSearchParams(window.location.search).get("next");
@@ -31,7 +31,7 @@ export default function LoginPage() {
     let active = true;
     const params = new URLSearchParams(window.location.search);
     setEmail(params.get("email") ?? "");
-    if (params.get("activate") === "1") setMode("activate");
+    // Old activation URLs no longer expose public account creation. Invited staff use their email invitation.
 
     void supabase.auth.getSession()
       .then(({ data }) => {
@@ -75,32 +75,6 @@ export default function LoginPage() {
       return;
     }
 
-    if (mode === "activate") {
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email: normalizedEmail,
-        password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-        },
-      });
-
-      if (signUpError) {
-        setError(signUpError.message);
-        setLoading(false);
-        return;
-      }
-
-      if (data.session) {
-        window.location.replace(loginDestination());
-        return;
-      }
-
-      setMessage("Account created. Check your email to confirm it, then sign in.");
-      setMode("signin");
-      setLoading(false);
-      return;
-    }
-
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email: normalizedEmail,
       password,
@@ -109,7 +83,7 @@ export default function LoginPage() {
     if (signInError) {
       setError(
         signInError.message === "Invalid login credentials"
-          ? "We couldn’t sign you in. If this is your first time on Kommee, create your account below."
+          ? "We couldn’t sign you in. New to Kommee? Sign up below."
           : signInError.message
       );
       setLoading(false);
@@ -119,19 +93,10 @@ export default function LoginPage() {
     window.location.replace(loginDestination());
   }
 
-  const heading =
-    mode === "activate"
-      ? "Activate your account"
-      : mode === "forgot"
-        ? "Reset your password"
-        : "Sign in";
-
-  const description =
-    mode === "activate"
-      ? "Create your Kommee login with your email and a new password."
-      : mode === "forgot"
-        ? "Enter your email and we’ll send you a reset link."
-        : "Welcome back to Kommee.";
+  const heading = mode === "forgot" ? "Reset your password" : "Sign in";
+  const description = mode === "forgot"
+    ? "Enter your email and we’ll send you a reset link."
+    : "Welcome back to Kommee.";
 
   return (
     <main className="login-page">
@@ -147,7 +112,7 @@ export default function LoginPage() {
         <div className="login-shell">
           <div className="login-heading">
             {mode !== "signin" && (
-              <p className="eyebrow">{mode === "forgot" ? "Account recovery" : "First-time access"}</p>
+              <p className="eyebrow">Account recovery</p>
             )}
             <h1>{heading}</h1>
             <p>{description}</p>
@@ -169,16 +134,15 @@ export default function LoginPage() {
 
             {mode !== "forgot" && (
               <label className="login-field">
-                <span>{mode === "activate" ? "Choose a password" : "Password"}</span>
+                <span>Password</span>
                 <div className="login-password-field">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
-                    placeholder={mode === "activate" ? "Choose a secure password" : "Your password"}
+                    placeholder="Your password"
                     required
-                    minLength={mode === "activate" ? 8 : undefined}
-                    autoComplete={mode === "activate" ? "new-password" : "current-password"}
+                    autoComplete="current-password"
                   />
                   <button
                     type="button"
@@ -211,35 +175,18 @@ export default function LoginPage() {
               disabled={loading}
               aria-busy={loading}
             >
-              {loading
-                ? mode === "activate"
-                  ? "Activating…"
-                  : mode === "forgot"
-                    ? "Sending…"
-                    : "Signing in…"
-                : mode === "activate"
-                  ? "Create Kommee account"
-                  : mode === "forgot"
-                    ? "Send reset link"
-                    : "Sign in"}
+              {loading ? (mode === "forgot" ? "Sending…" : "Signing in…") : (mode === "forgot" ? "Send reset link" : "Sign in")}
             </button>
           </form>
 
-          <button
-            type="button"
-            className="login-mode-switch"
-            onClick={() => {
-              if (mode === "forgot") switchMode("signin");
-              else if (mode === "signin") switchMode("activate");
-              else switchMode("signin");
-            }}
-          >
-            {mode === "forgot"
-              ? "← Back to sign in"
-              : mode === "signin"
-                ? "First time here? Create account"
-                : "Already activated? Sign in"}
-          </button>
+          {mode === "forgot" ? (
+            <button type="button" className="login-mode-switch" onClick={() => switchMode("signin")}>← Back to sign in</button>
+          ) : (
+            <>
+              <a className="login-mode-switch" href="/pricing">New to Kommee? Sign up</a>
+              <a className="login-mode-switch" href="/join">Invited by your kitchen? Join your team</a>
+            </>
+          )}
         </div>
 
         <p className="login-simple-footer">Orders · invoices · stock · recipe costs</p>

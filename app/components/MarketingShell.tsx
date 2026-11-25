@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import MobileMarketingNav from "./MobileMarketingNav";
+import {marketingLinks} from "../lib/marketingLinks";
 
 export function MarketingIcon({ name, size = 24 }: { name: string; size?: number }) {
   const strokes: Record<string, ReactNode> = {
@@ -36,15 +38,13 @@ export function MarketingShell({
             <span>kommee<span className="km-dot">.</span></span>
           </Link>
           <nav className="km-nav" aria-label="Main navigation">
-            <Link className={active === "features" ? "km-current" : ""} href="/#features">Features</Link>
-            <Link className={active === "pricing" ? "km-current" : ""} href="/pricing">Pricing</Link>
-            <Link href="/#teams">For teams</Link>
-            <Link className={active === "about" ? "km-current" : ""} href="/#about">About</Link>
+            {marketingLinks.map(item=><Link key={item.href} className={active===item.key?"km-current":""} href={item.href}>{item.label}</Link>)}
           </nav>
           <div className="km-header-actions">
             <a className="km-header-login" href="/login">Log in</a>
-            <Link className="km-btn km-btn-accent km-header-get" href="/join">Get started</Link>
+            <Link className="km-btn km-btn-accent km-header-get" href="/signup">Get started</Link>
           </div>
+          <MobileMarketingNav />
         </div>
       </header>
       {children}
