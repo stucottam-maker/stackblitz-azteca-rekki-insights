@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SandboxCheckoutButton from "./SandboxCheckoutButton";
 import { MarketingShell, MarketingIcon } from "../components/MarketingShell";
 
 const plans = [
@@ -23,6 +24,7 @@ export const metadata = {
 };
 
 export default function PricingPage() {
+  const sandbox=process.env.VERCEL_ENV==="preview" && process.env.KOMMEE_STRIPE_SANDBOX==="1" && process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/,"")==="https://zfkzpqqyzjizjxijmpde.supabase.co";
   return (
     <MarketingShell active="pricing">
       <main className="km-pricing-main">
@@ -43,9 +45,9 @@ export default function PricingPage() {
               <p className="km-plan-small">Illustrative pricing</p>
               <div className="km-plan-divider" />
               <ul>{plan.features.map((feature)=><li key={feature}><MarketingIcon name="check" size={17}/>{feature}</li>)}</ul>
-              <Link className={plan.featured ? "km-btn km-btn-accent km-plan-cta" : "km-btn km-btn-outline km-plan-cta"} href="/join">
+              {sandbox?<SandboxCheckoutButton plan={plan.name.toLowerCase()}/>:<Link className={plan.featured ? "km-btn km-btn-accent km-plan-cta" : "km-btn km-btn-outline km-plan-cta"} href="/join">
                 Join early access <MarketingIcon name="arrow" size={17}/>
-              </Link>
+              </Link>}
             </article>
           ))}
         </section>
