@@ -24,7 +24,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
     setMarketingRoot(isPublicHost && !launchApp && !nativeWebView);
   }, [pathname]);
 
-  const publicMarketingRoute = ["/welcome", "/pricing", "/demo", "/join"].includes(pathname);
+  const publicMarketingRoute = ["/welcome", "/pricing", "/demo", "/join", "/signup"].includes(pathname);
   if (publicMarketingRoute || (pathname === "/" && marketingRoot === true)) {
     return <>{children}</>;
   }
