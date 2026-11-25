@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SandboxCheckoutButton from "./SandboxCheckoutButton";
 import { MarketingShell, MarketingIcon } from "../components/MarketingShell";
 
 const plans = [
@@ -22,7 +23,8 @@ export const metadata = {
   description: "Explore illustrative subscription options for independent kitchens and hospitality groups.",
 };
 
-export default function PricingPage() {
+export default function PricingPage({searchParams}:{searchParams:{session_id?:string;checkout?:string}}) {
+  const sandbox=process.env.VERCEL_ENV==="preview" && process.env.KOMMEE_STRIPE_SANDBOX==="1" && process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/,"")==="https://zfkzpqqyzjizjxijmpde.supabase.co";
   return (
     <MarketingShell active="pricing">
       <main className="km-pricing-main">
@@ -33,6 +35,7 @@ export default function PricingPage() {
           <div className="km-pricing-note"><MarketingIcon name="spark" size={18} /> Early preview. Prices and features shown are illustrative, not live subscription offers.</div>
         </section>
 
+        {sandbox&&searchParams.checkout==="test-success"&&typeof searchParams.session_id==="string"&&/^cs_test_[A-Za-z0-9]+$/.test(searchParams.session_id)&&<section className="km-container"><p>Test checkout returned. No kitchen access has been granted.</p><SandboxCheckoutButton plan="starter" sessionId={searchParams.session_id}/></section>}
         <section className="km-container km-pricing-grid" aria-label="Example subscription plans">
           {plans.map((plan) => (
             <article key={plan.name} className={plan.featured ? "km-plan km-plan-featured" : "km-plan"}>
@@ -43,9 +46,9 @@ export default function PricingPage() {
               <p className="km-plan-small">Illustrative pricing</p>
               <div className="km-plan-divider" />
               <ul>{plan.features.map((feature)=><li key={feature}><MarketingIcon name="check" size={17}/>{feature}</li>)}</ul>
-              <Link className={plan.featured ? "km-btn km-btn-accent km-plan-cta" : "km-btn km-btn-outline km-plan-cta"} href="/join">
+              {sandbox?<SandboxCheckoutButton plan={plan.name.toLowerCase()}/>:<Link className={plan.featured ? "km-btn km-btn-accent km-plan-cta" : "km-btn km-btn-outline km-plan-cta"} href="/join">
                 Join early access <MarketingIcon name="arrow" size={17}/>
-              </Link>
+              </Link>}
             </article>
           ))}
         </section>
