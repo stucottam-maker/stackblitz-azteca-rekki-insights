@@ -5,7 +5,7 @@ export const runtime="nodejs";
 export const dynamic="force-dynamic";
 const respond=(body:object,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"no-store"}});
 export async function POST(request:Request){
- if(process.env.VERCEL_ENV!=="preview"||process.env.NEXT_PUBLIC_SUPABASE_URL!=="https://zfkzpqqyzjizjxijmpde.supabase.co")return respond({error:"Trial registration is currently available in the test preview only."},503);
+ if(process.env.VERCEL_ENV!=="preview"||(process.env.NEXT_PUBLIC_SUPABASE_URL||"").replace(/\/$/,"")!=="https://zfkzpqqyzjizjxijmpde.supabase.co")return respond({error:"Trial registration is currently available in the test preview only."},503);
  if(request.headers.get("origin")!==new URL(request.url).origin)return respond({error:"Invalid request origin."},403);
  if(!request.headers.get("content-type")?.includes("application/json"))return respond({error:"Invalid request format."},415);
  try{
