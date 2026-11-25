@@ -109,7 +109,7 @@ export default function LoginPage() {
     if (signInError) {
       setError(
         signInError.message === "Invalid login credentials"
-          ? "We couldn’t sign you in. If this is your first time on Kommee, create your account below."
+          ? "We couldn’t sign you in. New to Kommee? Sign up below."
           : signInError.message
       );
       setLoading(false);
@@ -121,14 +121,14 @@ export default function LoginPage() {
 
   const heading =
     mode === "activate"
-      ? "Activate your account"
+      ? "Sign up"
       : mode === "forgot"
         ? "Reset your password"
         : "Sign in";
 
   const description =
     mode === "activate"
-      ? "Create your Kommee login with your email and a new password."
+      ? "Create your Kommee login using your email and a secure password."
       : mode === "forgot"
         ? "Enter your email and we’ll send you a reset link."
         : "Welcome back to Kommee.";
@@ -213,12 +213,12 @@ export default function LoginPage() {
             >
               {loading
                 ? mode === "activate"
-                  ? "Activating…"
+                  ? "Signing up…"
                   : mode === "forgot"
                     ? "Sending…"
                     : "Signing in…"
                 : mode === "activate"
-                  ? "Create Kommee account"
+                  ? "Sign up"
                   : mode === "forgot"
                     ? "Send reset link"
                     : "Sign in"}
@@ -237,8 +237,8 @@ export default function LoginPage() {
             {mode === "forgot"
               ? "← Back to sign in"
               : mode === "signin"
-                ? "First time here? Create account"
-                : "Already activated? Sign in"}
+                ? "New to Kommee? Sign up"
+                : "Already have an account? Sign in"}
           </button>
         </div>
 
