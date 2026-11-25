@@ -17,7 +17,7 @@ export default function SignupPage({searchParams}:{searchParams:{plan?:string}})
  <p>Once checkout is enabled, you will add a payment method and explicitly agree to recurring billing. Cancel before your trial ends to avoid the first subscription charge.</p>
  <Link href="/pricing" className="km-btn km-btn-outline">Change plan</Link>
  </section>
- <section className="km-join-card"><h2>Tell us about your kitchen</h2><p>Checkout is not active yet. Register your interest below; no trial, account or subscription starts until checkout is completed.</p><SignupForm key={plan.id} planId={plan.id}/></section>
+ <section className="km-join-card"><h2>Tell us about your kitchen</h2><p>Test preview only. Use sample business details to try the registration form. No trial, account or subscription starts until checkout is available and completed.</p><SignupForm key={plan.id} planId={plan.id}/></section>
  </>}
  <p style={{marginTop:20}}>Already a customer? <Link href="/login" style={{fontWeight:700,textDecoration:"underline"}}>Sign in</Link></p>
  </main></MarketingShell>;
