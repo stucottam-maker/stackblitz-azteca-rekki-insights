@@ -54,7 +54,7 @@ export function MarketingShell({
           <nav aria-label="Footer navigation">
             <Link href="/pricing">Pricing</Link><Link href="/demo">Explore demo</Link><Link href="/join">Join a kitchen</Link><a href="/login">Log in</a>
           </nav>
-          <small>© 2026 Kommee. Built for hospitality.</small>
+          <small>Android app · Coming soon on Google Play</small><small>© 2026 Kommee. Built for hospitality.</small>
         </div>
       </footer>
     </div>
