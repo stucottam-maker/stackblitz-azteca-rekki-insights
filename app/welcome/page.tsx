@@ -29,6 +29,7 @@ export default function WelcomePage() {
                 <Link className="km-btn km-btn-accent" href="/signup">Get started <MarketingIcon name="arrow" size={18} /></Link>
                 <Link className="km-btn km-btn-outline" href="/demo"><MarketingIcon name="play" size={19} /> Explore the demo</Link>
               </div>
+              <div style={{display:"flex",alignItems:"center",gap:12,marginTop:22,flexWrap:"wrap"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:42,height:42,borderRadius:10,border:"1px solid #9db5a4",color:"#f7f5ed"}}><svg width="22" height="26" viewBox="0 0 24 28" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="4" y="1" width="16" height="26" rx="3"/><path d="M9 4h6M10 23h4"/></svg></span><div><strong style={{display:"block",fontSize:14,color:"#f7f5ed"}}>Your kitchen. In your pocket.</strong><span style={{display:"block",fontSize:12,color:"#d7e3d9",marginTop:3}}>Coming soon on Google Play</span></div></div>
               <p className="km-hero-footnote"><MarketingIcon name="check" size={15}/> Made for chefs, managers and independent hospitality teams</p>
             </div>
             <div className="km-hero-photo" role="img" aria-label="Chef cooking in a professional restaurant kitchen" />
