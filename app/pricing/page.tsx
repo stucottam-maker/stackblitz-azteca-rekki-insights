@@ -19,7 +19,7 @@ const plans = [
 
 export const metadata = {
   title: "Plans & pricing | Kommee",
-  description: "Explore illustrative subscription options for independent kitchens and hospitality groups.",
+  description: "Explore launch subscription plans for independent kitchens and hospitality groups.",
 };
 
 export default function PricingPage() {
@@ -30,17 +30,17 @@ export default function PricingPage() {
           <p className="km-eyebrow"><span className="km-kicker-line" /> SIMPLE, FLEXIBLE PRICING</p>
           <h1>A plan for every kind<br className="km-desktop-only" /> of kitchen<span className="km-dot">.</span></h1>
           <p>Whether you run one bustling restaurant or a growing group, we want Kommee to make sense for your kitchen.</p>
-          <div className="km-pricing-note"><MarketingIcon name="spark" size={18} /> Seven-day free trial planned for every subscription. Register your interest now; checkout is not yet open. Prices are indicative.</div>
+          <div className="km-pricing-note"><MarketingIcon name="spark" size={18} /> Seven-day free trial planned for every subscription. Choose your plan; checkout is not yet open.</div>
         </section>
 
-        <section className="km-container km-pricing-grid" aria-label="Example subscription plans">
+        <section className="km-container km-pricing-grid" aria-label="Subscription plans">
           {plans.map((plan) => (
             <article key={plan.name} className={plan.featured ? "km-plan km-plan-featured" : "km-plan"}>
-              {plan.featured && <span className="km-plan-badge">RECOMMENDED · EXAMPLE</span>}
+              {plan.featured && <span className="km-plan-badge">RECOMMENDED</span>}
               <h2>{plan.name}</h2>
               <p className="km-plan-description">{plan.summary}</p>
               <div className="km-plan-price">{plan.price}<span> / month</span></div>
-              <p className="km-plan-small">Indicative monthly price after trial</p>
+              <p className="km-plan-small">Monthly price after trial</p>
               <div className="km-plan-divider" />
               <ul>{plan.features.map((feature)=><li key={feature}><MarketingIcon name="check" size={17}/>{feature}</li>)}</ul>
               <Link className={plan.featured ? "km-btn km-btn-accent km-plan-cta" : "km-btn km-btn-outline km-plan-cta"} href={`/signup?plan=${plan.name.toLowerCase()}`}>
@@ -50,7 +50,7 @@ export default function PricingPage() {
           ))}
         </section>
         <section className="km-container km-pricing-bottom">
-          <div><strong>Not sure which fits?</strong><p>Take a look around before you decide. There’s no checkout or billing active during this preview.</p></div>
+          <div><strong>Not sure which fits?</strong><p>Take a look around before you decide. There’s no checkout or billing active yet.</p></div>
           <Link href="/demo" className="km-btn km-btn-dark"><MarketingIcon name="play" size={20}/> Explore the demo</Link>
         </section>
       </main>
